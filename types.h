@@ -27,3 +27,8 @@ public:
 		_str = s;
 	}
 };
+
+namespace dom
+{
+	typedef const JSString& DOMString_ptr;
+}

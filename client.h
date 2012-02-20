@@ -18,10 +18,11 @@
  *
  ***************************************************************/
 
-#include "dom.h"
+#include "types.h"
+#include "html2.hh"
 
 class Client
 {
 public:
-	static Document* getDocument();
+	static html2::HTMLDocument_ptr getDocument();
 };
