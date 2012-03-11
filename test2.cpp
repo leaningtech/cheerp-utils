@@ -6,6 +6,6 @@ using namespace dom;
 void webMain()
 {
 	HTMLDocument_ptr d=Client::getDocument();
-	Node_ptr child=d->firstChild();
-	child->textContent("New text");
+	Node_ptr child=d->get_firstChild();
+	child->set_textContent("New text");
 }
