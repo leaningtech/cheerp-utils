@@ -24,5 +24,5 @@
 class Client
 {
 public:
-	static html2::HTMLDocument_ptr getDocument();
+	static html2::HTMLDocument* getDocument();
 };

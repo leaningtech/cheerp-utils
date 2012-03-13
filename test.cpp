@@ -4,6 +4,6 @@ using namespace html2;
 
 void webMain()
 {
-	HTMLDocument_ptr d=Client::getDocument();
-	d->write("Test");
+	HTMLDocument* d=Client::getDocument();
+	d->write(dom::DOMString("Test"));
 }

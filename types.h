@@ -22,17 +22,17 @@ class Object
 {
 };
 
-class JSString
+namespace dom
+{
+
+class DOMString
 {
 const char* _str;
 public:
-	JSString(const char* s)
+	DOMString(const char* s)
 	{
 		_str = s;
 	}
 };
 
-namespace dom
-{
-	typedef const JSString& DOMString_ptr;
 }
