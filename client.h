@@ -26,3 +26,9 @@ class Client
 public:
 	static html2::HTMLDocument* getDocument();
 };
+
+template<class T>
+void testName()
+{
+	T* t;
+}
