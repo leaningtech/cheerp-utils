@@ -1,0 +1,15 @@
+<head>
+<script type="text/javascript">
+var puppa="test";
+var xhr=new XMLHttpRequest();
+xhr.open("GET","/duetto_call?f=bar",false);
+xhr.send(null);
+if(xhr.status!=200)
+	alert("Error in XHR");
+else
+	document.write(xhr.responseText);
+</script>
+</head>
+<body>
+	<h1>Duetto test</h1>
+</body>

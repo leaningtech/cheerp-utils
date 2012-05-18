@@ -1,0 +1,11 @@
+LLVM -> JS
+./emscripten/emscripten.py tests/server1-client.ll > tests/server1-client.js
+
+C++ -> LLVM
+clang tests/server1.cpp -std=c++11 -emit-llvm -c -o tests/server1.bc -I .
+
+IDL -> HH
+/opt/cumulusscript/bin/omniidl -bcxx idls/dom.idl
+
+DUETTO -> *-CLIENT.LL
+/opt/duetto/bin/duetto tests/server1.bc
