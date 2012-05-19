@@ -28,7 +28,7 @@ public:
 };
 
 template<class T>
-void testName()
+void serverSkel()
 {
 	T* t;
 }
