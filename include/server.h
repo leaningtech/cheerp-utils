@@ -18,11 +18,10 @@
  *
  ***************************************************************/
 
-#include "types.h"
-#include "html2.hh"
-
-class Client
+#include <stdint.h>
+	
+template<typename T, T F, typename ...Args>
+void serverSkel(uint8_t* data)
 {
-public:
-	static html2::HTMLDocument* getDocument();
-};
+	F(0);
+}
