@@ -20,9 +20,20 @@
 
 #include <utility>
 #include <exception>
+#include <iostream>
 
 class DeserializationException: public std::exception
 {
+private:
+	const char* message;
+public:
+	DeserializationException(const char* m):message(m)
+	{
+	}
+	const char* what() const throw()
+	{
+		return message;
+	}
 };
 
 template<class T>
@@ -36,14 +47,17 @@ struct argumentDeserializer
 	{
 		const Deserialize& d=deserialize<Deserialize>(data);
 		argumentDeserializer<Signature,Func,Args...> downDeserializer;
+		//Expect a comma and skip it
+		if(data[0]!=',')
+			throw DeserializationException("Missing comma between parameters");
 		//Pass down the updated data, the previous args and the new arg
-		downDeserializer.executeImpl(data, std::forward(funcArgs)..., d);
+		downDeserializer.executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
 	}
 	void execute(char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!='[')
-			throw DeserializationException();
+			throw DeserializationException("Missing [ at the start of parameters");
 		executeImpl(data+1);
 	}
 };
@@ -55,14 +69,17 @@ struct argumentDeserializer<Signature, Func, Deserialize>
 	void executeImpl(char* data, FuncArgs... funcArgs)
 	{
 		const Deserialize& d=deserialize<Deserialize>(data);
+		//Check that the array is complete
+		if(data[0]!=']')
+			throw DeserializationException("Missing ] at the end of parameters");
 		//Finally call the method
-		Func(std::forward(funcArgs)..., d);
+		Func(std::forward<FuncArgs>(funcArgs)..., d);
 	}
 	void execute(char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!='[')
-			throw DeserializationException();
+			throw DeserializationException("Missing [ at the start of parameters");
 		executeImpl(data+1);
 	}
 };
@@ -70,6 +87,13 @@ struct argumentDeserializer<Signature, Func, Deserialize>
 template<typename Signature, Signature Func, typename ...Args>
 void serverSkel(char* data)
 {
-	argumentDeserializer<Signature,Func,Args...> deserializer;
-	deserializer.execute(data);
+	try
+	{
+		argumentDeserializer<Signature,Func,Args...> deserializer;
+		deserializer.execute(data);
+	}
+	catch(DeserializationException& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
