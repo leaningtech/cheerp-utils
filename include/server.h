@@ -18,10 +18,58 @@
  *
  ***************************************************************/
 
-#include <stdint.h>
-	
-template<typename T, T F, typename ...Args>
-void serverSkel(uint8_t* data)
+#include <utility>
+#include <exception>
+
+class DeserializationException: public std::exception
 {
-	F(0);
+};
+
+template<class T>
+T deserialize(char*& data);
+
+template<typename Signature, Signature Func, class Deserialize, typename ...Args>
+struct argumentDeserializer
+{
+	template<typename ...FuncArgs>
+	void executeImpl(char* data, FuncArgs... funcArgs)
+	{
+		const Deserialize& d=deserialize<Deserialize>(data);
+		argumentDeserializer<Signature,Func,Args...> downDeserializer;
+		//Pass down the updated data, the previous args and the new arg
+		downDeserializer.executeImpl(data, std::forward(funcArgs)..., d);
+	}
+	void execute(char* data)
+	{
+		//Arguments are passed as array, skip the first parenthesis
+		if(data[0]!='[')
+			throw DeserializationException();
+		executeImpl(data+1);
+	}
+};
+
+template<typename Signature, Signature Func, class Deserialize>
+struct argumentDeserializer<Signature, Func, Deserialize>
+{
+	template<typename ...FuncArgs>
+	void executeImpl(char* data, FuncArgs... funcArgs)
+	{
+		const Deserialize& d=deserialize<Deserialize>(data);
+		//Finally call the method
+		Func(std::forward(funcArgs)..., d);
+	}
+	void execute(char* data)
+	{
+		//Arguments are passed as array, skip the first parenthesis
+		if(data[0]!='[')
+			throw DeserializationException();
+		executeImpl(data+1);
+	}
+};
+
+template<typename Signature, Signature Func, typename ...Args>
+void serverSkel(char* data)
+{
+	argumentDeserializer<Signature,Func,Args...> deserializer;
+	deserializer.execute(data);
 }

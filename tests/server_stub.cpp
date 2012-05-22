@@ -26,7 +26,7 @@
 using namespace pion::net;
 using namespace std;
 
-typedef void (*entryPointSig)(char*);
+typedef void (*entryPointSig)(const char*);
 
 struct DuettoMap
 {
@@ -40,12 +40,19 @@ extern DuettoMap duettoFuncMap[];
 void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
 	const string& callName=request->getQuery("f");
+	const string& callArgs=request->getQuery("a");
+	entryPointSig callFunc=NULL;
 	for(DuettoMap* cur=duettoFuncMap; cur->funcName!=NULL; cur++)
 	{
-		cout << cur->funcName << endl;
-//		cout << duettoFuncMap[i] << endl;
+		if(callName==cur->funcName)
+		{
+			cout << "Found " << cur->funcName << endl;
+			callFunc=cur->entryPoint;
+			break;
+		}
 	}
 
+	callFunc(callArgs.c_str());
 	HTTPResponse response(*request);
 	response.setStatusCode(200);
 	response.setContent("PUPPA");
