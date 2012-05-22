@@ -1,12 +1,14 @@
 #include "client.h"
 #include "server.h"
 
+#include <iostream>
+
 using namespace html2;
 using namespace dom;
 
-DOMString serverTest(int) [[server]]
+DOMString serverTest(int i) [[server]]
 {
-	__asm__("int $3");
+	std::cout << "SERVER TEST " << i << std::endl;
 	return "ServerSide";
 }
 

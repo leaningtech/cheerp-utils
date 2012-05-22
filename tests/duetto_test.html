@@ -2,7 +2,8 @@
 <script type="text/javascript">
 var puppa="test";
 var xhr=new XMLHttpRequest();
-xhr.open("GET","/duetto_call?f=bar",false);
+var args = [42];
+xhr.open("GET","/duetto_call?f=_Z10serverTesti&a="+JSON.stringify(args),false);
 xhr.send(null);
 if(xhr.status!=200)
 	alert("Error in XHR");
