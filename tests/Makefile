@@ -1,14 +1,29 @@
 CLANG=/opt/duetto/bin/clang
 DUETTO=/opt/duetto/bin/duetto
+LLVMLINK=/opt/duetto/bin/llvm-link
+LLVMOPT=/opt/duetto/bin/opt
+LLVMDIS=/opt/duetto/bin/llvm-dis
 EMSCRIPTEN=../emscripten/emscripten.py
 
 all: server1-client.js
 
 %.bc: %.cpp
-	$(CLANG) -I ../include -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -m32 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
 
-%-client.ll %-server.o: %.bc
+%-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
+
+%-client-linked.bc: %-client-base.bc cxxlib-holefiller.bc
+	$(LLVMLINK) $^ -o $@
+
+%-client.bc: %-client-linked.bc
+	$(LLVMOPT) -O2 -std-link-opts $^ -o $@
+
+%-client.ll: %-client.bc
+	$(LLVMDIS) $^ -o $@
+
+cxxlib-holefiller.bc: cxxlib-holefiller.cpp
+	$(CLANG) -m32 -std=c++11 -emit-llvm -c $^ -o $@
 
 %.js: %.ll
 	$(EMSCRIPTEN) $^ -o $@
