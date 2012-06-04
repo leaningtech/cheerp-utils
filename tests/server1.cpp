@@ -2,11 +2,12 @@
 #include "server.h"
 
 #include <iostream>
+#include <string>
 
 using namespace html2;
 using namespace dom;
 
-DOMString serverTest(int i, float f) [[server]]
+std::string serverTest(int i, float f) [[server]]
 {
 	std::cout << "SERVER TEST " << i << std::endl;
 	std::cout << "SERVER TEST " << f << std::endl;
@@ -16,6 +17,7 @@ DOMString serverTest(int i, float f) [[server]]
 void webMain() [[client]]
 {
 	HTMLDocument* d=Client::getDocument();
-	const DOMString& str=serverTest(1,2);
-	d->write(str);
+//	const DOMString& str=serverTest(1,2);
+//	const std::string str("CreateTest");
+	d->write("CreateTest");
 }

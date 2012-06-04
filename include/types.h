@@ -27,12 +27,8 @@ namespace dom
 
 class DOMString
 {
-const char* _str;
 public:
-	DOMString(const char* s)
-	{
-		_str = s;
-	}
+	DOMString(const char* s);
 };
 
 }
