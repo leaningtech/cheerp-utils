@@ -75,7 +75,7 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 int main()
 {
 	HTTPServerPtr server(new HTTPServer(1987));  
-	server->addResource("/", requestHandler);
+	server->addResource("/duetto_call", requestHandler);
 	server->start();
 	server->join();
 }
