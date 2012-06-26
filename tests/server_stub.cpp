@@ -51,6 +51,16 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 			break;
 		}
 	}
+	if(callFunc==NULL)
+	{
+		cout << "Invalid call " << callName << endl;
+		HTTPResponse response(*request);
+		response.setStatusCode(404);
+		boost::system::error_code error;
+		response.send(*conn, error);
+		conn->finish();
+		return;
+	}
 
 	callFunc(callArgs.c_str());
 	HTTPResponse response(*request);
