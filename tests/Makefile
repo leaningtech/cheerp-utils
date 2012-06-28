@@ -8,7 +8,7 @@ EMSCRIPTEN=../emscripten/emscripten.py
 all: server1-client.js
 
 %.bc: %.cpp
-	$(CLANG) -m32 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -O2 -m32 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
 
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
