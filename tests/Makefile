@@ -8,7 +8,7 @@ EMSCRIPTEN=../emscripten/emscripten.py
 all: server1-client.js
 
 %.bc: %.cpp
-	$(CLANG) -O2 -m32 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -O2 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
 
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
@@ -23,7 +23,7 @@ all: server1-client.js
 	$(LLVMDIS) $^ -o $@
 
 cxxlib-holefiller.bc: cxxlib-holefiller.cpp
-	$(CLANG) -m32 -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -std=c++11 -emit-llvm -c $^ -o $@
 
 %.js: %.ll
 	$(EMSCRIPTEN) $^ -o $@
