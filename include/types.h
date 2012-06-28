@@ -18,6 +18,11 @@
  *
  ***************************************************************/
 
+#ifndef DUETTO_TYPES_H
+#define DUETTO_TYPES_H
+
+#include <iostream>
+
 class Object
 {
 };
@@ -29,6 +34,11 @@ class DOMString
 {
 public:
 	DOMString(const char* s);
+	__attribute__((always_inline)) DOMString(const std::string& s):DOMString(s.c_str())
+	{
+	}
 };
 
 }
+
+#endif

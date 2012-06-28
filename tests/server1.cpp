@@ -18,6 +18,7 @@ void webMain() [[client]]
 {
 	HTMLDocument* d=Client::getDocument();
 //	const DOMString& str=serverTest(1,2);
-//	const std::string str("CreateTest");
-	d->write("CreateTest");
+	const std::string str("CreateTest");
+	//d->write("CreateTest");
+	d->write(str);
 }
