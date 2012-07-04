@@ -8,12 +8,12 @@ EMSCRIPTEN=../emscripten/emscripten.py
 all: server1-client.js
 
 %.bc: %.cpp
-	$(CLANG) -O2 -I ../include -I ../libcxx/include -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -O2 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
 
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
 
-%-client-linked.bc: %-client-base.bc cxxlib-holefiller.bc ../libcxx-build/string.bc
+%-client-linked.bc: %-client-base.bc cxxlib-holefiller.bc ../libstdc++-llvm/string-inst.bc
 	$(LLVMLINK) $^ -o $@
 
 %-client.bc: %-client-linked.bc
