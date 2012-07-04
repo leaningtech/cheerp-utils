@@ -23,14 +23,14 @@
 
 #include <iostream>
 
-class Object
+class Any
 {
 };
 
 namespace dom
 {
 
-class DOMString
+class DOMString: public Any
 {
 public:
 	DOMString(const char* s);
@@ -38,6 +38,13 @@ public:
 	{
 	}
 };
+
+typedef DOMString String;
+typedef unsigned long UnsignedShort;
+typedef unsigned long UnsignedLong;
+typedef double long UnsignedLongLong;
+typedef void Void;
+typedef unsigned long Boolean;
 
 }
 
