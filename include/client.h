@@ -19,10 +19,10 @@
  ***************************************************************/
 
 #include "types.h"
-#include "html2.hh"
+#include "dom4.h"
 
 class Client
 {
 public:
-	static html2::HTMLDocument* getDocument();
+	static client::Document* getDocument();
 };

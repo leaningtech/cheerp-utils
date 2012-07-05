@@ -31,16 +31,15 @@ class Object
 namespace client
 {
 
-class DOMString: public Object
+class String: public Object
 {
 public:
-	DOMString(const char* s);
-	__attribute__((always_inline)) DOMString(const std::string& s):DOMString(s.c_str())
+	String(const char* s);
+	__attribute__((always_inline)) String(const std::string& s):String(s.c_str())
 	{
 	}
 };
 
-typedef DOMString String;
 typedef unsigned long UnsignedShort;
 typedef unsigned long UnsignedLong;
 typedef double long UnsignedLongLong;

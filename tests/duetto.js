@@ -1,6 +1,6 @@
 //Builtin and utility for duetto
 
-function _DOMString_duettoCreateBuiltin(a)
+function _String_duettoCreateBuiltin(a)
 {
 	//This depends on emscripten implementation
 	var ret = new String();

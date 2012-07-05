@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 
-using namespace html2;
-using namespace dom;
+using namespace client;
 
 std::string serverTest(int i, float f) [[server]]
 {
@@ -16,7 +15,7 @@ std::string serverTest(int i, float f) [[server]]
 
 void webMain() [[client]]
 {
-	HTMLDocument* d=Client::getDocument();
+	Document* d=Client::getDocument();
 //	const DOMString& str=serverTest(1,2);
 	const std::string str("CreateTest");
 	//d->write("CreateTest");
