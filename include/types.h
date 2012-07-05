@@ -21,16 +21,17 @@
 #ifndef DUETTO_TYPES_H
 #define DUETTO_TYPES_H
 
-#include <iostream>
+#include <string>
 
-class Any
+//Toplevel as dom uses this
+class Object
 {
 };
 
-namespace dom
+namespace client
 {
 
-class DOMString: public Any
+class DOMString: public Object
 {
 public:
 	DOMString(const char* s);
@@ -45,6 +46,7 @@ typedef unsigned long UnsignedLong;
 typedef double long UnsignedLongLong;
 typedef void Void;
 typedef unsigned long Boolean;
+typedef Object* Any;
 
 }
 
