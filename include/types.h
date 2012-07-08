@@ -34,10 +34,29 @@ namespace client
 class String: public Object
 {
 public:
-	String(const char* s);
+	//Builtin constructor, implemented in duetto.js
+	String(const char* s) throw();
 	__attribute__((always_inline)) String(const std::string& s):String(s.c_str())
 	{
 	}
+	String* concat(const String&);
+	String* concat(const String*);
+};
+
+class Array: public Object
+{
+public:
+	//Builtin constructor, implemented in duetto.js
+	template<typename... Args>
+	Array(Args... args);
+};
+
+class JSON: public Object
+{
+public:
+	String* stringify(int);
+	String* stringify(float);
+	Object* parse(const String* s);
 };
 
 typedef unsigned long UnsignedShort;

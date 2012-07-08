@@ -21,8 +21,72 @@
 #include "types.h"
 #include "dom4.h"
 
+namespace client
+{
+
 class Client
 {
 public:
-	static client::Document* getDocument();
+	static client::Document* get_document();
+	static client::JSON* get_JSON();
 };
+
+}
+
+template<typename T>
+client::String* serialize(const T& data)
+{
+	return data.serialize();
+}
+
+client::String* serialize(int data)
+{
+	return client::Client::get_JSON()->stringify(data);
+}
+
+client::String* serialize(float data)
+{
+	return client::Client::get_JSON()->stringify(data);
+}
+
+template<class Serialize, typename ...Args>
+struct argumentSerializer
+{
+	static client::String* executeImpl(const Serialize& s, Args... args)
+	{
+		client::String* ret=serialize(s)->concat(",");
+		argumentSerializer<Args...> downSerializer;
+		return ret->concat(downSerializer.executeImpl(std::forward<Args>(args)...));
+	}
+	static client::String* execute(const Serialize& s, Args... args)
+	{
+		//We must return an array
+		client::String* ret=new client::String("[");
+		ret=ret->concat(executeImpl(s,std::forward<Args>(args)...));
+		return ret->concat("]");
+	}
+};
+
+template<class Serialize>
+struct argumentSerializer<Serialize>
+{
+	static client::String* executeImpl(const Serialize& s)
+	{
+		return serialize(s);
+	}
+	static client::String* execute(const Serialize& s)
+	{
+		//We must return an array
+		client::String* ret=new client::String("[");
+		ret=ret->concat(executeImpl(s));
+		return ret->concat("]");
+	}
+};
+
+template<typename Ret, typename ...Args>
+Ret clientStub(const char* funcName, Args... args) [[client]]
+{
+	argumentSerializer<Args...> serializer;
+	volatile client::String* data=serializer.execute(std::forward<Args>(args)...);
+}
+

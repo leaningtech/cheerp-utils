@@ -15,7 +15,7 @@ std::string serverTest(int i, float f) [[server]]
 
 void webMain() [[client]]
 {
-	Document* d=Client::getDocument();
+	Document* d=Client::get_document();
 //	const DOMString& str=serverTest(1,2);
 	const std::string str("CreateTest");
 	//d->write("CreateTest");
