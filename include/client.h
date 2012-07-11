@@ -40,12 +40,12 @@ client::String* serialize(const T& data)
 	return data.serialize();
 }
 
-client::String* serialize(int data)
+client::String* serialize(int data) [[client]]
 {
 	return client::Client::get_JSON()->stringify(data);
 }
 
-client::String* serialize(float data)
+client::String* serialize(float data) [[client]]
 {
 	return client::Client::get_JSON()->stringify(data);
 }

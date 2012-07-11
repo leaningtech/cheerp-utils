@@ -61,11 +61,11 @@ public:
 	Object* parse(const String* s);
 };
 
-typedef unsigned long UnsignedShort;
-typedef unsigned long UnsignedLong;
-typedef double long UnsignedLongLong;
+typedef unsigned int UnsignedShort;
+typedef unsigned int UnsignedLong;
+typedef double UnsignedLongLong;
 typedef void Void;
-typedef unsigned long Boolean;
+typedef unsigned int Boolean;
 typedef Object* Any;
 
 }
