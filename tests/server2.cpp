@@ -1,10 +1,19 @@
 #include "client.h"
 #include "xhr.h"
+#include "server.h"
+
+#include <iostream>
+
+void serverTest(int) [[server]]
+{
+	std::cout << "CALLED ON THE SERVER" << std::endl;
+}
+
+void clientTest() [[client]]
+{
+	serverTest(10);
+}
 
 void webMain() [[client]]
 {
-	/*client::XMLHttpRequest* r=new client::XMLHttpRequest();
-	r->open("GET","http://127.0.0.1");
-	r->send();*/
-	clientStub<void,int,float>("testFuncName",10,22.2);
 }
