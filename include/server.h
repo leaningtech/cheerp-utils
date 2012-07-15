@@ -39,48 +39,54 @@ public:
 template<class T>
 T deserialize(char*& data);
 
-template<typename Signature, Signature Func, class Deserialize, typename ...Args>
+template<typename Signature, Signature Func, typename ...Args>
 struct argumentDeserializer
 {
-	template<typename ...FuncArgs>
-	void executeImpl(char* data, FuncArgs... funcArgs)
+	template<class Deserialize, typename ...ArgsImpl>
+	struct impl
 	{
-		const Deserialize& d=deserialize<Deserialize>(data);
-		argumentDeserializer<Signature,Func,Args...> downDeserializer;
-		//Expect a comma and skip it
-		if(data[0]!=',')
-			throw DeserializationException("Missing comma between parameters");
-		//Pass down the updated data, the previous args and the new arg
-		downDeserializer.executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
+		template<typename ...FuncArgs>
+		static void executeImpl(char* data, FuncArgs... funcArgs)
+		{
+			const Deserialize& d=deserialize<Deserialize>(data);
+			//Expect a comma or the end of the array
+			if((sizeof...(ArgsImpl)>0 && data[0]!=',') || (sizeof...(ArgsImpl)==0 && data[0]!=']'))
+				throw DeserializationException("Malformed arguments array");
+			//Pass down the updated data, the previous args and the new arg
+			argumentDeserializer<Signature,Func,ArgsImpl...>::
+				executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
+		}
+	};
+	template<typename ...FuncArgs>
+	static void executeImpl(char* data, FuncArgs... funcArgs)
+	{
+		return impl<Args...>::executeImpl(data, std::forward<FuncArgs>(funcArgs)...);
 	}
-	void execute(char* data)
+	static void execute(char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!='[')
 			throw DeserializationException("Missing [ at the start of parameters");
-		executeImpl(data+1);
+		impl<Args...>::executeImpl(data+1);
 	}
 };
 
-template<typename Signature, Signature Func, class Deserialize>
-struct argumentDeserializer<Signature, Func, Deserialize>
+//Base version for no arguments
+template<typename Signature, Signature Func>
+struct argumentDeserializer<Signature, Func>
 {
 	template<typename ...FuncArgs>
-	void executeImpl(char* data, FuncArgs... funcArgs)
+	static void executeImpl(char*, FuncArgs... funcArgs)
 	{
-		const Deserialize& d=deserialize<Deserialize>(data);
-		//Check that the array is complete
-		if(data[0]!=']')
-			throw DeserializationException("Missing ] at the end of parameters");
 		//Finally call the method
-		Func(std::forward<FuncArgs>(funcArgs)..., d);
+		return Func(std::forward<FuncArgs>(funcArgs)...);
 	}
-	void execute(char* data)
+	static void execute(char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
-		if(data[0]!='[')
-			throw DeserializationException("Missing [ at the start of parameters");
-		executeImpl(data+1);
+		if(data[0]!='[' || data[1]!=']')
+			throw DeserializationException("Malformed arguments array");
+		executeImpl(NULL);
 	}
 };
 
