@@ -90,7 +90,7 @@ Ret clientStubImpl(const char* funcName, Args... args) [[client]]
 	argumentSerializer<Args...> serializer;
 	client::String* data=serializer.execute(std::forward<Args>(args)...);
 	client::XMLHttpRequest* r=new client::XMLHttpRequest();
-	client::String* url=new client::String("http://127.0.0.1:1987/duetto_call?f=");
+	client::String* url=new client::String("/duetto_call?f=");
 	url=url->concat(funcName,"&a=",*data);
 	r->open("GET",*url,false);
 	r->send();
@@ -100,7 +100,7 @@ template<typename Ret>
 Ret clientStubImpl(const char* funcName) [[client]]
 {
 	client::XMLHttpRequest* r=new client::XMLHttpRequest();
-	client::String* url=new client::String("http://127.0.0.1:1987/duetto_call?f=");
+	client::String* url=new client::String("/duetto_call?f=");
 	url=url->concat(funcName,"&a=[]");
 	r->open("GET",*url,false);
 	r->send();
