@@ -53,13 +53,13 @@ client::String* serialize(float data) [[client]]
 template<class Serialize, typename ...Args>
 struct argumentSerializer
 {
-	static client::String* executeImpl(const Serialize& s, Args... args)
+	static client::String* executeImpl(const Serialize& s, Args... args) [[client]]
 	{
 		client::String* ret=serialize(s)->concat(",");
 		argumentSerializer<Args...> downSerializer;
 		return ret->concat(downSerializer.executeImpl(std::forward<Args>(args)...));
 	}
-	static client::String* execute(const Serialize& s, Args... args)
+	static client::String* execute(const Serialize& s, Args... args) [[client]]
 	{
 		//We must return an array
 		client::String* ret=new client::String("[");
@@ -71,11 +71,11 @@ struct argumentSerializer
 template<class Serialize>
 struct argumentSerializer<Serialize>
 {
-	static client::String* executeImpl(const Serialize& s)
+	static client::String* executeImpl(const Serialize& s) [[client]]
 	{
 		return serialize(s);
 	}
-	static client::String* execute(const Serialize& s)
+	static client::String* execute(const Serialize& s) [[client]]
 	{
 		//We must return an array
 		client::String* ret=new client::String("[");
@@ -85,7 +85,7 @@ struct argumentSerializer<Serialize>
 };
 
 template<typename Ret, typename ...Args>
-Ret clientStub(const char* funcName, Args... args) [[client]]
+Ret clientStubImpl(const char* funcName, Args... args) [[client]]
 {
 	argumentSerializer<Args...> serializer;
 	client::String* data=serializer.execute(std::forward<Args>(args)...);
@@ -94,4 +94,20 @@ Ret clientStub(const char* funcName, Args... args) [[client]]
 	url=url->concat(funcName,"&a=",*data);
 	r->open("GET",*url,false);
 	r->send();
+}
+
+template<typename Ret>
+Ret clientStubImpl(const char* funcName) [[client]]
+{
+	client::XMLHttpRequest* r=new client::XMLHttpRequest();
+	client::String* url=new client::String("http://127.0.0.1:1987/duetto_call?f=");
+	url=url->concat(funcName,"&a=[]");
+	r->open("GET",*url,false);
+	r->send();
+}
+
+template<typename Ret, typename ...Args>
+Ret clientStub(const char* funcName, Args... args) [[client]]
+{
+	return clientStubImpl<Ret, Args...>(funcName, std::forward<Args>(args)...);
 }
