@@ -22,6 +22,8 @@
 #include <assert.h>
 #include "server.h"
 
+using namespace server;
+
 static bool isJSONWhitespace(char c)
 {
 	return c==0x20 ||
@@ -48,7 +50,7 @@ static char getJSONDigit(char c)
 }
 
 template<>
-int deserialize(char*& data)
+int server::deserialize(char*& data)
 {
 	//JSON decoder for int
 	//derived from number, just expect no decimal part
@@ -78,7 +80,7 @@ int deserialize(char*& data)
 }
 
 template<>
-float deserialize(char*& data)
+float server::deserialize(char*& data)
 {
 	//JSON decoder for number
 	float ret=0;

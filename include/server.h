@@ -22,6 +22,9 @@
 #include <exception>
 #include <iostream>
 
+namespace server
+{
+
 class DeserializationException: public std::exception
 {
 private:
@@ -36,69 +39,88 @@ public:
 	}
 };
 
+template<typename T>
+void serialize(char* outData, const T& data)
+{
+	data.serialize(outData);
+}
+
+template<typename T>
+void serialize(char* outData, const int& data)
+{
+	//TODO: The maximum length is fixed at 1024 by convention
+	snprintf(outData,1024,"%i",data);
+}
+
 template<class T>
 T deserialize(char*& data);
 
-template<typename Signature, Signature Func, typename ...Args>
+template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct argumentDeserializer
 {
 	template<class Deserialize, typename ...ArgsImpl>
 	struct impl
 	{
 		template<typename ...FuncArgs>
-		static void executeImpl(char* data, FuncArgs... funcArgs)
+		static Ret executeImpl(const char* data, FuncArgs... funcArgs)
 		{
 			const Deserialize& d=deserialize<Deserialize>(data);
 			//Expect a comma or the end of the array
 			if((sizeof...(ArgsImpl)>0 && data[0]!=',') || (sizeof...(ArgsImpl)==0 && data[0]!=']'))
 				throw DeserializationException("Malformed arguments array");
 			//Pass down the updated data, the previous args and the new arg
-			argumentDeserializer<Signature,Func,ArgsImpl...>::
+			return argumentDeserializer<Signature,Func,ArgsImpl...>::
 				executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
 		}
 	};
 	template<typename ...FuncArgs>
-	static void executeImpl(char* data, FuncArgs... funcArgs)
+	static Ret executeImpl(const char* data, FuncArgs... funcArgs)
 	{
 		return impl<Args...>::executeImpl(data, std::forward<FuncArgs>(funcArgs)...);
 	}
-	static void execute(char* data)
+	static Ret execute(const char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!='[')
 			throw DeserializationException("Missing [ at the start of parameters");
-		impl<Args...>::executeImpl(data+1);
+		return impl<Args...>::executeImpl(data+1);
 	}
 };
 
 //Base version for no arguments
-template<typename Signature, Signature Func>
-struct argumentDeserializer<Signature, Func>
+template<typename Signature, Signature Func, typename Ret>
+struct argumentDeserializer<Signature, Func, Ret>
 {
 	template<typename ...FuncArgs>
-	static void executeImpl(char*, FuncArgs... funcArgs)
+	static Ret executeImpl(const char*, FuncArgs... funcArgs)
 	{
 		//Finally call the method
 		return Func(std::forward<FuncArgs>(funcArgs)...);
 	}
-	static void execute(char* data)
+	static Ret execute(const char* data)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!='[' || data[1]!=']')
 			throw DeserializationException("Malformed arguments array");
-		executeImpl(NULL);
+		return executeImpl(NULL);
 	}
 };
 
-template<typename Signature, Signature Func, typename ...Args>
-void serverSkel(char* data)
+}
+
+/*
+ * The output buffer is assumed to be 1024 bytes in size
+ */
+template<typename Signature, Signature Func, typename Ret, typename ...Args>
+void serverSkel(char* outData, const char* inData)
 {
 	try
 	{
-		argumentDeserializer<Signature,Func,Args...> deserializer;
-		deserializer.execute(data);
+		server::argumentDeserializer<Signature,Func,Ret,Args...> deserializer;
+		const Ret& r=deserializer.execute(inData);
+		server::serialize<Ret>(outData, r);
 	}
-	catch(DeserializationException& e)
+	catch(server::DeserializationException& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}

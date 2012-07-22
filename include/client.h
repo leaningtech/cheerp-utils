@@ -32,37 +32,47 @@ public:
 	static client::JSON* get_JSON();
 };
 
-}
-
 template<typename T>
-client::String* serialize(const T& data)
+String* serialize(const T& data)
 {
 	return data.serialize();
 }
 
-client::String* serialize(int data) [[client]]
+String* serialize(int data) [[client]]
 {
-	return client::Client::get_JSON()->stringify(data);
+	return Client::get_JSON()->stringify(data);
 }
 
-client::String* serialize(float data) [[client]]
+String* serialize(float data) [[client]]
 {
-	return client::Client::get_JSON()->stringify(data);
+	return Client::get_JSON()->stringify(data);
+}
+
+//TODO: add generic deserializer
+template<typename T>
+T deserialize(const String& s);
+
+template<>
+int deserialize<int>(const String& s)
+{
+	Object* ret=Client::get_JSON()->parse(s);
+	//TODO: Find a proper way to check for type
+	return *ret;
 }
 
 template<class Serialize, typename ...Args>
 struct argumentSerializer
 {
-	static client::String* executeImpl(const Serialize& s, Args... args) [[client]]
+	static String* executeImpl(const Serialize& s, Args... args) [[client]]
 	{
-		client::String* ret=serialize(s)->concat(",");
+		String* ret=serialize(s)->concat(",");
 		argumentSerializer<Args...> downSerializer;
 		return ret->concat(downSerializer.executeImpl(std::forward<Args>(args)...));
 	}
-	static client::String* execute(const Serialize& s, Args... args) [[client]]
+	static String* execute(const Serialize& s, Args... args) [[client]]
 	{
 		//We must return an array
-		client::String* ret=new client::String("[");
+		String* ret=new String("[");
 		ret=ret->concat(executeImpl(s,std::forward<Args>(args)...));
 		return ret->concat("]");
 	}
@@ -71,29 +81,32 @@ struct argumentSerializer
 template<class Serialize>
 struct argumentSerializer<Serialize>
 {
-	static client::String* executeImpl(const Serialize& s) [[client]]
+	static String* executeImpl(const Serialize& s) [[client]]
 	{
 		return serialize(s);
 	}
-	static client::String* execute(const Serialize& s) [[client]]
+	static String* execute(const Serialize& s) [[client]]
 	{
 		//We must return an array
-		client::String* ret=new client::String("[");
+		String* ret=new String("[");
 		ret=ret->concat(executeImpl(s));
 		return ret->concat("]");
 	}
 };
 
+}
+
 template<typename Ret, typename ...Args>
 Ret clientStubImpl(const char* funcName, Args... args) [[client]]
 {
-	argumentSerializer<Args...> serializer;
+	client::argumentSerializer<Args...> serializer;
 	client::String* data=serializer.execute(std::forward<Args>(args)...);
 	client::XMLHttpRequest* r=new client::XMLHttpRequest();
 	client::String* url=new client::String("/duetto_call?f=");
 	url=url->concat(funcName,"&a=",*data);
 	r->open("GET",*url,false);
 	r->send();
+	return client::deserialize<Ret>(r->get_responseText());
 }
 
 template<typename Ret>
@@ -104,6 +117,7 @@ Ret clientStubImpl(const char* funcName) [[client]]
 	url=url->concat(funcName,"&a=[]");
 	r->open("GET",*url,false);
 	r->send();
+	return client::deserialize<Ret>(r->get_responseText());
 }
 
 template<typename Ret, typename ...Args>
