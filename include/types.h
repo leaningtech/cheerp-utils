@@ -26,6 +26,9 @@
 //Toplevel as dom uses this
 class Object
 {
+public:
+	virtual ~Object(){};
+	operator double() const;
 };
 
 namespace client
@@ -39,6 +42,7 @@ public:
 	__attribute__((always_inline)) String(const std::string& s):String(s.c_str())
 	{
 	}
+	String(int a) throw();
 	String* concat(const String*);
 	String* concat(const String&);
 	String* concat(const String&,const String&);
@@ -53,12 +57,16 @@ public:
 	Array(Args... args);
 };
 
+class Number: public Object
+{
+};
+
 class JSON: public Object
 {
 public:
 	String* stringify(int);
 	String* stringify(float);
-	Object* parse(const String* s);
+	Object* parse(const String& s);
 };
 
 typedef unsigned int UnsignedShort;

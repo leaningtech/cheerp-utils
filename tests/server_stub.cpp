@@ -26,7 +26,7 @@
 using namespace pion::net;
 using namespace std;
 
-typedef void (*entryPointSig)(const char*);
+typedef void (*entryPointSig)(char* inData, const char* outData);
 
 struct DuettoMap
 {
@@ -62,14 +62,18 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 		return;
 	}
 
-	callFunc(callArgs.c_str());
+	//By convention the output buffer size is statically set at 1024
+	//This should be changed to a serialization interface
+	char* outBuf=new char[1024];
+	callFunc(outBuf,callArgs.c_str());
 	HTTPResponse response(*request);
 	response.setStatusCode(200);
-	response.setContent("PUPPA");
+	response.setContent(outBuf);
 	boost::system::error_code error;
 	response.send(*conn, error);
 	cout << "FINISH" << endl;
 	conn->finish();
+	delete[] outBuf;
 }
 
 int main()
