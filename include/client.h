@@ -53,7 +53,7 @@ template<typename T>
 T deserialize(const String& s);
 
 template<>
-int deserialize<int>(const String& s)
+int deserialize<int>(const String& s) [[client]]
 {
 	Object* ret=Client::get_JSON()->parse(s);
 	//TODO: Find a proper way to check for type
