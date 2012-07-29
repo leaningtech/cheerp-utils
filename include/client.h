@@ -60,6 +60,14 @@ int deserialize<int>(const String& s) [[client]]
 	return *ret;
 }
 
+//TODO: add meaningful error messages when the deserializer is missing
+template<>
+void deserialize<void>(const String& s) [[client]]
+{
+	return;
+}
+
+
 template<class Serialize, typename ...Args>
 struct argumentSerializer
 {

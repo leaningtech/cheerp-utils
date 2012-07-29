@@ -32,7 +32,7 @@ static bool isJSONWhitespace(char c)
 		c==0x0d;
 }
 
-static void skipJSONWhitespace(char*& data)
+static void skipJSONWhitespace(const char*& data)
 {
 	while(isJSONWhitespace(*data))
 		data++;
@@ -50,7 +50,7 @@ static char getJSONDigit(char c)
 }
 
 template<>
-int server::deserialize(char*& data)
+int server::deserialize(const char*& data)
 {
 	//JSON decoder for int
 	//derived from number, just expect no decimal part
@@ -80,7 +80,7 @@ int server::deserialize(char*& data)
 }
 
 template<>
-float server::deserialize(char*& data)
+float server::deserialize(const char*& data)
 {
 	//JSON decoder for number
 	float ret=0;

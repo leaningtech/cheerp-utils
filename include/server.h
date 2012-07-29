@@ -114,6 +114,28 @@ struct argumentDeserializer<Signature, Func, Ret>
 	}
 };
 
+template<typename Signature, Signature Func, typename Ret, typename ...Args>
+struct returnSerializer
+{
+	static void serialize(char* outData, const char* inData)
+	{
+		argumentDeserializer<Signature,Func,Ret,Args...> deserializer;
+		const Ret& r=deserializer.execute(inData);
+		server::serialize<Ret>(outData, r);
+	}
+};
+
+template<typename Signature, Signature Func, typename ...Args>
+struct returnSerializer<Signature,Func,void,Args...>
+{
+	static void serialize(char* outData, const char* inData)
+	{
+		argumentDeserializer<Signature,Func,void,Args...> deserializer;
+		deserializer.execute(inData);
+		*outData='\0';
+	}
+};
+
 }
 
 /*
@@ -124,9 +146,8 @@ void serverSkel(char* outData, const char* inData)
 {
 	try
 	{
-		server::argumentDeserializer<Signature,Func,Ret,Args...> deserializer;
-		const Ret& r=deserializer.execute(inData);
-		server::serialize<Ret>(outData, r);
+		server::returnSerializer<Signature,Func,Ret,Args...> rs;
+		rs.serialize(outData,inData);
 	}
 	catch(server::DeserializationException& e)
 	{
