@@ -5,7 +5,7 @@ LLVMOPT=/opt/duetto/bin/opt
 LLVMDIS=/opt/duetto/bin/llvm-dis
 EMSCRIPTEN=../emscripten/emscripten.py
 
-all: server1-client.js server1 server2-client.js server2 server3-client.js server3
+all: server1-client.js server1 server2-client.js server2 server3-client.js server3 tictactoe
 
 %.bc: %.cpp
 	$(CLANG) -O2 -I ../include -std=c++11 -emit-llvm -c $^ -o $@

@@ -21,6 +21,7 @@
 #include <utility>
 #include <exception>
 #include <iostream>
+#include <string.h>
 
 namespace server
 {
@@ -40,16 +41,23 @@ public:
 };
 
 template<typename T>
-void serialize(char* outData, const T& data)
+static void serialize(char* outData, const T& data)
 {
 	data.serialize(outData);
 }
 
-template<typename T>
+template<>
 void serialize(char* outData, const int& data)
 {
 	//TODO: The maximum length is fixed at 1024 by convention
 	snprintf(outData,1024,"%i",data);
+}
+
+template<>
+void serialize(char* outData, const std::string& data)
+{
+	//TODO: The maximum length is fixed at 1024 by convention
+	strncpy(outData,data.c_str(),1024);
 }
 
 template<class T>
