@@ -43,3 +43,6 @@ server2: server2-server.o server_stub.o deserializer.o
 
 server3: server3-server.o server_stub.o deserializer.o
 	$(CLANG) -g -lboost_thread -lboost_system -lpion-net-4.0 -lpion-common-4.0 -llog4cpp $^ -o $@
+
+tictactoe: tictactoe-server.o server_stub.o deserializer.o
+	$(CLANG) -g -lboost_thread -lboost_system -lpion-net-4.0 -lpion-common-4.0 -llog4cpp $^ -o $@
