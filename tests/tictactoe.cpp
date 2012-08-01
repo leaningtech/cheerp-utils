@@ -22,6 +22,10 @@ inline int serverTest() [[server]]
 	return 42;
 }
 
+void handleEvent()
+{
+}
+
 void clientTest() [[client]]
 {
 	Document* d=Client::get_document();
@@ -29,9 +33,19 @@ void clientTest() [[client]]
 	//TODO: support dynamic_cast
 	HTMLCanvasElement* canvas=static_cast<HTMLCanvasElement*>(e);
 	CanvasRenderingContext2D* ctx=static_cast<CanvasRenderingContext2D*>(canvas->getContext("2d"));
-	ctx->moveTo(0,0);
-	ctx->lineTo(100,100);
+	for(int i=1;i<3;i++)
+	{
+		ctx->moveTo(i*200,0);
+		ctx->lineTo(i*200,600);
+	}
+	for(int i=1;i<3;i++)
+	{
+		ctx->moveTo(0,i*200);
+		ctx->lineTo(600,i*200);
+	}
 	ctx->stroke();
+
+	canvas->addEventListener("click",handleEvent);
 }
 
 void webMain() [[client]]
