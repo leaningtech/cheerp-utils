@@ -22,7 +22,7 @@ inline int serverTest() [[server]]
 	return 42;
 }
 
-void handleEvent()
+void handleEvent(Event* e)
 {
 }
 
@@ -45,7 +45,7 @@ void clientTest() [[client]]
 	}
 	ctx->stroke();
 
-	canvas->addEventListener("click",handleEvent);
+	canvas->addEventListener("click",Callback(handleEvent));
 }
 
 void webMain() [[client]]
