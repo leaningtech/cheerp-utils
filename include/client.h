@@ -102,6 +102,16 @@ struct argumentSerializer<Serialize>
 	}
 };
 
+class Callback: public EventListener
+{
+public:
+	Callback(void (*func)()) throw();
+	template<typename Sig>
+	Callback(Sig func):Callback((void (*)())func)
+	{
+	}
+};
+
 }
 
 template<typename Ret, typename ...Args>
@@ -133,14 +143,4 @@ Ret clientStub(const char* funcName, Args... args) [[client]]
 {
 	return clientStubImpl<Ret, Args...>(funcName, std::forward<Args>(args)...);
 }
-
-class Callback: public EventListener
-{
-public:
-	Callback(void (*func)()) throw();
-	template<typename Sig>
-	Callback(Sig func):Callback((void (*)())func)
-	{
-	}
-};
 
