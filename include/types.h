@@ -55,6 +55,8 @@ public:
 	//Builtin constructor, implemented in duetto.js
 	template<typename... Args>
 	Array(Args... args);
+	//Element access, implemented in duetto.js
+	Object* operator[](int index);
 };
 
 class Number: public Object

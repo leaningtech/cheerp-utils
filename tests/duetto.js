@@ -26,3 +26,9 @@ function __ZNK6ObjectcvdEv(a)
 {
 	return (a - 0);
 }
+
+//Operator [] for array objects
+function __ZN6client5ArrayixEi(a,i)
+{
+	return a[i];
+}
