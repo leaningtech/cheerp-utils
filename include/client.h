@@ -50,7 +50,10 @@ String* serialize(float data) [[client]]
 
 //TODO: add generic deserializer
 template<typename T>
-T deserialize(const String& s);
+T deserialize(const String& s)
+{
+	return T::deserialize(s);
+}
 
 template<>
 int deserialize<int>(const String& s) [[client]]

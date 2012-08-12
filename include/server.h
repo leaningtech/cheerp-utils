@@ -41,23 +41,31 @@ public:
 };
 
 template<typename T>
-static void serialize(char* outData, const T& data)
+static int serialize(char* outData, const T& data)
 {
-	data.serialize(outData);
+	return data.serialize(outData);
 }
 
 template<>
-void serialize(char* outData, const int& data)
+int serialize(char* outData, const bool& data)
 {
 	//TODO: The maximum length is fixed at 1024 by convention
-	snprintf(outData,1024,"%i",data);
+	return snprintf(outData,1024,"%i",(int)data);
 }
 
 template<>
-void serialize(char* outData, const std::string& data)
+int serialize(char* outData, const int& data)
+{
+	//TODO: The maximum length is fixed at 1024 by convention
+	return snprintf(outData,1024,"%i",data);
+}
+
+template<>
+int serialize(char* outData, const std::string& data)
 {
 	//TODO: The maximum length is fixed at 1024 by convention
 	strncpy(outData,data.c_str(),1024);
+	return data.size();
 }
 
 template<class T>
@@ -130,8 +138,8 @@ struct returnSerializer<Signature,Func,void,Args...>
 {
 	static void serialize(char* outData, const char* inData)
 	{
-		argumentDeserializer<Signature,Func,void,Args...> deserializer;
-		deserializer.execute(inData);
+		argumentDeserializer<Signature,Func,void,Args...> serializer;
+		serializer.execute(inData);
 		*outData='\0';
 	}
 };
