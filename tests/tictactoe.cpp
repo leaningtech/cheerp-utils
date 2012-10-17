@@ -145,15 +145,15 @@ void clientTest() [[client]]
 	canvas->addEventListener("click",Callback(handleEvent));
 }
 
-void webMain() [[client]]
-{
-//	serverTest();
-}
-
 inline void resetGame() [[server]]
 {
 	for(int i=0;i<9;i++)
 		gameState.state[i]=false;
+}
+
+void webMain() [[client]]
+{
+	resetGame();
 }
 
 void serverMain() [[server]]
