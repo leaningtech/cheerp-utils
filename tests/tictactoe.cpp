@@ -123,11 +123,25 @@ void handleEvent(MouseEvent* e) [[client]]
 	}
 }
 
+int getClickCount() [[server]]
+{
+	static int clickCount = 0;
+	clickCount++;
+	return clickCount;
+}
+
+void handleRightClick(MouseEvent* e) [[client]]
+{
+	Document* d=Client::get_document();
+	Element* elem = d->getElementById("title");
+	elem->set_textContent(getClickCount());
+	e->preventDefault();
+}
+
 void clientTest() [[client]]
 {
 	Document* d=Client::get_document();
 	Element* e=d->getElementById("canvas");
-	//TODO: support dynamic_cast
 	HTMLCanvasElement* canvas=static_cast<HTMLCanvasElement*>(e);
 	CanvasRenderingContext2D* ctx=static_cast<CanvasRenderingContext2D*>(canvas->getContext("2d"));
 	for(int i=1;i<3;i++)
@@ -143,6 +157,7 @@ void clientTest() [[client]]
 	ctx->stroke();
 
 	canvas->addEventListener("click",Callback(handleEvent));
+	canvas->addEventListener("contextmenu",Callback(handleRightClick));
 }
 
 inline void resetGame() [[server]]
