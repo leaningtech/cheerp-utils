@@ -22,7 +22,7 @@ function __duettoCreateBuiltin_ZN6client8CallbackC1EPFvvE(f)
 }
 
 //Conversion operator from generic object to Number/double
-function __ZNK6ObjectcvdEv(a)
+function __ZNK6client6ObjectcvdEv(a)
 {
 	return (a - 0);
 }

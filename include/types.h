@@ -21,18 +21,17 @@
 #ifndef DUETTO_TYPES_H
 #define DUETTO_TYPES_H
 
-#include <string>
+//#include <string>
 
-//Toplevel as dom uses this
+namespace client
+{
+
 class Object
 {
 public:
 	virtual ~Object(){};
 	operator double() const;
 };
-
-namespace client
-{
 
 class String: public Object
 {
