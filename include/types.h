@@ -21,8 +21,6 @@
 #ifndef DUETTO_TYPES_H
 #define DUETTO_TYPES_H
 
-//#include <string>
-
 namespace client
 {
 
