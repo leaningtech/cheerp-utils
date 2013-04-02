@@ -68,6 +68,14 @@ public:
 	Object* parse(const String& s);
 };
 
+class Date: public Object
+{
+public:
+	double now();
+};
+
+extern Date Date;
+
 typedef unsigned int UnsignedShort;
 typedef unsigned int UnsignedLong;
 typedef signed int Long;
