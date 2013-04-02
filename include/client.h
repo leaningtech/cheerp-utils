@@ -32,6 +32,8 @@ public:
 	static client::JSON* get_JSON();
 };
 
+extern Document* document;
+
 template<typename T>
 String* serialize(const T& data)
 {
