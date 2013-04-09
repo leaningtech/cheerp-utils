@@ -5,4 +5,4 @@ CLANG=/opt/duetto/bin/clang
 	${DUETTO_COMPILER} $^
 
 %.bc: %.cpp
-	${CLANG} -emit-llvm -m32 -c $^ -o $@
+	${CLANG} -O2 -emit-llvm -m32 -c $^ -o $@
