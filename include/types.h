@@ -36,9 +36,6 @@ class String: public Object
 public:
 	//Builtin constructor, implemented in duetto.js
 	String(const char* s) throw();
-	__attribute__((always_inline)) String(const std::string& s):String(s.c_str())
-	{
-	}
 	String(int a) throw();
 	String* concat(const String*);
 	String* concat(const String&);
