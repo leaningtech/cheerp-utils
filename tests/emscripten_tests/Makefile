@@ -22,4 +22,4 @@ fasta: fasta-emscripten.js fasta-duetto.js
 	${EMCC} -O2 $^ -o $@
 
 %-duetto.js: %.js
-	sed -e "s/__Z7webMainv();/var argc=arguments.shift(); _main(argc,arguments);/g" -e "s/_sqrt/Math.sqrt/g" -e "s/_printf/print/g" $^ > $@
+	sed -e "s/__Z7webMainv();/arguments.unshift(null);_main(arguments.length,{d:arguments,o:0});/g" -e "s/_sqrt/Math.sqrt/g" -e "s/_printf/print/g" -e "s/_atoi/parseInt/g" -e "s/_puts(/print(/g" $^ > $@
