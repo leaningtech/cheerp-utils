@@ -102,9 +102,6 @@ fannkuch(int n)
    r = n;
    for (;;) {
       if (showmax) {
-         for (i = 0; i < n; i++)
-            printf("%d", perm1[i] + 1);
-         printf("\n");
          showmax--;
       } else
          goto cleanup;
