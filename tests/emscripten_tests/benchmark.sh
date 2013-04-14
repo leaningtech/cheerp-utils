@@ -42,7 +42,7 @@ echo Benchmarking $TEST-Native
 count=0;
 while [ $count -lt 10 ]
 do
-	time -f "%e" -a -o benchmark-data-${TEST}-native ${TEST}-native
+	time -f "%e" -a -o benchmark-data-${TEST}-native ./${TEST}-native
 	count=$(($count+1))
 done
 
