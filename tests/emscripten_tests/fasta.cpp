@@ -69,7 +69,7 @@ struct LineBuffer {
       lastN = N + 1;
       return *this;
    }
-   void writeline() { puts(buffer); }
+   void writeline() { /*puts(buffer);*/ }
 protected:
    char buffer[lineLength + 2];
    size_t lastN;
@@ -88,7 +88,7 @@ struct RotatingString {
       memcpy(temp, buffer + pos, bytes);
       temp[bytes] = '\n';
       temp[bytes] = '\0';
-      puts(temp);
+      //puts(temp);
       delete temp;
       pos += bytes;
       if ( pos > size )
@@ -167,7 +167,7 @@ static const char alu[] =
    "CACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA";
 
 int main( int argc, const char *argv[] ) {
-   const size_t n = ( argc > 1 ) ? atoi( argv[1] ) : 512;
+   const size_t n = 1000000;
 
    Repeater(alu)
       .run( "ONE", "Homo sapiens alu", n*2 );

@@ -143,13 +143,7 @@ fannkuch(int n)
 int
 main(int ac, char **av)
 {
-   int n = ac > 1 ? atoi(av[1]) : 0;
-
-   if (n < 1) {
-      printf("Wrong argument.\n");
-      return 1;
-   }
-   printf("Pfannkuchen(%d) = %d.\n", n, fannkuch(n));
+   printf("Pfannkuchen(%d) = %d.\n", 10, fannkuch(10));
    return 0;
 }
 
