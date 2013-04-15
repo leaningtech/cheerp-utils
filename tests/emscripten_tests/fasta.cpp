@@ -84,12 +84,12 @@ struct RotatingString {
    }
    ~RotatingString() { delete[] buffer; }
    void write( size_t bytes ) {
-      char* temp = new char[bytes+2];
+      /*char* temp = new char[bytes+2];
       memcpy(temp, buffer + pos, bytes);
       temp[bytes] = '\n';
       temp[bytes] = '\0';
       //puts(temp);
-      delete temp;
+      delete temp;*/
       pos += bytes;
       if ( pos > size )
          pos -= size;
