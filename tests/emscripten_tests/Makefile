@@ -20,11 +20,12 @@ fannkuch: fannkuch-emscripten.js fannkuch-duetto.js fannkuch-native
 fasta: fasta-emscripten.js fasta-duetto.js fasta-native
 
 %-native: %.cpp
-	clang++ -O2 $^ -o $@
+	#O3 is actually what is used by EMCC
+	clang++ -O3 $^ -o $@
 
 %-emscripten.js: %.cpp
 	${EMCC} -O2 $^ -o $@
 
 %-duetto.js: %.js
+	sed -i -e "s/__Z7webMainv();/_main();/g" -e "s/_sqrt/Math.sqrt/g" -e "s/_printf/print/g" -e "s/_puts(/print(/g" $^
 	java -jar ${CLOSURE} $^ > $@
-	sed -i -e "s/__Z7webMainv();/_main();/g" -e "s/_sqrt/Math.sqrt/g" -e "s/_printf/print/g" -e "s/_puts(/print(/g" $@

@@ -5,4 +5,5 @@ CLANG=/opt/duetto/bin/clang
 	${DUETTO_COMPILER} $^
 
 %.bc: %.cpp
-	${CLANG} -O2 -emit-llvm -m32 -c $^ -o $@
+	#O3 is actually what is used by EMCC
+	${CLANG} -O3 -emit-llvm -m32 -c $^ -o $@
