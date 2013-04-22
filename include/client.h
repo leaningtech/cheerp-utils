@@ -22,6 +22,8 @@
 #include "dom4.h"
 #include "xhr.h"
 
+#include <utility>
+
 namespace client
 {
 
