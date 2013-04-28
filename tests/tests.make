@@ -6,4 +6,4 @@ CLANG=/opt/duetto/bin/clang
 
 %.bc: %.cpp
 	#O3 is actually what is used by EMCC
-	${CLANG} -O3 -emit-llvm -m32 -c $^ -o $@
+	${CLANG} -std=c++11 ${TEST_CFLAGS} -O3 -emit-llvm -m32 -c $^ -o $@
