@@ -27,7 +27,6 @@ namespace client
 class Object
 {
 public:
-	virtual ~Object(){};
 	operator double() const;
 };
 

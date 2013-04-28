@@ -26,7 +26,7 @@
 namespace server
 {
 
-class DeserializationException: public std::exception
+class DeserializationException//: public std::exception
 {
 private:
 	const char* message;
