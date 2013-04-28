@@ -3,8 +3,17 @@
 function __duettoCreateBuiltin_ZN6client6StringC1EPKc(a)
 {
 	//The pointer is a const char*, so we expect
-	//the referenced data to be a String
-	return a.d.substr(a.o);
+	//the referenced data to be convertible to String
+	var ret = "";
+	var buf=a.d;
+	var bufLen=buf.length;
+	for(var i=a.o;;i++)
+	{
+		if(buf[i]===0)
+			break;
+		ret+=String.fromCharCode(buf[i]);
+	}
+	return ret;
 }
 
 function __duettoCreateBuiltin_ZN6client6StringC1Ei(a)
