@@ -48,7 +48,7 @@ code verbosity by
 The relevant headers that defines client interfaces are
 
 	#include <duetto/client.h> //Misc client side stuff
-	#include <duetto/dom4.h> //General DOM methods
+	#include <duetto/clientlib.h> //Complete DOM interface
 	#include <duetto/canvas.h> //HTML5 canvas element
 	#include <duetto/webgl.h> //WebGL interface
 
