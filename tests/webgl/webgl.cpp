@@ -1,6 +1,7 @@
-#include "client.h"
-#include "canvas.h"
-#include "webgl.h"
+#include <utility>
+#include <duetto/client.h>
+#include <duetto/canvas.h>
+#include <duetto/webgl.h>
 
 using namespace client;
 
