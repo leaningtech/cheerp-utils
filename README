@@ -16,9 +16,6 @@ To build client side JavaScript code from A C++ source file
 
 /opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
 
-NOTE: Giving the -S option is a temporary work around and will
-not be necessary eventually.
-
 Building from multiple source files is also possible, although
 slighly more complex currently
 
@@ -77,17 +74,19 @@ loading is complete you can do this
 
 In a similar way you can bind to any other DOM event
 
-On the client side (JavaScript) the only actually supported numerical
-types are 'double' and 'int'. This limitation is caused by the JavaScript language
+On the client side (JavaScript) the only actually supported numerical types
+are 'double' and 'int'. This limitation is caused by the JavaScript language
 itself.
 
-Current limitations
+Limitations as of version 0.1
 ------------------------------------------
-Unfortunately in this build support for native code is broken.
-This also means that server side code generation and transparent
-RPCs are broken as well. We are deeply sorry about this.
+In this build support for native code is broken. This also means that
+server side code generation and transparent RPCs are broken as well.
+We are sorry about this.
 
-Other limitations are:
+Major limitations of this version are:
 	-) We do not yet have client side support for most of the C++ standard library
 	-) Virtual functions are not yet supported
 	-) No explicit error is reported when invalid numerical types are used
+
+We plan to fix these limitations alongside with the ones discovered by testing by the next beta version.
