@@ -1,4 +1,3 @@
-#include <utility>
 #include <duetto/client.h>
 #include <duetto/canvas.h>
 #include <duetto/webgl.h>
