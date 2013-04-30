@@ -1,11 +1,93 @@
-LLVM -> JS
-./emscripten/emscripten.py tests/server1-client.ll > tests/server1-client.js
+Duetto Beta 0.1: For testing purposes only
+------------------------------------------
 
-C++ -> LLVM
-clang tests/server1.cpp -std=c++11 -emit-llvm -c -o tests/server1.bc -I .
+Duetto is a tool to bring C++ programming to the Web,
+designed to provide a seamless experience for client/server
+development.
 
-IDL -> HH
-/opt/cumulusscript/bin/omniidl -bcxx idls/dom.idl
+Installation
+------------------------------------------
+Currently Duetto needs to be unpacked in /opt/duetto/
 
-DUETTO -> *-CLIENT.LL
-/opt/duetto/bin/duetto tests/server1.bc
+Usage
+------------------------------------------
+Duetto is integrated in the LLVM/clang infrastructure.
+To build client side JavaScript code from A C++ source file
+
+/opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
+
+NOTE: Giving the -S option is a temporary work around and will
+not be necessary eventually.
+
+Building from multiple source files is also possible, although
+slighly more complex currently
+
+/opt/duetto/bin/clang -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
+/opt/duetto/bin/clang -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
+/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
+/opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
+
+Code conventions
+------------------------------------------
+
+Methods that should be compiled on the client side should
+be marked using the C++11 attribute syntax:
+
+	int f1() [[client]]
+	{
+		...
+	}
+
+Global variables and types that are provided by the browser
+environment are accessible through the 'client' namespace
+
+	client::document->addEventListener(...)
+
+Of course, being a regular C++ namespace you can reduce
+code verbosity by
+
+	using namespace client;
+
+The relevant headers that defines client interfaces are
+
+	#include <duetto/client.h> //Misc client side stuff
+	#include <duetto/dom4.h> //General DOM methods
+	#include <duetto/canvas.h> //HTML5 canvas element
+	#include <duetto/webgl.h> //WebGL interface
+
+By convention the method that will be called first on the
+client side should have the following signature
+
+	void webMain() [[client]]
+
+NOTE: As usual in JavaScript programming the script will be
+loaded before the DOM is completely loaded, and so webMain will
+be called on an incomplete document, to execute a callback after
+loading is complete you can do this
+
+	void loadCallback() [[client]]
+	{
+		...
+	}
+
+	void webMain() [[client]]
+	{
+		document->addEventListener("DOMContentLoaded",Callback(loadCallback));
+	}
+
+In a similar way you can bind to any other DOM event
+
+On the client side (JavaScript) the only actually supported numerical
+types are 'double' and 'int'. This limitation is caused by the JavaScript language
+itself.
+
+Current limitations
+------------------------------------------
+Unfortunately in this build support for native code is broken.
+This also means that server side code generation and transparent
+RPCs are broken as well. We are deeply sorry about this.
+
+Other limitations are:
+	-) We do not yet have client side support for most of the C++ standard library
+	-) Virtual functions are not yet supported
+	-) No explicit error is reported when invalid numerical types are used
