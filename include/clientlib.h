@@ -203,7 +203,7 @@ namespace client
 		double get_length();
 		void set_index(double value);
 		double get_index();
-		void set_input(String* value);
+		void set_input(const String& value);
 		String* get_input();
 		String* toString();
 		String* toLocaleString();
@@ -245,7 +245,7 @@ namespace client
 	public:
 		RegExpExecArray* exec(const String& string);
 		bool test(const String& string);
-		void set_source(String* value);
+		void set_source(const String& value);
 		String* get_source();
 		void set_global(bool value);
 		bool get_global();
@@ -259,34 +259,34 @@ namespace client
 		//static RegExp* operator()(const String& pattern, /*[*/const String& flags/*]*/);
 		RegExp(const String& pattern);
 		RegExp(const String& pattern, const String& flags);
-		static void set_$1(String* value);
+		static void set_$1(const String& value);
 		static String* get_$1();
-		static void set_$2(String* value);
+		static void set_$2(const String& value);
 		static String* get_$2();
-		static void set_$3(String* value);
+		static void set_$3(const String& value);
 		static String* get_$3();
-		static void set_$4(String* value);
+		static void set_$4(const String& value);
 		static String* get_$4();
-		static void set_$5(String* value);
+		static void set_$5(const String& value);
 		static String* get_$5();
-		static void set_$6(String* value);
+		static void set_$6(const String& value);
 		static String* get_$6();
-		static void set_$7(String* value);
+		static void set_$7(const String& value);
 		static String* get_$7();
-		static void set_$8(String* value);
+		static void set_$8(const String& value);
 		static String* get_$8();
-		static void set_$9(String* value);
+		static void set_$9(const String& value);
 		static String* get_$9();
-		static void set_lastMatch(String* value);
+		static void set_lastMatch(const String& value);
 		static String* get_lastMatch();
 	};
 
 	class Error 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		//static Error* operator()(/*[*/const String& message/*]*/);
 		Error();
@@ -699,13 +699,13 @@ namespace client
 	class NavigatorID 
 	{
 	public:
-		void set_appVersion(String* value);
+		void set_appVersion(const String& value);
 		String* get_appVersion();
-		void set_appName(String* value);
+		void set_appName(const String& value);
 		String* get_appName();
-		void set_userAgent(String* value);
+		void set_userAgent(const String& value);
 		String* get_userAgent();
-		void set_platform(String* value);
+		void set_platform(const String& value);
 		String* get_platform();
 	};
 
@@ -755,313 +755,313 @@ namespace client
 	class CSS3Properties 
 	{
 	public:
-		void set_textAlignLast(String* value);
+		void set_textAlignLast(const String& value);
 		String* get_textAlignLast();
-		void set_textUnderlinePosition(String* value);
+		void set_textUnderlinePosition(const String& value);
 		String* get_textUnderlinePosition();
-		void set_wordWrap(String* value);
+		void set_wordWrap(const String& value);
 		String* get_wordWrap();
-		void set_borderTopLeftRadius(String* value);
+		void set_borderTopLeftRadius(const String& value);
 		String* get_borderTopLeftRadius();
-		void set_backgroundClip(String* value);
+		void set_backgroundClip(const String& value);
 		String* get_backgroundClip();
-		void set_msTransformOrigin(String* value);
+		void set_msTransformOrigin(const String& value);
 		String* get_msTransformOrigin();
-		void set_opacity(String* value);
+		void set_opacity(const String& value);
 		String* get_opacity();
-		void set_overflowY(String* value);
+		void set_overflowY(const String& value);
 		String* get_overflowY();
-		void set_boxShadow(String* value);
+		void set_boxShadow(const String& value);
 		String* get_boxShadow();
-		void set_backgroundSize(String* value);
+		void set_backgroundSize(const String& value);
 		String* get_backgroundSize();
-		void set_wordBreak(String* value);
+		void set_wordBreak(const String& value);
 		String* get_wordBreak();
-		void set_boxSizing(String* value);
+		void set_boxSizing(const String& value);
 		String* get_boxSizing();
-		void set_rubyOverhang(String* value);
+		void set_rubyOverhang(const String& value);
 		String* get_rubyOverhang();
-		void set_rubyAlign(String* value);
+		void set_rubyAlign(const String& value);
 		String* get_rubyAlign();
-		void set_textJustify(String* value);
+		void set_textJustify(const String& value);
 		String* get_textJustify();
-		void set_borderRadius(String* value);
+		void set_borderRadius(const String& value);
 		String* get_borderRadius();
-		void set_overflowX(String* value);
+		void set_overflowX(const String& value);
 		String* get_overflowX();
-		void set_borderTopRightRadius(String* value);
+		void set_borderTopRightRadius(const String& value);
 		String* get_borderTopRightRadius();
-		void set_msTransform(String* value);
+		void set_msTransform(const String& value);
 		String* get_msTransform();
-		void set_borderBottomLeftRadius(String* value);
+		void set_borderBottomLeftRadius(const String& value);
 		String* get_borderBottomLeftRadius();
-		void set_rubyPosition(String* value);
+		void set_rubyPosition(const String& value);
 		String* get_rubyPosition();
-		void set_borderBottomRightRadius(String* value);
+		void set_borderBottomRightRadius(const String& value);
 		String* get_borderBottomRightRadius();
-		void set_backgroundOrigin(String* value);
+		void set_backgroundOrigin(const String& value);
 		String* get_backgroundOrigin();
-		void set_textOverflow(String* value);
+		void set_textOverflow(const String& value);
 		String* get_textOverflow();
 	};
 
 	class SVG1_1Properties 
 	{
 	public:
-		void set_fillRule(String* value);
+		void set_fillRule(const String& value);
 		String* get_fillRule();
-		void set_strokeLinecap(String* value);
+		void set_strokeLinecap(const String& value);
 		String* get_strokeLinecap();
-		void set_stopColor(String* value);
+		void set_stopColor(const String& value);
 		String* get_stopColor();
-		void set_glyphOrientationHorizontal(String* value);
+		void set_glyphOrientationHorizontal(const String& value);
 		String* get_glyphOrientationHorizontal();
-		void set_kerning(String* value);
+		void set_kerning(const String& value);
 		String* get_kerning();
-		void set_alignmentBaseline(String* value);
+		void set_alignmentBaseline(const String& value);
 		String* get_alignmentBaseline();
-		void set_dominantBaseline(String* value);
+		void set_dominantBaseline(const String& value);
 		String* get_dominantBaseline();
-		void set_fill(String* value);
+		void set_fill(const String& value);
 		String* get_fill();
-		void set_strokeMiterlimit(String* value);
+		void set_strokeMiterlimit(const String& value);
 		String* get_strokeMiterlimit();
-		void set_marker(String* value);
+		void set_marker(const String& value);
 		String* get_marker();
-		void set_glyphOrientationVertical(String* value);
+		void set_glyphOrientationVertical(const String& value);
 		String* get_glyphOrientationVertical();
-		void set_markerMid(String* value);
+		void set_markerMid(const String& value);
 		String* get_markerMid();
-		void set_textAnchor(String* value);
+		void set_textAnchor(const String& value);
 		String* get_textAnchor();
-		void set_fillOpacity(String* value);
+		void set_fillOpacity(const String& value);
 		String* get_fillOpacity();
-		void set_strokeDasharray(String* value);
+		void set_strokeDasharray(const String& value);
 		String* get_strokeDasharray();
-		void set_mask(String* value);
+		void set_mask(const String& value);
 		String* get_mask();
-		void set_stopOpacity(String* value);
+		void set_stopOpacity(const String& value);
 		String* get_stopOpacity();
-		void set_stroke(String* value);
+		void set_stroke(const String& value);
 		String* get_stroke();
-		void set_strokeDashoffset(String* value);
+		void set_strokeDashoffset(const String& value);
 		String* get_strokeDashoffset();
-		void set_strokeOpacity(String* value);
+		void set_strokeOpacity(const String& value);
 		String* get_strokeOpacity();
-		void set_markerStart(String* value);
+		void set_markerStart(const String& value);
 		String* get_markerStart();
-		void set_pointerEvents(String* value);
+		void set_pointerEvents(const String& value);
 		String* get_pointerEvents();
-		void set_baselineShift(String* value);
+		void set_baselineShift(const String& value);
 		String* get_baselineShift();
-		void set_markerEnd(String* value);
+		void set_markerEnd(const String& value);
 		String* get_markerEnd();
-		void set_clipRule(String* value);
+		void set_clipRule(const String& value);
 		String* get_clipRule();
-		void set_strokeLinejoin(String* value);
+		void set_strokeLinejoin(const String& value);
 		String* get_strokeLinejoin();
-		void set_clipPath(String* value);
+		void set_clipPath(const String& value);
 		String* get_clipPath();
-		void set_strokeWidth(String* value);
+		void set_strokeWidth(const String& value);
 		String* get_strokeWidth();
 	};
 
 	class CSS2Properties 
 	{
 	public:
-		void set_backgroundAttachment(String* value);
+		void set_backgroundAttachment(const String& value);
 		String* get_backgroundAttachment();
-		void set_visibility(String* value);
+		void set_visibility(const String& value);
 		String* get_visibility();
-		void set_fontFamily(String* value);
+		void set_fontFamily(const String& value);
 		String* get_fontFamily();
-		void set_borderRightStyle(String* value);
+		void set_borderRightStyle(const String& value);
 		String* get_borderRightStyle();
-		void set_clear(String* value);
+		void set_clear(const String& value);
 		String* get_clear();
-		void set_content(String* value);
+		void set_content(const String& value);
 		String* get_content();
-		void set_counterIncrement(String* value);
+		void set_counterIncrement(const String& value);
 		String* get_counterIncrement();
-		void set_orphans(String* value);
+		void set_orphans(const String& value);
 		String* get_orphans();
-		void set_marginBottom(String* value);
+		void set_marginBottom(const String& value);
 		String* get_marginBottom();
-		void set_borderStyle(String* value);
+		void set_borderStyle(const String& value);
 		String* get_borderStyle();
-		void set_counterReset(String* value);
+		void set_counterReset(const String& value);
 		String* get_counterReset();
-		void set_outlineWidth(String* value);
+		void set_outlineWidth(const String& value);
 		String* get_outlineWidth();
-		void set_marginRight(String* value);
+		void set_marginRight(const String& value);
 		String* get_marginRight();
-		void set_paddingLeft(String* value);
+		void set_paddingLeft(const String& value);
 		String* get_paddingLeft();
-		void set_borderBottom(String* value);
+		void set_borderBottom(const String& value);
 		String* get_borderBottom();
-		void set_marginTop(String* value);
+		void set_marginTop(const String& value);
 		String* get_marginTop();
-		void set_borderTopColor(String* value);
+		void set_borderTopColor(const String& value);
 		String* get_borderTopColor();
-		void set_top(String* value);
+		void set_top(const String& value);
 		String* get_top();
-		void set_fontWeight(String* value);
+		void set_fontWeight(const String& value);
 		String* get_fontWeight();
-		void set_textIndent(String* value);
+		void set_textIndent(const String& value);
 		String* get_textIndent();
-		void set_borderRight(String* value);
+		void set_borderRight(const String& value);
 		String* get_borderRight();
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
-		void set_listStyleImage(String* value);
+		void set_listStyleImage(const String& value);
 		String* get_listStyleImage();
-		void set_cursor(String* value);
+		void set_cursor(const String& value);
 		String* get_cursor();
-		void set_listStylePosition(String* value);
+		void set_listStylePosition(const String& value);
 		String* get_listStylePosition();
-		void set_borderTopStyle(String* value);
+		void set_borderTopStyle(const String& value);
 		String* get_borderTopStyle();
-		void set_direction(String* value);
+		void set_direction(const String& value);
 		String* get_direction();
-		void set_maxWidth(String* value);
+		void set_maxWidth(const String& value);
 		String* get_maxWidth();
-		void set_color(String* value);
+		void set_color(const String& value);
 		String* get_color();
-		void set_clip(String* value);
+		void set_clip(const String& value);
 		String* get_clip();
-		void set_borderRightWidth(String* value);
+		void set_borderRightWidth(const String& value);
 		String* get_borderRightWidth();
-		void set_verticalAlign(String* value);
+		void set_verticalAlign(const String& value);
 		String* get_verticalAlign();
-		void set_pageBreakAfter(String* value);
+		void set_pageBreakAfter(const String& value);
 		String* get_pageBreakAfter();
-		void set_overflow(String* value);
+		void set_overflow(const String& value);
 		String* get_overflow();
-		void set_borderBottomStyle(String* value);
+		void set_borderBottomStyle(const String& value);
 		String* get_borderBottomStyle();
-		void set_borderLeftStyle(String* value);
+		void set_borderLeftStyle(const String& value);
 		String* get_borderLeftStyle();
-		void set_fontStretch(String* value);
+		void set_fontStretch(const String& value);
 		String* get_fontStretch();
-		void set_emptyCells(String* value);
+		void set_emptyCells(const String& value);
 		String* get_emptyCells();
-		void set_padding(String* value);
+		void set_padding(const String& value);
 		String* get_padding();
-		void set_paddingRight(String* value);
+		void set_paddingRight(const String& value);
 		String* get_paddingRight();
-		void set_background(String* value);
+		void set_background(const String& value);
 		String* get_background();
-		void set_bottom(String* value);
+		void set_bottom(const String& value);
 		String* get_bottom();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
-		void set_paddingTop(String* value);
+		void set_paddingTop(const String& value);
 		String* get_paddingTop();
-		void set_right(String* value);
+		void set_right(const String& value);
 		String* get_right();
-		void set_borderLeftWidth(String* value);
+		void set_borderLeftWidth(const String& value);
 		String* get_borderLeftWidth();
-		void set_borderLeft(String* value);
+		void set_borderLeft(const String& value);
 		String* get_borderLeft();
-		void set_backgroundPosition(String* value);
+		void set_backgroundPosition(const String& value);
 		String* get_backgroundPosition();
-		void set_backgroundColor(String* value);
+		void set_backgroundColor(const String& value);
 		String* get_backgroundColor();
-		void set_widows(String* value);
+		void set_widows(const String& value);
 		String* get_widows();
-		void set_lineHeight(String* value);
+		void set_lineHeight(const String& value);
 		String* get_lineHeight();
-		void set_pageBreakInside(String* value);
+		void set_pageBreakInside(const String& value);
 		String* get_pageBreakInside();
-		void set_borderTopWidth(String* value);
+		void set_borderTopWidth(const String& value);
 		String* get_borderTopWidth();
-		void set_left(String* value);
+		void set_left(const String& value);
 		String* get_left();
-		void set_outlineStyle(String* value);
+		void set_outlineStyle(const String& value);
 		String* get_outlineStyle();
-		void set_borderTop(String* value);
+		void set_borderTop(const String& value);
 		String* get_borderTop();
-		void set_paddingBottom(String* value);
+		void set_paddingBottom(const String& value);
 		String* get_paddingBottom();
-		void set_outlineColor(String* value);
+		void set_outlineColor(const String& value);
 		String* get_outlineColor();
-		void set_wordSpacing(String* value);
+		void set_wordSpacing(const String& value);
 		String* get_wordSpacing();
-		void set_outline(String* value);
+		void set_outline(const String& value);
 		String* get_outline();
-		void set_font(String* value);
+		void set_font(const String& value);
 		String* get_font();
-		void set_marginLeft(String* value);
+		void set_marginLeft(const String& value);
 		String* get_marginLeft();
-		void set_display(String* value);
+		void set_display(const String& value);
 		String* get_display();
-		void set_maxHeight(String* value);
+		void set_maxHeight(const String& value);
 		String* get_maxHeight();
-		void set_cssFloat(String* value);
+		void set_cssFloat(const String& value);
 		String* get_cssFloat();
-		void set_letterSpacing(String* value);
+		void set_letterSpacing(const String& value);
 		String* get_letterSpacing();
-		void set_borderSpacing(String* value);
+		void set_borderSpacing(const String& value);
 		String* get_borderSpacing();
-		void set_backgroundRepeat(String* value);
+		void set_backgroundRepeat(const String& value);
 		String* get_backgroundRepeat();
-		void set_fontSizeAdjust(String* value);
+		void set_fontSizeAdjust(const String& value);
 		String* get_fontSizeAdjust();
-		void set_borderLeftColor(String* value);
+		void set_borderLeftColor(const String& value);
 		String* get_borderLeftColor();
-		void set_borderWidth(String* value);
+		void set_borderWidth(const String& value);
 		String* get_borderWidth();
-		void set_backgroundImage(String* value);
+		void set_backgroundImage(const String& value);
 		String* get_backgroundImage();
-		void set_listStyleType(String* value);
+		void set_listStyleType(const String& value);
 		String* get_listStyleType();
-		void set_whiteSpace(String* value);
+		void set_whiteSpace(const String& value);
 		String* get_whiteSpace();
-		void set_fontStyle(String* value);
+		void set_fontStyle(const String& value);
 		String* get_fontStyle();
-		void set_borderBottomColor(String* value);
+		void set_borderBottomColor(const String& value);
 		String* get_borderBottomColor();
-		void set_minWidth(String* value);
+		void set_minWidth(const String& value);
 		String* get_minWidth();
-		void set_position(String* value);
+		void set_position(const String& value);
 		String* get_position();
-		void set_zIndex(String* value);
+		void set_zIndex(const String& value);
 		String* get_zIndex();
-		void set_borderColor(String* value);
+		void set_borderColor(const String& value);
 		String* get_borderColor();
-		void set_listStyle(String* value);
+		void set_listStyle(const String& value);
 		String* get_listStyle();
-		void set_captionSide(String* value);
+		void set_captionSide(const String& value);
 		String* get_captionSide();
-		void set_borderCollapse(String* value);
+		void set_borderCollapse(const String& value);
 		String* get_borderCollapse();
-		void set_fontVariant(String* value);
+		void set_fontVariant(const String& value);
 		String* get_fontVariant();
-		void set_quotes(String* value);
+		void set_quotes(const String& value);
 		String* get_quotes();
-		void set_tableLayout(String* value);
+		void set_tableLayout(const String& value);
 		String* get_tableLayout();
-		void set_unicodeBidi(String* value);
+		void set_unicodeBidi(const String& value);
 		String* get_unicodeBidi();
-		void set_borderBottomWidth(String* value);
+		void set_borderBottomWidth(const String& value);
 		String* get_borderBottomWidth();
-		void set_minHeight(String* value);
+		void set_minHeight(const String& value);
 		String* get_minHeight();
-		void set_textDecoration(String* value);
+		void set_textDecoration(const String& value);
 		String* get_textDecoration();
-		void set_fontSize(String* value);
+		void set_fontSize(const String& value);
 		String* get_fontSize();
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
-		void set_pageBreakBefore(String* value);
+		void set_pageBreakBefore(const String& value);
 		String* get_pageBreakBefore();
-		void set_textAlign(String* value);
+		void set_textAlign(const String& value);
 		String* get_textAlign();
-		void set_textTransform(String* value);
+		void set_textTransform(const String& value);
 		String* get_textTransform();
-		void set_margin(String* value);
+		void set_margin(const String& value);
 		String* get_margin();
-		void set_borderRightColor(String* value);
+		void set_borderRightColor(const String& value);
 		String* get_borderRightColor();
 	};
 
@@ -1071,7 +1071,7 @@ namespace client
 		String* operator[](double index);
 		void set_length(double value);
 		double get_length();
-		void set_mediaText(String* value);
+		void set_mediaText(const String& value);
 		String* get_mediaText();
 		void deleteMedium(const String& oldMedium);
 		void appendMedium(const String& newMedium);
@@ -1093,13 +1093,13 @@ namespace client
 		Node* get_ownerNode();
 		void set_parentStyleSheet(StyleSheet* value);
 		StyleSheet* get_parentStyleSheet();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
 		void set_media(MediaList* value);
 		MediaList* get_media();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_title(String* value);
+		void set_title(const String& value);
 		String* get_title();
 		static void set_prototype(StyleSheet* value);
 		static StyleSheet* get_prototype();
@@ -1158,11 +1158,11 @@ namespace client
 		bool get_isPrefAlternate();
 		void set_readOnly(bool value);
 		bool get_readOnly();
-		void set_cssText(String* value);
+		void set_cssText(const String& value);
 		String* get_cssText();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
-		void set_id(String* value);
+		void set_id(const String& value);
 		String* get_id();
 		void set_pages(StyleSheetPageList* value);
 		StyleSheetPageList* get_pages();
@@ -1199,7 +1199,7 @@ namespace client
 	class CSSRule 
 	{
 	public:
-		void set_cssText(String* value);
+		void set_cssText(const String& value);
 		String* get_cssText();
 		void set_parentStyleSheet(CSSStyleSheet* value);
 		CSSStyleSheet* get_parentStyleSheet();
@@ -1249,7 +1249,7 @@ namespace client
 	class CSSStyleRule : public CSSRule, MSCSSStyleRuleExtensions 
 	{
 	public:
-		void set_selectorText(String* value);
+		void set_selectorText(const String& value);
 		String* get_selectorText();
 		void set_style(MSStyleCSSProperties* value);
 		MSStyleCSSProperties* get_style();
@@ -1262,7 +1262,7 @@ namespace client
 	{
 	public:
 		String* operator[](double index);
-		void set_cssText(String* value);
+		void set_cssText(const String& value);
 		String* get_cssText();
 		void set_length(double value);
 		double get_length();
@@ -1293,65 +1293,65 @@ namespace client
 	class MSCSSProperties : public CSSStyleDeclaration, MSCSSStyleDeclarationExtensions 
 	{
 	public:
-		void set_scrollbarShadowColor(String* value);
+		void set_scrollbarShadowColor(const String& value);
 		String* get_scrollbarShadowColor();
-		void set_scrollbarHighlightColor(String* value);
+		void set_scrollbarHighlightColor(const String& value);
 		String* get_scrollbarHighlightColor();
-		void set_layoutGridChar(String* value);
+		void set_layoutGridChar(const String& value);
 		String* get_layoutGridChar();
-		void set_layoutGridType(String* value);
+		void set_layoutGridType(const String& value);
 		String* get_layoutGridType();
-		void set_textAutospace(String* value);
+		void set_textAutospace(const String& value);
 		String* get_textAutospace();
-		void set_textKashidaSpace(String* value);
+		void set_textKashidaSpace(const String& value);
 		String* get_textKashidaSpace();
-		void set_writingMode(String* value);
+		void set_writingMode(const String& value);
 		String* get_writingMode();
-		void set_scrollbarFaceColor(String* value);
+		void set_scrollbarFaceColor(const String& value);
 		String* get_scrollbarFaceColor();
-		void set_backgroundPositionY(String* value);
+		void set_backgroundPositionY(const String& value);
 		String* get_backgroundPositionY();
-		void set_lineBreak(String* value);
+		void set_lineBreak(const String& value);
 		String* get_lineBreak();
-		void set_imeMode(String* value);
+		void set_imeMode(const String& value);
 		String* get_imeMode();
-		void set_msBlockProgression(String* value);
+		void set_msBlockProgression(const String& value);
 		String* get_msBlockProgression();
-		void set_layoutGridLine(String* value);
+		void set_layoutGridLine(const String& value);
 		String* get_layoutGridLine();
-		void set_scrollbarBaseColor(String* value);
+		void set_scrollbarBaseColor(const String& value);
 		String* get_scrollbarBaseColor();
-		void set_layoutGrid(String* value);
+		void set_layoutGrid(const String& value);
 		String* get_layoutGrid();
-		void set_layoutFlow(String* value);
+		void set_layoutFlow(const String& value);
 		String* get_layoutFlow();
-		void set_textKashida(String* value);
+		void set_textKashida(const String& value);
 		String* get_textKashida();
-		void set_filter(String* value);
+		void set_filter(const String& value);
 		String* get_filter();
-		void set_zoom(String* value);
+		void set_zoom(const String& value);
 		String* get_zoom();
-		void set_scrollbarArrowColor(String* value);
+		void set_scrollbarArrowColor(const String& value);
 		String* get_scrollbarArrowColor();
-		void set_behavior(String* value);
+		void set_behavior(const String& value);
 		String* get_behavior();
-		void set_backgroundPositionX(String* value);
+		void set_backgroundPositionX(const String& value);
 		String* get_backgroundPositionX();
-		void set_accelerator(String* value);
+		void set_accelerator(const String& value);
 		String* get_accelerator();
-		void set_layoutGridMode(String* value);
+		void set_layoutGridMode(const String& value);
 		String* get_layoutGridMode();
-		void set_textJustifyTrim(String* value);
+		void set_textJustifyTrim(const String& value);
 		String* get_textJustifyTrim();
-		void set_scrollbar3dLightColor(String* value);
+		void set_scrollbar3dLightColor(const String& value);
 		String* get_scrollbar3dLightColor();
-		void set_msInterpolationMode(String* value);
+		void set_msInterpolationMode(const String& value);
 		String* get_msInterpolationMode();
-		void set_scrollbarTrackColor(String* value);
+		void set_scrollbarTrackColor(const String& value);
 		String* get_scrollbarTrackColor();
-		void set_scrollbarDarkShadowColor(String* value);
+		void set_scrollbarDarkShadowColor(const String& value);
 		String* get_scrollbarDarkShadowColor();
-		void set_styleFloat(String* value);
+		void set_styleFloat(const String& value);
 		String* get_styleFloat();
 		static void set_prototype(MSCSSProperties* value);
 		static MSCSSProperties* get_prototype();
@@ -1448,23 +1448,23 @@ namespace client
 		double get_nodeType();
 		void set_previousSibling(Node* value);
 		Node* get_previousSibling();
-		void set_localName(String* value);
+		void set_localName(const String& value);
 		String* get_localName();
-		void set_namespaceURI(String* value);
+		void set_namespaceURI(const String& value);
 		String* get_namespaceURI();
-		void set_textContent(String* value);
+		void set_textContent(const String& value);
 		String* get_textContent();
 		void set_parentNode(Node* value);
 		Node* get_parentNode();
 		void set_nextSibling(Node* value);
 		Node* get_nextSibling();
-		void set_nodeValue(String* value);
+		void set_nodeValue(const String& value);
 		String* get_nodeValue();
 		void set_lastChild(Node* value);
 		Node* get_lastChild();
 		void set_childNodes(NodeList* value);
 		NodeList* get_childNodes();
-		void set_nodeName(String* value);
+		void set_nodeName(const String& value);
 		String* get_nodeName();
 		void set_ownerDocument(Document* value);
 		Document* get_ownerDocument();
@@ -1472,7 +1472,7 @@ namespace client
 		Attr* get_attributes();
 		void set_firstChild(Node* value);
 		Node* get_firstChild();
-		void set_prefix(String* value);
+		void set_prefix(const String& value);
 		String* get_prefix();
 		Node* removeChild(Node* oldChild);
 		Node* appendChild(Node* newChild);
@@ -1566,7 +1566,7 @@ namespace client
 		double get_clientLeft();
 		void set_scrollLeft(double value);
 		double get_scrollLeft();
-		void set_tagName(String* value);
+		void set_tagName(const String& value);
 		String* get_tagName();
 		void set_clientWidth(double value);
 		double get_clientWidth();
@@ -1635,7 +1635,7 @@ namespace client
 		typedef Object* (*callback_for_ondrag)(DragEvent* ev);
 		void set_ondrag(callback_for_ondrag value);
 		callback_for_ondrag get_ondrag();
-		void set_innerHTML(String* value);
+		void set_innerHTML(const String& value);
 		String* get_innerHTML();
 		typedef Object* (*callback_for_onmouseover)(MouseEvent* ev);
 		void set_onmouseover(callback_for_onmouseover value);
@@ -1643,12 +1643,12 @@ namespace client
 		typedef Object* (*callback_for_ondragleave)(DragEvent* ev);
 		void set_ondragleave(callback_for_ondragleave value);
 		callback_for_ondragleave get_ondragleave();
-		void set_lang(String* value);
+		void set_lang(const String& value);
 		String* get_lang();
 		typedef Object* (*callback_for_onpause)(Event* ev);
 		void set_onpause(callback_for_onpause value);
 		callback_for_onpause get_onpause();
-		void set_className(String* value);
+		void set_className(const String& value);
 		String* get_className();
 		typedef Object* (*callback_for_onseeked)(Event* ev);
 		void set_onseeked(callback_for_onseeked value);
@@ -1656,7 +1656,7 @@ namespace client
 		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
 		void set_onmousedown(callback_for_onmousedown value);
 		callback_for_onmousedown get_onmousedown();
-		void set_title(String* value);
+		void set_title(const String& value);
 		String* get_title();
 		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
 		void set_onclick(callback_for_onclick value);
@@ -1664,7 +1664,7 @@ namespace client
 		typedef Object* (*callback_for_onwaiting)(Event* ev);
 		void set_onwaiting(callback_for_onwaiting value);
 		callback_for_onwaiting get_onwaiting();
-		void set_outerHTML(String* value);
+		void set_outerHTML(const String& value);
 		String* get_outerHTML();
 		void set_offsetLeft(double value);
 		double get_offsetLeft();
@@ -1673,7 +1673,7 @@ namespace client
 		callback_for_ondurationchange get_ondurationchange();
 		void set_offsetHeight(double value);
 		double get_offsetHeight();
-		void set_dir(String* value);
+		void set_dir(const String& value);
 		String* get_dir();
 		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
 		void set_onblur(callback_for_onblur value);
@@ -1706,7 +1706,7 @@ namespace client
 		typedef Object* (*callback_for_ondragenter)(DragEvent* ev);
 		void set_ondragenter(callback_for_ondragenter value);
 		callback_for_ondragenter get_ondragenter();
-		void set_contentEditable(String* value);
+		void set_contentEditable(const String& value);
 		String* get_contentEditable();
 		typedef Object* (*callback_for_onsubmit)(Event* ev);
 		void set_onsubmit(callback_for_onsubmit value);
@@ -1734,7 +1734,7 @@ namespace client
 		typedef Object* (*callback_for_onplay)(Event* ev);
 		void set_onplay(callback_for_onplay value);
 		callback_for_onplay get_onplay();
-		void set_id(String* value);
+		void set_id(const String& value);
 		String* get_id();
 		typedef Object* (*callback_for_onplaying)(Event* ev);
 		void set_onplaying(callback_for_onplaying value);
@@ -1761,7 +1761,7 @@ namespace client
 		typedef Object* (*callback_for_onsuspend)(Event* ev);
 		void set_onsuspend(callback_for_onsuspend value);
 		callback_for_onsuspend get_onsuspend();
-		void set_accessKey(String* value);
+		void set_accessKey(const String& value);
 		String* get_accessKey();
 		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
 		void set_onfocus(callback_for_onfocus value);
@@ -1813,14 +1813,14 @@ namespace client
 	class DOML2DeprecatedBorderStyle_HTMLTableElement 
 	{
 	public:
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLTableElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -1841,11 +1841,11 @@ namespace client
 	class MSDataBindingExtensions 
 	{
 	public:
-		void set_dataSrc(String* value);
+		void set_dataSrc(const String& value);
 		String* get_dataSrc();
-		void set_dataFormatAs(String* value);
+		void set_dataFormatAs(const String& value);
 		String* get_dataFormatAs();
-		void set_dataFld(String* value);
+		void set_dataFld(const String& value);
 		String* get_dataFld();
 	};
 
@@ -1865,7 +1865,7 @@ namespace client
 	class DOML2DeprecatedBackgroundStyle 
 	{
 	public:
-		void set_background(String* value);
+		void set_background(const String& value);
 		String* get_background();
 	};
 
@@ -1915,23 +1915,23 @@ namespace client
 	public:
 		void set_tBodies(HTMLCollection* value);
 		HTMLCollection* get_tBodies();
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
 		void set_tHead(HTMLTableSectionElement* value);
 		HTMLTableSectionElement* get_tHead();
-		void set_cellSpacing(String* value);
+		void set_cellSpacing(const String& value);
 		String* get_cellSpacing();
 		void set_tFoot(HTMLTableSectionElement* value);
 		HTMLTableSectionElement* get_tFoot();
-		void set_frame(String* value);
+		void set_frame(const String& value);
 		String* get_frame();
 		void set_rows(HTMLCollection* value);
 		HTMLCollection* get_rows();
-		void set_rules(String* value);
+		void set_rules(const String& value);
 		String* get_rules();
-		void set_cellPadding(String* value);
+		void set_cellPadding(const String& value);
 		String* get_cellPadding();
-		void set_summary(String* value);
+		void set_summary(const String& value);
 		String* get_summary();
 		void set_caption(HTMLTableCaptionElement* value);
 		HTMLTableCaptionElement* get_caption();
@@ -1987,7 +1987,7 @@ namespace client
 	class HTMLHtmlElementDOML2Deprecated 
 	{
 	public:
-		void set_version(String* value);
+		void set_version(const String& value);
 		String* get_version();
 	};
 
@@ -1996,7 +1996,7 @@ namespace client
 	public:
 		void set_pathSegType(double value);
 		double get_pathSegType();
-		void set_pathSegTypeAsLetter(String* value);
+		void set_pathSegTypeAsLetter(const String& value);
 		String* get_pathSegTypeAsLetter();
 		void set_PATHSEG_MOVETO_REL(double value);
 		double get_PATHSEG_MOVETO_REL();
@@ -2138,7 +2138,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLParagraphElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -2159,7 +2159,7 @@ namespace client
 		EventTarget* get_target();
 		void set_eventPhase(double value);
 		double get_eventPhase();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		void set_cancelable(bool value);
 		bool get_cancelable();
@@ -2196,9 +2196,9 @@ namespace client
 	class CompositionEvent : public UIEvent 
 	{
 	public:
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
-		void set_locale(String* value);
+		void set_locale(const String& value);
 		String* get_locale();
 		void initCompositionEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, const String& locale);
 		static void set_prototype(CompositionEvent* value);
@@ -2246,11 +2246,11 @@ namespace client
 	class SVGElement : public Element, SVGElementEventHandlers 
 	{
 	public:
-		void set_xmlbase(String* value);
+		void set_xmlbase(const String& value);
 		String* get_xmlbase();
 		void set_viewportElement(SVGElement* value);
 		SVGElement* get_viewportElement();
-		void set_id(String* value);
+		void set_id(const String& value);
 		String* get_id();
 		void set_ownerSVGElement(SVGSVGElement* value);
 		SVGSVGElement* get_ownerSVGElement();
@@ -2273,9 +2273,9 @@ namespace client
 	class SVGLangSpace 
 	{
 	public:
-		void set_xmllang(String* value);
+		void set_xmllang(const String& value);
 		String* get_xmllang();
-		void set_xmlspace(String* value);
+		void set_xmlspace(const String& value);
 		String* get_xmlspace();
 	};
 
@@ -2414,7 +2414,7 @@ namespace client
 	class NavigatorDoNotTrack 
 	{
 	public:
-		void set_msDoNotTrack(String* value);
+		void set_msDoNotTrack(const String& value);
 		String* get_msDoNotTrack();
 	};
 
@@ -2486,18 +2486,18 @@ namespace client
 	class HTMLTableAlignment 
 	{
 	public:
-		void set_ch(String* value);
+		void set_ch(const String& value);
 		String* get_ch();
-		void set_vAlign(String* value);
+		void set_vAlign(const String& value);
 		String* get_vAlign();
-		void set_chOff(String* value);
+		void set_chOff(const String& value);
 		String* get_chOff();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLTableCellElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -2511,7 +2511,7 @@ namespace client
 	class HTMLTableHeaderCellScope 
 	{
 	public:
-		void set_scope(String* value);
+		void set_scope(const String& value);
 		String* get_scope();
 	};
 
@@ -2532,9 +2532,9 @@ namespace client
 	class HTMLTableCellElement : public HTMLElement, DOML2DeprecatedTableCellHeight, HTMLTableAlignment, MSBorderColorHighlightStyle_HTMLTableCellElement, DOML2DeprecatedWidthStyle_HTMLTableCellElement, DOML2DeprecatedBackgroundStyle, DOML2DeprecatedAlignmentStyle_HTMLTableCellElement, HTMLTableHeaderCellScope, DOML2DeprecatedWordWrapSuppression, DOML2DeprecatedBackgroundColorStyle 
 	{
 	public:
-		void set_headers(String* value);
+		void set_headers(const String& value);
 		String* get_headers();
-		void set_abbr(String* value);
+		void set_abbr(const String& value);
 		String* get_abbr();
 		void set_rowSpan(double value);
 		double get_rowSpan();
@@ -2542,7 +2542,7 @@ namespace client
 		double get_cellIndex();
 		void set_colSpan(double value);
 		double get_colSpan();
-		void set_axis(String* value);
+		void set_axis(const String& value);
 		String* get_axis();
 		static void set_prototype(HTMLTableCellElement* value);
 		static HTMLTableCellElement* get_prototype();
@@ -2560,9 +2560,9 @@ namespace client
 	class HTMLBaseElement : public HTMLElement 
 	{
 	public:
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
 		static void set_prototype(HTMLBaseElement* value);
 		static HTMLBaseElement* get_prototype();
@@ -2655,7 +2655,7 @@ namespace client
 	class HTMLNextIdElement : public HTMLElement 
 	{
 	public:
-		void set_n(String* value);
+		void set_n(const String& value);
 		String* get_n();
 		static void set_prototype(HTMLNextIdElement* value);
 		static HTMLNextIdElement* get_prototype();
@@ -2771,14 +2771,14 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLTableRowElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
 	class DOML2DeprecatedBorderStyle_HTMLObjectElement 
 	{
 	public:
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 	};
 
@@ -2792,13 +2792,13 @@ namespace client
 	public:
 		void set_object(Object* value);
 		Object* get_object();
-		void set_alt(String* value);
+		void set_alt(const String& value);
 		String* get_alt();
-		void set_classid(String* value);
+		void set_classid(const String& value);
 		String* get_classid();
-		void set_altHtml(String* value);
+		void set_altHtml(const String& value);
 		String* get_altHtml();
-		void set_BaseHref(String* value);
+		void set_BaseHref(const String& value);
 		String* get_BaseHref();
 	};
 
@@ -2876,7 +2876,7 @@ namespace client
 	public:
 		void set_code(double value);
 		double get_code();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		String* toString();
 		void set_INVALID_NODE_TYPE_ERR(double value);
@@ -2895,7 +2895,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLHRElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -2972,33 +2972,33 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
 	class DOML2DeprecatedListNumberingAndBulletStyle 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 	};
 
 	class HTMLAppletElement : public HTMLElement, DOML2DeprecatedWidthStyle_HTMLAppletElement, DOML2DeprecatedMarginStyle_HTMLObjectElement, DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
 	{
 	public:
-		void set_object(String* value);
+		void set_object(const String& value);
 		String* get_object();
-		void set_archive(String* value);
+		void set_archive(const String& value);
 		String* get_archive();
-		void set_codeBase(String* value);
+		void set_codeBase(const String& value);
 		String* get_codeBase();
-		void set_alt(String* value);
+		void set_alt(const String& value);
 		String* get_alt();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
-		void set_code(String* value);
+		void set_code(const String& value);
 		String* get_code();
 		static void set_prototype(HTMLAppletElement* value);
 		static HTMLAppletElement* get_prototype();
@@ -3034,16 +3034,16 @@ namespace client
 	class MSHTMLTableCaptionElementExtensions 
 	{
 	public:
-		void set_vAlign(String* value);
+		void set_vAlign(const String& value);
 		String* get_vAlign();
 	};
 
 	class SVGAnimatedString 
 	{
 	public:
-		void set_animVal(String* value);
+		void set_animVal(const String& value);
 		String* get_animVal();
-		void set_baseVal(String* value);
+		void set_baseVal(const String& value);
 		String* get_baseVal();
 		static void set_prototype(SVGAnimatedString* value);
 		static SVGAnimatedString* get_prototype();
@@ -3065,7 +3065,7 @@ namespace client
 	public:
 		void set_length(double value);
 		double get_length();
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
 		void deleteData(double offset, double count);
 		void replaceData(double offset, double count, const String& arg);
@@ -3080,7 +3080,7 @@ namespace client
 	class Text : public CharacterData
 	{
 	public:
-		void set_wholeText(String* value);
+		void set_wholeText(const String& value);
 		String* get_wholeText();
 		Text* splitText(double offset);
 		Text* replaceWholeText(const String& content);
@@ -3100,7 +3100,7 @@ namespace client
 	class StyleMedia 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		bool matchMedium(const String& mediaquery);
 		static void set_prototype(StyleMedia* value);
@@ -3113,7 +3113,7 @@ namespace client
 	public:
 		void set_boundingLeft(double value);
 		double get_boundingLeft();
-		void set_htmlText(String* value);
+		void set_htmlText(const String& value);
 		String* get_htmlText();
 		void set_offsetLeft(double value);
 		double get_offsetLeft();
@@ -3123,7 +3123,7 @@ namespace client
 		double get_boundingHeight();
 		void set_boundingTop(double value);
 		double get_boundingTop();
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
 		void set_offsetTop(double value);
 		double get_offsetTop();
@@ -3180,11 +3180,11 @@ namespace client
 		Object* operator()(const String& name);
 		void set_options(HTMLSelectElement* value);
 		HTMLSelectElement* get_options();
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_size(double value);
 		double get_size();
@@ -3194,7 +3194,7 @@ namespace client
 		double get_selectedIndex();
 		void set_multiple(bool value);
 		bool get_multiple();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		void remove();
 		void remove(double index);
@@ -3211,7 +3211,7 @@ namespace client
 	class DOML2DeprecatedTextFlowControl_HTMLBlockElement 
 	{
 	public:
-		void set_clear(String* value);
+		void set_clear(const String& value);
 		String* get_clear();
 	};
 
@@ -3225,7 +3225,7 @@ namespace client
 	class HTMLBlockElement : public HTMLElement, DOML2DeprecatedTextFlowControl_HTMLBlockElement, DOML2DeprecatedWidthStyle_HTMLBlockElement 
 	{
 	public:
-		void set_cite(String* value);
+		void set_cite(const String& value);
 		String* get_cite();
 		static void set_prototype(HTMLBlockElement* value);
 		static HTMLBlockElement* get_prototype();
@@ -3235,13 +3235,13 @@ namespace client
 	class HTMLMetaElement : public HTMLElement 
 	{
 	public:
-		void set_httpEquiv(String* value);
+		void set_httpEquiv(const String& value);
 		String* get_httpEquiv();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_content(String* value);
+		void set_content(const String& value);
 		String* get_content();
-		void set_scheme(String* value);
+		void set_scheme(const String& value);
 		String* get_scheme();
 		static void set_prototype(HTMLMetaElement* value);
 		static HTMLMetaElement* get_prototype();
@@ -3322,7 +3322,7 @@ namespace client
 	class SVGScriptElement : public SVGElement, SVGURIReference 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		static void set_prototype(SVGScriptElement* value);
 		static SVGScriptElement* get_prototype();
@@ -3382,21 +3382,21 @@ namespace client
 	class HTMLLinkElement : public HTMLElement, LinkStyle 
 	{
 	public:
-		void set_rel(String* value);
+		void set_rel(const String& value);
 		String* get_rel();
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
-		void set_media(String* value);
+		void set_media(const String& value);
 		String* get_media();
-		void set_rev(String* value);
+		void set_rev(const String& value);
 		String* get_rev();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_charset(String* value);
+		void set_charset(const String& value);
 		String* get_charset();
-		void set_hreflang(String* value);
+		void set_hreflang(const String& value);
 		String* get_hreflang();
 		static void set_prototype(HTMLLinkElement* value);
 		static HTMLLinkElement* get_prototype();
@@ -3432,34 +3432,34 @@ namespace client
 	class MSHTMLAppletElementExtensions : public DOML2DeprecatedBorderStyle_HTMLObjectElement 
 	{
 	public:
-		void set_codeType(String* value);
+		void set_codeType(const String& value);
 		String* get_codeType();
-		void set_standby(String* value);
+		void set_standby(const String& value);
 		String* get_standby();
-		void set_classid(String* value);
+		void set_classid(const String& value);
 		String* get_classid();
-		void set_useMap(String* value);
+		void set_useMap(const String& value);
 		String* get_useMap();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
 		void set_contentDocument(Document* value);
 		Document* get_contentDocument();
-		void set_altHtml(String* value);
+		void set_altHtml(const String& value);
 		String* get_altHtml();
 		void set_declare(bool value);
 		bool get_declare();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_BaseHref(String* value);
+		void set_BaseHref(const String& value);
 		String* get_BaseHref();
 	};
 
 	class DOML2DeprecatedColorProperty 
 	{
 	public:
-		void set_color(String* value);
+		void set_color(const String& value);
 		String* get_color();
 	};
 
@@ -3473,7 +3473,7 @@ namespace client
 	class HTMLFontElement : public HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty 
 	{
 	public:
-		void set_face(String* value);
+		void set_face(const String& value);
 		String* get_face();
 		static void set_prototype(HTMLFontElement* value);
 		static HTMLFontElement* get_prototype();
@@ -3491,7 +3491,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLImageElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -3505,11 +3505,11 @@ namespace client
 		typedef Object* (*callback_for_onload)(Event* ev);
 		void set_onload(callback_for_onload value);
 		callback_for_onload get_onload();
-		void set_frameBorder(String* value);
+		void set_frameBorder(const String& value);
 		String* get_frameBorder();
 		void set_height(Object* value);
 		Object* get_height();
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 		void set_frameSpacing(Object* value);
 		Object* get_frameSpacing();
@@ -3541,7 +3541,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLTableCaptionElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -3560,13 +3560,13 @@ namespace client
 		double get_index();
 		void set_defaultSelected(bool value);
 		bool get_defaultSelected();
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_label(String* value);
+		void set_label(const String& value);
 		String* get_label();
 		void set_selected(bool value);
 		bool get_selected();
@@ -3578,7 +3578,7 @@ namespace client
 	class HTMLMapElement : public HTMLElement 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_areas(HTMLAreasCollection* value);
 		HTMLAreasCollection* get_areas();
@@ -3590,7 +3590,7 @@ namespace client
 	class HTMLMenuElement : public HTMLElement, DOML2DeprecatedListSpaceReduction 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		static void set_prototype(HTMLMenuElement* value);
 		static HTMLMenuElement* get_prototype();
@@ -3611,15 +3611,15 @@ namespace client
 	class MSHTMLAnchorElementExtensions 
 	{
 	public:
-		void set_nameProp(String* value);
+		void set_nameProp(const String& value);
 		String* get_nameProp();
-		void set_protocolLong(String* value);
+		void set_protocolLong(const String& value);
 		String* get_protocolLong();
-		void set_urn(String* value);
+		void set_urn(const String& value);
 		String* get_urn();
-		void set_mimeType(String* value);
+		void set_mimeType(const String& value);
 		String* get_mimeType();
-		void set_Methods(String* value);
+		void set_Methods(const String& value);
 		String* get_Methods();
 	};
 
@@ -3756,7 +3756,7 @@ namespace client
 		callback_for_ondragleave get_ondragleave();
 		void set_history(History* value);
 		History* get_history();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		typedef Object* (*callback_for_onafterprint)(Event* ev);
 		void set_onafterprint(callback_for_onafterprint value);
@@ -3972,7 +3972,7 @@ namespace client
 	public:
 		void set_buttonID(double value);
 		double get_buttonID();
-		void set_actionURL(String* value);
+		void set_actionURL(const String& value);
 		String* get_actionURL();
 		static void set_prototype(MSSiteModeEvent* value);
 		static MSSiteModeEvent* get_prototype();
@@ -4005,7 +4005,7 @@ namespace client
 	class DOML2DeprecatedBorderStyle 
 	{
 	public:
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 	};
 
@@ -4016,19 +4016,19 @@ namespace client
 		double get_width();
 		void set_naturalHeight(double value);
 		double get_naturalHeight();
-		void set_alt(String* value);
+		void set_alt(const String& value);
 		String* get_alt();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_useMap(String* value);
+		void set_useMap(const String& value);
 		String* get_useMap();
 		void set_naturalWidth(double value);
 		double get_naturalWidth();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_height(double value);
 		double get_height();
-		void set_longDesc(String* value);
+		void set_longDesc(const String& value);
 		String* get_longDesc();
 		void set_isMap(bool value);
 		bool get_isMap();
@@ -4042,31 +4042,31 @@ namespace client
 	class HTMLAreaElement : public HTMLElement 
 	{
 	public:
-		void set_protocol(String* value);
+		void set_protocol(const String& value);
 		String* get_protocol();
-		void set_search(String* value);
+		void set_search(const String& value);
 		String* get_search();
-		void set_alt(String* value);
+		void set_alt(const String& value);
 		String* get_alt();
-		void set_coords(String* value);
+		void set_coords(const String& value);
 		String* get_coords();
-		void set_hostname(String* value);
+		void set_hostname(const String& value);
 		String* get_hostname();
-		void set_port(String* value);
+		void set_port(const String& value);
 		String* get_port();
-		void set_pathname(String* value);
+		void set_pathname(const String& value);
 		String* get_pathname();
-		void set_host(String* value);
+		void set_host(const String& value);
 		String* get_host();
-		void set_hash(String* value);
+		void set_hash(const String& value);
 		String* get_hash();
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
 		void set_noHref(bool value);
 		bool get_noHref();
-		void set_shape(String* value);
+		void set_shape(const String& value);
 		String* get_shape();
 		String* toString();
 		static void set_prototype(HTMLAreaElement* value);
@@ -4077,7 +4077,7 @@ namespace client
 	class SVGAngle 
 	{
 	public:
-		void set_valueAsString(String* value);
+		void set_valueAsString(const String& value);
 		String* get_valueAsString();
 		void set_valueInSpecifiedUnits(double value);
 		double get_valueInSpecifiedUnits();
@@ -4105,13 +4105,13 @@ namespace client
 	class HTMLButtonElement : public HTMLElement 
 	{
 	public:
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		static void set_prototype(HTMLButtonElement* value);
 		static HTMLButtonElement* get_prototype();
@@ -4121,11 +4121,11 @@ namespace client
 	class HTMLSourceElement : public HTMLElement 
 	{
 	public:
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_media(String* value);
+		void set_media(const String& value);
 		String* get_media();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		static void set_prototype(HTMLSourceElement* value);
 		static HTMLSourceElement* get_prototype();
@@ -4159,15 +4159,15 @@ namespace client
 		double get_location();
 		void set_shiftKey(bool value);
 		bool get_shiftKey();
-		void set_locale(String* value);
+		void set_locale(const String& value);
 		String* get_locale();
-		void set_key(String* value);
+		void set_key(const String& value);
 		String* get_key();
 		void set_altKey(bool value);
 		bool get_altKey();
 		void set_metaKey(bool value);
 		bool get_metaKey();
-		void set_char(String* value);
+		void set_char(const String& value);
 		String* get_char();
 		void set_ctrlKey(bool value);
 		bool get_ctrlKey();
@@ -4213,7 +4213,7 @@ namespace client
 		typedef Object* (*callback_for_onkeydown)(KeyboardEvent* ev);
 		void set_onkeydown(callback_for_onkeydown value);
 		callback_for_onkeydown get_onkeydown();
-		void set_bgColor(String* value);
+		void set_bgColor(const String& value);
 		String* get_bgColor();
 		typedef Object* (*callback_for_onkeyup)(KeyboardEvent* ev);
 		void set_onkeyup(callback_for_onkeyup value);
@@ -4232,7 +4232,7 @@ namespace client
 		typedef Object* (*callback_for_ondrag)(DragEvent* ev);
 		void set_ondrag(callback_for_ondrag value);
 		callback_for_ondrag get_ondrag();
-		void set_linkColor(String* value);
+		void set_linkColor(const String& value);
 		String* get_linkColor();
 		typedef Object* (*callback_for_ondragleave)(DragEvent* ev);
 		void set_ondragleave(callback_for_ondragleave value);
@@ -4243,9 +4243,9 @@ namespace client
 		typedef Object* (*callback_for_onpause)(Event* ev);
 		void set_onpause(callback_for_onpause value);
 		callback_for_onpause get_onpause();
-		void set_charset(String* value);
+		void set_charset(const String& value);
 		String* get_charset();
-		void set_vlinkColor(String* value);
+		void set_vlinkColor(const String& value);
 		String* get_vlinkColor();
 		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
 		void set_onmousedown(callback_for_onmousedown value);
@@ -4253,7 +4253,7 @@ namespace client
 		typedef Object* (*callback_for_onseeked)(Event* ev);
 		void set_onseeked(callback_for_onseeked value);
 		callback_for_onseeked get_onseeked();
-		void set_title(String* value);
+		void set_title(const String& value);
 		String* get_title();
 		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
 		void set_onclick(callback_for_onclick value);
@@ -4261,7 +4261,7 @@ namespace client
 		typedef Object* (*callback_for_onwaiting)(Event* ev);
 		void set_onwaiting(callback_for_onwaiting value);
 		callback_for_onwaiting get_onwaiting();
-		void set_defaultCharset(String* value);
+		void set_defaultCharset(const String& value);
 		String* get_defaultCharset();
 		void set_embeds(HTMLCollection* value);
 		HTMLCollection* get_embeds();
@@ -4277,16 +4277,16 @@ namespace client
 		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
 		void set_onblur(callback_for_onblur value);
 		callback_for_onblur get_onblur();
-		void set_dir(String* value);
+		void set_dir(const String& value);
 		String* get_dir();
 		void set_body(HTMLElement* value);
 		HTMLElement* get_body();
-		void set_designMode(String* value);
+		void set_designMode(const String& value);
 		String* get_designMode();
 		typedef Object* (*callback_for_onemptied)(Event* ev);
 		void set_onemptied(callback_for_onemptied value);
 		callback_for_onemptied get_onemptied();
-		void set_domain(String* value);
+		void set_domain(const String& value);
 		String* get_domain();
 		typedef Object* (*callback_for_onseeking)(Event* ev);
 		void set_onseeking(callback_for_onseeking value);
@@ -4340,7 +4340,7 @@ namespace client
 		typedef Object* (*callback_for_onplaying)(Event* ev);
 		void set_onplaying(callback_for_onplaying value);
 		callback_for_onplaying get_onplaying();
-		void set_URL(String* value);
+		void set_URL(const String& value);
 		String* get_URL();
 		void set_images(HTMLCollection* value);
 		HTMLCollection* get_images();
@@ -4348,7 +4348,7 @@ namespace client
 		HTMLHeadElement* get_head();
 		void set_location(Location* value);
 		Location* get_location();
-		void set_cookie(String* value);
+		void set_cookie(const String& value);
 		String* get_cookie();
 		typedef Object* (*callback_for_oncanplaythrough)(Event* ev);
 		void set_oncanplaythrough(callback_for_oncanplaythrough value);
@@ -4356,11 +4356,11 @@ namespace client
 		typedef Object* (*callback_for_onabort)(UIEvent* ev);
 		void set_onabort(callback_for_onabort value);
 		callback_for_onabort get_onabort();
-		void set_characterSet(String* value);
+		void set_characterSet(const String& value);
 		String* get_characterSet();
 		void set_anchors(HTMLCollection* value);
 		HTMLCollection* get_anchors();
-		void set_lastModified(String* value);
+		void set_lastModified(const String& value);
 		String* get_lastModified();
 		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
 		void set_onreadystatechange(callback_for_onreadystatechange value);
@@ -4376,16 +4376,16 @@ namespace client
 		typedef Object* (*callback_for_onsuspend)(Event* ev);
 		void set_onsuspend(callback_for_onsuspend value);
 		callback_for_onsuspend get_onsuspend();
-		void set_referrer(String* value);
+		void set_referrer(const String& value);
 		String* get_referrer();
-		void set_readyState(String* value);
+		void set_readyState(const String& value);
 		String* get_readyState();
-		void set_alinkColor(String* value);
+		void set_alinkColor(const String& value);
 		String* get_alinkColor();
 		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
 		void set_onfocus(callback_for_onfocus value);
 		callback_for_onfocus get_onfocus();
-		void set_fgColor(String* value);
+		void set_fgColor(const String& value);
 		String* get_fgColor();
 		typedef Object* (*callback_for_ontimeupdate)(Event* ev);
 		void set_ontimeupdate(callback_for_ontimeupdate value);
@@ -4402,7 +4402,7 @@ namespace client
 		typedef Object* (*callback_for_onended)(Event* ev);
 		void set_onended(callback_for_onended value);
 		callback_for_onended get_onended();
-		void set_compatMode(String* value);
+		void set_compatMode(const String& value);
 		String* get_compatMode();
 		typedef Object* (*callback_for_onscroll)(UIEvent* ev);
 		void set_onscroll(callback_for_onscroll value);
@@ -4461,22 +4461,22 @@ namespace client
 	class DocumentFragment;
 	class ProcessingInstruction;
 
-	class Document : public Node, DocumentStyle, DocumentRange, HTMLDocument, NodeSelector, DocumentEvent, DocumentTraversal, DocumentView, SVGDocument 
+	class Document : public Node, public DocumentStyle, public DocumentRange, public HTMLDocument, public NodeSelector, public DocumentEvent, public DocumentTraversal, public DocumentView, public SVGDocument 
 	{
 	public:
 		void set_doctype(DocumentType* value);
 		DocumentType* get_doctype();
-		void set_xmlVersion(String* value);
+		void set_xmlVersion(const String& value);
 		String* get_xmlVersion();
 		void set_implementation(DOMImplementation* value);
 		DOMImplementation* get_implementation();
-		void set_xmlEncoding(String* value);
+		void set_xmlEncoding(const String& value);
 		String* get_xmlEncoding();
 		void set_xmlStandalone(bool value);
 		bool get_xmlStandalone();
 		void set_documentElement(HTMLElement* value);
 		HTMLElement* get_documentElement();
-		void set_inputEncoding(String* value);
+		void set_inputEncoding(const String& value);
 		String* get_inputEncoding();
 		HTMLElement* createElement(const String& tagName);
 		Node* adoptNode(Node* source);
@@ -4502,7 +4502,7 @@ namespace client
 	public:
 		void set_source(Window* value);
 		Window* get_source();
-		void set_origin(String* value);
+		void set_origin(const String& value);
 		String* get_origin();
 		void set_data(Object* value);
 		Object* get_data();
@@ -4517,17 +4517,17 @@ namespace client
 	public:
 		void set_defer(bool value);
 		bool get_defer();
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_htmlFor(String* value);
+		void set_htmlFor(const String& value);
 		String* get_htmlFor();
-		void set_charset(String* value);
+		void set_charset(const String& value);
 		String* get_charset();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_event(String* value);
+		void set_event(const String& value);
 		String* get_event();
 		static void set_prototype(HTMLScriptElement* value);
 		static HTMLScriptElement* get_prototype();
@@ -4537,7 +4537,7 @@ namespace client
 	class MSHTMLBodyElementExtensions : public DOML2DeprecatedWordWrapSuppression_HTMLBodyElement 
 	{
 	public:
-		void set_scroll(String* value);
+		void set_scroll(const String& value);
 		String* get_scroll();
 		void set_bottomMargin(Object* value);
 		Object* get_bottomMargin();
@@ -4545,7 +4545,7 @@ namespace client
 		Object* get_topMargin();
 		void set_rightMargin(Object* value);
 		Object* get_rightMargin();
-		void set_bgProperties(String* value);
+		void set_bgProperties(const String& value);
 		String* get_bgProperties();
 		void set_leftMargin(Object* value);
 		Object* get_leftMargin();
@@ -4573,7 +4573,7 @@ namespace client
 	class MSCommentExtensions 
 	{
 	public:
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
 	};
 
@@ -4603,27 +4603,27 @@ namespace client
 		HTMLCanvasElement* get_canvas();
 		void set_strokeStyle(Object* value);
 		Object* get_strokeStyle();
-		void set_font(String* value);
+		void set_font(const String& value);
 		String* get_font();
 		void set_globalAlpha(double value);
 		double get_globalAlpha();
-		void set_globalCompositeOperation(String* value);
+		void set_globalCompositeOperation(const String& value);
 		String* get_globalCompositeOperation();
 		void set_shadowOffsetY(double value);
 		double get_shadowOffsetY();
 		void set_fillStyle(Object* value);
 		Object* get_fillStyle();
-		void set_lineCap(String* value);
+		void set_lineCap(const String& value);
 		String* get_lineCap();
 		void set_shadowBlur(double value);
 		double get_shadowBlur();
-		void set_textAlign(String* value);
+		void set_textAlign(const String& value);
 		String* get_textAlign();
-		void set_textBaseline(String* value);
+		void set_textBaseline(const String& value);
 		String* get_textBaseline();
-		void set_shadowColor(String* value);
+		void set_shadowColor(const String& value);
 		String* get_shadowColor();
-		void set_lineJoin(String* value);
+		void set_lineJoin(const String& value);
 		String* get_lineJoin();
 		void restore();
 		void setTransform(double m11, double m12, double m21, double m22, double dx, double dy);
@@ -4690,7 +4690,7 @@ namespace client
 	class DOML2DeprecatedBorderStyle_MSHTMLIFrameElementExtensions 
 	{
 	public:
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 	};
 
@@ -4788,19 +4788,19 @@ namespace client
 	class HTMLFrameElement : public HTMLElement, GetSVGDocument
 	{
 	public:
-		void set_scrolling(String* value);
+		void set_scrolling(const String& value);
 		String* get_scrolling();
-		void set_marginHeight(String* value);
+		void set_marginHeight(const String& value);
 		String* get_marginHeight();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_marginWidth(String* value);
+		void set_marginWidth(const String& value);
 		String* get_marginWidth();
 		void set_contentDocument(Document* value);
 		Document* get_contentDocument();
-		void set_longDesc(String* value);
+		void set_longDesc(const String& value);
 		String* get_longDesc();
 		void set_noResize(bool value);
 		bool get_noResize();
@@ -4842,7 +4842,7 @@ namespace client
 	class HTMLQuoteElement : public HTMLElement 
 	{
 	public:
-		void set_cite(String* value);
+		void set_cite(const String& value);
 		String* get_cite();
 		static void set_prototype(HTMLQuoteElement* value);
 		static HTMLQuoteElement* get_prototype();
@@ -4896,11 +4896,11 @@ namespace client
 		callback_for_onload get_onload();
 		void set_readyState(double value);
 		double get_readyState();
-		void set_responseText(String* value);
+		void set_responseText(const String& value);
 		String* get_responseText();
 		void set_responseXML(Document* value);
 		Document* get_responseXML();
-		void set_statusText(String* value);
+		void set_statusText(const String& value);
 		String* get_statusText();
 		void open(const String& method, const String& url);
 		void open(const String& method, const String& url, bool async);
@@ -4982,9 +4982,9 @@ namespace client
 	class MSHTMLMetaElementExtensions 
 	{
 	public:
-		void set_url(String* value);
+		void set_url(const String& value);
 		String* get_url();
-		void set_charset(String* value);
+		void set_charset(const String& value);
 		String* get_charset();
 	};
 
@@ -5011,9 +5011,9 @@ namespace client
 		typedef Object* (*callback_for_onoffline)(Event* ev);
 		void set_onoffline(callback_for_onoffline value);
 		callback_for_onoffline get_onoffline();
-		void set_rows(String* value);
+		void set_rows(const String& value);
 		String* get_rows();
-		void set_cols(String* value);
+		void set_cols(const String& value);
 		String* get_cols();
 		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
 		void set_onblur(callback_for_onblur value);
@@ -5092,7 +5092,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLTableColElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -5105,9 +5105,9 @@ namespace client
 	class DataTransfer 
 	{
 	public:
-		void set_effectAllowed(String* value);
+		void set_effectAllowed(const String& value);
 		String* get_effectAllowed();
-		void set_dropEffect(String* value);
+		void set_dropEffect(const String& value);
 		String* get_dropEffect();
 		bool clearData();
 		bool clearData(const String& format);
@@ -5180,7 +5180,7 @@ namespace client
 	class MSHTMLPreElementExtensions : public DOML2DeprecatedTextFlowControl_HTMLBlockElement 
 	{
 	public:
-		void set_cite(String* value);
+		void set_cite(const String& value);
 		String* get_cite();
 	};
 
@@ -5244,13 +5244,13 @@ namespace client
 		SVGAnimatedLength* get_width();
 		void set_x(SVGAnimatedLength* value);
 		SVGAnimatedLength* get_x();
-		void set_contentStyleType(String* value);
+		void set_contentStyleType(const String& value);
 		String* get_contentStyleType();
 		void set_screenPixelToMillimeterY(double value);
 		double get_screenPixelToMillimeterY();
 		void set_height(SVGAnimatedLength* value);
 		SVGAnimatedLength* get_height();
-		void set_contentScriptType(String* value);
+		void set_contentScriptType(const String& value);
 		String* get_contentScriptType();
 		void set_pixelUnitToMillimeterX(double value);
 		double get_pixelUnitToMillimeterX();
@@ -5296,7 +5296,7 @@ namespace client
 	class HTMLLabelElement : public HTMLElement
 	{
 	public:
-		void set_htmlFor(String* value);
+		void set_htmlFor(const String& value);
 		String* get_htmlFor();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
@@ -5308,40 +5308,40 @@ namespace client
 	class MSResourceMetadata 
 	{
 	public:
-		void set_protocol(String* value);
+		void set_protocol(const String& value);
 		String* get_protocol();
-		void set_fileSize(String* value);
+		void set_fileSize(const String& value);
 		String* get_fileSize();
-		void set_fileUpdatedDate(String* value);
+		void set_fileUpdatedDate(const String& value);
 		String* get_fileUpdatedDate();
-		void set_nameProp(String* value);
+		void set_nameProp(const String& value);
 		String* get_nameProp();
-		void set_fileCreatedDate(String* value);
+		void set_fileCreatedDate(const String& value);
 		String* get_fileCreatedDate();
-		void set_fileModifiedDate(String* value);
+		void set_fileModifiedDate(const String& value);
 		String* get_fileModifiedDate();
-		void set_mimeType(String* value);
+		void set_mimeType(const String& value);
 		String* get_mimeType();
 	};
 
 	class MSHTMLQuoteElementExtensions 
 	{
 	public:
-		void set_dateTime(String* value);
+		void set_dateTime(const String& value);
 		String* get_dateTime();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLLegendElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -5366,7 +5366,7 @@ namespace client
 	class MSHTMLImageElementExtensions 
 	{
 	public:
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
 	};
 
@@ -5435,11 +5435,11 @@ namespace client
 	class SVGStyleElement : public SVGElement, SVGLangSpace 
 	{
 	public:
-		void set_media(String* value);
+		void set_media(const String& value);
 		String* get_media();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_title(String* value);
+		void set_title(const String& value);
 		String* get_title();
 		static void set_prototype(SVGStyleElement* value);
 		static SVGStyleElement* get_prototype();
@@ -5449,17 +5449,17 @@ namespace client
 	class MSCurrentStyleCSSProperties : public MSCSSProperties 
 	{
 	public:
-		void set_blockDirection(String* value);
+		void set_blockDirection(const String& value);
 		String* get_blockDirection();
-		void set_clipBottom(String* value);
+		void set_clipBottom(const String& value);
 		String* get_clipBottom();
-		void set_clipLeft(String* value);
+		void set_clipLeft(const String& value);
 		String* get_clipLeft();
-		void set_clipRight(String* value);
+		void set_clipRight(const String& value);
 		String* get_clipRight();
-		void set_clipTop(String* value);
+		void set_clipTop(const String& value);
 		String* get_clipTop();
-		void set_hasLayout(String* value);
+		void set_hasLayout(const String& value);
 		String* get_hasLayout();
 		static void set_prototype(MSCurrentStyleCSSProperties* value);
 		static MSCurrentStyleCSSProperties* get_prototype();
@@ -5507,27 +5507,27 @@ namespace client
 	class HTMLIFrameElement : public HTMLElement, GetSVGDocument, DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
 	{
 	public:
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
 		void set_contentWindow(Window* value);
 		Window* get_contentWindow();
-		void set_scrolling(String* value);
+		void set_scrolling(const String& value);
 		String* get_scrolling();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_marginHeight(String* value);
+		void set_marginHeight(const String& value);
 		String* get_marginHeight();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_marginWidth(String* value);
+		void set_marginWidth(const String& value);
 		String* get_marginWidth();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
 		void set_contentDocument(Document* value);
 		Document* get_contentDocument();
-		void set_longDesc(String* value);
+		void set_longDesc(const String& value);
 		String* get_longDesc();
-		void set_frameBorder(String* value);
+		void set_frameBorder(const String& value);
 		String* get_frameBorder();
 		static void set_prototype(HTMLIFrameElement* value);
 		static HTMLIFrameElement* get_prototype();
@@ -5614,17 +5614,17 @@ namespace client
 	class DocumentType : public Node 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_notations(NamedNodeMap* value);
 		NamedNodeMap* get_notations();
-		void set_systemId(String* value);
+		void set_systemId(const String& value);
 		String* get_systemId();
-		void set_internalSubset(String* value);
+		void set_internalSubset(const String& value);
 		String* get_internalSubset();
 		void set_entities(NamedNodeMap* value);
 		NamedNodeMap* get_entities();
-		void set_publicId(String* value);
+		void set_publicId(const String& value);
 		String* get_publicId();
 		static void set_prototype(DocumentType* value);
 		static DocumentType* get_prototype();
@@ -5643,7 +5643,7 @@ namespace client
 	class DOML2DeprecatedBorderStyle_HTMLInputElement 
 	{
 	public:
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 	};
 
@@ -5700,13 +5700,13 @@ namespace client
 	class MutationEvent : public Event 
 	{
 	public:
-		void set_newValue(String* value);
+		void set_newValue(const String& value);
 		String* get_newValue();
 		void set_attrChange(double value);
 		double get_attrChange();
-		void set_attrName(String* value);
+		void set_attrName(const String& value);
 		String* get_attrName();
-		void set_prevValue(String* value);
+		void set_prevValue(const String& value);
 		String* get_prevValue();
 		void set_relatedNode(Node* value);
 		Node* get_relatedNode();
@@ -5736,14 +5736,14 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLInputElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -5764,27 +5764,27 @@ namespace client
 	class HTMLInputElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLInputElement
 	{
 	public:
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
 		void set_defaultChecked(bool value);
 		bool get_defaultChecked();
-		void set_alt(String* value);
+		void set_alt(const String& value);
 		String* get_alt();
-		void set_accept(String* value);
+		void set_accept(const String& value);
 		String* get_accept();
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_useMap(String* value);
+		void set_useMap(const String& value);
 		String* get_useMap();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
 		void set_selectionStart(double value);
 		double get_selectionStart();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
 		void set_indeterminate(bool value);
 		bool get_indeterminate();
@@ -5798,9 +5798,9 @@ namespace client
 		double get_maxLength();
 		void set_selectionEnd(double value);
 		double get_selectionEnd();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_defaultValue(String* value);
+		void set_defaultValue(const String& value);
 		String* get_defaultValue();
 		void setSelectionRange(double start, double end);
 		void select();
@@ -5812,39 +5812,39 @@ namespace client
 	class HTMLAnchorElement : public HTMLElement, MSHTMLAnchorElementExtensions, MSDataBindingExtensions 
 	{
 	public:
-		void set_rel(String* value);
+		void set_rel(const String& value);
 		String* get_rel();
-		void set_protocol(String* value);
+		void set_protocol(const String& value);
 		String* get_protocol();
-		void set_search(String* value);
+		void set_search(const String& value);
 		String* get_search();
-		void set_coords(String* value);
+		void set_coords(const String& value);
 		String* get_coords();
-		void set_hostname(String* value);
+		void set_hostname(const String& value);
 		String* get_hostname();
-		void set_pathname(String* value);
+		void set_pathname(const String& value);
 		String* get_pathname();
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_charset(String* value);
+		void set_charset(const String& value);
 		String* get_charset();
-		void set_hreflang(String* value);
+		void set_hreflang(const String& value);
 		String* get_hreflang();
-		void set_port(String* value);
+		void set_port(const String& value);
 		String* get_port();
-		void set_host(String* value);
+		void set_host(const String& value);
 		String* get_host();
-		void set_hash(String* value);
+		void set_hash(const String& value);
 		String* get_hash();
-		void set_rev(String* value);
+		void set_rev(const String& value);
 		String* get_rev();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_shape(String* value);
+		void set_shape(const String& value);
 		String* get_shape();
 		String* toString();
 		static void set_prototype(HTMLAnchorElement* value);
@@ -5881,13 +5881,13 @@ namespace client
 	class HTMLParamElement : public HTMLElement 
 	{
 	public:
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_valueType(String* value);
+		void set_valueType(const String& value);
 		String* get_valueType();
 		static void set_prototype(HTMLParamElement* value);
 		static HTMLParamElement* get_prototype();
@@ -5992,7 +5992,7 @@ namespace client
 	public:
 		void set_code(double value);
 		double get_code();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		String* toString();
 		void set_DISPATCH_REQUEST_ERR(double value);
@@ -6080,9 +6080,9 @@ namespace client
 		typedef Object* (*callback_for_ontimeout)(Event* ev);
 		void set_ontimeout(callback_for_ontimeout value);
 		callback_for_ontimeout get_ontimeout();
-		void set_responseText(String* value);
+		void set_responseText(const String& value);
 		String* get_responseText();
-		void set_contentType(String* value);
+		void set_contentType(const String& value);
 		String* get_contentType();
 		void open(const String& method, const String& url);
 		void abort();
@@ -6096,7 +6096,7 @@ namespace client
 	class SVGLength 
 	{
 	public:
-		void set_valueAsString(String* value);
+		void set_valueAsString(const String& value);
 		String* get_valueAsString();
 		void set_valueInSpecifiedUnits(double value);
 		double get_valueInSpecifiedUnits();
@@ -6144,9 +6144,9 @@ namespace client
 	class HTMLPhraseElement : public HTMLElement 
 	{
 	public:
-		void set_dateTime(String* value);
+		void set_dateTime(const String& value);
 		String* get_dateTime();
-		void set_cite(String* value);
+		void set_cite(const String& value);
 		String* get_cite();
 		static void set_prototype(HTMLPhraseElement* value);
 		static HTMLPhraseElement* get_prototype();
@@ -6201,7 +6201,7 @@ namespace client
 	class HTMLTitleElement : public HTMLElement 
 	{
 	public:
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
 		static void set_prototype(HTMLTitleElement* value);
 		static HTMLTitleElement* get_prototype();
@@ -6211,21 +6211,21 @@ namespace client
 	class Location 
 	{
 	public:
-		void set_hash(String* value);
+		void set_hash(const String& value);
 		String* get_hash();
-		void set_protocol(String* value);
+		void set_protocol(const String& value);
 		String* get_protocol();
-		void set_search(String* value);
+		void set_search(const String& value);
 		String* get_search();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
-		void set_hostname(String* value);
+		void set_hostname(const String& value);
 		String* get_hostname();
-		void set_port(String* value);
+		void set_port(const String& value);
 		String* get_port();
-		void set_pathname(String* value);
+		void set_pathname(const String& value);
 		String* get_pathname();
-		void set_host(String* value);
+		void set_host(const String& value);
 		String* get_host();
 		void reload();
 		void reload(bool flag);
@@ -6240,9 +6240,9 @@ namespace client
 	class HTMLStyleElement : public HTMLElement, MSLinkStyleExtensions, LinkStyle 
 	{
 	public:
-		void set_media(String* value);
+		void set_media(const String& value);
 		String* get_media();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		static void set_prototype(HTMLStyleElement* value);
 		static HTMLStyleElement* get_prototype();
@@ -6256,9 +6256,9 @@ namespace client
 		double get_index();
 		void set_defaultSelected(bool value);
 		bool get_defaultSelected();
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
@@ -6350,7 +6350,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLDivElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -6425,9 +6425,9 @@ namespace client
 	class CSSNamespaceRule : public CSSRule 
 	{
 	public:
-		void set_namespaceURI(String* value);
+		void set_namespaceURI(const String& value);
 		String* get_namespaceURI();
-		void set_prefix(String* value);
+		void set_prefix(const String& value);
 		String* get_prefix();
 		static void set_prototype(CSSNamespaceRule* value);
 		static CSSNamespaceRule* get_prototype();
@@ -6469,9 +6469,9 @@ namespace client
 		double get_initialTime();
 		void set_played(TimeRanges* value);
 		TimeRanges* get_played();
-		void set_currentSrc(String* value);
+		void set_currentSrc(const String& value);
 		String* get_currentSrc();
-		void set_readyState(String* value);
+		void set_readyState(const String& value);
 		String* get_readyState();
 		void set_autobuffer(bool value);
 		bool get_autobuffer();
@@ -6491,7 +6491,7 @@ namespace client
 		bool get_controls();
 		void set_volume(double value);
 		double get_volume();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
 		void set_playbackRate(double value);
 		double get_playbackRate();
@@ -6507,7 +6507,7 @@ namespace client
 		bool get_seeking();
 		void set_currentTime(double value);
 		double get_currentTime();
-		void set_preload(String* value);
+		void set_preload(const String& value);
 		String* get_preload();
 		void set_networkState(double value);
 		double get_networkState();
@@ -6549,13 +6549,13 @@ namespace client
 	class MSImageResourceExtensions 
 	{
 	public:
-		void set_dynsrc(String* value);
+		void set_dynsrc(const String& value);
 		String* get_dynsrc();
-		void set_vrml(String* value);
+		void set_vrml(const String& value);
 		String* get_vrml();
-		void set_lowsrc(String* value);
+		void set_lowsrc(const String& value);
 		String* get_lowsrc();
-		void set_start(String* value);
+		void set_start(const String& value);
 		String* get_start();
 		void set_loop(double value);
 		double get_loop();
@@ -6575,7 +6575,7 @@ namespace client
 	public:
 		void set_code(double value);
 		double get_code();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		String* toString();
 		void set_POSITION_UNAVAILABLE(double value);
@@ -6643,7 +6643,7 @@ namespace client
 	class HTMLBaseFontElement : public HTMLElement, DOML2DeprecatedSizeProperty_HTMLBaseFontElement, DOML2DeprecatedColorProperty 
 	{
 	public:
-		void set_face(String* value);
+		void set_face(const String& value);
 		String* get_face();
 		static void set_prototype(HTMLBaseFontElement* value);
 		static HTMLBaseFontElement* get_prototype();
@@ -6666,7 +6666,7 @@ namespace client
 	public:
 		void set_styleSheet(CSSStyleSheet* value);
 		CSSStyleSheet* get_styleSheet();
-		void set_href(String* value);
+		void set_href(const String& value);
 		String* get_href();
 		void set_media(MediaList* value);
 		MediaList* get_media();
@@ -6678,11 +6678,11 @@ namespace client
 	class HTMLTextAreaElement : public HTMLElement, MSDataBindingExtensions, MSHTMLTextAreaElementExtensions 
 	{
 	public:
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_selectionStart(double value);
 		double get_selectionStart();
@@ -6692,13 +6692,13 @@ namespace client
 		double get_cols();
 		void set_readOnly(bool value);
 		bool get_readOnly();
-		void set_wrap(String* value);
+		void set_wrap(const String& value);
 		String* get_wrap();
 		void set_selectionEnd(double value);
 		double get_selectionEnd();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_defaultValue(String* value);
+		void set_defaultValue(const String& value);
 		String* get_defaultValue();
 		void setSelectionRange(double start, double end);
 		void select();
@@ -6710,7 +6710,7 @@ namespace client
 	class MSHTMLFormElementExtensions 
 	{
 	public:
-		void set_encoding(String* value);
+		void set_encoding(const String& value);
 		String* get_encoding();
 	};
 
@@ -6751,7 +6751,7 @@ namespace client
 	class HTMLMarqueeElement : public HTMLElement, DOML2DeprecatedMarginStyle_HTMLMarqueeElement, DOML2DeprecatedBackgroundColorStyle 
 	{
 	public:
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
 		typedef Object* (*callback_for_onbounce)(Event* ev);
 		void set_onbounce(callback_for_onbounce value);
@@ -6762,13 +6762,13 @@ namespace client
 		double get_scrollAmount();
 		void set_scrollDelay(double value);
 		double get_scrollDelay();
-		void set_behavior(String* value);
+		void set_behavior(const String& value);
 		String* get_behavior();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
 		void set_loop(double value);
 		double get_loop();
-		void set_direction(String* value);
+		void set_direction(const String& value);
 		String* get_direction();
 		typedef Object* (*callback_for_onstart)(Event* ev);
 		void set_onstart(callback_for_onstart value);
@@ -6898,9 +6898,9 @@ namespace client
 	class HTMLModElement : public HTMLElement
 	{
 	public:
-		void set_dateTime(String* value);
+		void set_dateTime(const String& value);
 		String* get_dateTime();
-		void set_cite(String* value);
+		void set_cite(const String& value);
 		String* get_cite();
 		static void set_prototype(HTMLModElement* value);
 		static HTMLModElement* get_prototype();
@@ -6910,7 +6910,7 @@ namespace client
 	class BeforeUnloadEvent : public Event 
 	{
 	public:
-		void set_returnValue(String* value);
+		void set_returnValue(const String& value);
 		String* get_returnValue();
 		static void set_prototype(BeforeUnloadEvent* value);
 		static BeforeUnloadEvent* get_prototype();
@@ -7014,7 +7014,7 @@ namespace client
 	public:
 		void set_code(double value);
 		double get_code();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		String* toString();
 		void set_SVG_MATRIX_NOT_INVERTABLE(double value);
@@ -7171,9 +7171,9 @@ namespace client
 	class ProcessingInstruction : public Node 
 	{
 	public:
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
 		static void set_prototype(ProcessingInstruction* value);
 		static ProcessingInstruction* get_prototype();
@@ -7206,9 +7206,9 @@ namespace client
 	public:
 		void set_inputMethod(double value);
 		double get_inputMethod();
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
-		void set_locale(String* value);
+		void set_locale(const String& value);
 		String* get_locale();
 		void initTextEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, double inputMethod, const String& locale);
 		void set_DOM_INPUT_METHOD_KEYBOARD(double value);
@@ -7247,7 +7247,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLFieldSetElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -7262,7 +7262,7 @@ namespace client
 	class DOML2DeprecatedAlignmentStyle_HTMLHeadingElement 
 	{
 	public:
-		void set_align(String* value);
+		void set_align(const String& value);
 		String* get_align();
 	};
 
@@ -7293,16 +7293,16 @@ namespace client
 	class StyleSheetPage 
 	{
 	public:
-		void set_pseudoClass(String* value);
+		void set_pseudoClass(const String& value);
 		String* get_pseudoClass();
-		void set_selector(String* value);
+		void set_selector(const String& value);
 		String* get_selector();
 	};
 
 	class CSSPageRule : public CSSRule, StyleSheetPage 
 	{
 	public:
-		void set_selectorText(String* value);
+		void set_selectorText(const String& value);
 		String* get_selectorText();
 		void set_style(CSSStyleDeclaration* value);
 		CSSStyleDeclaration* get_style();
@@ -7314,7 +7314,7 @@ namespace client
 	class DOML2DeprecatedTextFlowControl_HTMLBRElement 
 	{
 	public:
-		void set_clear(String* value);
+		void set_clear(const String& value);
 		String* get_clear();
 	};
 
@@ -7349,7 +7349,7 @@ namespace client
 	class HTMLHeadElement : public HTMLElement 
 	{
 	public:
-		void set_profile(String* value);
+		void set_profile(const String& value);
 		String* get_profile();
 		static void set_prototype(HTMLHeadElement* value);
 		static HTMLHeadElement* get_prototype();
@@ -7378,19 +7378,19 @@ namespace client
 		Object* operator()(const String& name);
 		void set_length(double value);
 		double get_length();
-		void set_target(String* value);
+		void set_target(const String& value);
 		String* get_target();
-		void set_acceptCharset(String* value);
+		void set_acceptCharset(const String& value);
 		String* get_acceptCharset();
-		void set_enctype(String* value);
+		void set_enctype(const String& value);
 		String* get_enctype();
 		void set_elements(HTMLCollection* value);
 		HTMLCollection* get_elements();
-		void set_action(String* value);
+		void set_action(const String& value);
 		String* get_action();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_method(String* value);
+		void set_method(const String& value);
 		String* get_method();
 		void reset();
 		Object* item();
@@ -7567,7 +7567,7 @@ namespace client
 		Object* get_balance();
 		void set_volume(Object* value);
 		Object* get_volume();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
 		void set_loop(double value);
 		double get_loop();
@@ -7603,11 +7603,11 @@ namespace client
 	class MSHTMLFrameSetElementExtensions 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_frameBorder(String* value);
+		void set_frameBorder(const String& value);
 		String* get_frameBorder();
-		void set_border(String* value);
+		void set_border(const String& value);
 		String* get_border();
 		void set_frameSpacing(Object* value);
 		Object* get_frameSpacing();
@@ -7627,33 +7627,33 @@ namespace client
 	class HTMLObjectElement : public HTMLElement, GetSVGDocument, DOML2DeprecatedMarginStyle_HTMLObjectElement, DOML2DeprecatedAlignmentStyle_HTMLObjectElement, DOML2DeprecatedBorderStyle_HTMLObjectElement 
 	{
 	public:
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
-		void set_codeType(String* value);
+		void set_codeType(const String& value);
 		String* get_codeType();
-		void set_archive(String* value);
+		void set_archive(const String& value);
 		String* get_archive();
-		void set_standby(String* value);
+		void set_standby(const String& value);
 		String* get_standby();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_useMap(String* value);
+		void set_useMap(const String& value);
 		String* get_useMap();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_data(String* value);
+		void set_data(const String& value);
 		String* get_data();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
 		void set_contentDocument(Document* value);
 		Document* get_contentDocument();
-		void set_codeBase(String* value);
+		void set_codeBase(const String& value);
 		String* get_codeBase();
 		void set_declare(bool value);
 		bool get_declare();
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_code(String* value);
+		void set_code(const String& value);
 		String* get_code();
 		static void set_prototype(HTMLObjectElement* value);
 		static HTMLObjectElement* get_prototype();
@@ -7672,11 +7672,11 @@ namespace client
 		Object* get_oldValue();
 		void set_newValue(Object* value);
 		Object* get_newValue();
-		void set_url(String* value);
+		void set_url(const String& value);
 		String* get_url();
 		void set_storageArea(Storage* value);
 		Storage* get_storageArea();
-		void set_key(String* value);
+		void set_key(const String& value);
 		String* get_key();
 		void initStorageEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, const String& keyArg, Object* oldValueArg, Object* newValueArg, const String& urlArg, Storage* storageAreaArg);
 		static void set_prototype(StorageEvent* value);
@@ -7687,13 +7687,13 @@ namespace client
 	class HTMLEmbedElement : public HTMLElement, GetSVGDocument 
 	{
 	public:
-		void set_width(String* value);
+		void set_width(const String& value);
 		String* get_width();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_height(String* value);
+		void set_height(const String& value);
 		String* get_height();
 		static void set_prototype(HTMLEmbedElement* value);
 		static HTMLEmbedElement* get_prototype();
@@ -7703,7 +7703,7 @@ namespace client
 	class HTMLOptGroupElement : public HTMLElement
 	{
 	public:
-		void set_label(String* value);
+		void set_label(const String& value);
 		String* get_label();
 		static void set_prototype(HTMLOptGroupElement* value);
 		static HTMLOptGroupElement* get_prototype();
@@ -7715,7 +7715,7 @@ namespace client
 	public:
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
-		void set_prompt(String* value);
+		void set_prompt(const String& value);
 		String* get_prompt();
 		static void set_prototype(HTMLIsIndexElement* value);
 		static HTMLIsIndexElement* get_prototype();
@@ -7739,7 +7739,7 @@ namespace client
 	public:
 		void set_code(double value);
 		double get_code();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		String* toString();
 		void set_HIERARCHY_REQUEST_ERR(double value);
@@ -7862,9 +7862,9 @@ namespace client
 		bool get_specified();
 		void set_ownerElement(Element* value);
 		Element* get_ownerElement();
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		static void set_prototype(Attr* value);
 		static Attr* get_prototype();
@@ -7949,7 +7949,7 @@ namespace client
 		double get_videoHeight();
 		void set_height(double value);
 		double get_height();
-		void set_poster(String* value);
+		void set_poster(const String& value);
 		String* get_poster();
 		static void set_prototype(HTMLVideoElement* value);
 		static HTMLVideoElement* get_prototype();
@@ -8169,11 +8169,11 @@ namespace client
 	public:
 		void set_colno(double value);
 		double get_colno();
-		void set_filename(String* value);
+		void set_filename(const String& value);
 		String* get_filename();
 		void set_lineno(double value);
 		double get_lineno();
-		void set_message(String* value);
+		void set_message(const String& value);
 		String* get_message();
 		void initErrorEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, const String& messageArg, const String& filenameArg, double linenoArg);
 		static void set_prototype(ErrorEvent* value);
@@ -8261,11 +8261,11 @@ namespace client
 		TextTrack* get_track();
 		void set_endTime(double value);
 		double get_endTime();
-		void set_text(String* value);
+		void set_text(const String& value);
 		String* get_text();
 		void set_pauseOnExit(bool value);
 		bool get_pauseOnExit();
-		void set_id(String* value);
+		void set_id(const String& value);
 		String* get_id();
 		void set_startTime(double value);
 		double get_startTime();
@@ -8281,29 +8281,29 @@ namespace client
 	class CSSFlexibleBoxProperties 
 	{
 	public:
-		void set_msFlex(String* value);
+		void set_msFlex(const String& value);
 		String* get_msFlex();
-		void set_msFlexDirection(String* value);
+		void set_msFlexDirection(const String& value);
 		String* get_msFlexDirection();
-		void set_msFlexNegative(String* value);
+		void set_msFlexNegative(const String& value);
 		String* get_msFlexNegative();
-		void set_msFlexPack(String* value);
+		void set_msFlexPack(const String& value);
 		String* get_msFlexPack();
-		void set_msFlexWrap(String* value);
+		void set_msFlexWrap(const String& value);
 		String* get_msFlexWrap();
-		void set_msFlexItemAlign(String* value);
+		void set_msFlexItemAlign(const String& value);
 		String* get_msFlexItemAlign();
-		void set_msFlexOrder(String* value);
+		void set_msFlexOrder(const String& value);
 		String* get_msFlexOrder();
-		void set_msFlexPositive(String* value);
+		void set_msFlexPositive(const String& value);
 		String* get_msFlexPositive();
-		void set_msFlexAlign(String* value);
+		void set_msFlexAlign(const String& value);
 		String* get_msFlexAlign();
-		void set_msFlexFlow(String* value);
+		void set_msFlexFlow(const String& value);
 		String* get_msFlexFlow();
-		void set_msFlexPreferredSize(String* value);
+		void set_msFlexPreferredSize(const String& value);
 		String* get_msFlexPreferredSize();
-		void set_msFlexLinePack(String* value);
+		void set_msFlexLinePack(const String& value);
 		String* get_msFlexLinePack();
 	};
 
@@ -8427,7 +8427,7 @@ namespace client
 	class TransitionEvent : public Event 
 	{
 	public:
-		void set_propertyName(String* value);
+		void set_propertyName(const String& value);
 		String* get_propertyName();
 		void set_elapsedTime(double value);
 		double get_elapsedTime();
@@ -8444,7 +8444,7 @@ namespace client
 	public:
 		void set_matches(bool value);
 		bool get_matches();
-		void set_media(String* value);
+		void set_media(const String& value);
 		String* get_media();
 		void addListener(MediaQueryListListener* listener);
 		void removeListener(MediaQueryListListener* listener);
@@ -8456,7 +8456,7 @@ namespace client
 	class DOMError 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		String* toString();
 		static void set_prototype(DOMError* value);
@@ -8481,9 +8481,9 @@ namespace client
 	class CSSFontsProperties 
 	{
 	public:
-		void set_msFontFeatureSettings(String* value);
+		void set_msFontFeatureSettings(const String& value);
 		String* get_msFontFeatureSettings();
-		void set_fontFeatureSettings(String* value);
+		void set_fontFeatureSettings(const String& value);
 		String* get_fontFeatureSettings();
 	};
 
@@ -8492,7 +8492,7 @@ namespace client
 	public:
 		void set_wasClean(bool value);
 		bool get_wasClean();
-		void set_reason(String* value);
+		void set_reason(const String& value);
 		String* get_reason();
 		void set_code(double value);
 		double get_code();
@@ -8505,7 +8505,7 @@ namespace client
 	class WebSocket : public EventTarget 
 	{
 	public:
-		void set_protocol(String* value);
+		void set_protocol(const String& value);
 		String* get_protocol();
 		void set_readyState(double value);
 		double get_readyState();
@@ -8514,7 +8514,7 @@ namespace client
 		typedef Object* (*callback_for_onopen)(Event* ev);
 		void set_onopen(callback_for_onopen value);
 		callback_for_onopen get_onopen();
-		void set_extensions(String* value);
+		void set_extensions(const String& value);
 		String* get_extensions();
 		typedef Object* (*callback_for_onmessage)(Object* ev);
 		void set_onmessage(callback_for_onmessage value);
@@ -8525,9 +8525,9 @@ namespace client
 		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
 		void set_onerror(callback_for_onerror value);
 		callback_for_onerror get_onerror();
-		void set_binaryType(String* value);
+		void set_binaryType(const String& value);
 		String* get_binaryType();
-		void set_url(String* value);
+		void set_url(const String& value);
 		String* get_url();
 		void close();
 		void close(double code, const String& reason);
@@ -8573,11 +8573,11 @@ namespace client
 	public:
 		void set_indexNames(DOMStringList* value);
 		DOMStringList* get_indexNames();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_transaction(IDBTransaction* value);
 		IDBTransaction* get_transaction();
-		void set_keyPath(String* value);
+		void set_keyPath(const String& value);
 		String* get_keyPath();
 		IDBRequest* count();
 		IDBRequest* count(Object* key);
@@ -8680,7 +8680,7 @@ namespace client
 	class MSCSSSelectionBoundaryProperties 
 	{
 	public:
-		void set_msUserSelect(String* value);
+		void set_msUserSelect(const String& value);
 		String* get_msUserSelect();
 	};
 
@@ -8701,9 +8701,9 @@ namespace client
 	public:
 		void set_unique(bool value);
 		bool get_unique();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
-		void set_keyPath(String* value);
+		void set_keyPath(const String& value);
 		String* get_keyPath();
 		void set_objectStore(IDBObjectStore* value);
 		IDBObjectStore* get_objectStore();
@@ -8739,7 +8739,7 @@ namespace client
 	public:
 		void set_source(Object* value);
 		Object* get_source();
-		void set_direction(String* value);
+		void set_direction(const String& value);
 		String* get_direction();
 		void set_key(Object* value);
 		Object* get_key();
@@ -8758,41 +8758,41 @@ namespace client
 	class CSSAnimationsProperties 
 	{
 	public:
-		void set_animationFillMode(String* value);
+		void set_animationFillMode(const String& value);
 		String* get_animationFillMode();
-		void set_msAnimationDirection(String* value);
+		void set_msAnimationDirection(const String& value);
 		String* get_msAnimationDirection();
-		void set_msAnimationDelay(String* value);
+		void set_msAnimationDelay(const String& value);
 		String* get_msAnimationDelay();
-		void set_msAnimationFillMode(String* value);
+		void set_msAnimationFillMode(const String& value);
 		String* get_msAnimationFillMode();
-		void set_animationIterationCount(String* value);
+		void set_animationIterationCount(const String& value);
 		String* get_animationIterationCount();
-		void set_msAnimationPlayState(String* value);
+		void set_msAnimationPlayState(const String& value);
 		String* get_msAnimationPlayState();
-		void set_msAnimationIterationCount(String* value);
+		void set_msAnimationIterationCount(const String& value);
 		String* get_msAnimationIterationCount();
-		void set_animationDelay(String* value);
+		void set_animationDelay(const String& value);
 		String* get_animationDelay();
-		void set_animationTimingFunction(String* value);
+		void set_animationTimingFunction(const String& value);
 		String* get_animationTimingFunction();
-		void set_msAnimation(String* value);
+		void set_msAnimation(const String& value);
 		String* get_msAnimation();
-		void set_animation(String* value);
+		void set_animation(const String& value);
 		String* get_animation();
-		void set_animationDirection(String* value);
+		void set_animationDirection(const String& value);
 		String* get_animationDirection();
-		void set_animationDuration(String* value);
+		void set_animationDuration(const String& value);
 		String* get_animationDuration();
-		void set_animationName(String* value);
+		void set_animationName(const String& value);
 		String* get_animationName();
-		void set_animationPlayState(String* value);
+		void set_animationPlayState(const String& value);
 		String* get_animationPlayState();
-		void set_msAnimationTimingFunction(String* value);
+		void set_msAnimationTimingFunction(const String& value);
 		String* get_msAnimationTimingFunction();
-		void set_msAnimationName(String* value);
+		void set_msAnimationName(const String& value);
 		String* get_msAnimationName();
-		void set_msAnimationDuration(String* value);
+		void set_msAnimationDuration(const String& value);
 		String* get_msAnimationDuration();
 	};
 
@@ -8819,7 +8819,7 @@ namespace client
 	class Blob 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		void set_size(double value);
 		double get_size();
@@ -8835,7 +8835,7 @@ namespace client
 	public:
 		void set_lastModifiedDate(Object* value);
 		Object* get_lastModifiedDate();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		static void set_prototype(File* value);
 		static File* get_prototype();
@@ -8981,25 +8981,25 @@ namespace client
 	class CSSTransitionsProperties 
 	{
 	public:
-		void set_transition(String* value);
+		void set_transition(const String& value);
 		String* get_transition();
-		void set_transitionDelay(String* value);
+		void set_transitionDelay(const String& value);
 		String* get_transitionDelay();
-		void set_transitionDuration(String* value);
+		void set_transitionDuration(const String& value);
 		String* get_transitionDuration();
-		void set_msTransitionTimingFunction(String* value);
+		void set_msTransitionTimingFunction(const String& value);
 		String* get_msTransitionTimingFunction();
-		void set_msTransition(String* value);
+		void set_msTransition(const String& value);
 		String* get_msTransition();
-		void set_msTransitionDuration(String* value);
+		void set_msTransitionDuration(const String& value);
 		String* get_msTransitionDuration();
-		void set_transitionTimingFunction(String* value);
+		void set_transitionTimingFunction(const String& value);
 		String* get_transitionTimingFunction();
-		void set_msTransitionDelay(String* value);
+		void set_msTransitionDelay(const String& value);
 		String* get_msTransitionDelay();
-		void set_transitionProperty(String* value);
+		void set_transitionProperty(const String& value);
 		String* get_transitionProperty();
-		void set_msTransitionProperty(String* value);
+		void set_msTransitionProperty(const String& value);
 		String* get_msTransitionProperty();
 	};
 
@@ -9051,7 +9051,7 @@ namespace client
 	class AnimationEvent : public Event 
 	{
 	public:
-		void set_animationName(String* value);
+		void set_animationName(const String& value);
 		String* get_animationName();
 		void set_elapsedTime(double value);
 		double get_elapsedTime();
@@ -9092,7 +9092,7 @@ namespace client
 	public:
 		void set_msWrapMargin(Object* value);
 		Object* get_msWrapMargin();
-		void set_msWrapFlow(String* value);
+		void set_msWrapFlow(const String& value);
 		String* get_msWrapFlow();
 	};
 
@@ -9111,11 +9111,11 @@ namespace client
 	class MSCSSRegionProperties 
 	{
 	public:
-		void set_msFlowFrom(String* value);
+		void set_msFlowFrom(const String& value);
 		String* get_msFlowFrom();
-		void set_msFlowInto(String* value);
+		void set_msFlowInto(const String& value);
 		String* get_msFlowInto();
-		void set_msWrapThrough(String* value);
+		void set_msWrapThrough(const String& value);
 		String* get_msWrapThrough();
 	};
 
@@ -9170,7 +9170,7 @@ namespace client
 		callback_for_oncomplete get_oncomplete();
 		void set_db(IDBDatabase* value);
 		IDBDatabase* get_db();
-		void set_mode(String* value);
+		void set_mode(const String& value);
 		String* get_mode();
 		void set_error(DOMError* value);
 		DOMError* get_error();
@@ -9190,13 +9190,13 @@ namespace client
 	class AudioTrack 
 	{
 	public:
-		void set_kind(String* value);
+		void set_kind(const String& value);
 		String* get_kind();
-		void set_language(String* value);
+		void set_language(const String& value);
 		String* get_language();
-		void set_id(String* value);
+		void set_id(const String& value);
 		String* get_id();
-		void set_label(String* value);
+		void set_label(const String& value);
 		String* get_label();
 		void set_enabled(bool value);
 		bool get_enabled();
@@ -9263,7 +9263,7 @@ namespace client
 	class CSSKeyframesRule : public CSSRule 
 	{
 	public:
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_cssRules(CSSRuleList* value);
 		CSSRuleList* get_cssRules();
@@ -9278,35 +9278,35 @@ namespace client
 	class MSCSSTouchManipulationProperties 
 	{
 	public:
-		void set_msScrollSnapPointsY(String* value);
+		void set_msScrollSnapPointsY(const String& value);
 		String* get_msScrollSnapPointsY();
-		void set_msOverflowStyle(String* value);
+		void set_msOverflowStyle(const String& value);
 		String* get_msOverflowStyle();
 		void set_msScrollLimitXMax(Object* value);
 		Object* get_msScrollLimitXMax();
-		void set_msScrollSnapType(String* value);
+		void set_msScrollSnapType(const String& value);
 		String* get_msScrollSnapType();
-		void set_msScrollSnapPointsX(String* value);
+		void set_msScrollSnapPointsX(const String& value);
 		String* get_msScrollSnapPointsX();
 		void set_msScrollLimitYMax(Object* value);
 		Object* get_msScrollLimitYMax();
-		void set_msScrollSnapY(String* value);
+		void set_msScrollSnapY(const String& value);
 		String* get_msScrollSnapY();
 		void set_msScrollLimitXMin(Object* value);
 		Object* get_msScrollLimitXMin();
 		void set_msScrollLimitYMin(Object* value);
 		Object* get_msScrollLimitYMin();
-		void set_msScrollChaining(String* value);
+		void set_msScrollChaining(const String& value);
 		String* get_msScrollChaining();
-		void set_msTouchAction(String* value);
+		void set_msTouchAction(const String& value);
 		String* get_msTouchAction();
-		void set_msScrollSnapX(String* value);
+		void set_msScrollSnapX(const String& value);
 		String* get_msScrollSnapX();
-		void set_msScrollLimit(String* value);
+		void set_msScrollLimit(const String& value);
 		String* get_msScrollLimit();
-		void set_msScrollRails(String* value);
+		void set_msScrollRails(const String& value);
 		String* get_msScrollRails();
-		void set_msTouchSelect(String* value);
+		void set_msTouchSelect(const String& value);
 		String* get_msTouchSelect();
 	};
 
@@ -9456,9 +9456,9 @@ namespace client
 	public:
 		void set_msHidden(bool value);
 		bool get_msHidden();
-		void set_msVisibilityState(String* value);
+		void set_msVisibilityState(const String& value);
 		String* get_msVisibilityState();
-		void set_visibilityState(String* value);
+		void set_visibilityState(const String& value);
 		String* get_visibilityState();
 		void set_hidden(bool value);
 		bool get_hidden();
@@ -9474,9 +9474,9 @@ namespace client
 	class IDBDatabase : public EventTarget 
 	{
 	public:
-		void set_version(String* value);
+		void set_version(const String& value);
 		String* get_version();
-		void set_name(String* value);
+		void set_name(const String& value);
 		String* get_name();
 		void set_objectStoreNames(DOMStringList* value);
 		DOMStringList* get_objectStoreNames();
@@ -9521,25 +9521,25 @@ namespace client
 	class CSSMultiColumnProperties 
 	{
 	public:
-		void set_breakAfter(String* value);
+		void set_breakAfter(const String& value);
 		String* get_breakAfter();
-		void set_columnSpan(String* value);
+		void set_columnSpan(const String& value);
 		String* get_columnSpan();
-		void set_columnRule(String* value);
+		void set_columnRule(const String& value);
 		String* get_columnRule();
-		void set_columnFill(String* value);
+		void set_columnFill(const String& value);
 		String* get_columnFill();
-		void set_columnRuleStyle(String* value);
+		void set_columnRuleStyle(const String& value);
 		String* get_columnRuleStyle();
-		void set_breakBefore(String* value);
+		void set_breakBefore(const String& value);
 		String* get_breakBefore();
 		void set_columnCount(Object* value);
 		Object* get_columnCount();
-		void set_breakInside(String* value);
+		void set_breakInside(const String& value);
 		String* get_breakInside();
 		void set_columnWidth(Object* value);
 		Object* get_columnWidth();
-		void set_columns(String* value);
+		void set_columns(const String& value);
 		String* get_columns();
 		void set_columnRuleColor(Object* value);
 		Object* get_columnRuleColor();
@@ -9564,7 +9564,7 @@ namespace client
 		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
 		void set_onerror(callback_for_onerror value);
 		callback_for_onerror get_onerror();
-		void set_readyState(String* value);
+		void set_readyState(const String& value);
 		String* get_readyState();
 		void set_result(Object* value);
 		Object* get_result();
@@ -9620,11 +9620,11 @@ namespace client
 	class TextTrack : public EventTarget 
 	{
 	public:
-		void set_language(String* value);
+		void set_language(const String& value);
 		String* get_language();
 		void set_mode(double value);
 		double get_mode();
-		void set_readyState(String* value);
+		void set_readyState(const String& value);
 		String* get_readyState();
 		void set_activeCues(TextTrackCueList* value);
 		TextTrackCueList* get_activeCues();
@@ -9633,7 +9633,7 @@ namespace client
 		typedef Object* (*callback_for_oncuechange)(Event* ev);
 		void set_oncuechange(callback_for_oncuechange value);
 		callback_for_oncuechange get_oncuechange();
-		void set_kind(String* value);
+		void set_kind(const String& value);
 		String* get_kind();
 		typedef Object* (*callback_for_onload)(Object* ev);
 		void set_onload(callback_for_onload value);
@@ -9641,7 +9641,7 @@ namespace client
 		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
 		void set_onerror(callback_for_onerror value);
 		callback_for_onerror get_onerror();
-		void set_label(String* value);
+		void set_label(const String& value);
 		String* get_label();
 		void set_ERROR(double value);
 		double get_ERROR();
@@ -9700,9 +9700,9 @@ namespace client
 	class BlobPropertyBag 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
-		void set_endings(String* value);
+		void set_endings(const String& value);
 		String* get_endings();
 		static void set_prototype(Blob* value);
 		static Blob* get_prototype();
@@ -9766,21 +9766,21 @@ namespace client
 	class CSS3DTransformsProperties 
 	{
 	public:
-		void set_perspective(String* value);
+		void set_perspective(const String& value);
 		String* get_perspective();
-		void set_msBackfaceVisibility(String* value);
+		void set_msBackfaceVisibility(const String& value);
 		String* get_msBackfaceVisibility();
-		void set_perspectiveOrigin(String* value);
+		void set_perspectiveOrigin(const String& value);
 		String* get_perspectiveOrigin();
-		void set_transformStyle(String* value);
+		void set_transformStyle(const String& value);
 		String* get_transformStyle();
-		void set_backfaceVisibility(String* value);
+		void set_backfaceVisibility(const String& value);
 		String* get_backfaceVisibility();
-		void set_msPerspectiveOrigin(String* value);
+		void set_msPerspectiveOrigin(const String& value);
 		String* get_msPerspectiveOrigin();
-		void set_msTransformStyle(String* value);
+		void set_msTransformStyle(const String& value);
 		String* get_msTransformStyle();
-		void set_msPerspective(String* value);
+		void set_msPerspective(const String& value);
 		String* get_msPerspective();
 	};
 
@@ -9798,7 +9798,7 @@ namespace client
 	class CSSKeyframeRule : public CSSRule 
 	{
 	public:
-		void set_keyText(String* value);
+		void set_keyText(const String& value);
 		String* get_keyText();
 		void set_style(CSSStyleDeclaration* value);
 		CSSStyleDeclaration* get_style();
@@ -9810,7 +9810,7 @@ namespace client
 	class CSSGridProperties 
 	{
 	public:
-		void set_msGridRows(String* value);
+		void set_msGridRows(const String& value);
 		String* get_msGridRows();
 		void set_msGridColumnSpan(Object* value);
 		Object* get_msGridColumnSpan();
@@ -9818,11 +9818,11 @@ namespace client
 		Object* get_msGridRow();
 		void set_msGridRowSpan(Object* value);
 		Object* get_msGridRowSpan();
-		void set_msGridColumns(String* value);
+		void set_msGridColumns(const String& value);
 		String* get_msGridColumns();
-		void set_msGridColumnAlign(String* value);
+		void set_msGridColumnAlign(const String& value);
 		String* get_msGridColumnAlign();
-		void set_msGridRowAlign(String* value);
+		void set_msGridRowAlign(const String& value);
 		String* get_msGridRowAlign();
 		void set_msGridColumn(Object* value);
 		Object* get_msGridColumn();
@@ -9840,7 +9840,7 @@ namespace client
 	class MSStream 
 	{
 	public:
-		void set_type(String* value);
+		void set_type(const String& value);
 		String* get_type();
 		Object* msDetachStream();
 		void msClose();
@@ -9852,7 +9852,7 @@ namespace client
 	class DOMSettableTokenList : public DOMTokenList 
 	{
 	public:
-		void set_value(String* value);
+		void set_value(const String& value);
 		String* get_value();
 		static void set_prototype(DOMSettableTokenList* value);
 		static DOMSettableTokenList* get_prototype();
@@ -9874,13 +9874,13 @@ namespace client
 	class CSSTextProperties 
 	{
 	public:
-		void set_textShadow(String* value);
+		void set_textShadow(const String& value);
 		String* get_textShadow();
 		void set_msHyphenateLimitLines(Object* value);
 		Object* get_msHyphenateLimitLines();
-		void set_msHyphens(String* value);
+		void set_msHyphens(const String& value);
 		String* get_msHyphens();
-		void set_msHyphenateLimitChars(String* value);
+		void set_msHyphenateLimitChars(const String& value);
 		String* get_msHyphenateLimitChars();
 		void set_msHyphenateLimitZone(Object* value);
 		Object* get_msHyphenateLimitZone();
@@ -9889,16 +9889,16 @@ namespace client
 	class CSS2DTransformsProperties 
 	{
 	public:
-		void set_transform(String* value);
+		void set_transform(const String& value);
 		String* get_transform();
-		void set_transformOrigin(String* value);
+		void set_transformOrigin(const String& value);
 		String* get_transformOrigin();
 	};
 
 	class MSCSSHighContrastProperties 
 	{
 	public:
-		void set_msHighContrastAdjust(String* value);
+		void set_msHighContrastAdjust(const String& value);
 		String* get_msHighContrastAdjust();
 	};
 
@@ -10025,15 +10025,15 @@ namespace client
 	class HTMLTrackElement : public HTMLElement 
 	{
 	public:
-		void set_kind(String* value);
+		void set_kind(const String& value);
 		String* get_kind();
-		void set_src(String* value);
+		void set_src(const String& value);
 		String* get_src();
-		void set_srclang(String* value);
+		void set_srclang(const String& value);
 		String* get_srclang();
 		void set_track(TextTrack* value);
 		TextTrack* get_track();
-		void set_label(String* value);
+		void set_label(const String& value);
 		String* get_label();
 		void set_defaul(bool value);
 		bool get_defaul();
