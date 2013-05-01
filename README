@@ -83,6 +83,8 @@ Properties of DOM objects are always accessed through setters/getters
 		auto body = document->get_body();
 	}
 
+Small examples are included in /opt/duetto/share/duetto/examples/
+
 Limitations as of version 0.1
 ------------------------------------------
 In this build support for native code is broken. This also means that
