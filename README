@@ -48,8 +48,7 @@ code verbosity by
 The relevant headers that defines client interfaces are
 
 	#include <duetto/client.h> //Misc client side stuff
-	#include <duetto/clientlib.h> //Complete DOM interface
-	#include <duetto/canvas.h> //HTML5 canvas element
+	#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
 	#include <duetto/webgl.h> //WebGL interface
 
 By convention the method that will be called first on the
@@ -77,6 +76,12 @@ In a similar way you can bind to any other DOM event
 On the client side (JavaScript) the only actually supported numerical types
 are 'double' and 'int'. This limitation is caused by the JavaScript language
 itself.
+
+Properties of DOM objects are always accessed through setters/getters
+
+	{
+		auto body = document->get_body();
+	}
 
 Limitations as of version 0.1
 ------------------------------------------
