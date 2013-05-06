@@ -1,7 +1,7 @@
 #!/bin/sh
 
 V8=../../v8/out/native/d8
-SM=$HOME/Sources/mozilla-central-b9d56a1e0a61/js/src/js
+SM=$HOME/Sources/mozilla-central-afb7995ef276/js/src/js
 TEST=$1
 
 rm -f benchmark-data-${TEST}-*
@@ -35,6 +35,14 @@ count=0;
 while [ $count -lt 10 ]
 do
 	time -f "%e" -a -o benchmark-data-${TEST}-emscripten-spidermonkey $SM --no-baseline --no-ion $TEST-emscripten.js
+	count=$(($count+1))
+done
+
+echo Benchmarking $TEST-Asm.js on SpiderMonkey
+count=0;
+while [ $count -lt 10 ]
+do
+	time -f "%e" -a -o benchmark-data-${TEST}-asm.js-spidermonkey $SM --no-baseline --no-ion $TEST-asm.js
 	count=$(($count+1))
 done
 
