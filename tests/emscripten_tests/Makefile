@@ -20,8 +20,7 @@ fannkuch: fannkuch-emscripten.js fannkuch-duetto.js fannkuch-asm.js fannkuch-nat
 fasta: fasta-emscripten.js fasta-duetto.js fasta-asm.js fasta-native
 
 %-native: %.cpp
-	#O3 is actually what is used by EMCC
-	clang++ -O3 $^ -o $@
+	clang++ -O2 $^ -o $@
 
 %-emscripten.js: %.cpp
 	${EMCC} -O2 $^ -o $@
