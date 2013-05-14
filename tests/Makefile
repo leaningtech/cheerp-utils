@@ -52,3 +52,4 @@ install:
 	cp -v dom/dom1.cpp dom/test1.html /opt/duetto/share/duetto/examples/dom/
 	mkdir -p /opt/duetto/share/duetto/examples/webgl
 	cp -v webgl/webgl.cpp webgl/test.html /opt/duetto/share/duetto/examples/webgl/
+	cp -v duetto.js /opt/duetto/share/duetto/examples/
