@@ -3,12 +3,12 @@ DUETTO=/opt/duetto/bin/duetto
 LLVMLINK=/opt/duetto/bin/llvm-link
 LLVMOPT=/opt/duetto/bin/opt
 LLVMDIS=/opt/duetto/bin/llvm-dis
-EMSCRIPTEN=../emscripten/emscripten.py
+LLVMTOJS=../llvm/build/bin/duetto-compiler
 
 all: server1-client.js server1 server2-client.js server2 server3-client.js server3 tictactoe
 
 %.bc: %.cpp
-	$(CLANG) -O2 -I ../include -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -O2 -target duetto -std=c++11 -emit-llvm -c $^ -o $@
 
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
@@ -26,7 +26,7 @@ cxxlib-holefiller.bc: cxxlib-holefiller.cpp
 	$(CLANG) -std=c++11 -emit-llvm -c $^ -o $@
 
 %.js: %.ll
-	$(EMSCRIPTEN) $^ -o $@
+	$(LLVMTOJS) $^ -o $@
 
 #NOTE: boost asio seems to be not supported by clang with c++11
 server_stub.o: server_stub.cpp
