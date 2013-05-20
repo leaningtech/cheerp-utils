@@ -106,7 +106,7 @@ namespace client
 		double sqrt(double x);
 		double tan(double x);
 	};
-	extern Math* Math;
+	extern Math Math;
 
 	class Date 
 	{
