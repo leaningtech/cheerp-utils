@@ -1,7 +1,0 @@
-<testsuite>
-    <testcase classname="Type1" name="TestOk1"/>
-    <testcase classname="Type1" name="TestOk2"/>
-    <testcase classname="Type2" name="TestOk3">
-        <failure type="Error3">Unexpected failure</failure>
-    </testcase>
-</testsuite>
