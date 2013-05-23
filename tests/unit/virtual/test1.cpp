@@ -1,4 +1,8 @@
-//#include <jscore.h>
+//===---------------------------------------------------------------------===//
+//	Copyright 2013 Leaning Technlogies
+//===----------------------------------------------------------------------===//
+
+#include <tests.h>
 
 struct X
 {
@@ -15,8 +19,9 @@ struct B
 	virtual ~B()
 	{
 	}
-	virtual void f()
+	virtual int f()
 	{
+		return b;
 	}
 };
 
@@ -27,10 +32,9 @@ struct A: public X, public B
 	~A()
 	{
 	}
-	void f()
+	int f()
 	{
-//		client::print(a);
-		volatile int u=a;
+		return a;
 	}
 };
 
@@ -39,6 +43,7 @@ void webMain()
 	A a;
 	A* volatile a2=&a;
 	B* volatile b=&a;
-	b->f();
-	a2->f();
+
+	assertEqual(b->f(), 2, "Simple virtual call 1/2");
+	assertEqual(a2->f(),2, "Simple virtual call 2/2");
 }

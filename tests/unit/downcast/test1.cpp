@@ -1,11 +1,8 @@
-#include <duetto/types.h>
-#include <duetto/clientlib.h>
+//===---------------------------------------------------------------------===//
+//	Copyright 2013 Leaning Technlogies
+//===----------------------------------------------------------------------===//
 
-template<class T>
-void assertEqual(const T& value, const T& expected, const char* msg)
-{
-	client::print(msg, (value==expected)?": SUCCESS":": FAILURE");
-}
+#include <tests.h>
 
 struct B
 {
