@@ -82,6 +82,9 @@ typedef double Double;
 typedef Object* Any;
 typedef void* (*Function)(void*);
 
+template<typename Ret, typename ...Args>
+Ret duettoVariadicTrap(Ret (*)(), const Args&... args);
+
 }
 
 #endif
