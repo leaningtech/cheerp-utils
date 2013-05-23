@@ -1,4 +1,11 @@
-//#include <jscore.h>
+#include <duetto/types.h>
+#include <duetto/clientlib.h>
+
+template<class T>
+void assertEqual(const T& value, const T& expected, const char* msg)
+{
+	client::print(msg, (value==expected)?": SUCCESS":": FAILURE");
+}
 
 struct B
 {
@@ -17,4 +24,5 @@ void webMain()
 	A a;
 	B* volatile b=&a;
 	A* volatile a2=static_cast<A*>(b);
+	assertEqual(a2->a, 2, "Downcast");
 }
