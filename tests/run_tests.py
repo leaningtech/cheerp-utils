@@ -11,7 +11,8 @@ if len(sys.argv)!=3:
 clang = sys.argv[1]
 jsEngine = sys.argv[2]
 
-tests = ['unit/downcast/test1.cpp','unit/virtual/test1.cpp']
+tests = ['unit/downcast/test1.cpp',
+	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp']
 
 report = open("testReport.test","w")
 
