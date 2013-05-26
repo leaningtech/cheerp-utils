@@ -20,7 +20,7 @@ fannkuch: fannkuch-emscripten.js fannkuch-duetto.js fannkuch-asm.js fannkuch-nat
 fasta: fasta-emscripten.js fasta-duetto.js fasta-asm.js fasta-native
 
 %-native: %.cpp
-	clang++ -O2 $^ -o $@
+	clang++ -fno-math-errno -O2 $^ -o $@
 
 %-emscripten.js: %.cpp
 	${EMCC} -O2 $^ -o $@
