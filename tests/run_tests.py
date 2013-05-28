@@ -12,7 +12,8 @@ clang = sys.argv[1]
 jsEngine = sys.argv[2]
 
 tests = ['unit/downcast/test1.cpp',
-	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp']
+	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
+	 'unit/static/test1.cpp']
 
 report = open("testReport.test","w")
 
