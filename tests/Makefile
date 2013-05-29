@@ -48,8 +48,8 @@ tictactoe: tictactoe-server.o server_stub.o deserializer.o
 	$(CLANG) -g -lboost_thread -lboost_system -lpion-net-4.0 -lpion-common-4.0 -llog4cpp $^ -o $@
 
 install:
-	mkdir -p /opt/duetto/share/duetto/examples/dom
-	cp -v dom/dom1.cpp dom/test1.html /opt/duetto/share/duetto/examples/dom/
-	mkdir -p /opt/duetto/share/duetto/examples/webgl
-	cp -v webgl/webgl.cpp webgl/test.html /opt/duetto/share/duetto/examples/webgl/
-	cp -v duetto.js /opt/duetto/share/duetto/examples/
+	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/dom
+	cp -v dom/dom1.cpp dom/test1.html ${INSTALL_PREFIX}/share/duetto/examples/dom/
+	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/webgl
+	cp -v webgl/webgl.cpp webgl/test.html ${INSTALL_PREFIX}/share/duetto/examples/webgl/
+	cp -v duetto.js ${INSTALL_PREFIX}/share/duetto/examples/
