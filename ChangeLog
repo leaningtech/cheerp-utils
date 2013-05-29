@@ -1,0 +1,6 @@
+Duetto: C++ for the Web
+
+Version 0.2:
+
+	* Support for virtual calls
+	* Removed hardcoded paths for includes

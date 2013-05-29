@@ -85,7 +85,7 @@ Properties of DOM objects are always accessed through setters/getters
 
 Small examples are included in /opt/duetto/share/duetto/examples/
 
-Limitations as of version 0.1
+Limitations as of version 0.2
 ------------------------------------------
 In this build support for native code is broken. This also means that
 server side code generation and transparent RPCs are broken as well.
@@ -93,7 +93,7 @@ We are sorry about this.
 
 Major limitations of this version are:
 	-) We do not yet have client side support for most of the C++ standard library
-	-) Virtual functions are not yet supported
+	-) Virtual bases and covariant returns are not yet supported
 	-) No explicit error is reported when invalid numerical types are used
 
 We plan to fix these limitations alongside with the ones discovered by testing by the next beta version.
