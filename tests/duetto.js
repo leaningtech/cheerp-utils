@@ -37,3 +37,11 @@ function __ZN6client5ArrayixEi(a,i)
 {
 	return a[i];
 }
+
+function createPointerArray(size)
+{
+	var ret=new Array(size);
+	for(var __i__=0;__i__<size;__i__++)
+		ret[__i__]={ d: null, o: 0};
+	return ret;
+}
