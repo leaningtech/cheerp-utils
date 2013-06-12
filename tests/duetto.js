@@ -38,6 +38,13 @@ function __ZN6client5ArrayixEi(a,i)
 	return a[i];
 }
 
+function handleVAArg(ptr)
+{
+	var ret=ptr.d[ptr.o];
+	ptr.o++;
+	return ret;
+}
+
 function createPointerArray(size)
 {
 	var ret=new Array(size);
