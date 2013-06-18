@@ -44,12 +44,12 @@ String* serialize(const T& data)
 	return data.serialize();
 }
 
-String* serialize(int data) [[client]]
+inline String* serialize(int data) [[client]]
 {
 	return Client::get_JSON()->stringify(data);
 }
 
-String* serialize(float data) [[client]]
+inline String* serialize(float data) [[client]]
 {
 	return Client::get_JSON()->stringify(data);
 }
@@ -62,7 +62,7 @@ T deserialize(const String& s)
 }
 
 template<>
-int deserialize<int>(const String& s) [[client]]
+inline int deserialize<int>(const String& s) [[client]]
 {
 	Object* ret=Client::get_JSON()->parse(s);
 	//TODO: Find a proper way to check for type
@@ -71,7 +71,7 @@ int deserialize<int>(const String& s) [[client]]
 
 //TODO: add meaningful error messages when the deserializer is missing
 template<>
-void deserialize<void>(const String& s) [[client]]
+inline void deserialize<void>(const String& s) [[client]]
 {
 	return;
 }
