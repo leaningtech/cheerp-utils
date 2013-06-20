@@ -40,6 +40,8 @@ public:
 	String* concat(const String&);
 	String* concat(const String&,const String&);
 	String* concat(const String&,const String&,const String&);
+	String* substr(int start) const;
+	String* substr(int start, int length) const;
 };
 
 class Array: public Object
