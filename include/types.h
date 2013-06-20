@@ -42,6 +42,7 @@ public:
 	String* concat(const String&,const String&,const String&);
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
+	int charCodeAt(int index) const;
 };
 
 class Array: public Object
