@@ -6,9 +6,10 @@ function __duettoCreateBuiltin_ZN6client6StringC1EPKc(a)
 	//the referenced data to be convertible to String
 	var ret = "";
 	var buf=a.d;
+	var len=a.d.length;
 	for(var i=a.o;;i++)
 	{
-		if(buf[i]===0)
+		if(buf[i]===0 || i==len)
 			break;
 		ret+=String.fromCharCode(buf[i]);
 	}
