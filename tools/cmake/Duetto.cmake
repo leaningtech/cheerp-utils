@@ -1,5 +1,7 @@
 set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
 
+set(DUETTO 1)
+
 SET(CMAKE_C_FLAGS_INIT "-emit-llvm -target duetto")
 SET(CMAKE_CXX_FLAGS_INIT "-std=c++11 -emit-llvm -target duetto")
 
