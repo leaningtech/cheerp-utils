@@ -192,7 +192,7 @@ namespace client
 		//static double UTC(double year, double month, double date, , double hours);
 		//static double UTC(double year, double month, double date, , double hours, );
 		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms);
-		static double now();
+		double now();
 	};
 
 	class RegExpExecArray 
@@ -10173,5 +10173,6 @@ namespace client
 	extern Console* console;
 	extern void importScripts(String** urls);
 
+	extern Date Date;
 } 
 #endif
