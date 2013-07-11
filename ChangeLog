@@ -1,5 +1,10 @@
 Duetto: C++ for the Web
 
+Version 0.2:
+
+	* Support for libc, libc++, libc++abi
+	* Support for clean cross compiling using CMake
+
 Version 0.1.4:
 
 	* Support for virtual calls
