@@ -6244,10 +6244,47 @@ namespace client
 		String* get_msPerspective();
 	};
 
-	class XMLHttpRequest{
+	class XMLHttpRequest : public EventTarget
+	{
 	public:
-		void set_withCredentials(Boolean value);
-		Boolean get_withCredentials();
+		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
+		void set_onreadystatechange(callback_for_onreadystatechange value);
+		callback_for_onreadystatechange get_onreadystatechange();
+		void set_status(double value);
+		double get_status();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		void set_readyState(double value);
+		double get_readyState();
+		void set_responseText(const String& value);
+		String* get_responseText();
+		void set_responseXML(Document* value);
+		Document* get_responseXML();
+		void set_statusText(const String& value);
+		String* get_statusText();
+		void open(const String& method, const String& url);
+		void open(const String& method, const String& url, bool async);
+		void open(const String& method, const String& url, bool async, const String& user, const String& password);
+		void send();
+		void send(Object* data);
+		void abort();
+		String* getAllResponseHeaders();
+		void setRequestHeader(const String& header, const String& value);
+		String* getResponseHeader(const String& header);
+		void set_LOADING(double value);
+		double get_LOADING();
+		void set_DONE(double value);
+		double get_DONE();
+		void set_UNSENT(double value);
+		double get_UNSENT();
+		void set_OPENED(double value);
+		double get_OPENED();
+		void set_HEADERS_RECEIVED(double value);
+		double get_HEADERS_RECEIVED();
+		static void set_prototype(XMLHttpRequest* value);
+		static XMLHttpRequest* get_prototype();
+		XMLHttpRequest();
 	};
 
 	class CSSKeyframeRule: public CSSRule {
