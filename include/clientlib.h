@@ -155,7 +155,7 @@ namespace client
 	class SVGPoint;
 	class MSPluginsCollection;
 	class MSHTMLFontElementExtensions;
-	class SVGAnimatedNumberList;
+	class SVGAnimateddoubleList;
 	class MSResourceMetadata;
 	class MSHTMLQuoteElementExtensions;
 	class DOML2DeprecatedAlignmentStyle_HTMLIFrameElement;
@@ -175,10 +175,10 @@ namespace client
 	class TextRangeCollection;
 	class DOML2DeprecatedAlignmentStyle_HTMLLegendElement;
 	class DOML2DeprecatedWidthStyle_HTMLTableCellElement;
-	class DOML2DeprecatedListNumberingAndBulletStyle;
+	class DOML2DeprecatedListdoubleingAndBulletStyle;
 	class MSElementExtensions;
 	class MSHTMLDocumentViewExtensions;
-	class SVGAnimatedNumber;
+	class SVGAnimateddouble;
 	class PerformanceTiming;
 	class DOML2DeprecatedAlignmentStyle_HTMLInputElement;
 	class EventException;
@@ -207,7 +207,7 @@ namespace client
 	class SVGPathSeg;
 	class DOML2DeprecatedAlignmentStyle_HTMLDivElement;
 	class MSEventAttachmentTarget;
-	class SVGNumber;
+	class SVGdouble;
 	class MSCompatibleInfo;
 	class MSHTMLDocumentEventExtensions;
 	class SVGAnimatedRect;
@@ -296,7 +296,7 @@ namespace client
 	class DOML2DeprecatedMarginStyle_HTMLInputElement;
 	class MSHTMLTableSectionElementExtensions;
 	class MediaError;
-	class SVGNumberList;
+	class SVGdoubleList;
 	class CanvasPattern;
 	class MSHTMLFrameSetElementExtensions;
 	class DOML2DeprecatedTextFlowControl_HTMLBlockElement;
@@ -639,57 +639,57 @@ namespace client
 
 	class IArguments{
 	public:
-		Object* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		Object* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		void set_callee(Function* value);
 		Function* get_callee();
 	};
 
 	class Math{
 	public:
-		void set_E(Number value);
-		Number get_E();
-		void set_LN10(Number value);
-		Number get_LN10();
-		void set_LN2(Number value);
-		Number get_LN2();
-		void set_LOG2E(Number value);
-		Number get_LOG2E();
-		void set_LOG10E(Number value);
-		Number get_LOG10E();
-		void set_PI(Number value);
-		Number get_PI();
-		void set_SQRT1_2(Number value);
-		Number get_SQRT1_2();
-		void set_SQRT2(Number value);
-		Number get_SQRT2();
-		Number abs(Number x);
-		Number acos(Number x);
-		Number asin(Number x);
-		Number atan(Number x);
-		Number atan2(Number y, Number x);
-		Number ceil(Number x);
-		Number cos(Number x);
-		Number exp(Number x);
-		Number floor(Number x);
-		Number log(Number x);
+		void set_E(double value);
+		double get_E();
+		void set_LN10(double value);
+		double get_LN10();
+		void set_LN2(double value);
+		double get_LN2();
+		void set_LOG2E(double value);
+		double get_LOG2E();
+		void set_LOG10E(double value);
+		double get_LOG10E();
+		void set_PI(double value);
+		double get_PI();
+		void set_SQRT1_2(double value);
+		double get_SQRT1_2();
+		void set_SQRT2(double value);
+		double get_SQRT2();
+		double abs(double x);
+		double acos(double x);
+		double asin(double x);
+		double atan(double x);
+		double atan2(double y, double x);
+		double ceil(double x);
+		double cos(double x);
+		double exp(double x);
+		double floor(double x);
+		double log(double x);
 		template<typename... Args> 
-		Number max(const Args&... args )
+		double max(const Args&... args )
 		{
-			duettoVariadicTrap<Number>(max<>,static_cast<const Number&>(args)...);
+			duettoVariadicTrap<double>(max<>,static_cast<const double&>(args)...);
 		}
 		template<typename... Args> 
-		Number min(const Args&... args )
+		double min(const Args&... args )
 		{
-			duettoVariadicTrap<Number>(min<>,static_cast<const Number&>(args)...);
+			duettoVariadicTrap<double>(min<>,static_cast<const double&>(args)...);
 		}
-		Number pow(Number x, Number y);
-		Number random();
-		Number round(Number x);
-		Number sin(Number x);
-		Number sqrt(Number x);
-		Number tan(Number x);
+		double pow(double x, double y);
+		double random();
+		double round(double x);
+		double sin(double x);
+		double sqrt(double x);
+		double tan(double x);
 	};
 
 	class Date{
@@ -700,82 +700,82 @@ namespace client
 		String* toLocaleString();
 		String* toLocaleDateString();
 		String* toLocaleTimeString();
-		Number valueOf();
-		Number getTime();
-		Number getFullYear();
-		Number getUTCFullYear();
-		Number getMonth();
-		Number getUTCMonth();
-		Number getDate();
-		Number getUTCDate();
-		Number getDay();
-		Number getUTCDay();
-		Number getHours();
-		Number getUTCHours();
-		Number getMinutes();
-		Number getUTCMinutes();
-		Number getSeconds();
-		Number getUTCSeconds();
-		Number getMilliseconds();
-		Number getUTCMilliseconds();
-		Number getTimezoneOffset();
-		void setTime(Number time);
-		void setMilliseconds(Number ms);
-		void setUTCMilliseconds(Number ms);
-		void setSeconds(Number sec);
-		void setSeconds(Number sec, Number ms);
-		void setUTCSeconds(Number sec);
-		void setUTCSeconds(Number sec, Number ms);
-		void setMinutes(Number min);
-		void setMinutes(Number min, Number sec);
-		void setMinutes(Number min, Number sec, Number ms);
-		void setUTCMinutes(Number min);
-		void setUTCMinutes(Number min, Number sec);
-		void setUTCMinutes(Number min, Number sec, Number ms);
-		void setHours(Number hours);
-		void setHours(Number hours, Number min);
-		void setHours(Number hours, Number min, Number sec, Number ms);
-		void setUTCHours(Number hours);
-		void setUTCHours(Number hours, Number min);
-		void setUTCHours(Number hours, Number min, Number sec, Number ms);
-		void setDate(Number date);
-		void setUTCDate(Number date);
-		void setMonth(Number month);
-		void setMonth(Number month, Number date);
-		void setUTCMonth(Number month);
-		void setUTCMonth(Number month, Number date);
-		void setFullYear(Number year);
-		void setFullYear(Number year, Number month);
-		void setFullYear(Number year, Number month, Number date);
-		void setUTCFullYear(Number year);
-		void setUTCFullYear(Number year, Number month);
-		void setUTCFullYear(Number year, Number month, Number date);
+		double valueOf();
+		double getTime();
+		double getFullYear();
+		double getUTCFullYear();
+		double getMonth();
+		double getUTCMonth();
+		double getDate();
+		double getUTCDate();
+		double getDay();
+		double getUTCDay();
+		double getHours();
+		double getUTCHours();
+		double getMinutes();
+		double getUTCMinutes();
+		double getSeconds();
+		double getUTCSeconds();
+		double getMilliseconds();
+		double getUTCMilliseconds();
+		double getTimezoneOffset();
+		void setTime(double time);
+		void setMilliseconds(double ms);
+		void setUTCMilliseconds(double ms);
+		void setSeconds(double sec);
+		void setSeconds(double sec, double ms);
+		void setUTCSeconds(double sec);
+		void setUTCSeconds(double sec, double ms);
+		void setMinutes(double min);
+		void setMinutes(double min, double sec);
+		void setMinutes(double min, double sec, double ms);
+		void setUTCMinutes(double min);
+		void setUTCMinutes(double min, double sec);
+		void setUTCMinutes(double min, double sec, double ms);
+		void setHours(double hours);
+		void setHours(double hours, double min);
+		void setHours(double hours, double min, double sec, double ms);
+		void setUTCHours(double hours);
+		void setUTCHours(double hours, double min);
+		void setUTCHours(double hours, double min, double sec, double ms);
+		void setDate(double date);
+		void setUTCDate(double date);
+		void setMonth(double month);
+		void setMonth(double month, double date);
+		void setUTCMonth(double month);
+		void setUTCMonth(double month, double date);
+		void setFullYear(double year);
+		void setFullYear(double year, double month);
+		void setFullYear(double year, double month, double date);
+		void setUTCFullYear(double year);
+		void setUTCFullYear(double year, double month);
+		void setUTCFullYear(double year, double month, double date);
 		String* toUTCString();
 		String* toISOString();
 		String* toJSON();
 		String* toJSON(Object* key);
 		Date();
-		Date(Number value);
+		Date(double value);
 		Date(const String& value);
-		Date(Number year, Number month);
-		Date(Number year, Number month, Number date);
-		Date(Number year, Number month, Number date, Number hours, Number minutes, Number seconds, Number ms);
+		Date(double year, double month);
+		Date(double year, double month, double date);
+		Date(double year, double month, double date, double hours, double minutes, double seconds, double ms);
 		static void set_prototype(Date* value);
 		static Date* get_prototype();
-		static Number parse(const String& s);
-		static Number UTC(Number year, Number month);
-		static Number UTC(Number year, Number month, Number date);
-		static Number UTC(Number year, Number month, Number date, Number hours, Number minutes, Number seconds, Number ms);
-		static Number now();
+		static double parse(const String& s);
+		static double UTC(double year, double month);
+		static double UTC(double year, double month, double date);
+		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms);
+		static double now();
 	};
 
 	class RegExpExecArray{
 	public:
-		String* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		void set_index(Number value);
-		Number get_index();
+		String* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		void set_index(double value);
+		double get_index();
 		void set_input(const String& value);
 		String* get_input();
 		String* toString();
@@ -789,44 +789,44 @@ namespace client
 		String* join(const String& seperator);
 		String* pop();
 		template<typename... Args> 
-		Number push(const Args&... args )
+		double push(const Args&... args )
 		{
-			duettoVariadicTrap<Number>(push<>,static_cast<const String&>(args)...);
+			duettoVariadicTrap<double>(push<>,static_cast<const String&>(args)...);
 		}
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ reverse();
 		String* shift();
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ slice(Number start);
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ slice(Number start, Number end);
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ sort(Number (*compareFn)(const String& a, const String& b));
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(Number start);
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ slice(double start);
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ slice(double start, double end);
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ sort(double (*compareFn)(const String& a, const String& b));
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start);
 		template<typename... Args> 
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(Number start, Number deleteCount, const Args&... args )
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start, double deleteCount, const Args&... args )
 		{
 			duettoVariadicTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>(splice<>,static_cast<const String&>(args)...);
 		}
 		template<typename... Args> 
-		Number unshift(const Args&... args )
+		double unshift(const Args&... args )
 		{
-			duettoVariadicTrap<Number>(unshift<>,static_cast<const String&>(args)...);
+			duettoVariadicTrap<double>(unshift<>,static_cast<const String&>(args)...);
 		}
-		Number indexOf(const String& searchElement);
-		Number indexOf(const String& searchElement, Number fromIndex);
-		Number lastIndexOf(const String& searchElement);
-		Number lastIndexOf(const String& searchElement, Number fromIndex);
-		Boolean every(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Boolean every(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
-		Boolean some(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Boolean some(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
-		void forEach(void (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		void forEach(void (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
-		Array* /*{ARRAY_BASE_TYPE=Object*}*/ map(Object* (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Array* /*{ARRAY_BASE_TYPE=Object*}*/ map(Object* (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ filter(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ filter(Boolean (*callbackfn)(const String& value, Number index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
-		Object* reduce(Object* (*callbackfn)(Object* previousValue, Object* currentValue, Number currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Object* reduce(Object* (*callbackfn)(Object* previousValue, Object* currentValue, Number currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* initialValue);
-		Object* reduceRight(Object* (*callbackfn)(Object* previousValue, Object* currentValue, Number currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
-		Object* reduceRight(Object* (*callbackfn)(Object* previousValue, Object* currentValue, Number currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* initialValue);
+		double indexOf(const String& searchElement);
+		double indexOf(const String& searchElement, double fromIndex);
+		double lastIndexOf(const String& searchElement);
+		double lastIndexOf(const String& searchElement, double fromIndex);
+		Boolean every(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Boolean every(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
+		Boolean some(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Boolean some(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
+		void forEach(void (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		void forEach(void (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
+		Array* /*{ARRAY_BASE_TYPE=Object*}*/ map(Object* (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Array* /*{ARRAY_BASE_TYPE=Object*}*/ map(Object* (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ filter(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ filter(Boolean (*callbackfn)(const String& value, double index, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* thisArg);
+		Object* reduce(Object* (*callbackfn)(Object* previousValue, Object* currentValue, double currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Object* reduce(Object* (*callbackfn)(Object* previousValue, Object* currentValue, double currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* initialValue);
+		Object* reduceRight(Object* (*callbackfn)(Object* previousValue, Object* currentValue, double currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array));
+		Object* reduceRight(Object* (*callbackfn)(Object* previousValue, Object* currentValue, double currentIndex, Array* /*{ARRAY_BASE_TYPE=String*}*/ array), Object* initialValue);
 	};
 
 	class RegExp{
@@ -841,8 +841,8 @@ namespace client
 		Boolean get_ignoreCase();
 		void set_multiline(Boolean value);
 		Boolean get_multiline();
-		void set_lastIndex(Number value);
-		Number get_lastIndex();
+		void set_lastIndex(double value);
+		double get_lastIndex();
 		RegExp* compile();
 		RegExp(const String& pattern);
 		RegExp(const String& pattern, const String& flags);
@@ -940,8 +940,8 @@ namespace client
 
 	class ArrayBuffer{
 	public:
-		void set_byteLength(Number value);
-		Number get_byteLength();
+		void set_byteLength(double value);
+		double get_byteLength();
 		static void set_prototype(ArrayBuffer* value);
 		static ArrayBuffer* get_prototype();
 	};
@@ -950,247 +950,247 @@ namespace client
 	public:
 		void set_buffer(ArrayBuffer* value);
 		ArrayBuffer* get_buffer();
-		void set_byteOffset(Number value);
-		Number get_byteOffset();
-		void set_byteLength(Number value);
-		Number get_byteLength();
+		void set_byteOffset(double value);
+		double get_byteOffset();
+		void set_byteLength(double value);
+		double get_byteLength();
 	};
 
 	class Int8Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Int8Array* array);
-		void set(Int8Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Int8Array* subarray(Number begin);
-		Int8Array* subarray(Number begin, Number end);
+		void set(Int8Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Int8Array* subarray(double begin);
+		Int8Array* subarray(double begin, double end);
 		static void set_prototype(Int8Array* value);
 		static Int8Array* get_prototype();
-		Int8Array(Number length);
+		Int8Array(double length);
 		Int8Array(Int8Array* array);
-		Int8Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Int8Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Int8Array(ArrayBuffer* buffer);
-		Int8Array(ArrayBuffer* buffer, Number byteOffset);
-		Int8Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Int8Array(ArrayBuffer* buffer, double byteOffset);
+		Int8Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Uint8Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Uint8Array* array);
-		void set(Uint8Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Uint8Array* subarray(Number begin);
-		Uint8Array* subarray(Number begin, Number end);
+		void set(Uint8Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Uint8Array* subarray(double begin);
+		Uint8Array* subarray(double begin, double end);
 		static void set_prototype(Uint8Array* value);
 		static Uint8Array* get_prototype();
-		Uint8Array(Number length);
+		Uint8Array(double length);
 		Uint8Array(Uint8Array* array);
-		Uint8Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Uint8Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Uint8Array(ArrayBuffer* buffer);
-		Uint8Array(ArrayBuffer* buffer, Number byteOffset);
-		Uint8Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Uint8Array(ArrayBuffer* buffer, double byteOffset);
+		Uint8Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Int16Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Int16Array* array);
-		void set(Int16Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Int16Array* subarray(Number begin);
-		Int16Array* subarray(Number begin, Number end);
+		void set(Int16Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Int16Array* subarray(double begin);
+		Int16Array* subarray(double begin, double end);
 		static void set_prototype(Int16Array* value);
 		static Int16Array* get_prototype();
-		Int16Array(Number length);
+		Int16Array(double length);
 		Int16Array(Int16Array* array);
-		Int16Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Int16Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Int16Array(ArrayBuffer* buffer);
-		Int16Array(ArrayBuffer* buffer, Number byteOffset);
-		Int16Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Int16Array(ArrayBuffer* buffer, double byteOffset);
+		Int16Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Uint16Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Uint16Array* array);
-		void set(Uint16Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Uint16Array* subarray(Number begin);
-		Uint16Array* subarray(Number begin, Number end);
+		void set(Uint16Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Uint16Array* subarray(double begin);
+		Uint16Array* subarray(double begin, double end);
 		static void set_prototype(Uint16Array* value);
 		static Uint16Array* get_prototype();
-		Uint16Array(Number length);
+		Uint16Array(double length);
 		Uint16Array(Uint16Array* array);
-		Uint16Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Uint16Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Uint16Array(ArrayBuffer* buffer);
-		Uint16Array(ArrayBuffer* buffer, Number byteOffset);
-		Uint16Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Uint16Array(ArrayBuffer* buffer, double byteOffset);
+		Uint16Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Int32Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Int32Array* array);
-		void set(Int32Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Int32Array* subarray(Number begin);
-		Int32Array* subarray(Number begin, Number end);
+		void set(Int32Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Int32Array* subarray(double begin);
+		Int32Array* subarray(double begin, double end);
 		static void set_prototype(Int32Array* value);
 		static Int32Array* get_prototype();
-		Int32Array(Number length);
+		Int32Array(double length);
 		Int32Array(Int32Array* array);
-		Int32Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Int32Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Int32Array(ArrayBuffer* buffer);
-		Int32Array(ArrayBuffer* buffer, Number byteOffset);
-		Int32Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Int32Array(ArrayBuffer* buffer, double byteOffset);
+		Int32Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Uint32Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Uint32Array* array);
-		void set(Uint32Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Uint32Array* subarray(Number begin);
-		Uint32Array* subarray(Number begin, Number end);
+		void set(Uint32Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Uint32Array* subarray(double begin);
+		Uint32Array* subarray(double begin, double end);
 		static void set_prototype(Uint32Array* value);
 		static Uint32Array* get_prototype();
-		Uint32Array(Number length);
+		Uint32Array(double length);
 		Uint32Array(Uint32Array* array);
-		Uint32Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Uint32Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Uint32Array(ArrayBuffer* buffer);
-		Uint32Array(ArrayBuffer* buffer, Number byteOffset);
-		Uint32Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Uint32Array(ArrayBuffer* buffer, double byteOffset);
+		Uint32Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Float32Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Float32Array* array);
-		void set(Float32Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Float32Array* subarray(Number begin);
-		Float32Array* subarray(Number begin, Number end);
+		void set(Float32Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Float32Array* subarray(double begin);
+		Float32Array* subarray(double begin, double end);
 		static void set_prototype(Float32Array* value);
 		static Float32Array* get_prototype();
-		Float32Array(Number length);
+		Float32Array(double length);
 		Float32Array(Float32Array* array);
-		Float32Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Float32Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Float32Array(ArrayBuffer* buffer);
-		Float32Array(ArrayBuffer* buffer, Number byteOffset);
-		Float32Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Float32Array(ArrayBuffer* buffer, double byteOffset);
+		Float32Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class Float64Array: public ArrayBufferView {
 	public:
-		Number operator[](Number index);
-		void set_BYTES_PER_ELEMENT(Number value);
-		Number get_BYTES_PER_ELEMENT();
-		void set_length(Number value);
-		Number get_length();
-		Number get(Number index);
-		void set(Number index, Number value);
+		double operator[](double index);
+		void set_BYTES_PER_ELEMENT(double value);
+		double get_BYTES_PER_ELEMENT();
+		void set_length(double value);
+		double get_length();
+		double get(double index);
+		void set(double index, double value);
 		void set(Float64Array* array);
-		void set(Float64Array* array, Number offset);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
-		void set(Array* /*{ARRAY_BASE_TYPE=Number}*/ array, Number offset);
-		Float64Array* subarray(Number begin);
-		Float64Array* subarray(Number begin, Number end);
+		void set(Float64Array* array, double offset);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
+		void set(Array* /*{ARRAY_BASE_TYPE=double}*/ array, double offset);
+		Float64Array* subarray(double begin);
+		Float64Array* subarray(double begin, double end);
 		static void set_prototype(Float64Array* value);
 		static Float64Array* get_prototype();
-		Float64Array(Number length);
+		Float64Array(double length);
 		Float64Array(Float64Array* array);
-		Float64Array(Array* /*{ARRAY_BASE_TYPE=Number}*/ array);
+		Float64Array(Array* /*{ARRAY_BASE_TYPE=double}*/ array);
 		Float64Array(ArrayBuffer* buffer);
-		Float64Array(ArrayBuffer* buffer, Number byteOffset);
-		Float64Array(ArrayBuffer* buffer, Number byteOffset, Number length);
+		Float64Array(ArrayBuffer* buffer, double byteOffset);
+		Float64Array(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class DataView: public ArrayBufferView {
 	public:
-		Number getInt8(Number byteOffset);
-		Number getUint8(Number byteOffset);
-		Number getInt16(Number byteOffset);
-		Number getInt16(Number byteOffset, Boolean littleEndian);
-		Number getUint16(Number byteOffset);
-		Number getUint16(Number byteOffset, Boolean littleEndian);
-		Number getInt32(Number byteOffset);
-		Number getInt32(Number byteOffset, Boolean littleEndian);
-		Number getUint32(Number byteOffset);
-		Number getUint32(Number byteOffset, Boolean littleEndian);
-		Number getFloat32(Number byteOffset);
-		Number getFloat32(Number byteOffset, Boolean littleEndian);
-		Number getFloat64(Number byteOffset);
-		Number getFloat64(Number byteOffset, Boolean littleEndian);
-		void setInt8(Number byteOffset, Number value);
-		void setUint8(Number byteOffset, Number value);
-		void setInt16(Number byteOffset, Number value);
-		void setInt16(Number byteOffset, Number value, Boolean littleEndian);
-		void setUint16(Number byteOffset, Number value);
-		void setUint16(Number byteOffset, Number value, Boolean littleEndian);
-		void setInt32(Number byteOffset, Number value);
-		void setInt32(Number byteOffset, Number value, Boolean littleEndian);
-		void setUint32(Number byteOffset, Number value);
-		void setUint32(Number byteOffset, Number value, Boolean littleEndian);
-		void setFloat32(Number byteOffset, Number value);
-		void setFloat32(Number byteOffset, Number value, Boolean littleEndian);
-		void setFloat64(Number byteOffset, Number value);
-		void setFloat64(Number byteOffset, Number value, Boolean littleEndian);
+		double getInt8(double byteOffset);
+		double getUint8(double byteOffset);
+		double getInt16(double byteOffset);
+		double getInt16(double byteOffset, Boolean littleEndian);
+		double getUint16(double byteOffset);
+		double getUint16(double byteOffset, Boolean littleEndian);
+		double getInt32(double byteOffset);
+		double getInt32(double byteOffset, Boolean littleEndian);
+		double getUint32(double byteOffset);
+		double getUint32(double byteOffset, Boolean littleEndian);
+		double getFloat32(double byteOffset);
+		double getFloat32(double byteOffset, Boolean littleEndian);
+		double getFloat64(double byteOffset);
+		double getFloat64(double byteOffset, Boolean littleEndian);
+		void setInt8(double byteOffset, double value);
+		void setUint8(double byteOffset, double value);
+		void setInt16(double byteOffset, double value);
+		void setInt16(double byteOffset, double value, Boolean littleEndian);
+		void setUint16(double byteOffset, double value);
+		void setUint16(double byteOffset, double value, Boolean littleEndian);
+		void setInt32(double byteOffset, double value);
+		void setInt32(double byteOffset, double value, Boolean littleEndian);
+		void setUint32(double byteOffset, double value);
+		void setUint32(double byteOffset, double value, Boolean littleEndian);
+		void setFloat32(double byteOffset, double value);
+		void setFloat32(double byteOffset, double value, Boolean littleEndian);
+		void setFloat64(double byteOffset, double value);
+		void setFloat64(double byteOffset, double value, Boolean littleEndian);
 		static void set_prototype(DataView* value);
 		static DataView* get_prototype();
 		DataView(ArrayBuffer* buffer);
-		DataView(ArrayBuffer* buffer, Number byteOffset);
-		DataView(ArrayBuffer* buffer, Number byteOffset, Number length);
+		DataView(ArrayBuffer* buffer, double byteOffset);
+		DataView(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
 	class NavigatorID{
@@ -1207,8 +1207,8 @@ namespace client
 
 	class TreeWalker{
 	public:
-		void set_whatToShow(Number value);
-		Number get_whatToShow();
+		void set_whatToShow(double value);
+		double get_whatToShow();
 		void set_filter(NodeFilterCallback* value);
 		NodeFilterCallback* get_filter();
 		void set_root(Node* value);
@@ -1276,8 +1276,8 @@ namespace client
 
 	class MSDataBindingTableExtensions{
 	public:
-		void set_dataPageSize(Number value);
-		Number get_dataPageSize();
+		void set_dataPageSize(double value);
+		double get_dataPageSize();
 		void nextPage();
 		void firstPage();
 		void refresh();
@@ -1293,14 +1293,14 @@ namespace client
 
 	class WindowTimers{
 	public:
-		void clearTimeout(Number handle);
-		Number setTimeout(Object* expression);
-		Number setTimeout(Object* expression, Number msec);
-		Number setTimeout(Object* expression, Number msec, Object* language);
-		void clearInterval(Number handle);
-		Number setInterval(Object* expression);
-		Number setInterval(Object* expression, Number msec);
-		Number setInterval(Object* expression, Number msec, Object* language);
+		void clearTimeout(double handle);
+		double setTimeout(Object* expression);
+		double setTimeout(Object* expression, double msec);
+		double setTimeout(Object* expression, double msec, Object* language);
+		void clearInterval(double handle);
+		double setInterval(Object* expression);
+		double setInterval(Object* expression, double msec);
+		double setInterval(Object* expression, double msec, Object* language);
 	};
 
 	class MSCSSStyleSheetExtensions{
@@ -1325,15 +1325,15 @@ namespace client
 		String* get_id();
 		void set_pages(StyleSheetPageList* value);
 		StyleSheetPageList* get_pages();
-		Number addImport(const String& bstrURL);
-		Number addImport(const String& bstrURL, Number lIndex);
-		Number addPageRule(const String& bstrSelector, const String& bstrStyle);
-		Number addPageRule(const String& bstrSelector, const String& bstrStyle, Number lIndex);
-		void removeRule(Number lIndex);
-		Number addRule(const String& bstrSelector);
-		Number addRule(const String& bstrSelector, const String& bstrStyle);
-		Number addRule(const String& bstrSelector, const String& bstrStyle, Number lIndex);
-		void removeImport(Number lIndex);
+		double addImport(const String& bstrURL);
+		double addImport(const String& bstrURL, double lIndex);
+		double addPageRule(const String& bstrSelector, const String& bstrStyle);
+		double addPageRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
+		void removeRule(double lIndex);
+		double addRule(const String& bstrSelector);
+		double addRule(const String& bstrSelector, const String& bstrStyle);
+		double addRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
+		void removeImport(double lIndex);
 	};
 
 	class MSBorderColorStyle_HTMLFrameSetElement{
@@ -1350,18 +1350,18 @@ namespace client
 
 	class ClientRect{
 	public:
-		void set_left(Number value);
-		Number get_left();
-		void set_width(Number value);
-		Number get_width();
-		void set_right(Number value);
-		Number get_right();
-		void set_top(Number value);
-		Number get_top();
-		void set_bottom(Number value);
-		Number get_bottom();
-		void set_height(Number value);
-		Number get_height();
+		void set_left(double value);
+		double get_left();
+		void set_width(double value);
+		double get_width();
+		void set_right(double value);
+		double get_right();
+		void set_top(double value);
+		double get_top();
+		void set_bottom(double value);
+		double get_bottom();
+		void set_height(double value);
+		double get_height();
 		static void set_prototype(ClientRect* value);
 		static ClientRect* get_prototype();
 		ClientRect();
@@ -1374,18 +1374,18 @@ namespace client
 
 	class DOML2DeprecatedWidthStyle_HTMLBlockElement{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 	};
 
 	class SVGUnitTypes{
 	public:
-		void set_SVG_UNIT_TYPE_UNKNOWN(Number value);
-		Number get_SVG_UNIT_TYPE_UNKNOWN();
-		void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(Number value);
-		Number get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
-		void set_SVG_UNIT_TYPE_USERSPACEONUSE(Number value);
-		Number get_SVG_UNIT_TYPE_USERSPACEONUSE();
+		void set_SVG_UNIT_TYPE_UNKNOWN(double value);
+		double get_SVG_UNIT_TYPE_UNKNOWN();
+		void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(double value);
+		double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
+		void set_SVG_UNIT_TYPE_USERSPACEONUSE(double value);
+		double get_SVG_UNIT_TYPE_USERSPACEONUSE();
 		static void set_prototype(SVGUnitTypes* value);
 		static SVGUnitTypes* get_prototype();
 		SVGUnitTypes();
@@ -1431,8 +1431,8 @@ namespace client
 		typedef Object* (*callback_for_onselectionchange)(Event* ev);
 		void set_onselectionchange(callback_for_onselectionchange value);
 		callback_for_onselectionchange get_onselectionchange();
-		void set_documentMode(Number value);
-		Number get_documentMode();
+		void set_documentMode(double value);
+		double get_documentMode();
 		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
 		void set_onfocusout(callback_for_onfocusout value);
 		callback_for_onfocusout get_onfocusout();
@@ -1713,8 +1713,8 @@ namespace client
 		String* get_lowsrc();
 		void set_start(const String& value);
 		String* get_start();
-		void set_loop(Number value);
-		Number get_loop();
+		void set_loop(double value);
+		double get_loop();
 	};
 
 	class MSHTMLEmbedElementExtensions{
@@ -1748,7 +1748,7 @@ namespace client
 
 	class ErrorFunction{
 	public:
-		Object* operator()(Object* eventOrMessage, const String& source, Number fileno);
+		Object* operator()(Object* eventOrMessage, const String& source, double fileno);
 	};
 
 	class MSHTMLLegendElementExtensions{
@@ -1758,11 +1758,11 @@ namespace client
 	class MSCSSStyleDeclarationExtensions{
 	public:
 		Object* getAttribute(const String& attributeName);
-		Object* getAttribute(const String& attributeName, Number flags);
+		Object* getAttribute(const String& attributeName, double flags);
 		void setAttribute(const String& attributeName, Object* AttributeValue);
-		void setAttribute(const String& attributeName, Object* AttributeValue, Number flags);
+		void setAttribute(const String& attributeName, Object* AttributeValue, double flags);
 		Boolean removeAttribute(const String& attributeName);
-		Boolean removeAttribute(const String& attributeName, Number flags);
+		Boolean removeAttribute(const String& attributeName, double flags);
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLTableRowElement{
@@ -1868,15 +1868,15 @@ namespace client
 
 	class RangeException{
 	public:
-		void set_code(Number value);
-		Number get_code();
+		void set_code(double value);
+		double get_code();
 		void set_message(const String& value);
 		String* get_message();
 		String* toString();
-		void set_INVALID_NODE_TYPE_ERR(Number value);
-		Number get_INVALID_NODE_TYPE_ERR();
-		void set_BAD_BOUNDARYPOINTS_ERR(Number value);
-		Number get_BAD_BOUNDARYPOINTS_ERR();
+		void set_INVALID_NODE_TYPE_ERR(double value);
+		double get_INVALID_NODE_TYPE_ERR();
+		void set_BAD_BOUNDARYPOINTS_ERR(double value);
+		double get_BAD_BOUNDARYPOINTS_ERR();
 		static void set_prototype(RangeException* value);
 		static RangeException* get_prototype();
 		RangeException();
@@ -1899,8 +1899,8 @@ namespace client
 
 	class TextMetrics{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 		static void set_prototype(TextMetrics* value);
 		static TextMetrics* get_prototype();
 		TextMetrics();
@@ -1940,33 +1940,33 @@ namespace client
 
 	class TextRange{
 	public:
-		void set_boundingLeft(Number value);
-		Number get_boundingLeft();
+		void set_boundingLeft(double value);
+		double get_boundingLeft();
 		void set_htmlText(const String& value);
 		String* get_htmlText();
-		void set_offsetLeft(Number value);
-		Number get_offsetLeft();
-		void set_boundingWidth(Number value);
-		Number get_boundingWidth();
-		void set_boundingHeight(Number value);
-		Number get_boundingHeight();
-		void set_boundingTop(Number value);
-		Number get_boundingTop();
+		void set_offsetLeft(double value);
+		double get_offsetLeft();
+		void set_boundingWidth(double value);
+		double get_boundingWidth();
+		void set_boundingHeight(double value);
+		double get_boundingHeight();
+		void set_boundingTop(double value);
+		double get_boundingTop();
 		void set_text(const String& value);
 		String* get_text();
-		void set_offsetTop(Number value);
-		Number get_offsetTop();
-		void moveToPoint(Number x, Number y);
+		void set_offsetTop(double value);
+		double get_offsetTop();
+		void moveToPoint(double x, double y);
 		Object* queryCommandValue(const String& cmdID);
 		String* getBookmark();
-		Number move(const String& Unit);
-		Number move(const String& Unit, Number Count);
+		double move(const String& Unit);
+		double move(const String& Unit, double Count);
 		Boolean queryCommandIndeterm(const String& cmdID);
 		void scrollIntoView();
 		void scrollIntoView(Boolean fStart);
 		Boolean findText(const String& string);
-		Boolean findText(const String& string, Number count);
-		Boolean findText(const String& string, Number count, Number flags);
+		Boolean findText(const String& string, double count);
+		Boolean findText(const String& string, double count, double flags);
 		Boolean execCommand(const String& cmdID);
 		Boolean execCommand(const String& cmdID, Boolean showUI);
 		Boolean execCommand(const String& cmdID, Boolean showUI, Object* value);
@@ -1980,14 +1980,14 @@ namespace client
 		void select();
 		void pasteHTML(const String& html);
 		Boolean inRange(TextRange* range);
-		Number moveEnd(const String& Unit);
-		Number moveEnd(const String& Unit, Number Count);
+		double moveEnd(const String& Unit);
+		double moveEnd(const String& Unit, double Count);
 		ClientRectList* getClientRects();
-		Number moveStart(const String& Unit);
-		Number moveStart(const String& Unit, Number Count);
+		double moveStart(const String& Unit);
+		double moveStart(const String& Unit, double Count);
 		Element* parentElement();
 		Boolean queryCommandState(const String& cmdID);
-		Number compareEndPoints(const String& how, TextRange* sourceRange);
+		double compareEndPoints(const String& how, TextRange* sourceRange);
 		Boolean execCommandShowHelp(const String& cmdID);
 		void moveToElementText(Element* element);
 		Boolean expand(const String& Unit);
@@ -2037,18 +2037,18 @@ namespace client
 		Node* get_anchorNode();
 		void set_focusNode(Node* value);
 		Node* get_focusNode();
-		void set_anchorOffset(Number value);
-		Number get_anchorOffset();
-		void set_focusOffset(Number value);
-		Number get_focusOffset();
-		void set_rangeCount(Number value);
-		Number get_rangeCount();
+		void set_anchorOffset(double value);
+		double get_anchorOffset();
+		void set_focusOffset(double value);
+		double get_focusOffset();
+		void set_rangeCount(double value);
+		double get_rangeCount();
 		void addRange(Range* range);
 		void collapseToEnd();
 		String* toString();
 		void selectAllChildren(Node* parentNode);
-		Range* getRangeAt(Number index);
-		void collapse(Node* parentNode, Number offset);
+		Range* getRangeAt(double index);
+		void collapse(Node* parentNode, double offset);
 		void removeAllRanges();
 		void collapseToStart();
 		void deleteFromDocument();
@@ -2071,8 +2071,8 @@ namespace client
 
 	class NodeIterator{
 	public:
-		void set_whatToShow(Number value);
-		Number get_whatToShow();
+		void set_whatToShow(double value);
+		double get_whatToShow();
 		void set_filter(NodeFilterCallback* value);
 		NodeFilterCallback* get_filter();
 		void set_root(Node* value);
@@ -2139,25 +2139,25 @@ namespace client
 		HTMLCollection* get_cells();
 		void set_height(Object* value);
 		Object* get_height();
-		void set_cols(Number value);
-		Number get_cols();
+		void set_cols(double value);
+		double get_cols();
 		Object* moveRow();
-		Object* moveRow(Number indexFrom);
-		Object* moveRow(Number indexFrom, Number indexTo);
+		Object* moveRow(double indexFrom);
+		Object* moveRow(double indexFrom, double indexTo);
 	};
 
 	class ControlRangeCollection{
 	public:
-		Element* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		Element* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		Object* queryCommandValue(const String& cmdID);
-		void remove(Number index);
+		void remove(double index);
 		void add(Element* item);
 		Boolean queryCommandIndeterm(const String& cmdID);
 		void scrollIntoView();
 		void scrollIntoView(Object* varargStart);
-		Element* item(Number index);
+		Element* item(double index);
 		Boolean execCommand(const String& cmdID);
 		Boolean execCommand(const String& cmdID, Boolean showUI);
 		Boolean execCommand(const String& cmdID, Boolean showUI, Object* value);
@@ -2238,15 +2238,15 @@ namespace client
 
 	class SVGPointList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		SVGPoint* replaceItem(SVGPoint* newItem, Number index);
-		SVGPoint* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGPoint* replaceItem(SVGPoint* newItem, double index);
+		SVGPoint* getItem(double index);
 		void clear();
 		SVGPoint* appendItem(SVGPoint* newItem);
 		SVGPoint* initialize(SVGPoint* newItem);
-		SVGPoint* removeItem(Number index);
-		SVGPoint* insertItemBefore(SVGPoint* newItem, Number index);
+		SVGPoint* removeItem(double index);
+		SVGPoint* insertItemBefore(SVGPoint* newItem, double index);
 		static void set_prototype(SVGPointList* value);
 		static SVGPointList* get_prototype();
 		SVGPointList();
@@ -2256,7 +2256,7 @@ namespace client
 	public:
 		void doScroll();
 		void doScroll(Object* component);
-		String* componentFromPoint(Number x, Number y);
+		String* componentFromPoint(double x, double y);
 	};
 
 	class SVGAnimatedLengthList{
@@ -2293,10 +2293,10 @@ namespace client
 
 	class StyleSheetPageList{
 	public:
-		StyleSheetPage* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		StyleSheetPage* item(Number index);
+		StyleSheetPage* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		StyleSheetPage* item(double index);
 		static void set_prototype(StyleSheetPageList* value);
 		static StyleSheetPageList* get_prototype();
 		StyleSheetPageList();
@@ -2315,24 +2315,24 @@ namespace client
 	public:
 		void set_valueAsString(const String& value);
 		String* get_valueAsString();
-		void set_valueInSpecifiedUnits(Number value);
-		Number get_valueInSpecifiedUnits();
-		void set_value(Number value);
-		Number get_value();
-		void set_unitType(Number value);
-		Number get_unitType();
-		void newValueSpecifiedUnits(Number unitType, Number valueInSpecifiedUnits);
-		void convertToSpecifiedUnits(Number unitType);
-		void set_SVG_ANGLETYPE_RAD(Number value);
-		Number get_SVG_ANGLETYPE_RAD();
-		void set_SVG_ANGLETYPE_UNKNOWN(Number value);
-		Number get_SVG_ANGLETYPE_UNKNOWN();
-		void set_SVG_ANGLETYPE_UNSPECIFIED(Number value);
-		Number get_SVG_ANGLETYPE_UNSPECIFIED();
-		void set_SVG_ANGLETYPE_DEG(Number value);
-		Number get_SVG_ANGLETYPE_DEG();
-		void set_SVG_ANGLETYPE_GRAD(Number value);
-		Number get_SVG_ANGLETYPE_GRAD();
+		void set_valueInSpecifiedUnits(double value);
+		double get_valueInSpecifiedUnits();
+		void set_value(double value);
+		double get_value();
+		void set_unitType(double value);
+		double get_unitType();
+		void newValueSpecifiedUnits(double unitType, double valueInSpecifiedUnits);
+		void convertToSpecifiedUnits(double unitType);
+		void set_SVG_ANGLETYPE_RAD(double value);
+		double get_SVG_ANGLETYPE_RAD();
+		void set_SVG_ANGLETYPE_UNKNOWN(double value);
+		double get_SVG_ANGLETYPE_UNKNOWN();
+		void set_SVG_ANGLETYPE_UNSPECIFIED(double value);
+		double get_SVG_ANGLETYPE_UNSPECIFIED();
+		void set_SVG_ANGLETYPE_DEG(double value);
+		double get_SVG_ANGLETYPE_DEG();
+		void set_SVG_ANGLETYPE_GRAD(double value);
+		double get_SVG_ANGLETYPE_GRAD();
 		static void set_prototype(SVGAngle* value);
 		static SVGAngle* get_prototype();
 		SVGAngle();
@@ -2344,7 +2344,7 @@ namespace client
 
 	class CanvasGradient{
 	public:
-		void addColorStop(Number offset, const String& color);
+		void addColorStop(double offset, const String& color);
 		static void set_prototype(CanvasGradient* value);
 		static CanvasGradient* get_prototype();
 		CanvasGradient();
@@ -2375,19 +2375,19 @@ namespace client
 
 	class DOML2DeprecatedMarginStyle_HTMLMarqueeElement{
 	public:
-		void set_vspace(Number value);
-		Number get_vspace();
-		void set_hspace(Number value);
-		Number get_hspace();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class MSCSSRuleList{
 	public:
-		CSSStyleRule* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		CSSStyleRule* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		CSSStyleRule* item();
-		CSSStyleRule* item(Number index);
+		CSSStyleRule* item(double index);
 		static void set_prototype(MSCSSRuleList* value);
 		static MSCSSRuleList* get_prototype();
 		MSCSSRuleList();
@@ -2395,30 +2395,30 @@ namespace client
 
 	class CanvasRenderingContext2D{
 	public:
-		void set_shadowOffsetX(Number value);
-		Number get_shadowOffsetX();
-		void set_lineWidth(Number value);
-		Number get_lineWidth();
-		void set_miterLimit(Number value);
-		Number get_miterLimit();
+		void set_shadowOffsetX(double value);
+		double get_shadowOffsetX();
+		void set_lineWidth(double value);
+		double get_lineWidth();
+		void set_miterLimit(double value);
+		double get_miterLimit();
 		void set_canvas(HTMLCanvasElement* value);
 		HTMLCanvasElement* get_canvas();
 		void set_strokeStyle(Object* value);
 		Object* get_strokeStyle();
 		void set_font(const String& value);
 		String* get_font();
-		void set_globalAlpha(Number value);
-		Number get_globalAlpha();
+		void set_globalAlpha(double value);
+		double get_globalAlpha();
 		void set_globalCompositeOperation(const String& value);
 		String* get_globalCompositeOperation();
-		void set_shadowOffsetY(Number value);
-		Number get_shadowOffsetY();
+		void set_shadowOffsetY(double value);
+		double get_shadowOffsetY();
 		void set_fillStyle(Object* value);
 		Object* get_fillStyle();
 		void set_lineCap(const String& value);
 		String* get_lineCap();
-		void set_shadowBlur(Number value);
-		Number get_shadowBlur();
+		void set_shadowBlur(double value);
+		double get_shadowBlur();
 		void set_textAlign(const String& value);
 		String* get_textAlign();
 		void set_textBaseline(const String& value);
@@ -2428,46 +2428,46 @@ namespace client
 		void set_lineJoin(const String& value);
 		String* get_lineJoin();
 		void restore();
-		void setTransform(Number m11, Number m12, Number m21, Number m22, Number dx, Number dy);
+		void setTransform(double m11, double m12, double m21, double m22, double dx, double dy);
 		void save();
-		void arc(Number x, Number y, Number radius, Number startAngle, Number endAngle);
-		void arc(Number x, Number y, Number radius, Number startAngle, Number endAngle, Boolean anticlockwise);
+		void arc(double x, double y, double radius, double startAngle, double endAngle);
+		void arc(double x, double y, double radius, double startAngle, double endAngle, Boolean anticlockwise);
 		TextMetrics* measureText(const String& text);
-		Boolean isPointInPath(Number x, Number y);
-		void quadraticCurveTo(Number cpx, Number cpy, Number x, Number y);
-		void putImageData(ImageData* imagedata, Number dx, Number dy);
-		void putImageData(ImageData* imagedata, Number dx, Number dy, Number dirtyX);
-		void putImageData(ImageData* imagedata, Number dx, Number dy, Number dirtyX, Number dirtyY, Number dirtyWidth, Number dirtyHeight);
-		void rotate(Number angle);
-		void fillText(const String& text, Number x, Number y);
-		void fillText(const String& text, Number x, Number y, Number maxWidth);
-		void translate(Number x, Number y);
-		void scale(Number x, Number y);
-		CanvasGradient* createRadialGradient(Number x0, Number y0, Number r0, Number x1, Number y1, Number r1);
-		void lineTo(Number x, Number y);
+		Boolean isPointInPath(double x, double y);
+		void quadraticCurveTo(double cpx, double cpy, double x, double y);
+		void putImageData(ImageData* imagedata, double dx, double dy);
+		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX);
+		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight);
+		void rotate(double angle);
+		void fillText(const String& text, double x, double y);
+		void fillText(const String& text, double x, double y, double maxWidth);
+		void translate(double x, double y);
+		void scale(double x, double y);
+		CanvasGradient* createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1);
+		void lineTo(double x, double y);
 		void fill();
 		CanvasPattern* createPattern(HTMLElement* image, const String& repetition);
 		void closePath();
-		void rect(Number x, Number y, Number w, Number h);
+		void rect(double x, double y, double w, double h);
 		void clip();
 		ImageData* createImageData(Object* imageDataOrSw);
-		ImageData* createImageData(Object* imageDataOrSw, Number sh);
-		void clearRect(Number x, Number y, Number w, Number h);
-		void moveTo(Number x, Number y);
-		ImageData* getImageData(Number sx, Number sy, Number sw, Number sh);
-		void fillRect(Number x, Number y, Number w, Number h);
-		void bezierCurveTo(Number cp1x, Number cp1y, Number cp2x, Number cp2y, Number x, Number y);
-		void drawImage(HTMLElement* image, Number offsetX, Number offsetY);
-		void drawImage(HTMLElement* image, Number offsetX, Number offsetY, Number width);
-		void drawImage(HTMLElement* image, Number offsetX, Number offsetY, Number width, Number height, Number canvasOffsetX, Number canvasOffsetY, Number canvasImageWidth, Number canvasImageHeight);
-		void transform(Number m11, Number m12, Number m21, Number m22, Number dx, Number dy);
+		ImageData* createImageData(Object* imageDataOrSw, double sh);
+		void clearRect(double x, double y, double w, double h);
+		void moveTo(double x, double y);
+		ImageData* getImageData(double sx, double sy, double sw, double sh);
+		void fillRect(double x, double y, double w, double h);
+		void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double x, double y);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, double height, double canvasOffsetX, double canvasOffsetY, double canvasImageWidth, double canvasImageHeight);
+		void transform(double m11, double m12, double m21, double m22, double dx, double dy);
 		void stroke();
-		void strokeRect(Number x, Number y, Number w, Number h);
-		void strokeText(const String& text, Number x, Number y);
-		void strokeText(const String& text, Number x, Number y, Number maxWidth);
+		void strokeRect(double x, double y, double w, double h);
+		void strokeText(const String& text, double x, double y);
+		void strokeText(const String& text, double x, double y, double maxWidth);
 		void beginPath();
-		void arcTo(Number x1, Number y1, Number x2, Number y2, Number radius);
-		CanvasGradient* createLinearGradient(Number x0, Number y0, Number x1, Number y1);
+		void arcTo(double x1, double y1, double x2, double y2, double radius);
+		CanvasGradient* createLinearGradient(double x0, double y0, double x1, double y1);
 		static void set_prototype(CanvasRenderingContext2D* value);
 		static CanvasRenderingContext2D* get_prototype();
 		CanvasRenderingContext2D();
@@ -2492,24 +2492,24 @@ namespace client
 
 	class MSScreenExtensions{
 	public:
-		void set_deviceXDPI(Number value);
-		Number get_deviceXDPI();
+		void set_deviceXDPI(double value);
+		double get_deviceXDPI();
 		void set_fontSmoothingEnabled(Boolean value);
 		Boolean get_fontSmoothingEnabled();
-		void set_bufferDepth(Number value);
-		Number get_bufferDepth();
-		void set_logicalXDPI(Number value);
-		Number get_logicalXDPI();
-		void set_systemXDPI(Number value);
-		Number get_systemXDPI();
-		void set_logicalYDPI(Number value);
-		Number get_logicalYDPI();
-		void set_systemYDPI(Number value);
-		Number get_systemYDPI();
-		void set_updateInterval(Number value);
-		Number get_updateInterval();
-		void set_deviceYDPI(Number value);
-		Number get_deviceYDPI();
+		void set_bufferDepth(double value);
+		double get_bufferDepth();
+		void set_logicalXDPI(double value);
+		double get_logicalXDPI();
+		void set_systemXDPI(double value);
+		double get_systemXDPI();
+		void set_logicalYDPI(double value);
+		double get_logicalYDPI();
+		void set_systemYDPI(double value);
+		double get_systemYDPI();
+		void set_updateInterval(double value);
+		double get_updateInterval();
+		void set_deviceYDPI(double value);
+		double get_deviceYDPI();
 	};
 
 	class MSBorderColorStyle{
@@ -2520,16 +2520,16 @@ namespace client
 
 	class SVGTransformList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		SVGTransform* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGTransform* getItem(double index);
 		SVGTransform* consolidate();
 		void clear();
 		SVGTransform* appendItem(SVGTransform* newItem);
 		SVGTransform* initialize(SVGTransform* newItem);
-		SVGTransform* removeItem(Number index);
-		SVGTransform* insertItemBefore(SVGTransform* newItem, Number index);
-		SVGTransform* replaceItem(SVGTransform* newItem, Number index);
+		SVGTransform* removeItem(double index);
+		SVGTransform* insertItemBefore(SVGTransform* newItem, double index);
+		SVGTransform* replaceItem(SVGTransform* newItem, double index);
 		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
 		static void set_prototype(SVGTransformList* value);
 		static SVGTransformList* get_prototype();
@@ -2538,10 +2538,10 @@ namespace client
 
 	class DOML2DeprecatedMarginStyle_MSHTMLIFrameElementExtensions{
 	public:
-		void set_vspace(Number value);
-		Number get_vspace();
-		void set_hspace(Number value);
-		Number get_hspace();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class SVGAnimatedLength{
@@ -2615,18 +2615,18 @@ namespace client
 
 	class Screen: public MSScreenExtensions {
 	public:
-		void set_width(Number value);
-		Number get_width();
-		void set_colorDepth(Number value);
-		Number get_colorDepth();
-		void set_availWidth(Number value);
-		Number get_availWidth();
-		void set_pixelDepth(Number value);
-		Number get_pixelDepth();
-		void set_availHeight(Number value);
-		Number get_availHeight();
-		void set_height(Number value);
-		Number get_height();
+		void set_width(double value);
+		double get_width();
+		void set_colorDepth(double value);
+		double get_colorDepth();
+		void set_availWidth(double value);
+		double get_availWidth();
+		void set_pixelDepth(double value);
+		double get_pixelDepth();
+		void set_availHeight(double value);
+		double get_availHeight();
+		void set_height(double value);
+		double get_height();
 		static void set_prototype(Screen* value);
 		static Screen* get_prototype();
 		Screen();
@@ -2640,20 +2640,20 @@ namespace client
 
 	class Coordinates{
 	public:
-		void set_altitudeAccuracy(Number value);
-		Number get_altitudeAccuracy();
-		void set_longitude(Number value);
-		Number get_longitude();
-		void set_latitude(Number value);
-		Number get_latitude();
-		void set_speed(Number value);
-		Number get_speed();
-		void set_heading(Number value);
-		Number get_heading();
-		void set_altitude(Number value);
-		Number get_altitude();
-		void set_accuracy(Number value);
-		Number get_accuracy();
+		void set_altitudeAccuracy(double value);
+		double get_altitudeAccuracy();
+		void set_longitude(double value);
+		double get_longitude();
+		void set_latitude(double value);
+		double get_latitude();
+		void set_speed(double value);
+		double get_speed();
+		void set_heading(double value);
+		double get_heading();
+		void set_altitude(double value);
+		double get_altitude();
+		void set_accuracy(double value);
+		double get_accuracy();
 		static void set_prototype(Coordinates* value);
 		static Coordinates* get_prototype();
 		Coordinates();
@@ -2695,31 +2695,31 @@ namespace client
 
 	class Range{
 	public:
-		void set_startOffset(Number value);
-		Number get_startOffset();
+		void set_startOffset(double value);
+		double get_startOffset();
 		void set_collapsed(Boolean value);
 		Boolean get_collapsed();
-		void set_endOffset(Number value);
-		Number get_endOffset();
+		void set_endOffset(double value);
+		double get_endOffset();
 		void set_startContainer(Node* value);
 		Node* get_startContainer();
 		void set_endContainer(Node* value);
 		Node* get_endContainer();
 		void set_commonAncestorContainer(Node* value);
 		Node* get_commonAncestorContainer();
-		void setStart(Node* refNode, Number offset);
+		void setStart(Node* refNode, double offset);
 		void setEndBefore(Node* refNode);
 		void setStartBefore(Node* refNode);
 		void selectNode(Node* refNode);
 		void detach();
 		ClientRect* getBoundingClientRect();
 		String* toString();
-		Number compareBoundaryPoints(Number how, Range* sourceRange);
+		double compareBoundaryPoints(double how, Range* sourceRange);
 		void insertNode(Node* newNode);
 		void collapse(Boolean toStart);
 		void selectNodeContents(Node* refNode);
 		DocumentFragment* cloneContents();
-		void setEnd(Node* refNode, Number offset);
+		void setEnd(Node* refNode, double offset);
 		Range* cloneRange();
 		ClientRectList* getClientRects();
 		void surroundContents(Node* newParent);
@@ -2727,14 +2727,14 @@ namespace client
 		void setStartAfter(Node* refNode);
 		DocumentFragment* extractContents();
 		void setEndAfter(Node* refNode);
-		void set_END_TO_END(Number value);
-		Number get_END_TO_END();
-		void set_START_TO_START(Number value);
-		Number get_START_TO_START();
-		void set_START_TO_END(Number value);
-		Number get_START_TO_END();
-		void set_END_TO_START(Number value);
-		Number get_END_TO_START();
+		void set_END_TO_END(double value);
+		double get_END_TO_END();
+		void set_START_TO_START(double value);
+		double get_START_TO_START();
+		void set_START_TO_END(double value);
+		double get_START_TO_END();
+		void set_END_TO_START(double value);
+		double get_END_TO_START();
 		static void set_prototype(Range* value);
 		static Range* get_prototype();
 		Range();
@@ -2742,10 +2742,10 @@ namespace client
 
 	class SVGPoint{
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		SVGPoint* matrixTransform(SVGMatrix* matrix);
 		static void set_prototype(SVGPoint* value);
 		static SVGPoint* get_prototype();
@@ -2754,8 +2754,8 @@ namespace client
 
 	class MSPluginsCollection{
 	public:
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		void refresh();
 		void refresh(Boolean reload);
 		static void set_prototype(MSPluginsCollection* value);
@@ -2767,15 +2767,15 @@ namespace client
 	public:
 	};
 
-	class SVGAnimatedNumberList{
+	class SVGAnimateddoubleList{
 	public:
-		void set_animVal(SVGNumberList* value);
-		SVGNumberList* get_animVal();
-		void set_baseVal(SVGNumberList* value);
-		SVGNumberList* get_baseVal();
-		static void set_prototype(SVGAnimatedNumberList* value);
-		static SVGAnimatedNumberList* get_prototype();
-		SVGAnimatedNumberList();
+		void set_animVal(SVGdoubleList* value);
+		SVGdoubleList* get_animVal();
+		void set_baseVal(SVGdoubleList* value);
+		SVGdoubleList* get_baseVal();
+		static void set_prototype(SVGAnimateddoubleList* value);
+		static SVGAnimateddoubleList* get_prototype();
+		SVGAnimateddoubleList();
 	};
 
 	class MSResourceMetadata{
@@ -2820,10 +2820,10 @@ namespace client
 
 	class SVGAnimatedInteger{
 	public:
-		void set_animVal(Number value);
-		Number get_animVal();
-		void set_baseVal(Number value);
-		Number get_baseVal();
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
 		static void set_prototype(SVGAnimatedInteger* value);
 		static SVGAnimatedInteger* get_prototype();
 		SVGAnimatedInteger();
@@ -2843,8 +2843,8 @@ namespace client
 
 	class MSStorageExtensions{
 	public:
-		void set_remainingSpace(Number value);
-		Number get_remainingSpace();
+		void set_remainingSpace(double value);
+		double get_remainingSpace();
 	};
 
 	class MSLinkStyleExtensions{
@@ -2867,21 +2867,21 @@ namespace client
 
 	class DocumentTraversal{
 	public:
-		NodeIterator* createNodeIterator(Node* root, Number whatToShow, NodeFilterCallback* filter, Boolean entityReferenceExpansion);
-		TreeWalker* createTreeWalker(Node* root, Number whatToShow, NodeFilterCallback* filter, Boolean entityReferenceExpansion);
+		NodeIterator* createNodeIterator(Node* root, double whatToShow, NodeFilterCallback* filter, Boolean entityReferenceExpansion);
+		TreeWalker* createTreeWalker(Node* root, double whatToShow, NodeFilterCallback* filter, Boolean entityReferenceExpansion);
 	};
 
 	class Storage: public MSStorageExtensions {
 	public:
 		Object* operator[](const String& key);
-		Object* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		Object* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		Object* getItem(const String& key);
 		void setItem(const String& key, const String& data);
 		void clear();
 		void removeItem(const String& key);
-		String* key(Number index);
+		String* key(double index);
 		static void set_prototype(Storage* value);
 		static Storage* get_prototype();
 		Storage();
@@ -2895,10 +2895,10 @@ namespace client
 
 	class TextRangeCollection{
 	public:
-		TextRange* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		TextRange* item(Number index);
+		TextRange* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		TextRange* item(double index);
 		static void set_prototype(TextRangeCollection* value);
 		static TextRangeCollection* get_prototype();
 		TextRangeCollection();
@@ -2912,11 +2912,11 @@ namespace client
 
 	class DOML2DeprecatedWidthStyle_HTMLTableCellElement{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 	};
 
-	class DOML2DeprecatedListNumberingAndBulletStyle{
+	class DOML2DeprecatedListdoubleingAndBulletStyle{
 	public:
 		void set_type(const String& value);
 		String* get_type();
@@ -2933,64 +2933,64 @@ namespace client
 	public:
 		CSSStyleSheet* createStyleSheet();
 		CSSStyleSheet* createStyleSheet(const String& href);
-		CSSStyleSheet* createStyleSheet(const String& href, Number index);
+		CSSStyleSheet* createStyleSheet(const String& href, double index);
 	};
 
-	class SVGAnimatedNumber{
+	class SVGAnimateddouble{
 	public:
-		void set_animVal(Number value);
-		Number get_animVal();
-		void set_baseVal(Number value);
-		Number get_baseVal();
-		static void set_prototype(SVGAnimatedNumber* value);
-		static SVGAnimatedNumber* get_prototype();
-		SVGAnimatedNumber();
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
+		static void set_prototype(SVGAnimateddouble* value);
+		static SVGAnimateddouble* get_prototype();
+		SVGAnimateddouble();
 	};
 
 	class PerformanceTiming{
 	public:
-		void set_redirectStart(Number value);
-		Number get_redirectStart();
-		void set_domainLookupEnd(Number value);
-		Number get_domainLookupEnd();
-		void set_responseStart(Number value);
-		Number get_responseStart();
-		void set_domComplete(Number value);
-		Number get_domComplete();
-		void set_domainLookupStart(Number value);
-		Number get_domainLookupStart();
-		void set_loadEventStart(Number value);
-		Number get_loadEventStart();
-		void set_msFirstPaint(Number value);
-		Number get_msFirstPaint();
-		void set_unloadEventEnd(Number value);
-		Number get_unloadEventEnd();
-		void set_fetchStart(Number value);
-		Number get_fetchStart();
-		void set_requestStart(Number value);
-		Number get_requestStart();
-		void set_domInteractive(Number value);
-		Number get_domInteractive();
-		void set_navigationStart(Number value);
-		Number get_navigationStart();
-		void set_connectEnd(Number value);
-		Number get_connectEnd();
-		void set_loadEventEnd(Number value);
-		Number get_loadEventEnd();
-		void set_connectStart(Number value);
-		Number get_connectStart();
-		void set_responseEnd(Number value);
-		Number get_responseEnd();
-		void set_domLoading(Number value);
-		Number get_domLoading();
-		void set_redirectEnd(Number value);
-		Number get_redirectEnd();
-		void set_unloadEventStart(Number value);
-		Number get_unloadEventStart();
-		void set_domContentLoadedEventStart(Number value);
-		Number get_domContentLoadedEventStart();
-		void set_domContentLoadedEventEnd(Number value);
-		Number get_domContentLoadedEventEnd();
+		void set_redirectStart(double value);
+		double get_redirectStart();
+		void set_domainLookupEnd(double value);
+		double get_domainLookupEnd();
+		void set_responseStart(double value);
+		double get_responseStart();
+		void set_domComplete(double value);
+		double get_domComplete();
+		void set_domainLookupStart(double value);
+		double get_domainLookupStart();
+		void set_loadEventStart(double value);
+		double get_loadEventStart();
+		void set_msFirstPaint(double value);
+		double get_msFirstPaint();
+		void set_unloadEventEnd(double value);
+		double get_unloadEventEnd();
+		void set_fetchStart(double value);
+		double get_fetchStart();
+		void set_requestStart(double value);
+		double get_requestStart();
+		void set_domInteractive(double value);
+		double get_domInteractive();
+		void set_navigationStart(double value);
+		double get_navigationStart();
+		void set_connectEnd(double value);
+		double get_connectEnd();
+		void set_loadEventEnd(double value);
+		double get_loadEventEnd();
+		void set_connectStart(double value);
+		double get_connectStart();
+		void set_responseEnd(double value);
+		double get_responseEnd();
+		void set_domLoading(double value);
+		double get_domLoading();
+		void set_redirectEnd(double value);
+		double get_redirectEnd();
+		void set_unloadEventStart(double value);
+		double get_unloadEventStart();
+		void set_domContentLoadedEventStart(double value);
+		double get_domContentLoadedEventStart();
+		void set_domContentLoadedEventEnd(double value);
+		double get_domContentLoadedEventEnd();
 		Object* toJSON();
 		static void set_prototype(PerformanceTiming* value);
 		static PerformanceTiming* get_prototype();
@@ -3005,15 +3005,15 @@ namespace client
 
 	class EventException{
 	public:
-		void set_code(Number value);
-		Number get_code();
+		void set_code(double value);
+		double get_code();
 		void set_message(const String& value);
 		String* get_message();
 		String* toString();
-		void set_DISPATCH_REQUEST_ERR(Number value);
-		Number get_DISPATCH_REQUEST_ERR();
-		void set_UNSPECIFIED_EVENT_TYPE_ERR(Number value);
-		Number get_UNSPECIFIED_EVENT_TYPE_ERR();
+		void set_DISPATCH_REQUEST_ERR(double value);
+		double get_DISPATCH_REQUEST_ERR();
+		void set_UNSPECIFIED_EVENT_TYPE_ERR(double value);
+		double get_UNSPECIFIED_EVENT_TYPE_ERR();
 		static void set_prototype(EventException* value);
 		static EventException* get_prototype();
 		EventException();
@@ -3080,15 +3080,15 @@ namespace client
 
 	class SVGStringList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		String* replaceItem(const String& newItem, Number index);
-		String* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		String* replaceItem(const String& newItem, double index);
+		String* getItem(double index);
 		void clear();
 		String* appendItem(const String& newItem);
 		String* initialize(const String& newItem);
-		String* removeItem(Number index);
-		String* insertItemBefore(const String& newItem, Number index);
+		String* removeItem(double index);
+		String* insertItemBefore(const String& newItem, double index);
 		static void set_prototype(SVGStringList* value);
 		static SVGStringList* get_prototype();
 		SVGStringList();
@@ -3096,8 +3096,8 @@ namespace client
 
 	class XDomainRequest{
 	public:
-		void set_timeout(Number value);
-		Number get_timeout();
+		void set_timeout(double value);
+		double get_timeout();
 		typedef Object* (*callback_for_onerror)(Event* ev);
 		void set_onerror(callback_for_onerror value);
 		callback_for_onerror get_onerror();
@@ -3131,8 +3131,8 @@ namespace client
 
 	class ElementTraversal{
 	public:
-		void set_childElementCount(Number value);
-		Number get_childElementCount();
+		void set_childElementCount(double value);
+		double get_childElementCount();
 		void set_previousElementSibling(Element* value);
 		Element* get_previousElementSibling();
 		void set_lastElementChild(Element* value);
@@ -3147,36 +3147,36 @@ namespace client
 	public:
 		void set_valueAsString(const String& value);
 		String* get_valueAsString();
-		void set_valueInSpecifiedUnits(Number value);
-		Number get_valueInSpecifiedUnits();
-		void set_value(Number value);
-		Number get_value();
-		void set_unitType(Number value);
-		Number get_unitType();
-		void newValueSpecifiedUnits(Number unitType, Number valueInSpecifiedUnits);
-		void convertToSpecifiedUnits(Number unitType);
-		void set_SVG_LENGTHTYPE_NUMBER(Number value);
-		Number get_SVG_LENGTHTYPE_NUMBER();
-		void set_SVG_LENGTHTYPE_CM(Number value);
-		Number get_SVG_LENGTHTYPE_CM();
-		void set_SVG_LENGTHTYPE_PC(Number value);
-		Number get_SVG_LENGTHTYPE_PC();
-		void set_SVG_LENGTHTYPE_PERCENTAGE(Number value);
-		Number get_SVG_LENGTHTYPE_PERCENTAGE();
-		void set_SVG_LENGTHTYPE_MM(Number value);
-		Number get_SVG_LENGTHTYPE_MM();
-		void set_SVG_LENGTHTYPE_PT(Number value);
-		Number get_SVG_LENGTHTYPE_PT();
-		void set_SVG_LENGTHTYPE_IN(Number value);
-		Number get_SVG_LENGTHTYPE_IN();
-		void set_SVG_LENGTHTYPE_EMS(Number value);
-		Number get_SVG_LENGTHTYPE_EMS();
-		void set_SVG_LENGTHTYPE_PX(Number value);
-		Number get_SVG_LENGTHTYPE_PX();
-		void set_SVG_LENGTHTYPE_UNKNOWN(Number value);
-		Number get_SVG_LENGTHTYPE_UNKNOWN();
-		void set_SVG_LENGTHTYPE_EXS(Number value);
-		Number get_SVG_LENGTHTYPE_EXS();
+		void set_valueInSpecifiedUnits(double value);
+		double get_valueInSpecifiedUnits();
+		void set_value(double value);
+		double get_value();
+		void set_unitType(double value);
+		double get_unitType();
+		void newValueSpecifiedUnits(double unitType, double valueInSpecifiedUnits);
+		void convertToSpecifiedUnits(double unitType);
+		void set_SVG_LENGTHTYPE_NUMBER(double value);
+		double get_SVG_LENGTHTYPE_NUMBER();
+		void set_SVG_LENGTHTYPE_CM(double value);
+		double get_SVG_LENGTHTYPE_CM();
+		void set_SVG_LENGTHTYPE_PC(double value);
+		double get_SVG_LENGTHTYPE_PC();
+		void set_SVG_LENGTHTYPE_PERCENTAGE(double value);
+		double get_SVG_LENGTHTYPE_PERCENTAGE();
+		void set_SVG_LENGTHTYPE_MM(double value);
+		double get_SVG_LENGTHTYPE_MM();
+		void set_SVG_LENGTHTYPE_PT(double value);
+		double get_SVG_LENGTHTYPE_PT();
+		void set_SVG_LENGTHTYPE_IN(double value);
+		double get_SVG_LENGTHTYPE_IN();
+		void set_SVG_LENGTHTYPE_EMS(double value);
+		double get_SVG_LENGTHTYPE_EMS();
+		void set_SVG_LENGTHTYPE_PX(double value);
+		double get_SVG_LENGTHTYPE_PX();
+		void set_SVG_LENGTHTYPE_UNKNOWN(double value);
+		double get_SVG_LENGTHTYPE_UNKNOWN();
+		void set_SVG_LENGTHTYPE_EXS(double value);
+		double get_SVG_LENGTHTYPE_EXS();
 		static void set_prototype(SVGLength* value);
 		static SVGLength* get_prototype();
 		SVGLength();
@@ -3190,34 +3190,34 @@ namespace client
 	public:
 		void set_nextPage(const String& value);
 		String* get_nextPage();
-		void set_keyCode(Number value);
-		Number get_keyCode();
+		void set_keyCode(double value);
+		double get_keyCode();
 		void set_toElement(Element* value);
 		Element* get_toElement();
 		void set_returnValue(Object* value);
 		Object* get_returnValue();
 		void set_dataFld(const String& value);
 		String* get_dataFld();
-		void set_y(Number value);
-		Number get_y();
+		void set_y(double value);
+		double get_y();
 		void set_dataTransfer(DataTransfer* value);
 		DataTransfer* get_dataTransfer();
 		void set_propertyName(const String& value);
 		String* get_propertyName();
 		void set_url(const String& value);
 		String* get_url();
-		void set_offsetX(Number value);
-		Number get_offsetX();
+		void set_offsetX(double value);
+		double get_offsetX();
 		void set_recordset(Object* value);
 		Object* get_recordset();
-		void set_screenX(Number value);
-		Number get_screenX();
-		void set_buttonID(Number value);
-		Number get_buttonID();
-		void set_wheelDelta(Number value);
-		Number get_wheelDelta();
-		void set_reason(Number value);
-		Number get_reason();
+		void set_screenX(double value);
+		double get_screenX();
+		void set_buttonID(double value);
+		double get_buttonID();
+		void set_wheelDelta(double value);
+		double get_wheelDelta();
+		void set_reason(double value);
+		double get_reason();
 		void set_origin(const String& value);
 		String* get_origin();
 		void set_data(const String& value);
@@ -3230,8 +3230,8 @@ namespace client
 		Boolean get_cancelBubble();
 		void set_altLeft(Boolean value);
 		Boolean get_altLeft();
-		void set_behaviorCookie(Number value);
-		Number get_behaviorCookie();
+		void set_behaviorCookie(double value);
+		double get_behaviorCookie();
 		void set_bookmarks(BookmarkCollection* value);
 		BookmarkCollection* get_bookmarks();
 		void set_type(const String& value);
@@ -3244,44 +3244,44 @@ namespace client
 		Window* get_source();
 		void set_fromElement(Element* value);
 		Element* get_fromElement();
-		void set_offsetY(Number value);
-		Number get_offsetY();
-		void set_x(Number value);
-		Number get_x();
-		void set_behaviorPart(Number value);
-		Number get_behaviorPart();
+		void set_offsetY(double value);
+		double get_offsetY();
+		void set_x(double value);
+		double get_x();
+		void set_behaviorPart(double value);
+		double get_behaviorPart();
 		void set_qualifier(const String& value);
 		String* get_qualifier();
 		void set_altKey(Boolean value);
 		Boolean get_altKey();
 		void set_ctrlKey(Boolean value);
 		Boolean get_ctrlKey();
-		void set_clientY(Number value);
-		Number get_clientY();
+		void set_clientY(double value);
+		double get_clientY();
 		void set_shiftKey(Boolean value);
 		Boolean get_shiftKey();
 		void set_shiftLeft(Boolean value);
 		Boolean get_shiftLeft();
 		void set_contentOverflow(Boolean value);
 		Boolean get_contentOverflow();
-		void set_screenY(Number value);
-		Number get_screenY();
+		void set_screenY(double value);
+		double get_screenY();
 		void set_ctrlLeft(Boolean value);
 		Boolean get_ctrlLeft();
-		void set_button(Number value);
-		Number get_button();
+		void set_button(double value);
+		double get_button();
 		void set_srcUrn(const String& value);
 		String* get_srcUrn();
-		void set_clientX(Number value);
-		Number get_clientX();
+		void set_clientX(double value);
+		double get_clientX();
 		void set_actionURL(const String& value);
 		String* get_actionURL();
 		Object* getAttribute(const String& strAttributeName);
-		Object* getAttribute(const String& strAttributeName, Number lFlags);
+		Object* getAttribute(const String& strAttributeName, double lFlags);
 		void setAttribute(const String& strAttributeName, Object* AttributeValue);
-		void setAttribute(const String& strAttributeName, Object* AttributeValue, Number lFlags);
+		void setAttribute(const String& strAttributeName, Object* AttributeValue, double lFlags);
 		Boolean removeAttribute(const String& strAttributeName);
-		Boolean removeAttribute(const String& strAttributeName, Number lFlags);
+		Boolean removeAttribute(const String& strAttributeName, double lFlags);
 		static void set_prototype(MSEventObj* value);
 		static MSEventObj* get_prototype();
 		MSEventObj();
@@ -3327,8 +3327,8 @@ namespace client
 
 	class MSHTMLOptGroupElementExtensions{
 	public:
-		void set_index(Number value);
-		Number get_index();
+		void set_index(double value);
+		double get_index();
 		void set_defaultSelected(Boolean value);
 		Boolean get_defaultSelected();
 		void set_text(const String& value);
@@ -3351,38 +3351,38 @@ namespace client
 
 	class DOML2DeprecatedSizeProperty_HTMLBaseFontElement{
 	public:
-		void set_size(Number value);
-		Number get_size();
+		void set_size(double value);
+		double get_size();
 	};
 
 	class SVGTransform{
 	public:
-		void set_type(Number value);
-		Number get_type();
-		void set_angle(Number value);
-		Number get_angle();
+		void set_type(double value);
+		double get_type();
+		void set_angle(double value);
+		double get_angle();
 		void set_matrix(SVGMatrix* value);
 		SVGMatrix* get_matrix();
-		void setTranslate(Number tx, Number ty);
-		void setScale(Number sx, Number sy);
+		void setTranslate(double tx, double ty);
+		void setScale(double sx, double sy);
 		void setMatrix(SVGMatrix* matrix);
-		void setSkewY(Number angle);
-		void setRotate(Number angle, Number cx, Number cy);
-		void setSkewX(Number angle);
-		void set_SVG_TRANSFORM_SKEWX(Number value);
-		Number get_SVG_TRANSFORM_SKEWX();
-		void set_SVG_TRANSFORM_UNKNOWN(Number value);
-		Number get_SVG_TRANSFORM_UNKNOWN();
-		void set_SVG_TRANSFORM_SCALE(Number value);
-		Number get_SVG_TRANSFORM_SCALE();
-		void set_SVG_TRANSFORM_TRANSLATE(Number value);
-		Number get_SVG_TRANSFORM_TRANSLATE();
-		void set_SVG_TRANSFORM_MATRIX(Number value);
-		Number get_SVG_TRANSFORM_MATRIX();
-		void set_SVG_TRANSFORM_ROTATE(Number value);
-		Number get_SVG_TRANSFORM_ROTATE();
-		void set_SVG_TRANSFORM_SKEWY(Number value);
-		Number get_SVG_TRANSFORM_SKEWY();
+		void setSkewY(double angle);
+		void setRotate(double angle, double cx, double cy);
+		void setSkewX(double angle);
+		void set_SVG_TRANSFORM_SKEWX(double value);
+		double get_SVG_TRANSFORM_SKEWX();
+		void set_SVG_TRANSFORM_UNKNOWN(double value);
+		double get_SVG_TRANSFORM_UNKNOWN();
+		void set_SVG_TRANSFORM_SCALE(double value);
+		double get_SVG_TRANSFORM_SCALE();
+		void set_SVG_TRANSFORM_TRANSLATE(double value);
+		double get_SVG_TRANSFORM_TRANSLATE();
+		void set_SVG_TRANSFORM_MATRIX(double value);
+		double get_SVG_TRANSFORM_MATRIX();
+		void set_SVG_TRANSFORM_ROTATE(double value);
+		double get_SVG_TRANSFORM_ROTATE();
+		void set_SVG_TRANSFORM_SKEWY(double value);
+		double get_SVG_TRANSFORM_SKEWY();
 		static void set_prototype(SVGTransform* value);
 		static SVGTransform* get_prototype();
 		SVGTransform();
@@ -3390,13 +3390,13 @@ namespace client
 
 	class MSCSSFilter{
 	public:
-		void set_Percent(Number value);
-		Number get_Percent();
+		void set_Percent(double value);
+		double get_Percent();
 		void set_Enabled(Boolean value);
 		Boolean get_Enabled();
-		void set_Duration(Number value);
-		Number get_Duration();
-		void Play(Number Duration);
+		void set_Duration(double value);
+		double get_Duration();
+		void Play(double Duration);
 		void Apply();
 		void Stop();
 		static void set_prototype(MSCSSFilter* value);
@@ -3417,50 +3417,50 @@ namespace client
 
 	class SVGPathSeg{
 	public:
-		void set_pathSegType(Number value);
-		Number get_pathSegType();
+		void set_pathSegType(double value);
+		double get_pathSegType();
 		void set_pathSegTypeAsLetter(const String& value);
 		String* get_pathSegTypeAsLetter();
-		void set_PATHSEG_MOVETO_REL(Number value);
-		Number get_PATHSEG_MOVETO_REL();
-		void set_PATHSEG_LINETO_VERTICAL_REL(Number value);
-		Number get_PATHSEG_LINETO_VERTICAL_REL();
-		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(Number value);
-		Number get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_REL(Number value);
-		Number get_PATHSEG_CURVETO_QUADRATIC_REL();
-		void set_PATHSEG_CURVETO_CUBIC_ABS(Number value);
-		Number get_PATHSEG_CURVETO_CUBIC_ABS();
-		void set_PATHSEG_LINETO_HORIZONTAL_ABS(Number value);
-		Number get_PATHSEG_LINETO_HORIZONTAL_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_ABS(Number value);
-		Number get_PATHSEG_CURVETO_QUADRATIC_ABS();
-		void set_PATHSEG_LINETO_ABS(Number value);
-		Number get_PATHSEG_LINETO_ABS();
-		void set_PATHSEG_CLOSEPATH(Number value);
-		Number get_PATHSEG_CLOSEPATH();
-		void set_PATHSEG_LINETO_HORIZONTAL_REL(Number value);
-		Number get_PATHSEG_LINETO_HORIZONTAL_REL();
-		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(Number value);
-		Number get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
-		void set_PATHSEG_LINETO_REL(Number value);
-		Number get_PATHSEG_LINETO_REL();
-		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(Number value);
-		Number get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
-		void set_PATHSEG_ARC_REL(Number value);
-		Number get_PATHSEG_ARC_REL();
-		void set_PATHSEG_CURVETO_CUBIC_REL(Number value);
-		Number get_PATHSEG_CURVETO_CUBIC_REL();
-		void set_PATHSEG_UNKNOWN(Number value);
-		Number get_PATHSEG_UNKNOWN();
-		void set_PATHSEG_LINETO_VERTICAL_ABS(Number value);
-		Number get_PATHSEG_LINETO_VERTICAL_ABS();
-		void set_PATHSEG_ARC_ABS(Number value);
-		Number get_PATHSEG_ARC_ABS();
-		void set_PATHSEG_MOVETO_ABS(Number value);
-		Number get_PATHSEG_MOVETO_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(Number value);
-		Number get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();
+		void set_PATHSEG_MOVETO_REL(double value);
+		double get_PATHSEG_MOVETO_REL();
+		void set_PATHSEG_LINETO_VERTICAL_REL(double value);
+		double get_PATHSEG_LINETO_VERTICAL_REL();
+		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(double value);
+		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_REL(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_REL();
+		void set_PATHSEG_CURVETO_CUBIC_ABS(double value);
+		double get_PATHSEG_CURVETO_CUBIC_ABS();
+		void set_PATHSEG_LINETO_HORIZONTAL_ABS(double value);
+		double get_PATHSEG_LINETO_HORIZONTAL_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_ABS(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_ABS();
+		void set_PATHSEG_LINETO_ABS(double value);
+		double get_PATHSEG_LINETO_ABS();
+		void set_PATHSEG_CLOSEPATH(double value);
+		double get_PATHSEG_CLOSEPATH();
+		void set_PATHSEG_LINETO_HORIZONTAL_REL(double value);
+		double get_PATHSEG_LINETO_HORIZONTAL_REL();
+		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(double value);
+		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
+		void set_PATHSEG_LINETO_REL(double value);
+		double get_PATHSEG_LINETO_REL();
+		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
+		void set_PATHSEG_ARC_REL(double value);
+		double get_PATHSEG_ARC_REL();
+		void set_PATHSEG_CURVETO_CUBIC_REL(double value);
+		double get_PATHSEG_CURVETO_CUBIC_REL();
+		void set_PATHSEG_UNKNOWN(double value);
+		double get_PATHSEG_UNKNOWN();
+		void set_PATHSEG_LINETO_VERTICAL_ABS(double value);
+		double get_PATHSEG_LINETO_VERTICAL_ABS();
+		void set_PATHSEG_ARC_ABS(double value);
+		double get_PATHSEG_ARC_ABS();
+		void set_PATHSEG_MOVETO_ABS(double value);
+		double get_PATHSEG_MOVETO_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLDivElement{
@@ -3475,13 +3475,13 @@ namespace client
 		void detachEvent(const String& event, EventListener* listener);
 	};
 
-	class SVGNumber{
+	class SVGdouble{
 	public:
-		void set_value(Number value);
-		Number get_value();
-		static void set_prototype(SVGNumber* value);
-		static SVGNumber* get_prototype();
-		SVGNumber();
+		void set_value(double value);
+		double get_value();
+		static void set_prototype(SVGdouble* value);
+		static SVGdouble* get_prototype();
+		SVGdouble();
 	};
 
 	class MSCompatibleInfo{
@@ -3516,15 +3516,15 @@ namespace client
 
 	class SVGPathSegList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		SVGPathSeg* replaceItem(SVGPathSeg* newItem, Number index);
-		SVGPathSeg* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGPathSeg* replaceItem(SVGPathSeg* newItem, double index);
+		SVGPathSeg* getItem(double index);
 		void clear();
 		SVGPathSeg* appendItem(SVGPathSeg* newItem);
 		SVGPathSeg* initialize(SVGPathSeg* newItem);
-		SVGPathSeg* removeItem(Number index);
-		SVGPathSeg* insertItemBefore(SVGPathSeg* newItem, Number index);
+		SVGPathSeg* removeItem(double index);
+		SVGPathSeg* insertItemBefore(SVGPathSeg* newItem, double index);
 		static void set_prototype(SVGPathSegList* value);
 		static SVGPathSegList* get_prototype();
 		SVGPathSegList();
@@ -3540,8 +3540,8 @@ namespace client
 		String* get_lowsrc();
 		void set_start(const String& value);
 		String* get_start();
-		void set_loop(Number value);
-		Number get_loop();
+		void set_loop(double value);
+		double get_loop();
 	};
 
 	class MSBorderColorHighlightStyle_HTMLTableRowElement{
@@ -3554,17 +3554,17 @@ namespace client
 
 	class PositionError{
 	public:
-		void set_code(Number value);
-		Number get_code();
+		void set_code(double value);
+		double get_code();
 		void set_message(const String& value);
 		String* get_message();
 		String* toString();
-		void set_POSITION_UNAVAILABLE(Number value);
-		Number get_POSITION_UNAVAILABLE();
-		void set_PERMISSION_DENIED(Number value);
-		Number get_PERMISSION_DENIED();
-		void set_TIMEOUT(Number value);
-		Number get_TIMEOUT();
+		void set_POSITION_UNAVAILABLE(double value);
+		double get_POSITION_UNAVAILABLE();
+		void set_PERMISSION_DENIED(double value);
+		double get_PERMISSION_DENIED();
+		void set_TIMEOUT(double value);
+		double get_TIMEOUT();
 	};
 
 	class BrowserPublic{
@@ -3578,8 +3578,8 @@ namespace client
 	public:
 		Object* operator[](const String& index);
 		Object* operator()(Object* index);
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		Object* add();
 		Object* add(const String& ns);
 		Object* add(const String& ns, const String& urn, Object* implementationUrl);
@@ -3618,11 +3618,11 @@ namespace client
 
 	class StyleSheetList{
 	public:
-		StyleSheet* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		StyleSheet* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		StyleSheet* item();
-		StyleSheet* item(Number index);
+		StyleSheet* item(double index);
 		static void set_prototype(StyleSheetList* value);
 		static StyleSheetList* get_prototype();
 		StyleSheetList();
@@ -3636,21 +3636,21 @@ namespace client
 
 	class DOML2DeprecatedMarginStyle{
 	public:
-		void set_vspace(Number value);
-		Number get_vspace();
-		void set_hspace(Number value);
-		Number get_hspace();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class Geolocation{
 	public:
-		void clearWatch(Number watchId);
+		void clearWatch(double watchId);
 		void getCurrentPosition(PositionCallback* successCallback);
 		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
 		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
-		Number watchPosition(PositionCallback* successCallback);
-		Number watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
-		Number watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
+		double watchPosition(PositionCallback* successCallback);
+		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
+		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
 		static void set_prototype(Geolocation* value);
 		static Geolocation* get_prototype();
 		Geolocation();
@@ -3672,14 +3672,14 @@ namespace client
 
 	class SVGRect{
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_width(Number value);
-		Number get_width();
-		void set_x(Number value);
-		Number get_x();
-		void set_height(Number value);
-		Number get_height();
+		void set_y(double value);
+		double get_y();
+		void set_width(double value);
+		double get_width();
+		void set_x(double value);
+		double get_x();
+		void set_height(double value);
+		double get_height();
 		static void set_prototype(SVGRect* value);
 		static SVGRect* get_prototype();
 		SVGRect();
@@ -3695,18 +3695,18 @@ namespace client
 
 	class KeyboardEventExtensions{
 	public:
-		void set_keyCode(Number value);
-		Number get_keyCode();
-		void set_which(Number value);
-		Number get_which();
-		void set_charCode(Number value);
-		Number get_charCode();
+		void set_keyCode(double value);
+		double get_keyCode();
+		void set_which(double value);
+		double get_which();
+		void set_charCode(double value);
+		double get_charCode();
 	};
 
 	class History{
 	public:
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		void back();
 		void back(Object* distance);
 		void forward();
@@ -3726,18 +3726,18 @@ namespace client
 
 	class SVGPathSegCurvetoCubicAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_y1(Number value);
-		Number get_y1();
-		void set_x2(Number value);
-		Number get_x2();
-		void set_x(Number value);
-		Number get_x();
-		void set_x1(Number value);
-		Number get_x1();
-		void set_y2(Number value);
-		Number get_y2();
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		void set_y2(double value);
+		double get_y2();
 		static void set_prototype(SVGPathSegCurvetoCubicAbs* value);
 		static SVGPathSegCurvetoCubicAbs* get_prototype();
 		SVGPathSegCurvetoCubicAbs();
@@ -3745,10 +3745,10 @@ namespace client
 
 	class TimeRanges{
 	public:
-		void set_length(Number value);
-		Number get_length();
-		Number start(Number index);
-		Number end(Number index);
+		void set_length(double value);
+		double get_length();
+		double start(double index);
+		double end(double index);
 		static void set_prototype(TimeRanges* value);
 		static TimeRanges* get_prototype();
 		TimeRanges();
@@ -3756,14 +3756,14 @@ namespace client
 
 	class SVGPathSegCurvetoQuadraticAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_y1(Number value);
-		Number get_y1();
-		void set_x(Number value);
-		Number get_x();
-		void set_x1(Number value);
-		Number get_x1();
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
 		static void set_prototype(SVGPathSegCurvetoQuadraticAbs* value);
 		static SVGPathSegCurvetoQuadraticAbs* get_prototype();
 		SVGPathSegCurvetoQuadraticAbs();
@@ -3781,24 +3781,24 @@ namespace client
 		CSSStyleSheet* get_parentStyleSheet();
 		void set_parentRule(CSSRule* value);
 		CSSRule* get_parentRule();
-		void set_type(Number value);
-		Number get_type();
-		void set_IMPORT_RULE(Number value);
-		Number get_IMPORT_RULE();
-		void set_MEDIA_RULE(Number value);
-		Number get_MEDIA_RULE();
-		void set_STYLE_RULE(Number value);
-		Number get_STYLE_RULE();
-		void set_NAMESPACE_RULE(Number value);
-		Number get_NAMESPACE_RULE();
-		void set_PAGE_RULE(Number value);
-		Number get_PAGE_RULE();
-		void set_UNKNOWN_RULE(Number value);
-		Number get_UNKNOWN_RULE();
-		void set_FONT_FACE_RULE(Number value);
-		Number get_FONT_FACE_RULE();
-		void set_CHARSET_RULE(Number value);
-		Number get_CHARSET_RULE();
+		void set_type(double value);
+		double get_type();
+		void set_IMPORT_RULE(double value);
+		double get_IMPORT_RULE();
+		void set_MEDIA_RULE(double value);
+		double get_MEDIA_RULE();
+		void set_STYLE_RULE(double value);
+		double get_STYLE_RULE();
+		void set_NAMESPACE_RULE(double value);
+		double get_NAMESPACE_RULE();
+		void set_PAGE_RULE(double value);
+		double get_PAGE_RULE();
+		void set_UNKNOWN_RULE(double value);
+		double get_UNKNOWN_RULE();
+		void set_FONT_FACE_RULE(double value);
+		double get_FONT_FACE_RULE();
+		void set_CHARSET_RULE(double value);
+		double get_CHARSET_RULE();
 		static void set_prototype(CSSRule* value);
 		static CSSRule* get_prototype();
 		CSSRule();
@@ -3806,10 +3806,10 @@ namespace client
 
 	class SVGPathSegLinetoAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegLinetoAbs* value);
 		static SVGPathSegLinetoAbs* get_prototype();
 		SVGPathSegLinetoAbs();
@@ -3819,14 +3819,14 @@ namespace client
 	public:
 		void set_toElement(Element* value);
 		Element* get_toElement();
-		void set_layerY(Number value);
-		Number get_layerY();
+		void set_layerY(double value);
+		double get_layerY();
 		void set_fromElement(Element* value);
 		Element* get_fromElement();
-		void set_which(Number value);
-		Number get_which();
-		void set_layerX(Number value);
-		Number get_layerX();
+		void set_which(double value);
+		double get_which();
+		void set_layerX(double value);
+		double get_layerX();
 	};
 
 	class DOML2DeprecatedWordWrapSuppression{
@@ -3841,8 +3841,8 @@ namespace client
 		HTMLDocument* get_document();
 		void set_isOpen(Boolean value);
 		Boolean get_isOpen();
-		void show(Number x, Number y, Number w, Number h);
-		void show(Number x, Number y, Number w, Number h, Object* element);
+		void show(double x, double y, double w, double h);
+		void show(double x, double y, double w, double h, Object* element);
 		void hide();
 		static void set_prototype(MSPopupWindow* value);
 		static MSPopupWindow* get_prototype();
@@ -3851,29 +3851,29 @@ namespace client
 
 	class SVGMatrix{
 	public:
-		void set_e(Number value);
-		Number get_e();
-		void set_c(Number value);
-		Number get_c();
-		void set_a(Number value);
-		Number get_a();
-		void set_b(Number value);
-		Number get_b();
-		void set_d(Number value);
-		Number get_d();
-		void set_f(Number value);
-		Number get_f();
+		void set_e(double value);
+		double get_e();
+		void set_c(double value);
+		double get_c();
+		void set_a(double value);
+		double get_a();
+		void set_b(double value);
+		double get_b();
+		void set_d(double value);
+		double get_d();
+		void set_f(double value);
+		double get_f();
 		SVGMatrix* multiply(SVGMatrix* secondMatrix);
 		SVGMatrix* flipY();
-		SVGMatrix* skewY(Number angle);
+		SVGMatrix* skewY(double angle);
 		SVGMatrix* inverse();
-		SVGMatrix* scaleNonUniform(Number scaleFactorX, Number scaleFactorY);
-		SVGMatrix* rotate(Number angle);
+		SVGMatrix* scaleNonUniform(double scaleFactorX, double scaleFactorY);
+		SVGMatrix* rotate(double angle);
 		SVGMatrix* flipX();
-		SVGMatrix* translate(Number x, Number y);
-		SVGMatrix* scale(Number scaleFactor);
-		SVGMatrix* rotateFromVector(Number x, Number y);
-		SVGMatrix* skewX(Number angle);
+		SVGMatrix* translate(double x, double y);
+		SVGMatrix* scale(double scaleFactor);
+		SVGMatrix* rotateFromVector(double x, double y);
+		SVGMatrix* skewX(double angle);
 		static void set_prototype(SVGMatrix* value);
 		static SVGMatrix* get_prototype();
 		SVGMatrix();
@@ -3881,12 +3881,12 @@ namespace client
 
 	class ImageData{
 	public:
-		void set_width(Number value);
-		Number get_width();
-		void set_data(Array* /*{ARRAY_BASE_TYPE=Number}*/ value);
-		Array* /*{ARRAY_BASE_TYPE=Number}*/ get_data();
-		void set_height(Number value);
-		Number get_height();
+		void set_width(double value);
+		double get_width();
+		void set_data(Array* /*{ARRAY_BASE_TYPE=double}*/ value);
+		Array* /*{ARRAY_BASE_TYPE=double}*/ get_data();
+		void set_height(double value);
+		double get_height();
 		static void set_prototype(ImageData* value);
 		static ImageData* get_prototype();
 		ImageData();
@@ -3953,8 +3953,8 @@ namespace client
 		callback_for_onbeforeactivate get_onbeforeactivate();
 		void set_isMultiLine(Boolean value);
 		Boolean get_isMultiLine();
-		void set_uniqueNumber(Number value);
-		Number get_uniqueNumber();
+		void set_uniquedouble(double value);
+		double get_uniquedouble();
 		void set_tagUrn(const String& value);
 		String* get_tagUrn();
 		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
@@ -3974,8 +3974,8 @@ namespace client
 		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
 		void set_onfocusin(callback_for_onfocusin value);
 		callback_for_onfocusin get_onfocusin();
-		void set_recordNumber(Object* value);
-		Object* get_recordNumber();
+		void set_recorddouble(Object* value);
+		Object* get_recorddouble();
 		void set_parentTextEdit(Element* value);
 		Element* get_parentTextEdit();
 		typedef Object* (*callback_for_ondatasetcomplete)(MSEventObj* ev);
@@ -4052,8 +4052,8 @@ namespace client
 		callback_for_onbeforeeditfocus get_onbeforeeditfocus();
 		void set_canHaveChildren(Boolean value);
 		Boolean get_canHaveChildren();
-		void set_sourceIndex(Number value);
-		Number get_sourceIndex();
+		void set_sourceIndex(double value);
+		double get_sourceIndex();
 		typedef Object* (*callback_for_oncellchange)(MSEventObj* ev);
 		void set_oncellchange(callback_for_oncellchange value);
 		callback_for_oncellchange get_oncellchange();
@@ -4062,7 +4062,7 @@ namespace client
 		void addFilter(Object* filter);
 		void setCapture();
 		void setCapture(Boolean containerCapture);
-		Boolean removeBehavior(Number cookie);
+		Boolean removeBehavior(double cookie);
 		Boolean contains(HTMLElement* child);
 		Element* applyElement(Element* apply);
 		Element* applyElement(Element* apply, const String& where);
@@ -4074,24 +4074,24 @@ namespace client
 		String* getAdjacentText(const String& where);
 		void removeFilter(Object* filter);
 		void setActive();
-		Number addBehavior(const String& bstrUrl);
-		Number addBehavior(const String& bstrUrl, Object* factory);
+		double addBehavior(const String& bstrUrl);
+		double addBehavior(const String& bstrUrl, Object* factory);
 		void clearAttributes();
 	};
 
 	class SVGException{
 	public:
-		void set_code(Number value);
-		Number get_code();
+		void set_code(double value);
+		double get_code();
 		void set_message(const String& value);
 		String* get_message();
 		String* toString();
-		void set_SVG_MATRIX_NOT_INVERTABLE(Number value);
-		Number get_SVG_MATRIX_NOT_INVERTABLE();
-		void set_SVG_WRONG_TYPE_ERR(Number value);
-		Number get_SVG_WRONG_TYPE_ERR();
-		void set_SVG_INVALID_VALUE_ERR(Number value);
-		Number get_SVG_INVALID_VALUE_ERR();
+		void set_SVG_MATRIX_NOT_INVERTABLE(double value);
+		double get_SVG_MATRIX_NOT_INVERTABLE();
+		void set_SVG_WRONG_TYPE_ERR(double value);
+		double get_SVG_WRONG_TYPE_ERR();
+		void set_SVG_INVALID_VALUE_ERR(double value);
+		double get_SVG_INVALID_VALUE_ERR();
 		static void set_prototype(SVGException* value);
 		static SVGException* get_prototype();
 		SVGException();
@@ -4115,10 +4115,10 @@ namespace client
 
 	class SVGAnimatedEnumeration{
 	public:
-		void set_animVal(Number value);
-		Number get_animVal();
-		void set_baseVal(Number value);
-		Number get_baseVal();
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
 		static void set_prototype(SVGAnimatedEnumeration* value);
 		static SVGAnimatedEnumeration* get_prototype();
 		SVGAnimatedEnumeration();
@@ -4126,8 +4126,8 @@ namespace client
 
 	class DOML2DeprecatedSizeProperty{
 	public:
-		void set_size(Number value);
-		Number get_size();
+		void set_size(double value);
+		double get_size();
 	};
 
 	class MSBorderColorStyle_HTMLTableCellElement{
@@ -4138,8 +4138,8 @@ namespace client
 
 	class DOML2DeprecatedWidthStyle_HTMLHRElement{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 	};
 
 	class DOML2DeprecatedBorderStyle{
@@ -4216,12 +4216,12 @@ namespace client
 
 	class NamedNodeMap{
 	public:
-		Node* operator[](Number index);
+		Node* operator[](double index);
 		Node* operator[](const String& name);
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		Node* removeNamedItemNS(const String& namespaceURI, const String& localName);
-		Node* item(Number index);
+		Node* item(double index);
 		Node* removeNamedItem(const String& name);
 		Node* getNamedItem(const String& name);
 		Node* setNamedItem(Node* arg);
@@ -4234,14 +4234,14 @@ namespace client
 
 	class MediaList{
 	public:
-		String* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		String* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		void set_mediaText(const String& value);
 		String* get_mediaText();
 		void deleteMedium(const String& oldMedium);
 		void appendMedium(const String& newMedium);
-		String* item(Number index);
+		String* item(double index);
 		String* toString();
 		static void set_prototype(MediaList* value);
 		static MediaList* get_prototype();
@@ -4250,10 +4250,10 @@ namespace client
 
 	class SVGPathSegCurvetoQuadraticSmoothAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegCurvetoQuadraticSmoothAbs* value);
 		static SVGPathSegCurvetoQuadraticSmoothAbs* get_prototype();
 		SVGPathSegCurvetoQuadraticSmoothAbs();
@@ -4261,15 +4261,15 @@ namespace client
 
 	class SVGLengthList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		SVGLength* replaceItem(SVGLength* newItem, Number index);
-		SVGLength* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGLength* replaceItem(SVGLength* newItem, double index);
+		SVGLength* getItem(double index);
 		void clear();
 		SVGLength* appendItem(SVGLength* newItem);
 		SVGLength* initialize(SVGLength* newItem);
-		SVGLength* removeItem(Number index);
-		SVGLength* insertItemBefore(SVGLength* newItem, Number index);
+		SVGLength* removeItem(double index);
+		SVGLength* insertItemBefore(SVGLength* newItem, double index);
 		static void set_prototype(SVGLengthList* value);
 		static SVGLengthList* get_prototype();
 		SVGLengthList();
@@ -4277,14 +4277,14 @@ namespace client
 
 	class SVGPathSegCurvetoCubicSmoothRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x2(Number value);
-		Number get_x2();
-		void set_x(Number value);
-		Number get_x();
-		void set_y2(Number value);
-		Number get_y2();
+		void set_y(double value);
+		double get_y();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_y2(double value);
+		double get_y2();
 		static void set_prototype(SVGPathSegCurvetoCubicSmoothRel* value);
 		static SVGPathSegCurvetoCubicSmoothRel* get_prototype();
 		SVGPathSegCurvetoCubicSmoothRel();
@@ -4297,12 +4297,12 @@ namespace client
 		typedef Object* (*callback_for_onmouseleave)(MouseEvent* ev);
 		void set_onmouseleave(callback_for_onmouseleave value);
 		callback_for_onmouseleave get_onmouseleave();
-		void set_screenLeft(Number value);
-		Number get_screenLeft();
+		void set_screenLeft(double value);
+		double get_screenLeft();
 		void set_offscreenBuffering(Object* value);
 		Object* get_offscreenBuffering();
-		void set_maxConnectionsPerServer(Number value);
-		Number get_maxConnectionsPerServer();
+		void set_maxConnectionsPerServer(double value);
+		double get_maxConnectionsPerServer();
 		typedef Object* (*callback_for_onmouseenter)(MouseEvent* ev);
 		void set_onmouseenter(callback_for_onmouseenter value);
 		callback_for_onmouseenter get_onmouseenter();
@@ -4324,8 +4324,8 @@ namespace client
 		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
 		void set_onfocusout(callback_for_onfocusout value);
 		callback_for_onfocusout get_onfocusout();
-		void set_screenTop(Number value);
-		Number get_screenTop();
+		void set_screenTop(double value);
+		double get_screenTop();
 		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
 		void set_onfocusin(callback_for_onfocusin value);
 		callback_for_onfocusin get_onfocusin();
@@ -4334,12 +4334,12 @@ namespace client
 		Window* showModelessDialog(const String& url, Object* argument, Object* options);
 		void navigate(const String& url);
 		void resizeBy();
-		void resizeBy(Number x);
-		void resizeBy(Number x, Number y);
+		void resizeBy(double x);
+		void resizeBy(double x, double y);
 		Object* item(Object* index);
 		void resizeTo();
-		void resizeTo(Number x);
-		void resizeTo(Number x, Number y);
+		void resizeTo(double x);
+		void resizeTo(double x, double y);
 		MSPopupWindow* createPopup();
 		MSPopupWindow* createPopup(Object* arguments);
 		String* toStaticHTML(const String& html);
@@ -4347,11 +4347,11 @@ namespace client
 		Object* execScript(const String& code, const String& language);
 		void msWriteProfilerMark(const String& profilerMarkName);
 		void moveTo();
-		void moveTo(Number x);
-		void moveTo(Number x, Number y);
+		void moveTo(double x);
+		void moveTo(double x, double y);
 		void moveBy();
-		void moveBy(Number x);
-		void moveBy(Number x, Number y);
+		void moveBy(double x);
+		void moveBy(double x, double y);
 		void showHelp(const String& url);
 		void showHelp(const String& url, Object* helpArg);
 		void showHelp(const String& url, Object* helpArg, const String& features);
@@ -4359,9 +4359,9 @@ namespace client
 
 	class MSBehaviorUrnsCollection{
 	public:
-		void set_length(Number value);
-		Number get_length();
-		String* item(Number index);
+		void set_length(double value);
+		double get_length();
+		String* item(double index);
 		static void set_prototype(MSBehaviorUrnsCollection* value);
 		static MSBehaviorUrnsCollection* get_prototype();
 		MSBehaviorUrnsCollection();
@@ -4402,8 +4402,8 @@ namespace client
 
 	class DOML2DeprecatedWidthStyle{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLHeadingElement{
@@ -4431,10 +4431,10 @@ namespace client
 
 	class BookmarkCollection{
 	public:
-		Object* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		Object* item(Number index);
+		Object* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		Object* item(double index);
 		static void set_prototype(BookmarkCollection* value);
 		static BookmarkCollection* get_prototype();
 		BookmarkCollection();
@@ -4470,14 +4470,14 @@ namespace client
 
 	class SVGZoomAndPan{
 	public:
-		void set_zoomAndPan(Number value);
-		Number get_zoomAndPan();
-		void set_SVG_ZOOMANDPAN_MAGNIFY(Number value);
-		Number get_SVG_ZOOMANDPAN_MAGNIFY();
-		void set_SVG_ZOOMANDPAN_UNKNOWN(Number value);
-		Number get_SVG_ZOOMANDPAN_UNKNOWN();
-		void set_SVG_ZOOMANDPAN_DISABLE(Number value);
-		Number get_SVG_ZOOMANDPAN_DISABLE();
+		void set_zoomAndPan(double value);
+		double get_zoomAndPan();
+		void set_SVG_ZOOMANDPAN_MAGNIFY(double value);
+		double get_SVG_ZOOMANDPAN_MAGNIFY();
+		void set_SVG_ZOOMANDPAN_UNKNOWN(double value);
+		double get_SVG_ZOOMANDPAN_UNKNOWN();
+		void set_SVG_ZOOMANDPAN_DISABLE(double value);
+		double get_SVG_ZOOMANDPAN_DISABLE();
 		static void set_prototype(SVGZoomAndPan* value);
 		static SVGZoomAndPan* get_prototype();
 		SVGZoomAndPan();
@@ -4509,8 +4509,8 @@ namespace client
 
 	class MSMimeTypesCollection{
 	public:
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		static void set_prototype(MSMimeTypesCollection* value);
 		static MSMimeTypesCollection* get_prototype();
 		MSMimeTypesCollection();
@@ -4545,16 +4545,16 @@ namespace client
 
 	class DOML2DeprecatedWidthStyle_HTMLAppletElement{
 	public:
-		void set_width(Number value);
-		Number get_width();
+		void set_width(double value);
+		double get_width();
 	};
 
 	class NodeList{
 	public:
-		Node* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		Node* item(Number index);
+		Node* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		Node* item(double index);
 		static void set_prototype(NodeList* value);
 		static NodeList* get_prototype();
 		NodeList();
@@ -4596,39 +4596,39 @@ namespace client
 
 	class NodeFilter{
 	public:
-		Number acceptNode(Node* n);
-		void set_SHOW_ENTITY_REFERENCE(Number value);
-		Number get_SHOW_ENTITY_REFERENCE();
-		void set_SHOW_NOTATION(Number value);
-		Number get_SHOW_NOTATION();
-		void set_SHOW_ENTITY(Number value);
-		Number get_SHOW_ENTITY();
-		void set_SHOW_DOCUMENT(Number value);
-		Number get_SHOW_DOCUMENT();
-		void set_SHOW_PROCESSING_INSTRUCTION(Number value);
-		Number get_SHOW_PROCESSING_INSTRUCTION();
-		void set_FILTER_REJECT(Number value);
-		Number get_FILTER_REJECT();
-		void set_SHOW_CDATA_SECTION(Number value);
-		Number get_SHOW_CDATA_SECTION();
-		void set_FILTER_ACCEPT(Number value);
-		Number get_FILTER_ACCEPT();
-		void set_SHOW_ALL(Number value);
-		Number get_SHOW_ALL();
-		void set_SHOW_DOCUMENT_TYPE(Number value);
-		Number get_SHOW_DOCUMENT_TYPE();
-		void set_SHOW_TEXT(Number value);
-		Number get_SHOW_TEXT();
-		void set_SHOW_ELEMENT(Number value);
-		Number get_SHOW_ELEMENT();
-		void set_SHOW_COMMENT(Number value);
-		Number get_SHOW_COMMENT();
-		void set_FILTER_SKIP(Number value);
-		Number get_FILTER_SKIP();
-		void set_SHOW_ATTRIBUTE(Number value);
-		Number get_SHOW_ATTRIBUTE();
-		void set_SHOW_DOCUMENT_FRAGMENT(Number value);
-		Number get_SHOW_DOCUMENT_FRAGMENT();
+		double acceptNode(Node* n);
+		void set_SHOW_ENTITY_REFERENCE(double value);
+		double get_SHOW_ENTITY_REFERENCE();
+		void set_SHOW_NOTATION(double value);
+		double get_SHOW_NOTATION();
+		void set_SHOW_ENTITY(double value);
+		double get_SHOW_ENTITY();
+		void set_SHOW_DOCUMENT(double value);
+		double get_SHOW_DOCUMENT();
+		void set_SHOW_PROCESSING_INSTRUCTION(double value);
+		double get_SHOW_PROCESSING_INSTRUCTION();
+		void set_FILTER_REJECT(double value);
+		double get_FILTER_REJECT();
+		void set_SHOW_CDATA_SECTION(double value);
+		double get_SHOW_CDATA_SECTION();
+		void set_FILTER_ACCEPT(double value);
+		double get_FILTER_ACCEPT();
+		void set_SHOW_ALL(double value);
+		double get_SHOW_ALL();
+		void set_SHOW_DOCUMENT_TYPE(double value);
+		double get_SHOW_DOCUMENT_TYPE();
+		void set_SHOW_TEXT(double value);
+		double get_SHOW_TEXT();
+		void set_SHOW_ELEMENT(double value);
+		double get_SHOW_ELEMENT();
+		void set_SHOW_COMMENT(double value);
+		double get_SHOW_COMMENT();
+		void set_FILTER_SKIP(double value);
+		double get_FILTER_SKIP();
+		void set_SHOW_ATTRIBUTE(double value);
+		double get_SHOW_ATTRIBUTE();
+		void set_SHOW_DOCUMENT_FRAGMENT(double value);
+		double get_SHOW_DOCUMENT_FRAGMENT();
 		static void set_prototype(NodeFilter* value);
 		static NodeFilter* get_prototype();
 		NodeFilter();
@@ -4652,89 +4652,89 @@ namespace client
 
 	class ScreenView: public AbstractView {
 	public:
-		void set_outerWidth(Number value);
-		Number get_outerWidth();
-		void set_pageXOffset(Number value);
-		Number get_pageXOffset();
-		void set_innerWidth(Number value);
-		Number get_innerWidth();
-		void set_pageYOffset(Number value);
-		Number get_pageYOffset();
-		void set_screenY(Number value);
-		Number get_screenY();
-		void set_outerHeight(Number value);
-		Number get_outerHeight();
+		void set_outerWidth(double value);
+		double get_outerWidth();
+		void set_pageXOffset(double value);
+		double get_pageXOffset();
+		void set_innerWidth(double value);
+		double get_innerWidth();
+		void set_pageYOffset(double value);
+		double get_pageYOffset();
+		void set_screenY(double value);
+		double get_screenY();
+		void set_outerHeight(double value);
+		double get_outerHeight();
 		void set_screen(Screen* value);
 		Screen* get_screen();
-		void set_innerHeight(Number value);
-		Number get_innerHeight();
-		void set_screenX(Number value);
-		Number get_screenX();
+		void set_innerHeight(double value);
+		double get_innerHeight();
+		void set_screenX(double value);
+		double get_screenX();
 		void scroll();
-		void scroll(Number x);
-		void scroll(Number x, Number y);
+		void scroll(double x);
+		void scroll(double x, double y);
 		void scrollBy();
-		void scrollBy(Number x);
-		void scrollBy(Number x, Number y);
+		void scrollBy(double x);
+		void scrollBy(double x, double y);
 		void scrollTo();
-		void scrollTo(Number x);
-		void scrollTo(Number x, Number y);
+		void scrollTo(double x);
+		void scrollTo(double x, double y);
 	};
 
 	class DOML2DeprecatedMarginStyle_HTMLObjectElement{
 	public:
-		void set_vspace(Number value);
-		Number get_vspace();
-		void set_hspace(Number value);
-		Number get_hspace();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class DOML2DeprecatedMarginStyle_HTMLInputElement{
 	public:
-		void set_vspace(Number value);
-		Number get_vspace();
-		void set_hspace(Number value);
-		Number get_hspace();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class MSHTMLTableSectionElementExtensions: public DOML2DeprecatedBackgroundColorStyle {
 	public:
 		Object* moveRow();
-		Object* moveRow(Number indexFrom);
-		Object* moveRow(Number indexFrom, Number indexTo);
+		Object* moveRow(double indexFrom);
+		Object* moveRow(double indexFrom, double indexTo);
 	};
 
 	class MediaError{
 	public:
-		void set_code(Number value);
-		Number get_code();
-		void set_MEDIA_ERR_ABORTED(Number value);
-		Number get_MEDIA_ERR_ABORTED();
-		void set_MEDIA_ERR_NETWORK(Number value);
-		Number get_MEDIA_ERR_NETWORK();
-		void set_MEDIA_ERR_SRC_NOT_SUPPORTED(Number value);
-		Number get_MEDIA_ERR_SRC_NOT_SUPPORTED();
-		void set_MEDIA_ERR_DECODE(Number value);
-		Number get_MEDIA_ERR_DECODE();
+		void set_code(double value);
+		double get_code();
+		void set_MEDIA_ERR_ABORTED(double value);
+		double get_MEDIA_ERR_ABORTED();
+		void set_MEDIA_ERR_NETWORK(double value);
+		double get_MEDIA_ERR_NETWORK();
+		void set_MEDIA_ERR_SRC_NOT_SUPPORTED(double value);
+		double get_MEDIA_ERR_SRC_NOT_SUPPORTED();
+		void set_MEDIA_ERR_DECODE(double value);
+		double get_MEDIA_ERR_DECODE();
 		static void set_prototype(MediaError* value);
 		static MediaError* get_prototype();
 		MediaError();
 	};
 
-	class SVGNumberList{
+	class SVGdoubleList{
 	public:
-		void set_numberOfItems(Number value);
-		Number get_numberOfItems();
-		SVGNumber* replaceItem(SVGNumber* newItem, Number index);
-		SVGNumber* getItem(Number index);
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGdouble* replaceItem(SVGdouble* newItem, double index);
+		SVGdouble* getItem(double index);
 		void clear();
-		SVGNumber* appendItem(SVGNumber* newItem);
-		SVGNumber* initialize(SVGNumber* newItem);
-		SVGNumber* removeItem(Number index);
-		SVGNumber* insertItemBefore(SVGNumber* newItem, Number index);
-		static void set_prototype(SVGNumberList* value);
-		static SVGNumberList* get_prototype();
-		SVGNumberList();
+		SVGdouble* appendItem(SVGdouble* newItem);
+		SVGdouble* initialize(SVGdouble* newItem);
+		SVGdouble* removeItem(double index);
+		SVGdouble* insertItemBefore(SVGdouble* newItem, double index);
+		static void set_prototype(SVGdoubleList* value);
+		static SVGdoubleList* get_prototype();
+		SVGdoubleList();
 	};
 
 	class CanvasPattern{
@@ -4766,10 +4766,10 @@ namespace client
 	public:
 		void set_enableHighAccuracy(Boolean value);
 		Boolean get_enableHighAccuracy();
-		void set_timeout(Number value);
-		Number get_timeout();
-		void set_maximumAge(Number value);
-		Number get_maximumAge();
+		void set_timeout(double value);
+		double get_timeout();
+		void set_maximumAge(double value);
+		double get_maximumAge();
 	};
 
 	class MSHTMLMenuElementExtensions{
@@ -4780,7 +4780,7 @@ namespace client
 	public:
 		void set_defaultView(AbstractView* value);
 		AbstractView* get_defaultView();
-		Element* elementFromPoint(Number x, Number y);
+		Element* elementFromPoint(double x, double y);
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement{
@@ -4791,10 +4791,10 @@ namespace client
 
 	class SVGPathSegLinetoRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegLinetoRel* value);
 		static SVGPathSegLinetoRel* get_prototype();
 		SVGPathSegLinetoRel();
@@ -4808,59 +4808,59 @@ namespace client
 
 	class DOMException{
 	public:
-		void set_code(Number value);
-		Number get_code();
+		void set_code(double value);
+		double get_code();
 		void set_message(const String& value);
 		String* get_message();
 		String* toString();
-		void set_HIERARCHY_REQUEST_ERR(Number value);
-		Number get_HIERARCHY_REQUEST_ERR();
-		void set_NO_MODIFICATION_ALLOWED_ERR(Number value);
-		Number get_NO_MODIFICATION_ALLOWED_ERR();
-		void set_INVALID_MODIFICATION_ERR(Number value);
-		Number get_INVALID_MODIFICATION_ERR();
-		void set_NAMESPACE_ERR(Number value);
-		Number get_NAMESPACE_ERR();
-		void set_INVALID_CHARACTER_ERR(Number value);
-		Number get_INVALID_CHARACTER_ERR();
-		void set_TYPE_MISMATCH_ERR(Number value);
-		Number get_TYPE_MISMATCH_ERR();
-		void set_ABORT_ERR(Number value);
-		Number get_ABORT_ERR();
-		void set_INVALID_STATE_ERR(Number value);
-		Number get_INVALID_STATE_ERR();
-		void set_SECURITY_ERR(Number value);
-		Number get_SECURITY_ERR();
-		void set_NETWORK_ERR(Number value);
-		Number get_NETWORK_ERR();
-		void set_WRONG_DOCUMENT_ERR(Number value);
-		Number get_WRONG_DOCUMENT_ERR();
-		void set_QUOTA_EXCEEDED_ERR(Number value);
-		Number get_QUOTA_EXCEEDED_ERR();
-		void set_INDEX_SIZE_ERR(Number value);
-		Number get_INDEX_SIZE_ERR();
-		void set_DOMSTRING_SIZE_ERR(Number value);
-		Number get_DOMSTRING_SIZE_ERR();
-		void set_SYNTAX_ERR(Number value);
-		Number get_SYNTAX_ERR();
-		void set_SERIALIZE_ERR(Number value);
-		Number get_SERIALIZE_ERR();
-		void set_VALIDATION_ERR(Number value);
-		Number get_VALIDATION_ERR();
-		void set_NOT_FOUND_ERR(Number value);
-		Number get_NOT_FOUND_ERR();
-		void set_URL_MISMATCH_ERR(Number value);
-		Number get_URL_MISMATCH_ERR();
-		void set_PARSE_ERR(Number value);
-		Number get_PARSE_ERR();
-		void set_NO_DATA_ALLOWED_ERR(Number value);
-		Number get_NO_DATA_ALLOWED_ERR();
-		void set_NOT_SUPPORTED_ERR(Number value);
-		Number get_NOT_SUPPORTED_ERR();
-		void set_INVALID_ACCESS_ERR(Number value);
-		Number get_INVALID_ACCESS_ERR();
-		void set_INUSE_ATTRIBUTE_ERR(Number value);
-		Number get_INUSE_ATTRIBUTE_ERR();
+		void set_HIERARCHY_REQUEST_ERR(double value);
+		double get_HIERARCHY_REQUEST_ERR();
+		void set_NO_MODIFICATION_ALLOWED_ERR(double value);
+		double get_NO_MODIFICATION_ALLOWED_ERR();
+		void set_INVALID_MODIFICATION_ERR(double value);
+		double get_INVALID_MODIFICATION_ERR();
+		void set_NAMESPACE_ERR(double value);
+		double get_NAMESPACE_ERR();
+		void set_INVALID_CHARACTER_ERR(double value);
+		double get_INVALID_CHARACTER_ERR();
+		void set_TYPE_MISMATCH_ERR(double value);
+		double get_TYPE_MISMATCH_ERR();
+		void set_ABORT_ERR(double value);
+		double get_ABORT_ERR();
+		void set_INVALID_STATE_ERR(double value);
+		double get_INVALID_STATE_ERR();
+		void set_SECURITY_ERR(double value);
+		double get_SECURITY_ERR();
+		void set_NETWORK_ERR(double value);
+		double get_NETWORK_ERR();
+		void set_WRONG_DOCUMENT_ERR(double value);
+		double get_WRONG_DOCUMENT_ERR();
+		void set_QUOTA_EXCEEDED_ERR(double value);
+		double get_QUOTA_EXCEEDED_ERR();
+		void set_INDEX_SIZE_ERR(double value);
+		double get_INDEX_SIZE_ERR();
+		void set_DOMSTRING_SIZE_ERR(double value);
+		double get_DOMSTRING_SIZE_ERR();
+		void set_SYNTAX_ERR(double value);
+		double get_SYNTAX_ERR();
+		void set_SERIALIZE_ERR(double value);
+		double get_SERIALIZE_ERR();
+		void set_VALIDATION_ERR(double value);
+		double get_VALIDATION_ERR();
+		void set_NOT_FOUND_ERR(double value);
+		double get_NOT_FOUND_ERR();
+		void set_URL_MISMATCH_ERR(double value);
+		double get_URL_MISMATCH_ERR();
+		void set_PARSE_ERR(double value);
+		double get_PARSE_ERR();
+		void set_NO_DATA_ALLOWED_ERR(double value);
+		double get_NO_DATA_ALLOWED_ERR();
+		void set_NOT_SUPPORTED_ERR(double value);
+		double get_NOT_SUPPORTED_ERR();
+		void set_INVALID_ACCESS_ERR(double value);
+		double get_INVALID_ACCESS_ERR();
+		void set_INUSE_ATTRIBUTE_ERR(double value);
+		double get_INUSE_ATTRIBUTE_ERR();
 		static void set_prototype(DOMException* value);
 		static DOMException* get_prototype();
 		DOMException();
@@ -4868,9 +4868,9 @@ namespace client
 
 	class MSCompatibleInfoCollection{
 	public:
-		void set_length(Number value);
-		Number get_length();
-		MSCompatibleInfo* item(Number index);
+		void set_length(double value);
+		double get_length();
+		MSCompatibleInfo* item(double index);
 		static void set_prototype(MSCompatibleInfoCollection* value);
 		static MSCompatibleInfoCollection* get_prototype();
 		MSCompatibleInfoCollection();
@@ -4906,38 +4906,38 @@ namespace client
 
 	class SVGPreserveAspectRatio{
 	public:
-		void set_align(Number value);
-		Number get_align();
-		void set_meetOrSlice(Number value);
-		Number get_meetOrSlice();
-		void set_SVG_PRESERVEASPECTRATIO_NONE(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_NONE();
-		void set_SVG_PRESERVEASPECTRATIO_XMINYMID(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMINYMID();
-		void set_SVG_PRESERVEASPECTRATIO_XMAXYMIN(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMAXYMIN();
-		void set_SVG_PRESERVEASPECTRATIO_XMINYMAX(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMINYMAX();
-		void set_SVG_PRESERVEASPECTRATIO_XMAXYMAX(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMAXYMAX();
-		void set_SVG_MEETORSLICE_UNKNOWN(Number value);
-		Number get_SVG_MEETORSLICE_UNKNOWN();
-		void set_SVG_PRESERVEASPECTRATIO_XMAXYMID(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMAXYMID();
-		void set_SVG_PRESERVEASPECTRATIO_XMIDYMAX(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMIDYMAX();
-		void set_SVG_PRESERVEASPECTRATIO_XMINYMIN(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMINYMIN();
-		void set_SVG_MEETORSLICE_MEET(Number value);
-		Number get_SVG_MEETORSLICE_MEET();
-		void set_SVG_PRESERVEASPECTRATIO_XMIDYMID(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMIDYMID();
-		void set_SVG_PRESERVEASPECTRATIO_XMIDYMIN(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_XMIDYMIN();
-		void set_SVG_MEETORSLICE_SLICE(Number value);
-		Number get_SVG_MEETORSLICE_SLICE();
-		void set_SVG_PRESERVEASPECTRATIO_UNKNOWN(Number value);
-		Number get_SVG_PRESERVEASPECTRATIO_UNKNOWN();
+		void set_align(double value);
+		double get_align();
+		void set_meetOrSlice(double value);
+		double get_meetOrSlice();
+		void set_SVG_PRESERVEASPECTRATIO_NONE(double value);
+		double get_SVG_PRESERVEASPECTRATIO_NONE();
+		void set_SVG_PRESERVEASPECTRATIO_XMINYMID(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMINYMID();
+		void set_SVG_PRESERVEASPECTRATIO_XMAXYMIN(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMAXYMIN();
+		void set_SVG_PRESERVEASPECTRATIO_XMINYMAX(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMINYMAX();
+		void set_SVG_PRESERVEASPECTRATIO_XMAXYMAX(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMAXYMAX();
+		void set_SVG_MEETORSLICE_UNKNOWN(double value);
+		double get_SVG_MEETORSLICE_UNKNOWN();
+		void set_SVG_PRESERVEASPECTRATIO_XMAXYMID(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMAXYMID();
+		void set_SVG_PRESERVEASPECTRATIO_XMIDYMAX(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMIDYMAX();
+		void set_SVG_PRESERVEASPECTRATIO_XMINYMIN(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMINYMIN();
+		void set_SVG_MEETORSLICE_MEET(double value);
+		double get_SVG_MEETORSLICE_MEET();
+		void set_SVG_PRESERVEASPECTRATIO_XMIDYMID(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMIDYMID();
+		void set_SVG_PRESERVEASPECTRATIO_XMIDYMIN(double value);
+		double get_SVG_PRESERVEASPECTRATIO_XMIDYMIN();
+		void set_SVG_MEETORSLICE_SLICE(double value);
+		double get_SVG_MEETORSLICE_SLICE();
+		void set_SVG_PRESERVEASPECTRATIO_UNKNOWN(double value);
+		double get_SVG_PRESERVEASPECTRATIO_UNKNOWN();
 		static void set_prototype(SVGPreserveAspectRatio* value);
 		static SVGPreserveAspectRatio* get_prototype();
 		SVGPreserveAspectRatio();
@@ -4957,19 +4957,19 @@ namespace client
 
 	class PerformanceNavigation{
 	public:
-		void set_redirectCount(Number value);
-		Number get_redirectCount();
-		void set_type(Number value);
-		Number get_type();
+		void set_redirectCount(double value);
+		double get_redirectCount();
+		void set_type(double value);
+		double get_type();
 		Object* toJSON();
-		void set_TYPE_RELOAD(Number value);
-		Number get_TYPE_RELOAD();
-		void set_TYPE_RESERVED(Number value);
-		Number get_TYPE_RESERVED();
-		void set_TYPE_BACK_FORWARD(Number value);
-		Number get_TYPE_BACK_FORWARD();
-		void set_TYPE_NAVIGATE(Number value);
-		Number get_TYPE_NAVIGATE();
+		void set_TYPE_RELOAD(double value);
+		double get_TYPE_RELOAD();
+		void set_TYPE_RESERVED(double value);
+		double get_TYPE_RESERVED();
+		void set_TYPE_BACK_FORWARD(double value);
+		double get_TYPE_BACK_FORWARD();
+		void set_TYPE_NAVIGATE(double value);
+		double get_TYPE_NAVIGATE();
 		static void set_prototype(PerformanceNavigation* value);
 		static PerformanceNavigation* get_prototype();
 		PerformanceNavigation();
@@ -4994,9 +4994,9 @@ namespace client
 
 	class SVGElementInstanceList{
 	public:
-		void set_length(Number value);
-		Number get_length();
-		SVGElementInstance* item(Number index);
+		void set_length(double value);
+		double get_length();
+		SVGElementInstance* item(double index);
 		static void set_prototype(SVGElementInstanceList* value);
 		static SVGElementInstanceList* get_prototype();
 		SVGElementInstanceList();
@@ -5012,10 +5012,10 @@ namespace client
 
 	class CSSRuleList{
 	public:
-		CSSRule* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		CSSRule* item(Number index);
+		CSSRule* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		CSSRule* item(double index);
 		static void set_prototype(CSSRuleList* value);
 		static CSSRuleList* get_prototype();
 		CSSRuleList();
@@ -5039,8 +5039,8 @@ namespace client
 	public:
 		void set_responseBody(Object* value);
 		Object* get_responseBody();
-		void set_timeout(Number value);
-		Number get_timeout();
+		void set_timeout(double value);
+		double get_timeout();
 		typedef Object* (*callback_for_ontimeout)(Event* ev);
 		void set_ontimeout(callback_for_ontimeout value);
 		callback_for_ontimeout get_ontimeout();
@@ -5048,10 +5048,10 @@ namespace client
 
 	class ClientRectList{
 	public:
-		ClientRect* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		ClientRect* item(Number index);
+		ClientRect* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		ClientRect* item(double index);
 		static void set_prototype(ClientRectList* value);
 		static ClientRectList* get_prototype();
 		ClientRectList();
@@ -5096,8 +5096,8 @@ namespace client
 		Boolean get_required();
 		void set_formEnctype(const String& value);
 		String* get_formEnctype();
-		void set_valueAsNumber(Number value);
-		Number get_valueAsNumber();
+		void set_valueAsdouble(double value);
+		double get_valueAsdouble();
 		void set_placeholder(const String& value);
 		String* get_placeholder();
 		void set_formMethod(const String& value);
@@ -5120,9 +5120,9 @@ namespace client
 		Boolean get_multiple();
 		Boolean checkValidity();
 		void stepDown();
-		void stepDown(Number n);
+		void stepDown(double n);
 		void stepUp();
-		void stepUp(Number n);
+		void stepUp(double n);
 		void setCustomValidity(const String& error);
 	};
 
@@ -5136,7 +5136,7 @@ namespace client
 	public:
 		void set_target(Element* value);
 		Element* get_target();
-		void addPointer(Number pointerId);
+		void addPointer(double pointerId);
 		void stop();
 		static void set_prototype(MSGesture* value);
 		static MSGesture* get_prototype();
@@ -5150,16 +5150,16 @@ namespace client
 		callback_for_onenter get_onenter();
 		void set_track(TextTrack* value);
 		TextTrack* get_track();
-		void set_endTime(Number value);
-		Number get_endTime();
+		void set_endTime(double value);
+		double get_endTime();
 		void set_text(const String& value);
 		String* get_text();
 		void set_pauseOnExit(Boolean value);
 		Boolean get_pauseOnExit();
 		void set_id(const String& value);
 		String* get_id();
-		void set_startTime(Number value);
-		Number get_startTime();
+		void set_startTime(double value);
+		double get_startTime();
 		typedef Object* (*callback_for_onexit)(Event* ev);
 		void set_onexit(callback_for_onexit value);
 		callback_for_onexit get_onexit();
@@ -5199,14 +5199,14 @@ namespace client
 
 	class DOMTokenList{
 	public:
-		String* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		String* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		Boolean contains(const String& token);
 		void remove(const String& token);
 		Boolean toggle(const String& token);
 		void add(const String& token);
-		String* item(Number index);
+		String* item(double index);
 		String* toString();
 		static void set_prototype(DOMTokenList* value);
 		static DOMTokenList* get_prototype();
@@ -5259,10 +5259,10 @@ namespace client
 	public:
 		void set_protocol(const String& value);
 		String* get_protocol();
-		void set_readyState(Number value);
-		Number get_readyState();
-		void set_bufferedAmount(Number value);
-		Number get_bufferedAmount();
+		void set_readyState(double value);
+		double get_readyState();
+		void set_bufferedAmount(double value);
+		double get_bufferedAmount();
 		typedef Object* (*callback_for_onopen)(Event* ev);
 		void set_onopen(callback_for_onopen value);
 		callback_for_onopen get_onopen();
@@ -5282,17 +5282,17 @@ namespace client
 		void set_url(const String& value);
 		String* get_url();
 		void close();
-		void close(Number code);
-		void close(Number code, const String& reason);
+		void close(double code);
+		void close(double code, const String& reason);
 		void send(Object* data);
-		void set_OPEN(Number value);
-		Number get_OPEN();
-		void set_CLOSING(Number value);
-		Number get_CLOSING();
-		void set_CONNECTING(Number value);
-		Number get_CONNECTING();
-		void set_CLOSED(Number value);
-		Number get_CLOSED();
+		void set_OPEN(double value);
+		double get_OPEN();
+		void set_CLOSING(double value);
+		double get_CLOSING();
+		void set_CONNECTING(double value);
+		double get_CONNECTING();
+		void set_CLOSED(double value);
+		double get_CLOSED();
 		static void set_prototype(WebSocket* value);
 		static WebSocket* get_prototype();
 		WebSocket(const String& url);
@@ -5388,10 +5388,10 @@ namespace client
 
 	class FileList{
 	public:
-		File* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		File* item(Number index);
+		File* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		File* item(double index);
 		static void set_prototype(FileList* value);
 		static FileList* get_prototype();
 		FileList();
@@ -5407,7 +5407,7 @@ namespace client
 		Object* get_key();
 		void set_primaryKey(Object* value);
 		Object* get_primaryKey();
-		void advance(Number count);
+		void advance(double count);
 		IDBRequest* delet();
 		void continu();
 		void continu(Object* key);
@@ -5483,8 +5483,8 @@ namespace client
 		ValidityState* get_validity();
 		void set_required(Boolean value);
 		Boolean get_required();
-		void set_maxLength(Number value);
-		Number get_maxLength();
+		void set_maxLength(double value);
+		double get_maxLength();
 		void set_willValidate(Boolean value);
 		Boolean get_willValidate();
 		void set_placeholder(const String& value);
@@ -5531,9 +5531,9 @@ namespace client
 
 	class AudioTrackList: public EventTarget {
 	public:
-		AudioTrack* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		AudioTrack* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		typedef Object* (*callback_for_onchange)(Object* ev);
 		void set_onchange(callback_for_onchange value);
 		callback_for_onchange get_onchange();
@@ -5541,7 +5541,7 @@ namespace client
 		void set_onaddtrack(callback_for_onaddtrack value);
 		callback_for_onaddtrack get_onaddtrack();
 		AudioTrack* getTrackById(const String& id);
-		AudioTrack* item(Number index);
+		AudioTrack* item(double index);
 		static void set_prototype(AudioTrackList* value);
 		static AudioTrackList* get_prototype();
 		AudioTrackList();
@@ -5552,8 +5552,8 @@ namespace client
 		typedef Object* (*callback_for_onprogress)(ProgressEvent* ev);
 		void set_onprogress(callback_for_onprogress value);
 		callback_for_onprogress get_onprogress();
-		void set_readyState(Number value);
-		Number get_readyState();
+		void set_readyState(double value);
+		double get_readyState();
 		typedef Object* (*callback_for_onabort)(Object* ev);
 		void set_onabort(callback_for_onabort value);
 		callback_for_onabort get_onabort();
@@ -5572,12 +5572,12 @@ namespace client
 		void set_result(Object* value);
 		Object* get_result();
 		void abort();
-		void set_LOADING(Number value);
-		Number get_LOADING();
-		void set_EMPTY(Number value);
-		Number get_EMPTY();
-		void set_DONE(Number value);
-		Number get_DONE();
+		void set_LOADING(double value);
+		double get_LOADING();
+		void set_EMPTY(double value);
+		double get_EMPTY();
+		void set_DONE(double value);
+		double get_DONE();
 	};
 
 	class MSProtocol{
@@ -5632,16 +5632,16 @@ namespace client
 	class WindowTimersExtension{
 	public:
 		template<typename... Args> 
-		Number msSetImmediate(Object* expression, const Args&... args )
+		double msSetImmediate(Object* expression, const Args&... args )
 		{
-			duettoVariadicTrap<Number>(msSetImmediate<>,static_cast<const Object&>(args)...);
+			duettoVariadicTrap<double>(msSetImmediate<>,static_cast<const Object&>(args)...);
 		}
-		void clearImmediate(Number handle);
-		void msClearImmediate(Number handle);
+		void clearImmediate(double handle);
+		void msClearImmediate(double handle);
 		template<typename... Args> 
-		Number setImmediate(Object* expression, const Args&... args )
+		double setImmediate(Object* expression, const Args&... args )
 		{
-			duettoVariadicTrap<Number>(setImmediate<>,static_cast<const Object&>(args)...);
+			duettoVariadicTrap<double>(setImmediate<>,static_cast<const Object&>(args)...);
 		}
 	};
 
@@ -5667,10 +5667,10 @@ namespace client
 
 	class MSRangeCollection{
 	public:
-		Range* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		Range* item(Number index);
+		Range* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		Range* item(double index);
 		static void set_prototype(MSRangeCollection* value);
 		static MSRangeCollection* get_prototype();
 		MSRangeCollection();
@@ -5766,10 +5766,10 @@ namespace client
 
 	class TextTrackCueList{
 	public:
-		TextTrackCue* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		TextTrackCue* item(Number index);
+		TextTrackCue* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		TextTrackCue* item(double index);
 		TextTrackCue* getCueById(const String& id);
 		static void set_prototype(TextTrackCueList* value);
 		static TextTrackCueList* get_prototype();
@@ -5826,10 +5826,10 @@ namespace client
 
 	class TextTrackList{
 	public:
-		TextTrack* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
-		TextTrack* item(Number index);
+		TextTrack* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		TextTrack* item(double index);
 		static void set_prototype(TextTrackList* value);
 		static TextTrackList* get_prototype();
 		TextTrackList();
@@ -5837,14 +5837,14 @@ namespace client
 
 	class WindowAnimationTiming{
 	public:
-		void set_animationStartTime(Number value);
-		Number get_animationStartTime();
-		void set_msAnimationStartTime(Number value);
-		Number get_msAnimationStartTime();
-		void msCancelRequestAnimationFrame(Number handle);
-		void cancelAnimationFrame(Number handle);
-		Number requestAnimationFrame(FrameRequestCallback* callback);
-		Number msRequestAnimationFrame(FrameRequestCallback* callback);
+		void set_animationStartTime(double value);
+		double get_animationStartTime();
+		void set_msAnimationStartTime(double value);
+		double get_msAnimationStartTime();
+		void msCancelRequestAnimationFrame(double handle);
+		void cancelAnimationFrame(double handle);
+		double requestAnimationFrame(FrameRequestCallback* callback);
+		double msRequestAnimationFrame(FrameRequestCallback* callback);
 	};
 
 	class Console{
@@ -5948,11 +5948,11 @@ namespace client
 
 	class DOMStringList{
 	public:
-		String* operator[](Number index);
-		void set_length(Number value);
-		Number get_length();
+		String* operator[](double index);
+		void set_length(double value);
+		double get_length();
 		Boolean contains(const String& str);
-		String* item(Number index);
+		String* item(double index);
 		static void set_prototype(DOMStringList* value);
 		static DOMStringList* get_prototype();
 		DOMStringList();
@@ -6040,8 +6040,8 @@ namespace client
 	public:
 		void set_language(const String& value);
 		String* get_language();
-		void set_mode(Number value);
-		Number get_mode();
+		void set_mode(double value);
+		double get_mode();
 		void set_readyState(const String& value);
 		String* get_readyState();
 		void set_activeCues(TextTrackCueList* value);
@@ -6061,20 +6061,20 @@ namespace client
 		callback_for_onerror get_onerror();
 		void set_label(const String& value);
 		String* get_label();
-		void set_ERROR(Number value);
-		Number get_ERROR();
-		void set_SHOWING(Number value);
-		Number get_SHOWING();
-		void set_LOADING(Number value);
-		Number get_LOADING();
-		void set_LOADED(Number value);
-		Number get_LOADED();
-		void set_NONE(Number value);
-		Number get_NONE();
-		void set_HIDDEN(Number value);
-		Number get_HIDDEN();
-		void set_DISABLED(Number value);
-		Number get_DISABLED();
+		void set_ERROR(double value);
+		double get_ERROR();
+		void set_SHOWING(double value);
+		double get_SHOWING();
+		void set_LOADING(double value);
+		double get_LOADING();
+		void set_LOADED(double value);
+		double get_LOADED();
+		void set_NONE(double value);
+		double get_NONE();
+		void set_HIDDEN(double value);
+		double get_HIDDEN();
+		void set_DISABLED(double value);
+		double get_DISABLED();
 		static void set_prototype(TextTrack* value);
 		static TextTrack* get_prototype();
 		TextTrack();
@@ -6139,12 +6139,12 @@ namespace client
 	public:
 		void set_type(const String& value);
 		String* get_type();
-		void set_size(Number value);
-		Number get_size();
+		void set_size(double value);
+		double get_size();
 		Object* msDetachStream();
 		Blob* slice();
-		Blob* slice(Number start);
-		Blob* slice(Number start, Number end, const String& contentType);
+		Blob* slice(double start);
+		Blob* slice(double start, double end, const String& contentType);
 		void close();
 		void msClose();
 	};
@@ -6159,8 +6159,8 @@ namespace client
 
 	class ApplicationCache: public EventTarget {
 	public:
-		void set_status(Number value);
-		Number get_status();
+		void set_status(double value);
+		double get_status();
 		typedef Object* (*callback_for_ondownloading)(Event* ev);
 		void set_ondownloading(callback_for_ondownloading value);
 		callback_for_ondownloading get_ondownloading();
@@ -6215,13 +6215,13 @@ namespace client
 		Boolean get_msZoom();
 		void msInsertVideoEffect(const String& activatableClassId, Boolean effectRequired);
 		void msInsertVideoEffect(const String& activatableClassId, Boolean effectRequired, Object* config);
-		void msSetVideoRectangle(Number left, Number top, Number right, Number bottom);
+		void msSetVideoRectangle(double left, double top, double right, double bottom);
 		void msFrameStep(Boolean forward);
 	};
 
 	class FrameRequestCallback{
 	public:
-		void operator()(Number time);
+		void operator()(double time);
 	};
 
 	class CSS3DTransformsProperties{
@@ -6353,8 +6353,8 @@ namespace client
 	class IDBFactory{
 	public:
 		IDBOpenDBRequest* open(const String& name);
-		IDBOpenDBRequest* open(const String& name, Number version);
-		Number cmp(Object* first, Object* second);
+		IDBOpenDBRequest* open(const String& name, double version);
+		double cmp(Object* first, Object* second);
 		IDBOpenDBRequest* deleteDatabase(const String& name);
 		static void set_prototype(IDBFactory* value);
 		static IDBFactory* get_prototype();
@@ -6512,65 +6512,65 @@ namespace client
 
 	class MSCSSMatrix{
 	public:
-		void set_m24(Number value);
-		Number get_m24();
-		void set_m34(Number value);
-		Number get_m34();
-		void set_a(Number value);
-		Number get_a();
-		void set_d(Number value);
-		Number get_d();
-		void set_m32(Number value);
-		Number get_m32();
-		void set_m41(Number value);
-		Number get_m41();
-		void set_m11(Number value);
-		Number get_m11();
-		void set_f(Number value);
-		Number get_f();
-		void set_e(Number value);
-		Number get_e();
-		void set_m23(Number value);
-		Number get_m23();
-		void set_m14(Number value);
-		Number get_m14();
-		void set_m33(Number value);
-		Number get_m33();
-		void set_m22(Number value);
-		Number get_m22();
-		void set_m21(Number value);
-		Number get_m21();
-		void set_c(Number value);
-		Number get_c();
-		void set_m12(Number value);
-		Number get_m12();
-		void set_b(Number value);
-		Number get_b();
-		void set_m42(Number value);
-		Number get_m42();
-		void set_m31(Number value);
-		Number get_m31();
-		void set_m43(Number value);
-		Number get_m43();
-		void set_m13(Number value);
-		Number get_m13();
-		void set_m44(Number value);
-		Number get_m44();
+		void set_m24(double value);
+		double get_m24();
+		void set_m34(double value);
+		double get_m34();
+		void set_a(double value);
+		double get_a();
+		void set_d(double value);
+		double get_d();
+		void set_m32(double value);
+		double get_m32();
+		void set_m41(double value);
+		double get_m41();
+		void set_m11(double value);
+		double get_m11();
+		void set_f(double value);
+		double get_f();
+		void set_e(double value);
+		double get_e();
+		void set_m23(double value);
+		double get_m23();
+		void set_m14(double value);
+		double get_m14();
+		void set_m33(double value);
+		double get_m33();
+		void set_m22(double value);
+		double get_m22();
+		void set_m21(double value);
+		double get_m21();
+		void set_c(double value);
+		double get_c();
+		void set_m12(double value);
+		double get_m12();
+		void set_b(double value);
+		double get_b();
+		void set_m42(double value);
+		double get_m42();
+		void set_m31(double value);
+		double get_m31();
+		void set_m43(double value);
+		double get_m43();
+		void set_m13(double value);
+		double get_m13();
+		void set_m44(double value);
+		double get_m44();
 		MSCSSMatrix* multiply(MSCSSMatrix* secondMatrix);
-		MSCSSMatrix* skewY(Number angle);
+		MSCSSMatrix* skewY(double angle);
 		void setMatrixValue(const String& value);
 		MSCSSMatrix* inverse();
-		MSCSSMatrix* rotateAxisAngle(Number x, Number y, Number z, Number angle);
+		MSCSSMatrix* rotateAxisAngle(double x, double y, double z, double angle);
 		String* toString();
-		MSCSSMatrix* rotate(Number angleX);
-		MSCSSMatrix* rotate(Number angleX, Number angleY);
-		MSCSSMatrix* rotate(Number angleX, Number angleY, Number angleZ);
-		MSCSSMatrix* translate(Number x, Number y);
-		MSCSSMatrix* translate(Number x, Number y, Number z);
-		MSCSSMatrix* scale(Number scaleX);
-		MSCSSMatrix* scale(Number scaleX, Number scaleY);
-		MSCSSMatrix* scale(Number scaleX, Number scaleY, Number scaleZ);
-		MSCSSMatrix* skewX(Number angle);
+		MSCSSMatrix* rotate(double angleX);
+		MSCSSMatrix* rotate(double angleX, double angleY);
+		MSCSSMatrix* rotate(double angleX, double angleY, double angleZ);
+		MSCSSMatrix* translate(double x, double y);
+		MSCSSMatrix* translate(double x, double y, double z);
+		MSCSSMatrix* scale(double scaleX);
+		MSCSSMatrix* scale(double scaleX, double scaleY);
+		MSCSSMatrix* scale(double scaleX, double scaleY, double scaleZ);
+		MSCSSMatrix* skewX(double angle);
 		static void set_prototype(MSCSSMatrix* value);
 		static MSCSSMatrix* get_prototype();
 		MSCSSMatrix();
@@ -6598,8 +6598,8 @@ namespace client
 
 	class MSMediaErrorExtensions{
 	public:
-		void set_msExtendedCode(Number value);
-		Number get_msExtendedCode();
+		void set_msExtendedCode(double value);
+		double get_msExtendedCode();
 	};
 
 	class HTMLTableElement: public HTMLElement , public DOML2DeprecatedBorderStyle_HTMLTableElement , public DOML2DeprecatedAlignmentStyle_HTMLTableElement , public MSBorderColorStyle , public MSDataBindingExtensions , public MSHTMLTableElementExtensions , public DOML2DeprecatedBackgroundStyle , public MSBorderColorHighlightStyle , public MSDataBindingTableExtensions , public DOML2DeprecatedBackgroundColorStyle {
@@ -6627,11 +6627,11 @@ namespace client
 		void set_caption(HTMLTableCaptionElement* value);
 		HTMLTableCaptionElement* get_caption();
 		void deleteRow();
-		void deleteRow(Number index);
+		void deleteRow(double index);
 		HTMLElement* createTBody();
 		void deleteCaption();
 		HTMLElement* insertRow();
-		HTMLElement* insertRow(Number index);
+		HTMLElement* insertRow(double index);
 		void deleteTFoot();
 		HTMLElement* createTHead();
 		void deleteTHead();
@@ -6644,14 +6644,14 @@ namespace client
 
 	class SVGPathSegCurvetoQuadraticRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_y1(Number value);
-		Number get_y1();
-		void set_x(Number value);
-		Number get_x();
-		void set_x1(Number value);
-		Number get_x1();
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
 		static void set_prototype(SVGPathSegCurvetoQuadraticRel* value);
 		static SVGPathSegCurvetoQuadraticRel* get_prototype();
 		SVGPathSegCurvetoQuadraticRel();
@@ -6659,17 +6659,17 @@ namespace client
 
 	class CSSStyleDeclaration: public CSS3Properties , public SVG1_1Properties , public CSS2Properties {
 	public:
-		String* operator[](Number index);
+		String* operator[](double index);
 		void set_cssText(const String& value);
 		String* get_cssText();
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		void set_parentRule(CSSRule* value);
 		CSSRule* get_parentRule();
 		String* getPropertyPriority(const String& propertyName);
 		String* getPropertyValue(const String& propertyName);
 		String* removeProperty(const String& propertyName);
-		String* item(Number index);
+		String* item(double index);
 		void setProperty(const String& propertyName, const String& value);
 		void setProperty(const String& propertyName, const String& value, const String& priority);
 		static void set_prototype(CSSStyleDeclaration* value);
@@ -6687,20 +6687,20 @@ namespace client
 
 	class SVGPathSegCurvetoCubicSmoothAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x2(Number value);
-		Number get_x2();
-		void set_x(Number value);
-		Number get_x();
-		void set_y2(Number value);
-		Number get_y2();
+		void set_y(double value);
+		double get_y();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_y2(double value);
+		double get_y2();
 		static void set_prototype(SVGPathSegCurvetoCubicSmoothAbs* value);
 		static SVGPathSegCurvetoCubicSmoothAbs* get_prototype();
 		SVGPathSegCurvetoCubicSmoothAbs();
 	};
 
-	class MSHTMLDirectoryElementExtensions: public DOML2DeprecatedListNumberingAndBulletStyle {
+	class MSHTMLDirectoryElementExtensions: public DOML2DeprecatedListdoubleingAndBulletStyle {
 	public:
 	};
 
@@ -6737,10 +6737,10 @@ namespace client
 
 	class SVGPathSegMovetoRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegMovetoRel* value);
 		static SVGPathSegMovetoRel* get_prototype();
 		SVGPathSegMovetoRel();
@@ -6748,8 +6748,8 @@ namespace client
 
 	class Node: public EventTarget {
 	public:
-		void set_nodeType(Number value);
-		Number get_nodeType();
+		void set_nodeType(double value);
+		double get_nodeType();
 		void set_previousSibling(Node* value);
 		Node* get_previousSibling();
 		void set_localName(const String& value);
@@ -6784,7 +6784,7 @@ namespace client
 		Boolean isEqualNode(Node* arg);
 		String* lookupPrefix(const String& namespaceURI);
 		Boolean isDefaultNamespace(const String& namespaceURI);
-		Number compareDocumentPosition(Node* other);
+		double compareDocumentPosition(Node* other);
 		void normalize();
 		Boolean isSameNode(Node* other);
 		Boolean hasAttributes();
@@ -6795,42 +6795,42 @@ namespace client
 		Node* replaceChild(Node* newChild, Node* oldChild);
 		Node* insertBefore(Node* newChild);
 		Node* insertBefore(Node* newChild, Node* refChild);
-		void set_ENTITY_REFERENCE_NODE(Number value);
-		Number get_ENTITY_REFERENCE_NODE();
-		void set_ATTRIBUTE_NODE(Number value);
-		Number get_ATTRIBUTE_NODE();
-		void set_DOCUMENT_FRAGMENT_NODE(Number value);
-		Number get_DOCUMENT_FRAGMENT_NODE();
-		void set_TEXT_NODE(Number value);
-		Number get_TEXT_NODE();
-		void set_ELEMENT_NODE(Number value);
-		Number get_ELEMENT_NODE();
-		void set_COMMENT_NODE(Number value);
-		Number get_COMMENT_NODE();
-		void set_DOCUMENT_POSITION_DISCONNECTED(Number value);
-		Number get_DOCUMENT_POSITION_DISCONNECTED();
-		void set_DOCUMENT_POSITION_CONTAINED_BY(Number value);
-		Number get_DOCUMENT_POSITION_CONTAINED_BY();
-		void set_DOCUMENT_POSITION_CONTAINS(Number value);
-		Number get_DOCUMENT_POSITION_CONTAINS();
-		void set_DOCUMENT_TYPE_NODE(Number value);
-		Number get_DOCUMENT_TYPE_NODE();
-		void set_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC(Number value);
-		Number get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
-		void set_DOCUMENT_NODE(Number value);
-		Number get_DOCUMENT_NODE();
-		void set_ENTITY_NODE(Number value);
-		Number get_ENTITY_NODE();
-		void set_PROCESSING_INSTRUCTION_NODE(Number value);
-		Number get_PROCESSING_INSTRUCTION_NODE();
-		void set_CDATA_SECTION_NODE(Number value);
-		Number get_CDATA_SECTION_NODE();
-		void set_NOTATION_NODE(Number value);
-		Number get_NOTATION_NODE();
-		void set_DOCUMENT_POSITION_FOLLOWING(Number value);
-		Number get_DOCUMENT_POSITION_FOLLOWING();
-		void set_DOCUMENT_POSITION_PRECEDING(Number value);
-		Number get_DOCUMENT_POSITION_PRECEDING();
+		void set_ENTITY_REFERENCE_NODE(double value);
+		double get_ENTITY_REFERENCE_NODE();
+		void set_ATTRIBUTE_NODE(double value);
+		double get_ATTRIBUTE_NODE();
+		void set_DOCUMENT_FRAGMENT_NODE(double value);
+		double get_DOCUMENT_FRAGMENT_NODE();
+		void set_TEXT_NODE(double value);
+		double get_TEXT_NODE();
+		void set_ELEMENT_NODE(double value);
+		double get_ELEMENT_NODE();
+		void set_COMMENT_NODE(double value);
+		double get_COMMENT_NODE();
+		void set_DOCUMENT_POSITION_DISCONNECTED(double value);
+		double get_DOCUMENT_POSITION_DISCONNECTED();
+		void set_DOCUMENT_POSITION_CONTAINED_BY(double value);
+		double get_DOCUMENT_POSITION_CONTAINED_BY();
+		void set_DOCUMENT_POSITION_CONTAINS(double value);
+		double get_DOCUMENT_POSITION_CONTAINS();
+		void set_DOCUMENT_TYPE_NODE(double value);
+		double get_DOCUMENT_TYPE_NODE();
+		void set_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC(double value);
+		double get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
+		void set_DOCUMENT_NODE(double value);
+		double get_DOCUMENT_NODE();
+		void set_ENTITY_NODE(double value);
+		double get_ENTITY_NODE();
+		void set_PROCESSING_INSTRUCTION_NODE(double value);
+		double get_PROCESSING_INSTRUCTION_NODE();
+		void set_CDATA_SECTION_NODE(double value);
+		double get_CDATA_SECTION_NODE();
+		void set_NOTATION_NODE(double value);
+		double get_NOTATION_NODE();
+		void set_DOCUMENT_POSITION_FOLLOWING(double value);
+		double get_DOCUMENT_POSITION_FOLLOWING();
+		void set_DOCUMENT_POSITION_PRECEDING(double value);
+		double get_DOCUMENT_POSITION_PRECEDING();
 		static void set_prototype(Node* value);
 		static Node* get_prototype();
 		Node();
@@ -6838,10 +6838,10 @@ namespace client
 
 	class SVGPathSegCurvetoQuadraticSmoothRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegCurvetoQuadraticSmoothRel* value);
 		static SVGPathSegCurvetoQuadraticSmoothRel* get_prototype();
 		SVGPathSegCurvetoQuadraticSmoothRel();
@@ -6872,10 +6872,10 @@ namespace client
 	public:
 	};
 
-	class HTMLOListElement: public HTMLElement , public DOML2DeprecatedListNumberingAndBulletStyle , public DOML2DeprecatedListSpaceReduction , public MSHTMLOListElementExtensions {
+	class HTMLOListElement: public HTMLElement , public DOML2DeprecatedListdoubleingAndBulletStyle , public DOML2DeprecatedListSpaceReduction , public MSHTMLOListElementExtensions {
 	public:
-		void set_start(Number value);
-		Number get_start();
+		void set_start(double value);
+		double get_start();
 		static void set_prototype(HTMLOListElement* value);
 		static HTMLOListElement* get_prototype();
 		HTMLOListElement();
@@ -6883,8 +6883,8 @@ namespace client
 
 	class SVGPathSegLinetoVerticalRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
+		void set_y(double value);
+		double get_y();
 		static void set_prototype(SVGPathSegLinetoVerticalRel* value);
 		static SVGPathSegLinetoVerticalRel* get_prototype();
 		SVGPathSegLinetoVerticalRel();
@@ -6896,10 +6896,10 @@ namespace client
 		CSSRule* get_ownerRule();
 		void set_cssRules(CSSRuleList* value);
 		CSSRuleList* get_cssRules();
-		Number insertRule(const String& rule);
-		Number insertRule(const String& rule, Number index);
+		double insertRule(const String& rule);
+		double insertRule(const String& rule, double index);
 		void deleteRule();
-		void deleteRule(Number index);
+		void deleteRule(double index);
 		static void set_prototype(CSSStyleSheet* value);
 		static CSSStyleSheet* get_prototype();
 		CSSStyleSheet();
@@ -7005,8 +7005,8 @@ namespace client
 
 	class HTMLOptionElement: public HTMLElement , public MSDataBindingExtensions {
 	public:
-		void set_index(Number value);
-		Number get_index();
+		void set_index(double value);
+		double get_index();
 		void set_defaultSelected(Boolean value);
 		Boolean get_defaultSelected();
 		void set_value(const String& value);
@@ -7134,8 +7134,8 @@ namespace client
 		typedef Object* (*callback_for_onoffline)(Event* ev);
 		void set_onoffline(callback_for_onoffline value);
 		callback_for_onoffline get_onoffline();
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		typedef Object* (*callback_for_onbeforeunload)(BeforeUnloadEvent* ev);
 		void set_onbeforeunload(callback_for_onbeforeunload value);
 		callback_for_onbeforeunload get_onbeforeunload();
@@ -7280,12 +7280,12 @@ namespace client
 
 	class HTMLCollection: public MSHTMLCollectionExtensions {
 	public:
-		Element* operator[](Number index);
+		Element* operator[](double index);
 		Element* operator[](const String& name);
 		Element* operator()(Object* nameOrIndex, Object* optionalIndex);
 		Element* operator()(const String& name);
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		Element* item();
 		Element* item(Object* nameOrIndex);
 		Element* item(Object* nameOrIndex, Object* optionalIndex);
@@ -7364,22 +7364,22 @@ namespace client
 
 	class HTMLImageElement: public HTMLElement , public DOML2DeprecatedMarginStyle , public DOML2DeprecatedBorderStyle , public DOML2DeprecatedAlignmentStyle_HTMLImageElement , public MSImageResourceExtensions , public MSHTMLImageElementExtensions , public MSDataBindingExtensions , public MSResourceMetadata {
 	public:
-		void set_width(Number value);
-		Number get_width();
-		void set_naturalHeight(Number value);
-		Number get_naturalHeight();
+		void set_width(double value);
+		double get_width();
+		void set_naturalHeight(double value);
+		double get_naturalHeight();
 		void set_alt(const String& value);
 		String* get_alt();
 		void set_src(const String& value);
 		String* get_src();
 		void set_useMap(const String& value);
 		String* get_useMap();
-		void set_naturalWidth(Number value);
-		Number get_naturalWidth();
+		void set_naturalWidth(double value);
+		double get_naturalWidth();
 		void set_name(const String& value);
 		String* get_name();
-		void set_height(Number value);
-		Number get_height();
+		void set_height(double value);
+		double get_height();
 		void set_longDesc(const String& value);
 		String* get_longDesc();
 		void set_isMap(Boolean value);
@@ -7440,16 +7440,16 @@ namespace client
 
 	class HTMLTableRowElement: public HTMLElement , public MSBorderColorHighlightStyle_HTMLTableRowElement , public HTMLTableAlignment , public MSBorderColorStyle_HTMLTableRowElement , public DOML2DeprecatedAlignmentStyle_HTMLTableRowElement , public DOML2DeprecatedBackgroundColorStyle , public MSHTMLTableRowElementExtensions {
 	public:
-		void set_rowIndex(Number value);
-		Number get_rowIndex();
+		void set_rowIndex(double value);
+		double get_rowIndex();
 		void set_cells(HTMLCollection* value);
 		HTMLCollection* get_cells();
-		void set_sectionRowIndex(Number value);
-		Number get_sectionRowIndex();
+		void set_sectionRowIndex(double value);
+		double get_sectionRowIndex();
 		void deleteCell();
-		void deleteCell(Number index);
+		void deleteCell(double index);
 		HTMLElement* insertCell();
-		HTMLElement* insertCell(Number index);
+		HTMLElement* insertCell(double index);
 		static void set_prototype(HTMLTableRowElement* value);
 		static HTMLTableRowElement* get_prototype();
 		HTMLTableRowElement();
@@ -7457,8 +7457,8 @@ namespace client
 
 	class SVGPathSegLinetoHorizontalAbs: public SVGPathSeg {
 	public:
-		void set_x(Number value);
-		Number get_x();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegLinetoHorizontalAbs* value);
 		static SVGPathSegLinetoHorizontalAbs* get_prototype();
 		SVGPathSegLinetoHorizontalAbs();
@@ -7466,18 +7466,18 @@ namespace client
 
 	class SVGPathSegArcAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
+		void set_y(double value);
+		double get_y();
 		void set_sweepFlag(Boolean value);
 		Boolean get_sweepFlag();
-		void set_r2(Number value);
-		Number get_r2();
-		void set_x(Number value);
-		Number get_x();
-		void set_angle(Number value);
-		Number get_angle();
-		void set_r1(Number value);
-		Number get_r1();
+		void set_r2(double value);
+		double get_r2();
+		void set_x(double value);
+		double get_x();
+		void set_angle(double value);
+		double get_angle();
+		void set_r1(double value);
+		double get_r1();
 		void set_largeArcFlag(Boolean value);
 		Boolean get_largeArcFlag();
 		static void set_prototype(SVGPathSegArcAbs* value);
@@ -7528,10 +7528,10 @@ namespace client
 		MediaList* get_media();
 		void set_cssRules(CSSRuleList* value);
 		CSSRuleList* get_cssRules();
-		Number insertRule(const String& rule);
-		Number insertRule(const String& rule, Number index);
+		double insertRule(const String& rule);
+		double insertRule(const String& rule, double index);
 		void deleteRule();
-		void deleteRule(Number index);
+		void deleteRule(double index);
 		static void set_prototype(CSSMediaRule* value);
 		static CSSMediaRule* get_prototype();
 		CSSMediaRule();
@@ -7555,8 +7555,8 @@ namespace client
 
 	class SVGPathSegLinetoHorizontalRel: public SVGPathSeg {
 	public:
-		void set_x(Number value);
-		Number get_x();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegLinetoHorizontalRel* value);
 		static SVGPathSegLinetoHorizontalRel* get_prototype();
 		SVGPathSegLinetoHorizontalRel();
@@ -7648,10 +7648,10 @@ namespace client
 		HTMLDirectoryElement();
 	};
 
-	class HTMLLIElement: public HTMLElement , public DOML2DeprecatedListNumberingAndBulletStyle , public MSHTMLLIElementExtensions {
+	class HTMLLIElement: public HTMLElement , public DOML2DeprecatedListdoubleingAndBulletStyle , public MSHTMLLIElementExtensions {
 	public:
-		void set_value(Number value);
-		Number get_value();
+		void set_value(double value);
+		double get_value();
 		static void set_prototype(HTMLLIElement* value);
 		static HTMLLIElement* get_prototype();
 		HTMLLIElement();
@@ -7659,8 +7659,8 @@ namespace client
 
 	class SVGPathSegLinetoVerticalAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
+		void set_y(double value);
+		double get_y();
 		static void set_prototype(SVGPathSegLinetoVerticalAbs* value);
 		static SVGPathSegLinetoVerticalAbs* get_prototype();
 		SVGPathSegLinetoVerticalAbs();
@@ -7718,9 +7718,9 @@ namespace client
 		void set_rows(HTMLCollection* value);
 		HTMLCollection* get_rows();
 		void deleteRow();
-		void deleteRow(Number index);
+		void deleteRow(double index);
 		HTMLElement* insertRow();
-		HTMLElement* insertRow(Number index);
+		HTMLElement* insertRow(double index);
 		static void set_prototype(HTMLTableSectionElement* value);
 		static HTMLTableSectionElement* get_prototype();
 		HTMLTableSectionElement();
@@ -7750,18 +7750,18 @@ namespace client
 
 	class SVGPathSegArcRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
+		void set_y(double value);
+		double get_y();
 		void set_sweepFlag(Boolean value);
 		Boolean get_sweepFlag();
-		void set_r2(Number value);
-		Number get_r2();
-		void set_x(Number value);
-		Number get_x();
-		void set_angle(Number value);
-		Number get_angle();
-		void set_r1(Number value);
-		Number get_r1();
+		void set_r2(double value);
+		double get_r2();
+		void set_x(double value);
+		double get_x();
+		void set_angle(double value);
+		double get_angle();
+		void set_r1(double value);
+		double get_r1();
 		void set_largeArcFlag(Boolean value);
 		Boolean get_largeArcFlag();
 		static void set_prototype(SVGPathSegArcRel* value);
@@ -7771,10 +7771,10 @@ namespace client
 
 	class SVGPathSegMovetoAbs: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_x(Number value);
-		Number get_x();
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
 		static void set_prototype(SVGPathSegMovetoAbs* value);
 		static SVGPathSegMovetoAbs* get_prototype();
 		SVGPathSegMovetoAbs();
@@ -7793,18 +7793,18 @@ namespace client
 
 	class SVGPathSegCurvetoCubicRel: public SVGPathSeg {
 	public:
-		void set_y(Number value);
-		Number get_y();
-		void set_y1(Number value);
-		Number get_y1();
-		void set_x2(Number value);
-		Number get_x2();
-		void set_x(Number value);
-		Number get_x();
-		void set_x1(Number value);
-		Number get_x1();
-		void set_y2(Number value);
-		Number get_y2();
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		void set_y2(double value);
+		double get_y2();
 		static void set_prototype(SVGPathSegCurvetoCubicRel* value);
 		static SVGPathSegCurvetoCubicRel* get_prototype();
 		SVGPathSegCurvetoCubicRel();
@@ -7854,12 +7854,12 @@ namespace client
 		String* get_headers();
 		void set_abbr(const String& value);
 		String* get_abbr();
-		void set_rowSpan(Number value);
-		Number get_rowSpan();
-		void set_cellIndex(Number value);
-		Number get_cellIndex();
-		void set_colSpan(Number value);
-		Number get_colSpan();
+		void set_rowSpan(double value);
+		double get_rowSpan();
+		void set_cellIndex(double value);
+		double get_cellIndex();
+		void set_colSpan(double value);
+		double get_colSpan();
 		void set_axis(const String& value);
 		String* get_axis();
 		static void set_prototype(HTMLTableCellElement* value);
@@ -7898,16 +7898,16 @@ namespace client
 		callback_for_onbounce get_onbounce();
 		void set_trueSpeed(Boolean value);
 		Boolean get_trueSpeed();
-		void set_scrollAmount(Number value);
-		Number get_scrollAmount();
-		void set_scrollDelay(Number value);
-		Number get_scrollDelay();
+		void set_scrollAmount(double value);
+		double get_scrollAmount();
+		void set_scrollDelay(double value);
+		double get_scrollDelay();
 		void set_behavior(const String& value);
 		String* get_behavior();
 		void set_height(const String& value);
 		String* get_height();
-		void set_loop(Number value);
-		Number get_loop();
+		void set_loop(double value);
+		double get_loop();
 		void set_direction(const String& value);
 		String* get_direction();
 		typedef Object* (*callback_for_onstart)(Event* ev);
@@ -7936,8 +7936,8 @@ namespace client
 
 	class Event: public MSEventExtensions {
 	public:
-		void set_timeStamp(Number value);
-		Number get_timeStamp();
+		void set_timeStamp(double value);
+		double get_timeStamp();
 		void set_defaultPrevented(Boolean value);
 		Boolean get_defaultPrevented();
 		void set_isTrusted(Boolean value);
@@ -7946,8 +7946,8 @@ namespace client
 		EventTarget* get_currentTarget();
 		void set_target(EventTarget* value);
 		EventTarget* get_target();
-		void set_eventPhase(Number value);
-		Number get_eventPhase();
+		void set_eventPhase(double value);
+		double get_eventPhase();
 		void set_type(const String& value);
 		String* get_type();
 		void set_cancelable(Boolean value);
@@ -7958,12 +7958,12 @@ namespace client
 		void stopPropagation();
 		void stopImmediatePropagation();
 		void preventDefault();
-		void set_CAPTURING_PHASE(Number value);
-		Number get_CAPTURING_PHASE();
-		void set_AT_TARGET(Number value);
-		Number get_AT_TARGET();
-		void set_BUBBLING_PHASE(Number value);
-		Number get_BUBBLING_PHASE();
+		void set_CAPTURING_PHASE(double value);
+		double get_CAPTURING_PHASE();
+		void set_AT_TARGET(double value);
+		double get_AT_TARGET();
+		void set_BUBBLING_PHASE(double value);
+		double get_BUBBLING_PHASE();
 		static void set_prototype(Event* value);
 		static Event* get_prototype();
 		Event();
@@ -7973,8 +7973,8 @@ namespace client
 	public:
 		void set_width(Object* value);
 		Object* get_width();
-		void set_span(Number value);
-		Number get_span();
+		void set_span(double value);
+		double get_span();
 		static void set_prototype(HTMLTableColElement* value);
 		static HTMLTableColElement* get_prototype();
 		HTMLTableColElement();
@@ -8230,7 +8230,7 @@ namespace client
 	public:
 	};
 
-	class HTMLUListElement: public HTMLElement , public DOML2DeprecatedListSpaceReduction , public DOML2DeprecatedListNumberingAndBulletStyle , public MSHTMLUListElementExtensions {
+	class HTMLUListElement: public HTMLElement , public DOML2DeprecatedListSpaceReduction , public DOML2DeprecatedListdoubleingAndBulletStyle , public MSHTMLUListElementExtensions {
 	public:
 		static void set_prototype(HTMLUListElement* value);
 		static HTMLUListElement* get_prototype();
@@ -8305,8 +8305,8 @@ namespace client
 
 	class HTMLMediaElement: public HTMLElement {
 	public:
-		void set_initialTime(Number value);
-		Number get_initialTime();
+		void set_initialTime(double value);
+		double get_initialTime();
 		void set_played(TimeRanges* value);
 		TimeRanges* get_played();
 		void set_currentSrc(const String& value);
@@ -8329,50 +8329,50 @@ namespace client
 		Boolean get_autoplay();
 		void set_controls(Boolean value);
 		Boolean get_controls();
-		void set_volume(Number value);
-		Number get_volume();
+		void set_volume(double value);
+		double get_volume();
 		void set_src(const String& value);
 		String* get_src();
-		void set_playbackRate(Number value);
-		Number get_playbackRate();
-		void set_duration(Number value);
-		Number get_duration();
+		void set_playbackRate(double value);
+		double get_playbackRate();
+		void set_duration(double value);
+		double get_duration();
 		void set_muted(Boolean value);
 		Boolean get_muted();
-		void set_defaultPlaybackRate(Number value);
-		Number get_defaultPlaybackRate();
+		void set_defaultPlaybackRate(double value);
+		double get_defaultPlaybackRate();
 		void set_paused(Boolean value);
 		Boolean get_paused();
 		void set_seeking(Boolean value);
 		Boolean get_seeking();
-		void set_currentTime(Number value);
-		Number get_currentTime();
+		void set_currentTime(double value);
+		double get_currentTime();
 		void set_preload(const String& value);
 		String* get_preload();
-		void set_networkState(Number value);
-		Number get_networkState();
+		void set_networkState(double value);
+		double get_networkState();
 		void pause();
 		void play();
 		void load();
 		String* canPlayType(const String& type);
-		void set_HAVE_METADATA(Number value);
-		Number get_HAVE_METADATA();
-		void set_HAVE_CURRENT_DATA(Number value);
-		Number get_HAVE_CURRENT_DATA();
-		void set_HAVE_NOTHING(Number value);
-		Number get_HAVE_NOTHING();
-		void set_NETWORK_NO_SOURCE(Number value);
-		Number get_NETWORK_NO_SOURCE();
-		void set_HAVE_ENOUGH_DATA(Number value);
-		Number get_HAVE_ENOUGH_DATA();
-		void set_NETWORK_EMPTY(Number value);
-		Number get_NETWORK_EMPTY();
-		void set_NETWORK_LOADING(Number value);
-		Number get_NETWORK_LOADING();
-		void set_NETWORK_IDLE(Number value);
-		Number get_NETWORK_IDLE();
-		void set_HAVE_FUTURE_DATA(Number value);
-		Number get_HAVE_FUTURE_DATA();
+		void set_HAVE_METADATA(double value);
+		double get_HAVE_METADATA();
+		void set_HAVE_CURRENT_DATA(double value);
+		double get_HAVE_CURRENT_DATA();
+		void set_HAVE_NOTHING(double value);
+		double get_HAVE_NOTHING();
+		void set_NETWORK_NO_SOURCE(double value);
+		double get_NETWORK_NO_SOURCE();
+		void set_HAVE_ENOUGH_DATA(double value);
+		double get_HAVE_ENOUGH_DATA();
+		void set_NETWORK_EMPTY(double value);
+		double get_NETWORK_EMPTY();
+		void set_NETWORK_LOADING(double value);
+		double get_NETWORK_LOADING();
+		void set_NETWORK_IDLE(double value);
+		double get_NETWORK_IDLE();
+		void set_HAVE_FUTURE_DATA(double value);
+		double get_HAVE_FUTURE_DATA();
 		static void set_prototype(HTMLMediaElement* value);
 		static HTMLMediaElement* get_prototype();
 		HTMLMediaElement();
@@ -8397,8 +8397,8 @@ namespace client
 		Object* get_volume();
 		void set_src(const String& value);
 		String* get_src();
-		void set_loop(Number value);
-		Number get_loop();
+		void set_loop(double value);
+		double get_loop();
 		static void set_prototype(HTMLBGSoundElement* value);
 		static HTMLBGSoundElement* get_prototype();
 		HTMLBGSoundElement();
@@ -8446,15 +8446,15 @@ namespace client
 
 	class CharacterData: public Node {
 	public:
-		void set_length(Number value);
-		Number get_length();
+		void set_length(double value);
+		double get_length();
 		void set_data(const String& value);
 		String* get_data();
-		void deleteData(Number offset, Number count);
-		void replaceData(Number offset, Number count, const String& arg);
+		void deleteData(double offset, double count);
+		void replaceData(double offset, double count, const String& arg);
 		void appendData(const String& arg);
-		void insertData(Number offset, const String& arg);
-		String* substringData(Number offset, Number count);
+		void insertData(double offset, const String& arg);
+		String* substringData(double offset, double count);
 		static void set_prototype(CharacterData* value);
 		static CharacterData* get_prototype();
 		CharacterData();
@@ -8497,15 +8497,15 @@ namespace client
 
 	class ErrorEvent: public Event {
 	public:
-		void set_colno(Number value);
-		Number get_colno();
+		void set_colno(double value);
+		double get_colno();
 		void set_filename(const String& value);
 		String* get_filename();
-		void set_lineno(Number value);
-		Number get_lineno();
+		void set_lineno(double value);
+		double get_lineno();
 		void set_message(const String& value);
 		String* get_message();
-		void initErrorEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& messageArg, const String& filenameArg, Number linenoArg);
+		void initErrorEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& messageArg, const String& filenameArg, double linenoArg);
 		static void set_prototype(ErrorEvent* value);
 		static ErrorEvent* get_prototype();
 		ErrorEvent();
@@ -8525,14 +8525,14 @@ namespace client
 		void set_error(DOMError* value);
 		DOMError* get_error();
 		void readAsArrayBuffer(MSStream* stream);
-		void readAsArrayBuffer(MSStream* stream, Number size);
+		void readAsArrayBuffer(MSStream* stream, double size);
 		void readAsBlob(MSStream* stream);
-		void readAsBlob(MSStream* stream, Number size);
+		void readAsBlob(MSStream* stream, double size);
 		void readAsDataURL(MSStream* stream);
-		void readAsDataURL(MSStream* stream, Number size);
+		void readAsDataURL(MSStream* stream, double size);
 		void readAsText(MSStream* stream);
 		void readAsText(MSStream* stream, const String& encoding);
-		void readAsText(MSStream* stream, const String& encoding, Number size);
+		void readAsText(MSStream* stream, const String& encoding, double size);
 		static void set_prototype(MSStreamReader* value);
 		static MSStreamReader* get_prototype();
 		MSStreamReader();
@@ -8542,9 +8542,9 @@ namespace client
 	public:
 		void set_propertyName(const String& value);
 		String* get_propertyName();
-		void set_elapsedTime(Number value);
-		Number get_elapsedTime();
-		void initTransitionEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& propertyNameArg, Number elapsedTimeArg);
+		void set_elapsedTime(double value);
+		double get_elapsedTime();
+		void initTransitionEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& propertyNameArg, double elapsedTimeArg);
 		static void set_prototype(TransitionEvent* value);
 		static TransitionEvent* get_prototype();
 		TransitionEvent();
@@ -8556,9 +8556,9 @@ namespace client
 		Boolean get_wasClean();
 		void set_reason(const String& value);
 		String* get_reason();
-		void set_code(Number value);
-		Number get_code();
-		void initCloseEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Boolean wasCleanArg, Number codeArg, const String& reasonArg);
+		void set_code(double value);
+		double get_code();
+		void initCloseEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Boolean wasCleanArg, double codeArg, const String& reasonArg);
 		static void set_prototype(CloseEvent* value);
 		static CloseEvent* get_prototype();
 		CloseEvent();
@@ -8566,13 +8566,13 @@ namespace client
 
 	class ProgressEvent: public Event {
 	public:
-		void set_loaded(Number value);
-		Number get_loaded();
+		void set_loaded(double value);
+		double get_loaded();
 		void set_lengthComputable(Boolean value);
 		Boolean get_lengthComputable();
-		void set_total(Number value);
-		Number get_total();
-		void initProgressEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Boolean lengthComputableArg, Number loadedArg, Number totalArg);
+		void set_total(double value);
+		double get_total();
+		void initProgressEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Boolean lengthComputableArg, double loadedArg, double totalArg);
 		static void set_prototype(ProgressEvent* value);
 		static ProgressEvent* get_prototype();
 		ProgressEvent();
@@ -8580,10 +8580,10 @@ namespace client
 
 	class IDBVersionChangeEvent: public Event {
 	public:
-		void set_newVersion(Number value);
-		Number get_newVersion();
-		void set_oldVersion(Number value);
-		Number get_oldVersion();
+		void set_newVersion(double value);
+		double get_newVersion();
+		void set_oldVersion(double value);
+		double get_oldVersion();
 		static void set_prototype(IDBVersionChangeEvent* value);
 		static IDBVersionChangeEvent* get_prototype();
 		IDBVersionChangeEvent();
@@ -8604,9 +8604,9 @@ namespace client
 	public:
 		void set_animationName(const String& value);
 		String* get_animationName();
-		void set_elapsedTime(Number value);
-		Number get_elapsedTime();
-		void initAnimationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& animationNameArg, Number elapsedTimeArg);
+		void set_elapsedTime(double value);
+		double get_elapsedTime();
+		void initAnimationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& animationNameArg, double elapsedTimeArg);
 		static void set_prototype(AnimationEvent* value);
 		static AnimationEvent* get_prototype();
 		AnimationEvent();
@@ -8627,12 +8627,12 @@ namespace client
 
 	class HTMLProgressElement: public HTMLElement {
 	public:
-		void set_value(Number value);
-		Number get_value();
-		void set_max(Number value);
-		Number get_max();
-		void set_position(Number value);
-		Number get_position();
+		void set_value(double value);
+		double get_value();
+		void set_max(double value);
+		double get_max();
+		void set_position(double value);
+		double get_position();
 		void set_form(HTMLFormElement* value);
 		HTMLFormElement* get_form();
 		static void set_prototype(HTMLProgressElement* value);
@@ -8658,38 +8658,38 @@ namespace client
 
 	class MSStyleCSSProperties: public MSCSSProperties {
 	public:
-		void set_pixelWidth(Number value);
-		Number get_pixelWidth();
-		void set_posHeight(Number value);
-		Number get_posHeight();
-		void set_posLeft(Number value);
-		Number get_posLeft();
-		void set_pixelTop(Number value);
-		Number get_pixelTop();
-		void set_pixelBottom(Number value);
-		Number get_pixelBottom();
+		void set_pixelWidth(double value);
+		double get_pixelWidth();
+		void set_posHeight(double value);
+		double get_posHeight();
+		void set_posLeft(double value);
+		double get_posLeft();
+		void set_pixelTop(double value);
+		double get_pixelTop();
+		void set_pixelBottom(double value);
+		double get_pixelBottom();
 		void set_textDecorationNone(Boolean value);
 		Boolean get_textDecorationNone();
-		void set_pixelLeft(Number value);
-		Number get_pixelLeft();
-		void set_posTop(Number value);
-		Number get_posTop();
-		void set_posBottom(Number value);
-		Number get_posBottom();
+		void set_pixelLeft(double value);
+		double get_pixelLeft();
+		void set_posTop(double value);
+		double get_posTop();
+		void set_posBottom(double value);
+		double get_posBottom();
 		void set_textDecorationOverline(Boolean value);
 		Boolean get_textDecorationOverline();
-		void set_posWidth(Number value);
-		Number get_posWidth();
+		void set_posWidth(double value);
+		double get_posWidth();
 		void set_textDecorationLineThrough(Boolean value);
 		Boolean get_textDecorationLineThrough();
-		void set_pixelHeight(Number value);
-		Number get_pixelHeight();
+		void set_pixelHeight(double value);
+		double get_pixelHeight();
 		void set_textDecorationBlink(Boolean value);
 		Boolean get_textDecorationBlink();
-		void set_posRight(Number value);
-		Number get_posRight();
-		void set_pixelRight(Number value);
-		Number get_pixelRight();
+		void set_posRight(double value);
+		double get_posRight();
+		void set_pixelRight(double value);
+		double get_pixelRight();
 		void set_textDecorationUnderline(Boolean value);
 		Boolean get_textDecorationUnderline();
 		static void set_prototype(MSStyleCSSProperties* value);
@@ -8706,24 +8706,24 @@ namespace client
 
 	class Element: public Node , public NodeSelector , public ElementTraversal , public MSElementExtensions {
 	public:
-		void set_scrollTop(Number value);
-		Number get_scrollTop();
-		void set_clientLeft(Number value);
-		Number get_clientLeft();
-		void set_scrollLeft(Number value);
-		Number get_scrollLeft();
+		void set_scrollTop(double value);
+		double get_scrollTop();
+		void set_clientLeft(double value);
+		double get_clientLeft();
+		void set_scrollLeft(double value);
+		double get_scrollLeft();
 		void set_tagName(const String& value);
 		String* get_tagName();
-		void set_clientWidth(Number value);
-		Number get_clientWidth();
-		void set_scrollWidth(Number value);
-		Number get_scrollWidth();
-		void set_clientHeight(Number value);
-		Number get_clientHeight();
-		void set_clientTop(Number value);
-		Number get_clientTop();
-		void set_scrollHeight(Number value);
-		Number get_scrollHeight();
+		void set_clientWidth(double value);
+		double get_clientWidth();
+		void set_scrollWidth(double value);
+		double get_scrollWidth();
+		void set_clientHeight(double value);
+		double get_clientHeight();
+		void set_clientTop(double value);
+		double get_clientTop();
+		void set_scrollHeight(double value);
+		double get_scrollHeight();
 		String* getAttribute();
 		String* getAttribute(const String& name);
 		NodeList* getElementsByTagNameNS(const String& namespaceURI, const String& localName);
@@ -8760,7 +8760,7 @@ namespace client
 	class HTMLAreasCollection: public HTMLCollection {
 	public:
 		void remove();
-		void remove(Number index);
+		void remove(double index);
 		void add(HTMLElement* element);
 		void add(HTMLElement* element, Object* before);
 		static void set_prototype(HTMLAreasCollection* value);
@@ -8770,8 +8770,8 @@ namespace client
 
 	class MSSiteModeEvent: public Event {
 	public:
-		void set_buttonID(Number value);
-		Number get_buttonID();
+		void set_buttonID(double value);
+		double get_buttonID();
 		void set_actionURL(const String& value);
 		String* get_actionURL();
 		static void set_prototype(MSSiteModeEvent* value);
@@ -8839,27 +8839,27 @@ namespace client
 		SVGAnimatedLength* get_x();
 		void set_contentStyleType(const String& value);
 		String* get_contentStyleType();
-		void set_screenPixelToMillimeterY(Number value);
-		Number get_screenPixelToMillimeterY();
+		void set_screenPixelToMillimeterY(double value);
+		double get_screenPixelToMillimeterY();
 		void set_height(SVGAnimatedLength* value);
 		SVGAnimatedLength* get_height();
 		void set_contentScriptType(const String& value);
 		String* get_contentScriptType();
-		void set_pixelUnitToMillimeterX(Number value);
-		Number get_pixelUnitToMillimeterX();
+		void set_pixelUnitToMillimeterX(double value);
+		double get_pixelUnitToMillimeterX();
 		void set_currentTranslate(SVGPoint* value);
 		SVGPoint* get_currentTranslate();
 		void set_y(SVGAnimatedLength* value);
 		SVGAnimatedLength* get_y();
 		void set_viewport(SVGRect* value);
 		SVGRect* get_viewport();
-		void set_currentScale(Number value);
-		Number get_currentScale();
-		void set_screenPixelToMillimeterX(Number value);
-		Number get_screenPixelToMillimeterX();
-		void set_pixelUnitToMillimeterY(Number value);
-		Number get_pixelUnitToMillimeterY();
-		void setCurrentTime(Number seconds);
+		void set_currentScale(double value);
+		double get_currentScale();
+		void set_screenPixelToMillimeterX(double value);
+		double get_screenPixelToMillimeterX();
+		void set_pixelUnitToMillimeterY(double value);
+		double get_pixelUnitToMillimeterY();
+		void setCurrentTime(double seconds);
 		SVGLength* createSVGLength();
 		NodeList* getIntersectionList(SVGRect* rect, SVGElement* referenceElement);
 		void unpauseAnimations();
@@ -8867,18 +8867,18 @@ namespace client
 		Boolean checkIntersection(SVGElement* element, SVGRect* rect);
 		void unsuspendRedrawAll();
 		void pauseAnimations();
-		Number suspendRedraw(Number maxWaitMilliseconds);
+		double suspendRedraw(double maxWaitMilliseconds);
 		void deselectAll();
 		SVGAngle* createSVGAngle();
 		NodeList* getEnclosureList(SVGRect* rect, SVGElement* referenceElement);
 		SVGTransform* createSVGTransform();
-		void unsuspendRedraw(Number suspendHandleID);
+		void unsuspendRedraw(double suspendHandleID);
 		void forceRedraw();
-		Number getCurrentTime();
+		double getCurrentTime();
 		Boolean checkEnclosure(SVGElement* element, SVGRect* rect);
 		SVGMatrix* createSVGMatrix();
 		SVGPoint* createSVGPoint();
-		SVGNumber* createSVGNumber();
+		SVGdouble* createSVGdouble();
 		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
 		Element* getElementById(const String& elementId);
 		static void set_prototype(SVGSVGElement* value);
@@ -8903,21 +8903,21 @@ namespace client
 	public:
 		void set_newValue(const String& value);
 		String* get_newValue();
-		void set_attrChange(Number value);
-		Number get_attrChange();
+		void set_attrChange(double value);
+		double get_attrChange();
 		void set_attrName(const String& value);
 		String* get_attrName();
 		void set_prevValue(const String& value);
 		String* get_prevValue();
 		void set_relatedNode(Node* value);
 		Node* get_relatedNode();
-		void initMutationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Node* relatedNodeArg, const String& prevValueArg, const String& newValueArg, const String& attrNameArg, Number attrChangeArg);
-		void set_MODIFICATION(Number value);
-		Number get_MODIFICATION();
-		void set_REMOVAL(Number value);
-		Number get_REMOVAL();
-		void set_ADDITION(Number value);
-		Number get_ADDITION();
+		void initMutationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Node* relatedNodeArg, const String& prevValueArg, const String& newValueArg, const String& attrNameArg, double attrChangeArg);
+		void set_MODIFICATION(double value);
+		double get_MODIFICATION();
+		void set_REMOVAL(double value);
+		double get_REMOVAL();
+		void set_ADDITION(double value);
+		double get_ADDITION();
 		static void set_prototype(MutationEvent* value);
 		static MutationEvent* get_prototype();
 		MutationEvent();
@@ -8960,21 +8960,21 @@ namespace client
 		SVGAnimatedLength* get_textLength();
 		void set_lengthAdjust(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_lengthAdjust();
-		Number getCharNumAtPosition(SVGPoint* point);
-		SVGPoint* getStartPositionOfChar(Number charnum);
-		SVGRect* getExtentOfChar(Number charnum);
-		Number getComputedTextLength();
-		Number getSubStringLength(Number charnum, Number nchars);
-		void selectSubString(Number charnum, Number nchars);
-		Number getNumberOfChars();
-		Number getRotationOfChar(Number charnum);
-		SVGPoint* getEndPositionOfChar(Number charnum);
-		void set_LENGTHADJUST_SPACING(Number value);
-		Number get_LENGTHADJUST_SPACING();
-		void set_LENGTHADJUST_SPACINGANDGLYPHS(Number value);
-		Number get_LENGTHADJUST_SPACINGANDGLYPHS();
-		void set_LENGTHADJUST_UNKNOWN(Number value);
-		Number get_LENGTHADJUST_UNKNOWN();
+		double getCharNumAtPosition(SVGPoint* point);
+		SVGPoint* getStartPositionOfChar(double charnum);
+		SVGRect* getExtentOfChar(double charnum);
+		double getComputedTextLength();
+		double getSubStringLength(double charnum, double nchars);
+		void selectSubString(double charnum, double nchars);
+		double getdoubleOfChars();
+		double getRotationOfChar(double charnum);
+		SVGPoint* getEndPositionOfChar(double charnum);
+		void set_LENGTHADJUST_SPACING(double value);
+		double get_LENGTHADJUST_SPACING();
+		void set_LENGTHADJUST_SPACINGANDGLYPHS(double value);
+		double get_LENGTHADJUST_SPACINGANDGLYPHS();
+		void set_LENGTHADJUST_UNKNOWN(double value);
+		double get_LENGTHADJUST_UNKNOWN();
 		static void set_prototype(SVGTextContentElement* value);
 		static SVGTextContentElement* get_prototype();
 		SVGTextContentElement();
@@ -8982,11 +8982,11 @@ namespace client
 
 	class UIEvent: public Event {
 	public:
-		void set_detail(Number value);
-		Number get_detail();
+		void set_detail(double value);
+		double get_detail();
 		void set_view(AbstractView* value);
 		AbstractView* get_view();
-		void initUIEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg);
+		void initUIEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg);
 		static void set_prototype(UIEvent* value);
 		static UIEvent* get_prototype();
 		UIEvent();
@@ -8994,28 +8994,28 @@ namespace client
 
 	class SVGPathElement: public SVGElement , public SVGStylable , public SVGAnimatedPathData , public SVGTransformable , public SVGLangSpace , public SVGTests {
 	public:
-		Number getPathSegAtLength(Number distance);
-		SVGPoint* getPointAtLength(Number distance);
-		SVGPathSegCurvetoQuadraticAbs* createSVGPathSegCurvetoQuadraticAbs(Number x, Number y, Number x1, Number y1);
-		SVGPathSegLinetoRel* createSVGPathSegLinetoRel(Number x, Number y);
-		SVGPathSegCurvetoQuadraticRel* createSVGPathSegCurvetoQuadraticRel(Number x, Number y, Number x1, Number y1);
-		SVGPathSegCurvetoCubicAbs* createSVGPathSegCurvetoCubicAbs(Number x, Number y, Number x1, Number y1, Number x2, Number y2);
-		SVGPathSegLinetoAbs* createSVGPathSegLinetoAbs(Number x, Number y);
+		double getPathSegAtLength(double distance);
+		SVGPoint* getPointAtLength(double distance);
+		SVGPathSegCurvetoQuadraticAbs* createSVGPathSegCurvetoQuadraticAbs(double x, double y, double x1, double y1);
+		SVGPathSegLinetoRel* createSVGPathSegLinetoRel(double x, double y);
+		SVGPathSegCurvetoQuadraticRel* createSVGPathSegCurvetoQuadraticRel(double x, double y, double x1, double y1);
+		SVGPathSegCurvetoCubicAbs* createSVGPathSegCurvetoCubicAbs(double x, double y, double x1, double y1, double x2, double y2);
+		SVGPathSegLinetoAbs* createSVGPathSegLinetoAbs(double x, double y);
 		SVGPathSegClosePath* createSVGPathSegClosePath();
-		SVGPathSegCurvetoCubicRel* createSVGPathSegCurvetoCubicRel(Number x, Number y, Number x1, Number y1, Number x2, Number y2);
-		SVGPathSegCurvetoQuadraticSmoothRel* createSVGPathSegCurvetoQuadraticSmoothRel(Number x, Number y);
-		SVGPathSegMovetoRel* createSVGPathSegMovetoRel(Number x, Number y);
-		SVGPathSegCurvetoCubicSmoothAbs* createSVGPathSegCurvetoCubicSmoothAbs(Number x, Number y, Number x2, Number y2);
-		SVGPathSegMovetoAbs* createSVGPathSegMovetoAbs(Number x, Number y);
-		SVGPathSegLinetoVerticalRel* createSVGPathSegLinetoVerticalRel(Number y);
-		SVGPathSegArcRel* createSVGPathSegArcRel(Number x, Number y, Number r1, Number r2, Number angle, Boolean largeArcFlag, Boolean sweepFlag);
-		SVGPathSegCurvetoQuadraticSmoothAbs* createSVGPathSegCurvetoQuadraticSmoothAbs(Number x, Number y);
-		SVGPathSegLinetoHorizontalRel* createSVGPathSegLinetoHorizontalRel(Number x);
-		Number getTotalLength();
-		SVGPathSegCurvetoCubicSmoothRel* createSVGPathSegCurvetoCubicSmoothRel(Number x, Number y, Number x2, Number y2);
-		SVGPathSegLinetoHorizontalAbs* createSVGPathSegLinetoHorizontalAbs(Number x);
-		SVGPathSegLinetoVerticalAbs* createSVGPathSegLinetoVerticalAbs(Number y);
-		SVGPathSegArcAbs* createSVGPathSegArcAbs(Number x, Number y, Number r1, Number r2, Number angle, Boolean largeArcFlag, Boolean sweepFlag);
+		SVGPathSegCurvetoCubicRel* createSVGPathSegCurvetoCubicRel(double x, double y, double x1, double y1, double x2, double y2);
+		SVGPathSegCurvetoQuadraticSmoothRel* createSVGPathSegCurvetoQuadraticSmoothRel(double x, double y);
+		SVGPathSegMovetoRel* createSVGPathSegMovetoRel(double x, double y);
+		SVGPathSegCurvetoCubicSmoothAbs* createSVGPathSegCurvetoCubicSmoothAbs(double x, double y, double x2, double y2);
+		SVGPathSegMovetoAbs* createSVGPathSegMovetoAbs(double x, double y);
+		SVGPathSegLinetoVerticalRel* createSVGPathSegLinetoVerticalRel(double y);
+		SVGPathSegArcRel* createSVGPathSegArcRel(double x, double y, double r1, double r2, double angle, Boolean largeArcFlag, Boolean sweepFlag);
+		SVGPathSegCurvetoQuadraticSmoothAbs* createSVGPathSegCurvetoQuadraticSmoothAbs(double x, double y);
+		SVGPathSegLinetoHorizontalRel* createSVGPathSegLinetoHorizontalRel(double x);
+		double getTotalLength();
+		SVGPathSegCurvetoCubicSmoothRel* createSVGPathSegCurvetoCubicSmoothRel(double x, double y, double x2, double y2);
+		SVGPathSegLinetoHorizontalAbs* createSVGPathSegLinetoHorizontalAbs(double x);
+		SVGPathSegLinetoVerticalAbs* createSVGPathSegLinetoVerticalAbs(double y);
+		SVGPathSegArcAbs* createSVGPathSegArcAbs(double x, double y, double r1, double r2, double angle, Boolean largeArcFlag, Boolean sweepFlag);
 		static void set_prototype(SVGPathElement* value);
 		static SVGPathElement* get_prototype();
 		SVGPathElement();
@@ -9025,7 +9025,7 @@ namespace client
 	public:
 		void set_wholeText(const String& value);
 		String* get_wholeText();
-		Text* splitText(Number offset);
+		Text* splitText(double offset);
 		Text* replaceWholeText(const String& content);
 		static void set_prototype(Text* value);
 		static Text* get_prototype();
@@ -9111,33 +9111,33 @@ namespace client
 
 	class TextEvent: public UIEvent {
 	public:
-		void set_inputMethod(Number value);
-		Number get_inputMethod();
+		void set_inputMethod(double value);
+		double get_inputMethod();
 		void set_data(const String& value);
 		String* get_data();
 		void set_locale(const String& value);
 		String* get_locale();
-		void initTextEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, const String& dataArg, Number inputMethod, const String& locale);
-		void set_DOM_INPUT_METHOD_KEYBOARD(Number value);
-		Number get_DOM_INPUT_METHOD_KEYBOARD();
-		void set_DOM_INPUT_METHOD_DROP(Number value);
-		Number get_DOM_INPUT_METHOD_DROP();
-		void set_DOM_INPUT_METHOD_IME(Number value);
-		Number get_DOM_INPUT_METHOD_IME();
-		void set_DOM_INPUT_METHOD_SCRIPT(Number value);
-		Number get_DOM_INPUT_METHOD_SCRIPT();
-		void set_DOM_INPUT_METHOD_VOICE(Number value);
-		Number get_DOM_INPUT_METHOD_VOICE();
-		void set_DOM_INPUT_METHOD_UNKNOWN(Number value);
-		Number get_DOM_INPUT_METHOD_UNKNOWN();
-		void set_DOM_INPUT_METHOD_PASTE(Number value);
-		Number get_DOM_INPUT_METHOD_PASTE();
-		void set_DOM_INPUT_METHOD_HANDWRITING(Number value);
-		Number get_DOM_INPUT_METHOD_HANDWRITING();
-		void set_DOM_INPUT_METHOD_OPTION(Number value);
-		Number get_DOM_INPUT_METHOD_OPTION();
-		void set_DOM_INPUT_METHOD_MULTIMODAL(Number value);
-		Number get_DOM_INPUT_METHOD_MULTIMODAL();
+		void initTextEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, const String& dataArg, double inputMethod, const String& locale);
+		void set_DOM_INPUT_METHOD_KEYBOARD(double value);
+		double get_DOM_INPUT_METHOD_KEYBOARD();
+		void set_DOM_INPUT_METHOD_DROP(double value);
+		double get_DOM_INPUT_METHOD_DROP();
+		void set_DOM_INPUT_METHOD_IME(double value);
+		double get_DOM_INPUT_METHOD_IME();
+		void set_DOM_INPUT_METHOD_SCRIPT(double value);
+		double get_DOM_INPUT_METHOD_SCRIPT();
+		void set_DOM_INPUT_METHOD_VOICE(double value);
+		double get_DOM_INPUT_METHOD_VOICE();
+		void set_DOM_INPUT_METHOD_UNKNOWN(double value);
+		double get_DOM_INPUT_METHOD_UNKNOWN();
+		void set_DOM_INPUT_METHOD_PASTE(double value);
+		double get_DOM_INPUT_METHOD_PASTE();
+		void set_DOM_INPUT_METHOD_HANDWRITING(double value);
+		double get_DOM_INPUT_METHOD_HANDWRITING();
+		void set_DOM_INPUT_METHOD_OPTION(double value);
+		double get_DOM_INPUT_METHOD_OPTION();
+		void set_DOM_INPUT_METHOD_MULTIMODAL(double value);
+		double get_DOM_INPUT_METHOD_MULTIMODAL();
 		static void set_prototype(TextEvent* value);
 		static TextEvent* get_prototype();
 		TextEvent();
@@ -9158,18 +9158,18 @@ namespace client
 		SVGAnimatedEnumeration* get_method();
 		void set_spacing(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_spacing();
-		void set_TEXTPATH_SPACINGTYPE_EXACT(Number value);
-		Number get_TEXTPATH_SPACINGTYPE_EXACT();
-		void set_TEXTPATH_METHODTYPE_STRETCH(Number value);
-		Number get_TEXTPATH_METHODTYPE_STRETCH();
-		void set_TEXTPATH_SPACINGTYPE_AUTO(Number value);
-		Number get_TEXTPATH_SPACINGTYPE_AUTO();
-		void set_TEXTPATH_SPACINGTYPE_UNKNOWN(Number value);
-		Number get_TEXTPATH_SPACINGTYPE_UNKNOWN();
-		void set_TEXTPATH_METHODTYPE_UNKNOWN(Number value);
-		Number get_TEXTPATH_METHODTYPE_UNKNOWN();
-		void set_TEXTPATH_METHODTYPE_ALIGN(Number value);
-		Number get_TEXTPATH_METHODTYPE_ALIGN();
+		void set_TEXTPATH_SPACINGTYPE_EXACT(double value);
+		double get_TEXTPATH_SPACINGTYPE_EXACT();
+		void set_TEXTPATH_METHODTYPE_STRETCH(double value);
+		double get_TEXTPATH_METHODTYPE_STRETCH();
+		void set_TEXTPATH_SPACINGTYPE_AUTO(double value);
+		double get_TEXTPATH_SPACINGTYPE_AUTO();
+		void set_TEXTPATH_SPACINGTYPE_UNKNOWN(double value);
+		double get_TEXTPATH_SPACINGTYPE_UNKNOWN();
+		void set_TEXTPATH_METHODTYPE_UNKNOWN(double value);
+		double get_TEXTPATH_METHODTYPE_UNKNOWN();
+		void set_TEXTPATH_METHODTYPE_ALIGN(double value);
+		double get_TEXTPATH_METHODTYPE_ALIGN();
 		static void set_prototype(SVGTextPathElement* value);
 		static SVGTextPathElement* get_prototype();
 		SVGTextPathElement();
@@ -9183,14 +9183,14 @@ namespace client
 		SVGAnimatedTransformList* get_gradientTransform();
 		void set_gradientUnits(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_gradientUnits();
-		void set_SVG_SPREADMETHOD_REFLECT(Number value);
-		Number get_SVG_SPREADMETHOD_REFLECT();
-		void set_SVG_SPREADMETHOD_PAD(Number value);
-		Number get_SVG_SPREADMETHOD_PAD();
-		void set_SVG_SPREADMETHOD_UNKNOWN(Number value);
-		Number get_SVG_SPREADMETHOD_UNKNOWN();
-		void set_SVG_SPREADMETHOD_REPEAT(Number value);
-		Number get_SVG_SPREADMETHOD_REPEAT();
+		void set_SVG_SPREADMETHOD_REFLECT(double value);
+		double get_SVG_SPREADMETHOD_REFLECT();
+		void set_SVG_SPREADMETHOD_PAD(double value);
+		double get_SVG_SPREADMETHOD_PAD();
+		void set_SVG_SPREADMETHOD_UNKNOWN(double value);
+		double get_SVG_SPREADMETHOD_UNKNOWN();
+		void set_SVG_SPREADMETHOD_REPEAT(double value);
+		double get_SVG_SPREADMETHOD_REPEAT();
 		static void set_prototype(SVGGradientElement* value);
 		static SVGGradientElement* get_prototype();
 		SVGGradientElement();
@@ -9212,8 +9212,8 @@ namespace client
 
 	class SVGStopElement: public SVGElement , public SVGStylable {
 	public:
-		void set_offset(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_offset();
+		void set_offset(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_offset();
 		static void set_prototype(SVGStopElement* value);
 		static SVGStopElement* get_prototype();
 		SVGStopElement();
@@ -9247,51 +9247,51 @@ namespace client
 
 	class MSGestureEvent: public UIEvent {
 	public:
-		void set_offsetY(Number value);
-		Number get_offsetY();
-		void set_translationY(Number value);
-		Number get_translationY();
-		void set_velocityExpansion(Number value);
-		Number get_velocityExpansion();
-		void set_velocityY(Number value);
-		Number get_velocityY();
-		void set_velocityAngular(Number value);
-		Number get_velocityAngular();
-		void set_translationX(Number value);
-		Number get_translationX();
-		void set_velocityX(Number value);
-		Number get_velocityX();
-		void set_hwTimestamp(Number value);
-		Number get_hwTimestamp();
-		void set_offsetX(Number value);
-		Number get_offsetX();
-		void set_screenX(Number value);
-		Number get_screenX();
-		void set_rotation(Number value);
-		Number get_rotation();
-		void set_expansion(Number value);
-		Number get_expansion();
-		void set_clientY(Number value);
-		Number get_clientY();
-		void set_screenY(Number value);
-		Number get_screenY();
-		void set_scale(Number value);
-		Number get_scale();
+		void set_offsetY(double value);
+		double get_offsetY();
+		void set_translationY(double value);
+		double get_translationY();
+		void set_velocityExpansion(double value);
+		double get_velocityExpansion();
+		void set_velocityY(double value);
+		double get_velocityY();
+		void set_velocityAngular(double value);
+		double get_velocityAngular();
+		void set_translationX(double value);
+		double get_translationX();
+		void set_velocityX(double value);
+		double get_velocityX();
+		void set_hwTimestamp(double value);
+		double get_hwTimestamp();
+		void set_offsetX(double value);
+		double get_offsetX();
+		void set_screenX(double value);
+		double get_screenX();
+		void set_rotation(double value);
+		double get_rotation();
+		void set_expansion(double value);
+		double get_expansion();
+		void set_clientY(double value);
+		double get_clientY();
+		void set_screenY(double value);
+		double get_screenY();
+		void set_scale(double value);
+		double get_scale();
 		void set_gestureObject(Object* value);
 		Object* get_gestureObject();
-		void set_clientX(Number value);
-		Number get_clientX();
-		void initGestureEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Number offsetXArg, Number offsetYArg, Number translationXArg, Number translationYArg, Number scaleArg, Number expansionArg, Number rotationArg, Number velocityXArg, Number velocityYArg, Number velocityExpansionArg, Number velocityAngularArg, Number hwTimestampArg);
-		void set_MSGESTURE_FLAG_BEGIN(Number value);
-		Number get_MSGESTURE_FLAG_BEGIN();
-		void set_MSGESTURE_FLAG_END(Number value);
-		Number get_MSGESTURE_FLAG_END();
-		void set_MSGESTURE_FLAG_CANCEL(Number value);
-		Number get_MSGESTURE_FLAG_CANCEL();
-		void set_MSGESTURE_FLAG_INERTIA(Number value);
-		Number get_MSGESTURE_FLAG_INERTIA();
-		void set_MSGESTURE_FLAG_NONE(Number value);
-		Number get_MSGESTURE_FLAG_NONE();
+		void set_clientX(double value);
+		double get_clientX();
+		void initGestureEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double offsetXArg, double offsetYArg, double translationXArg, double translationYArg, double scaleArg, double expansionArg, double rotationArg, double velocityXArg, double velocityYArg, double velocityExpansionArg, double velocityAngularArg, double hwTimestampArg);
+		void set_MSGESTURE_FLAG_BEGIN(double value);
+		double get_MSGESTURE_FLAG_BEGIN();
+		void set_MSGESTURE_FLAG_END(double value);
+		double get_MSGESTURE_FLAG_END();
+		void set_MSGESTURE_FLAG_CANCEL(double value);
+		double get_MSGESTURE_FLAG_CANCEL();
+		void set_MSGESTURE_FLAG_INERTIA(double value);
+		double get_MSGESTURE_FLAG_INERTIA();
+		void set_MSGESTURE_FLAG_NONE(double value);
+		double get_MSGESTURE_FLAG_NONE();
 		static void set_prototype(MSGestureEvent* value);
 		static MSGestureEvent* get_prototype();
 		MSGestureEvent();
@@ -9315,7 +9315,7 @@ namespace client
 		SVGAnimatedLength* get_height();
 		void set_filterResY(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_filterResY();
-		void setFilterRes(Number filterResX, Number filterResY);
+		void setFilterRes(double filterResX, double filterResY);
 		static void set_prototype(SVGFilterElement* value);
 		static SVGFilterElement* get_prototype();
 		SVGFilterElement();
@@ -9350,18 +9350,18 @@ namespace client
 		void set_mode(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_mode();
 		SVGAnimatedString* get_in1();
-		void set_SVG_FEBLEND_MODE_DARKEN(Number value);
-		Number get_SVG_FEBLEND_MODE_DARKEN();
-		void set_SVG_FEBLEND_MODE_UNKNOWN(Number value);
-		Number get_SVG_FEBLEND_MODE_UNKNOWN();
-		void set_SVG_FEBLEND_MODE_MULTIPLY(Number value);
-		Number get_SVG_FEBLEND_MODE_MULTIPLY();
-		void set_SVG_FEBLEND_MODE_NORMAL(Number value);
-		Number get_SVG_FEBLEND_MODE_NORMAL();
-		void set_SVG_FEBLEND_MODE_SCREEN(Number value);
-		Number get_SVG_FEBLEND_MODE_SCREEN();
-		void set_SVG_FEBLEND_MODE_LIGHTEN(Number value);
-		Number get_SVG_FEBLEND_MODE_LIGHTEN();
+		void set_SVG_FEBLEND_MODE_DARKEN(double value);
+		double get_SVG_FEBLEND_MODE_DARKEN();
+		void set_SVG_FEBLEND_MODE_UNKNOWN(double value);
+		double get_SVG_FEBLEND_MODE_UNKNOWN();
+		void set_SVG_FEBLEND_MODE_MULTIPLY(double value);
+		double get_SVG_FEBLEND_MODE_MULTIPLY();
+		void set_SVG_FEBLEND_MODE_NORMAL(double value);
+		double get_SVG_FEBLEND_MODE_NORMAL();
+		void set_SVG_FEBLEND_MODE_SCREEN(double value);
+		double get_SVG_FEBLEND_MODE_SCREEN();
+		void set_SVG_FEBLEND_MODE_LIGHTEN(double value);
+		double get_SVG_FEBLEND_MODE_LIGHTEN();
 		static void set_prototype(SVGFEBlendElement* value);
 		static SVGFEBlendElement* get_prototype();
 		SVGFEBlendElement();
@@ -9376,12 +9376,12 @@ namespace client
 
 	class SVGFEPointLightElement: public SVGElement {
 	public:
-		void set_y(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_y();
-		void set_x(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_x();
-		void set_z(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_z();
+		void set_y(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_y();
+		void set_x(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_x();
+		void set_z(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_z();
 		static void set_prototype(SVGFEPointLightElement* value);
 		static SVGFEPointLightElement* get_prototype();
 		SVGFEPointLightElement();
@@ -9389,12 +9389,12 @@ namespace client
 
 	class SVGFEGaussianBlurElement: public SVGElement , public SVGFilterPrimitiveStandardAttributes {
 	public:
-		void set_stdDeviationX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_stdDeviationX();
+		void set_stdDeviationX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_stdDeviationX();
 		SVGAnimatedString* get_in1();
-		void set_stdDeviationY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_stdDeviationY();
-		void setStdDeviation(Number stdDeviationX, Number stdDeviationY);
+		void set_stdDeviationY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_stdDeviationY();
+		void setStdDeviation(double stdDeviationX, double stdDeviationY);
 		static void set_prototype(SVGFEGaussianBlurElement* value);
 		static SVGFEGaussianBlurElement* get_prototype();
 		SVGFEGaussianBlurElement();
@@ -9402,17 +9402,17 @@ namespace client
 
 	class SVGFESpecularLightingElement: public SVGElement , public SVGFilterPrimitiveStandardAttributes {
 	public:
-		void set_kernelUnitLengthY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthY();
-		void set_surfaceScale(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_surfaceScale();
-		void set_specularExponent(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_specularExponent();
+		void set_kernelUnitLengthY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthY();
+		void set_surfaceScale(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_surfaceScale();
+		void set_specularExponent(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_specularExponent();
 		SVGAnimatedString* get_in1();
-		void set_kernelUnitLengthX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthX();
-		void set_specularConstant(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_specularConstant();
+		void set_kernelUnitLengthX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthX();
+		void set_specularConstant(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_specularConstant();
 		static void set_prototype(SVGFESpecularLightingElement* value);
 		static SVGFESpecularLightingElement* get_prototype();
 		SVGFESpecularLightingElement();
@@ -9422,17 +9422,17 @@ namespace client
 	public:
 		void set_operator(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_operator();
-		void set_radiusX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_radiusX();
-		void set_radiusY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_radiusY();
+		void set_radiusX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_radiusX();
+		void set_radiusY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_radiusY();
 		SVGAnimatedString* get_in1();
-		void set_SVG_MORPHOLOGY_OPERATOR_UNKNOWN(Number value);
-		Number get_SVG_MORPHOLOGY_OPERATOR_UNKNOWN();
-		void set_SVG_MORPHOLOGY_OPERATOR_ERODE(Number value);
-		Number get_SVG_MORPHOLOGY_OPERATOR_ERODE();
-		void set_SVG_MORPHOLOGY_OPERATOR_DILATE(Number value);
-		Number get_SVG_MORPHOLOGY_OPERATOR_DILATE();
+		void set_SVG_MORPHOLOGY_OPERATOR_UNKNOWN(double value);
+		double get_SVG_MORPHOLOGY_OPERATOR_UNKNOWN();
+		void set_SVG_MORPHOLOGY_OPERATOR_ERODE(double value);
+		double get_SVG_MORPHOLOGY_OPERATOR_ERODE();
+		void set_SVG_MORPHOLOGY_OPERATOR_DILATE(double value);
+		double get_SVG_MORPHOLOGY_OPERATOR_DILATE();
 		static void set_prototype(SVGFEMorphologyElement* value);
 		static SVGFEMorphologyElement* get_prototype();
 		SVGFEMorphologyElement();
@@ -9445,19 +9445,19 @@ namespace client
 		SVGAnimatedEnumeration* get_xChannelSelector();
 		void set_yChannelSelector(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_yChannelSelector();
-		void set_scale(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_scale();
+		void set_scale(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_scale();
 		SVGAnimatedString* get_in1();
-		void set_SVG_CHANNEL_B(Number value);
-		Number get_SVG_CHANNEL_B();
-		void set_SVG_CHANNEL_R(Number value);
-		Number get_SVG_CHANNEL_R();
-		void set_SVG_CHANNEL_G(Number value);
-		Number get_SVG_CHANNEL_G();
-		void set_SVG_CHANNEL_UNKNOWN(Number value);
-		Number get_SVG_CHANNEL_UNKNOWN();
-		void set_SVG_CHANNEL_A(Number value);
-		Number get_SVG_CHANNEL_A();
+		void set_SVG_CHANNEL_B(double value);
+		double get_SVG_CHANNEL_B();
+		void set_SVG_CHANNEL_R(double value);
+		double get_SVG_CHANNEL_R();
+		void set_SVG_CHANNEL_G(double value);
+		double get_SVG_CHANNEL_G();
+		void set_SVG_CHANNEL_UNKNOWN(double value);
+		double get_SVG_CHANNEL_UNKNOWN();
+		void set_SVG_CHANNEL_A(double value);
+		double get_SVG_CHANNEL_A();
 		static void set_prototype(SVGFEDisplacementMapElement* value);
 		static SVGFEDisplacementMapElement* get_prototype();
 		SVGFEDisplacementMapElement();
@@ -9465,32 +9465,32 @@ namespace client
 
 	class SVGComponentTransferFunctionElement: public SVGElement {
 	public:
-		void set_tableValues(SVGAnimatedNumberList* value);
-		SVGAnimatedNumberList* get_tableValues();
-		void set_slope(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_slope();
+		void set_tableValues(SVGAnimateddoubleList* value);
+		SVGAnimateddoubleList* get_tableValues();
+		void set_slope(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_slope();
 		void set_type(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_type();
-		void set_exponent(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_exponent();
-		void set_amplitude(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_amplitude();
-		void set_intercept(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_intercept();
-		void set_offset(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_offset();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_TABLE(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_TABLE();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR(Number value);
-		Number get_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR();
+		void set_exponent(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_exponent();
+		void set_amplitude(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_amplitude();
+		void set_intercept(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_intercept();
+		void set_offset(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_offset();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_TABLE(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_TABLE();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR();
 		static void set_prototype(SVGComponentTransferFunctionElement* value);
 		static SVGComponentTransferFunctionElement* get_prototype();
 		SVGComponentTransferFunctionElement();
@@ -9498,10 +9498,10 @@ namespace client
 
 	class SVGFEDistantLightElement: public SVGElement {
 	public:
-		void set_azimuth(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_azimuth();
-		void set_elevation(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_elevation();
+		void set_azimuth(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_azimuth();
+		void set_elevation(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_elevation();
 		static void set_prototype(SVGFEDistantLightElement* value);
 		static SVGFEDistantLightElement* get_prototype();
 		SVGFEDistantLightElement();
@@ -9518,35 +9518,35 @@ namespace client
 	public:
 		void set_orderY(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_orderY();
-		void set_kernelUnitLengthY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthY();
+		void set_kernelUnitLengthY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthY();
 		void set_orderX(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_orderX();
 		void set_preserveAlpha(SVGAnimatedBoolean* value);
 		SVGAnimatedBoolean* get_preserveAlpha();
-		void set_kernelMatrix(SVGAnimatedNumberList* value);
-		SVGAnimatedNumberList* get_kernelMatrix();
+		void set_kernelMatrix(SVGAnimateddoubleList* value);
+		SVGAnimateddoubleList* get_kernelMatrix();
 		void set_edgeMode(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_edgeMode();
-		void set_kernelUnitLengthX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthX();
-		void set_bias(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_bias();
+		void set_kernelUnitLengthX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthX();
+		void set_bias(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_bias();
 		void set_targetX(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_targetX();
 		void set_targetY(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_targetY();
-		void set_divisor(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_divisor();
+		void set_divisor(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_divisor();
 		SVGAnimatedString* get_in1();
-		void set_SVG_EDGEMODE_WRAP(Number value);
-		Number get_SVG_EDGEMODE_WRAP();
-		void set_SVG_EDGEMODE_DUPLICATE(Number value);
-		Number get_SVG_EDGEMODE_DUPLICATE();
-		void set_SVG_EDGEMODE_UNKNOWN(Number value);
-		Number get_SVG_EDGEMODE_UNKNOWN();
-		void set_SVG_EDGEMODE_NONE(Number value);
-		Number get_SVG_EDGEMODE_NONE();
+		void set_SVG_EDGEMODE_WRAP(double value);
+		double get_SVG_EDGEMODE_WRAP();
+		void set_SVG_EDGEMODE_DUPLICATE(double value);
+		double get_SVG_EDGEMODE_DUPLICATE();
+		void set_SVG_EDGEMODE_UNKNOWN(double value);
+		double get_SVG_EDGEMODE_UNKNOWN();
+		void set_SVG_EDGEMODE_NONE(double value);
+		double get_SVG_EDGEMODE_NONE();
 		static void set_prototype(SVGFEConvolveMatrixElement* value);
 		static SVGFEConvolveMatrixElement* get_prototype();
 		SVGFEConvolveMatrixElement();
@@ -9554,30 +9554,30 @@ namespace client
 
 	class SVGFETurbulenceElement: public SVGElement , public SVGFilterPrimitiveStandardAttributes {
 	public:
-		void set_baseFrequencyX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_baseFrequencyX();
+		void set_baseFrequencyX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_baseFrequencyX();
 		void set_numOctaves(SVGAnimatedInteger* value);
 		SVGAnimatedInteger* get_numOctaves();
 		void set_type(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_type();
-		void set_baseFrequencyY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_baseFrequencyY();
+		void set_baseFrequencyY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_baseFrequencyY();
 		void set_stitchTiles(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_stitchTiles();
-		void set_seed(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_seed();
-		void set_SVG_STITCHTYPE_UNKNOWN(Number value);
-		Number get_SVG_STITCHTYPE_UNKNOWN();
-		void set_SVG_STITCHTYPE_NOSTITCH(Number value);
-		Number get_SVG_STITCHTYPE_NOSTITCH();
-		void set_SVG_TURBULENCE_TYPE_UNKNOWN(Number value);
-		Number get_SVG_TURBULENCE_TYPE_UNKNOWN();
-		void set_SVG_TURBULENCE_TYPE_TURBULENCE(Number value);
-		Number get_SVG_TURBULENCE_TYPE_TURBULENCE();
-		void set_SVG_TURBULENCE_TYPE_FRACTALNOISE(Number value);
-		Number get_SVG_TURBULENCE_TYPE_FRACTALNOISE();
-		void set_SVG_STITCHTYPE_STITCH(Number value);
-		Number get_SVG_STITCHTYPE_STITCH();
+		void set_seed(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_seed();
+		void set_SVG_STITCHTYPE_UNKNOWN(double value);
+		double get_SVG_STITCHTYPE_UNKNOWN();
+		void set_SVG_STITCHTYPE_NOSTITCH(double value);
+		double get_SVG_STITCHTYPE_NOSTITCH();
+		void set_SVG_TURBULENCE_TYPE_UNKNOWN(double value);
+		double get_SVG_TURBULENCE_TYPE_UNKNOWN();
+		void set_SVG_TURBULENCE_TYPE_TURBULENCE(double value);
+		double get_SVG_TURBULENCE_TYPE_TURBULENCE();
+		void set_SVG_TURBULENCE_TYPE_FRACTALNOISE(double value);
+		double get_SVG_TURBULENCE_TYPE_FRACTALNOISE();
+		void set_SVG_STITCHTYPE_STITCH(double value);
+		double get_SVG_STITCHTYPE_STITCH();
 		static void set_prototype(SVGFETurbulenceElement* value);
 		static SVGFETurbulenceElement* get_prototype();
 		SVGFETurbulenceElement();
@@ -9595,18 +9595,18 @@ namespace client
 		SVGAnimatedString* get_in1();
 		void set_type(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_type();
-		void set_values(SVGAnimatedNumberList* value);
-		SVGAnimatedNumberList* get_values();
-		void set_SVG_FECOLORMATRIX_TYPE_SATURATE(Number value);
-		Number get_SVG_FECOLORMATRIX_TYPE_SATURATE();
-		void set_SVG_FECOLORMATRIX_TYPE_UNKNOWN(Number value);
-		Number get_SVG_FECOLORMATRIX_TYPE_UNKNOWN();
-		void set_SVG_FECOLORMATRIX_TYPE_MATRIX(Number value);
-		Number get_SVG_FECOLORMATRIX_TYPE_MATRIX();
-		void set_SVG_FECOLORMATRIX_TYPE_HUEROTATE(Number value);
-		Number get_SVG_FECOLORMATRIX_TYPE_HUEROTATE();
-		void set_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA(Number value);
-		Number get_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA();
+		void set_values(SVGAnimateddoubleList* value);
+		SVGAnimateddoubleList* get_values();
+		void set_SVG_FECOLORMATRIX_TYPE_SATURATE(double value);
+		double get_SVG_FECOLORMATRIX_TYPE_SATURATE();
+		void set_SVG_FECOLORMATRIX_TYPE_UNKNOWN(double value);
+		double get_SVG_FECOLORMATRIX_TYPE_UNKNOWN();
+		void set_SVG_FECOLORMATRIX_TYPE_MATRIX(double value);
+		double get_SVG_FECOLORMATRIX_TYPE_MATRIX();
+		void set_SVG_FECOLORMATRIX_TYPE_HUEROTATE(double value);
+		double get_SVG_FECOLORMATRIX_TYPE_HUEROTATE();
+		void set_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA(double value);
+		double get_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA();
 		static void set_prototype(SVGFEColorMatrixElement* value);
 		static SVGFEColorMatrixElement* get_prototype();
 		SVGFEColorMatrixElement();
@@ -9614,22 +9614,22 @@ namespace client
 
 	class SVGFESpotLightElement: public SVGElement {
 	public:
-		void set_pointsAtY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_pointsAtY();
-		void set_y(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_y();
-		void set_limitingConeAngle(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_limitingConeAngle();
-		void set_specularExponent(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_specularExponent();
-		void set_x(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_x();
-		void set_pointsAtZ(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_pointsAtZ();
-		void set_z(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_z();
-		void set_pointsAtX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_pointsAtX();
+		void set_pointsAtY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_pointsAtY();
+		void set_y(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_y();
+		void set_limitingConeAngle(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_limitingConeAngle();
+		void set_specularExponent(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_specularExponent();
+		void set_x(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_x();
+		void set_pointsAtZ(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_pointsAtZ();
+		void set_z(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_z();
+		void set_pointsAtX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_pointsAtX();
 		static void set_prototype(SVGFESpotLightElement* value);
 		static SVGFESpotLightElement* get_prototype();
 		SVGFESpotLightElement();
@@ -9637,11 +9637,11 @@ namespace client
 
 	class SVGFEOffsetElement: public SVGElement , public SVGFilterPrimitiveStandardAttributes {
 	public:
-		void set_dy(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_dy();
+		void set_dy(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_dy();
 		SVGAnimatedString* get_in1();
-		void set_dx(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_dx();
+		void set_dx(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_dx();
 		static void set_prototype(SVGFEOffsetElement* value);
 		static SVGFEOffsetElement* get_prototype();
 		SVGFEOffsetElement();
@@ -9649,17 +9649,17 @@ namespace client
 
 	class MSManipulationEvent: public UIEvent {
 	public:
-		void set_lastState(Number value);
-		Number get_lastState();
-		void set_currentState(Number value);
-		Number get_currentState();
-		void initMSManipulationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number lastState, Number currentState);
-		void set_MS_MANIPULATION_STATE_STOPPED(Number value);
-		Number get_MS_MANIPULATION_STATE_STOPPED();
-		void set_MS_MANIPULATION_STATE_ACTIVE(Number value);
-		Number get_MS_MANIPULATION_STATE_ACTIVE();
-		void set_MS_MANIPULATION_STATE_INERTIA(Number value);
-		Number get_MS_MANIPULATION_STATE_INERTIA();
+		void set_lastState(double value);
+		double get_lastState();
+		void set_currentState(double value);
+		double get_currentState();
+		void initMSManipulationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double lastState, double currentState);
+		void set_MS_MANIPULATION_STATE_STOPPED(double value);
+		double get_MS_MANIPULATION_STATE_STOPPED();
+		void set_MS_MANIPULATION_STATE_ACTIVE(double value);
+		double get_MS_MANIPULATION_STATE_ACTIVE();
+		void set_MS_MANIPULATION_STATE_INERTIA(double value);
+		double get_MS_MANIPULATION_STATE_INERTIA();
 		static void set_prototype(MSManipulationEvent* value);
 		static MSManipulationEvent* get_prototype();
 		MSManipulationEvent();
@@ -9679,29 +9679,29 @@ namespace client
 		void set_operator(SVGAnimatedEnumeration* value);
 		SVGAnimatedEnumeration* get_operator();
 		SVGAnimatedString* get_in2();
-		void set_k2(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_k2();
-		void set_k1(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_k1();
-		void set_k3(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_k3();
+		void set_k2(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_k2();
+		void set_k1(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_k1();
+		void set_k3(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_k3();
 		SVGAnimatedString* get_in1();
-		void set_k4(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_k4();
-		void set_SVG_FECOMPOSITE_OPERATOR_OUT(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_OUT();
-		void set_SVG_FECOMPOSITE_OPERATOR_OVER(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_OVER();
-		void set_SVG_FECOMPOSITE_OPERATOR_XOR(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_XOR();
-		void set_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC();
-		void set_SVG_FECOMPOSITE_OPERATOR_UNKNOWN(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_UNKNOWN();
-		void set_SVG_FECOMPOSITE_OPERATOR_IN(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_IN();
-		void set_SVG_FECOMPOSITE_OPERATOR_ATOP(Number value);
-		Number get_SVG_FECOMPOSITE_OPERATOR_ATOP();
+		void set_k4(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_k4();
+		void set_SVG_FECOMPOSITE_OPERATOR_OUT(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_OUT();
+		void set_SVG_FECOMPOSITE_OPERATOR_OVER(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_OVER();
+		void set_SVG_FECOMPOSITE_OPERATOR_XOR(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_XOR();
+		void set_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC();
+		void set_SVG_FECOMPOSITE_OPERATOR_UNKNOWN(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_UNKNOWN();
+		void set_SVG_FECOMPOSITE_OPERATOR_IN(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_IN();
+		void set_SVG_FECOMPOSITE_OPERATOR_ATOP(double value);
+		double get_SVG_FECOMPOSITE_OPERATOR_ATOP();
 		static void set_prototype(SVGFECompositeElement* value);
 		static SVGFECompositeElement* get_prototype();
 		SVGFECompositeElement();
@@ -9709,15 +9709,15 @@ namespace client
 
 	class SVGFEDiffuseLightingElement: public SVGElement , public SVGFilterPrimitiveStandardAttributes {
 	public:
-		void set_kernelUnitLengthY(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthY();
-		void set_surfaceScale(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_surfaceScale();
+		void set_kernelUnitLengthY(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthY();
+		void set_surfaceScale(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_surfaceScale();
 		SVGAnimatedString* get_in1();
-		void set_kernelUnitLengthX(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_kernelUnitLengthX();
-		void set_diffuseConstant(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_diffuseConstant();
+		void set_kernelUnitLengthX(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_kernelUnitLengthX();
+		void set_diffuseConstant(SVGAnimateddouble* value);
+		SVGAnimateddouble* get_diffuseConstant();
 		static void set_prototype(SVGFEDiffuseLightingElement* value);
 		static SVGFEDiffuseLightingElement* get_prototype();
 		SVGFEDiffuseLightingElement();
@@ -9761,18 +9761,18 @@ namespace client
 		SVGAnimatedLength* get_refX();
 		void setOrientToAngle(SVGAngle* angle);
 		void setOrientToAuto();
-		void set_SVG_MARKER_ORIENT_UNKNOWN(Number value);
-		Number get_SVG_MARKER_ORIENT_UNKNOWN();
-		void set_SVG_MARKER_ORIENT_ANGLE(Number value);
-		Number get_SVG_MARKER_ORIENT_ANGLE();
-		void set_SVG_MARKERUNITS_UNKNOWN(Number value);
-		Number get_SVG_MARKERUNITS_UNKNOWN();
-		void set_SVG_MARKERUNITS_STROKEWIDTH(Number value);
-		Number get_SVG_MARKERUNITS_STROKEWIDTH();
-		void set_SVG_MARKER_ORIENT_AUTO(Number value);
-		Number get_SVG_MARKER_ORIENT_AUTO();
-		void set_SVG_MARKERUNITS_USERSPACEONUSE(Number value);
-		Number get_SVG_MARKERUNITS_USERSPACEONUSE();
+		void set_SVG_MARKER_ORIENT_UNKNOWN(double value);
+		double get_SVG_MARKER_ORIENT_UNKNOWN();
+		void set_SVG_MARKER_ORIENT_ANGLE(double value);
+		double get_SVG_MARKER_ORIENT_ANGLE();
+		void set_SVG_MARKERUNITS_UNKNOWN(double value);
+		double get_SVG_MARKERUNITS_UNKNOWN();
+		void set_SVG_MARKERUNITS_STROKEWIDTH(double value);
+		double get_SVG_MARKERUNITS_STROKEWIDTH();
+		void set_SVG_MARKER_ORIENT_AUTO(double value);
+		double get_SVG_MARKER_ORIENT_AUTO();
+		void set_SVG_MARKERUNITS_USERSPACEONUSE(double value);
+		double get_SVG_MARKERUNITS_USERSPACEONUSE();
 		static void set_prototype(SVGMarkerElement* value);
 		static SVGMarkerElement* get_prototype();
 		SVGMarkerElement();
@@ -9789,10 +9789,10 @@ namespace client
 	public:
 		void set_zoomRectScreen(SVGRect* value);
 		SVGRect* get_zoomRectScreen();
-		void set_previousScale(Number value);
-		Number get_previousScale();
-		void set_newScale(Number value);
-		Number get_newScale();
+		void set_previousScale(double value);
+		double get_previousScale();
+		void set_newScale(double value);
+		double get_newScale();
 		void set_previousTranslate(SVGPoint* value);
 		SVGPoint* get_previousTranslate();
 		void set_newTranslate(SVGPoint* value);
@@ -9835,41 +9835,41 @@ namespace client
 
 	class MouseEvent: public UIEvent , public MSMouseEventExtensions {
 	public:
-		void set_pageX(Number value);
-		Number get_pageX();
-		void set_offsetY(Number value);
-		Number get_offsetY();
-		void set_x(Number value);
-		Number get_x();
-		void set_y(Number value);
-		Number get_y();
+		void set_pageX(double value);
+		double get_pageX();
+		void set_offsetY(double value);
+		double get_offsetY();
+		void set_x(double value);
+		double get_x();
+		void set_y(double value);
+		double get_y();
 		void set_altKey(Boolean value);
 		Boolean get_altKey();
 		void set_metaKey(Boolean value);
 		Boolean get_metaKey();
 		void set_ctrlKey(Boolean value);
 		Boolean get_ctrlKey();
-		void set_offsetX(Number value);
-		Number get_offsetX();
-		void set_screenX(Number value);
-		Number get_screenX();
-		void set_clientY(Number value);
-		Number get_clientY();
+		void set_offsetX(double value);
+		double get_offsetX();
+		void set_screenX(double value);
+		double get_screenX();
+		void set_clientY(double value);
+		double get_clientY();
 		void set_shiftKey(Boolean value);
 		Boolean get_shiftKey();
-		void set_screenY(Number value);
-		Number get_screenY();
+		void set_screenY(double value);
+		double get_screenY();
 		void set_relatedTarget(EventTarget* value);
 		EventTarget* get_relatedTarget();
-		void set_button(Number value);
-		Number get_button();
-		void set_pageY(Number value);
-		Number get_pageY();
-		void set_buttons(Number value);
-		Number get_buttons();
-		void set_clientX(Number value);
-		Number get_clientX();
-		void initMouseEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, Number buttonArg, EventTarget* relatedTargetArg);
+		void set_button(double value);
+		double get_button();
+		void set_pageY(double value);
+		double get_pageY();
+		void set_buttons(double value);
+		double get_buttons();
+		void set_clientX(double value);
+		double get_clientX();
+		void initMouseEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, double buttonArg, EventTarget* relatedTargetArg);
 		Boolean getModifierState(const String& keyArg);
 		static void set_prototype(MouseEvent* value);
 		static MouseEvent* get_prototype();
@@ -9880,8 +9880,8 @@ namespace client
 	public:
 		void set_y(SVGAnimatedLengthList* value);
 		SVGAnimatedLengthList* get_y();
-		void set_rotate(SVGAnimatedNumberList* value);
-		SVGAnimatedNumberList* get_rotate();
+		void set_rotate(SVGAnimateddoubleList* value);
+		SVGAnimateddoubleList* get_rotate();
 		void set_dy(SVGAnimatedLengthList* value);
 		SVGAnimatedLengthList* get_dy();
 		void set_x(SVGAnimatedLengthList* value);
@@ -9948,9 +9948,9 @@ namespace client
 
 	class MouseWheelEvent: public MouseEvent {
 	public:
-		void set_wheelDelta(Number value);
-		Number get_wheelDelta();
-		void initMouseWheelEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Number buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, Number wheelDeltaArg);
+		void set_wheelDelta(double value);
+		double get_wheelDelta();
+		void initMouseWheelEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, double wheelDeltaArg);
 		static void set_prototype(MouseWheelEvent* value);
 		static MouseWheelEvent* get_prototype();
 		MouseWheelEvent();
@@ -9958,8 +9958,8 @@ namespace client
 
 	class KeyboardEvent: public UIEvent , public KeyboardEventExtensions {
 	public:
-		void set_location(Number value);
-		Number get_location();
+		void set_location(double value);
+		double get_location();
 		void set_shiftKey(Boolean value);
 		Boolean get_shiftKey();
 		void set_locale(const String& value);
@@ -9977,19 +9977,19 @@ namespace client
 		void set_repeat(Boolean value);
 		Boolean get_repeat();
 		Boolean getModifierState(const String& keyArg);
-		void initKeyboardEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, const String& keyArg, Number locationArg, const String& modifiersListArg, Boolean repeat, const String& locale);
-		void set_DOM_KEY_LOCATION_RIGHT(Number value);
-		Number get_DOM_KEY_LOCATION_RIGHT();
-		void set_DOM_KEY_LOCATION_STANDARD(Number value);
-		Number get_DOM_KEY_LOCATION_STANDARD();
-		void set_DOM_KEY_LOCATION_LEFT(Number value);
-		Number get_DOM_KEY_LOCATION_LEFT();
-		void set_DOM_KEY_LOCATION_NUMPAD(Number value);
-		Number get_DOM_KEY_LOCATION_NUMPAD();
-		void set_DOM_KEY_LOCATION_JOYSTICK(Number value);
-		Number get_DOM_KEY_LOCATION_JOYSTICK();
-		void set_DOM_KEY_LOCATION_MOBILE(Number value);
-		Number get_DOM_KEY_LOCATION_MOBILE();
+		void initKeyboardEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, const String& keyArg, double locationArg, const String& modifiersListArg, Boolean repeat, const String& locale);
+		void set_DOM_KEY_LOCATION_RIGHT(double value);
+		double get_DOM_KEY_LOCATION_RIGHT();
+		void set_DOM_KEY_LOCATION_STANDARD(double value);
+		double get_DOM_KEY_LOCATION_STANDARD();
+		void set_DOM_KEY_LOCATION_LEFT(double value);
+		double get_DOM_KEY_LOCATION_LEFT();
+		void set_DOM_KEY_LOCATION_NUMPAD(double value);
+		double get_DOM_KEY_LOCATION_NUMPAD();
+		void set_DOM_KEY_LOCATION_JOYSTICK(double value);
+		double get_DOM_KEY_LOCATION_JOYSTICK();
+		void set_DOM_KEY_LOCATION_MOBILE(double value);
+		double get_DOM_KEY_LOCATION_MOBILE();
 		static void set_prototype(KeyboardEvent* value);
 		static KeyboardEvent* get_prototype();
 		KeyboardEvent();
@@ -9999,7 +9999,7 @@ namespace client
 	public:
 		void set_relatedTarget(EventTarget* value);
 		EventTarget* get_relatedTarget();
-		void initFocusEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, EventTarget* relatedTargetArg);
+		void initFocusEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, EventTarget* relatedTargetArg);
 		static void set_prototype(FocusEvent* value);
 		static FocusEvent* get_prototype();
 		FocusEvent();
@@ -10040,7 +10040,7 @@ namespace client
 	public:
 		void set_dataTransfer(DataTransfer* value);
 		DataTransfer* get_dataTransfer();
-		void initDragEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, Number buttonArg, EventTarget* relatedTargetArg, DataTransfer* dataTransferArg);
+		void initDragEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, double buttonArg, EventTarget* relatedTargetArg, DataTransfer* dataTransferArg);
 		static void set_prototype(DragEvent* value);
 		static DragEvent* get_prototype();
 		DragEvent();
@@ -10048,21 +10048,21 @@ namespace client
 
 	class WheelEvent: public MouseEvent {
 	public:
-		void set_deltaZ(Number value);
-		Number get_deltaZ();
-		void set_deltaX(Number value);
-		Number get_deltaX();
-		void set_deltaMode(Number value);
-		Number get_deltaMode();
-		void set_deltaY(Number value);
-		Number get_deltaY();
-		void initWheelEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Number buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, Number deltaXArg, Number deltaYArg, Number deltaZArg, Number deltaMode);
-		void set_DOM_DELTA_PIXEL(Number value);
-		Number get_DOM_DELTA_PIXEL();
-		void set_DOM_DELTA_LINE(Number value);
-		Number get_DOM_DELTA_LINE();
-		void set_DOM_DELTA_PAGE(Number value);
-		Number get_DOM_DELTA_PAGE();
+		void set_deltaZ(double value);
+		double get_deltaZ();
+		void set_deltaX(double value);
+		double get_deltaX();
+		void set_deltaMode(double value);
+		double get_deltaMode();
+		void set_deltaY(double value);
+		double get_deltaY();
+		void initWheelEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, double deltaXArg, double deltaYArg, double deltaZArg, double deltaMode);
+		void set_DOM_DELTA_PIXEL(double value);
+		double get_DOM_DELTA_PIXEL();
+		void set_DOM_DELTA_LINE(double value);
+		double get_DOM_DELTA_LINE();
+		void set_DOM_DELTA_PAGE(double value);
+		double get_DOM_DELTA_PAGE();
 		static void set_prototype(WheelEvent* value);
 		static WheelEvent* get_prototype();
 		WheelEvent();
@@ -10099,51 +10099,51 @@ namespace client
 
 	class MSPointerEvent: public MouseEvent {
 	public:
-		void set_width(Number value);
-		Number get_width();
-		void set_rotation(Number value);
-		Number get_rotation();
-		void set_pressure(Number value);
-		Number get_pressure();
-		void set_pointerType(Number value);
-		Number get_pointerType();
+		void set_width(double value);
+		double get_width();
+		void set_rotation(double value);
+		double get_rotation();
+		void set_pressure(double value);
+		double get_pressure();
+		void set_pointerType(double value);
+		double get_pointerType();
 		void set_isPrimary(Boolean value);
 		Boolean get_isPrimary();
-		void set_tiltY(Number value);
-		Number get_tiltY();
-		void set_height(Number value);
-		Number get_height();
+		void set_tiltY(double value);
+		double get_tiltY();
+		void set_height(double value);
+		double get_height();
 		void set_intermediatePoints(Object* value);
 		Object* get_intermediatePoints();
 		void set_currentPoint(Object* value);
 		Object* get_currentPoint();
-		void set_tiltX(Number value);
-		Number get_tiltX();
-		void set_hwTimestamp(Number value);
-		Number get_hwTimestamp();
-		void set_pointerId(Number value);
-		Number get_pointerId();
-		void initPointerEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, Number detailArg, Number screenXArg, Number screenYArg, Number clientXArg, Number clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, Number buttonArg, EventTarget* relatedTargetArg, Number offsetXArg, Number offsetYArg, Number widthArg, Number heightArg, Number pressure, Number rotation, Number tiltX, Number tiltY, Number pointerIdArg, Number pointerType, Number hwTimestampArg, Boolean isPrimary);
+		void set_tiltX(double value);
+		double get_tiltX();
+		void set_hwTimestamp(double value);
+		double get_hwTimestamp();
+		void set_pointerId(double value);
+		double get_pointerId();
+		void initPointerEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, Boolean ctrlKeyArg, Boolean altKeyArg, Boolean shiftKeyArg, Boolean metaKeyArg, double buttonArg, EventTarget* relatedTargetArg, double offsetXArg, double offsetYArg, double widthArg, double heightArg, double pressure, double rotation, double tiltX, double tiltY, double pointerIdArg, double pointerType, double hwTimestampArg, Boolean isPrimary);
 		void getCurrentPoint(Element* element);
 		void getIntermediatePoints(Element* element);
-		void set_MSPOINTER_TYPE_PEN(Number value);
-		Number get_MSPOINTER_TYPE_PEN();
-		void set_MSPOINTER_TYPE_MOUSE(Number value);
-		Number get_MSPOINTER_TYPE_MOUSE();
-		void set_MSPOINTER_TYPE_TOUCH(Number value);
-		Number get_MSPOINTER_TYPE_TOUCH();
+		void set_MSPOINTER_TYPE_PEN(double value);
+		double get_MSPOINTER_TYPE_PEN();
+		void set_MSPOINTER_TYPE_MOUSE(double value);
+		double get_MSPOINTER_TYPE_MOUSE();
+		void set_MSPOINTER_TYPE_TOUCH(double value);
+		double get_MSPOINTER_TYPE_TOUCH();
 		static void set_prototype(MSPointerEvent* value);
 		static MSPointerEvent* get_prototype();
 		MSPointerEvent();
 	};
-extern Number NaN;
-extern Number Infinity;
+extern double NaN;
+extern double Infinity;
 extern Object* eval(const String& x);
-extern Number parseInt(const String& s);
-extern Number parseInt(const String& s, Number radix);
-extern Number parseFloat(const String& string);
-extern Boolean isNaN(Number number);
-extern Boolean isFinite(Number number);
+extern double parseInt(const String& s);
+extern double parseInt(const String& s, double radix);
+extern double parseFloat(const String& string);
+extern Boolean isNaN(double number);
+extern Boolean isFinite(double number);
 extern String* decodeURI(const String& encodedURI);
 extern String* decodeURIComponent(const String& encodedURIComponent);
 extern String* encodeURI(const String& uri);
@@ -10182,7 +10182,7 @@ extern Object* (*oncanplay)(Event* ev);
 extern Object* (*onstalled)(Event* ev);
 extern Object* (*onmousemove)(MouseEvent* ev);
 extern Object* (*onoffline)(Event* ev);
-extern Number length;
+extern double length;
 extern Object* (*onbeforeunload)(BeforeUnloadEvent* ev);
 extern Object* (*onratechange)(Event* ev);
 extern Object* (*onstorage)(StorageEvent* ev);
@@ -10252,9 +10252,9 @@ extern Boolean attachEvent(const String& event, EventListener* listener);
 extern void detachEvent(const String& event, EventListener* listener);
 extern String* status;
 extern Object* (*onmouseleave)(MouseEvent* ev);
-extern Number screenLeft;
+extern double screenLeft;
 extern Object* offscreenBuffering;
-extern Number maxConnectionsPerServer;
+extern double maxConnectionsPerServer;
 extern Object* (*onmouseenter)(MouseEvent* ev);
 extern DataTransfer* clipboardData;
 extern String* defaultStatus;
@@ -10264,16 +10264,16 @@ extern Object* (*onhelp)(Event* ev);
 extern BrowserPublic* external;
 extern MSEventObj* event;
 extern Object* (*onfocusout)(FocusEvent* ev);
-extern Number screenTop;
+extern double screenTop;
 extern Object* (*onfocusin)(FocusEvent* ev);
 extern Window* showModelessDialog();
 extern Window* showModelessDialog(const String& url, Object* argument, Object* options);
 extern void navigate(const String& url);
 extern void resizeBy();
-extern void resizeBy(Number x, Number y);
+extern void resizeBy(double x, double y);
 extern Object* item(Object* index);
 extern void resizeTo();
-extern void resizeTo(Number x, Number y);
+extern void resizeTo(double x, double y);
 extern MSPopupWindow* createPopup();
 extern MSPopupWindow* createPopup(Object* arguments);
 extern String* toStaticHTML(const String& html);
@@ -10281,28 +10281,28 @@ extern Object* execScript(const String& code);
 extern Object* execScript(const String& code, const String& language);
 extern void msWriteProfilerMark(const String& profilerMarkName);
 extern void moveTo();
-extern void moveTo(Number x, Number y);
+extern void moveTo(double x, double y);
 extern void moveBy();
-extern void moveBy(Number x, Number y);
+extern void moveBy(double x, double y);
 extern void showHelp(const String& url);
 extern void showHelp(const String& url, Object* helpArg);
 extern void showHelp(const String& url, Object* helpArg, const String& features);
 extern Object* performance;
-extern Number outerWidth;
-extern Number pageXOffset;
-extern Number innerWidth;
-extern Number pageYOffset;
-extern Number screenY;
-extern Number outerHeight;
+extern double outerWidth;
+extern double pageXOffset;
+extern double innerWidth;
+extern double pageYOffset;
+extern double screenY;
+extern double outerHeight;
 extern Screen* screen;
-extern Number innerHeight;
-extern Number screenX;
+extern double innerHeight;
+extern double screenX;
 extern void scroll();
-extern void scroll(Number x, Number y);
+extern void scroll(double x, double y);
 extern void scrollBy();
-extern void scrollBy(Number x, Number y);
+extern void scrollBy(double x, double y);
 extern void scrollTo();
-extern void scrollTo(Number x, Number y);
+extern void scrollTo(double x, double y);
 extern StyleMedia* styleMedia;
 extern Document* document;
 extern void removeEventListener(const String& type, EventListener* listener);
@@ -10312,26 +10312,26 @@ extern void addEventListener(const String& type, EventListener* listener, Boolea
 extern Boolean dispatchEvent(Event* evt);
 extern Storage* localStorage;
 extern Storage* sessionStorage;
-extern void clearTimeout(Number handle);
-extern Number setTimeout(Object* expression);
-extern Number setTimeout(Object* expression, Number msec);
-extern Number setTimeout(Object* expression, Number msec, Object* language);
-extern void clearInterval(Number handle);
-extern Number setInterval(Object* expression);
-extern Number setInterval(Object* expression, Number msec);
-extern Number setInterval(Object* expression, Number msec, Object* language);
+extern void clearTimeout(double handle);
+extern double setTimeout(Object* expression);
+extern double setTimeout(Object* expression, double msec);
+extern double setTimeout(Object* expression, double msec, Object* language);
+extern void clearInterval(double handle);
+extern double setInterval(Object* expression);
+extern double setInterval(Object* expression, double msec);
+extern double setInterval(Object* expression, double msec, Object* language);
 extern URL* URL;
 extern MSApp* MSApp;
 extern Object* (*onpopstate)(PopStateEvent* ev);
 extern ApplicationCache* applicationCache;
 extern MediaQueryList* matchMedia(const String& mediaQuery);
 extern MediaQueryList* msMatchMedia(const String& mediaQuery);
-extern Number animationStartTime;
-extern Number msAnimationStartTime;
-extern void msCancelRequestAnimationFrame(Number handle);
-extern void cancelAnimationFrame(Number handle);
-extern Number requestAnimationFrame(FrameRequestCallback* callback);
-extern Number msRequestAnimationFrame(FrameRequestCallback* callback);
+extern double animationStartTime;
+extern double msAnimationStartTime;
+extern void msCancelRequestAnimationFrame(double handle);
+extern void cancelAnimationFrame(double handle);
+extern double requestAnimationFrame(FrameRequestCallback* callback);
+extern double msRequestAnimationFrame(FrameRequestCallback* callback);
 extern String* btoa(const String& rawString);
 extern String* atob(const String& encodedString);
 extern IDBFactory* msIndexedDB;
