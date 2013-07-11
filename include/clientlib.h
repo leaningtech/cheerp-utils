@@ -930,7 +930,9 @@ namespace client
 
 	class JSON{
 	public:
+		Object* parse(const String& test);
 		Object* parse(const String& text, Object* (*reviver)(Object* key, Object* value));
+		String* stringify(double value);
 		String* stringify(Object* value);
 		String* stringify(Object* value, Object* (*replacer)(const String& key, Object* value));
 		String* stringify(Object* value, Array* /*{ARRAY_BASE_TYPE=Object*}*/ replacer);
