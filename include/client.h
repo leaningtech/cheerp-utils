@@ -29,13 +29,6 @@
 namespace client
 {
 
-class Client
-{
-public:
-	static client::Document* get_document();
-	static client::JSON* get_JSON();
-};
-
 extern Document* document;
 
 template<typename T>
@@ -46,12 +39,12 @@ String* serialize(const T& data)
 
 inline String* serialize(int data) [[client]]
 {
-	return Client::get_JSON()->stringify(data);
+	return JSON.stringify(data);
 }
 
 inline String* serialize(float data) [[client]]
 {
-	return Client::get_JSON()->stringify(data);
+	return JSON.stringify(data);
 }
 
 //TODO: add generic deserializer
@@ -64,7 +57,7 @@ T deserialize(const String& s)
 template<>
 inline int deserialize<int>(const String& s) [[client]]
 {
-	Object* ret=Client::get_JSON()->parse(s);
+	Object* ret=JSON.parse(s);
 	//TODO: Find a proper way to check for type
 	return *ret;
 }
