@@ -1,4 +1,4 @@
-Duetto Beta 0.1: For testing purposes only
+Duetto Beta 02: For testing purposes only
 ------------------------------------------
 
 Duetto is a tool to bring C++ programming to the Web,
@@ -12,7 +12,7 @@ Currently Duetto needs to be unpacked in /opt/duetto/
 Usage
 ------------------------------------------
 Duetto is integrated in the LLVM/clang infrastructure.
-To build client side JavaScript code from A C++ source file
+To build client side JavaScript code from a C++ source file
 
 /opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
 
@@ -23,6 +23,13 @@ slighly more complex currently
 /opt/duetto/bin/clang -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
 /opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
 /opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
+
+A cmake toolchain file is provided in /opt/duetto/share/cmake/Modules/DuettoToolchain.cmake
+it's possible to cross-compile cmake projects for the Duetto platform using the syntax
+
+cmake -DCMAKE_TOOLCHAIN_FILE=/opt/duetto/share/cmake/Modules/DuettoToolchain.cmake <regular arguments>
+
+Please note that, currently, only building static libraries is supported.
 
 Code conventions
 ------------------------------------------
@@ -85,14 +92,13 @@ Properties of DOM objects are always accessed through setters/getters
 
 Small examples are included in /opt/duetto/share/duetto/examples/
 
-Limitations as of version 0.1.4
+Limitations as of version 0.2
 ------------------------------------------
 In this build support for native code is broken. This also means that
 server side code generation and transparent RPCs are broken as well.
 We are sorry about this.
 
 Major limitations of this version are:
-	-) We do not yet have client side support for most of the C++ standard library
 	-) Virtual bases and covariant returns are not yet supported
 	-) No explicit error is reported when invalid numerical types are used
 
