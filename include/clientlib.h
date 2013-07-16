@@ -8724,7 +8724,11 @@ extern Object* (*oninput)(Event* ev);
 extern void alert();
 extern void alert(const String& message);
 extern void focus();
-extern void print();
+template<typename ...Args>
+extern void print(const Args&... args)
+{
+	duettoVariadicTrap<void>(print<>,static_cast<const String&>(args)...);
+}
 extern String* prompt();
 extern String* prompt(const String& message);
 extern String* prompt(const String& message, const String& defaul);
