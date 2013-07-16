@@ -727,7 +727,7 @@ public:
     void blendFunc(double, double);
     void blendFuncSeparate(double, double, double, double);
     void bufferData(double, double, double);
-    //void bufferData(double, ArrayBufferView*, double);
+    void bufferData(double, const ArrayBufferView&, double);
     //void bufferData(double, ArrayBuffer*, double);
     //void bufferSubData(double, double, ArrayBufferView*);
     //void bufferSubData(double, double, ArrayBuffer*);
@@ -774,7 +774,7 @@ public:
     WebGLActiveInfo* getActiveAttrib(WebGLProgram*, double);
     WebGLActiveInfo* getActiveUniform(WebGLProgram*, double);
     //WebGLShader[]* getAttachedShaders(WebGLProgram*);
-    //double getAttribLocation(WebGLProgram*, string);
+    double getAttribLocation(WebGLProgram*, const String&);
     Object* getBufferParameter(double, double);
     Object* getParameter(double);
     double getError();
@@ -788,7 +788,7 @@ public:
     //string getShaderSource(WebGLShader*);
     Object* getTexParameter(double, double);
     Object* getUniform(WebGLProgram*, WebGLUniformLocation*);
-    //WebGLUniformLocation* getUniformLocation(WebGLProgram*, string);
+    WebGLUniformLocation* getUniformLocation(WebGLProgram*, const String&);
     Object* getVertexAttrib(double, double);
     double getVertexAttribOffset(double, double);
     void hint(double, double);
@@ -807,7 +807,7 @@ public:
     void renderbufferStorage(double, double, double, double);
     void sampleCoverage(double, bool);
     void scissor(double, double, double, double);
-    //void shaderSource(WebGLShader*, string);
+    void shaderSource(WebGLShader*, const String&);
     void stencilFunc(double, double, double);
     void stencilFuncSeparate(double, double, double, double);
     void stencilMask(double);
@@ -852,9 +852,9 @@ public:
     void uniform4iv(WebGLUniformLocation*, double*);
     void uniformMatrix2fv(WebGLUniformLocation*, bool, float*);
     void uniformMatrix2fv(WebGLUniformLocation*, bool, double*);
-    void uniformMatrix3fv(WebGLUniformLocation*, bool, float*);
+    void uniformMatrix3fv(WebGLUniformLocation*, bool, const Float32Array&);
     void uniformMatrix3fv(WebGLUniformLocation*, bool, double*);
-    void uniformMatrix4fv(WebGLUniformLocation*, bool, float*);
+    void uniformMatrix4fv(WebGLUniformLocation*, bool, const Float32Array&);
     void uniformMatrix4fv(WebGLUniformLocation*, bool, double*);
     void useProgram(WebGLProgram*);
     void validateProgram(WebGLProgram*);
