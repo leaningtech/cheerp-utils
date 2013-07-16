@@ -1959,6 +1959,7 @@ namespace client
 		void removeEventListener(const String& type, EventListener* listener);
 		void removeEventListener(const String& type, EventListener* listener, Boolean useCapture);
 		void addEventListener(const String& type, const EventListener& listener, Boolean useCapture);
+		void addEventListener(const String& type, const EventListener& listener);
 		Boolean dispatchEvent(Event* evt);
 	};
 
@@ -7645,7 +7646,6 @@ namespace client
 		CDATASection* createCDATASection(const String& data);
 		Attr* createAttributeNS(const String& nsURI, const String& qualifiedName);
 		HTMLElement* getElementById(const String& elementId);
-		void addEventListener(const String& type, const EventListener& listener);
 		Document();
 	};
 /*classeMessageEvent duplicata*/
