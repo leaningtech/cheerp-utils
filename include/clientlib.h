@@ -5530,7 +5530,6 @@ namespace client
 		IDBOpenDBRequest* deleteDatabase(const String& name);
 		IDBFactory();
 	};
-/*classeRange duplicata*/
 
 	class HTMLObjectElement{
 	public:
@@ -6028,7 +6027,6 @@ namespace client
 		double get_y();
 		SVGPathSegLinetoVerticalRel();
 	};
-/*classeHTMLSelectElement duplicata*/
 
 	class CSSStyleSheet: public StyleSheet , public MSCSSStyleSheetExtensions {
 	public:
@@ -6494,7 +6492,6 @@ namespace client
 		String* toString();
 		HTMLAreaElement();
 	};
-/*classeHTMLButtonElement duplicata*/
 
 	class HTMLSourceElement: public HTMLElement {
 	public:
@@ -6506,7 +6503,6 @@ namespace client
 		String* get_type();
 		HTMLSourceElement();
 	};
-/*classeHTMLScriptElement duplicata*/
 
 	class HTMLTableRowElement: public HTMLElement , public MSBorderColorHighlightStyle_HTMLTableRowElement , public HTMLTableAlignment , public MSBorderColorStyle_HTMLTableRowElement , public DOML2DeprecatedAlignmentStyle_HTMLTableRowElement , public DOML2DeprecatedBackgroundColorStyle , public MSHTMLTableRowElementExtensions {
 	public:
@@ -6735,8 +6731,6 @@ namespace client
 		String* get_hasLayout();
 		MSCurrentStyleCSSProperties();
 	};
-/*classeHTMLIFrameElement duplicata*/
-/*classeHTMLBodyElement duplicata*/
 
 	class DocumentType: public Node {
 	public:
@@ -6771,8 +6765,6 @@ namespace client
 		HTMLElement* insertRow(double index);
 		HTMLTableSectionElement();
 	};
-/*classeHTMLInputElement duplicata*/
-/*classeHTMLAnchorElement duplicata*/
 
 	class HTMLParamElement: public HTMLElement {
 	public:
@@ -6917,7 +6909,6 @@ namespace client
 		MediaList* get_media();
 		CSSImportRule();
 	};
-/*classeHTMLTextAreaElement duplicata*/
 
 	class HTMLMarqueeElement: public HTMLElement , public DOML2DeprecatedMarginStyle_HTMLMarqueeElement , public MSDataBindingExtensions , public MSHTMLMarqueeElementExtensions , public DOML2DeprecatedBackgroundColorStyle {
 	public:
@@ -7282,7 +7273,6 @@ namespace client
 	public:
 		HTMLHeadingElement();
 	};
-/*classeHTMLFormElement duplicata*/
 
 	class HTMLMediaElement: public HTMLElement {
 	public:
@@ -7349,7 +7339,6 @@ namespace client
 	class MSHTMLParagraphElementExtensions: public DOML2DeprecatedTextFlowControl_HTMLBlockElement {
 	public:
 	};
-/*classeHTMLFieldSetElement duplicata*/
 
 	class HTMLBGSoundElement: public HTMLElement {
 	public:
@@ -7368,7 +7357,6 @@ namespace client
 	public:
 		HTMLHRElement();
 	};
-/*classeHTMLObjectElement duplicata*/
 
 	class StorageEvent: public Event {
 	public:
@@ -7437,7 +7425,6 @@ namespace client
 		String* get_name();
 		Attr();
 	};
-/*classeHTMLVideoElement duplicata*/
 
 	class ErrorEvent: public Event {
 	public:
@@ -7475,9 +7462,6 @@ namespace client
 		void readAsText(MSStream* stream, const String& encoding, double size);
 		MSStreamReader();
 	};
-/*classeWindowTimers duplicata*/
-/*classeCSSStyleDeclaration duplicata*/
-/*classeNavigator duplicata*/
 
 	class TransitionEvent: public Event {
 	public:
@@ -7531,7 +7515,6 @@ namespace client
 		void initAnimationEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, const String& animationNameArg, double elapsedTimeArg);
 		AnimationEvent();
 	};
-/*classeWindow duplicata*/
 
 	class IDBOpenDBRequest: public IDBRequest {
 	public:
@@ -7562,7 +7545,6 @@ namespace client
 		void set_ports(Object* value);
 		Object* get_ports();
 	};
-/*classeHTMLMediaElement duplicata*/
 
 	class PopStateEvent: public Event {
 	public:
@@ -7571,7 +7553,6 @@ namespace client
 		void initPopStateEvent(const String& typeArg, Boolean canBubbleArg, Boolean cancelableArg, Object* stateArg);
 		PopStateEvent();
 	};
-/*classeMediaError duplicata*/
 
 	class MSStyleCSSProperties: public MSCSSProperties {
 	public:
@@ -7648,7 +7629,6 @@ namespace client
 		HTMLElement* getElementById(const String& elementId);
 		Document();
 	};
-/*classeMessageEvent duplicata*/
 
 	class SVGElement: public Element , public SVGElementEventHandlers {
 	public:
@@ -7964,7 +7944,6 @@ namespace client
 		double get_SVG_SPREADMETHOD_REPEAT();
 		SVGGradientElement();
 	};
-/*classeHTMLElement duplicata*/
 
 	class Comment: public CharacterData , public MSCommentExtensions {
 	public:
