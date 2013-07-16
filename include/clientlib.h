@@ -5514,18 +5514,6 @@ namespace client
 		DocumentFragment* createContextualFragment(const String& fragment);
 	};
 
-	class HTMLElement{
-	public:
-		typedef Object* (*callback_for_oncuechange)(Event* ev);
-		void set_oncuechange(callback_for_oncuechange value);
-		callback_for_oncuechange get_oncuechange();
-		void set_spellcheck(Boolean value);
-		Boolean get_spellcheck();
-		DOMTokenList* get_classList();
-		void set_draggable(Boolean value);
-		Boolean get_draggable();
-	};
-
 	class DOMSettableTokenList: public DOMTokenList {
 	public:
 		void set_value(const String& value);
@@ -5595,6 +5583,111 @@ namespace client
 		void msSetMediaProtectionManager(Object* mediaProtectionManager);
 		void msInsertAudioEffect(const String& activatableClassId, Boolean effectRequired);
 		void msInsertAudioEffect(const String& activatableClassId, Boolean effectRequired, Object* config);
+	};
+
+	class Node: public EventTarget {
+	public:
+		double get_nodeType();
+		Node* get_previousSibling();
+		String* get_localName();
+		String* get_nsURI();
+		String* get_textContent();
+		void set_textContent(const String&);
+		Node* get_parentNode();
+		Node* get_nextSibling();
+		String* get_nodeValue();
+		Node* get_lastChild();
+		NodeList* get_childNodes();
+		String* get_nodeName();
+		Document* get_ownerDocument();
+		void set_attributes(Array* /*{ARRAY_BASE_TYPE=Attr}*/ value);
+		Array* /*{ARRAY_BASE_TYPE=Attr}*/ get_attributes();
+		Node* get_firstChild();
+		void set_prefix(const String& value);
+		String* get_prefix();
+		Node* removeChild(Node* oldChild);
+		Node* appendChild(Node* newChild);
+		Boolean isSupported(const String& feature, const String& version);
+		Boolean isEqualNode(Node* arg);
+		String* lookupPrefix(const String& nsURI);
+		Boolean isDefaultns(const String& nsURI);
+		double compareDocumentPosition(Node* other);
+		void normalize();
+		Boolean isSameNode(Node* other);
+		Boolean hasAttributes();
+		String* lookupnsURI(const String& prefix);
+		Node* cloneNode();
+		Node* cloneNode(Boolean deep);
+		Boolean hasChildNodes();
+		Node* replaceChild(Node* newChild, Node* oldChild);
+		Node* insertBefore(Node* newChild);
+		Node* insertBefore(Node* newChild, Node* refChild);
+		double get_ENTITY_REFERENCE_NODE();
+		double get_ATTRIBUTE_NODE();
+		double get_DOCUMENT_FRAGMENT_NODE();
+		double get_TEXT_NODE();
+		double get_ELEMENT_NODE();
+		double get_COMMENT_NODE();
+		double get_DOCUMENT_POSITION_DISCONNECTED();
+		double get_DOCUMENT_POSITION_CONTAINED_BY();
+		double get_DOCUMENT_POSITION_CONTAINS();
+		double get_DOCUMENT_TYPE_NODE();
+		double get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
+		double get_DOCUMENT_NODE();
+		double get_ENTITY_NODE();
+		double get_PROCESSING_INSTRUCTION_NODE();
+		double get_CDATA_SECTION_NODE();
+		double get_NOTATION_NODE();
+		double get_DOCUMENT_POSITION_FOLLOWING();
+		double get_DOCUMENT_POSITION_PRECEDING();
+		Node();
+	};
+
+	class Element: public Node , public NodeSelector , public ElementTraversal , public MSElementExtensions {
+	public:
+		double get_scrollTop();
+		double get_clientLeft();
+		double get_scrollLeft();
+		String* get_tagName();
+		double get_clientWidth();
+		double get_scrollWidth();
+		double get_clientHeight();
+		double get_clientTop();
+		double get_scrollHeight();
+		String* getAttribute();
+		String* getAttribute(const String& name);
+		NodeList* getElementsByTagNameNS(const String& nsURI, const String& localName);
+		Boolean hasAttributeNS(const String& nsURI, const String& localName);
+		ClientRect* getBoundingClientRect();
+		String* getAttributeNS(const String& nsURI, const String& localName);
+		Attr* getAttributeNodeNS(const String& nsURI, const String& localName);
+		Attr* setAttributeNodeNS(Attr* newAttr);
+		Boolean hasAttribute(const String& name);
+		void removeAttribute();
+		void removeAttribute(const String& name);
+		void setAttributeNS(const String& nsURI, const String& qualifiedName, const String& value);
+		Attr* getAttributeNode(const String& name);
+		NodeList* getElementsByTagName(const String& name);
+		Attr* setAttributeNode(Attr* newAttr);
+		ClientRectList* getClientRects();
+		Attr* removeAttributeNode(Attr* oldAttr);
+		void setAttribute();
+		void setAttribute(const String& name);
+		void setAttribute(const String& name, const String& value);
+		void removeAttributeNS(const String& nsURI, const String& localName);
+		Element();
+	};
+
+	class HTMLElement:public Element{
+	public:
+		typedef Object* (*callback_for_oncuechange)(Event* ev);
+		void set_oncuechange(callback_for_oncuechange value);
+		callback_for_oncuechange get_oncuechange();
+		void set_spellcheck(Boolean value);
+		Boolean get_spellcheck();
+		DOMTokenList* get_classList();
+		void set_draggable(Boolean value);
+		Boolean get_draggable();
 	};
 
 	class HTMLDataListElement: public HTMLElement {
@@ -5888,63 +5981,6 @@ namespace client
 		void set_x(double value);
 		double get_x();
 		SVGPathSegMovetoRel();
-	};
-
-	class Node: public EventTarget {
-	public:
-		double get_nodeType();
-		Node* get_previousSibling();
-		String* get_localName();
-		String* get_nsURI();
-		String* get_textContent();
-		Node* get_parentNode();
-		Node* get_nextSibling();
-		String* get_nodeValue();
-		Node* get_lastChild();
-		NodeList* get_childNodes();
-		String* get_nodeName();
-		Document* get_ownerDocument();
-		void set_attributes(Array* /*{ARRAY_BASE_TYPE=Attr}*/ value);
-		Array* /*{ARRAY_BASE_TYPE=Attr}*/ get_attributes();
-		Node* get_firstChild();
-		void set_prefix(const String& value);
-		String* get_prefix();
-		Node* removeChild(Node* oldChild);
-		Node* appendChild(Node* newChild);
-		Boolean isSupported(const String& feature, const String& version);
-		Boolean isEqualNode(Node* arg);
-		String* lookupPrefix(const String& nsURI);
-		Boolean isDefaultns(const String& nsURI);
-		double compareDocumentPosition(Node* other);
-		void normalize();
-		Boolean isSameNode(Node* other);
-		Boolean hasAttributes();
-		String* lookupnsURI(const String& prefix);
-		Node* cloneNode();
-		Node* cloneNode(Boolean deep);
-		Boolean hasChildNodes();
-		Node* replaceChild(Node* newChild, Node* oldChild);
-		Node* insertBefore(Node* newChild);
-		Node* insertBefore(Node* newChild, Node* refChild);
-		double get_ENTITY_REFERENCE_NODE();
-		double get_ATTRIBUTE_NODE();
-		double get_DOCUMENT_FRAGMENT_NODE();
-		double get_TEXT_NODE();
-		double get_ELEMENT_NODE();
-		double get_COMMENT_NODE();
-		double get_DOCUMENT_POSITION_DISCONNECTED();
-		double get_DOCUMENT_POSITION_CONTAINED_BY();
-		double get_DOCUMENT_POSITION_CONTAINS();
-		double get_DOCUMENT_TYPE_NODE();
-		double get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
-		double get_DOCUMENT_NODE();
-		double get_ENTITY_NODE();
-		double get_PROCESSING_INSTRUCTION_NODE();
-		double get_CDATA_SECTION_NODE();
-		double get_NOTATION_NODE();
-		double get_DOCUMENT_POSITION_FOLLOWING();
-		double get_DOCUMENT_POSITION_PRECEDING();
-		Node();
 	};
 
 	class SVGPathSegCurvetoQuadraticSmoothRel: public SVGPathSeg {
@@ -7561,41 +7597,6 @@ namespace client
 	class HTMLTableDataCellElement: public HTMLTableCellElement , public MSHTMLTableDataCellElementExtensions {
 	public:
 		HTMLTableDataCellElement();
-	};
-
-	class Element: public Node , public NodeSelector , public ElementTraversal , public MSElementExtensions {
-	public:
-		double get_scrollTop();
-		double get_clientLeft();
-		double get_scrollLeft();
-		String* get_tagName();
-		double get_clientWidth();
-		double get_scrollWidth();
-		double get_clientHeight();
-		double get_clientTop();
-		double get_scrollHeight();
-		String* getAttribute();
-		String* getAttribute(const String& name);
-		NodeList* getElementsByTagNameNS(const String& nsURI, const String& localName);
-		Boolean hasAttributeNS(const String& nsURI, const String& localName);
-		ClientRect* getBoundingClientRect();
-		String* getAttributeNS(const String& nsURI, const String& localName);
-		Attr* getAttributeNodeNS(const String& nsURI, const String& localName);
-		Attr* setAttributeNodeNS(Attr* newAttr);
-		Boolean hasAttribute(const String& name);
-		void removeAttribute();
-		void removeAttribute(const String& name);
-		void setAttributeNS(const String& nsURI, const String& qualifiedName, const String& value);
-		Attr* getAttributeNode(const String& name);
-		NodeList* getElementsByTagName(const String& name);
-		Attr* setAttributeNode(Attr* newAttr);
-		ClientRectList* getClientRects();
-		Attr* removeAttributeNode(Attr* oldAttr);
-		void setAttribute();
-		void setAttribute(const String& name);
-		void setAttribute(const String& name, const String& value);
-		void removeAttributeNS(const String& nsURI, const String& localName);
-		Element();
 	};
 
 	class HTMLParagraphElement: public HTMLElement , public DOML2DeprecatedAlignmentStyle_HTMLParagraphElement , public MSHTMLParagraphElementExtensions {
