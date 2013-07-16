@@ -766,7 +766,7 @@ namespace client
 		static double UTC(double year, double month, double date, double hours, double minutes);
 		static double UTC(double year, double month, double date, double hours, double minutes, double seconds);
 		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms);
-		static double now();
+		double now();
 	};
 
 	class RegExpExecArray{
@@ -8645,6 +8645,7 @@ extern String* decodeURIComponent(const String& encodedURIComponent);
 extern String* encodeURI(const String& uri);
 extern String* encodeURIComponent(const String& uriComponent);
 extern Math Math;
+extern Date Date;
 extern JSON JSON;
 extern Object* (*ondragend)(DragEvent* ev);
 extern Object* (*onkeydown)(KeyboardEvent* ev);
