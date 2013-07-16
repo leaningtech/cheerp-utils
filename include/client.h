@@ -29,7 +29,7 @@
 namespace client
 {
 
-extern Document* document;
+extern Document document;
 
 template<typename T>
 String* serialize(const T& data)

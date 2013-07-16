@@ -6,14 +6,14 @@ using namespace client;
 
 void loadCallback() [[client]]
 {
-	Element* body=document->get_body();
-	Element* newTile=document->createElement("h1");
+	Element* body=document.get_body();
+	Element* newTile=document.createElement("h1");
 	newTile->set_textContent("Hello World");
 	body->appendChild(newTile);
 }
 
 int webMain() [[client]]
 {
-	document->addEventListener("DOMContentLoaded",Callback(loadCallback));
+	document.addEventListener("DOMContentLoaded",Callback(loadCallback));
 	return 0;
 }

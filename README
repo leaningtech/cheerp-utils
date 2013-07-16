@@ -38,7 +38,7 @@ be marked using the C++11 attribute syntax:
 Global variables and types that are provided by the browser
 environment are accessible through the 'client' namespace
 
-	client::document->addEventListener(...)
+	client::document.addEventListener(...)
 
 Of course, being a regular C++ namespace you can reduce
 code verbosity by
@@ -68,7 +68,7 @@ loading is complete you can do this
 
 	void webMain() [[client]]
 	{
-		document->addEventListener("DOMContentLoaded",Callback(loadCallback));
+		document.addEventListener("DOMContentLoaded",Callback(loadCallback));
 	}
 
 In a similar way you can bind to any other DOM event
@@ -80,7 +80,7 @@ itself.
 Properties of DOM objects are always accessed through setters/getters
 
 	{
-		auto body = document->get_body();
+		auto body = document.get_body();
 	}
 
 Small examples are included in /opt/duetto/share/duetto/examples/
