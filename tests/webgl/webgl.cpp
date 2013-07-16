@@ -11,7 +11,10 @@
 
 using namespace client;
 
-Float32Array* jsHook1(float* vertices);
+//Bridge method implemented in JS since feature testing is not yet supported by Duetto
+extern "C" {
+	void compatRequestAnimationFrame(const EventListener&);
+}
 
 void MakePerspective(float* matrix, double FOV, double AspectRatio, double Closest, double Farest)
 {
@@ -91,7 +94,7 @@ double lastTime;
 
 void drawCallback() [[client]]
 {
-	client::mozRequestAnimationFrame(Callback(drawCallback));
+	compatRequestAnimationFrame(Callback(drawCallback));
 
 	gl->clearColor(0,0,0,1);
 	gl->clear(gl->get_COLOR_BUFFER_BIT());
@@ -106,7 +109,7 @@ void drawCallback() [[client]]
 	double currentTime=client::Date.now();
 	Translate(mvMatrix, 0, (currentTime-lastTime)/1000, 0);
 	lastTime=currentTime;
-	gl->uniformMatrix4fv(mvMatrixUniform, false, jsHook1(mvMatrix));
+	gl->uniformMatrix4fv(mvMatrixUniform, false, mvMatrix);
 }
 
 void loadCallback() [[client]]
@@ -156,14 +159,14 @@ void loadCallback() [[client]]
 	positionBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), positionBuf);
 	float vertices[] = {0.0,  1.0,  -6.0, -1.0, -1.0,  -6.0, 1.0, -1.0, -6.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), jsHook1(vertices), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), Float32Array(vertices), gl->get_STATIC_DRAW());
 
 	colorBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), colorBuf);
 	float colors[] = {1.0,  0.0,  0.0, 1.0,
 			0.0, 1.0, 0.0, 1.0,
 			0.0, 0.0, 1.0, 1.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), jsHook1(colors), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), Float32Array(colors), gl->get_STATIC_DRAW());
 
 	float pMatrix[16];
 	MakePerspective(pMatrix, 45, 1, 0.1, 100);
@@ -171,8 +174,8 @@ void loadCallback() [[client]]
 	MakeIdentity(mvMatrix);
 	lastTime=client::Date.now();
 
-	gl->uniformMatrix4fv(pMatrixUniform, false, jsHook1(pMatrix));
-	gl->uniformMatrix4fv(mvMatrixUniform, false, jsHook1(mvMatrix));
+	gl->uniformMatrix4fv(pMatrixUniform, false, pMatrix);
+	gl->uniformMatrix4fv(mvMatrixUniform, false, mvMatrix);
 
 	drawCallback();
 }
