@@ -48,5 +48,5 @@ install:
 	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/dom
 	cp -v dom/dom1.cpp dom/test1.html ${INSTALL_PREFIX}/share/duetto/examples/dom/
 	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/webgl
-	cp -v webgl/webgl.cpp webgl/test.html ${INSTALL_PREFIX}/share/duetto/examples/webgl/
+	cp -v webgl/webgl.cpp webgl/test.html webgl/webgl-util.js ${INSTALL_PREFIX}/share/duetto/examples/webgl/
 	cp -v duetto.js ${INSTALL_PREFIX}/share/duetto/examples/
