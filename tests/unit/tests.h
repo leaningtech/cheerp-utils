@@ -8,8 +8,8 @@
 #include <duetto/types.h>
 #include <duetto/clientlib.h>
 
-template<class T>
-void assertEqual(const T& value, const T& expected, const char* msg)
+template<class T, class U>
+void assertEqual(const T& value, const U& expected, const char* msg)
 {
 	client::print(msg, (value==expected)?": SUCCESS":": FAILURE");
 }
