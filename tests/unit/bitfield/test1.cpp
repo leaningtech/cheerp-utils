@@ -1,0 +1,20 @@
+//===---------------------------------------------------------------------===//
+//	Copyright 2013 Leaning Technlogies
+//===----------------------------------------------------------------------===//
+
+#include <tests.h>
+
+struct A
+{
+	short a1:15;
+	short a2:2;
+};
+
+void webMain()
+{
+	volatile A a;
+	a.a1=7;
+	a.a2=1;
+	assertEqual<int,int>(a.a1, 7, "Bitfield test 1/2");
+	assertEqual<int,int>(a.a2, 1, "Bitfield test 2/2");
+}
