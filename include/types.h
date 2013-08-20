@@ -70,7 +70,7 @@ typedef Object* Any;
 typedef void* (*Function)(void*);
 
 template<typename Ret, typename ...Args>
-Ret duettoVariadicTrap(Ret (*)(), const Args&... args);
+Ret duettoVariadicTrap(const char*, const Args&... args);
 
 }
 
