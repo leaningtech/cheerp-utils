@@ -3,22 +3,15 @@
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
-#include <list>
+#include <functional>
 
-namespace {
-
-struct Point
+int func()
 {
-	int x;
-	int y;
-};
-
-};
+	return 42;
+}
 
 void webMain()
 {
-	std::list<Point> l;
-	assertEqual(l.size(), 0, "List construction");
-	l.insert(l.begin(),Point{.x=1,.y=2});
-	assertEqual(l.size(), 1, "List insert");
+	std::function<int()> f=func;
+	assertEqual(f(), 42, "Function object");
 }

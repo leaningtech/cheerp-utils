@@ -3,22 +3,10 @@
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
-#include <list>
-
-namespace {
-
-struct Point
-{
-	int x;
-	int y;
-};
-
-};
+#include <string>
 
 void webMain()
 {
-	std::list<Point> l;
-	assertEqual(l.size(), 0, "List construction");
-	l.insert(l.begin(),Point{.x=1,.y=2});
-	assertEqual(l.size(), 1, "List insert");
+	std::string str;
+	assertEqual(str.size(), 0, "String construction");
 }
