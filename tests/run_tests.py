@@ -23,7 +23,7 @@ report = open("testReport.test","w")
 def compileTest(compiler, testName, outFile):
 	stderrLog = open("testErrs.out","w+");
 	report.write('<testcase classname="compilation" name="%s">' % testName)
-	ret=subprocess.call([compiler, "-O0", "-target", "duetto", "-std=c++11", "-Iunit",
+	ret=subprocess.call([compiler, "-O1", "-target", "duetto", "-std=c++11", "-Iunit",
 		"-S", t, "-o", outFile],stderr=stderrLog);
 	if ret != 0:
 		report.write('<failure type="Compilation error">');
