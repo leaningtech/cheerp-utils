@@ -16,6 +16,7 @@ tests = ['unit/downcast/test1.cpp',
 	 'unit/memory/test1.cpp','unit/memory/test2.cpp',
 	 'unit/list/test1.cpp',
 	 'unit/bitfield/test1.cpp','unit/bitfield/test2.cpp','unit/bitfield/test3.cpp',
+		 'unit/bitfield/test4.cpp','unit/bitfield/test5.cpp',
 	 'unit/static/test1.cpp']
 
 report = open("testReport.test","w")

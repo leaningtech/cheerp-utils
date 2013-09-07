@@ -12,7 +12,7 @@ struct A
 
 void webMain()
 {
-	volatile A a;
+	A a;
 	a.a1=7;
 	a.a2=1;
 	assertEqual<int,int>(a.a1, 7, "Bitfield test 1/2");

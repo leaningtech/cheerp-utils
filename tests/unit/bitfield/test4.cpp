@@ -6,18 +6,19 @@
 
 struct A
 {
-	int a1:15;
-	int a2:16;
-	int a3:3;
+	short a1:2;
+};
+
+struct B: public A
+{
+	short a2:5;
 };
 
 void webMain()
 {
-	A a;
-	a.a1=-8191;
-	a.a2=8191;
-	a.a3=2;
-	assertEqual<int,int>(a.a1, -8191, "Bitfield test 1/3");
-	assertEqual<int,int>(a.a2, 8191, "Bitfield test 2/3");
-	assertEqual<int,int>(a.a3, 2, "Bitfield test 3/3");
+	B a;
+	a.a1=1;
+	a.a2=15;
+	assertEqual<int,int>(a.a1, 1, "Bitfield test 1/2");
+	assertEqual<int,int>(a.a2, 15, "Bitfield test 2/2");
 }

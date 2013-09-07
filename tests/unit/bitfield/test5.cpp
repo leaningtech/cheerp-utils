@@ -6,18 +6,15 @@
 
 struct A
 {
-	int a1:15;
-	int a2:16;
-	int a3:3;
+	long long a1:63;
+	int b;
 };
 
 void webMain()
 {
 	A a;
-	a.a1=-8191;
-	a.a2=8191;
-	a.a3=2;
-	assertEqual<int,int>(a.a1, -8191, "Bitfield test 1/3");
-	assertEqual<int,int>(a.a2, 8191, "Bitfield test 2/3");
-	assertEqual<int,int>(a.a3, 2, "Bitfield test 3/3");
+	a.a1=(1LL<<61)|23;
+	a.b=0xdeadbeaf;
+	assertEqual<int,int>(a.a1, -1, "Bitfield test 1/2");
+	assertEqual<int,int>(a.b, 0xdeadbeaf, "Bitfield test 2/2");
 }

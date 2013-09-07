@@ -8,13 +8,16 @@ struct A
 {
 	short a1:15;
 	short a2:2;
+	int a3:10;
 };
 
 void webMain()
 {
-	volatile A a;
+	A a;
 	a.a1=7;
 	a.a2=1;
-	assertEqual<int,int>(a.a1, 7, "Bitfield test 1/2");
-	assertEqual<int,int>(a.a2, 1, "Bitfield test 2/2");
+	a.a3=511;
+	assertEqual<int,int>(a.a1, 7, "Bitfield test 1/3");
+	assertEqual<int,int>(a.a2, 1, "Bitfield test 2/3");
+	assertEqual<int,int>(a.a3, 511, "Bitfield test 2/3");
 }
