@@ -49,22 +49,22 @@ inline String* serialize(float data) [[client]]
 
 //TODO: add generic deserializer
 template<typename T>
-T deserialize(const String& s)
+T deserialize(const String* s)
 {
 	return T::deserialize(s);
 }
 
 template<>
-inline int deserialize<int>(const String& s) [[client]]
+inline int deserialize<int>(const String* s) [[client]]
 {
-	Object* ret=JSON.parse(s);
+	Object* ret=JSON.parse(*s);
 	//TODO: Find a proper way to check for type
 	return *ret;
 }
 
 //TODO: add meaningful error messages when the deserializer is missing
 template<>
-inline void deserialize<void>(const String& s) [[client]]
+inline void deserialize<void>(const String* s) [[client]]
 {
 	return;
 }
