@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2013 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -22,6 +22,7 @@
 #include <pion/net/HTTPRequest.hpp>
 #include <pion/net/HTTPResponse.hpp>
 #include <iostream>
+#include <fstream>
 
 using namespace pion::net;
 using namespace std;
@@ -76,10 +77,45 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 	delete[] outBuf;
 }
 
+void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
+{
+	cout << "Requesting static file " << request->getResource() << "\n";
+	HTTPResponse response(*request);
+	boost::system::error_code error;
+	const std::string fileName = request->getResource();
+	//Avoid naive directory traversal attacks
+	if(fileName.find("..")!=std::string::npos)
+	{
+		response.setStatusCode(404);
+		response.send(*conn, error);
+		conn->finish();
+		return;
+	}
+	ifstream file("."+fileName, std::ios::in | std::ios::binary);
+	if(!file.is_open())
+	{
+		response.setStatusCode(404);
+		response.send(*conn, error);
+	}
+	else
+	{
+		size_t fileSize=file.seekg(0, ios_base::end).tellg();
+		file.seekg(0, ios_base::beg);
+		response.setStatusCode(200);
+		response.setContentLength(fileSize);
+		response.send(*conn, error);
+		char buf[512];
+		while(file.read(buf,512).gcount() > 0)
+		  conn->write(boost::asio::buffer(buf, file.gcount()), error);
+	}
+	conn->finish();
+}
+
 int main()
 {
 	HTTPServerPtr server(new HTTPServer(1987));  
 	server->addResource("/duetto_call", requestHandler);
+	server->addResource("/", fileRequestHandler);
 	server->start();
 	server->join();
 }
