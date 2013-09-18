@@ -50,3 +50,4 @@ install:
 	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/webgl
 	cp -v webgl/webgl.cpp webgl/webgl.html webgl/webgl-util.js ${INSTALL_PREFIX}/share/duetto/examples/webgl/
 	cp -v duetto.js ${INSTALL_PREFIX}/share/duetto/examples/
+	cp -v server_stub.cpp deserialize.cpp ${INSTALL_PREFIX}/share/duetto/
