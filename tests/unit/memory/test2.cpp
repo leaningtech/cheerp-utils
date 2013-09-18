@@ -18,4 +18,11 @@ void webMain()
 	b[1]=43;
 	assertEqual(b[1], 43, "Access new allocated memory");
 	delete[] b;
+
+	//Test variable sized C++ memory alllocation
+	volatile int n = 2;
+	int* c=new int[n];
+	c[1]=44;
+	assertEqual(c[1], 44, "Access variable sized new allocated memory");
+	delete[] c;
 }
