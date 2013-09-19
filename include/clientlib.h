@@ -670,12 +670,12 @@ namespace client
 		template<typename... Args> 
 		double max(const Args&... args )
 		{
-			duettoVariadicTrap<double>("max",static_cast<const double&>(args)...);
+			duettoVariadicMemberTrap<double>("max",this,static_cast<const double&>(args)...);
 		}
 		template<typename... Args> 
 		double min(const Args&... args )
 		{
-			duettoVariadicTrap<double>("min",static_cast<const double&>(args)...);
+			duettoVariadicMemberTrap<double>("min",this,static_cast<const double&>(args)...);
 		}
 		double pow(double x, double y);
 		double random();
@@ -783,7 +783,7 @@ namespace client
 		template<typename... Args> 
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ concat(const Args&... args )
 		{
-			duettoVariadicTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("concat",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("concat",this,static_cast<const String&>(args)...);
 		}
 		String* join();
 		String* join(const String& seperator);
@@ -791,7 +791,7 @@ namespace client
 		template<typename... Args> 
 		double push(const Args&... args )
 		{
-			duettoVariadicTrap<double>("push",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<double>("push",static_cast<const String&>(args)...);
 		}
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ reverse();
 		String* shift();
@@ -802,12 +802,12 @@ namespace client
 		template<typename... Args> 
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start, double deleteCount, const Args&... args )
 		{
-			duettoVariadicTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("splice",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("splice",this,static_cast<const String&>(args)...);
 		}
 		template<typename... Args> 
 		double unshift(const Args&... args )
 		{
-			duettoVariadicTrap<double>("unshift",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<double>("unshift",this,static_cast<const String&>(args)...);
 		}
 		double indexOf(const String& searchElement);
 		double indexOf(const String& searchElement, double fromIndex);
@@ -4848,14 +4848,14 @@ namespace client
 		template<typename... Args> 
 		double msSetImmediate(Object* expression, const Args&... args )
 		{
-			duettoVariadicTrap<double>("msSetImmediate",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<double>("msSetImmediate",this,static_cast<const Object&>(args)...);
 		}
 		void clearImmediate(double handle);
 		void msClearImmediate(double handle);
 		template<typename... Args> 
 		double setImmediate(Object* expression, const Args&... args )
 		{
-			duettoVariadicTrap<double>("setImmediate",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<double>("setImmediate",this,static_cast<const Object&>(args)...);
 		}
 	};
 
@@ -5125,7 +5125,7 @@ namespace client
 		template<typename... Args> 
 		void info(Object* message, const Args&... args )
 		{
-			duettoVariadicTrap<void>("info",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<void>("info",this,static_cast<const Object&>(args)...);
 		}
 		Boolean profile();
 		Boolean profile(const String& reportName);
@@ -5134,33 +5134,29 @@ namespace client
 		template<typename... Args> 
 		void assert(Boolean test, Object* message, const Args&... args )
 		{
-			duettoVariadicTrap<void>("assert",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<void>("assert",this,static_cast<const Object&>(args)...);
 		}
 		Boolean msIsIndependentlyComposed(Element* element);
 		Boolean clear();
-		Boolean dir();
 		template<typename... Args> 
 		Boolean dir(Object* value, const Args&... args )
 		{
-			duettoVariadicTrap<Boolean>("dir",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<Boolean>("dir",this,static_cast<const Object&>(args)...);
 		}
-		void warn();
 		template<typename... Args> 
-		void warn(Object* message, const Args&... args )
+		void warn(const Args&... args )
 		{
-			duettoVariadicTrap<void>("warn",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<void>("warn",this,static_cast<const String&>(args)...);
 		}
-		void error();
 		template<typename... Args> 
-		void error(Object* message, const Args&... args )
+		void error(const Args&... args )
 		{
-			duettoVariadicTrap<void>("error",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<void>("error",this,static_cast<const String&>(args)...);
 		}
-		void log();
 		template<typename... Args> 
-		void log(Object* message, const Args&... args )
+		void log(const Args&... args )
 		{
-			duettoVariadicTrap<void>("log",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<void>("log",this,static_cast<const String&>(args)...);
 		}
 		Boolean profileEnd();
 		Console();
@@ -6844,7 +6840,7 @@ namespace client
 		template<typename... Args> 
 		String* toDataURL(const String& type, const Args&... args )
 		{
-			duettoVariadicTrap<String*>("toDataURL",static_cast<const Object&>(args)...);
+			duettoVariadicMemberTrap<String*>("toDataURL",this,static_cast<const Object&>(args)...);
 		}
 		CanvasRenderingContext2D* getContext(const String& contextId);
 		HTMLCanvasElement();
@@ -7194,7 +7190,7 @@ namespace client
 		template<typename... Args> 
 		void writeln(const Args&... args )
 		{
-			duettoVariadicTrap<void>("writeln",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<void>("writeln",this,static_cast<const String&>(args)...);
 		}
 		Object* open();
 		Object* open(const String& url);
@@ -7211,7 +7207,7 @@ namespace client
 		template<typename... Args> 
 		void write(const Args&... args )
 		{
-			duettoVariadicTrap<void>("write",static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<void>("write",this,static_cast<const String&>(args)...);
 		}
 		String* queryCommandText(const String& commandId);
 	};

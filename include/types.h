@@ -71,6 +71,8 @@ typedef void* (*Function)(void*);
 
 template<typename Ret, typename ...Args>
 Ret duettoVariadicTrap(const char*, const Args&... args);
+template<typename Ret, typename T, typename ...Args>
+Ret duettoVariadicMemberTrap(const char*, const T* t, const Args&... args);
 
 }
 
