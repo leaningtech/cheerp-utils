@@ -1,23 +1,28 @@
-#include "client.h"
+#ifdef __DUETTO_CLIENT__
+#include <duetto/client.h>
+#else
 #include "server.h"
+#endif
 
-#include <iostream>
 #include <string>
 
+#ifdef __DUETTO_CLIENT__
 using namespace client;
+#endif
 
-std::string serverTest(int i, float f) [[server]]
+int serverTest(int i, float f) [[server]]
 {
-	std::cout << "SERVER TEST " << i << std::endl;
-	std::cout << "SERVER TEST " << f << std::endl;
-	return "ServerSide";
+	return f * 10 + i;
+}
+
+int serverTest(int i, int i2) [[server]]
+{
+	return i-i2;
 }
 
 void webMain() [[client]]
 {
-	Document* d=Client::get_document();
-//	const DOMString& str=serverTest(1,2);
 	const std::string str("CreateTest");
-	//d->write("CreateTest");
-	d->write(str);
+	int serverVal = serverTest(10, 0.2f);
+	console.log(str.c_str(), serverVal);
 }
