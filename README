@@ -19,8 +19,8 @@ To build client side JavaScript code from a C++ source file
 Building from multiple source files is also possible, although
 slighly more complex currently
 
-/opt/duetto/bin/clang -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
-/opt/duetto/bin/clang -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
+/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
+/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
 /opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
 /opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
 
@@ -30,6 +30,14 @@ it's possible to cross-compile cmake projects for the Duetto platform using the 
 cmake -DCMAKE_TOOLCHAIN_FILE=/opt/duetto/share/cmake/Modules/DuettoToolchain.cmake <regular arguments>
 
 Please note that, currently, only building static libraries is supported.
+
+To build a server side executable you will need to have libpion available on the system
+
+/opt/duetto/bin/clang++ -duetto-side=server -std=c++11 -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
+
+The files server_stub.cpp and deserializer.cpp provided with Duetto includes boiler plate code to
+listen to RPC requests and serve static files in the current directory for testing purposes. The
+server binds to port 1987 by default.
 
 Code conventions
 ------------------------------------------
@@ -92,14 +100,8 @@ Properties of DOM objects are always accessed through setters/getters
 
 Small examples are included in /opt/duetto/share/duetto/examples/
 
-Limitations as of version 0.2
+Limitations as of version 0.3
 ------------------------------------------
-In this build support for native code is broken. This also means that
-server side code generation and transparent RPCs are broken as well.
-We are sorry about this.
-
 Major limitations of this version are:
 	-) Virtual bases and covariant returns are not yet supported
 	-) No explicit error is reported when invalid numerical types are used
-
-We plan to fix these limitations alongside with the ones discovered by testing by the next beta version.
