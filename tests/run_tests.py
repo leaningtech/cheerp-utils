@@ -13,7 +13,8 @@ jsEngine = sys.argv[2]
 
 tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
-	 'unit/memory/test1.cpp','unit/memory/test2.cpp',
+	 'unit/memory/test1.cpp','unit/memory/test2.cpp','unit/memory/test3.cpp',
+		'unit/memory/test4.cpp','unit/memory/test5.cpp',
 	 'unit/std/test1.cpp','unit/std/test2.cpp','unit/std/test3.cpp',
 	 'unit/bitfield/test1.cpp','unit/bitfield/test2.cpp','unit/bitfield/test3.cpp',
 		 'unit/bitfield/test4.cpp','unit/bitfield/test5.cpp',
