@@ -18,6 +18,9 @@
  *
  ***************************************************************/
 
+#ifndef __DUETTO_WEBGL
+#define __DUETTO_WEBGL
+
 namespace client
 {
 
@@ -876,3 +879,4 @@ public:
 };
 
 };
+#endif
