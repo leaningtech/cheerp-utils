@@ -30,37 +30,37 @@ public:
 
 };
 
-class WebGLBuffer : WebGLObject
+class WebGLBuffer : public WebGLObject
 {
 public: 
 
 };
 
-class WebGLFramebuffer : WebGLObject
+class WebGLFramebuffer : public WebGLObject
 {
 public: 
 
 };
 
-class WebGLProgram : WebGLObject
+class WebGLProgram : public WebGLObject
 {
 public: 
 
 };
 
-class WebGLRenderbuffer : WebGLObject
+class WebGLRenderbuffer : public WebGLObject
 {
 public: 
 
 };
 
-class WebGLShader : WebGLObject
+class WebGLShader : public WebGLObject
 {
 public: 
 
 };
 
-class WebGLTexture : WebGLObject
+class WebGLTexture : public WebGLObject
 {
 public: 
 
