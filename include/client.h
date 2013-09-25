@@ -109,7 +109,7 @@ class Callback: public EventListener
 public:
 	Callback(void (*func)()) throw();
 	template<typename Sig>
-	Callback(Sig func):Callback((void (*)())func)
+	Callback(Sig func)__attribute__((always_inline)):Callback((void (*)())func)
 	{
 	}
 };
