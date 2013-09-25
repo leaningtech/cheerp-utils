@@ -44,4 +44,10 @@ void webMain()
 
 	memmove(ob,ob+2,6*sizeof(A));
 	assertEqual(ob[3].b, 14, "Memmove, (object types) destination before source");
+
+	//Test sparse arrays of native types
+	float sa[9] = {0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0};
+	float* volatile psa = &sa[4];
+	assertEqual(*psa, -1.0, "Accessing sparse arrays");
+
 }
