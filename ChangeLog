@@ -1,5 +1,11 @@
 Duetto: C++ for the Web
 
+Version 0.3:
+
+	* Rebased over LLVM 3.3
+	* Restored support for client/server RPCs
+	* Improved robustness
+
 Version 0.2:
 
 	* Support for libc, libc++, libc++abi

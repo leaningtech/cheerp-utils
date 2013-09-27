@@ -1,4 +1,4 @@
-Duetto Beta 02: For testing purposes only
+Duetto Beta 0.3: For testing purposes only
 ------------------------------------------
 
 Duetto is a tool to bring C++ programming to the Web,
@@ -14,28 +14,34 @@ Usage
 Duetto is integrated in the LLVM/clang infrastructure.
 To build client side JavaScript code from a C++ source file
 
-/opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
+	/opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
 
 Building from multiple source files is also possible, although
-slighly more complex currently
+slighly more complex at the moment
 
-/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
-/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
-/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
-/opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
+	/opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
+
+Libraries can be built as well, they are stored using LLVM binary representation
+
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <library.bc>
 
 A cmake toolchain file is provided in /opt/duetto/share/cmake/Modules/DuettoToolchain.cmake
 it's possible to cross-compile cmake projects for the Duetto platform using the syntax
 
-cmake -DCMAKE_TOOLCHAIN_FILE=/opt/duetto/share/cmake/Modules/DuettoToolchain.cmake <regular arguments>
+	cmake -DCMAKE_TOOLCHAIN_FILE=/opt/duetto/share/cmake/Modules/DuettoToolchain.cmake <regular arguments>
 
 Please note that, currently, only building static libraries is supported.
 
 To build a server side executable you will need to have libpion available on the system
 
-/opt/duetto/bin/clang++ -duetto-side=server -std=c++11 -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
+	/opt/duetto/bin/clang++ -duetto-side=server -std=c++11 -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
 
-The files server_stub.cpp and deserializer.cpp provided with Duetto includes boiler plate code to
+The files server_stub.cpp and deserializer.cpp provided with Duetto include boiler plate code to
 listen to RPC requests and serve static files in the current directory for testing purposes. The
 server binds to port 1987 by default.
 
@@ -48,6 +54,23 @@ be marked using the C++11 attribute syntax:
 	int f1() [[client]]
 	{
 		...
+	}
+
+Methods that are tagged using the [[server]] attribute will be treated differently depending on
+the -duetto-side=<client|server> command line option. In client mode they will become stubs for
+RPC on the server: they will automatically serialize the arguments and get an answer from the server.
+In server mode they will be compiled regularly and server side boiler plate code will forward
+each request to the right method.
+
+	int serverTest(int i, float f) [[server]]
+	{
+		return f * 10 + i;
+	}
+
+	void webMain() [[client]]
+	{
+		int serverVal = serverTest(10, 0.2f); //This will be compiled as an RPC call
+		console.log(serverVal);
 	}
 
 Global variables and types that are provided by the browser
@@ -89,8 +112,10 @@ loading is complete you can do this
 In a similar way you can bind to any other DOM event
 
 On the client side (JavaScript) the only actually supported numerical types
-are 'double' and 'int'. This limitation is caused by the JavaScript language
-itself.
+are 'double' and 'int'.
+'float' is supported but it actually has double precision.
+16-bit and 8-bit integers suppport may be inefficient.
+'long long' is 32-bit wide. 64-bit integers are not supported.
 
 Properties of DOM objects are always accessed through setters/getters
 
@@ -104,4 +129,3 @@ Limitations as of version 0.3
 ------------------------------------------
 Major limitations of this version are:
 	-) Virtual bases and covariant returns are not yet supported
-	-) No explicit error is reported when invalid numerical types are used
