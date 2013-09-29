@@ -22,9 +22,14 @@ function __duettoCreateBuiltin_ZN6client6StringC1Ei(a)
 }
 
 //Passthrough code to pass event handlers in a semi type safe manner
-function Callback(f)
+function SimpleCallback(func)
 {
-	return f;
+	return func;
+}
+
+function Callback(func, obj)
+{
+	return function(e) { func(obj, e); };
 }
 
 //Conversion operator from generic object to Number/double

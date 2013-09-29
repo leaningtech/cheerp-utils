@@ -25,6 +25,20 @@
 #include "duetto/clientlib.h"
 
 #include <utility>
+#include <functional>
+
+template<class> struct CallbackHelper; // undefined
+
+template<class C, class R, class... Args>
+struct CallbackHelper<R(C::*)(Args...) const>
+{
+	typedef R (func_type)(Args...);
+	static R invoke(std::function<R(Args...)>* func, Args... args)
+	{
+		return (*func)(std::forward<Args>(args)...);
+		//delete func;
+	}
+};
 
 namespace client
 {
@@ -104,13 +118,20 @@ struct argumentSerializer<Serialize>
 	}
 };
 
+client::EventListener& SimpleCallback(void (*func)());
+client::EventListener& Callback(void (*func)(), void* obj);
 
-client::EventListener& Callback(void (*func)());
-
-template<typename Sig>
-inline client::EventListener& Callback(Sig func)
+template<class T>
+client::EventListener& Callback(const T& func)
 {
-	return Callback((void (*)())func);
+	typedef decltype(&T::operator()) lambda_type;
+	return Callback((void (*)())&CallbackHelper<lambda_type>::invoke, new std::function<typename CallbackHelper<lambda_type>::func_type>(func));
+}
+
+template<class R, class... Args>
+client::EventListener& Callback(R func(Args...))
+{
+	return SimpleCallback((void (*)())func);
 }
 
 }
