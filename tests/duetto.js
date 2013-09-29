@@ -22,7 +22,7 @@ function __duettoCreateBuiltin_ZN6client6StringC1Ei(a)
 }
 
 //Passthrough code to pass event handlers in a semi type safe manner
-function __duettoCreateBuiltin_ZN6client8CallbackC1EPFvvE(f)
+function __Z8CallbackPFvvE(f)
 {
 	return f;
 }
