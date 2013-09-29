@@ -104,7 +104,6 @@ struct argumentSerializer<Serialize>
 	}
 };
 
-}
 
 client::EventListener& Callback(void (*func)());
 
@@ -112,6 +111,8 @@ template<typename Sig>
 inline client::EventListener& Callback(Sig func)
 {
 	return Callback((void (*)())func);
+}
+
 }
 
 template<typename Ret, typename ...Args>
