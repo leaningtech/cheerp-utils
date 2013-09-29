@@ -22,12 +22,12 @@ function __duettoCreateBuiltin_ZN6client6StringC1Ei(a)
 }
 
 //Passthrough code to pass event handlers in a semi type safe manner
-function SimpleCallback(func)
+function __Z14SimpleCallbackPFvvE(func)
 {
 	return func;
 }
 
-function Callback(func, obj)
+function __Z8CallbackPFvvEPv(func, obj)
 {
 	return function(e) { func(obj, e); };
 }

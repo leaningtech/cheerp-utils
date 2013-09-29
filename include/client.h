@@ -27,10 +27,15 @@
 #include <utility>
 #include <functional>
 
-template<class> struct CallbackHelper; // undefined
+client::EventListener& SimpleCallback(void (*func)());
+client::EventListener& Callback(void (*func)(), void* obj);
 
-template<class C, class R, class... Args>
-struct CallbackHelper<R(C::*)(Args...) const>
+template<class, class> struct CallbackHelper; // undefined
+
+template<bool B, class R, class... Args> struct CallbackHelperBase;
+
+template<class R, class... Args>
+struct CallbackHelperBase<false, R, Args...>
 {
 	typedef R (func_type)(Args...);
 	static R invoke(std::function<R(Args...)>* func, Args... args)
@@ -38,6 +43,28 @@ struct CallbackHelper<R(C::*)(Args...) const>
 		return (*func)(std::forward<Args>(args)...);
 		//delete func;
 	}
+	template<class T>
+	static client::EventListener& make_callback(const T& func)
+	{
+		return Callback((void (*)())&invoke, new std::function<func_type>(func));
+	}
+};
+
+template<class R, class... Args>
+struct CallbackHelperBase<true, R, Args...>
+{
+	typedef R (func_type)(Args...);
+	template<class T>
+	static client::EventListener& make_callback(const T& func)
+	{
+		return SimpleCallback((void(*)())(func_type*)func);
+	}
+};
+
+template<class T, class C, class R, class... Args>
+struct CallbackHelper<T, R(C::*)(Args...) const>:
+	public CallbackHelperBase<std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
+{
 };
 
 namespace client
@@ -118,14 +145,12 @@ struct argumentSerializer<Serialize>
 	}
 };
 
-client::EventListener& SimpleCallback(void (*func)());
-client::EventListener& Callback(void (*func)(), void* obj);
-
 template<class T>
 client::EventListener& Callback(const T& func)
 {
 	typedef decltype(&T::operator()) lambda_type;
-	return Callback((void (*)())&CallbackHelper<lambda_type>::invoke, new std::function<typename CallbackHelper<lambda_type>::func_type>(func));
+	typedef CallbackHelper<T, lambda_type> callback_helper;
+	return callback_helper::make_callback(func);
 }
 
 template<class R, class... Args>
