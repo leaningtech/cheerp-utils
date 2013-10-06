@@ -14,17 +14,6 @@ class B: public A
 
 class C: public B
 {
-	union u
-	{
-		int a;
-		float b;
-	};
-	u namedUnion;
-	union
-	{
-		float c;
-		int d;
-	};
 };
 
 void webMain()
