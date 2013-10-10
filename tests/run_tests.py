@@ -20,6 +20,7 @@ tests = ['unit/downcast/test1.cpp',
 		 'unit/bitfield/test4.cpp','unit/bitfield/test5.cpp',
 	 'unit/types/test1.cpp','unit/types/test2.cpp','unit/types/test4.cpp',
 		'unit/types/test5.cpp','unit/types/test6.cpp',
+	 'unit/globals/test1.cpp','unit/globals/test2.cpp','unit/globals/test3.cpp','unit/globals/test4.cpp',
 	 'unit/static/test1.cpp']
 
 report = open("testReport.test","w")
