@@ -4,6 +4,16 @@
 
 #include <tests.h>
 
+struct S
+{
+	int i;
+};
+
+struct T
+{
+	float f;
+};
+
 void webMain()
 {
 	//Test casting to void*
@@ -14,4 +24,18 @@ void webMain()
 
 	float* pa = (float*)opaque1;
 	assertEqual(*pa, 0.2, "Float, cast to void* and back");
+
+	S s;
+	s.i = 42;
+	opaque1 = &s;
+
+	S* ps = (S*)opaque1;
+	assertEqual(ps->i, 42, "Structure, cast to void* and back 1/2");
+
+	T t;
+	t.f = 42;
+	opaque1 = &t;
+
+	T* pt = (T*)opaque1;
+	assertEqual(pt->f, 42, "Structure, cast to void* and back 2/2");
 }
