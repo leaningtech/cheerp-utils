@@ -1247,9 +1247,9 @@ namespace client
 	class WindowTimers{
 	public:
 		void clearTimeout(double handle);
-		double setTimeout(Object* expression);
-		double setTimeout(Object* expression, double msec);
-		double setTimeout(Object* expression, double msec, Object* language);
+		double setTimeout(const EventListener&);
+		double setTimeout(const EventListener&, double msec);
+		double setTimeout(const EventListener&, double msec, Object* language);
 		void clearInterval(double handle);
 		double setInterval(Object* expression);
 		double setInterval(Object* expression, double msec);
@@ -6590,7 +6590,7 @@ namespace client
 		void set_status(double value);
 		double get_status();
 		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
+		void set_onload(const EventListener& value);
 		callback_for_onload get_onload();
 		double get_readyState();
 		String* get_responseText();
