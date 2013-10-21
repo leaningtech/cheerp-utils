@@ -13,10 +13,7 @@ all: server1-client.js server1 server2-client.js server2 server3-client.js serve
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
 
-%-client-linked.bc: %-client-base.bc cxxlib-holefiller.bc ../libstdc++-llvm/string-inst.bc
-	$(LLVMLINK) $^ -o $@
-
-%-client.bc: %-client-linked.bc
+%-client.bc: %-client-base.bc
 	$(LLVMOPT) -O2 -std-link-opts $^ -o $@
 
 %-client.ll: %-client.bc
