@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	dh_auto_build -D newlib -Bnewlib/build
+
+override_dh_auto_install:
+	make -C include install INSTALL_PREFIX=$(DESTDIR)/opt/duetto
+	make -C tools install INSTALL_PREFIX=$(DESTDIR)/opt/duetto
+	make -C tests install INSTALL_PREFIX=$(DESTDIR)/opt/duetto
+	cp README ChangeLog $(DESTDIR)/opt/duetto
