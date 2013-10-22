@@ -64,13 +64,13 @@ public:
 	Object* parse(const String& s);
 };
 
-class Date: public Object
+/*class Date: public Object
 {
 public:
 	double now();
 };
 
-extern Date Date;
+extern Date Date;*/
 
 typedef unsigned int UnsignedShort;
 typedef unsigned int UnsignedLong;
@@ -80,6 +80,7 @@ typedef void Void;
 typedef unsigned int Boolean;
 typedef double Double;
 typedef Object* Any;
+typedef void* (*Function)(void*);
 
 }
 

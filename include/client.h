@@ -22,8 +22,7 @@
 #define _DUETTO_CLIENT_a335cd00
 
 #include "duetto/types.h"
-#include "duetto/dom4.h"
-#include "duetto/xhr.h"
+#include "duetto/clientlib.h"
 
 #include <utility>
 

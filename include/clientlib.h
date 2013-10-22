@@ -56,59 +56,6 @@ namespace client
 		PropertyDescriptor* operator[](const String& s);
 	};
 
-	class Object 
-	{
-	public:
-		Object* operator[](const String& s);
-		String* toString();
-		String* toLocaleString();
-		Object* valueOf();
-		bool hasOwnProperty(const String& v);
-		bool isPrototypeOf(Object* v);
-		bool propertyIsEnumerable(const String& v);
-		static Object* operator()();
-		static Object* operator()(Object* value);
-		Object();
-		Object(Object* value);
-		static void set_prototype(Object* value);
-		static Object* get_prototype();
-		static Object* getPrototypeOf(Object* o);
-		static PropertyDescriptor* getOwnPropertyDescriptor(Object* o, const String& p);
-		static String** getOwnPropertyNames(Object* o);
-		static Object* create(Object* o);
-		static Object* create(Object* o, PropertyDescriptorMap* properties);
-		static Object* defineProperty(Object* o, const String& p, PropertyDescriptor* attributes);
-		static Object* defineProperties(Object* o, PropertyDescriptorMap* properties);
-		static Object* seal(Object* o);
-		static Object* freeze(Object* o);
-		static Object* preventExtensions(Object* o);
-		static bool isSealed(Object* o);
-		static bool isFrozen(Object* o);
-		static bool isExtensible(Object* o);
-		static String** keys(Object* o);
-	};
-
-	class Function 
-	{
-	public:
-		Object* apply(Object* thisArg);
-		Object* apply(Object* thisArg, Object* argArray);
-		Object* call(Object* thisArg, Object** argArray);
-		Object* bind(Object* thisArg, Object** argArray);
-		void set_prototype(Object* value);
-		Object* get_prototype();
-		void set_length(double value);
-		double get_length();
-		void set_arguments(Object* value);
-		Object* get_arguments();
-		void set_caller(Function* value);
-		Function* get_caller();
-		static Function* operator()(String** args);
-		Function(String** args);
-		static void set_prototype(Function* value);
-		static Function* get_prototype();
-	};
-
 	class IArguments 
 	{
 	public:
@@ -117,88 +64,6 @@ namespace client
 		double get_length();
 		void set_callee(Function* value);
 		Function* get_callee();
-	};
-
-	class String 
-	{
-	public:
-		String* toString();
-		String* charAt(double pos);
-		double charCodeAt(double index);
-		String* concat(String** strings);
-		double indexOf(const String& searchString);
-		double indexOf(const String& searchString, double position);
-		double lastIndexOf(const String& searchString);
-		double lastIndexOf(const String& searchString, double position);
-		double localeCompare(const String& that);
-		String** match(const String& regexp);
-		String** match(RegExp* regexp);
-		String* replace(const String& searchValue, const String& replaceValue);
-		String* replace(const String& searchValue, String* (*replaceValue)(const String& substring, Object** args));
-		String* replace(RegExp* searchValue, const String& replaceValue);
-		String* replace(RegExp* searchValue, String* (*replaceValue)(const String& substring, Object** args));
-		double search(const String& regexp);
-		double search(RegExp* regexp);
-		String* slice(double start);
-		String* slice(double start, double end);
-		String** split(const String& separator);
-		String** split(const String& separator, double limit);
-		String** split(RegExp* separator);
-		String** split(RegExp* separator, double limit);
-		String* substring(double start);
-		String* substring(double start, double end);
-		String* toLowerCase();
-		String* toLocaleLowerCase();
-		String* toUpperCase();
-		String* toLocaleUpperCase();
-		String* trim();
-		void set_length(double value);
-		double get_length();
-		String* substr(double from);
-		String* substr(double from, double length);
-		static String* operator()(/*[*/Object* value/*]*/);
-		String();
-		String(Object* value);
-		static void set_prototype(String* value);
-		static String* get_prototype();
-		static String* fromCharCode(double[] codes);
-	};
-
-	class Boolean 
-	{
-	public:
-		static bool operator()(/*[*/Object* value/*]*/);
-		Boolean();
-		Boolean(Object* value);
-		static void set_prototype(Boolean* value);
-		static Boolean* get_prototype();
-	};
-
-	class Number 
-	{
-	public:
-		String* toString();
-		String* toString(double radix);
-		String* toFixed();
-		String* toFixed(double fractionDigits);
-		String* toExponential();
-		String* toExponential(double fractionDigits);
-		String* toPrecision(double precision);
-		static double operator()(/*[*/Object* value/*]*/);
-		Number();
-		Number(Object* value);
-		static void set_prototype(Number* value);
-		static Number* get_prototype();
-		static void set_MAX_VALUE(double value);
-		static double get_MAX_VALUE();
-		static void set_MIN_VALUE(double value);
-		static double get_MIN_VALUE();
-		static void set_NaN(double value);
-		static double get_NaN();
-		static void set_NEGATIVE_INFINITY(double value);
-		static double get_NEGATIVE_INFINITY();
-		static void set_POSITIVE_INFINITY(double value);
-		static double get_POSITIVE_INFINITY();
 	};
 
 	class Math 
@@ -230,8 +95,10 @@ namespace client
 		double exp(double x);
 		double floor(double x);
 		double log(double x);
-		double max(double[] values);
-		double min(double[] values);
+		template<typename... Args>
+		double max(Args... args);
+		template<typename... Args>
+		double min(Args... args);
 		double pow(double x, double y);
 		double random();
 		double round(double x);
@@ -284,11 +151,11 @@ namespace client
 		void setUTCMinutes(double min, double sec, double ms);
 		void setHours(double hours);
 		void setHours(double hours, double min);
-		void setHours(double hours, double min, );
+		//void setHours(double hours, double min, );
 		void setHours(double hours, double min, double sec, double ms);
 		void setUTCHours(double hours);
 		void setUTCHours(double hours, double min);
-		void setUTCHours(double hours, double min, );
+		//void setUTCHours(double hours, double min, );
 		void setUTCHours(double hours, double min, double sec, double ms);
 		void setDate(double date);
 		void setUTCDate(double date);
@@ -306,24 +173,24 @@ namespace client
 		String* toISOString();
 		String* toJSON();
 		String* toJSON(Object* key);
-		static String* operator()();
+		//static String* operator()();
 		Date();
 		Date(double value);
 		Date(const String& value);
 		Date(double year, double month);
 		Date(double year, double month, double date);
-		Date(double year, double month, double date, );
-		Date(double year, double month, double date, , double hours);
-		Date(double year, double month, double date, , double hours, );
+		//Date(double year, double month, double date, );
+		//Date(double year, double month, double date, , double hours);
+		//Date(double year, double month, double date, , double hours, );
 		Date(double year, double month, double date, double hours, double minutes, double seconds, double ms);
 		static void set_prototype(Date* value);
 		static Date* get_prototype();
 		static double parse(const String& s);
 		static double UTC(double year, double month);
 		static double UTC(double year, double month, double date);
-		static double UTC(double year, double month, double date, );
-		static double UTC(double year, double month, double date, , double hours);
-		static double UTC(double year, double month, double date, , double hours, );
+		//static double UTC(double year, double month, double date, );
+		//static double UTC(double year, double month, double date, , double hours);
+		//static double UTC(double year, double month, double date, , double hours, );
 		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms);
 		static double now();
 	};
@@ -389,7 +256,7 @@ namespace client
 		void set_lastIndex(double value);
 		double get_lastIndex();
 		RegExp* compile();
-		static RegExp* operator()(const String& pattern, /*[*/const String& flags/*]*/);
+		//static RegExp* operator()(const String& pattern, /*[*/const String& flags/*]*/);
 		RegExp(const String& pattern);
 		RegExp(const String& pattern, const String& flags);
 		static void set_$1(String* value);
@@ -421,74 +288,74 @@ namespace client
 		String* get_name();
 		void set_message(String* value);
 		String* get_message();
-		static Error* operator()(/*[*/const String& message/*]*/);
+		//static Error* operator()(/*[*/const String& message/*]*/);
 		Error();
 		Error(const String& message);
 		static void set_prototype(Error* value);
 		static Error* get_prototype();
 	};
 
-	class EvalError : Error 
+	class EvalError : public Error 
 	{
 	public:
-		static EvalError* operator()(/*[*/const String& message/*]*/);
+		//static EvalError* operator()(/*[*/const String& message/*]*/);
 		EvalError();
 		EvalError(const String& message);
 		static void set_prototype(EvalError* value);
 		static EvalError* get_prototype();
 	};
 
-	class RangeError : Error 
+	class RangeError : public Error 
 	{
 	public:
-		static RangeError* operator()(/*[*/const String& message/*]*/);
+		//static RangeError* operator()(/*[*/const String& message/*]*/);
 		RangeError();
 		RangeError(const String& message);
 		static void set_prototype(RangeError* value);
 		static RangeError* get_prototype();
 	};
 
-	class ReferenceError : Error 
+	class ReferenceError : public Error 
 	{
 	public:
-		static ReferenceError* operator()(/*[*/const String& message/*]*/);
+		//static ReferenceError* operator()(/*[*/const String& message/*]*/);
 		ReferenceError();
 		ReferenceError(const String& message);
 		static void set_prototype(ReferenceError* value);
 		static ReferenceError* get_prototype();
 	};
 
-	class SyntaxError : Error 
+	class SyntaxError : public Error 
 	{
 	public:
-		static SyntaxError* operator()(/*[*/const String& message/*]*/);
+		//static SyntaxError* operator()(/*[*/const String& message/*]*/);
 		SyntaxError();
 		SyntaxError(const String& message);
 		static void set_prototype(SyntaxError* value);
 		static SyntaxError* get_prototype();
 	};
 
-	class TypeError : Error 
+	class TypeError : public Error 
 	{
 	public:
-		static TypeError* operator()(/*[*/const String& message/*]*/);
+		//static TypeError* operator()(/*[*/const String& message/*]*/);
 		TypeError();
 		TypeError(const String& message);
 		static void set_prototype(TypeError* value);
 		static TypeError* get_prototype();
 	};
 
-	class URIError : Error 
+	class URIError : public Error 
 	{
 	public:
-		static URIError* operator()(/*[*/const String& message/*]*/);
+		//static URIError* operator()(/*[*/const String& message/*]*/);
 		URIError();
 		URIError(const String& message);
 		static void set_prototype(URIError* value);
 		static URIError* get_prototype();
 	};
 
-	class JSON 
+/*	class JSON 
 	{
 	public:
 		Object* parse(const String& text, Object* (*reviver)(Object* key, Object* value));
@@ -498,9 +365,9 @@ namespace client
 		String* stringify(Object* value, Object* (*replacer)(const String& key, Object* value), Object* space);
 		String* stringify(Object* value, Object** replacer, Object* space);
 	};
-	extern JSON* JSON;
+	extern JSON* JSON;*/
 
-	class Array 
+	/*class Array 
 	{
 	public:
 		String* toString();
@@ -544,7 +411,7 @@ namespace client
 		static bool isArray(Object* arg);
 		static void set_prototype(Array* value);
 		static Array* get_prototype();
-	};
+	};*/
 
 	class ArrayBuffer 
 	{
@@ -553,7 +420,7 @@ namespace client
 		double get_byteLength();
 		static void set_prototype(ArrayBuffer* value);
 		static ArrayBuffer* get_prototype();
-		static  new(double byteLength);
+		//static  new(double byteLength);
 	};
 
 	class ArrayBufferView 
@@ -567,7 +434,7 @@ namespace client
 		double get_byteLength();
 	};
 
-	class Int8Array : ArrayBufferView 
+	class Int8Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -579,23 +446,23 @@ namespace client
 		void set(double index, double value);
 		void set(Int8Array* array);
 		void set(Int8Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Int8Array* subarray(double begin);
 		Int8Array* subarray(double begin, double end);
 		static void set_prototype(Int8Array* value);
 		static Int8Array* get_prototype();
 		Int8Array(double length);
 		Int8Array(Int8Array* array);
-		Int8Array(double[] array);
+//		Int8Array(double[] array);
 		Int8Array(ArrayBuffer* buffer);
 		Int8Array(ArrayBuffer* buffer, double byteOffset);
 		Int8Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Uint8Array : ArrayBufferView 
+	class Uint8Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -607,23 +474,23 @@ namespace client
 		void set(double index, double value);
 		void set(Uint8Array* array);
 		void set(Uint8Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Uint8Array* subarray(double begin);
 		Uint8Array* subarray(double begin, double end);
 		static void set_prototype(Uint8Array* value);
 		static Uint8Array* get_prototype();
 		Uint8Array(double length);
 		Uint8Array(Uint8Array* array);
-		Uint8Array(double[] array);
+//		Uint8Array(double[] array);
 		Uint8Array(ArrayBuffer* buffer);
 		Uint8Array(ArrayBuffer* buffer, double byteOffset);
 		Uint8Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Int16Array : ArrayBufferView 
+	class Int16Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -635,23 +502,23 @@ namespace client
 		void set(double index, double value);
 		void set(Int16Array* array);
 		void set(Int16Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Int16Array* subarray(double begin);
 		Int16Array* subarray(double begin, double end);
 		static void set_prototype(Int16Array* value);
 		static Int16Array* get_prototype();
 		Int16Array(double length);
 		Int16Array(Int16Array* array);
-		Int16Array(double[] array);
+//		Int16Array(double[] array);
 		Int16Array(ArrayBuffer* buffer);
 		Int16Array(ArrayBuffer* buffer, double byteOffset);
 		Int16Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Uint16Array : ArrayBufferView 
+	class Uint16Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -663,23 +530,23 @@ namespace client
 		void set(double index, double value);
 		void set(Uint16Array* array);
 		void set(Uint16Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Uint16Array* subarray(double begin);
 		Uint16Array* subarray(double begin, double end);
 		static void set_prototype(Uint16Array* value);
 		static Uint16Array* get_prototype();
 		Uint16Array(double length);
 		Uint16Array(Uint16Array* array);
-		Uint16Array(double[] array);
+//		Uint16Array(double[] array);
 		Uint16Array(ArrayBuffer* buffer);
 		Uint16Array(ArrayBuffer* buffer, double byteOffset);
 		Uint16Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Int32Array : ArrayBufferView 
+	class Int32Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -691,23 +558,23 @@ namespace client
 		void set(double index, double value);
 		void set(Int32Array* array);
 		void set(Int32Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Int32Array* subarray(double begin);
 		Int32Array* subarray(double begin, double end);
 		static void set_prototype(Int32Array* value);
 		static Int32Array* get_prototype();
 		Int32Array(double length);
 		Int32Array(Int32Array* array);
-		Int32Array(double[] array);
+//		Int32Array(double[] array);
 		Int32Array(ArrayBuffer* buffer);
 		Int32Array(ArrayBuffer* buffer, double byteOffset);
 		Int32Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Uint32Array : ArrayBufferView 
+	class Uint32Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -719,23 +586,23 @@ namespace client
 		void set(double index, double value);
 		void set(Uint32Array* array);
 		void set(Uint32Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Uint32Array* subarray(double begin);
 		Uint32Array* subarray(double begin, double end);
 		static void set_prototype(Uint32Array* value);
 		static Uint32Array* get_prototype();
 		Uint32Array(double length);
 		Uint32Array(Uint32Array* array);
-		Uint32Array(double[] array);
+//		Uint32Array(double[] array);
 		Uint32Array(ArrayBuffer* buffer);
 		Uint32Array(ArrayBuffer* buffer, double byteOffset);
 		Uint32Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Float32Array : ArrayBufferView 
+	class Float32Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -747,23 +614,23 @@ namespace client
 		void set(double index, double value);
 		void set(Float32Array* array);
 		void set(Float32Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Float32Array* subarray(double begin);
 		Float32Array* subarray(double begin, double end);
 		static void set_prototype(Float32Array* value);
 		static Float32Array* get_prototype();
 		Float32Array(double length);
 		Float32Array(Float32Array* array);
-		Float32Array(double[] array);
+//		Float32Array(double[] array);
 		Float32Array(ArrayBuffer* buffer);
 		Float32Array(ArrayBuffer* buffer, double byteOffset);
 		Float32Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class Float64Array : ArrayBufferView 
+	class Float64Array : public ArrayBufferView 
 	{
 	public:
 		double operator[](double index);
@@ -775,23 +642,23 @@ namespace client
 		void set(double index, double value);
 		void set(Float64Array* array);
 		void set(Float64Array* array, double offset);
-		void set(double[] array);
-		void set(double[] array, double offset);
+//		void set(double[] array);
+//		void set(double[] array, double offset);
 		Float64Array* subarray(double begin);
 		Float64Array* subarray(double begin, double end);
 		static void set_prototype(Float64Array* value);
 		static Float64Array* get_prototype();
 		Float64Array(double length);
 		Float64Array(Float64Array* array);
-		Float64Array(double[] array);
+//		Float64Array(double[] array);
 		Float64Array(ArrayBuffer* buffer);
 		Float64Array(ArrayBuffer* buffer, double byteOffset);
 		Float64Array(ArrayBuffer* buffer, double byteOffset, double length);
-		static void set_BYTES_PER_ELEMENT(double value);
-		static double get_BYTES_PER_ELEMENT();
+//		static void set_BYTES_PER_ELEMENT(double value);
+//		static double get_BYTES_PER_ELEMENT();
 	};
 
-	class DataView : ArrayBufferView 
+	class DataView : public ArrayBufferView 
 	{
 	public:
 		double getInt8(double byteOffset);
@@ -842,595 +709,161 @@ namespace client
 		String* get_platform();
 	};
 
-	class HTMLTableElement : HTMLElement, DOML2DeprecatedBorderStyle_HTMLTableElement, DOML2DeprecatedAlignmentStyle_HTMLTableElement, MSBorderColorStyle, MSDataBindingExtensions, MSHTMLTableElementExtensions, DOML2DeprecatedBackgroundStyle, MSBorderColorHighlightStyle, MSDataBindingTableExtensions, DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		void set_tBodies(HTMLCollection* value);
-		HTMLCollection* get_tBodies();
-		void set_width(String* value);
-		String* get_width();
-		void set_tHead(HTMLTableSectionElement* value);
-		HTMLTableSectionElement* get_tHead();
-		void set_cellSpacing(String* value);
-		String* get_cellSpacing();
-		void set_tFoot(HTMLTableSectionElement* value);
-		HTMLTableSectionElement* get_tFoot();
-		void set_frame(String* value);
-		String* get_frame();
-		void set_rows(HTMLCollection* value);
-		HTMLCollection* get_rows();
-		void set_rules(String* value);
-		String* get_rules();
-		void set_cellPadding(String* value);
-		String* get_cellPadding();
-		void set_summary(String* value);
-		String* get_summary();
-		void set_caption(HTMLTableCaptionElement* value);
-		HTMLTableCaptionElement* get_caption();
-		void deleteRow();
-		void deleteRow(double index);
-		HTMLElement* createTBody();
-		void deleteCaption();
-		HTMLElement* insertRow();
-		HTMLElement* insertRow(double index);
-		void deleteTFoot();
-		HTMLElement* createTHead();
-		void deleteTHead();
-		HTMLElement* createCaption();
-		HTMLElement* createTFoot();
-		static void set_prototype(HTMLTableElement* value);
-		static HTMLTableElement* get_prototype();
-		HTMLTableElement();
-	};
+	class Element;
 
-	class TreeWalker 
+	class ControlRangeCollection 
 	{
 	public:
-		void set_whatToShow(double value);
-		double get_whatToShow();
-		void set_filter(NodeFilterCallback* value);
-		NodeFilterCallback* get_filter();
-		void set_root(Node* value);
-		Node* get_root();
-		void set_currentNode(Node* value);
-		Node* get_currentNode();
-		void set_expandEntityReferences(bool value);
-		bool get_expandEntityReferences();
-		Node* previousSibling();
-		Node* lastChild();
-		Node* nextSibling();
-		Node* nextNode();
-		Node* parentNode();
-		Node* firstChild();
-		Node* previousNode();
-		static void set_prototype(TreeWalker* value);
-		static TreeWalker* get_prototype();
-		TreeWalker();
-	};
-
-	class GetSVGDocument 
-	{
-	public:
-		SVGDocument* getSVGDocument();
-	};
-
-	class HTMLHtmlElementDOML2Deprecated 
-	{
-	public:
-		void set_version(String* value);
-		String* get_version();
-	};
-
-	class SVGPathSegCurvetoQuadraticRel : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_y1(double value);
-		double get_y1();
-		void set_x(double value);
-		double get_x();
-		void set_x1(double value);
-		double get_x1();
-		static void set_prototype(SVGPathSegCurvetoQuadraticRel* value);
-		static SVGPathSegCurvetoQuadraticRel* get_prototype();
-		SVGPathSegCurvetoQuadraticRel();
-	};
-
-	class Performance 
-	{
-	public:
-		void set_navigation(PerformanceNavigation* value);
-		PerformanceNavigation* get_navigation();
-		void set_timing(PerformanceTiming* value);
-		PerformanceTiming* get_timing();
-		Object* toJSON();
-		static void set_prototype(Performance* value);
-		static Performance* get_prototype();
-		Performance();
-	};
-
-	class SVGSVGElementEventHandlers 
-	{
-	public:
-		typedef Object* (*callback_for_onresize)(UIEvent* ev);
-		void set_onresize(callback_for_onresize value);
-		callback_for_onresize get_onresize();
-		typedef Object* (*callback_for_onunload)(Event* ev);
-		void set_onunload(callback_for_onunload value);
-		callback_for_onunload get_onunload();
-		typedef Object* (*callback_for_onscroll)(UIEvent* ev);
-		void set_onscroll(callback_for_onscroll value);
-		callback_for_onscroll get_onscroll();
-		typedef Object* (*callback_for_onerror)(Event* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onzoom)(Object* ev);
-		void set_onzoom(callback_for_onzoom value);
-		callback_for_onzoom get_onzoom();
-		typedef Object* (*callback_for_onabort)(UIEvent* ev);
-		void set_onabort(callback_for_onabort value);
-		callback_for_onabort get_onabort();
-	};
-
-	class MSDataBindingTableExtensions 
-	{
-	public:
-		void set_dataPageSize(double value);
-		double get_dataPageSize();
-		void nextPage();
-		void firstPage();
-		void refresh();
-		void previousPage();
-		void lastPage();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLParagraphElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class CompositionEvent : UIEvent 
-	{
-	public:
-		void set_data(String* value);
-		String* get_data();
-		void set_locale(String* value);
-		String* get_locale();
-		void initCompositionEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, const String& locale);
-		static void set_prototype(CompositionEvent* value);
-		static CompositionEvent* get_prototype();
-		CompositionEvent();
-	};
-
-	class SVGMarkerElement : SVGElement, SVGStylable, SVGLangSpace, SVGFitToViewBox 
-	{
-	public:
-		void set_orientType(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_orientType();
-		void set_markerUnits(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_markerUnits();
-		void set_markerWidth(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_markerWidth();
-		void set_markerHeight(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_markerHeight();
-		void set_orientAngle(SVGAnimatedAngle* value);
-		SVGAnimatedAngle* get_orientAngle();
-		void set_refY(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_refY();
-		void set_refX(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_refX();
-		void setOrientToAngle(SVGAngle* angle);
-		void setOrientToAuto();
-		void set_SVG_MARKER_ORIENT_UNKNOWN(double value);
-		double get_SVG_MARKER_ORIENT_UNKNOWN();
-		void set_SVG_MARKER_ORIENT_ANGLE(double value);
-		double get_SVG_MARKER_ORIENT_ANGLE();
-		void set_SVG_MARKERUNITS_UNKNOWN(double value);
-		double get_SVG_MARKERUNITS_UNKNOWN();
-		void set_SVG_MARKERUNITS_STROKEWIDTH(double value);
-		double get_SVG_MARKERUNITS_STROKEWIDTH();
-		void set_SVG_MARKER_ORIENT_AUTO(double value);
-		double get_SVG_MARKER_ORIENT_AUTO();
-		void set_SVG_MARKERUNITS_USERSPACEONUSE(double value);
-		double get_SVG_MARKERUNITS_USERSPACEONUSE();
-		static void set_prototype(SVGMarkerElement* value);
-		static SVGMarkerElement* get_prototype();
-		SVGMarkerElement();
-		static void set_SVG_MARKER_ORIENT_UNKNOWN(double value);
-		static double get_SVG_MARKER_ORIENT_UNKNOWN();
-		static void set_SVG_MARKER_ORIENT_ANGLE(double value);
-		static double get_SVG_MARKER_ORIENT_ANGLE();
-		static void set_SVG_MARKERUNITS_UNKNOWN(double value);
-		static double get_SVG_MARKERUNITS_UNKNOWN();
-		static void set_SVG_MARKERUNITS_STROKEWIDTH(double value);
-		static double get_SVG_MARKERUNITS_STROKEWIDTH();
-		static void set_SVG_MARKER_ORIENT_AUTO(double value);
-		static double get_SVG_MARKER_ORIENT_AUTO();
-		static void set_SVG_MARKERUNITS_USERSPACEONUSE(double value);
-		static double get_SVG_MARKERUNITS_USERSPACEONUSE();
-	};
-
-	class WindowTimers 
-	{
-	public:
-		void clearTimeout(double handle);
-		double setTimeout(Object* expression);
-		double setTimeout(Object* expression, double msec);
-		double setTimeout(Object* expression, double msec, Object* language);
-		void clearInterval(double handle);
-		double setInterval(Object* expression);
-		double setInterval(Object* expression, double msec);
-		double setInterval(Object* expression, double msec, Object* language);
-	};
-
-	class CSSStyleDeclaration : CSS3Properties, SVG1_1Properties, CSS2Properties 
-	{
-	public:
-		String* operator[](double index);
-		void set_cssText(String* value);
-		String* get_cssText();
+		Element* operator[](double index);
 		void set_length(double value);
 		double get_length();
-		void set_parentRule(CSSRule* value);
-		CSSRule* get_parentRule();
-		String* getPropertyPriority(const String& propertyName);
-		String* getPropertyValue(const String& propertyName);
-		String* removeProperty(const String& propertyName);
-		String* item(double index);
-		void setProperty(const String& propertyName, const String& value);
-		void setProperty(const String& propertyName, const String& value, const String& priority);
-		static void set_prototype(CSSStyleDeclaration* value);
-		static CSSStyleDeclaration* get_prototype();
-		CSSStyleDeclaration();
+		Object* queryCommandValue(const String& cmdID);
+		void remove(double index);
+		void add(Element* item);
+		bool queryCommandIndeterm(const String& cmdID);
+		void scrollIntoView();
+		void scrollIntoView(Object* varargStart);
+		Element* item(double index);
+		bool execCommand(const String& cmdID);
+		bool execCommand(const String& cmdID, bool showUI);
+		bool execCommand(const String& cmdID, bool showUI, Object* value);
+		void addElement(Element* item);
+		bool queryCommandState(const String& cmdID);
+		bool queryCommandSupported(const String& cmdID);
+		bool queryCommandEnabled(const String& cmdID);
+		String* queryCommandText(const String& cmdID);
+		void select();
+		static void set_prototype(ControlRangeCollection* value);
+		static ControlRangeCollection* get_prototype();
+		ControlRangeCollection();
 	};
 
-	class SVGGElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	class MSHTMLElementRangeExtensions 
 	{
 	public:
-		static void set_prototype(SVGGElement* value);
-		static SVGGElement* get_prototype();
-		SVGGElement();
+		ControlRangeCollection* createControlRange();
 	};
 
-	class MSStyleCSSProperties : MSCSSProperties 
+	class MSElementCSSInlineStyleExtensions 
 	{
 	public:
-		void set_pixelWidth(double value);
-		double get_pixelWidth();
-		void set_posHeight(double value);
-		double get_posHeight();
-		void set_posLeft(double value);
-		double get_posLeft();
-		void set_pixelTop(double value);
-		double get_pixelTop();
-		void set_pixelBottom(double value);
-		double get_pixelBottom();
-		void set_textDecorationNone(bool value);
-		bool get_textDecorationNone();
-		void set_pixelLeft(double value);
-		double get_pixelLeft();
-		void set_posTop(double value);
-		double get_posTop();
-		void set_posBottom(double value);
-		double get_posBottom();
-		void set_textDecorationOverline(bool value);
-		bool get_textDecorationOverline();
-		void set_posWidth(double value);
-		double get_posWidth();
-		void set_textDecorationLineThrough(bool value);
-		bool get_textDecorationLineThrough();
-		void set_pixelHeight(double value);
-		double get_pixelHeight();
-		void set_textDecorationBlink(bool value);
-		bool get_textDecorationBlink();
-		void set_posRight(double value);
-		double get_posRight();
-		void set_pixelRight(double value);
-		double get_pixelRight();
-		void set_textDecorationUnderline(bool value);
-		bool get_textDecorationUnderline();
-		static void set_prototype(MSStyleCSSProperties* value);
-		static MSStyleCSSProperties* get_prototype();
-		MSStyleCSSProperties();
+		void doScroll();
+		void doScroll(Object* component);
+		String* componentFromPoint(double x, double y);
 	};
 
-	class MSCSSStyleSheetExtensions 
+	class CSS3Properties 
 	{
 	public:
-		void set_owningElement(Element* value);
-		Element* get_owningElement();
-		void set_imports(StyleSheetList* value);
-		StyleSheetList* get_imports();
-		void set_isAlternate(bool value);
-		bool get_isAlternate();
-		void set_rules(MSCSSRuleList* value);
-		MSCSSRuleList* get_rules();
-		void set_isPrefAlternate(bool value);
-		bool get_isPrefAlternate();
-		void set_readOnly(bool value);
-		bool get_readOnly();
-		void set_cssText(String* value);
-		String* get_cssText();
-		void set_href(String* value);
-		String* get_href();
-		void set_id(String* value);
-		String* get_id();
-		void set_pages(StyleSheetPageList* value);
-		StyleSheetPageList* get_pages();
-		double addImport(const String& bstrURL);
-		double addImport(const String& bstrURL, double lIndex);
-		double addPageRule(const String& bstrSelector, const String& bstrStyle);
-		double addPageRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
-		void removeRule(double lIndex);
-		double addRule(const String& bstrSelector);
-		double addRule(const String& bstrSelector, const String& bstrStyle);
-		double addRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
-		void removeImport(double lIndex);
+		void set_textAlignLast(String* value);
+		String* get_textAlignLast();
+		void set_textUnderlinePosition(String* value);
+		String* get_textUnderlinePosition();
+		void set_wordWrap(String* value);
+		String* get_wordWrap();
+		void set_borderTopLeftRadius(String* value);
+		String* get_borderTopLeftRadius();
+		void set_backgroundClip(String* value);
+		String* get_backgroundClip();
+		void set_msTransformOrigin(String* value);
+		String* get_msTransformOrigin();
+		void set_opacity(String* value);
+		String* get_opacity();
+		void set_overflowY(String* value);
+		String* get_overflowY();
+		void set_boxShadow(String* value);
+		String* get_boxShadow();
+		void set_backgroundSize(String* value);
+		String* get_backgroundSize();
+		void set_wordBreak(String* value);
+		String* get_wordBreak();
+		void set_boxSizing(String* value);
+		String* get_boxSizing();
+		void set_rubyOverhang(String* value);
+		String* get_rubyOverhang();
+		void set_rubyAlign(String* value);
+		String* get_rubyAlign();
+		void set_textJustify(String* value);
+		String* get_textJustify();
+		void set_borderRadius(String* value);
+		String* get_borderRadius();
+		void set_overflowX(String* value);
+		String* get_overflowX();
+		void set_borderTopRightRadius(String* value);
+		String* get_borderTopRightRadius();
+		void set_msTransform(String* value);
+		String* get_msTransform();
+		void set_borderBottomLeftRadius(String* value);
+		String* get_borderBottomLeftRadius();
+		void set_rubyPosition(String* value);
+		String* get_rubyPosition();
+		void set_borderBottomRightRadius(String* value);
+		String* get_borderBottomRightRadius();
+		void set_backgroundOrigin(String* value);
+		String* get_backgroundOrigin();
+		void set_textOverflow(String* value);
+		String* get_textOverflow();
 	};
 
-	class Navigator : NavigatorID, NavigatorOnLine, NavigatorDoNotTrack, NavigatorAbilities, NavigatorGeolocation, MSNavigatorAbilities 
+	class SVG1_1Properties 
 	{
 	public:
-		static void set_prototype(Navigator* value);
-		static Navigator* get_prototype();
-		Navigator();
-	};
-
-	class SVGPathSegCurvetoCubicSmoothAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_x2(double value);
-		double get_x2();
-		void set_x(double value);
-		double get_x();
-		void set_y2(double value);
-		double get_y2();
-		static void set_prototype(SVGPathSegCurvetoCubicSmoothAbs* value);
-		static SVGPathSegCurvetoCubicSmoothAbs* get_prototype();
-		SVGPathSegCurvetoCubicSmoothAbs();
-	};
-
-	class MSBorderColorStyle_HTMLFrameSetElement 
-	{
-	public:
-		void set_borderColor(Object* value);
-		Object* get_borderColor();
-	};
-
-	class SVGZoomEvent : UIEvent 
-	{
-	public:
-		void set_zoomRectScreen(SVGRect* value);
-		SVGRect* get_zoomRectScreen();
-		void set_previousScale(double value);
-		double get_previousScale();
-		void set_newScale(double value);
-		double get_newScale();
-		void set_previousTranslate(SVGPoint* value);
-		SVGPoint* get_previousTranslate();
-		void set_newTranslate(SVGPoint* value);
-		SVGPoint* get_newTranslate();
-		static void set_prototype(SVGZoomEvent* value);
-		static SVGZoomEvent* get_prototype();
-		SVGZoomEvent();
-	};
-
-	class NodeSelector 
-	{
-	public:
-		NodeList* querySelectorAll(const String& selectors);
-		Element* querySelector(const String& selectors);
-	};
-
-	class HTMLTableDataCellElement : HTMLTableCellElement, MSHTMLTableDataCellElementExtensions 
-	{
-	public:
-		static void set_prototype(HTMLTableDataCellElement* value);
-		static HTMLTableDataCellElement* get_prototype();
-		HTMLTableDataCellElement();
-	};
-
-	class MSHTMLDirectoryElementExtensions : DOML2DeprecatedListNumberingAndBulletStyle 
-	{
-	public:
-	};
-
-	class HTMLBaseElement : HTMLElement 
-	{
-	public:
-		void set_target(String* value);
-		String* get_target();
-		void set_href(String* value);
-		String* get_href();
-		static void set_prototype(HTMLBaseElement* value);
-		static HTMLBaseElement* get_prototype();
-		HTMLBaseElement();
-	};
-
-	class ClientRect 
-	{
-	public:
-		void set_left(double value);
-		double get_left();
-		void set_width(double value);
-		double get_width();
-		void set_right(double value);
-		double get_right();
-		void set_top(double value);
-		double get_top();
-		void set_bottom(double value);
-		double get_bottom();
-		void set_height(double value);
-		double get_height();
-		static void set_prototype(ClientRect* value);
-		static ClientRect* get_prototype();
-		ClientRect();
-	};
-
-	class PositionErrorCallback 
-	{
-	public:
-		void operator()(PositionError* error);
-	};
-
-	class DOMImplementation : DOMHTMLImplementation 
-	{
-	public:
-		DocumentType* createDocumentType(const String& qualifiedName, const String& publicId, const String& systemId);
-		Document* createDocument(const String& namespaceURI, const String& qualifiedName, DocumentType* doctype);
-		bool hasFeature(const String& feature);
-		bool hasFeature(const String& feature, const String& version);
-		static void set_prototype(DOMImplementation* value);
-		static DOMImplementation* get_prototype();
-		DOMImplementation();
-	};
-
-	class DOML2DeprecatedWidthStyle_HTMLBlockElement 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-	};
-
-	class SVGUnitTypes 
-	{
-	public:
-		void set_SVG_UNIT_TYPE_UNKNOWN(double value);
-		double get_SVG_UNIT_TYPE_UNKNOWN();
-		void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(double value);
-		double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
-		void set_SVG_UNIT_TYPE_USERSPACEONUSE(double value);
-		double get_SVG_UNIT_TYPE_USERSPACEONUSE();
-		static void set_prototype(SVGUnitTypes* value);
-		static SVGUnitTypes* get_prototype();
-		SVGUnitTypes();
-		static void set_SVG_UNIT_TYPE_UNKNOWN(double value);
-		static double get_SVG_UNIT_TYPE_UNKNOWN();
-		static void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(double value);
-		static double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
-		static void set_SVG_UNIT_TYPE_USERSPACEONUSE(double value);
-		static double get_SVG_UNIT_TYPE_USERSPACEONUSE();
-	};
-
-	class DocumentRange 
-	{
-	public:
-		Range* createRange();
-	};
-
-	class MSHTMLDocumentExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_onrowexit)(MSEventObj* ev);
-		void set_onrowexit(callback_for_onrowexit value);
-		callback_for_onrowexit get_onrowexit();
-		void set_compatible(MSCompatibleInfoCollection* value);
-		MSCompatibleInfoCollection* get_compatible();
-		typedef Object* (*callback_for_oncontrolselect)(MSEventObj* ev);
-		void set_oncontrolselect(callback_for_oncontrolselect value);
-		callback_for_oncontrolselect get_oncontrolselect();
-		typedef Object* (*callback_for_onrowsinserted)(MSEventObj* ev);
-		void set_onrowsinserted(callback_for_onrowsinserted value);
-		callback_for_onrowsinserted get_onrowsinserted();
-		typedef Object* (*callback_for_onpropertychange)(MSEventObj* ev);
-		void set_onpropertychange(callback_for_onpropertychange value);
-		callback_for_onpropertychange get_onpropertychange();
-		void set_media(String* value);
-		String* get_media();
-		typedef Object* (*callback_for_onafterupdate)(MSEventObj* ev);
-		void set_onafterupdate(callback_for_onafterupdate value);
-		callback_for_onafterupdate get_onafterupdate();
-		typedef Object* (*callback_for_onhelp)(Event* ev);
-		void set_onhelp(callback_for_onhelp value);
-		callback_for_onhelp get_onhelp();
-		void set_uniqueID(String* value);
-		String* get_uniqueID();
-		typedef Object* (*callback_for_onbeforeactivate)(UIEvent* ev);
-		void set_onbeforeactivate(callback_for_onbeforeactivate value);
-		callback_for_onbeforeactivate get_onbeforeactivate();
-		typedef Object* (*callback_for_onstoragecommit)(StorageEvent* ev);
-		void set_onstoragecommit(callback_for_onstoragecommit value);
-		callback_for_onstoragecommit get_onstoragecommit();
-		typedef Object* (*callback_for_onselectionchange)(Event* ev);
-		void set_onselectionchange(callback_for_onselectionchange value);
-		callback_for_onselectionchange get_onselectionchange();
-		void set_documentMode(double value);
-		double get_documentMode();
-		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
-		void set_onfocusout(callback_for_onfocusout value);
-		callback_for_onfocusout get_onfocusout();
-		typedef Object* (*callback_for_ondataavailable)(MSEventObj* ev);
-		void set_ondataavailable(callback_for_ondataavailable value);
-		callback_for_ondataavailable get_ondataavailable();
-		typedef Object* (*callback_for_onbeforeupdate)(MSEventObj* ev);
-		void set_onbeforeupdate(callback_for_onbeforeupdate value);
-		callback_for_onbeforeupdate get_onbeforeupdate();
-		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
-		void set_onfocusin(callback_for_onfocusin value);
-		callback_for_onfocusin get_onfocusin();
-		void set_security(String* value);
-		String* get_security();
-		void set_namespaces(MSNamespaceInfoCollection* value);
-		MSNamespaceInfoCollection* get_namespaces();
-		typedef Object* (*callback_for_ondatasetcomplete)(MSEventObj* ev);
-		void set_ondatasetcomplete(callback_for_ondatasetcomplete value);
-		callback_for_ondatasetcomplete get_ondatasetcomplete();
-		typedef Object* (*callback_for_onbeforedeactivate)(UIEvent* ev);
-		void set_onbeforedeactivate(callback_for_onbeforedeactivate value);
-		callback_for_onbeforedeactivate get_onbeforedeactivate();
-		typedef Object* (*callback_for_onstop)(Event* ev);
-		void set_onstop(callback_for_onstop value);
-		callback_for_onstop get_onstop();
-		typedef Object* (*callback_for_onactivate)(UIEvent* ev);
-		void set_onactivate(callback_for_onactivate value);
-		callback_for_onactivate get_onactivate();
-		typedef Object* (*callback_for_onmssitemodejumplistitemremoved)(MSSiteModeEvent* ev);
-		void set_onmssitemodejumplistitemremoved(callback_for_onmssitemodejumplistitemremoved value);
-		callback_for_onmssitemodejumplistitemremoved get_onmssitemodejumplistitemremoved();
-		void set_frames(Window* value);
-		Window* get_frames();
-		typedef Object* (*callback_for_onselectstart)(Event* ev);
-		void set_onselectstart(callback_for_onselectstart value);
-		callback_for_onselectstart get_onselectstart();
-		typedef Object* (*callback_for_onerrorupdate)(MSEventObj* ev);
-		void set_onerrorupdate(callback_for_onerrorupdate value);
-		callback_for_onerrorupdate get_onerrorupdate();
-		void set_parentWindow(Window* value);
-		Window* get_parentWindow();
-		typedef Object* (*callback_for_ondeactivate)(UIEvent* ev);
-		void set_ondeactivate(callback_for_ondeactivate value);
-		callback_for_ondeactivate get_ondeactivate();
-		typedef Object* (*callback_for_ondatasetchanged)(MSEventObj* ev);
-		void set_ondatasetchanged(callback_for_ondatasetchanged value);
-		callback_for_ondatasetchanged get_ondatasetchanged();
-		typedef Object* (*callback_for_onrowsdelete)(MSEventObj* ev);
-		void set_onrowsdelete(callback_for_onrowsdelete value);
-		callback_for_onrowsdelete get_onrowsdelete();
-		typedef Object* (*callback_for_onmsthumbnailclick)(MSSiteModeEvent* ev);
-		void set_onmsthumbnailclick(callback_for_onmsthumbnailclick value);
-		callback_for_onmsthumbnailclick get_onmsthumbnailclick();
-		typedef Object* (*callback_for_onrowenter)(MSEventObj* ev);
-		void set_onrowenter(callback_for_onrowenter value);
-		callback_for_onrowenter get_onrowenter();
-		typedef Object* (*callback_for_onbeforeeditfocus)(MSEventObj* ev);
-		void set_onbeforeeditfocus(callback_for_onbeforeeditfocus value);
-		callback_for_onbeforeeditfocus get_onbeforeeditfocus();
-		void set_Script(MSScriptHost* value);
-		MSScriptHost* get_Script();
-		typedef Object* (*callback_for_oncellchange)(MSEventObj* ev);
-		void set_oncellchange(callback_for_oncellchange value);
-		callback_for_oncellchange get_oncellchange();
-		void set_URLUnencoded(String* value);
-		String* get_URLUnencoded();
-		void updateSettings();
-		bool execCommandShowHelp(const String& commandId);
-		void releaseCapture();
-		void focus();
+		void set_fillRule(String* value);
+		String* get_fillRule();
+		void set_strokeLinecap(String* value);
+		String* get_strokeLinecap();
+		void set_stopColor(String* value);
+		String* get_stopColor();
+		void set_glyphOrientationHorizontal(String* value);
+		String* get_glyphOrientationHorizontal();
+		void set_kerning(String* value);
+		String* get_kerning();
+		void set_alignmentBaseline(String* value);
+		String* get_alignmentBaseline();
+		void set_dominantBaseline(String* value);
+		String* get_dominantBaseline();
+		void set_fill(String* value);
+		String* get_fill();
+		void set_strokeMiterlimit(String* value);
+		String* get_strokeMiterlimit();
+		void set_marker(String* value);
+		String* get_marker();
+		void set_glyphOrientationVertical(String* value);
+		String* get_glyphOrientationVertical();
+		void set_markerMid(String* value);
+		String* get_markerMid();
+		void set_textAnchor(String* value);
+		String* get_textAnchor();
+		void set_fillOpacity(String* value);
+		String* get_fillOpacity();
+		void set_strokeDasharray(String* value);
+		String* get_strokeDasharray();
+		void set_mask(String* value);
+		String* get_mask();
+		void set_stopOpacity(String* value);
+		String* get_stopOpacity();
+		void set_stroke(String* value);
+		String* get_stroke();
+		void set_strokeDashoffset(String* value);
+		String* get_strokeDashoffset();
+		void set_strokeOpacity(String* value);
+		String* get_strokeOpacity();
+		void set_markerStart(String* value);
+		String* get_markerStart();
+		void set_pointerEvents(String* value);
+		String* get_pointerEvents();
+		void set_baselineShift(String* value);
+		String* get_baselineShift();
+		void set_markerEnd(String* value);
+		String* get_markerEnd();
+		void set_clipRule(String* value);
+		String* get_clipRule();
+		void set_strokeLinejoin(String* value);
+		String* get_strokeLinejoin();
+		void set_clipPath(String* value);
+		String* get_clipPath();
+		void set_strokeWidth(String* value);
+		String* get_strokeWidth();
 	};
 
 	class CSS2Properties 
@@ -1632,174 +1065,383 @@ namespace client
 		String* get_borderRightColor();
 	};
 
-	class MSImageResourceExtensions_HTMLInputElement 
+	class MediaList 
 	{
 	public:
-		void set_dynsrc(String* value);
-		String* get_dynsrc();
-		void set_vrml(String* value);
-		String* get_vrml();
-		void set_lowsrc(String* value);
-		String* get_lowsrc();
-		void set_start(String* value);
-		String* get_start();
-		void set_loop(double value);
-		double get_loop();
+		String* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		void set_mediaText(String* value);
+		String* get_mediaText();
+		void deleteMedium(const String& oldMedium);
+		void appendMedium(const String& newMedium);
+		String* item(double index);
+		String* toString();
+		static void set_prototype(MediaList* value);
+		static MediaList* get_prototype();
+		MediaList();
 	};
 
-	class MSHTMLEmbedElementExtensions 
+	class Node;
+
+	class StyleSheet 
 	{
 	public:
-		void set_palette(String* value);
-		String* get_palette();
-		void set_hidden(String* value);
-		String* get_hidden();
-		void set_pluginspage(String* value);
-		String* get_pluginspage();
-		void set_units(String* value);
-		String* get_units();
+		void set_disabled(bool value);
+		bool get_disabled();
+		void set_ownerNode(Node* value);
+		Node* get_ownerNode();
+		void set_parentStyleSheet(StyleSheet* value);
+		StyleSheet* get_parentStyleSheet();
+		void set_href(String* value);
+		String* get_href();
+		void set_media(MediaList* value);
+		MediaList* get_media();
+		void set_type(String* value);
+		String* get_type();
+		void set_title(String* value);
+		String* get_title();
+		static void set_prototype(StyleSheet* value);
+		static StyleSheet* get_prototype();
+		StyleSheet();
 	};
 
-	class MSHTMLModElementExtensions 
+	class MSCSSStyleRuleExtensions 
 	{
 	public:
+		void set_readOnly(bool value);
+		bool get_readOnly();
 	};
 
-	class Element : Node, NodeSelector, ElementTraversal, MSElementExtensions 
+	class StyleSheetList 
 	{
 	public:
-		void set_scrollTop(double value);
-		double get_scrollTop();
-		void set_clientLeft(double value);
-		double get_clientLeft();
-		void set_scrollLeft(double value);
-		double get_scrollLeft();
-		void set_tagName(String* value);
-		String* get_tagName();
-		void set_clientWidth(double value);
-		double get_clientWidth();
-		void set_scrollWidth(double value);
-		double get_scrollWidth();
-		void set_clientHeight(double value);
-		double get_clientHeight();
-		void set_clientTop(double value);
-		double get_clientTop();
-		void set_scrollHeight(double value);
-		double get_scrollHeight();
-		String* getAttribute();
-		String* getAttribute(const String& name);
-		NodeList* getElementsByTagNameNS(const String& namespaceURI, const String& localName);
-		bool hasAttributeNS(const String& namespaceURI, const String& localName);
-		ClientRect* getBoundingClientRect();
-		String* getAttributeNS(const String& namespaceURI, const String& localName);
-		Attr* getAttributeNodeNS(const String& namespaceURI, const String& localName);
-		Attr* setAttributeNodeNS(Attr* newAttr);
-		bool hasAttribute(const String& name);
-		void removeAttribute();
-		void removeAttribute(const String& name);
-		void setAttributeNS(const String& namespaceURI, const String& qualifiedName, const String& value);
-		Attr* getAttributeNode(const String& name);
-		NodeList* getElementsByTagName(const String& name);
-		Attr* setAttributeNode(Attr* newAttr);
-		ClientRectList* getClientRects();
-		Attr* removeAttributeNode(Attr* oldAttr);
-		void setAttribute();
-		void setAttribute(, const String& name);
-		void setAttribute(const String& name, const String& value);
-		void removeAttributeNS(const String& namespaceURI, const String& localName);
-		static void set_prototype(Element* value);
-		static Element* get_prototype();
-		Element();
+		StyleSheet* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		StyleSheet* item();
+		StyleSheet* item(double index);
+		static void set_prototype(StyleSheetList* value);
+		static StyleSheetList* get_prototype();
+		StyleSheetList();
 	};
 
-	class SVGDocument 
+	class CSSStyleRule;
+
+	class MSCSSRuleList 
 	{
 	public:
-		void set_rootElement(SVGSVGElement* value);
-		SVGSVGElement* get_rootElement();
+		CSSStyleRule* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		CSSStyleRule* item();
+		CSSStyleRule* item(double index);
+		static void set_prototype(MSCSSRuleList* value);
+		static MSCSSRuleList* get_prototype();
+		MSCSSRuleList();
 	};
 
-	class HTMLNextIdElement : HTMLElement 
+	class StyleSheetPageList;
+
+	class MSCSSStyleSheetExtensions 
 	{
 	public:
-		void set_n(String* value);
-		String* get_n();
-		static void set_prototype(HTMLNextIdElement* value);
-		static HTMLNextIdElement* get_prototype();
-		HTMLNextIdElement();
+		void set_owningElement(Element* value);
+		Element* get_owningElement();
+		void set_imports(StyleSheetList* value);
+		StyleSheetList* get_imports();
+		void set_isAlternate(bool value);
+		bool get_isAlternate();
+		void set_rules(MSCSSRuleList* value);
+		MSCSSRuleList* get_rules();
+		void set_isPrefAlternate(bool value);
+		bool get_isPrefAlternate();
+		void set_readOnly(bool value);
+		bool get_readOnly();
+		void set_cssText(String* value);
+		String* get_cssText();
+		void set_href(String* value);
+		String* get_href();
+		void set_id(String* value);
+		String* get_id();
+		void set_pages(StyleSheetPageList* value);
+		StyleSheetPageList* get_pages();
+		double addImport(const String& bstrURL);
+		double addImport(const String& bstrURL, double lIndex);
+		double addPageRule(const String& bstrSelector, const String& bstrStyle);
+		double addPageRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
+		void removeRule(double lIndex);
+		double addRule(const String& bstrSelector);
+		double addRule(const String& bstrSelector, const String& bstrStyle);
+		double addRule(const String& bstrSelector, const String& bstrStyle, double lIndex);
+		void removeImport(double lIndex);
 	};
 
-	class SVGPathSegMovetoRel : SVGPathSeg 
+	class CSSRule;
+	class CSSRuleList;
+
+	class CSSStyleSheet : public StyleSheet, MSCSSStyleSheetExtensions 
 	{
 	public:
-		void set_y(double value);
-		double get_y();
-		void set_x(double value);
-		double get_x();
-		static void set_prototype(SVGPathSegMovetoRel* value);
-		static SVGPathSegMovetoRel* get_prototype();
-		SVGPathSegMovetoRel();
+		void set_ownerRule(CSSRule* value);
+		CSSRule* get_ownerRule();
+		void set_cssRules(CSSRuleList* value);
+		CSSRuleList* get_cssRules();
+		double insertRule(const String& rule);
+		double insertRule(const String& rule, double index);
+		void deleteRule();
+		void deleteRule(double index);
+		static void set_prototype(CSSStyleSheet* value);
+		static CSSStyleSheet* get_prototype();
+		CSSStyleSheet();
 	};
 
-	class SVGLineElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	class CSSRule 
 	{
 	public:
-		void set_y1(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y1();
-		void set_x2(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x2();
-		void set_x1(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x1();
-		void set_y2(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y2();
-		static void set_prototype(SVGLineElement* value);
-		static SVGLineElement* get_prototype();
-		SVGLineElement();
+		void set_cssText(String* value);
+		String* get_cssText();
+		void set_parentStyleSheet(CSSStyleSheet* value);
+		CSSStyleSheet* get_parentStyleSheet();
+		void set_parentRule(CSSRule* value);
+		CSSRule* get_parentRule();
+		void set_type(double value);
+		double get_type();
+		void set_IMPORT_RULE(double value);
+		double get_IMPORT_RULE();
+		void set_MEDIA_RULE(double value);
+		double get_MEDIA_RULE();
+		void set_STYLE_RULE(double value);
+		double get_STYLE_RULE();
+		void set_NAMESPACE_RULE(double value);
+		double get_NAMESPACE_RULE();
+		void set_PAGE_RULE(double value);
+		double get_PAGE_RULE();
+		void set_UNKNOWN_RULE(double value);
+		double get_UNKNOWN_RULE();
+		void set_FONT_FACE_RULE(double value);
+		double get_FONT_FACE_RULE();
+		void set_CHARSET_RULE(double value);
+		double get_CHARSET_RULE();
+		static void set_prototype(CSSRule* value);
+		static CSSRule* get_prototype();
+		CSSRule();
+		/*static void set_IMPORT_RULE(double value);
+		static double get_IMPORT_RULE();
+		static void set_MEDIA_RULE(double value);
+		static double get_MEDIA_RULE();
+		static void set_STYLE_RULE(double value);
+		static double get_STYLE_RULE();
+		static void set_NAMESPACE_RULE(double value);
+		static double get_NAMESPACE_RULE();
+		static void set_PAGE_RULE(double value);
+		static double get_PAGE_RULE();
+		static void set_UNKNOWN_RULE(double value);
+		static double get_UNKNOWN_RULE();
+		static void set_FONT_FACE_RULE(double value);
+		static double get_FONT_FACE_RULE();
+		static void set_CHARSET_RULE(double value);
+		static double get_CHARSET_RULE();*/
 	};
 
-	class HTMLParagraphElement : HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLParagraphElement, MSHTMLParagraphElementExtensions 
+	class MSStyleCSSProperties;
+
+	class CSSStyleRule : public CSSRule, MSCSSStyleRuleExtensions 
 	{
 	public:
-		static void set_prototype(HTMLParagraphElement* value);
-		static HTMLParagraphElement* get_prototype();
-		HTMLParagraphElement();
+		void set_selectorText(String* value);
+		String* get_selectorText();
+		void set_style(MSStyleCSSProperties* value);
+		MSStyleCSSProperties* get_style();
+		static void set_prototype(CSSStyleRule* value);
+		static CSSStyleRule* get_prototype();
+		CSSStyleRule();
 	};
 
-	class MSHTMLTextAreaElementExtensions 
+	class CSSStyleDeclaration : public CSS3Properties, SVG1_1Properties, CSS2Properties 
 	{
 	public:
-		void set_status(Object* value);
-		Object* get_status();
-		TextRange* createTextRange();
+		String* operator[](double index);
+		void set_cssText(String* value);
+		String* get_cssText();
+		void set_length(double value);
+		double get_length();
+		void set_parentRule(CSSRule* value);
+		CSSRule* get_parentRule();
+		String* getPropertyPriority(const String& propertyName);
+		String* getPropertyValue(const String& propertyName);
+		String* removeProperty(const String& propertyName);
+		String* item(double index);
+		void setProperty(const String& propertyName, const String& value);
+		void setProperty(const String& propertyName, const String& value, const String& priority);
+		static void set_prototype(CSSStyleDeclaration* value);
+		static CSSStyleDeclaration* get_prototype();
+		CSSStyleDeclaration();
 	};
 
-	class ErrorFunction 
+	class MSCSSStyleDeclarationExtensions 
 	{
 	public:
-		Object* operator()(Object* eventOrMessage, const String& source, double fileno);
+		Object* getAttribute(const String& attributeName);
+		Object* getAttribute(const String& attributeName, double flags);
+		void setAttribute(const String& attributeName, Object* AttributeValue);
+		void setAttribute(const String& attributeName, Object* AttributeValue, double flags);
+		bool removeAttribute(const String& attributeName);
+		bool removeAttribute(const String& attributeName, double flags);
 	};
 
-	class HTMLAreasCollection : HTMLCollection 
+	class MSCSSProperties : public CSSStyleDeclaration, MSCSSStyleDeclarationExtensions 
 	{
 	public:
-		void remove();
-		void remove(double index);
-		void add(HTMLElement* element);
-		void add(HTMLElement* element, Object* before);
-		static void set_prototype(HTMLAreasCollection* value);
-		static HTMLAreasCollection* get_prototype();
-		HTMLAreasCollection();
+		void set_scrollbarShadowColor(String* value);
+		String* get_scrollbarShadowColor();
+		void set_scrollbarHighlightColor(String* value);
+		String* get_scrollbarHighlightColor();
+		void set_layoutGridChar(String* value);
+		String* get_layoutGridChar();
+		void set_layoutGridType(String* value);
+		String* get_layoutGridType();
+		void set_textAutospace(String* value);
+		String* get_textAutospace();
+		void set_textKashidaSpace(String* value);
+		String* get_textKashidaSpace();
+		void set_writingMode(String* value);
+		String* get_writingMode();
+		void set_scrollbarFaceColor(String* value);
+		String* get_scrollbarFaceColor();
+		void set_backgroundPositionY(String* value);
+		String* get_backgroundPositionY();
+		void set_lineBreak(String* value);
+		String* get_lineBreak();
+		void set_imeMode(String* value);
+		String* get_imeMode();
+		void set_msBlockProgression(String* value);
+		String* get_msBlockProgression();
+		void set_layoutGridLine(String* value);
+		String* get_layoutGridLine();
+		void set_scrollbarBaseColor(String* value);
+		String* get_scrollbarBaseColor();
+		void set_layoutGrid(String* value);
+		String* get_layoutGrid();
+		void set_layoutFlow(String* value);
+		String* get_layoutFlow();
+		void set_textKashida(String* value);
+		String* get_textKashida();
+		void set_filter(String* value);
+		String* get_filter();
+		void set_zoom(String* value);
+		String* get_zoom();
+		void set_scrollbarArrowColor(String* value);
+		String* get_scrollbarArrowColor();
+		void set_behavior(String* value);
+		String* get_behavior();
+		void set_backgroundPositionX(String* value);
+		String* get_backgroundPositionX();
+		void set_accelerator(String* value);
+		String* get_accelerator();
+		void set_layoutGridMode(String* value);
+		String* get_layoutGridMode();
+		void set_textJustifyTrim(String* value);
+		String* get_textJustifyTrim();
+		void set_scrollbar3dLightColor(String* value);
+		String* get_scrollbar3dLightColor();
+		void set_msInterpolationMode(String* value);
+		String* get_msInterpolationMode();
+		void set_scrollbarTrackColor(String* value);
+		String* get_scrollbarTrackColor();
+		void set_scrollbarDarkShadowColor(String* value);
+		String* get_scrollbarDarkShadowColor();
+		void set_styleFloat(String* value);
+		String* get_styleFloat();
+		static void set_prototype(MSCSSProperties* value);
+		static MSCSSProperties* get_prototype();
+		MSCSSProperties();
 	};
 
-	class SVGDescElement : SVGElement, SVGStylable, SVGLangSpace 
+	class MSStyleCSSProperties : public MSCSSProperties 
 	{
 	public:
-		static void set_prototype(SVGDescElement* value);
-		static SVGDescElement* get_prototype();
-		SVGDescElement();
+		void set_pixelWidth(double value);
+		double get_pixelWidth();
+		void set_posHeight(double value);
+		double get_posHeight();
+		void set_posLeft(double value);
+		double get_posLeft();
+		void set_pixelTop(double value);
+		double get_pixelTop();
+		void set_pixelBottom(double value);
+		double get_pixelBottom();
+		void set_textDecorationNone(bool value);
+		bool get_textDecorationNone();
+		void set_pixelLeft(double value);
+		double get_pixelLeft();
+		void set_posTop(double value);
+		double get_posTop();
+		void set_posBottom(double value);
+		double get_posBottom();
+		void set_textDecorationOverline(bool value);
+		bool get_textDecorationOverline();
+		void set_posWidth(double value);
+		double get_posWidth();
+		void set_textDecorationLineThrough(bool value);
+		bool get_textDecorationLineThrough();
+		void set_pixelHeight(double value);
+		double get_pixelHeight();
+		void set_textDecorationBlink(bool value);
+		bool get_textDecorationBlink();
+		void set_posRight(double value);
+		double get_posRight();
+		void set_pixelRight(double value);
+		double get_pixelRight();
+		void set_textDecorationUnderline(bool value);
+		bool get_textDecorationUnderline();
+		static void set_prototype(MSStyleCSSProperties* value);
+		static MSStyleCSSProperties* get_prototype();
+		MSStyleCSSProperties();
 	};
 
-	class Node : EventTarget 
+	class MSCurrentStyleCSSProperties;
+
+	class ElementCSSInlineStyle : public MSElementCSSInlineStyleExtensions 
+	{
+	public:
+		void set_runtimeStyle(MSStyleCSSProperties* value);
+		MSStyleCSSProperties* get_runtimeStyle();
+		void set_currentStyle(MSCurrentStyleCSSProperties* value);
+		MSCurrentStyleCSSProperties* get_currentStyle();
+	};
+
+	class DataTransfer;
+	class HTMLCollection;
+	class BookmarkCollection;
+	class Window;
+
+	class HTMLDocument;
+	class DragEvent;
+	class FocusEvent;
+	class HTMLElement;
+
+	class KeyboardEvent;
+	class MouseWheelEvent;
+	class NodeList;
+
+	class EventListener;
+	class Event;
+
+	class EventTarget 
+	{
+	public:
+		void removeEventListener(const String& type, const EventListener& listener);
+		void removeEventListener(const String& type, const EventListener& listener, bool useCapture);
+		void addEventListener(const String& type, const EventListener& listener);
+		void addEventListener(const String& type, const EventListener& listener, bool useCapture);
+		bool dispatchEvent(Event* evt);
+	};
+
+	class Document;
+	class Attr;
+
+	class Node : public EventTarget 
 	{
 	public:
 		void set_nodeType(double value);
@@ -1888,42 +1530,1225 @@ namespace client
 		static void set_prototype(Node* value);
 		static Node* get_prototype();
 		Node();
-		static void set_ENTITY_REFERENCE_NODE(double value);
-		static double get_ENTITY_REFERENCE_NODE();
-		static void set_ATTRIBUTE_NODE(double value);
-		static double get_ATTRIBUTE_NODE();
-		static void set_DOCUMENT_FRAGMENT_NODE(double value);
-		static double get_DOCUMENT_FRAGMENT_NODE();
-		static void set_TEXT_NODE(double value);
-		static double get_TEXT_NODE();
-		static void set_ELEMENT_NODE(double value);
-		static double get_ELEMENT_NODE();
-		static void set_COMMENT_NODE(double value);
-		static double get_COMMENT_NODE();
-		static void set_DOCUMENT_POSITION_DISCONNECTED(double value);
-		static double get_DOCUMENT_POSITION_DISCONNECTED();
-		static void set_DOCUMENT_POSITION_CONTAINED_BY(double value);
-		static double get_DOCUMENT_POSITION_CONTAINED_BY();
-		static void set_DOCUMENT_POSITION_CONTAINS(double value);
-		static double get_DOCUMENT_POSITION_CONTAINS();
-		static void set_DOCUMENT_TYPE_NODE(double value);
-		static double get_DOCUMENT_TYPE_NODE();
-		static void set_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC(double value);
-		static double get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
-		static void set_DOCUMENT_NODE(double value);
-		static double get_DOCUMENT_NODE();
-		static void set_ENTITY_NODE(double value);
-		static double get_ENTITY_NODE();
-		static void set_PROCESSING_INSTRUCTION_NODE(double value);
-		static double get_PROCESSING_INSTRUCTION_NODE();
-		static void set_CDATA_SECTION_NODE(double value);
-		static double get_CDATA_SECTION_NODE();
-		static void set_NOTATION_NODE(double value);
-		static double get_NOTATION_NODE();
-		static void set_DOCUMENT_POSITION_FOLLOWING(double value);
-		static double get_DOCUMENT_POSITION_FOLLOWING();
-		static void set_DOCUMENT_POSITION_PRECEDING(double value);
-		static double get_DOCUMENT_POSITION_PRECEDING();
+	};
+
+	class NodeSelector 
+	{
+	public:
+		NodeList* querySelectorAll(const String& selectors);
+		Element* querySelector(const String& selectors);
+	};
+
+	class ElementTraversal 
+	{
+	public:
+		void set_childElementCount(double value);
+		double get_childElementCount();
+		void set_previousElementSibling(Element* value);
+		Element* get_previousElementSibling();
+		void set_lastElementChild(Element* value);
+		Element* get_lastElementChild();
+		void set_nextElementSibling(Element* value);
+		Element* get_nextElementSibling();
+		void set_firstElementChild(Element* value);
+		Element* get_firstElementChild();
+	};
+
+	class ClientRect;
+	class ClientRectList;
+
+	class Element : public Node, NodeSelector, ElementTraversal 
+	{
+	public:
+		void set_scrollTop(double value);
+		double get_scrollTop();
+		void set_clientLeft(double value);
+		double get_clientLeft();
+		void set_scrollLeft(double value);
+		double get_scrollLeft();
+		void set_tagName(String* value);
+		String* get_tagName();
+		void set_clientWidth(double value);
+		double get_clientWidth();
+		void set_scrollWidth(double value);
+		double get_scrollWidth();
+		void set_clientHeight(double value);
+		double get_clientHeight();
+		void set_clientTop(double value);
+		double get_clientTop();
+		void set_scrollHeight(double value);
+		double get_scrollHeight();
+		String* getAttribute();
+		String* getAttribute(const String& name);
+		NodeList* getElementsByTagNameNS(const String& namespaceURI, const String& localName);
+		bool hasAttributeNS(const String& namespaceURI, const String& localName);
+		ClientRect* getBoundingClientRect();
+		String* getAttributeNS(const String& namespaceURI, const String& localName);
+		Attr* getAttributeNodeNS(const String& namespaceURI, const String& localName);
+		Attr* setAttributeNodeNS(Attr* newAttr);
+		bool hasAttribute(const String& name);
+		void removeAttribute();
+		void removeAttribute(const String& name);
+		void setAttributeNS(const String& namespaceURI, const String& qualifiedName, const String& value);
+		Attr* getAttributeNode(const String& name);
+		NodeList* getElementsByTagName(const String& name);
+		Attr* setAttributeNode(Attr* newAttr);
+		ClientRectList* getClientRects();
+		Attr* removeAttributeNode(Attr* oldAttr);
+		void setAttribute();
+		void setAttribute(const String& name, const String& value);
+		void removeAttributeNS(const String& namespaceURI, const String& localName);
+		static void set_prototype(Element* value);
+		static Element* get_prototype();
+		Element();
+	};
+
+	class MouseEvent;
+	class UIEvent;
+
+	class HTMLElement : public Element, ElementCSSInlineStyle
+	{
+	public:
+		typedef Object* (*callback_for_ondragend)(DragEvent* ev);
+		void set_ondragend(callback_for_ondragend value);
+		callback_for_ondragend get_ondragend();
+		typedef Object* (*callback_for_onkeydown)(KeyboardEvent* ev);
+		void set_onkeydown(callback_for_onkeydown value);
+		callback_for_onkeydown get_onkeydown();
+		typedef Object* (*callback_for_ondragover)(DragEvent* ev);
+		void set_ondragover(callback_for_ondragover value);
+		callback_for_ondragover get_ondragover();
+		typedef Object* (*callback_for_onkeyup)(KeyboardEvent* ev);
+		void set_onkeyup(callback_for_onkeyup value);
+		callback_for_onkeyup get_onkeyup();
+		void set_offsetTop(double value);
+		double get_offsetTop();
+		typedef Object* (*callback_for_onreset)(Event* ev);
+		void set_onreset(callback_for_onreset value);
+		callback_for_onreset get_onreset();
+		typedef Object* (*callback_for_onmouseup)(MouseEvent* ev);
+		void set_onmouseup(callback_for_onmouseup value);
+		callback_for_onmouseup get_onmouseup();
+		typedef Object* (*callback_for_ondragstart)(DragEvent* ev);
+		void set_ondragstart(callback_for_ondragstart value);
+		callback_for_ondragstart get_ondragstart();
+		typedef Object* (*callback_for_ondrag)(DragEvent* ev);
+		void set_ondrag(callback_for_ondrag value);
+		callback_for_ondrag get_ondrag();
+		void set_innerHTML(String* value);
+		String* get_innerHTML();
+		typedef Object* (*callback_for_onmouseover)(MouseEvent* ev);
+		void set_onmouseover(callback_for_onmouseover value);
+		callback_for_onmouseover get_onmouseover();
+		typedef Object* (*callback_for_ondragleave)(DragEvent* ev);
+		void set_ondragleave(callback_for_ondragleave value);
+		callback_for_ondragleave get_ondragleave();
+		void set_lang(String* value);
+		String* get_lang();
+		typedef Object* (*callback_for_onpause)(Event* ev);
+		void set_onpause(callback_for_onpause value);
+		callback_for_onpause get_onpause();
+		void set_className(String* value);
+		String* get_className();
+		typedef Object* (*callback_for_onseeked)(Event* ev);
+		void set_onseeked(callback_for_onseeked value);
+		callback_for_onseeked get_onseeked();
+		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
+		void set_onmousedown(callback_for_onmousedown value);
+		callback_for_onmousedown get_onmousedown();
+		void set_title(String* value);
+		String* get_title();
+		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
+		void set_onclick(callback_for_onclick value);
+		callback_for_onclick get_onclick();
+		typedef Object* (*callback_for_onwaiting)(Event* ev);
+		void set_onwaiting(callback_for_onwaiting value);
+		callback_for_onwaiting get_onwaiting();
+		void set_outerHTML(String* value);
+		String* get_outerHTML();
+		void set_offsetLeft(double value);
+		double get_offsetLeft();
+		typedef Object* (*callback_for_ondurationchange)(Event* ev);
+		void set_ondurationchange(callback_for_ondurationchange value);
+		callback_for_ondurationchange get_ondurationchange();
+		void set_offsetHeight(double value);
+		double get_offsetHeight();
+		void set_dir(String* value);
+		String* get_dir();
+		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
+		void set_onblur(callback_for_onblur value);
+		callback_for_onblur get_onblur();
+		typedef Object* (*callback_for_onemptied)(Event* ev);
+		void set_onemptied(callback_for_onemptied value);
+		callback_for_onemptied get_onemptied();
+		typedef Object* (*callback_for_onseeking)(Event* ev);
+		void set_onseeking(callback_for_onseeking value);
+		callback_for_onseeking get_onseeking();
+		typedef Object* (*callback_for_oncanplay)(Event* ev);
+		void set_oncanplay(callback_for_oncanplay value);
+		callback_for_oncanplay get_oncanplay();
+		typedef Object* (*callback_for_onstalled)(Event* ev);
+		void set_onstalled(callback_for_onstalled value);
+		callback_for_onstalled get_onstalled();
+		typedef Object* (*callback_for_onmousemove)(MouseEvent* ev);
+		void set_onmousemove(callback_for_onmousemove value);
+		callback_for_onmousemove get_onmousemove();
+		void set_style(MSStyleCSSProperties* value);
+		MSStyleCSSProperties* get_style();
+		void set_isContentEditable(bool value);
+		bool get_isContentEditable();
+		typedef Object* (*callback_for_onratechange)(Event* ev);
+		void set_onratechange(callback_for_onratechange value);
+		callback_for_onratechange get_onratechange();
+		typedef Object* (*callback_for_onloadstart)(Event* ev);
+		void set_onloadstart(callback_for_onloadstart value);
+		callback_for_onloadstart get_onloadstart();
+		typedef Object* (*callback_for_ondragenter)(DragEvent* ev);
+		void set_ondragenter(callback_for_ondragenter value);
+		callback_for_ondragenter get_ondragenter();
+		void set_contentEditable(String* value);
+		String* get_contentEditable();
+		typedef Object* (*callback_for_onsubmit)(Event* ev);
+		void set_onsubmit(callback_for_onsubmit value);
+		callback_for_onsubmit get_onsubmit();
+		void set_tabIndex(double value);
+		double get_tabIndex();
+		typedef Object* (*callback_for_onprogress)(Object* ev);
+		void set_onprogress(callback_for_onprogress value);
+		callback_for_onprogress get_onprogress();
+		typedef Object* (*callback_for_ondblclick)(MouseEvent* ev);
+		void set_ondblclick(callback_for_ondblclick value);
+		callback_for_ondblclick get_ondblclick();
+		typedef Object* (*callback_for_oncontextmenu)(MouseEvent* ev);
+		void set_oncontextmenu(callback_for_oncontextmenu value);
+		callback_for_oncontextmenu get_oncontextmenu();
+		typedef Object* (*callback_for_onchange)(Event* ev);
+		void set_onchange(callback_for_onchange value);
+		callback_for_onchange get_onchange();
+		typedef Object* (*callback_for_onloadedmetadata)(Event* ev);
+		void set_onloadedmetadata(callback_for_onloadedmetadata value);
+		callback_for_onloadedmetadata get_onloadedmetadata();
+		typedef Object* (*callback_for_onerror)(Event* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		typedef Object* (*callback_for_onplay)(Event* ev);
+		void set_onplay(callback_for_onplay value);
+		callback_for_onplay get_onplay();
+		void set_id(String* value);
+		String* get_id();
+		typedef Object* (*callback_for_onplaying)(Event* ev);
+		void set_onplaying(callback_for_onplaying value);
+		callback_for_onplaying get_onplaying();
+		typedef Object* (*callback_for_oncanplaythrough)(Event* ev);
+		void set_oncanplaythrough(callback_for_oncanplaythrough value);
+		callback_for_oncanplaythrough get_oncanplaythrough();
+		typedef Object* (*callback_for_onabort)(UIEvent* ev);
+		void set_onabort(callback_for_onabort value);
+		callback_for_onabort get_onabort();
+		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
+		void set_onreadystatechange(callback_for_onreadystatechange value);
+		callback_for_onreadystatechange get_onreadystatechange();
+		typedef Object* (*callback_for_onkeypress)(KeyboardEvent* ev);
+		void set_onkeypress(callback_for_onkeypress value);
+		callback_for_onkeypress get_onkeypress();
+		void set_offsetParent(Element* value);
+		Element* get_offsetParent();
+		typedef Object* (*callback_for_onloadeddata)(Event* ev);
+		void set_onloadeddata(callback_for_onloadeddata value);
+		callback_for_onloadeddata get_onloadeddata();
+		void set_disabled(bool value);
+		bool get_disabled();
+		typedef Object* (*callback_for_onsuspend)(Event* ev);
+		void set_onsuspend(callback_for_onsuspend value);
+		callback_for_onsuspend get_onsuspend();
+		void set_accessKey(String* value);
+		String* get_accessKey();
+		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
+		void set_onfocus(callback_for_onfocus value);
+		callback_for_onfocus get_onfocus();
+		typedef Object* (*callback_for_ontimeupdate)(Event* ev);
+		void set_ontimeupdate(callback_for_ontimeupdate value);
+		callback_for_ontimeupdate get_ontimeupdate();
+		typedef Object* (*callback_for_onselect)(UIEvent* ev);
+		void set_onselect(callback_for_onselect value);
+		callback_for_onselect get_onselect();
+		typedef Object* (*callback_for_ondrop)(DragEvent* ev);
+		void set_ondrop(callback_for_ondrop value);
+		callback_for_ondrop get_ondrop();
+		void set_offsetWidth(double value);
+		double get_offsetWidth();
+		typedef Object* (*callback_for_onmouseout)(MouseEvent* ev);
+		void set_onmouseout(callback_for_onmouseout value);
+		callback_for_onmouseout get_onmouseout();
+		typedef Object* (*callback_for_onended)(Event* ev);
+		void set_onended(callback_for_onended value);
+		callback_for_onended get_onended();
+		typedef Object* (*callback_for_onscroll)(UIEvent* ev);
+		void set_onscroll(callback_for_onscroll value);
+		callback_for_onscroll get_onscroll();
+		typedef Object* (*callback_for_onmousewheel)(MouseWheelEvent* ev);
+		void set_onmousewheel(callback_for_onmousewheel value);
+		callback_for_onmousewheel get_onmousewheel();
+		typedef Object* (*callback_for_onvolumechange)(Event* ev);
+		void set_onvolumechange(callback_for_onvolumechange value);
+		callback_for_onvolumechange get_onvolumechange();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		typedef Object* (*callback_for_oninput)(Event* ev);
+		void set_oninput(callback_for_oninput value);
+		callback_for_oninput get_oninput();
+		void click();
+		NodeList* getElementsByClassName(const String& classNames);
+		void scrollIntoView();
+		void scrollIntoView(bool top);
+		void focus();
+		void blur();
+		void insertAdjacentHTML(const String& where, const String& html);
+		static void set_prototype(HTMLElement* value);
+		static HTMLElement* get_prototype();
+		HTMLElement();
+	};
+
+	class DOML2DeprecatedBorderStyle_HTMLTableElement 
+	{
+	public:
+		void set_border(String* value);
+		String* get_border();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLTableElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class MSBorderColorStyle_HTMLFrameSetElement 
+	{
+	public:
+		void set_borderColor(Object* value);
+		Object* get_borderColor();
+	};
+
+	class MSBorderColorStyle 
+	{
+	public:
+		void set_borderColor(Object* value);
+		Object* get_borderColor();
+	};
+
+	class MSDataBindingExtensions 
+	{
+	public:
+		void set_dataSrc(String* value);
+		String* get_dataSrc();
+		void set_dataFormatAs(String* value);
+		String* get_dataFormatAs();
+		void set_dataFld(String* value);
+		String* get_dataFld();
+	};
+
+	class MSHTMLTableElementExtensions 
+	{
+	public:
+		void set_cells(HTMLCollection* value);
+		HTMLCollection* get_cells();
+		void set_height(Object* value);
+		Object* get_height();
+		void set_cols(double value);
+		double get_cols();
+		Object* moveRow();
+		Object* moveRow(double indexFrom, double indexTo);
+	};
+
+	class DOML2DeprecatedBackgroundStyle 
+	{
+	public:
+		void set_background(String* value);
+		String* get_background();
+	};
+
+	class MSBorderColorHighlightStyle_HTMLTableCellElement 
+	{
+	public:
+		void set_borderColorLight(Object* value);
+		Object* get_borderColorLight();
+		void set_borderColorDark(Object* value);
+		Object* get_borderColorDark();
+	};
+
+	class MSBorderColorHighlightStyle 
+	{
+	public:
+		void set_borderColorLight(Object* value);
+		Object* get_borderColorLight();
+		void set_borderColorDark(Object* value);
+		Object* get_borderColorDark();
+	};
+
+	class MSDataBindingTableExtensions 
+	{
+	public:
+		void set_dataPageSize(double value);
+		double get_dataPageSize();
+		void nextPage();
+		void firstPage();
+		void refresh();
+		void previousPage();
+		void lastPage();
+	};
+
+	class DOML2DeprecatedBackgroundColorStyle 
+	{
+	public:
+		void set_bgColor(Object* value);
+		Object* get_bgColor();
+	};
+
+	class HTMLTableSectionElement;
+	class HTMLTableCaptionElement;
+	class NodeFilterCallback;
+
+	class HTMLTableElement : public HTMLElement, DOML2DeprecatedBorderStyle_HTMLTableElement, DOML2DeprecatedAlignmentStyle_HTMLTableElement, MSBorderColorStyle, MSDataBindingExtensions, MSHTMLTableElementExtensions, DOML2DeprecatedBackgroundStyle, MSBorderColorHighlightStyle, MSDataBindingTableExtensions, DOML2DeprecatedBackgroundColorStyle 
+	{
+	public:
+		void set_tBodies(HTMLCollection* value);
+		HTMLCollection* get_tBodies();
+		void set_width(String* value);
+		String* get_width();
+		void set_tHead(HTMLTableSectionElement* value);
+		HTMLTableSectionElement* get_tHead();
+		void set_cellSpacing(String* value);
+		String* get_cellSpacing();
+		void set_tFoot(HTMLTableSectionElement* value);
+		HTMLTableSectionElement* get_tFoot();
+		void set_frame(String* value);
+		String* get_frame();
+		void set_rows(HTMLCollection* value);
+		HTMLCollection* get_rows();
+		void set_rules(String* value);
+		String* get_rules();
+		void set_cellPadding(String* value);
+		String* get_cellPadding();
+		void set_summary(String* value);
+		String* get_summary();
+		void set_caption(HTMLTableCaptionElement* value);
+		HTMLTableCaptionElement* get_caption();
+		void deleteRow();
+		void deleteRow(double index);
+		HTMLElement* createTBody();
+		void deleteCaption();
+		HTMLElement* insertRow();
+		HTMLElement* insertRow(double index);
+		void deleteTFoot();
+		HTMLElement* createTHead();
+		void deleteTHead();
+		HTMLElement* createCaption();
+		HTMLElement* createTFoot();
+		static void set_prototype(HTMLTableElement* value);
+		static HTMLTableElement* get_prototype();
+		HTMLTableElement();
+	};
+
+	class TreeWalker 
+	{
+	public:
+		void set_whatToShow(double value);
+		double get_whatToShow();
+		void set_filter(NodeFilterCallback* value);
+		NodeFilterCallback* get_filter();
+		void set_root(Node* value);
+		Node* get_root();
+		void set_currentNode(Node* value);
+		Node* get_currentNode();
+		void set_expandEntityReferences(bool value);
+		bool get_expandEntityReferences();
+		Node* previousSibling();
+		Node* lastChild();
+		Node* nextSibling();
+		Node* nextNode();
+		Node* parentNode();
+		Node* firstChild();
+		Node* previousNode();
+		static void set_prototype(TreeWalker* value);
+		static TreeWalker* get_prototype();
+		TreeWalker();
+	};
+
+	class SVGDocument;
+
+	class GetSVGDocument 
+	{
+	public:
+		SVGDocument* getSVGDocument();
+	};
+
+	class HTMLHtmlElementDOML2Deprecated 
+	{
+	public:
+		void set_version(String* value);
+		String* get_version();
+	};
+
+	class SVGPathSeg 
+	{
+	public:
+		void set_pathSegType(double value);
+		double get_pathSegType();
+		void set_pathSegTypeAsLetter(String* value);
+		String* get_pathSegTypeAsLetter();
+		void set_PATHSEG_MOVETO_REL(double value);
+		double get_PATHSEG_MOVETO_REL();
+		void set_PATHSEG_LINETO_VERTICAL_REL(double value);
+		double get_PATHSEG_LINETO_VERTICAL_REL();
+		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(double value);
+		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_REL(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_REL();
+		void set_PATHSEG_CURVETO_CUBIC_ABS(double value);
+		double get_PATHSEG_CURVETO_CUBIC_ABS();
+		void set_PATHSEG_LINETO_HORIZONTAL_ABS(double value);
+		double get_PATHSEG_LINETO_HORIZONTAL_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_ABS(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_ABS();
+		void set_PATHSEG_LINETO_ABS(double value);
+		double get_PATHSEG_LINETO_ABS();
+		void set_PATHSEG_CLOSEPATH(double value);
+		double get_PATHSEG_CLOSEPATH();
+		void set_PATHSEG_LINETO_HORIZONTAL_REL(double value);
+		double get_PATHSEG_LINETO_HORIZONTAL_REL();
+		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(double value);
+		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
+		void set_PATHSEG_LINETO_REL(double value);
+		double get_PATHSEG_LINETO_REL();
+		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
+		void set_PATHSEG_ARC_REL(double value);
+		double get_PATHSEG_ARC_REL();
+		void set_PATHSEG_CURVETO_CUBIC_REL(double value);
+		double get_PATHSEG_CURVETO_CUBIC_REL();
+		void set_PATHSEG_UNKNOWN(double value);
+		double get_PATHSEG_UNKNOWN();
+		void set_PATHSEG_LINETO_VERTICAL_ABS(double value);
+		double get_PATHSEG_LINETO_VERTICAL_ABS();
+		void set_PATHSEG_ARC_ABS(double value);
+		double get_PATHSEG_ARC_ABS();
+		void set_PATHSEG_MOVETO_ABS(double value);
+		double get_PATHSEG_MOVETO_ABS();
+		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(double value);
+		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();
+		/*static void set_PATHSEG_MOVETO_REL(double value);
+		static double get_PATHSEG_MOVETO_REL();
+		static void set_PATHSEG_LINETO_VERTICAL_REL(double value);
+		static double get_PATHSEG_LINETO_VERTICAL_REL();
+		static void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(double value);
+		static double get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
+		static void set_PATHSEG_CURVETO_QUADRATIC_REL(double value);
+		static double get_PATHSEG_CURVETO_QUADRATIC_REL();
+		static void set_PATHSEG_CURVETO_CUBIC_ABS(double value);
+		static double get_PATHSEG_CURVETO_CUBIC_ABS();
+		static void set_PATHSEG_LINETO_HORIZONTAL_ABS(double value);
+		static double get_PATHSEG_LINETO_HORIZONTAL_ABS();
+		static void set_PATHSEG_CURVETO_QUADRATIC_ABS(double value);
+		static double get_PATHSEG_CURVETO_QUADRATIC_ABS();
+		static void set_PATHSEG_LINETO_ABS(double value);
+		static double get_PATHSEG_LINETO_ABS();
+		static void set_PATHSEG_CLOSEPATH(double value);
+		static double get_PATHSEG_CLOSEPATH();
+		static void set_PATHSEG_LINETO_HORIZONTAL_REL(double value);
+		static double get_PATHSEG_LINETO_HORIZONTAL_REL();
+		static void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(double value);
+		static double get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
+		static void set_PATHSEG_LINETO_REL(double value);
+		static double get_PATHSEG_LINETO_REL();
+		static void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(double value);
+		static double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
+		static void set_PATHSEG_ARC_REL(double value);
+		static double get_PATHSEG_ARC_REL();
+		static void set_PATHSEG_CURVETO_CUBIC_REL(double value);
+		static double get_PATHSEG_CURVETO_CUBIC_REL();
+		static void set_PATHSEG_UNKNOWN(double value);
+		static double get_PATHSEG_UNKNOWN();
+		static void set_PATHSEG_LINETO_VERTICAL_ABS(double value);
+		static double get_PATHSEG_LINETO_VERTICAL_ABS();
+		static void set_PATHSEG_ARC_ABS(double value);
+		static double get_PATHSEG_ARC_ABS();
+		static void set_PATHSEG_MOVETO_ABS(double value);
+		static double get_PATHSEG_MOVETO_ABS();
+		static void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(double value);
+		static double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();*/
+	};
+
+	class SVGPathSegCurvetoQuadraticRel : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		static void set_prototype(SVGPathSegCurvetoQuadraticRel* value);
+		static SVGPathSegCurvetoQuadraticRel* get_prototype();
+		SVGPathSegCurvetoQuadraticRel();
+	};
+
+	class PerformanceNavigation;
+	class PerformanceTiming;
+
+	class Performance 
+	{
+	public:
+		void set_navigation(PerformanceNavigation* value);
+		PerformanceNavigation* get_navigation();
+		void set_timing(PerformanceTiming* value);
+		PerformanceTiming* get_timing();
+		Object* toJSON();
+		static void set_prototype(Performance* value);
+		static Performance* get_prototype();
+		Performance();
+	};
+
+	class SVGSVGElementEventHandlers 
+	{
+	public:
+		typedef Object* (*callback_for_onresize)(UIEvent* ev);
+		void set_onresize(callback_for_onresize value);
+		callback_for_onresize get_onresize();
+		typedef Object* (*callback_for_onunload)(Event* ev);
+		void set_onunload(callback_for_onunload value);
+		callback_for_onunload get_onunload();
+		typedef Object* (*callback_for_onscroll)(UIEvent* ev);
+		void set_onscroll(callback_for_onscroll value);
+		callback_for_onscroll get_onscroll();
+		typedef Object* (*callback_for_onerror)(Event* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		typedef Object* (*callback_for_onzoom)(Object* ev);
+		void set_onzoom(callback_for_onzoom value);
+		callback_for_onzoom get_onzoom();
+		typedef Object* (*callback_for_onabort)(UIEvent* ev);
+		void set_onabort(callback_for_onabort value);
+		callback_for_onabort get_onabort();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLParagraphElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class AbstractView;
+
+	class Event
+	{
+	public:
+		void set_timeStamp(double value);
+		double get_timeStamp();
+		void set_defaultPrevented(bool value);
+		bool get_defaultPrevented();
+		void set_isTrusted(bool value);
+		bool get_isTrusted();
+		void set_currentTarget(EventTarget* value);
+		EventTarget* get_currentTarget();
+		void set_target(EventTarget* value);
+		EventTarget* get_target();
+		void set_eventPhase(double value);
+		double get_eventPhase();
+		void set_type(String* value);
+		String* get_type();
+		void set_cancelable(bool value);
+		bool get_cancelable();
+		void set_bubbles(bool value);
+		bool get_bubbles();
+		void initEvent(const String& eventTypeArg, bool canBubbleArg, bool cancelableArg);
+		void stopPropagation();
+		void stopImmediatePropagation();
+		void preventDefault();
+		void set_CAPTURING_PHASE(double value);
+		double get_CAPTURING_PHASE();
+		void set_AT_TARGET(double value);
+		double get_AT_TARGET();
+		void set_BUBBLING_PHASE(double value);
+		double get_BUBBLING_PHASE();
+		static void set_prototype(Event* value);
+		static Event* get_prototype();
+		Event();
+	};
+
+	class UIEvent : public Event 
+	{
+	public:
+		void set_detail(double value);
+		double get_detail();
+		void set_view(AbstractView* value);
+		AbstractView* get_view();
+		void initUIEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg);
+		static void set_prototype(UIEvent* value);
+		static UIEvent* get_prototype();
+		UIEvent();
+	};
+
+	class CompositionEvent : public UIEvent 
+	{
+	public:
+		void set_data(String* value);
+		String* get_data();
+		void set_locale(String* value);
+		String* get_locale();
+		void initCompositionEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, const String& locale);
+		static void set_prototype(CompositionEvent* value);
+		static CompositionEvent* get_prototype();
+		CompositionEvent();
+	};
+
+	class SVGElementEventHandlers 
+	{
+	public:
+		typedef Object* (*callback_for_onmouseover)(MouseEvent* ev);
+		void set_onmouseover(callback_for_onmouseover value);
+		callback_for_onmouseover get_onmouseover();
+		typedef Object* (*callback_for_onmousemove)(MouseEvent* ev);
+		void set_onmousemove(callback_for_onmousemove value);
+		callback_for_onmousemove get_onmousemove();
+		typedef Object* (*callback_for_onmouseout)(MouseEvent* ev);
+		void set_onmouseout(callback_for_onmouseout value);
+		callback_for_onmouseout get_onmouseout();
+		typedef Object* (*callback_for_ondblclick)(MouseEvent* ev);
+		void set_ondblclick(callback_for_ondblclick value);
+		callback_for_ondblclick get_ondblclick();
+		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
+		void set_onfocusout(callback_for_onfocusout value);
+		callback_for_onfocusout get_onfocusout();
+		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
+		void set_onfocusin(callback_for_onfocusin value);
+		callback_for_onfocusin get_onfocusin();
+		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
+		void set_onmousedown(callback_for_onmousedown value);
+		callback_for_onmousedown get_onmousedown();
+		typedef Object* (*callback_for_onmouseup)(MouseEvent* ev);
+		void set_onmouseup(callback_for_onmouseup value);
+		callback_for_onmouseup get_onmouseup();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
+		void set_onclick(callback_for_onclick value);
+		callback_for_onclick get_onclick();
+	};
+
+	class SVGSVGElement;
+
+	class SVGElement : public Element, SVGElementEventHandlers 
+	{
+	public:
+		void set_xmlbase(String* value);
+		String* get_xmlbase();
+		void set_viewportElement(SVGElement* value);
+		SVGElement* get_viewportElement();
+		void set_id(String* value);
+		String* get_id();
+		void set_ownerSVGElement(SVGSVGElement* value);
+		SVGSVGElement* get_ownerSVGElement();
+		static void set_prototype(SVGElement* value);
+		static SVGElement* get_prototype();
+		SVGElement();
+	};
+
+	class SVGAnimatedString;
+
+	class SVGStylable 
+	{
+	public:
+		void set_className(SVGAnimatedString* value);
+		SVGAnimatedString* get_className();
+		void set_style(CSSStyleDeclaration* value);
+		CSSStyleDeclaration* get_style();
+	};
+
+	class SVGLangSpace 
+	{
+	public:
+		void set_xmllang(String* value);
+		String* get_xmllang();
+		void set_xmlspace(String* value);
+		String* get_xmlspace();
+	};
+
+	class SVGAnimatedRect;
+	class SVGAnimatedPreserveAspectRatio;
+
+	class SVGFitToViewBox 
+	{
+	public:
+		void set_viewBox(SVGAnimatedRect* value);
+		SVGAnimatedRect* get_viewBox();
+		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio* value);
+		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
+	};
+
+	class SVGAnimatedEnumeration;
+	class SVGAnimatedLength;
+	class SVGAnimatedAngle;
+	class SVGAngle;
+
+	class SVGMarkerElement : public SVGElement, SVGStylable, SVGLangSpace, SVGFitToViewBox 
+	{
+	public:
+		void set_orientType(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_orientType();
+		void set_markerUnits(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_markerUnits();
+		void set_markerWidth(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_markerWidth();
+		void set_markerHeight(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_markerHeight();
+		void set_orientAngle(SVGAnimatedAngle* value);
+		SVGAnimatedAngle* get_orientAngle();
+		void set_refY(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_refY();
+		void set_refX(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_refX();
+		void setOrientToAngle(SVGAngle* angle);
+		void setOrientToAuto();
+		void set_SVG_MARKER_ORIENT_UNKNOWN(double value);
+		double get_SVG_MARKER_ORIENT_UNKNOWN();
+		void set_SVG_MARKER_ORIENT_ANGLE(double value);
+		double get_SVG_MARKER_ORIENT_ANGLE();
+		void set_SVG_MARKERUNITS_UNKNOWN(double value);
+		double get_SVG_MARKERUNITS_UNKNOWN();
+		void set_SVG_MARKERUNITS_STROKEWIDTH(double value);
+		double get_SVG_MARKERUNITS_STROKEWIDTH();
+		void set_SVG_MARKER_ORIENT_AUTO(double value);
+		double get_SVG_MARKER_ORIENT_AUTO();
+		void set_SVG_MARKERUNITS_USERSPACEONUSE(double value);
+		double get_SVG_MARKERUNITS_USERSPACEONUSE();
+		static void set_prototype(SVGMarkerElement* value);
+		static SVGMarkerElement* get_prototype();
+		SVGMarkerElement();
+		/*static void set_SVG_MARKER_ORIENT_UNKNOWN(double value);
+		static double get_SVG_MARKER_ORIENT_UNKNOWN();
+		static void set_SVG_MARKER_ORIENT_ANGLE(double value);
+		static double get_SVG_MARKER_ORIENT_ANGLE();
+		static void set_SVG_MARKERUNITS_UNKNOWN(double value);
+		static double get_SVG_MARKERUNITS_UNKNOWN();
+		static void set_SVG_MARKERUNITS_STROKEWIDTH(double value);
+		static double get_SVG_MARKERUNITS_STROKEWIDTH();
+		static void set_SVG_MARKER_ORIENT_AUTO(double value);
+		static double get_SVG_MARKER_ORIENT_AUTO();
+		static void set_SVG_MARKERUNITS_USERSPACEONUSE(double value);
+		static double get_SVG_MARKERUNITS_USERSPACEONUSE();*/
+	};
+
+	class WindowTimers 
+	{
+	public:
+		void clearTimeout(double handle);
+		double setTimeout(Object* expression);
+		double setTimeout(Object* expression, double msec);
+		double setTimeout(Object* expression, double msec, Object* language);
+		void clearInterval(double handle);
+		double setInterval(Object* expression);
+		double setInterval(Object* expression, double msec);
+		double setInterval(Object* expression, double msec, Object* language);
+	};
+
+	class SVGRect;
+	class SVGMatrix;
+
+	class SVGLocatable 
+	{
+	public:
+		void set_farthestViewportElement(SVGElement* value);
+		SVGElement* get_farthestViewportElement();
+		void set_nearestViewportElement(SVGElement* value);
+		SVGElement* get_nearestViewportElement();
+		SVGRect* getBBox();
+		SVGMatrix* getTransformToElement(SVGElement* element);
+		SVGMatrix* getCTM();
+		SVGMatrix* getScreenCTM();
+	};
+
+	class SVGAnimatedTransformList;
+
+	class SVGTransformable : public SVGLocatable 
+	{
+	public:
+		void set_transform(SVGAnimatedTransformList* value);
+		SVGAnimatedTransformList* get_transform();
+	};
+
+	class SVGStringList;
+
+	class SVGTests 
+	{
+	public:
+		void set_requiredFeatures(SVGStringList* value);
+		SVGStringList* get_requiredFeatures();
+		void set_requiredExtensions(SVGStringList* value);
+		SVGStringList* get_requiredExtensions();
+		void set_systemLanguage(SVGStringList* value);
+		SVGStringList* get_systemLanguage();
+		bool hasExtension(const String& extension);
+	};
+
+	class SVGGElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		static void set_prototype(SVGGElement* value);
+		static SVGGElement* get_prototype();
+		SVGGElement();
+	};
+
+	class NavigatorOnLine 
+	{
+	public:
+		void set_onLine(bool value);
+		bool get_onLine();
+	};
+
+	class NavigatorDoNotTrack 
+	{
+	public:
+		void set_msDoNotTrack(String* value);
+		String* get_msDoNotTrack();
+	};
+
+	class NavigatorAbilities 
+	{
+	public:
+	};
+
+	class Geolocation;
+
+	class NavigatorGeolocation 
+	{
+	public:
+		void set_geolocation(Geolocation* value);
+		Geolocation* get_geolocation();
+	};
+
+	class Navigator : public NavigatorID, NavigatorOnLine, NavigatorDoNotTrack, NavigatorAbilities, NavigatorGeolocation
+	{
+	public:
+		static void set_prototype(Navigator* value);
+		static Navigator* get_prototype();
+		Navigator();
+	};
+
+	class SVGPathSegCurvetoCubicSmoothAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_y2(double value);
+		double get_y2();
+		static void set_prototype(SVGPathSegCurvetoCubicSmoothAbs* value);
+		static SVGPathSegCurvetoCubicSmoothAbs* get_prototype();
+		SVGPathSegCurvetoCubicSmoothAbs();
+	};
+
+	class SVGPoint;
+
+	class SVGZoomEvent : public UIEvent 
+	{
+	public:
+		void set_zoomRectScreen(SVGRect* value);
+		SVGRect* get_zoomRectScreen();
+		void set_previousScale(double value);
+		double get_previousScale();
+		void set_newScale(double value);
+		double get_newScale();
+		void set_previousTranslate(SVGPoint* value);
+		SVGPoint* get_previousTranslate();
+		void set_newTranslate(SVGPoint* value);
+		SVGPoint* get_newTranslate();
+		static void set_prototype(SVGZoomEvent* value);
+		static SVGZoomEvent* get_prototype();
+		SVGZoomEvent();
+	};
+
+	class DOML2DeprecatedTableCellHeight 
+	{
+	public:
+		void set_height(Object* value);
+		Object* get_height();
+	};
+
+	class HTMLTableAlignment 
+	{
+	public:
+		void set_ch(String* value);
+		String* get_ch();
+		void set_vAlign(String* value);
+		String* get_vAlign();
+		void set_chOff(String* value);
+		String* get_chOff();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLTableCellElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class DOML2DeprecatedWidthStyle_HTMLTableCellElement 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+	};
+
+	class HTMLTableHeaderCellScope 
+	{
+	public:
+		void set_scope(String* value);
+		String* get_scope();
+	};
+
+	class DOML2DeprecatedWordWrapSuppression_HTMLBodyElement 
+	{
+	public:
+		void set_noWrap(bool value);
+		bool get_noWrap();
+	};
+
+	class DOML2DeprecatedWordWrapSuppression 
+	{
+	public:
+		void set_noWrap(bool value);
+		bool get_noWrap();
+	};
+
+	class HTMLTableCellElement : public HTMLElement, DOML2DeprecatedTableCellHeight, HTMLTableAlignment, MSBorderColorHighlightStyle_HTMLTableCellElement, DOML2DeprecatedWidthStyle_HTMLTableCellElement, DOML2DeprecatedBackgroundStyle, DOML2DeprecatedAlignmentStyle_HTMLTableCellElement, HTMLTableHeaderCellScope, DOML2DeprecatedWordWrapSuppression, DOML2DeprecatedBackgroundColorStyle 
+	{
+	public:
+		void set_headers(String* value);
+		String* get_headers();
+		void set_abbr(String* value);
+		String* get_abbr();
+		void set_rowSpan(double value);
+		double get_rowSpan();
+		void set_cellIndex(double value);
+		double get_cellIndex();
+		void set_colSpan(double value);
+		double get_colSpan();
+		void set_axis(String* value);
+		String* get_axis();
+		static void set_prototype(HTMLTableCellElement* value);
+		static HTMLTableCellElement* get_prototype();
+		HTMLTableCellElement();
+	};
+
+	class HTMLTableDataCellElement : public HTMLTableCellElement 
+	{
+	public:
+		static void set_prototype(HTMLTableDataCellElement* value);
+		static HTMLTableDataCellElement* get_prototype();
+		HTMLTableDataCellElement();
+	};
+
+	class HTMLBaseElement : public HTMLElement 
+	{
+	public:
+		void set_target(String* value);
+		String* get_target();
+		void set_href(String* value);
+		String* get_href();
+		static void set_prototype(HTMLBaseElement* value);
+		static HTMLBaseElement* get_prototype();
+		HTMLBaseElement();
+	};
+
+	class ClientRect 
+	{
+	public:
+		void set_left(double value);
+		double get_left();
+		void set_width(double value);
+		double get_width();
+		void set_right(double value);
+		double get_right();
+		void set_top(double value);
+		double get_top();
+		void set_bottom(double value);
+		double get_bottom();
+		void set_height(double value);
+		double get_height();
+		static void set_prototype(ClientRect* value);
+		static ClientRect* get_prototype();
+		ClientRect();
+	};
+
+	class PositionError;
+
+	class PositionErrorCallback 
+	{
+	public:
+		void operator()(PositionError* error);
+	};
+
+	class DOMHTMLImplementation 
+	{
+	public:
+		Document* createHTMLDocument(const String& title);
+	};
+
+	class DocumentType;
+
+	class DOMImplementation : public DOMHTMLImplementation 
+	{
+	public:
+		DocumentType* createDocumentType(const String& qualifiedName, const String& publicId, const String& systemId);
+		Document* createDocument(const String& namespaceURI, const String& qualifiedName, DocumentType* doctype);
+		bool hasFeature(const String& feature);
+		bool hasFeature(const String& feature, const String& version);
+		static void set_prototype(DOMImplementation* value);
+		static DOMImplementation* get_prototype();
+		DOMImplementation();
+	};
+
+	class SVGUnitTypes 
+	{
+	public:
+		void set_SVG_UNIT_TYPE_UNKNOWN(double value);
+		double get_SVG_UNIT_TYPE_UNKNOWN();
+		void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(double value);
+		double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
+		void set_SVG_UNIT_TYPE_USERSPACEONUSE(double value);
+		double get_SVG_UNIT_TYPE_USERSPACEONUSE();
+		static void set_prototype(SVGUnitTypes* value);
+		static SVGUnitTypes* get_prototype();
+		SVGUnitTypes();
+		/*static void set_SVG_UNIT_TYPE_UNKNOWN(double value);
+		static double get_SVG_UNIT_TYPE_UNKNOWN();
+		static void set_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX(double value);
+		static double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
+		static void set_SVG_UNIT_TYPE_USERSPACEONUSE(double value);
+		static double get_SVG_UNIT_TYPE_USERSPACEONUSE();*/
+	};
+
+	class Range;
+
+	class DocumentRange 
+	{
+	public:
+		Range* createRange();
+	};
+
+	class SVGDocument 
+	{
+	public:
+		void set_rootElement(SVGSVGElement* value);
+		SVGSVGElement* get_rootElement();
+	};
+
+	class HTMLNextIdElement : public HTMLElement 
+	{
+	public:
+		void set_n(String* value);
+		String* get_n();
+		static void set_prototype(HTMLNextIdElement* value);
+		static HTMLNextIdElement* get_prototype();
+		HTMLNextIdElement();
+	};
+
+	class SVGPathSegMovetoRel : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
+		static void set_prototype(SVGPathSegMovetoRel* value);
+		static SVGPathSegMovetoRel* get_prototype();
+		SVGPathSegMovetoRel();
+	};
+
+	class SVGLineElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		void set_y1(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y1();
+		void set_x2(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x2();
+		void set_x1(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x1();
+		void set_y2(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y2();
+		static void set_prototype(SVGLineElement* value);
+		static SVGLineElement* get_prototype();
+		SVGLineElement();
+	};
+
+	class HTMLParagraphElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLParagraphElement 
+	{
+	public:
+		static void set_prototype(HTMLParagraphElement* value);
+		static HTMLParagraphElement* get_prototype();
+		HTMLParagraphElement();
+	};
+
+	class TextRange;
+
+	class MSHTMLTextAreaElementExtensions 
+	{
+	public:
+		void set_status(Object* value);
+		Object* get_status();
+		TextRange* createTextRange();
+	};
+
+	class ErrorFunction 
+	{
+	public:
+		Object* operator()(Object* eventOrMessage, const String& source, double fileno);
+	};
+
+	class HTMLCollection
+	{
+	public:
+		Element* operator[](double index);
+		Element* operator[](const String& name);
+		Element* operator()(Object* nameOrIndex, Object* optionalIndex);
+		Element* operator()(const String& name);
+		void set_length(double value);
+		double get_length();
+		Element* item();
+		Element* item(Object* nameOrIndex, Object* optionalIndex);
+		Element* namedItem(const String& name);
+		static void set_prototype(HTMLCollection* value);
+		static HTMLCollection* get_prototype();
+		HTMLCollection();
+	};
+
+	class HTMLAreasCollection : public HTMLCollection 
+	{
+	public:
+		void remove();
+		void remove(double index);
+		void add(HTMLElement* element);
+		void add(HTMLElement* element, Object* before);
+		static void set_prototype(HTMLAreasCollection* value);
+		static HTMLAreasCollection* get_prototype();
+		HTMLAreasCollection();
+	};
+
+	class SVGDescElement : public SVGElement, SVGStylable, SVGLangSpace 
+	{
+	public:
+		static void set_prototype(SVGDescElement* value);
+		static SVGDescElement* get_prototype();
+		SVGDescElement();
 	};
 
 	class MSHTMLLegendElementExtensions 
@@ -1931,18 +2756,7 @@ namespace client
 	public:
 	};
 
-	class MSCSSStyleDeclarationExtensions 
-	{
-	public:
-		Object* getAttribute(const String& attributeName);
-		Object* getAttribute(const String& attributeName, double flags);
-		void setAttribute(const String& attributeName, Object* AttributeValue);
-		void setAttribute(const String& attributeName, Object* AttributeValue, double flags);
-		bool removeAttribute(const String& attributeName);
-		bool removeAttribute(const String& attributeName, double flags);
-	};
-
-	class SVGPathSegCurvetoQuadraticSmoothRel : SVGPathSeg 
+	class SVGPathSegCurvetoQuadraticSmoothRel : public SVGPathSeg 
 	{
 	public:
 		void set_y(double value);
@@ -1995,59 +2809,6 @@ namespace client
 		bool get_compact();
 	};
 
-	class CSS3Properties 
-	{
-	public:
-		void set_textAlignLast(String* value);
-		String* get_textAlignLast();
-		void set_textUnderlinePosition(String* value);
-		String* get_textUnderlinePosition();
-		void set_wordWrap(String* value);
-		String* get_wordWrap();
-		void set_borderTopLeftRadius(String* value);
-		String* get_borderTopLeftRadius();
-		void set_backgroundClip(String* value);
-		String* get_backgroundClip();
-		void set_msTransformOrigin(String* value);
-		String* get_msTransformOrigin();
-		void set_opacity(String* value);
-		String* get_opacity();
-		void set_overflowY(String* value);
-		String* get_overflowY();
-		void set_boxShadow(String* value);
-		String* get_boxShadow();
-		void set_backgroundSize(String* value);
-		String* get_backgroundSize();
-		void set_wordBreak(String* value);
-		String* get_wordBreak();
-		void set_boxSizing(String* value);
-		String* get_boxSizing();
-		void set_rubyOverhang(String* value);
-		String* get_rubyOverhang();
-		void set_rubyAlign(String* value);
-		String* get_rubyAlign();
-		void set_textJustify(String* value);
-		String* get_textJustify();
-		void set_borderRadius(String* value);
-		String* get_borderRadius();
-		void set_overflowX(String* value);
-		String* get_overflowX();
-		void set_borderTopRightRadius(String* value);
-		String* get_borderTopRightRadius();
-		void set_msTransform(String* value);
-		String* get_msTransform();
-		void set_borderBottomLeftRadius(String* value);
-		String* get_borderBottomLeftRadius();
-		void set_rubyPosition(String* value);
-		String* get_rubyPosition();
-		void set_borderBottomRightRadius(String* value);
-		String* get_borderBottomRightRadius();
-		void set_backgroundOrigin(String* value);
-		String* get_backgroundOrigin();
-		void set_textOverflow(String* value);
-		String* get_textOverflow();
-	};
-
 	class MSScriptHost 
 	{
 	public:
@@ -2056,7 +2817,7 @@ namespace client
 		MSScriptHost();
 	};
 
-	class SVGClipPathElement : SVGElement, SVGUnitTypes, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	class SVGClipPathElement : public SVGElement, SVGUnitTypes, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
 	{
 	public:
 		void set_clipPathUnits(SVGAnimatedEnumeration* value);
@@ -2066,7 +2827,7 @@ namespace client
 		SVGClipPathElement();
 	};
 
-	class MouseEvent : UIEvent, MSMouseEventExtensions 
+	class MouseEvent : public UIEvent
 	{
 	public:
 		void set_pageX(double value);
@@ -2110,13 +2871,6 @@ namespace client
 		MouseEvent();
 	};
 
-	class DOML2DeprecatedAlignmentStyle_HTMLTableElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
 	class RangeException 
 	{
 	public:
@@ -2132,10 +2886,10 @@ namespace client
 		static void set_prototype(RangeException* value);
 		static RangeException* get_prototype();
 		RangeException();
-		static void set_INVALID_NODE_TYPE_ERR(double value);
+		/*static void set_INVALID_NODE_TYPE_ERR(double value);
 		static double get_INVALID_NODE_TYPE_ERR();
 		static void set_BAD_BOUNDARYPOINTS_ERR(double value);
-		static double get_BAD_BOUNDARYPOINTS_ERR();
+		static double get_BAD_BOUNDARYPOINTS_ERR();*/
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLHRElement 
@@ -2145,7 +2899,43 @@ namespace client
 		String* get_align();
 	};
 
-	class SVGTextPositioningElement : SVGTextContentElement 
+	class SVGTextContentElement : public SVGElement, SVGStylable, SVGLangSpace, SVGTests 
+	{
+	public:
+		void set_textLength(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_textLength();
+		void set_lengthAdjust(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_lengthAdjust();
+		double getCharNumAtPosition(SVGPoint* point);
+		SVGPoint* getStartPositionOfChar(double charnum);
+		SVGRect* getExtentOfChar(double charnum);
+		double getComputedTextLength();
+		double getSubStringLength(double charnum, double nchars);
+		void selectSubString(double charnum, double nchars);
+		double getNumberOfChars();
+		double getRotationOfChar(double charnum);
+		SVGPoint* getEndPositionOfChar(double charnum);
+		void set_LENGTHADJUST_SPACING(double value);
+		double get_LENGTHADJUST_SPACING();
+		void set_LENGTHADJUST_SPACINGANDGLYPHS(double value);
+		double get_LENGTHADJUST_SPACINGANDGLYPHS();
+		void set_LENGTHADJUST_UNKNOWN(double value);
+		double get_LENGTHADJUST_UNKNOWN();
+		static void set_prototype(SVGTextContentElement* value);
+		static SVGTextContentElement* get_prototype();
+		SVGTextContentElement();
+		/*static void set_LENGTHADJUST_SPACING(double value);
+		static double get_LENGTHADJUST_SPACING();
+		static void set_LENGTHADJUST_SPACINGANDGLYPHS(double value);
+		static double get_LENGTHADJUST_SPACINGANDGLYPHS();
+		static void set_LENGTHADJUST_UNKNOWN(double value);
+		static double get_LENGTHADJUST_UNKNOWN();*/
+	};
+
+	class SVGAnimatedLengthList;
+	class SVGAnimatedNumberList;
+
+	class SVGTextPositioningElement : public SVGTextContentElement 
 	{
 	public:
 		void set_y(SVGAnimatedLengthList* value);
@@ -2163,7 +2953,37 @@ namespace client
 		SVGTextPositioningElement();
 	};
 
-	class HTMLAppletElement : HTMLElement, DOML2DeprecatedWidthStyle_HTMLAppletElement, DOML2DeprecatedMarginStyle_HTMLObjectElement, MSHTMLAppletElementExtensions, MSDataBindingExtensions, MSDataBindingRecordSetExtensions, DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
+	class DOML2DeprecatedWidthStyle_HTMLAppletElement 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+	};
+
+	class DOML2DeprecatedMarginStyle_HTMLObjectElement 
+	{
+	public:
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class DOML2DeprecatedListNumberingAndBulletStyle 
+	{
+	public:
+		void set_type(String* value);
+		String* get_type();
+	};
+
+	class HTMLAppletElement : public HTMLElement, DOML2DeprecatedWidthStyle_HTMLAppletElement, DOML2DeprecatedMarginStyle_HTMLObjectElement, DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
 	{
 	public:
 		void set_object(String* value);
@@ -2185,20 +3005,10 @@ namespace client
 		HTMLAppletElement();
 	};
 
-	class MSHTMLFieldSetElementExtensions : DOML2DeprecatedAlignmentStyle_HTMLFieldSetElement 
-	{
-	public:
-	};
-
 	class DocumentEvent 
 	{
 	public:
 		Event* createEvent(const String& eventInterface);
-	};
-
-	class MSHTMLUnknownElementExtensions 
-	{
-	public:
 	};
 
 	class TextMetrics 
@@ -2211,14 +3021,7 @@ namespace client
 		TextMetrics();
 	};
 
-	class DOML2DeprecatedWordWrapSuppression_HTMLBodyElement 
-	{
-	public:
-		void set_noWrap(bool value);
-		bool get_noWrap();
-	};
-
-	class HTMLOListElement : HTMLElement, DOML2DeprecatedListNumberingAndBulletStyle, DOML2DeprecatedListSpaceReduction, MSHTMLOListElementExtensions 
+	class HTMLOListElement : public HTMLElement, DOML2DeprecatedListNumberingAndBulletStyle, DOML2DeprecatedListSpaceReduction
 	{
 	public:
 		void set_start(double value);
@@ -2247,7 +3050,7 @@ namespace client
 		SVGAnimatedString();
 	};
 
-	class SVGPathSegLinetoVerticalRel : SVGPathSeg 
+	class SVGPathSegLinetoVerticalRel : public SVGPathSeg 
 	{
 	public:
 		void set_y(double value);
@@ -2257,7 +3060,36 @@ namespace client
 		SVGPathSegLinetoVerticalRel();
 	};
 
-	class CDATASection : Text 
+	class CharacterData : public Node 
+	{
+	public:
+		void set_length(double value);
+		double get_length();
+		void set_data(String* value);
+		String* get_data();
+		void deleteData(double offset, double count);
+		void replaceData(double offset, double count, const String& arg);
+		void appendData(const String& arg);
+		void insertData(double offset, const String& arg);
+		String* substringData(double offset, double count);
+		static void set_prototype(CharacterData* value);
+		static CharacterData* get_prototype();
+		CharacterData();
+	};
+
+	class Text : public CharacterData
+	{
+	public:
+		void set_wholeText(String* value);
+		String* get_wholeText();
+		Text* splitText(double offset);
+		Text* replaceWholeText(const String& content);
+		static void set_prototype(Text* value);
+		static Text* get_prototype();
+		Text();
+	};
+
+	class CDATASection : public Text 
 	{
 	public:
 		static void set_prototype(CDATASection* value);
@@ -2338,7 +3170,9 @@ namespace client
 		TextRange();
 	};
 
-	class HTMLSelectElement : HTMLElement, MSHTMLCollectionExtensions, MSDataBindingExtensions, MSHTMLSelectElementExtensions 
+	class HTMLFormElement;
+
+	class HTMLSelectElement : public HTMLElement
 	{
 	public:
 		Object* operator[](const String& name);
@@ -2367,7 +3201,6 @@ namespace client
 		void add(HTMLElement* element);
 		void add(HTMLElement* element, Object* before);
 		Object* item();
-		Object* item(, Object* name);
 		Object* item(Object* name, Object* index);
 		Object* namedItem(const String& name);
 		static void set_prototype(HTMLSelectElement* value);
@@ -2375,23 +3208,21 @@ namespace client
 		HTMLSelectElement();
 	};
 
-	class CSSStyleSheet : StyleSheet, MSCSSStyleSheetExtensions 
+	class DOML2DeprecatedTextFlowControl_HTMLBlockElement 
 	{
 	public:
-		void set_ownerRule(CSSRule* value);
-		CSSRule* get_ownerRule();
-		void set_cssRules(CSSRuleList* value);
-		CSSRuleList* get_cssRules();
-		double insertRule(const String& rule);
-		double insertRule(const String& rule, double index);
-		void deleteRule();
-		void deleteRule(double index);
-		static void set_prototype(CSSStyleSheet* value);
-		static CSSStyleSheet* get_prototype();
-		CSSStyleSheet();
+		void set_clear(String* value);
+		String* get_clear();
 	};
 
-	class HTMLBlockElement : HTMLElement, DOML2DeprecatedTextFlowControl_HTMLBlockElement, DOML2DeprecatedWidthStyle_HTMLBlockElement 
+	class DOML2DeprecatedWidthStyle_HTMLBlockElement 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+	};
+
+	class HTMLBlockElement : public HTMLElement, DOML2DeprecatedTextFlowControl_HTMLBlockElement, DOML2DeprecatedWidthStyle_HTMLBlockElement 
 	{
 	public:
 		void set_cite(String* value);
@@ -2401,40 +3232,7 @@ namespace client
 		HTMLBlockElement();
 	};
 
-	class SVGTests 
-	{
-	public:
-		void set_requiredFeatures(SVGStringList* value);
-		SVGStringList* get_requiredFeatures();
-		void set_requiredExtensions(SVGStringList* value);
-		SVGStringList* get_requiredExtensions();
-		void set_systemLanguage(SVGStringList* value);
-		SVGStringList* get_systemLanguage();
-		bool hasExtension(const String& extension);
-	};
-
-	class MSSelection 
-	{
-	public:
-		void set_type(String* value);
-		String* get_type();
-		void set_typeDetail(String* value);
-		String* get_typeDetail();
-		TextRange* createRange();
-		void clear();
-		TextRangeCollection* createRangeCollection();
-		void empty();
-		static void set_prototype(MSSelection* value);
-		static MSSelection* get_prototype();
-		MSSelection();
-	};
-
-	class MSHTMLDListElementExtensions 
-	{
-	public:
-	};
-
-	class HTMLMetaElement : HTMLElement, MSHTMLMetaElementExtensions 
+	class HTMLMetaElement : public HTMLElement 
 	{
 	public:
 		void set_httpEquiv(String* value);
@@ -2492,7 +3290,14 @@ namespace client
 		SVGAnimatedAngle();
 	};
 
-	class SVGPatternElement : SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGTests, SVGFitToViewBox, SVGURIReference 
+	class SVGURIReference 
+	{
+	public:
+		void set_href(SVGAnimatedString* value);
+		SVGAnimatedString* get_href();
+	};
+
+	class SVGPatternElement : public SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGTests, SVGFitToViewBox, SVGURIReference 
 	{
 	public:
 		void set_patternUnits(SVGAnimatedEnumeration* value);
@@ -2514,7 +3319,7 @@ namespace client
 		SVGPatternElement();
 	};
 
-	class SVGScriptElement : SVGElement, SVGURIReference 
+	class SVGScriptElement : public SVGElement, SVGURIReference 
 	{
 	public:
 		void set_type(String* value);
@@ -2524,7 +3329,14 @@ namespace client
 		SVGScriptElement();
 	};
 
-	class HTMLDDElement : HTMLElement, DOML2DeprecatedWordWrapSuppression_HTMLDDElement 
+	class DOML2DeprecatedWordWrapSuppression_HTMLDDElement 
+	{
+	public:
+		void set_noWrap(bool value);
+		bool get_noWrap();
+	};
+
+	class HTMLDDElement : public HTMLElement, DOML2DeprecatedWordWrapSuppression_HTMLDDElement 
 	{
 	public:
 		static void set_prototype(HTMLDDElement* value);
@@ -2551,18 +3363,6 @@ namespace client
 		NodeIterator();
 	};
 
-	class CSSStyleRule : CSSRule, MSCSSStyleRuleExtensions 
-	{
-	public:
-		void set_selectorText(String* value);
-		String* get_selectorText();
-		void set_style(MSStyleCSSProperties* value);
-		MSStyleCSSProperties* get_style();
-		static void set_prototype(CSSStyleRule* value);
-		static CSSStyleRule* get_prototype();
-		CSSStyleRule();
-	};
-
 	class MSDataBindingRecordSetReadonlyExtensions 
 	{
 	public:
@@ -2572,7 +3372,14 @@ namespace client
 		Object* namedRecordset(const String& dataMember, Object* hierarchy);
 	};
 
-	class HTMLLinkElement : HTMLElement, MSLinkStyleExtensions, LinkStyle 
+	class LinkStyle 
+	{
+	public:
+		void set_sheet(StyleSheet* value);
+		StyleSheet* get_sheet();
+	};
+
+	class HTMLLinkElement : public HTMLElement, LinkStyle 
 	{
 	public:
 		void set_rel(String* value);
@@ -2596,7 +3403,23 @@ namespace client
 		HTMLLinkElement();
 	};
 
-	class SVGViewElement : SVGElement, SVGZoomAndPan, SVGFitToViewBox 
+	class SVGZoomAndPan 
+	{
+	public:
+		void set_zoomAndPan(double value);
+		double get_zoomAndPan();
+		void set_SVG_ZOOMANDPAN_MAGNIFY(double value);
+		double get_SVG_ZOOMANDPAN_MAGNIFY();
+		void set_SVG_ZOOMANDPAN_UNKNOWN(double value);
+		double get_SVG_ZOOMANDPAN_UNKNOWN();
+		void set_SVG_ZOOMANDPAN_DISABLE(double value);
+		double get_SVG_ZOOMANDPAN_DISABLE();
+		static void set_prototype(SVGZoomAndPan* value);
+		static SVGZoomAndPan* get_prototype();
+		SVGZoomAndPan();
+	};
+
+	class SVGViewElement : public SVGElement, SVGZoomAndPan, SVGFitToViewBox 
 	{
 	public:
 		void set_viewTarget(SVGStringList* value);
@@ -2606,7 +3429,7 @@ namespace client
 		SVGViewElement();
 	};
 
-	class MSHTMLAppletElementExtensions : DOML2DeprecatedBorderStyle_HTMLObjectElement 
+	class MSHTMLAppletElementExtensions : public DOML2DeprecatedBorderStyle_HTMLObjectElement 
 	{
 	public:
 		void set_codeType(String* value);
@@ -2633,20 +3456,21 @@ namespace client
 		String* get_BaseHref();
 	};
 
-	class SVGLocatable 
+	class DOML2DeprecatedColorProperty 
 	{
 	public:
-		void set_farthestViewportElement(SVGElement* value);
-		SVGElement* get_farthestViewportElement();
-		void set_nearestViewportElement(SVGElement* value);
-		SVGElement* get_nearestViewportElement();
-		SVGRect* getBBox();
-		SVGMatrix* getTransformToElement(SVGElement* element);
-		SVGMatrix* getCTM();
-		SVGMatrix* getScreenCTM();
+		void set_color(String* value);
+		String* get_color();
 	};
 
-	class HTMLFontElement : HTMLElement, DOML2DeprecatedColorProperty, MSHTMLFontElementExtensions, DOML2DeprecatedSizeProperty 
+	class DOML2DeprecatedSizeProperty 
+	{
+	public:
+		void set_size(double value);
+		double get_size();
+	};
+
+	class HTMLFontElement : public HTMLElement, DOML2DeprecatedColorProperty, DOML2DeprecatedSizeProperty 
 	{
 	public:
 		void set_face(String* value);
@@ -2656,53 +3480,12 @@ namespace client
 		HTMLFontElement();
 	};
 
-	class MSHTMLTableElementExtensions 
-	{
-	public:
-		void set_cells(HTMLCollection* value);
-		HTMLCollection* get_cells();
-		void set_height(Object* value);
-		Object* get_height();
-		void set_cols(double value);
-		double get_cols();
-		Object* moveRow();
-		Object* moveRow(, double indexFrom);
-		Object* moveRow(double indexFrom, double indexTo);
-	};
-
-	class SVGTitleElement : SVGElement, SVGStylable, SVGLangSpace 
+	class SVGTitleElement : public SVGElement, SVGStylable, SVGLangSpace 
 	{
 	public:
 		static void set_prototype(SVGTitleElement* value);
 		static SVGTitleElement* get_prototype();
 		SVGTitleElement();
-	};
-
-	class ControlRangeCollection 
-	{
-	public:
-		Element* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		Object* queryCommandValue(const String& cmdID);
-		void remove(double index);
-		void add(Element* item);
-		bool queryCommandIndeterm(const String& cmdID);
-		void scrollIntoView();
-		void scrollIntoView(Object* varargStart);
-		Element* item(double index);
-		bool execCommand(const String& cmdID);
-		bool execCommand(const String& cmdID, bool showUI);
-		bool execCommand(const String& cmdID, bool showUI, Object* value);
-		void addElement(Element* item);
-		bool queryCommandState(const String& cmdID);
-		bool queryCommandSupported(const String& cmdID);
-		bool queryCommandEnabled(const String& cmdID);
-		String* queryCommandText(const String& cmdID);
-		void select();
-		static void set_prototype(ControlRangeCollection* value);
-		static ControlRangeCollection* get_prototype();
-		ControlRangeCollection();
 	};
 
 	class DOML2DeprecatedAlignmentStyle_HTMLImageElement 
@@ -2732,23 +3515,7 @@ namespace client
 		Object* get_frameSpacing();
 	};
 
-	class MSNamespaceInfo : MSEventAttachmentTarget 
-	{
-	public:
-		void set_urn(String* value);
-		String* get_urn();
-		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
-		void set_onreadystatechange(callback_for_onreadystatechange value);
-		callback_for_onreadystatechange get_onreadystatechange();
-		void set_name(String* value);
-		String* get_name();
-		void set_readyState(String* value);
-		String* get_readyState();
-		void doImport(const String& implementationUrl);
-		static void set_prototype(MSNamespaceInfo* value);
-		static MSNamespaceInfo* get_prototype();
-		MSNamespaceInfo();
-	};
+	class Storage;
 
 	class WindowSessionStorage 
 	{
@@ -2756,6 +3523,8 @@ namespace client
 		void set_sessionStorage(Storage* value);
 		Storage* get_sessionStorage();
 	};
+
+	class SVGTransformList;
 
 	class SVGAnimatedTransformList 
 	{
@@ -2769,7 +3538,14 @@ namespace client
 		SVGAnimatedTransformList();
 	};
 
-	class HTMLTableCaptionElement : HTMLElement, MSHTMLTableCaptionElementExtensions, DOML2DeprecatedAlignmentStyle_HTMLTableCaptionElement 
+	class DOML2DeprecatedAlignmentStyle_HTMLTableCaptionElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class HTMLTableCaptionElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLTableCaptionElement 
 	{
 	public:
 		static void set_prototype(HTMLTableCaptionElement* value);
@@ -2777,7 +3553,7 @@ namespace client
 		HTMLTableCaptionElement();
 	};
 
-	class HTMLOptionElement : HTMLElement, MSDataBindingExtensions 
+	class HTMLOptionElement : public HTMLElement, MSDataBindingExtensions 
 	{
 	public:
 		void set_index(double value);
@@ -2799,7 +3575,7 @@ namespace client
 		HTMLOptionElement();
 	};
 
-	class HTMLMapElement : HTMLElement 
+	class HTMLMapElement : public HTMLElement 
 	{
 	public:
 		void set_name(String* value);
@@ -2811,7 +3587,7 @@ namespace client
 		HTMLMapElement();
 	};
 
-	class HTMLMenuElement : HTMLElement, DOML2DeprecatedListSpaceReduction, MSHTMLMenuElementExtensions 
+	class HTMLMenuElement : public HTMLElement, DOML2DeprecatedListSpaceReduction 
 	{
 	public:
 		void set_type(String* value);
@@ -2821,7 +3597,7 @@ namespace client
 		HTMLMenuElement();
 	};
 
-	class MouseWheelEvent : MouseEvent 
+	class MouseWheelEvent : public MouseEvent 
 	{
 	public:
 		void set_wheelDelta(double value);
@@ -2830,15 +3606,6 @@ namespace client
 		static void set_prototype(MouseWheelEvent* value);
 		static MouseWheelEvent* get_prototype();
 		MouseWheelEvent();
-	};
-
-	class SVGFitToViewBox 
-	{
-	public:
-		void set_viewBox(SVGAnimatedRect* value);
-		SVGAnimatedRect* get_viewBox();
-		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio* value);
-		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
 	};
 
 	class MSHTMLAnchorElementExtensions 
@@ -2873,13 +3640,7 @@ namespace client
 		SVGPointList();
 	};
 
-	class MSElementCSSInlineStyleExtensions 
-	{
-	public:
-		void doScroll();
-		void doScroll(Object* component);
-		String* componentFromPoint(double x, double y);
-	};
+	class SVGLengthList;
 
 	class SVGAnimatedLengthList 
 	{
@@ -2893,12 +3654,74 @@ namespace client
 		SVGAnimatedLengthList();
 	};
 
-	class MSHTMLTableDataCellElementExtensions 
+	class ViewCSS 
 	{
 	public:
+		CSSStyleDeclaration* getComputedStyle(Element* elt);
+		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
 	};
 
-	class Window : ViewCSS, MSEventAttachmentTarget, MSWindowExtensions, WindowPerformance, ScreenView, EventTarget, WindowLocalStorage, WindowSessionStorage, WindowTimers 
+	class WindowPerformance 
+	{
+	public:
+		void set_performance(Object* value);
+		Object* get_performance();
+	};
+
+	class AbstractView 
+	{
+	public:
+		void set_styleMedia(StyleMedia* value);
+		StyleMedia* get_styleMedia();
+		void set_document(Document* value);
+		Document* get_document();
+	};
+
+	class Screen;
+
+	class ScreenView : public AbstractView 
+	{
+	public:
+		void set_outerWidth(double value);
+		double get_outerWidth();
+		void set_pageXOffset(double value);
+		double get_pageXOffset();
+		void set_innerWidth(double value);
+		double get_innerWidth();
+		void set_pageYOffset(double value);
+		double get_pageYOffset();
+		void set_screenY(double value);
+		double get_screenY();
+		void set_outerHeight(double value);
+		double get_outerHeight();
+		void set_screen(Screen* value);
+		Screen* get_screen();
+		void set_innerHeight(double value);
+		double get_innerHeight();
+		void set_screenX(double value);
+		double get_screenX();
+		void scroll();
+		void scroll(double x, double y);
+		void scrollBy();
+		void scrollBy(double x, double y);
+		void scrollTo();
+		void scrollTo(double x, double y);
+	};
+
+	class WindowLocalStorage 
+	{
+	public:
+		void set_localStorage(Storage* value);
+		Storage* get_localStorage();
+	};
+
+	class History;
+	class BeforeUnloadEvent;
+	class StorageEvent;
+	class Location;
+	class MessageEvent;
+
+	class Window : public ViewCSS, WindowPerformance, ScreenView, EventTarget, WindowLocalStorage, WindowSessionStorage, WindowTimers 
 	{
 	public:
 		typedef Object* (*callback_for_ondragend)(DragEvent* ev);
@@ -3112,13 +3935,9 @@ namespace client
 		void focus();
 		void print();
 		String* prompt();
-		String* prompt(, const String& message);
 		String* prompt(const String& message, const String& defaul);
 		String* toString();
 		Window* open();
-		Window* open(, const String& url);
-		Window* open(, const String& url, );
-		Window* open(, const String& url, , const String& target);
 		Window* open(const String& url, const String& target, const String& features, bool replace);
 		void close();
 		bool confirm();
@@ -3126,8 +3945,6 @@ namespace client
 		void postMessage(Object* message, const String& targetOrigin);
 		void postMessage(Object* message, const String& targetOrigin, Object* ports);
 		Object* showModalDialog();
-		Object* showModalDialog(, const String& url);
-		Object* showModalDialog(, const String& url, );
 		Object* showModalDialog(const String& url, Object* argument, Object* options);
 		void blur();
 		Selection* getSelection();
@@ -3135,6 +3952,8 @@ namespace client
 		static Window* get_prototype();
 		Window();
 	};
+
+	class SVGPreserveAspectRatio;
 
 	class SVGAnimatedPreserveAspectRatio 
 	{
@@ -3148,7 +3967,7 @@ namespace client
 		SVGAnimatedPreserveAspectRatio();
 	};
 
-	class MSSiteModeEvent : Event 
+	class MSSiteModeEvent : public Event 
 	{
 	public:
 		void set_buttonID(double value);
@@ -3160,12 +3979,7 @@ namespace client
 		MSSiteModeEvent();
 	};
 
-	class MSCSSStyleRuleExtensions 
-	{
-	public:
-		void set_readOnly(bool value);
-		bool get_readOnly();
-	};
+	class StyleSheetPage;
 
 	class StyleSheetPageList 
 	{
@@ -3179,93 +3993,23 @@ namespace client
 		StyleSheetPageList();
 	};
 
-	class HTMLCollection : MSHTMLCollectionExtensions 
+	class DOML2DeprecatedMarginStyle 
 	{
 	public:
-		Element* operator[](double index);
-		Element* operator[](const String& name);
-		Element* operator()(Object* nameOrIndex, Object* optionalIndex);
-		Element* operator()(const String& name);
-		void set_length(double value);
-		double get_length();
-		Element* item();
-		Element* item(, Object* nameOrIndex);
-		Element* item(Object* nameOrIndex, Object* optionalIndex);
-		Element* namedItem(const String& name);
-		static void set_prototype(HTMLCollection* value);
-		static HTMLCollection* get_prototype();
-		HTMLCollection();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
-	class MSCSSProperties : CSSStyleDeclaration, MSCSSStyleDeclarationExtensions 
+	class DOML2DeprecatedBorderStyle 
 	{
 	public:
-		void set_scrollbarShadowColor(String* value);
-		String* get_scrollbarShadowColor();
-		void set_scrollbarHighlightColor(String* value);
-		String* get_scrollbarHighlightColor();
-		void set_layoutGridChar(String* value);
-		String* get_layoutGridChar();
-		void set_layoutGridType(String* value);
-		String* get_layoutGridType();
-		void set_textAutospace(String* value);
-		String* get_textAutospace();
-		void set_textKashidaSpace(String* value);
-		String* get_textKashidaSpace();
-		void set_writingMode(String* value);
-		String* get_writingMode();
-		void set_scrollbarFaceColor(String* value);
-		String* get_scrollbarFaceColor();
-		void set_backgroundPositionY(String* value);
-		String* get_backgroundPositionY();
-		void set_lineBreak(String* value);
-		String* get_lineBreak();
-		void set_imeMode(String* value);
-		String* get_imeMode();
-		void set_msBlockProgression(String* value);
-		String* get_msBlockProgression();
-		void set_layoutGridLine(String* value);
-		String* get_layoutGridLine();
-		void set_scrollbarBaseColor(String* value);
-		String* get_scrollbarBaseColor();
-		void set_layoutGrid(String* value);
-		String* get_layoutGrid();
-		void set_layoutFlow(String* value);
-		String* get_layoutFlow();
-		void set_textKashida(String* value);
-		String* get_textKashida();
-		void set_filter(String* value);
-		String* get_filter();
-		void set_zoom(String* value);
-		String* get_zoom();
-		void set_scrollbarArrowColor(String* value);
-		String* get_scrollbarArrowColor();
-		void set_behavior(String* value);
-		String* get_behavior();
-		void set_backgroundPositionX(String* value);
-		String* get_backgroundPositionX();
-		void set_accelerator(String* value);
-		String* get_accelerator();
-		void set_layoutGridMode(String* value);
-		String* get_layoutGridMode();
-		void set_textJustifyTrim(String* value);
-		String* get_textJustifyTrim();
-		void set_scrollbar3dLightColor(String* value);
-		String* get_scrollbar3dLightColor();
-		void set_msInterpolationMode(String* value);
-		String* get_msInterpolationMode();
-		void set_scrollbarTrackColor(String* value);
-		String* get_scrollbarTrackColor();
-		void set_scrollbarDarkShadowColor(String* value);
-		String* get_scrollbarDarkShadowColor();
-		void set_styleFloat(String* value);
-		String* get_styleFloat();
-		static void set_prototype(MSCSSProperties* value);
-		static MSCSSProperties* get_prototype();
-		MSCSSProperties();
+		void set_border(String* value);
+		String* get_border();
 	};
 
-	class HTMLImageElement : HTMLElement, DOML2DeprecatedMarginStyle, DOML2DeprecatedBorderStyle, DOML2DeprecatedAlignmentStyle_HTMLImageElement, MSImageResourceExtensions, MSHTMLImageElementExtensions, MSDataBindingExtensions, MSResourceMetadata 
+	class HTMLImageElement : public HTMLElement, DOML2DeprecatedMarginStyle, DOML2DeprecatedBorderStyle, DOML2DeprecatedAlignmentStyle_HTMLImageElement 
 	{
 	public:
 		void set_width(double value);
@@ -3295,7 +4039,7 @@ namespace client
 		HTMLImageElement();
 	};
 
-	class HTMLAreaElement : HTMLElement, MSHTMLAreaElementExtensions 
+	class HTMLAreaElement : public HTMLElement 
 	{
 	public:
 		void set_protocol(String* value);
@@ -3330,16 +4074,6 @@ namespace client
 		HTMLAreaElement();
 	};
 
-	class EventTarget 
-	{
-	public:
-		void removeEventListener(const String& type, EventListener* listener);
-		void removeEventListener(const String& type, EventListener* listener, bool useCapture);
-		void addEventListener(const String& type, EventListener* listener);
-		void addEventListener(const String& type, EventListener* listener, bool useCapture);
-		bool dispatchEvent(Event* evt);
-	};
-
 	class SVGAngle 
 	{
 	public:
@@ -3366,19 +4100,9 @@ namespace client
 		static void set_prototype(SVGAngle* value);
 		static SVGAngle* get_prototype();
 		SVGAngle();
-		static void set_SVG_ANGLETYPE_RAD(double value);
-		static double get_SVG_ANGLETYPE_RAD();
-		static void set_SVG_ANGLETYPE_UNKNOWN(double value);
-		static double get_SVG_ANGLETYPE_UNKNOWN();
-		static void set_SVG_ANGLETYPE_UNSPECIFIED(double value);
-		static double get_SVG_ANGLETYPE_UNSPECIFIED();
-		static void set_SVG_ANGLETYPE_DEG(double value);
-		static double get_SVG_ANGLETYPE_DEG();
-		static void set_SVG_ANGLETYPE_GRAD(double value);
-		static double get_SVG_ANGLETYPE_GRAD();
 	};
 
-	class HTMLButtonElement : HTMLElement, MSHTMLButtonElementExtensions, MSDataBindingExtensions 
+	class HTMLButtonElement : public HTMLElement 
 	{
 	public:
 		void set_value(String* value);
@@ -3394,12 +4118,7 @@ namespace client
 		HTMLButtonElement();
 	};
 
-	class MSHTMLLabelElementExtensions 
-	{
-	public:
-	};
-
-	class HTMLSourceElement : HTMLElement 
+	class HTMLSourceElement : public HTMLElement 
 	{
 	public:
 		void set_src(String* value);
@@ -3422,7 +4141,18 @@ namespace client
 		CanvasGradient();
 	};
 
-	class KeyboardEvent : UIEvent, KeyboardEventExtensions 
+	class KeyboardEventExtensions 
+	{
+	public:
+		void set_keyCode(double value);
+		double get_keyCode();
+		void set_which(double value);
+		double get_which();
+		void set_charCode(double value);
+		double get_charCode();
+	};
+
+	class KeyboardEvent : public UIEvent, KeyboardEventExtensions 
 	{
 	public:
 		void set_location(double value);
@@ -3460,2886 +4190,6 @@ namespace client
 		static void set_prototype(KeyboardEvent* value);
 		static KeyboardEvent* get_prototype();
 		KeyboardEvent();
-		static void set_DOM_KEY_LOCATION_RIGHT(double value);
-		static double get_DOM_KEY_LOCATION_RIGHT();
-		static void set_DOM_KEY_LOCATION_STANDARD(double value);
-		static double get_DOM_KEY_LOCATION_STANDARD();
-		static void set_DOM_KEY_LOCATION_LEFT(double value);
-		static double get_DOM_KEY_LOCATION_LEFT();
-		static void set_DOM_KEY_LOCATION_NUMPAD(double value);
-		static double get_DOM_KEY_LOCATION_NUMPAD();
-		static void set_DOM_KEY_LOCATION_JOYSTICK(double value);
-		static double get_DOM_KEY_LOCATION_JOYSTICK();
-		static void set_DOM_KEY_LOCATION_MOBILE(double value);
-		static double get_DOM_KEY_LOCATION_MOBILE();
-	};
-
-	class Document : Node, DocumentStyle, DocumentRange, HTMLDocument, NodeSelector, DocumentEvent, DocumentTraversal, DocumentView, SVGDocument 
-	{
-	public:
-		void set_doctype(DocumentType* value);
-		DocumentType* get_doctype();
-		void set_xmlVersion(String* value);
-		String* get_xmlVersion();
-		void set_implementation(DOMImplementation* value);
-		DOMImplementation* get_implementation();
-		void set_xmlEncoding(String* value);
-		String* get_xmlEncoding();
-		void set_xmlStandalone(bool value);
-		bool get_xmlStandalone();
-		void set_documentElement(HTMLElement* value);
-		HTMLElement* get_documentElement();
-		void set_inputEncoding(String* value);
-		String* get_inputEncoding();
-		HTMLElement* createElement(const String& tagName);
-		Node* adoptNode(Node* source);
-		Comment* createComment(const String& data);
-		DocumentFragment* createDocumentFragment();
-		NodeList* getElementsByTagName(const String& tagname);
-		NodeList* getElementsByTagNameNS(const String& namespaceURI, const String& localName);
-		ProcessingInstruction* createProcessingInstruction(const String& target, const String& data);
-		Element* createElementNS(const String& namespaceURI, const String& qualifiedName);
-		Attr* createAttribute(const String& name);
-		Text* createTextNode(const String& data);
-		Node* importNode(Node* importedNode, bool deep);
-		CDATASection* createCDATASection(const String& data);
-		Attr* createAttributeNS(const String& namespaceURI, const String& qualifiedName);
-		HTMLElement* getElementById(const String& elementId);
-		static void set_prototype(Document* value);
-		static Document* get_prototype();
-		Document();
-	};
-
-	class MessageEvent : Event 
-	{
-	public:
-		void set_source(Window* value);
-		Window* get_source();
-		void set_origin(String* value);
-		String* get_origin();
-		void set_data(Object* value);
-		Object* get_data();
-		void initMessageEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Object* dataArg, const String& originArg, const String& lastEventIdArg, Window* sourceArg);
-		static void set_prototype(MessageEvent* value);
-		static MessageEvent* get_prototype();
-		MessageEvent();
-	};
-
-	class SVGElement : Element, SVGElementEventHandlers 
-	{
-	public:
-		void set_xmlbase(String* value);
-		String* get_xmlbase();
-		void set_viewportElement(SVGElement* value);
-		SVGElement* get_viewportElement();
-		void set_id(String* value);
-		String* get_id();
-		void set_ownerSVGElement(SVGSVGElement* value);
-		SVGSVGElement* get_ownerSVGElement();
-		static void set_prototype(SVGElement* value);
-		static SVGElement* get_prototype();
-		SVGElement();
-	};
-
-	class HTMLScriptElement : HTMLElement 
-	{
-	public:
-		void set_defer(bool value);
-		bool get_defer();
-		void set_text(String* value);
-		String* get_text();
-		void set_src(String* value);
-		String* get_src();
-		void set_htmlFor(String* value);
-		String* get_htmlFor();
-		void set_charset(String* value);
-		String* get_charset();
-		void set_type(String* value);
-		String* get_type();
-		void set_event(String* value);
-		String* get_event();
-		static void set_prototype(HTMLScriptElement* value);
-		static HTMLScriptElement* get_prototype();
-		HTMLScriptElement();
-	};
-
-	class MSHTMLBodyElementExtensions : DOML2DeprecatedWordWrapSuppression_HTMLBodyElement 
-	{
-	public:
-		void set_scroll(String* value);
-		String* get_scroll();
-		void set_bottomMargin(Object* value);
-		Object* get_bottomMargin();
-		void set_topMargin(Object* value);
-		Object* get_topMargin();
-		void set_rightMargin(Object* value);
-		Object* get_rightMargin();
-		void set_bgProperties(String* value);
-		String* get_bgProperties();
-		void set_leftMargin(Object* value);
-		Object* get_leftMargin();
-		TextRange* createTextRange();
-	};
-
-	class HTMLTableRowElement : HTMLElement, MSBorderColorHighlightStyle_HTMLTableRowElement, HTMLTableAlignment, MSBorderColorStyle_HTMLTableRowElement, DOML2DeprecatedAlignmentStyle_HTMLTableRowElement, DOML2DeprecatedBackgroundColorStyle, MSHTMLTableRowElementExtensions 
-	{
-	public:
-		void set_rowIndex(double value);
-		double get_rowIndex();
-		void set_cells(HTMLCollection* value);
-		HTMLCollection* get_cells();
-		void set_sectionRowIndex(double value);
-		double get_sectionRowIndex();
-		void deleteCell();
-		void deleteCell(double index);
-		HTMLElement* insertCell();
-		HTMLElement* insertCell(double index);
-		static void set_prototype(HTMLTableRowElement* value);
-		static HTMLTableRowElement* get_prototype();
-		HTMLTableRowElement();
-	};
-
-	class MSCommentExtensions 
-	{
-	public:
-		void set_text(String* value);
-		String* get_text();
-	};
-
-	class DOML2DeprecatedMarginStyle_HTMLMarqueeElement 
-	{
-	public:
-		void set_vspace(double value);
-		double get_vspace();
-		void set_hspace(double value);
-		double get_hspace();
-	};
-
-	class MSCSSRuleList 
-	{
-	public:
-		CSSStyleRule* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		CSSStyleRule* item();
-		CSSStyleRule* item(double index);
-		static void set_prototype(MSCSSRuleList* value);
-		static MSCSSRuleList* get_prototype();
-		MSCSSRuleList();
-	};
-
-	class CanvasRenderingContext2D 
-	{
-	public:
-		void set_shadowOffsetX(double value);
-		double get_shadowOffsetX();
-		void set_lineWidth(double value);
-		double get_lineWidth();
-		void set_miterLimit(double value);
-		double get_miterLimit();
-		void set_canvas(HTMLCanvasElement* value);
-		HTMLCanvasElement* get_canvas();
-		void set_strokeStyle(Object* value);
-		Object* get_strokeStyle();
-		void set_font(String* value);
-		String* get_font();
-		void set_globalAlpha(double value);
-		double get_globalAlpha();
-		void set_globalCompositeOperation(String* value);
-		String* get_globalCompositeOperation();
-		void set_shadowOffsetY(double value);
-		double get_shadowOffsetY();
-		void set_fillStyle(Object* value);
-		Object* get_fillStyle();
-		void set_lineCap(String* value);
-		String* get_lineCap();
-		void set_shadowBlur(double value);
-		double get_shadowBlur();
-		void set_textAlign(String* value);
-		String* get_textAlign();
-		void set_textBaseline(String* value);
-		String* get_textBaseline();
-		void set_shadowColor(String* value);
-		String* get_shadowColor();
-		void set_lineJoin(String* value);
-		String* get_lineJoin();
-		void restore();
-		void setTransform(double m11, double m12, double m21, double m22, double dx, double dy);
-		void save();
-		void arc(double x, double y, double radius, double startAngle, double endAngle);
-		void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise);
-		TextMetrics* measureText(const String& text);
-		bool isPointInPath(double x, double y);
-		void quadraticCurveTo(double cpx, double cpy, double x, double y);
-		void putImageData(ImageData* imagedata, double dx, double dy);
-		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX);
-		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, );
-		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, , double dirtyY);
-		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight);
-		void rotate(double angle);
-		void fillText(const String& text, double x, double y);
-		void fillText(const String& text, double x, double y, double maxWidth);
-		void translate(double x, double y);
-		void scale(double x, double y);
-		CanvasGradient* createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1);
-		void lineTo(double x, double y);
-		void fill();
-		CanvasPattern* createPattern(HTMLElement* image, const String& repetition);
-		void closePath();
-		void rect(double x, double y, double w, double h);
-		void clip();
-		ImageData* createImageData(Object* imageDataOrSw);
-		ImageData* createImageData(Object* imageDataOrSw, double sh);
-		void clearRect(double x, double y, double w, double h);
-		void moveTo(double x, double y);
-		ImageData* getImageData(double sx, double sy, double sw, double sh);
-		void fillRect(double x, double y, double w, double h);
-		void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double x, double y);
-		void drawImage(HTMLElement* image, double offsetX, double offsetY);
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width);
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, );
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height);
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height, );
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height, , double canvasOffsetX);
-		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, double height, double canvasOffsetX, double canvasOffsetY, double canvasImageWidth, double canvasImageHeight);
-		void transform(double m11, double m12, double m21, double m22, double dx, double dy);
-		void stroke();
-		void strokeRect(double x, double y, double w, double h);
-		void strokeText(const String& text, double x, double y);
-		void strokeText(const String& text, double x, double y, double maxWidth);
-		void beginPath();
-		void arcTo(double x1, double y1, double x2, double y2, double radius);
-		CanvasGradient* createLinearGradient(double x0, double y0, double x1, double y1);
-		static void set_prototype(CanvasRenderingContext2D* value);
-		static CanvasRenderingContext2D* get_prototype();
-		CanvasRenderingContext2D();
-	};
-
-	class SVGPathSegLinetoHorizontalAbs : SVGPathSeg 
-	{
-	public:
-		void set_x(double value);
-		double get_x();
-		static void set_prototype(SVGPathSegLinetoHorizontalAbs* value);
-		static SVGPathSegLinetoHorizontalAbs* get_prototype();
-		SVGPathSegLinetoHorizontalAbs();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLObjectElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class DOML2DeprecatedBorderStyle_MSHTMLIFrameElementExtensions 
-	{
-	public:
-		void set_border(String* value);
-		String* get_border();
-	};
-
-	class MSHTMLElementRangeExtensions 
-	{
-	public:
-		ControlRangeCollection* createControlRange();
-	};
-
-	class SVGPathSegArcAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_sweepFlag(bool value);
-		bool get_sweepFlag();
-		void set_r2(double value);
-		double get_r2();
-		void set_x(double value);
-		double get_x();
-		void set_angle(double value);
-		double get_angle();
-		void set_r1(double value);
-		double get_r1();
-		void set_largeArcFlag(bool value);
-		bool get_largeArcFlag();
-		static void set_prototype(SVGPathSegArcAbs* value);
-		static SVGPathSegArcAbs* get_prototype();
-		SVGPathSegArcAbs();
-	};
-
-	class MSScreenExtensions 
-	{
-	public:
-		void set_deviceXDPI(double value);
-		double get_deviceXDPI();
-		void set_fontSmoothingEnabled(bool value);
-		bool get_fontSmoothingEnabled();
-		void set_bufferDepth(double value);
-		double get_bufferDepth();
-		void set_logicalXDPI(double value);
-		double get_logicalXDPI();
-		void set_systemXDPI(double value);
-		double get_systemXDPI();
-		void set_logicalYDPI(double value);
-		double get_logicalYDPI();
-		void set_systemYDPI(double value);
-		double get_systemYDPI();
-		void set_updateInterval(double value);
-		double get_updateInterval();
-		void set_deviceYDPI(double value);
-		double get_deviceYDPI();
-	};
-
-	class HTMLHtmlElement : HTMLElement, HTMLHtmlElementDOML2Deprecated 
-	{
-	public:
-		static void set_prototype(HTMLHtmlElement* value);
-		static HTMLHtmlElement* get_prototype();
-		HTMLHtmlElement();
-	};
-
-	class MSBorderColorStyle 
-	{
-	public:
-		void set_borderColor(Object* value);
-		Object* get_borderColor();
-	};
-
-	class SVGTransformList 
-	{
-	public:
-		void set_numberOfItems(double value);
-		double get_numberOfItems();
-		SVGTransform* getItem(double index);
-		SVGTransform* consolidate();
-		void clear();
-		SVGTransform* appendItem(SVGTransform* newItem);
-		SVGTransform* initialize(SVGTransform* newItem);
-		SVGTransform* removeItem(double index);
-		SVGTransform* insertItemBefore(SVGTransform* newItem, double index);
-		SVGTransform* replaceItem(SVGTransform* newItem, double index);
-		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
-		static void set_prototype(SVGTransformList* value);
-		static SVGTransformList* get_prototype();
-		SVGTransformList();
-	};
-
-	class SVGPathSegClosePath : SVGPathSeg 
-	{
-	public:
-		static void set_prototype(SVGPathSegClosePath* value);
-		static SVGPathSegClosePath* get_prototype();
-		SVGPathSegClosePath();
-	};
-
-	class DOML2DeprecatedMarginStyle_MSHTMLIFrameElementExtensions 
-	{
-	public:
-		void set_vspace(double value);
-		double get_vspace();
-		void set_hspace(double value);
-		double get_hspace();
-	};
-
-	class HTMLFrameElement : HTMLElement, GetSVGDocument, MSHTMLFrameElementExtensions, MSDataBindingExtensions, MSBorderColorStyle_HTMLFrameElement 
-	{
-	public:
-		void set_scrolling(String* value);
-		String* get_scrolling();
-		void set_marginHeight(String* value);
-		String* get_marginHeight();
-		void set_src(String* value);
-		String* get_src();
-		void set_name(String* value);
-		String* get_name();
-		void set_marginWidth(String* value);
-		String* get_marginWidth();
-		void set_contentDocument(Document* value);
-		Document* get_contentDocument();
-		void set_longDesc(String* value);
-		String* get_longDesc();
-		void set_noResize(bool value);
-		bool get_noResize();
-		static void set_prototype(HTMLFrameElement* value);
-		static HTMLFrameElement* get_prototype();
-		HTMLFrameElement();
-	};
-
-	class SVGAnimatedLength 
-	{
-	public:
-		void set_animVal(SVGLength* value);
-		SVGLength* get_animVal();
-		void set_baseVal(SVGLength* value);
-		SVGLength* get_baseVal();
-		static void set_prototype(SVGAnimatedLength* value);
-		static SVGAnimatedLength* get_prototype();
-		SVGAnimatedLength();
-	};
-
-	class CSSMediaRule : CSSRule 
-	{
-	public:
-		void set_media(MediaList* value);
-		MediaList* get_media();
-		void set_cssRules(CSSRuleList* value);
-		CSSRuleList* get_cssRules();
-		double insertRule(const String& rule);
-		double insertRule(const String& rule, double index);
-		void deleteRule();
-		void deleteRule(double index);
-		static void set_prototype(CSSMediaRule* value);
-		static CSSMediaRule* get_prototype();
-		CSSMediaRule();
-	};
-
-	class HTMLQuoteElement : HTMLElement, MSHTMLQuoteElementExtensions 
-	{
-	public:
-		void set_cite(String* value);
-		String* get_cite();
-		static void set_prototype(HTMLQuoteElement* value);
-		static HTMLQuoteElement* get_prototype();
-		HTMLQuoteElement();
-	};
-
-	class SVGDefsElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
-	{
-	public:
-		static void set_prototype(SVGDefsElement* value);
-		static SVGDefsElement* get_prototype();
-		SVGDefsElement();
-	};
-
-	class SVGAnimatedPoints 
-	{
-	public:
-		void set_points(SVGPointList* value);
-		SVGPointList* get_points();
-		void set_animatedPoints(SVGPointList* value);
-		SVGPointList* get_animatedPoints();
-	};
-
-	class WindowModal 
-	{
-	public:
-		void set_dialogArguments(Object* value);
-		Object* get_dialogArguments();
-		void set_returnValue(Object* value);
-		Object* get_returnValue();
-	};
-
-	class MSHTMLButtonElementExtensions 
-	{
-	public:
-		void set_status(Object* value);
-		Object* get_status();
-		TextRange* createTextRange();
-	};
-
-	class XMLHttpRequest : EventTarget, MSXMLHttpRequestExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
-		void set_onreadystatechange(callback_for_onreadystatechange value);
-		callback_for_onreadystatechange get_onreadystatechange();
-		void set_status(double value);
-		double get_status();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		void set_readyState(double value);
-		double get_readyState();
-		void set_responseText(String* value);
-		String* get_responseText();
-		void set_responseXML(Document* value);
-		Document* get_responseXML();
-		void set_statusText(String* value);
-		String* get_statusText();
-		void open(const String& method, const String& url);
-		void open(const String& method, const String& url, bool async);
-		void open(const String& method, const String& url, bool async, );
-		void open(const String& method, const String& url, bool async, const String& user, const String& password);
-		void send();
-		void send(Object* data);
-		void abort();
-		String* getAllResponseHeaders();
-		void setRequestHeader(const String& header, const String& value);
-		String* getResponseHeader(const String& header);
-		void set_LOADING(double value);
-		double get_LOADING();
-		void set_DONE(double value);
-		double get_DONE();
-		void set_UNSENT(double value);
-		double get_UNSENT();
-		void set_OPENED(double value);
-		double get_OPENED();
-		void set_HEADERS_RECEIVED(double value);
-		double get_HEADERS_RECEIVED();
-		static void set_prototype(XMLHttpRequest* value);
-		static XMLHttpRequest* get_prototype();
-		XMLHttpRequest();
-		static void set_LOADING(double value);
-		static double get_LOADING();
-		static void set_DONE(double value);
-		static double get_DONE();
-		static void set_UNSENT(double value);
-		static double get_UNSENT();
-		static void set_OPENED(double value);
-		static double get_OPENED();
-		static void set_HEADERS_RECEIVED(double value);
-		static double get_HEADERS_RECEIVED();
-	};
-
-	class HTMLTableHeaderCellElement : HTMLTableCellElement, HTMLTableHeaderCellScope 
-	{
-	public:
-		static void set_prototype(HTMLTableHeaderCellElement* value);
-		static HTMLTableHeaderCellElement* get_prototype();
-		HTMLTableHeaderCellElement();
-	};
-
-	class HTMLDListElement : HTMLElement, DOML2DeprecatedListSpaceReduction, MSHTMLDListElementExtensions 
-	{
-	public:
-		static void set_prototype(HTMLDListElement* value);
-		static HTMLDListElement* get_prototype();
-		HTMLDListElement();
-	};
-
-	class MSDataBindingExtensions 
-	{
-	public:
-		void set_dataSrc(String* value);
-		String* get_dataSrc();
-		void set_dataFormatAs(String* value);
-		String* get_dataFormatAs();
-		void set_dataFld(String* value);
-		String* get_dataFld();
-	};
-
-	class SVGEllipseElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
-	{
-	public:
-		void set_ry(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_ry();
-		void set_cx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cx();
-		void set_rx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_rx();
-		void set_cy(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cy();
-		static void set_prototype(SVGEllipseElement* value);
-		static SVGEllipseElement* get_prototype();
-		SVGEllipseElement();
-	};
-
-	class SVGPathSegLinetoHorizontalRel : SVGPathSeg 
-	{
-	public:
-		void set_x(double value);
-		double get_x();
-		static void set_prototype(SVGPathSegLinetoHorizontalRel* value);
-		static SVGPathSegLinetoHorizontalRel* get_prototype();
-		SVGPathSegLinetoHorizontalRel();
-	};
-
-	class SVGAElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
-	{
-	public:
-		void set_target(SVGAnimatedString* value);
-		SVGAnimatedString* get_target();
-		static void set_prototype(SVGAElement* value);
-		static SVGAElement* get_prototype();
-		SVGAElement();
-	};
-
-	class MSHTMLMetaElementExtensions 
-	{
-	public:
-		void set_url(String* value);
-		String* get_url();
-		void set_charset(String* value);
-		String* get_charset();
-	};
-
-	class SVGStylable 
-	{
-	public:
-		void set_className(SVGAnimatedString* value);
-		SVGAnimatedString* get_className();
-		void set_style(CSSStyleDeclaration* value);
-		CSSStyleDeclaration* get_style();
-	};
-
-	class MSHTMLTableCellElementExtensions 
-	{
-	public:
-	};
-
-	class HTMLFrameSetElement : HTMLElement, MSHTMLFrameSetElementExtensions, MSBorderColorStyle_HTMLFrameSetElement 
-	{
-	public:
-		typedef Object* (*callback_for_onresize)(UIEvent* ev);
-		void set_onresize(callback_for_onresize value);
-		callback_for_onresize get_onresize();
-		typedef Object* (*callback_for_ononline)(Event* ev);
-		void set_ononline(callback_for_ononline value);
-		callback_for_ononline get_ononline();
-		typedef Object* (*callback_for_onafterprint)(Event* ev);
-		void set_onafterprint(callback_for_onafterprint value);
-		callback_for_onafterprint get_onafterprint();
-		typedef Object* (*callback_for_onbeforeprint)(Event* ev);
-		void set_onbeforeprint(callback_for_onbeforeprint value);
-		callback_for_onbeforeprint get_onbeforeprint();
-		typedef Object* (*callback_for_onoffline)(Event* ev);
-		void set_onoffline(callback_for_onoffline value);
-		callback_for_onoffline get_onoffline();
-		void set_rows(String* value);
-		String* get_rows();
-		void set_cols(String* value);
-		String* get_cols();
-		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
-		void set_onblur(callback_for_onblur value);
-		callback_for_onblur get_onblur();
-		typedef Object* (*callback_for_onunload)(Event* ev);
-		void set_onunload(callback_for_onunload value);
-		callback_for_onunload get_onunload();
-		typedef Object* (*callback_for_onhashchange)(Event* ev);
-		void set_onhashchange(callback_for_onhashchange value);
-		callback_for_onhashchange get_onhashchange();
-		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
-		void set_onfocus(callback_for_onfocus value);
-		callback_for_onfocus get_onfocus();
-		typedef Object* (*callback_for_onmessage)(MessageEvent* ev);
-		void set_onmessage(callback_for_onmessage value);
-		callback_for_onmessage get_onmessage();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		typedef Object* (*callback_for_onerror)(Event* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onbeforeunload)(BeforeUnloadEvent* ev);
-		void set_onbeforeunload(callback_for_onbeforeunload value);
-		callback_for_onbeforeunload get_onbeforeunload();
-		typedef Object* (*callback_for_onstorage)(StorageEvent* ev);
-		void set_onstorage(callback_for_onstorage value);
-		callback_for_onstorage get_onstorage();
-		static void set_prototype(HTMLFrameSetElement* value);
-		static HTMLFrameSetElement* get_prototype();
-		HTMLFrameSetElement();
-	};
-
-	class SVGTransformable : SVGLocatable 
-	{
-	public:
-		void set_transform(SVGAnimatedTransformList* value);
-		SVGAnimatedTransformList* get_transform();
-	};
-
-	class Screen : MSScreenExtensions 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-		void set_colorDepth(double value);
-		double get_colorDepth();
-		void set_availWidth(double value);
-		double get_availWidth();
-		void set_pixelDepth(double value);
-		double get_pixelDepth();
-		void set_availHeight(double value);
-		double get_availHeight();
-		void set_height(double value);
-		double get_height();
-		static void set_prototype(Screen* value);
-		static Screen* get_prototype();
-		Screen();
-	};
-
-	class NavigatorGeolocation 
-	{
-	public:
-		void set_geolocation(Geolocation* value);
-		Geolocation* get_geolocation();
-	};
-
-	class Coordinates 
-	{
-	public:
-		void set_altitudeAccuracy(double value);
-		double get_altitudeAccuracy();
-		void set_longitude(double value);
-		double get_longitude();
-		void set_latitude(double value);
-		double get_latitude();
-		void set_speed(double value);
-		double get_speed();
-		void set_heading(double value);
-		double get_heading();
-		void set_altitude(double value);
-		double get_altitude();
-		void set_accuracy(double value);
-		double get_accuracy();
-		static void set_prototype(Coordinates* value);
-		static Coordinates* get_prototype();
-		Coordinates();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLTableColElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class EventListener 
-	{
-	public:
-		void operator()(Event* evt);
-	};
-
-	class SVGLangSpace 
-	{
-	public:
-		void set_xmllang(String* value);
-		String* get_xmllang();
-		void set_xmlspace(String* value);
-		String* get_xmlspace();
-	};
-
-	class DataTransfer 
-	{
-	public:
-		void set_effectAllowed(String* value);
-		String* get_effectAllowed();
-		void set_dropEffect(String* value);
-		String* get_dropEffect();
-		bool clearData();
-		bool clearData(const String& format);
-		bool setData(const String& format, const String& data);
-		String* getData(const String& format);
-		static void set_prototype(DataTransfer* value);
-		static DataTransfer* get_prototype();
-		DataTransfer();
-	};
-
-	class FocusEvent : UIEvent 
-	{
-	public:
-		void set_relatedTarget(EventTarget* value);
-		EventTarget* get_relatedTarget();
-		void initFocusEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, EventTarget* relatedTargetArg);
-		static void set_prototype(FocusEvent* value);
-		static FocusEvent* get_prototype();
-		FocusEvent();
-	};
-
-	class Range 
-	{
-	public:
-		void set_startOffset(double value);
-		double get_startOffset();
-		void set_collapsed(bool value);
-		bool get_collapsed();
-		void set_endOffset(double value);
-		double get_endOffset();
-		void set_startContainer(Node* value);
-		Node* get_startContainer();
-		void set_endContainer(Node* value);
-		Node* get_endContainer();
-		void set_commonAncestorContainer(Node* value);
-		Node* get_commonAncestorContainer();
-		void setStart(Node* refNode, double offset);
-		void setEndBefore(Node* refNode);
-		void setStartBefore(Node* refNode);
-		void selectNode(Node* refNode);
-		void detach();
-		ClientRect* getBoundingClientRect();
-		String* toString();
-		double compareBoundaryPoints(double how, Range* sourceRange);
-		void insertNode(Node* newNode);
-		void collapse(bool toStart);
-		void selectNodeContents(Node* refNode);
-		DocumentFragment* cloneContents();
-		void setEnd(Node* refNode, double offset);
-		Range* cloneRange();
-		ClientRectList* getClientRects();
-		void surroundContents(Node* newParent);
-		void deleteContents();
-		void setStartAfter(Node* refNode);
-		DocumentFragment* extractContents();
-		void setEndAfter(Node* refNode);
-		void set_END_TO_END(double value);
-		double get_END_TO_END();
-		void set_START_TO_START(double value);
-		double get_START_TO_START();
-		void set_START_TO_END(double value);
-		double get_START_TO_END();
-		void set_END_TO_START(double value);
-		double get_END_TO_START();
-		static void set_prototype(Range* value);
-		static Range* get_prototype();
-		Range();
-		static void set_END_TO_END(double value);
-		static double get_END_TO_END();
-		static void set_START_TO_START(double value);
-		static double get_START_TO_START();
-		static void set_START_TO_END(double value);
-		static double get_START_TO_END();
-		static void set_END_TO_START(double value);
-		static double get_END_TO_START();
-	};
-
-	class MSHTMLPreElementExtensions : DOML2DeprecatedTextFlowControl_HTMLBlockElement 
-	{
-	public:
-		void set_cite(String* value);
-		String* get_cite();
-	};
-
-	class SVGPoint 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_x(double value);
-		double get_x();
-		SVGPoint* matrixTransform(SVGMatrix* matrix);
-		static void set_prototype(SVGPoint* value);
-		static SVGPoint* get_prototype();
-		SVGPoint();
-	};
-
-	class MSPluginsCollection 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		void refresh();
-		void refresh(bool reload);
-		static void set_prototype(MSPluginsCollection* value);
-		static MSPluginsCollection* get_prototype();
-		MSPluginsCollection();
-	};
-
-	class MSHTMLFontElementExtensions 
-	{
-	public:
-	};
-
-	class SVGAnimatedNumberList 
-	{
-	public:
-		void set_animVal(SVGNumberList* value);
-		SVGNumberList* get_animVal();
-		void set_baseVal(SVGNumberList* value);
-		SVGNumberList* get_baseVal();
-		static void set_prototype(SVGAnimatedNumberList* value);
-		static SVGAnimatedNumberList* get_prototype();
-		SVGAnimatedNumberList();
-	};
-
-	class SVGSVGElement : SVGElement, SVGZoomAndPan, SVGLangSpace, SVGLocatable, SVGTests, SVGFitToViewBox, SVGSVGElementEventHandlers, SVGStylable, DocumentEvent, ViewCSS_SVGSVGElement 
-	{
-	public:
-		void set_width(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_width();
-		void set_x(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x();
-		void set_contentStyleType(String* value);
-		String* get_contentStyleType();
-		void set_screenPixelToMillimeterY(double value);
-		double get_screenPixelToMillimeterY();
-		void set_height(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_height();
-		void set_contentScriptType(String* value);
-		String* get_contentScriptType();
-		void set_pixelUnitToMillimeterX(double value);
-		double get_pixelUnitToMillimeterX();
-		void set_currentTranslate(SVGPoint* value);
-		SVGPoint* get_currentTranslate();
-		void set_y(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y();
-		void set_viewport(SVGRect* value);
-		SVGRect* get_viewport();
-		void set_currentScale(double value);
-		double get_currentScale();
-		void set_screenPixelToMillimeterX(double value);
-		double get_screenPixelToMillimeterX();
-		void set_pixelUnitToMillimeterY(double value);
-		double get_pixelUnitToMillimeterY();
-		void setCurrentTime(double seconds);
-		SVGLength* createSVGLength();
-		NodeList* getIntersectionList(SVGRect* rect, SVGElement* referenceElement);
-		void unpauseAnimations();
-		SVGRect* createSVGRect();
-		bool checkIntersection(SVGElement* element, SVGRect* rect);
-		void unsuspendRedrawAll();
-		void pauseAnimations();
-		double suspendRedraw(double maxWaitMilliseconds);
-		void deselectAll();
-		SVGAngle* createSVGAngle();
-		NodeList* getEnclosureList(SVGRect* rect, SVGElement* referenceElement);
-		SVGTransform* createSVGTransform();
-		void unsuspendRedraw(double suspendHandleID);
-		void forceRedraw();
-		double getCurrentTime();
-		bool checkEnclosure(SVGElement* element, SVGRect* rect);
-		SVGMatrix* createSVGMatrix();
-		SVGPoint* createSVGPoint();
-		SVGNumber* createSVGNumber();
-		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
-		Element* getElementById(const String& elementId);
-		static void set_prototype(SVGSVGElement* value);
-		static SVGSVGElement* get_prototype();
-		SVGSVGElement();
-	};
-
-	class HTMLLabelElement : HTMLElement, MSDataBindingExtensions, MSHTMLLabelElementExtensions 
-	{
-	public:
-		void set_htmlFor(String* value);
-		String* get_htmlFor();
-		void set_form(HTMLFormElement* value);
-		HTMLFormElement* get_form();
-		static void set_prototype(HTMLLabelElement* value);
-		static HTMLLabelElement* get_prototype();
-		HTMLLabelElement();
-	};
-
-	class MSResourceMetadata 
-	{
-	public:
-		void set_protocol(String* value);
-		String* get_protocol();
-		void set_fileSize(String* value);
-		String* get_fileSize();
-		void set_fileUpdatedDate(String* value);
-		String* get_fileUpdatedDate();
-		void set_nameProp(String* value);
-		String* get_nameProp();
-		void set_fileCreatedDate(String* value);
-		String* get_fileCreatedDate();
-		void set_fileModifiedDate(String* value);
-		String* get_fileModifiedDate();
-		void set_mimeType(String* value);
-		String* get_mimeType();
-	};
-
-	class MSHTMLQuoteElementExtensions 
-	{
-	public:
-		void set_dateTime(String* value);
-		String* get_dateTime();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class HTMLLegendElement : HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLLegendElement, MSDataBindingExtensions, MSHTMLLegendElementExtensions 
-	{
-	public:
-		void set_form(HTMLFormElement* value);
-		HTMLFormElement* get_form();
-		static void set_prototype(HTMLLegendElement* value);
-		static HTMLLegendElement* get_prototype();
-		HTMLLegendElement();
-	};
-
-	class HTMLDirectoryElement : HTMLElement, DOML2DeprecatedListSpaceReduction, MSHTMLDirectoryElementExtensions 
-	{
-	public:
-		static void set_prototype(HTMLDirectoryElement* value);
-		static HTMLDirectoryElement* get_prototype();
-		HTMLDirectoryElement();
-	};
-
-	class NavigatorAbilities 
-	{
-	public:
-	};
-
-	class MSHTMLImageElementExtensions 
-	{
-	public:
-		void set_href(String* value);
-		String* get_href();
-	};
-
-	class SVGAnimatedInteger 
-	{
-	public:
-		void set_animVal(double value);
-		double get_animVal();
-		void set_baseVal(double value);
-		double get_baseVal();
-		static void set_prototype(SVGAnimatedInteger* value);
-		static SVGAnimatedInteger* get_prototype();
-		SVGAnimatedInteger();
-	};
-
-	class SVGTextElement : SVGTextPositioningElement, SVGTransformable 
-	{
-	public:
-		static void set_prototype(SVGTextElement* value);
-		static SVGTextElement* get_prototype();
-		SVGTextElement();
-	};
-
-	class SVGTSpanElement : SVGTextPositioningElement 
-	{
-	public:
-		static void set_prototype(SVGTSpanElement* value);
-		static SVGTSpanElement* get_prototype();
-		SVGTSpanElement();
-	};
-
-	class HTMLLIElement : HTMLElement, DOML2DeprecatedListNumberingAndBulletStyle, MSHTMLLIElementExtensions 
-	{
-	public:
-		void set_value(double value);
-		double get_value();
-		static void set_prototype(HTMLLIElement* value);
-		static HTMLLIElement* get_prototype();
-		HTMLLIElement();
-	};
-
-	class SVGPathSegLinetoVerticalAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		static void set_prototype(SVGPathSegLinetoVerticalAbs* value);
-		static SVGPathSegLinetoVerticalAbs* get_prototype();
-		SVGPathSegLinetoVerticalAbs();
-	};
-
-	class ViewCSS 
-	{
-	public:
-		CSSStyleDeclaration* getComputedStyle(Element* elt);
-		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
-	};
-
-	class MSAttrExtensions 
-	{
-	public:
-		void set_expando(bool value);
-		bool get_expando();
-	};
-
-	class MSStorageExtensions 
-	{
-	public:
-		void set_remainingSpace(double value);
-		double get_remainingSpace();
-	};
-
-	class SVGStyleElement : SVGElement, SVGLangSpace 
-	{
-	public:
-		void set_media(String* value);
-		String* get_media();
-		void set_type(String* value);
-		String* get_type();
-		void set_title(String* value);
-		String* get_title();
-		static void set_prototype(SVGStyleElement* value);
-		static SVGStyleElement* get_prototype();
-		SVGStyleElement();
-	};
-
-	class MSCurrentStyleCSSProperties : MSCSSProperties 
-	{
-	public:
-		void set_blockDirection(String* value);
-		String* get_blockDirection();
-		void set_clipBottom(String* value);
-		String* get_clipBottom();
-		void set_clipLeft(String* value);
-		String* get_clipLeft();
-		void set_clipRight(String* value);
-		String* get_clipRight();
-		void set_clipTop(String* value);
-		String* get_clipTop();
-		void set_hasLayout(String* value);
-		String* get_hasLayout();
-		static void set_prototype(MSCurrentStyleCSSProperties* value);
-		static MSCurrentStyleCSSProperties* get_prototype();
-		MSCurrentStyleCSSProperties();
-	};
-
-	class MSLinkStyleExtensions 
-	{
-	public:
-		void set_styleSheet(StyleSheet* value);
-		StyleSheet* get_styleSheet();
-	};
-
-	class MSHTMLCollectionExtensions 
-	{
-	public:
-		Object* urns(Object* urn);
-		Object* tags(Object* tagName);
-	};
-
-	class DOML2DeprecatedWordWrapSuppression_HTMLDivElement 
-	{
-	public:
-		void set_noWrap(bool value);
-		bool get_noWrap();
-	};
-
-	class DocumentTraversal 
-	{
-	public:
-		NodeIterator* createNodeIterator(Node* root, double whatToShow, NodeFilterCallback* filter, bool entityReferenceExpansion);
-		TreeWalker* createTreeWalker(Node* root, double whatToShow, NodeFilterCallback* filter, bool entityReferenceExpansion);
-	};
-
-	class Storage : MSStorageExtensions 
-	{
-	public:
-		Object* operator[](const String& key);
-		Object* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		Object* getItem(const String& key);
-		void setItem(const String& key, const String& data);
-		void clear();
-		void removeItem(const String& key);
-		String* key(double index);
-		static void set_prototype(Storage* value);
-		static Storage* get_prototype();
-		Storage();
-	};
-
-	class HTMLTableHeaderCellScope 
-	{
-	public:
-		void set_scope(String* value);
-		String* get_scope();
-	};
-
-	class HTMLIFrameElement : HTMLElement, GetSVGDocument, MSHTMLIFrameElementExtensions, MSDataBindingExtensions, DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
-	{
-	public:
-		void set_width(String* value);
-		String* get_width();
-		void set_contentWindow(Window* value);
-		Window* get_contentWindow();
-		void set_scrolling(String* value);
-		String* get_scrolling();
-		void set_src(String* value);
-		String* get_src();
-		void set_marginHeight(String* value);
-		String* get_marginHeight();
-		void set_name(String* value);
-		String* get_name();
-		void set_marginWidth(String* value);
-		String* get_marginWidth();
-		void set_height(String* value);
-		String* get_height();
-		void set_contentDocument(Document* value);
-		Document* get_contentDocument();
-		void set_longDesc(String* value);
-		String* get_longDesc();
-		void set_frameBorder(String* value);
-		String* get_frameBorder();
-		static void set_prototype(HTMLIFrameElement* value);
-		static HTMLIFrameElement* get_prototype();
-		HTMLIFrameElement();
-	};
-
-	class MSNavigatorAbilities 
-	{
-	public:
-		void set_userLanguage(String* value);
-		String* get_userLanguage();
-		void set_plugins(MSPluginsCollection* value);
-		MSPluginsCollection* get_plugins();
-		void set_cookieEnabled(bool value);
-		bool get_cookieEnabled();
-		void set_appCodeName(String* value);
-		String* get_appCodeName();
-		void set_cpuClass(String* value);
-		String* get_cpuClass();
-		void set_appMinorVersion(String* value);
-		String* get_appMinorVersion();
-		void set_connectionSpeed(double value);
-		double get_connectionSpeed();
-		void set_browserLanguage(String* value);
-		String* get_browserLanguage();
-		void set_mimeTypes(MSMimeTypesCollection* value);
-		MSMimeTypesCollection* get_mimeTypes();
-		void set_product(String* value);
-		String* get_product();
-		void set_systemLanguage(String* value);
-		String* get_systemLanguage();
-		bool javaEnabled();
-		bool taintEnabled();
-	};
-
-	class TextRangeCollection 
-	{
-	public:
-		TextRange* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		TextRange* item(double index);
-		static void set_prototype(TextRangeCollection* value);
-		static TextRangeCollection* get_prototype();
-		TextRangeCollection();
-	};
-
-	class HTMLBodyElement : HTMLElement, HTMLBodyElementDOML2Deprecated, MSHTMLBodyElementExtensions, DOML2DeprecatedBackgroundStyle, DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		typedef Object* (*callback_for_onresize)(UIEvent* ev);
-		void set_onresize(callback_for_onresize value);
-		callback_for_onresize get_onresize();
-		typedef Object* (*callback_for_ononline)(Event* ev);
-		void set_ononline(callback_for_ononline value);
-		callback_for_ononline get_ononline();
-		typedef Object* (*callback_for_onafterprint)(Event* ev);
-		void set_onafterprint(callback_for_onafterprint value);
-		callback_for_onafterprint get_onafterprint();
-		typedef Object* (*callback_for_onbeforeprint)(Event* ev);
-		void set_onbeforeprint(callback_for_onbeforeprint value);
-		callback_for_onbeforeprint get_onbeforeprint();
-		typedef Object* (*callback_for_onoffline)(Event* ev);
-		void set_onoffline(callback_for_onoffline value);
-		callback_for_onoffline get_onoffline();
-		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
-		void set_onblur(callback_for_onblur value);
-		callback_for_onblur get_onblur();
-		typedef Object* (*callback_for_onhashchange)(Event* ev);
-		void set_onhashchange(callback_for_onhashchange value);
-		callback_for_onhashchange get_onhashchange();
-		typedef Object* (*callback_for_onunload)(Event* ev);
-		void set_onunload(callback_for_onunload value);
-		callback_for_onunload get_onunload();
-		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
-		void set_onfocus(callback_for_onfocus value);
-		callback_for_onfocus get_onfocus();
-		typedef Object* (*callback_for_onmessage)(MessageEvent* ev);
-		void set_onmessage(callback_for_onmessage value);
-		callback_for_onmessage get_onmessage();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		typedef Object* (*callback_for_onerror)(Event* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onbeforeunload)(BeforeUnloadEvent* ev);
-		void set_onbeforeunload(callback_for_onbeforeunload value);
-		callback_for_onbeforeunload get_onbeforeunload();
-		typedef Object* (*callback_for_onstorage)(StorageEvent* ev);
-		void set_onstorage(callback_for_onstorage value);
-		callback_for_onstorage get_onstorage();
-		static void set_prototype(HTMLBodyElement* value);
-		static HTMLBodyElement* get_prototype();
-		HTMLBodyElement();
-	};
-
-	class DocumentType : Node 
-	{
-	public:
-		void set_name(String* value);
-		String* get_name();
-		void set_notations(NamedNodeMap* value);
-		NamedNodeMap* get_notations();
-		void set_systemId(String* value);
-		String* get_systemId();
-		void set_internalSubset(String* value);
-		String* get_internalSubset();
-		void set_entities(NamedNodeMap* value);
-		NamedNodeMap* get_entities();
-		void set_publicId(String* value);
-		String* get_publicId();
-		static void set_prototype(DocumentType* value);
-		static DocumentType* get_prototype();
-		DocumentType();
-	};
-
-	class MSHTMLInputElementExtensions : DOML2DeprecatedMarginStyle_HTMLInputElement, DOML2DeprecatedBorderStyle_HTMLInputElement 
-	{
-	public:
-		void set_status(bool value);
-		bool get_status();
-		void set_complete(bool value);
-		bool get_complete();
-		TextRange* createTextRange();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLLegendElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class SVGRadialGradientElement : SVGGradientElement 
-	{
-	public:
-		void set_cx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cx();
-		void set_r(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_r();
-		void set_cy(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cy();
-		void set_fx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_fx();
-		void set_fy(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_fy();
-		static void set_prototype(SVGRadialGradientElement* value);
-		static SVGRadialGradientElement* get_prototype();
-		SVGRadialGradientElement();
-	};
-
-	class MutationEvent : Event 
-	{
-	public:
-		void set_newValue(String* value);
-		String* get_newValue();
-		void set_attrChange(double value);
-		double get_attrChange();
-		void set_attrName(String* value);
-		String* get_attrName();
-		void set_prevValue(String* value);
-		String* get_prevValue();
-		void set_relatedNode(Node* value);
-		Node* get_relatedNode();
-		void initMutationEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Node* relatedNodeArg, const String& prevValueArg, const String& newValueArg, const String& attrNameArg, double attrChangeArg);
-		void set_MODIFICATION(double value);
-		double get_MODIFICATION();
-		void set_REMOVAL(double value);
-		double get_REMOVAL();
-		void set_ADDITION(double value);
-		double get_ADDITION();
-		static void set_prototype(MutationEvent* value);
-		static MutationEvent* get_prototype();
-		MutationEvent();
-		static void set_MODIFICATION(double value);
-		static double get_MODIFICATION();
-		static void set_REMOVAL(double value);
-		static double get_REMOVAL();
-		static void set_ADDITION(double value);
-		static double get_ADDITION();
-	};
-
-	class DragEvent : MouseEvent 
-	{
-	public:
-		void set_dataTransfer(DataTransfer* value);
-		DataTransfer* get_dataTransfer();
-		void initDragEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, bool ctrlKeyArg, bool altKeyArg, bool shiftKeyArg, bool metaKeyArg, double buttonArg, EventTarget* relatedTargetArg, DataTransfer* dataTransferArg);
-		static void set_prototype(DragEvent* value);
-		static DragEvent* get_prototype();
-		DragEvent();
-	};
-
-	class DOML2DeprecatedWidthStyle_HTMLTableCellElement 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-	};
-
-	class HTMLTableSectionElement : HTMLElement, MSHTMLTableSectionElementExtensions, DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement, HTMLTableAlignment 
-	{
-	public:
-		void set_rows(HTMLCollection* value);
-		HTMLCollection* get_rows();
-		void deleteRow();
-		void deleteRow(double index);
-		HTMLElement* insertRow();
-		HTMLElement* insertRow(double index);
-		static void set_prototype(HTMLTableSectionElement* value);
-		static HTMLTableSectionElement* get_prototype();
-		HTMLTableSectionElement();
-	};
-
-	class DOML2DeprecatedListNumberingAndBulletStyle 
-	{
-	public:
-		void set_type(String* value);
-		String* get_type();
-	};
-
-	class HTMLInputElement : HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLInputElement, MSImageResourceExtensions_HTMLInputElement, MSHTMLInputElementExtensions, MSDataBindingExtensions 
-	{
-	public:
-		void set_width(String* value);
-		String* get_width();
-		void set_defaultChecked(bool value);
-		bool get_defaultChecked();
-		void set_alt(String* value);
-		String* get_alt();
-		void set_accept(String* value);
-		String* get_accept();
-		void set_value(String* value);
-		String* get_value();
-		void set_src(String* value);
-		String* get_src();
-		void set_useMap(String* value);
-		String* get_useMap();
-		void set_name(String* value);
-		String* get_name();
-		void set_form(HTMLFormElement* value);
-		HTMLFormElement* get_form();
-		void set_selectionStart(double value);
-		double get_selectionStart();
-		void set_height(String* value);
-		String* get_height();
-		void set_indeterminate(bool value);
-		bool get_indeterminate();
-		void set_readOnly(bool value);
-		bool get_readOnly();
-		void set_size(double value);
-		double get_size();
-		void set_checked(bool value);
-		bool get_checked();
-		void set_maxLength(double value);
-		double get_maxLength();
-		void set_selectionEnd(double value);
-		double get_selectionEnd();
-		void set_type(String* value);
-		String* get_type();
-		void set_defaultValue(String* value);
-		String* get_defaultValue();
-		void setSelectionRange(double start, double end);
-		void select();
-		static void set_prototype(HTMLInputElement* value);
-		static HTMLInputElement* get_prototype();
-		HTMLInputElement();
-	};
-
-	class HTMLAnchorElement : HTMLElement, MSHTMLAnchorElementExtensions, MSDataBindingExtensions 
-	{
-	public:
-		void set_rel(String* value);
-		String* get_rel();
-		void set_protocol(String* value);
-		String* get_protocol();
-		void set_search(String* value);
-		String* get_search();
-		void set_coords(String* value);
-		String* get_coords();
-		void set_hostname(String* value);
-		String* get_hostname();
-		void set_pathname(String* value);
-		String* get_pathname();
-		void set_target(String* value);
-		String* get_target();
-		void set_href(String* value);
-		String* get_href();
-		void set_name(String* value);
-		String* get_name();
-		void set_charset(String* value);
-		String* get_charset();
-		void set_hreflang(String* value);
-		String* get_hreflang();
-		void set_port(String* value);
-		String* get_port();
-		void set_host(String* value);
-		String* get_host();
-		void set_hash(String* value);
-		String* get_hash();
-		void set_rev(String* value);
-		String* get_rev();
-		void set_type(String* value);
-		String* get_type();
-		void set_shape(String* value);
-		String* get_shape();
-		String* toString();
-		static void set_prototype(HTMLAnchorElement* value);
-		static HTMLAnchorElement* get_prototype();
-		HTMLAnchorElement();
-	};
-
-	class SVGImageElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
-	{
-	public:
-		void set_y(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y();
-		void set_width(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_width();
-		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio* value);
-		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
-		void set_x(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x();
-		void set_height(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_height();
-		static void set_prototype(SVGImageElement* value);
-		static SVGImageElement* get_prototype();
-		SVGImageElement();
-	};
-
-	class MSElementExtensions 
-	{
-	public:
-		bool msMatchesSelector(const String& selectors);
-		bool fireEvent(const String& eventName);
-		bool fireEvent(const String& eventName, Object* eventObj);
-	};
-
-	class HTMLParamElement : HTMLElement 
-	{
-	public:
-		void set_value(String* value);
-		String* get_value();
-		void set_name(String* value);
-		String* get_name();
-		void set_type(String* value);
-		String* get_type();
-		void set_valueType(String* value);
-		String* get_valueType();
-		static void set_prototype(HTMLParamElement* value);
-		static HTMLParamElement* get_prototype();
-		HTMLParamElement();
-	};
-
-	class MSHTMLDocumentViewExtensions 
-	{
-	public:
-		CSSStyleSheet* createStyleSheet();
-		CSSStyleSheet* createStyleSheet(, const String& href);
-		CSSStyleSheet* createStyleSheet(const String& href, double index);
-	};
-
-	class SVGAnimatedNumber 
-	{
-	public:
-		void set_animVal(double value);
-		double get_animVal();
-		void set_baseVal(double value);
-		double get_baseVal();
-		static void set_prototype(SVGAnimatedNumber* value);
-		static SVGAnimatedNumber* get_prototype();
-		SVGAnimatedNumber();
-	};
-
-	class PerformanceTiming 
-	{
-	public:
-		void set_redirectStart(double value);
-		double get_redirectStart();
-		void set_domainLookupEnd(double value);
-		double get_domainLookupEnd();
-		void set_responseStart(double value);
-		double get_responseStart();
-		void set_domComplete(double value);
-		double get_domComplete();
-		void set_domainLookupStart(double value);
-		double get_domainLookupStart();
-		void set_loadEventStart(double value);
-		double get_loadEventStart();
-		void set_msFirstPaint(double value);
-		double get_msFirstPaint();
-		void set_unloadEventEnd(double value);
-		double get_unloadEventEnd();
-		void set_fetchStart(double value);
-		double get_fetchStart();
-		void set_requestStart(double value);
-		double get_requestStart();
-		void set_domInteractive(double value);
-		double get_domInteractive();
-		void set_navigationStart(double value);
-		double get_navigationStart();
-		void set_connectEnd(double value);
-		double get_connectEnd();
-		void set_loadEventEnd(double value);
-		double get_loadEventEnd();
-		void set_connectStart(double value);
-		double get_connectStart();
-		void set_responseEnd(double value);
-		double get_responseEnd();
-		void set_domLoading(double value);
-		double get_domLoading();
-		void set_redirectEnd(double value);
-		double get_redirectEnd();
-		void set_unloadEventStart(double value);
-		double get_unloadEventStart();
-		void set_domContentLoadedEventStart(double value);
-		double get_domContentLoadedEventStart();
-		void set_domContentLoadedEventEnd(double value);
-		double get_domContentLoadedEventEnd();
-		Object* toJSON();
-		static void set_prototype(PerformanceTiming* value);
-		static PerformanceTiming* get_prototype();
-		PerformanceTiming();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLInputElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class HTMLPreElement : HTMLElement, DOML2DeprecatedWidthStyle, MSHTMLPreElementExtensions 
-	{
-	public:
-		static void set_prototype(HTMLPreElement* value);
-		static HTMLPreElement* get_prototype();
-		HTMLPreElement();
-	};
-
-	class EventException 
-	{
-	public:
-		void set_code(double value);
-		double get_code();
-		void set_message(String* value);
-		String* get_message();
-		String* toString();
-		void set_DISPATCH_REQUEST_ERR(double value);
-		double get_DISPATCH_REQUEST_ERR();
-		void set_UNSPECIFIED_EVENT_TYPE_ERR(double value);
-		double get_UNSPECIFIED_EVENT_TYPE_ERR();
-		static void set_prototype(EventException* value);
-		static EventException* get_prototype();
-		EventException();
-		static void set_DISPATCH_REQUEST_ERR(double value);
-		static double get_DISPATCH_REQUEST_ERR();
-		static void set_UNSPECIFIED_EVENT_TYPE_ERR(double value);
-		static double get_UNSPECIFIED_EVENT_TYPE_ERR();
-	};
-
-	class MSBorderColorHighlightStyle_HTMLTableCellElement 
-	{
-	public:
-		void set_borderColorLight(Object* value);
-		Object* get_borderColorLight();
-		void set_borderColorDark(Object* value);
-		Object* get_borderColorDark();
-	};
-
-	class DOMHTMLImplementation 
-	{
-	public:
-		Document* createHTMLDocument(const String& title);
-	};
-
-	class NavigatorOnLine 
-	{
-	public:
-		void set_onLine(bool value);
-		bool get_onLine();
-	};
-
-	class SVGElementEventHandlers 
-	{
-	public:
-		typedef Object* (*callback_for_onmouseover)(MouseEvent* ev);
-		void set_onmouseover(callback_for_onmouseover value);
-		callback_for_onmouseover get_onmouseover();
-		typedef Object* (*callback_for_onmousemove)(MouseEvent* ev);
-		void set_onmousemove(callback_for_onmousemove value);
-		callback_for_onmousemove get_onmousemove();
-		typedef Object* (*callback_for_onmouseout)(MouseEvent* ev);
-		void set_onmouseout(callback_for_onmouseout value);
-		callback_for_onmouseout get_onmouseout();
-		typedef Object* (*callback_for_ondblclick)(MouseEvent* ev);
-		void set_ondblclick(callback_for_ondblclick value);
-		callback_for_ondblclick get_ondblclick();
-		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
-		void set_onfocusout(callback_for_onfocusout value);
-		callback_for_onfocusout get_onfocusout();
-		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
-		void set_onfocusin(callback_for_onfocusin value);
-		callback_for_onfocusin get_onfocusin();
-		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
-		void set_onmousedown(callback_for_onmousedown value);
-		callback_for_onmousedown get_onmousedown();
-		typedef Object* (*callback_for_onmouseup)(MouseEvent* ev);
-		void set_onmouseup(callback_for_onmouseup value);
-		callback_for_onmouseup get_onmouseup();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
-		void set_onclick(callback_for_onclick value);
-		callback_for_onclick get_onclick();
-	};
-
-	class WindowLocalStorage 
-	{
-	public:
-		void set_localStorage(Storage* value);
-		Storage* get_localStorage();
-	};
-
-	class SVGMetadataElement : SVGElement 
-	{
-	public:
-		static void set_prototype(SVGMetadataElement* value);
-		static SVGMetadataElement* get_prototype();
-		SVGMetadataElement();
-	};
-
-	class SVGPathSegArcRel : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_sweepFlag(bool value);
-		bool get_sweepFlag();
-		void set_r2(double value);
-		double get_r2();
-		void set_x(double value);
-		double get_x();
-		void set_angle(double value);
-		double get_angle();
-		void set_r1(double value);
-		double get_r1();
-		void set_largeArcFlag(bool value);
-		bool get_largeArcFlag();
-		static void set_prototype(SVGPathSegArcRel* value);
-		static SVGPathSegArcRel* get_prototype();
-		SVGPathSegArcRel();
-	};
-
-	class SVGPathSegMovetoAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_x(double value);
-		double get_x();
-		static void set_prototype(SVGPathSegMovetoAbs* value);
-		static SVGPathSegMovetoAbs* get_prototype();
-		SVGPathSegMovetoAbs();
-	};
-
-	class SVGStringList 
-	{
-	public:
-		void set_numberOfItems(double value);
-		double get_numberOfItems();
-		String* replaceItem(const String& newItem, double index);
-		String* getItem(double index);
-		void clear();
-		String* appendItem(const String& newItem);
-		String* initialize(const String& newItem);
-		String* removeItem(double index);
-		String* insertItemBefore(const String& newItem, double index);
-		static void set_prototype(SVGStringList* value);
-		static SVGStringList* get_prototype();
-		SVGStringList();
-	};
-
-	class XDomainRequest 
-	{
-	public:
-		void set_timeout(double value);
-		double get_timeout();
-		typedef Object* (*callback_for_onerror)(Event* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		typedef Object* (*callback_for_onprogress)(Object* ev);
-		void set_onprogress(callback_for_onprogress value);
-		callback_for_onprogress get_onprogress();
-		typedef Object* (*callback_for_ontimeout)(Event* ev);
-		void set_ontimeout(callback_for_ontimeout value);
-		callback_for_ontimeout get_ontimeout();
-		void set_responseText(String* value);
-		String* get_responseText();
-		void set_contentType(String* value);
-		String* get_contentType();
-		void open(const String& method, const String& url);
-		void abort();
-		void send();
-		void send(Object* data);
-		static void set_prototype(XDomainRequest* value);
-		static XDomainRequest* get_prototype();
-		XDomainRequest();
-	};
-
-	class DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		void set_bgColor(Object* value);
-		Object* get_bgColor();
-	};
-
-	class ElementTraversal 
-	{
-	public:
-		void set_childElementCount(double value);
-		double get_childElementCount();
-		void set_previousElementSibling(Element* value);
-		Element* get_previousElementSibling();
-		void set_lastElementChild(Element* value);
-		Element* get_lastElementChild();
-		void set_nextElementSibling(Element* value);
-		Element* get_nextElementSibling();
-		void set_firstElementChild(Element* value);
-		Element* get_firstElementChild();
-	};
-
-	class SVGLength 
-	{
-	public:
-		void set_valueAsString(String* value);
-		String* get_valueAsString();
-		void set_valueInSpecifiedUnits(double value);
-		double get_valueInSpecifiedUnits();
-		void set_value(double value);
-		double get_value();
-		void set_unitType(double value);
-		double get_unitType();
-		void newValueSpecifiedUnits(double unitType, double valueInSpecifiedUnits);
-		void convertToSpecifiedUnits(double unitType);
-		void set_SVG_LENGTHTYPE_NUMBER(double value);
-		double get_SVG_LENGTHTYPE_NUMBER();
-		void set_SVG_LENGTHTYPE_CM(double value);
-		double get_SVG_LENGTHTYPE_CM();
-		void set_SVG_LENGTHTYPE_PC(double value);
-		double get_SVG_LENGTHTYPE_PC();
-		void set_SVG_LENGTHTYPE_PERCENTAGE(double value);
-		double get_SVG_LENGTHTYPE_PERCENTAGE();
-		void set_SVG_LENGTHTYPE_MM(double value);
-		double get_SVG_LENGTHTYPE_MM();
-		void set_SVG_LENGTHTYPE_PT(double value);
-		double get_SVG_LENGTHTYPE_PT();
-		void set_SVG_LENGTHTYPE_IN(double value);
-		double get_SVG_LENGTHTYPE_IN();
-		void set_SVG_LENGTHTYPE_EMS(double value);
-		double get_SVG_LENGTHTYPE_EMS();
-		void set_SVG_LENGTHTYPE_PX(double value);
-		double get_SVG_LENGTHTYPE_PX();
-		void set_SVG_LENGTHTYPE_UNKNOWN(double value);
-		double get_SVG_LENGTHTYPE_UNKNOWN();
-		void set_SVG_LENGTHTYPE_EXS(double value);
-		double get_SVG_LENGTHTYPE_EXS();
-		static void set_prototype(SVGLength* value);
-		static SVGLength* get_prototype();
-		SVGLength();
-		static void set_SVG_LENGTHTYPE_NUMBER(double value);
-		static double get_SVG_LENGTHTYPE_NUMBER();
-		static void set_SVG_LENGTHTYPE_CM(double value);
-		static double get_SVG_LENGTHTYPE_CM();
-		static void set_SVG_LENGTHTYPE_PC(double value);
-		static double get_SVG_LENGTHTYPE_PC();
-		static void set_SVG_LENGTHTYPE_PERCENTAGE(double value);
-		static double get_SVG_LENGTHTYPE_PERCENTAGE();
-		static void set_SVG_LENGTHTYPE_MM(double value);
-		static double get_SVG_LENGTHTYPE_MM();
-		static void set_SVG_LENGTHTYPE_PT(double value);
-		static double get_SVG_LENGTHTYPE_PT();
-		static void set_SVG_LENGTHTYPE_IN(double value);
-		static double get_SVG_LENGTHTYPE_IN();
-		static void set_SVG_LENGTHTYPE_EMS(double value);
-		static double get_SVG_LENGTHTYPE_EMS();
-		static void set_SVG_LENGTHTYPE_PX(double value);
-		static double get_SVG_LENGTHTYPE_PX();
-		static void set_SVG_LENGTHTYPE_UNKNOWN(double value);
-		static double get_SVG_LENGTHTYPE_UNKNOWN();
-		static void set_SVG_LENGTHTYPE_EXS(double value);
-		static double get_SVG_LENGTHTYPE_EXS();
-	};
-
-	class SVGPolygonElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGAnimatedPoints, SVGTests 
-	{
-	public:
-		static void set_prototype(SVGPolygonElement* value);
-		static SVGPolygonElement* get_prototype();
-		SVGPolygonElement();
-	};
-
-	class HTMLPhraseElement : HTMLElement 
-	{
-	public:
-		void set_dateTime(String* value);
-		String* get_dateTime();
-		void set_cite(String* value);
-		String* get_cite();
-		static void set_prototype(HTMLPhraseElement* value);
-		static HTMLPhraseElement* get_prototype();
-		HTMLPhraseElement();
-	};
-
-	class MSHTMLAreaElementExtensions 
-	{
-	public:
-	};
-
-	class SVGPathSegCurvetoCubicRel : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_y1(double value);
-		double get_y1();
-		void set_x2(double value);
-		double get_x2();
-		void set_x(double value);
-		double get_x();
-		void set_x1(double value);
-		double get_x1();
-		void set_y2(double value);
-		double get_y2();
-		static void set_prototype(SVGPathSegCurvetoCubicRel* value);
-		static SVGPathSegCurvetoCubicRel* get_prototype();
-		SVGPathSegCurvetoCubicRel();
-	};
-
-	class MSEventObj 
-	{
-	public:
-		void set_nextPage(String* value);
-		String* get_nextPage();
-		void set_keyCode(double value);
-		double get_keyCode();
-		void set_toElement(Element* value);
-		Element* get_toElement();
-		void set_returnValue(Object* value);
-		Object* get_returnValue();
-		void set_dataFld(String* value);
-		String* get_dataFld();
-		void set_y(double value);
-		double get_y();
-		void set_dataTransfer(DataTransfer* value);
-		DataTransfer* get_dataTransfer();
-		void set_propertyName(String* value);
-		String* get_propertyName();
-		void set_url(String* value);
-		String* get_url();
-		void set_offsetX(double value);
-		double get_offsetX();
-		void set_recordset(Object* value);
-		Object* get_recordset();
-		void set_screenX(double value);
-		double get_screenX();
-		void set_buttonID(double value);
-		double get_buttonID();
-		void set_wheelDelta(double value);
-		double get_wheelDelta();
-		void set_reason(double value);
-		double get_reason();
-		void set_origin(String* value);
-		String* get_origin();
-		void set_data(String* value);
-		String* get_data();
-		void set_srcFilter(Object* value);
-		Object* get_srcFilter();
-		void set_boundElements(HTMLCollection* value);
-		HTMLCollection* get_boundElements();
-		void set_cancelBubble(bool value);
-		bool get_cancelBubble();
-		void set_altLeft(bool value);
-		bool get_altLeft();
-		void set_behaviorCookie(double value);
-		double get_behaviorCookie();
-		void set_bookmarks(BookmarkCollection* value);
-		BookmarkCollection* get_bookmarks();
-		void set_type(String* value);
-		String* get_type();
-		void set_repeat(bool value);
-		bool get_repeat();
-		void set_srcElement(Element* value);
-		Element* get_srcElement();
-		void set_source(Window* value);
-		Window* get_source();
-		void set_fromElement(Element* value);
-		Element* get_fromElement();
-		void set_offsetY(double value);
-		double get_offsetY();
-		void set_x(double value);
-		double get_x();
-		void set_behaviorPart(double value);
-		double get_behaviorPart();
-		void set_qualifier(String* value);
-		String* get_qualifier();
-		void set_altKey(bool value);
-		bool get_altKey();
-		void set_ctrlKey(bool value);
-		bool get_ctrlKey();
-		void set_clientY(double value);
-		double get_clientY();
-		void set_shiftKey(bool value);
-		bool get_shiftKey();
-		void set_shiftLeft(bool value);
-		bool get_shiftLeft();
-		void set_contentOverflow(bool value);
-		bool get_contentOverflow();
-		void set_screenY(double value);
-		double get_screenY();
-		void set_ctrlLeft(bool value);
-		bool get_ctrlLeft();
-		void set_button(double value);
-		double get_button();
-		void set_srcUrn(String* value);
-		String* get_srcUrn();
-		void set_clientX(double value);
-		double get_clientX();
-		void set_actionURL(String* value);
-		String* get_actionURL();
-		Object* getAttribute(const String& strAttributeName);
-		Object* getAttribute(const String& strAttributeName, double lFlags);
-		void setAttribute(const String& strAttributeName, Object* AttributeValue);
-		void setAttribute(const String& strAttributeName, Object* AttributeValue, double lFlags);
-		bool removeAttribute(const String& strAttributeName);
-		bool removeAttribute(const String& strAttributeName, double lFlags);
-		static void set_prototype(MSEventObj* value);
-		static MSEventObj* get_prototype();
-		MSEventObj();
-	};
-
-	class SVGTextContentElement : SVGElement, SVGStylable, SVGLangSpace, SVGTests 
-	{
-	public:
-		void set_textLength(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_textLength();
-		void set_lengthAdjust(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_lengthAdjust();
-		double getCharNumAtPosition(SVGPoint* point);
-		SVGPoint* getStartPositionOfChar(double charnum);
-		SVGRect* getExtentOfChar(double charnum);
-		double getComputedTextLength();
-		double getSubStringLength(double charnum, double nchars);
-		void selectSubString(double charnum, double nchars);
-		double getNumberOfChars();
-		double getRotationOfChar(double charnum);
-		SVGPoint* getEndPositionOfChar(double charnum);
-		void set_LENGTHADJUST_SPACING(double value);
-		double get_LENGTHADJUST_SPACING();
-		void set_LENGTHADJUST_SPACINGANDGLYPHS(double value);
-		double get_LENGTHADJUST_SPACINGANDGLYPHS();
-		void set_LENGTHADJUST_UNKNOWN(double value);
-		double get_LENGTHADJUST_UNKNOWN();
-		static void set_prototype(SVGTextContentElement* value);
-		static SVGTextContentElement* get_prototype();
-		SVGTextContentElement();
-		static void set_LENGTHADJUST_SPACING(double value);
-		static double get_LENGTHADJUST_SPACING();
-		static void set_LENGTHADJUST_SPACINGANDGLYPHS(double value);
-		static double get_LENGTHADJUST_SPACINGANDGLYPHS();
-		static void set_LENGTHADJUST_UNKNOWN(double value);
-		static double get_LENGTHADJUST_UNKNOWN();
-	};
-
-	class DOML2DeprecatedColorProperty 
-	{
-	public:
-		void set_color(String* value);
-		String* get_color();
-	};
-
-	class MSHTMLLIElementExtensions 
-	{
-	public:
-	};
-
-	class HTMLCanvasElement : HTMLElement 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-		void set_height(double value);
-		double get_height();
-		String* toDataURL();
-		String* toDataURL(const String& type, Object** args);
-		CanvasRenderingContext2D* getContext(const String& contextId);
-		static void set_prototype(HTMLCanvasElement* value);
-		static HTMLCanvasElement* get_prototype();
-		HTMLCanvasElement();
-	};
-
-	class HTMLTitleElement : HTMLElement 
-	{
-	public:
-		void set_text(String* value);
-		String* get_text();
-		static void set_prototype(HTMLTitleElement* value);
-		static HTMLTitleElement* get_prototype();
-		HTMLTitleElement();
-	};
-
-	class Location 
-	{
-	public:
-		void set_hash(String* value);
-		String* get_hash();
-		void set_protocol(String* value);
-		String* get_protocol();
-		void set_search(String* value);
-		String* get_search();
-		void set_href(String* value);
-		String* get_href();
-		void set_hostname(String* value);
-		String* get_hostname();
-		void set_port(String* value);
-		String* get_port();
-		void set_pathname(String* value);
-		String* get_pathname();
-		void set_host(String* value);
-		String* get_host();
-		void reload();
-		void reload(bool flag);
-		void replace(const String& url);
-		void assign(const String& url);
-		String* toString();
-		static void set_prototype(Location* value);
-		static Location* get_prototype();
-		Location();
-	};
-
-	class HTMLStyleElement : HTMLElement, MSLinkStyleExtensions, LinkStyle 
-	{
-	public:
-		void set_media(String* value);
-		String* get_media();
-		void set_type(String* value);
-		String* get_type();
-		static void set_prototype(HTMLStyleElement* value);
-		static HTMLStyleElement* get_prototype();
-		HTMLStyleElement();
-	};
-
-	class MSHTMLOptGroupElementExtensions 
-	{
-	public:
-		void set_index(double value);
-		double get_index();
-		void set_defaultSelected(bool value);
-		bool get_defaultSelected();
-		void set_text(String* value);
-		String* get_text();
-		void set_value(String* value);
-		String* get_value();
-		void set_form(HTMLFormElement* value);
-		HTMLFormElement* get_form();
-		void set_selected(bool value);
-		bool get_selected();
-	};
-
-	class MSBorderColorHighlightStyle 
-	{
-	public:
-		void set_borderColorLight(Object* value);
-		Object* get_borderColorLight();
-		void set_borderColorDark(Object* value);
-		Object* get_borderColorDark();
-	};
-
-	class DOML2DeprecatedSizeProperty_HTMLBaseFontElement 
-	{
-	public:
-		void set_size(double value);
-		double get_size();
-	};
-
-	class SVGTransform 
-	{
-	public:
-		void set_type(double value);
-		double get_type();
-		void set_angle(double value);
-		double get_angle();
-		void set_matrix(SVGMatrix* value);
-		SVGMatrix* get_matrix();
-		void setTranslate(double tx, double ty);
-		void setScale(double sx, double sy);
-		void setMatrix(SVGMatrix* matrix);
-		void setSkewY(double angle);
-		void setRotate(double angle, double cx, double cy);
-		void setSkewX(double angle);
-		void set_SVG_TRANSFORM_SKEWX(double value);
-		double get_SVG_TRANSFORM_SKEWX();
-		void set_SVG_TRANSFORM_UNKNOWN(double value);
-		double get_SVG_TRANSFORM_UNKNOWN();
-		void set_SVG_TRANSFORM_SCALE(double value);
-		double get_SVG_TRANSFORM_SCALE();
-		void set_SVG_TRANSFORM_TRANSLATE(double value);
-		double get_SVG_TRANSFORM_TRANSLATE();
-		void set_SVG_TRANSFORM_MATRIX(double value);
-		double get_SVG_TRANSFORM_MATRIX();
-		void set_SVG_TRANSFORM_ROTATE(double value);
-		double get_SVG_TRANSFORM_ROTATE();
-		void set_SVG_TRANSFORM_SKEWY(double value);
-		double get_SVG_TRANSFORM_SKEWY();
-		static void set_prototype(SVGTransform* value);
-		static SVGTransform* get_prototype();
-		SVGTransform();
-		static void set_SVG_TRANSFORM_SKEWX(double value);
-		static double get_SVG_TRANSFORM_SKEWX();
-		static void set_SVG_TRANSFORM_UNKNOWN(double value);
-		static double get_SVG_TRANSFORM_UNKNOWN();
-		static void set_SVG_TRANSFORM_SCALE(double value);
-		static double get_SVG_TRANSFORM_SCALE();
-		static void set_SVG_TRANSFORM_TRANSLATE(double value);
-		static double get_SVG_TRANSFORM_TRANSLATE();
-		static void set_SVG_TRANSFORM_MATRIX(double value);
-		static double get_SVG_TRANSFORM_MATRIX();
-		static void set_SVG_TRANSFORM_ROTATE(double value);
-		static double get_SVG_TRANSFORM_ROTATE();
-		static void set_SVG_TRANSFORM_SKEWY(double value);
-		static double get_SVG_TRANSFORM_SKEWY();
-	};
-
-	class MSCSSFilter 
-	{
-	public:
-		void set_Percent(double value);
-		double get_Percent();
-		void set_Enabled(bool value);
-		bool get_Enabled();
-		void set_Duration(double value);
-		double get_Duration();
-		void Play(double Duration);
-		void Apply();
-		void Stop();
-		static void set_prototype(MSCSSFilter* value);
-		static MSCSSFilter* get_prototype();
-		MSCSSFilter();
-	};
-
-	class UIEvent : Event 
-	{
-	public:
-		void set_detail(double value);
-		double get_detail();
-		void set_view(AbstractView* value);
-		AbstractView* get_view();
-		void initUIEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg);
-		static void set_prototype(UIEvent* value);
-		static UIEvent* get_prototype();
-		UIEvent();
-	};
-
-	class ViewCSS_SVGSVGElement 
-	{
-	public:
-		CSSStyleDeclaration* getComputedStyle(Element* elt);
-		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
-	};
-
-	class SVGURIReference 
-	{
-	public:
-		void set_href(SVGAnimatedString* value);
-		SVGAnimatedString* get_href();
-	};
-
-	class SVGPathSeg 
-	{
-	public:
-		void set_pathSegType(double value);
-		double get_pathSegType();
-		void set_pathSegTypeAsLetter(String* value);
-		String* get_pathSegTypeAsLetter();
-		void set_PATHSEG_MOVETO_REL(double value);
-		double get_PATHSEG_MOVETO_REL();
-		void set_PATHSEG_LINETO_VERTICAL_REL(double value);
-		double get_PATHSEG_LINETO_VERTICAL_REL();
-		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(double value);
-		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_REL(double value);
-		double get_PATHSEG_CURVETO_QUADRATIC_REL();
-		void set_PATHSEG_CURVETO_CUBIC_ABS(double value);
-		double get_PATHSEG_CURVETO_CUBIC_ABS();
-		void set_PATHSEG_LINETO_HORIZONTAL_ABS(double value);
-		double get_PATHSEG_LINETO_HORIZONTAL_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_ABS(double value);
-		double get_PATHSEG_CURVETO_QUADRATIC_ABS();
-		void set_PATHSEG_LINETO_ABS(double value);
-		double get_PATHSEG_LINETO_ABS();
-		void set_PATHSEG_CLOSEPATH(double value);
-		double get_PATHSEG_CLOSEPATH();
-		void set_PATHSEG_LINETO_HORIZONTAL_REL(double value);
-		double get_PATHSEG_LINETO_HORIZONTAL_REL();
-		void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(double value);
-		double get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
-		void set_PATHSEG_LINETO_REL(double value);
-		double get_PATHSEG_LINETO_REL();
-		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(double value);
-		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
-		void set_PATHSEG_ARC_REL(double value);
-		double get_PATHSEG_ARC_REL();
-		void set_PATHSEG_CURVETO_CUBIC_REL(double value);
-		double get_PATHSEG_CURVETO_CUBIC_REL();
-		void set_PATHSEG_UNKNOWN(double value);
-		double get_PATHSEG_UNKNOWN();
-		void set_PATHSEG_LINETO_VERTICAL_ABS(double value);
-		double get_PATHSEG_LINETO_VERTICAL_ABS();
-		void set_PATHSEG_ARC_ABS(double value);
-		double get_PATHSEG_ARC_ABS();
-		void set_PATHSEG_MOVETO_ABS(double value);
-		double get_PATHSEG_MOVETO_ABS();
-		void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(double value);
-		double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();
-		static void set_PATHSEG_MOVETO_REL(double value);
-		static double get_PATHSEG_MOVETO_REL();
-		static void set_PATHSEG_LINETO_VERTICAL_REL(double value);
-		static double get_PATHSEG_LINETO_VERTICAL_REL();
-		static void set_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS(double value);
-		static double get_PATHSEG_CURVETO_CUBIC_SMOOTH_ABS();
-		static void set_PATHSEG_CURVETO_QUADRATIC_REL(double value);
-		static double get_PATHSEG_CURVETO_QUADRATIC_REL();
-		static void set_PATHSEG_CURVETO_CUBIC_ABS(double value);
-		static double get_PATHSEG_CURVETO_CUBIC_ABS();
-		static void set_PATHSEG_LINETO_HORIZONTAL_ABS(double value);
-		static double get_PATHSEG_LINETO_HORIZONTAL_ABS();
-		static void set_PATHSEG_CURVETO_QUADRATIC_ABS(double value);
-		static double get_PATHSEG_CURVETO_QUADRATIC_ABS();
-		static void set_PATHSEG_LINETO_ABS(double value);
-		static double get_PATHSEG_LINETO_ABS();
-		static void set_PATHSEG_CLOSEPATH(double value);
-		static double get_PATHSEG_CLOSEPATH();
-		static void set_PATHSEG_LINETO_HORIZONTAL_REL(double value);
-		static double get_PATHSEG_LINETO_HORIZONTAL_REL();
-		static void set_PATHSEG_CURVETO_CUBIC_SMOOTH_REL(double value);
-		static double get_PATHSEG_CURVETO_CUBIC_SMOOTH_REL();
-		static void set_PATHSEG_LINETO_REL(double value);
-		static double get_PATHSEG_LINETO_REL();
-		static void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS(double value);
-		static double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS();
-		static void set_PATHSEG_ARC_REL(double value);
-		static double get_PATHSEG_ARC_REL();
-		static void set_PATHSEG_CURVETO_CUBIC_REL(double value);
-		static double get_PATHSEG_CURVETO_CUBIC_REL();
-		static void set_PATHSEG_UNKNOWN(double value);
-		static double get_PATHSEG_UNKNOWN();
-		static void set_PATHSEG_LINETO_VERTICAL_ABS(double value);
-		static double get_PATHSEG_LINETO_VERTICAL_ABS();
-		static void set_PATHSEG_ARC_ABS(double value);
-		static double get_PATHSEG_ARC_ABS();
-		static void set_PATHSEG_MOVETO_ABS(double value);
-		static double get_PATHSEG_MOVETO_ABS();
-		static void set_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL(double value);
-		static double get_PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL();
-	};
-
-	class WheelEvent : MouseEvent 
-	{
-	public:
-		void set_deltaZ(double value);
-		double get_deltaZ();
-		void set_deltaX(double value);
-		double get_deltaX();
-		void set_deltaMode(double value);
-		double get_deltaMode();
-		void set_deltaY(double value);
-		double get_deltaY();
-		void initWheelEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, double deltaXArg, double deltaYArg, double deltaZArg, double deltaMode);
-		void set_DOM_DELTA_PIXEL(double value);
-		double get_DOM_DELTA_PIXEL();
-		void set_DOM_DELTA_LINE(double value);
-		double get_DOM_DELTA_LINE();
-		void set_DOM_DELTA_PAGE(double value);
-		double get_DOM_DELTA_PAGE();
-		static void set_prototype(WheelEvent* value);
-		static WheelEvent* get_prototype();
-		WheelEvent();
-		static void set_DOM_DELTA_PIXEL(double value);
-		static double get_DOM_DELTA_PIXEL();
-		static void set_DOM_DELTA_LINE(double value);
-		static double get_DOM_DELTA_LINE();
-		static void set_DOM_DELTA_PAGE(double value);
-		static double get_DOM_DELTA_PAGE();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLDivElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class MSEventAttachmentTarget 
-	{
-	public:
-		bool attachEvent(const String& event, EventListener* listener);
-		void detachEvent(const String& event, EventListener* listener);
-	};
-
-	class SVGNumber 
-	{
-	public:
-		void set_value(double value);
-		double get_value();
-		static void set_prototype(SVGNumber* value);
-		static SVGNumber* get_prototype();
-		SVGNumber();
-	};
-
-	class SVGPathElement : SVGElement, SVGStylable, SVGAnimatedPathData, SVGTransformable, SVGLangSpace, SVGTests 
-	{
-	public:
-		double getPathSegAtLength(double distance);
-		SVGPoint* getPointAtLength(double distance);
-		SVGPathSegCurvetoQuadraticAbs* createSVGPathSegCurvetoQuadraticAbs(double x, double y, double x1, double y1);
-		SVGPathSegLinetoRel* createSVGPathSegLinetoRel(double x, double y);
-		SVGPathSegCurvetoQuadraticRel* createSVGPathSegCurvetoQuadraticRel(double x, double y, double x1, double y1);
-		SVGPathSegCurvetoCubicAbs* createSVGPathSegCurvetoCubicAbs(double x, double y, double x1, double y1, double x2, double y2);
-		SVGPathSegLinetoAbs* createSVGPathSegLinetoAbs(double x, double y);
-		SVGPathSegClosePath* createSVGPathSegClosePath();
-		SVGPathSegCurvetoCubicRel* createSVGPathSegCurvetoCubicRel(double x, double y, double x1, double y1, double x2, double y2);
-		SVGPathSegCurvetoQuadraticSmoothRel* createSVGPathSegCurvetoQuadraticSmoothRel(double x, double y);
-		SVGPathSegMovetoRel* createSVGPathSegMovetoRel(double x, double y);
-		SVGPathSegCurvetoCubicSmoothAbs* createSVGPathSegCurvetoCubicSmoothAbs(double x, double y, double x2, double y2);
-		SVGPathSegMovetoAbs* createSVGPathSegMovetoAbs(double x, double y);
-		SVGPathSegLinetoVerticalRel* createSVGPathSegLinetoVerticalRel(double y);
-		SVGPathSegArcRel* createSVGPathSegArcRel(double x, double y, double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag);
-		SVGPathSegCurvetoQuadraticSmoothAbs* createSVGPathSegCurvetoQuadraticSmoothAbs(double x, double y);
-		SVGPathSegLinetoHorizontalRel* createSVGPathSegLinetoHorizontalRel(double x);
-		double getTotalLength();
-		SVGPathSegCurvetoCubicSmoothRel* createSVGPathSegCurvetoCubicSmoothRel(double x, double y, double x2, double y2);
-		SVGPathSegLinetoHorizontalAbs* createSVGPathSegLinetoHorizontalAbs(double x);
-		SVGPathSegLinetoVerticalAbs* createSVGPathSegLinetoVerticalAbs(double y);
-		SVGPathSegArcAbs* createSVGPathSegArcAbs(double x, double y, double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag);
-		static void set_prototype(SVGPathElement* value);
-		static SVGPathElement* get_prototype();
-		SVGPathElement();
-	};
-
-	class MSCompatibleInfo 
-	{
-	public:
-		void set_version(String* value);
-		String* get_version();
-		void set_userAgent(String* value);
-		String* get_userAgent();
-		static void set_prototype(MSCompatibleInfo* value);
-		static MSCompatibleInfo* get_prototype();
-		MSCompatibleInfo();
-	};
-
-	class MSHTMLDocumentEventExtensions 
-	{
-	public:
-		MSEventObj* createEventObject();
-		MSEventObj* createEventObject(Object* eventObj);
-		bool fireEvent(const String& eventName);
-		bool fireEvent(const String& eventName, Object* eventObj);
-	};
-
-	class Text : CharacterData, MSNodeExtensions 
-	{
-	public:
-		void set_wholeText(String* value);
-		String* get_wholeText();
-		Text* splitText(double offset);
-		Text* replaceWholeText(const String& content);
-		static void set_prototype(Text* value);
-		static Text* get_prototype();
-		Text();
-	};
-
-	class SVGAnimatedRect 
-	{
-	public:
-		void set_animVal(SVGRect* value);
-		SVGRect* get_animVal();
-		void set_baseVal(SVGRect* value);
-		SVGRect* get_baseVal();
-		static void set_prototype(SVGAnimatedRect* value);
-		static SVGAnimatedRect* get_prototype();
-		SVGAnimatedRect();
-	};
-
-	class CSSNamespaceRule : CSSRule 
-	{
-	public:
-		void set_namespaceURI(String* value);
-		String* get_namespaceURI();
-		void set_prefix(String* value);
-		String* get_prefix();
-		static void set_prototype(CSSNamespaceRule* value);
-		static CSSNamespaceRule* get_prototype();
-		CSSNamespaceRule();
-	};
-
-	class HTMLUnknownElement : HTMLElement, MSDataBindingRecordSetReadonlyExtensions, MSHTMLUnknownElementExtensions 
-	{
-	public:
-		static void set_prototype(HTMLUnknownElement* value);
-		static HTMLUnknownElement* get_prototype();
-		HTMLUnknownElement();
-	};
-
-	class SVGPathSegList 
-	{
-	public:
-		void set_numberOfItems(double value);
-		double get_numberOfItems();
-		SVGPathSeg* replaceItem(SVGPathSeg* newItem, double index);
-		SVGPathSeg* getItem(double index);
-		void clear();
-		SVGPathSeg* appendItem(SVGPathSeg* newItem);
-		SVGPathSeg* initialize(SVGPathSeg* newItem);
-		SVGPathSeg* removeItem(double index);
-		SVGPathSeg* insertItemBefore(SVGPathSeg* newItem, double index);
-		static void set_prototype(SVGPathSegList* value);
-		static SVGPathSegList* get_prototype();
-		SVGPathSegList();
-	};
-
-	class HTMLAudioElement : HTMLMediaElement 
-	{
-	public:
-		static void set_prototype(HTMLAudioElement* value);
-		static HTMLAudioElement* get_prototype();
-		HTMLAudioElement();
-	};
-
-	class MSImageResourceExtensions 
-	{
-	public:
-		void set_dynsrc(String* value);
-		String* get_dynsrc();
-		void set_vrml(String* value);
-		String* get_vrml();
-		void set_lowsrc(String* value);
-		String* get_lowsrc();
-		void set_start(String* value);
-		String* get_start();
-		void set_loop(double value);
-		double get_loop();
-	};
-
-	class MSBorderColorHighlightStyle_HTMLTableRowElement 
-	{
-	public:
-		void set_borderColorLight(Object* value);
-		Object* get_borderColorLight();
-		void set_borderColorDark(Object* value);
-		Object* get_borderColorDark();
-	};
-
-	class PositionError 
-	{
-	public:
-		void set_code(double value);
-		double get_code();
-		void set_message(String* value);
-		String* get_message();
-		String* toString();
-		void set_POSITION_UNAVAILABLE(double value);
-		double get_POSITION_UNAVAILABLE();
-		void set_PERMISSION_DENIED(double value);
-		double get_PERMISSION_DENIED();
-		void set_TIMEOUT(double value);
-		double get_TIMEOUT();
-		static void set_POSITION_UNAVAILABLE(double value);
-		static double get_POSITION_UNAVAILABLE();
-		static void set_PERMISSION_DENIED(double value);
-		static double get_PERMISSION_DENIED();
-		static void set_TIMEOUT(double value);
-		static double get_TIMEOUT();
-	};
-
-	class BrowserPublic 
-	{
-	public:
-		static void set_prototype(BrowserPublic* value);
-		static BrowserPublic* get_prototype();
-		BrowserPublic();
-	};
-
-	class HTMLTableCellElement : HTMLElement, DOML2DeprecatedTableCellHeight, HTMLTableAlignment, MSBorderColorHighlightStyle_HTMLTableCellElement, DOML2DeprecatedWidthStyle_HTMLTableCellElement, DOML2DeprecatedBackgroundStyle, MSBorderColorStyle_HTMLTableCellElement, MSHTMLTableCellElementExtensions, DOML2DeprecatedAlignmentStyle_HTMLTableCellElement, HTMLTableHeaderCellScope, DOML2DeprecatedWordWrapSuppression, DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		void set_headers(String* value);
-		String* get_headers();
-		void set_abbr(String* value);
-		String* get_abbr();
-		void set_rowSpan(double value);
-		double get_rowSpan();
-		void set_cellIndex(double value);
-		double get_cellIndex();
-		void set_colSpan(double value);
-		double get_colSpan();
-		void set_axis(String* value);
-		String* get_axis();
-		static void set_prototype(HTMLTableCellElement* value);
-		static HTMLTableCellElement* get_prototype();
-		HTMLTableCellElement();
-	};
-
-	class MSNamespaceInfoCollection 
-	{
-	public:
-		Object* operator[](const String& index);
-		Object* operator()(Object* index);
-		void set_length(double value);
-		double get_length();
-		Object* add();
-		Object* add(, const String& namespace);
-		Object* add(, const String& namespace, );
-		Object* add(const String& namespace, const String& urn, Object* implementationUrl);
-		Object* item(Object* index);
-		static void set_prototype(MSNamespaceInfoCollection* value);
-		static MSNamespaceInfoCollection* get_prototype();
-		MSNamespaceInfoCollection();
-	};
-
-	class SVGElementInstance : EventTarget 
-	{
-	public:
-		void set_previousSibling(SVGElementInstance* value);
-		SVGElementInstance* get_previousSibling();
-		void set_parentNode(SVGElementInstance* value);
-		SVGElementInstance* get_parentNode();
-		void set_lastChild(SVGElementInstance* value);
-		SVGElementInstance* get_lastChild();
-		void set_nextSibling(SVGElementInstance* value);
-		SVGElementInstance* get_nextSibling();
-		void set_childNodes(SVGElementInstanceList* value);
-		SVGElementInstanceList* get_childNodes();
-		void set_correspondingUseElement(SVGUseElement* value);
-		SVGUseElement* get_correspondingUseElement();
-		void set_correspondingElement(SVGElement* value);
-		SVGElement* get_correspondingElement();
-		void set_firstChild(SVGElementInstance* value);
-		SVGElementInstance* get_firstChild();
-		static void set_prototype(SVGElementInstance* value);
-		static SVGElementInstance* get_prototype();
-		SVGElementInstance();
-	};
-
-	class MSHTMLUListElementExtensions 
-	{
-	public:
-	};
-
-	class SVGCircleElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
-	{
-	public:
-		void set_cx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cx();
-		void set_r(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_r();
-		void set_cy(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_cy();
-		static void set_prototype(SVGCircleElement* value);
-		static SVGCircleElement* get_prototype();
-		SVGCircleElement();
-	};
-
-	class HTMLBaseFontElement : HTMLElement, DOML2DeprecatedSizeProperty_HTMLBaseFontElement, DOML2DeprecatedColorProperty 
-	{
-	public:
-		void set_face(String* value);
-		String* get_face();
-		static void set_prototype(HTMLBaseFontElement* value);
-		static HTMLBaseFontElement* get_prototype();
-		HTMLBaseFontElement();
-	};
-
-	class CustomEvent : Event 
-	{
-	public:
-		void set_detail(Object* value);
-		Object* get_detail();
-		void initCustomEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Object* detailArg);
-		static void set_prototype(CustomEvent* value);
-		static CustomEvent* get_prototype();
-		CustomEvent();
-	};
-
-	class CSSImportRule : CSSRule 
-	{
-	public:
-		void set_styleSheet(CSSStyleSheet* value);
-		CSSStyleSheet* get_styleSheet();
-		void set_href(String* value);
-		String* get_href();
-		void set_media(MediaList* value);
-		MediaList* get_media();
-		static void set_prototype(CSSImportRule* value);
-		static CSSImportRule* get_prototype();
-		CSSImportRule();
-	};
-
-	class StyleSheetList 
-	{
-	public:
-		StyleSheet* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		StyleSheet* item();
-		StyleSheet* item(double index);
-		static void set_prototype(StyleSheetList* value);
-		static StyleSheetList* get_prototype();
-		StyleSheetList();
-	};
-
-	class HTMLTextAreaElement : HTMLElement, MSDataBindingExtensions, MSHTMLTextAreaElementExtensions 
-	{
-	public:
-		void set_value(String* value);
-		String* get_value();
-		void set_form(HTMLFormElement* value);
-		HTMLFormElement* get_form();
-		void set_name(String* value);
-		String* get_name();
-		void set_selectionStart(double value);
-		double get_selectionStart();
-		void set_rows(double value);
-		double get_rows();
-		void set_cols(double value);
-		double get_cols();
-		void set_readOnly(bool value);
-		bool get_readOnly();
-		void set_wrap(String* value);
-		String* get_wrap();
-		void set_selectionEnd(double value);
-		double get_selectionEnd();
-		void set_type(String* value);
-		String* get_type();
-		void set_defaultValue(String* value);
-		String* get_defaultValue();
-		void setSelectionRange(double start, double end);
-		void select();
-		static void set_prototype(HTMLTextAreaElement* value);
-		static HTMLTextAreaElement* get_prototype();
-		HTMLTextAreaElement();
-	};
-
-	class MSHTMLFormElementExtensions 
-	{
-	public:
-		void set_encoding(String* value);
-		String* get_encoding();
-	};
-
-	class DOML2DeprecatedMarginStyle 
-	{
-	public:
-		void set_vspace(double value);
-		double get_vspace();
-		void set_hspace(double value);
-		double get_hspace();
-	};
-
-	class Geolocation 
-	{
-	public:
-		void clearWatch(double watchId);
-		void getCurrentPosition(PositionCallback* successCallback);
-		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
-		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
-		double watchPosition(PositionCallback* successCallback);
-		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
-		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
-		static void set_prototype(Geolocation* value);
-		static Geolocation* get_prototype();
-		Geolocation();
-	};
-
-	class MSWindowModeless 
-	{
-	public:
-		void set_dialogTop(Object* value);
-		Object* get_dialogTop();
-		void set_dialogLeft(Object* value);
-		Object* get_dialogLeft();
-		void set_dialogWidth(Object* value);
-		Object* get_dialogWidth();
-		void set_dialogHeight(Object* value);
-		Object* get_dialogHeight();
-		void set_menuArguments(Object* value);
-		Object* get_menuArguments();
-	};
-
-	class HTMLMarqueeElement : HTMLElement, DOML2DeprecatedMarginStyle_HTMLMarqueeElement, MSDataBindingExtensions, MSHTMLMarqueeElementExtensions, DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		void set_width(String* value);
-		String* get_width();
-		typedef Object* (*callback_for_onbounce)(Event* ev);
-		void set_onbounce(callback_for_onbounce value);
-		callback_for_onbounce get_onbounce();
-		void set_trueSpeed(bool value);
-		bool get_trueSpeed();
-		void set_scrollAmount(double value);
-		double get_scrollAmount();
-		void set_scrollDelay(double value);
-		double get_scrollDelay();
-		void set_behavior(String* value);
-		String* get_behavior();
-		void set_height(String* value);
-		String* get_height();
-		void set_loop(double value);
-		double get_loop();
-		void set_direction(String* value);
-		String* get_direction();
-		typedef Object* (*callback_for_onstart)(Event* ev);
-		void set_onstart(callback_for_onstart value);
-		callback_for_onstart get_onstart();
-		typedef Object* (*callback_for_onfinish)(Event* ev);
-		void set_onfinish(callback_for_onfinish value);
-		callback_for_onfinish get_onfinish();
-		void stop();
-		void start();
-		static void set_prototype(HTMLMarqueeElement* value);
-		static HTMLMarqueeElement* get_prototype();
-		HTMLMarqueeElement();
-	};
-
-	class SVGRect 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_width(double value);
-		double get_width();
-		void set_x(double value);
-		double get_x();
-		void set_height(double value);
-		double get_height();
-		static void set_prototype(SVGRect* value);
-		static SVGRect* get_prototype();
-		SVGRect();
-	};
-
-	class MSNodeExtensions 
-	{
-	public:
-		Node* swapNode(Node* otherNode);
-		Node* removeNode();
-		Node* removeNode(bool deep);
-		Node* replaceNode(Node* replacement);
-	};
-
-	class KeyboardEventExtensions 
-	{
-	public:
-		void set_keyCode(double value);
-		double get_keyCode();
-		void set_which(double value);
-		double get_which();
-		void set_charCode(double value);
-		double get_charCode();
-	};
-
-	class History 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		void back();
-		void back(Object* distance);
-		void forward();
-		void forward(Object* distance);
-		void go();
-		void go(Object* delta);
-		static void set_prototype(History* value);
-		static History* get_prototype();
-		History();
 	};
 
 	class DocumentStyle 
@@ -6349,486 +4199,9 @@ namespace client
 		StyleSheetList* get_styleSheets();
 	};
 
-	class SVGPathSegCurvetoCubicAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_y1(double value);
-		double get_y1();
-		void set_x2(double value);
-		double get_x2();
-		void set_x(double value);
-		double get_x();
-		void set_x1(double value);
-		double get_x1();
-		void set_y2(double value);
-		double get_y2();
-		static void set_prototype(SVGPathSegCurvetoCubicAbs* value);
-		static SVGPathSegCurvetoCubicAbs* get_prototype();
-		SVGPathSegCurvetoCubicAbs();
-	};
+	class HTMLHeadElement;
 
-	class TimeRanges 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		double start(double index);
-		double end(double index);
-		static void set_prototype(TimeRanges* value);
-		static TimeRanges* get_prototype();
-		TimeRanges();
-	};
-
-	class SVGPathSegCurvetoQuadraticAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_y1(double value);
-		double get_y1();
-		void set_x(double value);
-		double get_x();
-		void set_x1(double value);
-		double get_x1();
-		static void set_prototype(SVGPathSegCurvetoQuadraticAbs* value);
-		static SVGPathSegCurvetoQuadraticAbs* get_prototype();
-		SVGPathSegCurvetoQuadraticAbs();
-	};
-
-	class MSHTMLSelectElementExtensions 
-	{
-	public:
-	};
-
-	class CSSRule 
-	{
-	public:
-		void set_cssText(String* value);
-		String* get_cssText();
-		void set_parentStyleSheet(CSSStyleSheet* value);
-		CSSStyleSheet* get_parentStyleSheet();
-		void set_parentRule(CSSRule* value);
-		CSSRule* get_parentRule();
-		void set_type(double value);
-		double get_type();
-		void set_IMPORT_RULE(double value);
-		double get_IMPORT_RULE();
-		void set_MEDIA_RULE(double value);
-		double get_MEDIA_RULE();
-		void set_STYLE_RULE(double value);
-		double get_STYLE_RULE();
-		void set_NAMESPACE_RULE(double value);
-		double get_NAMESPACE_RULE();
-		void set_PAGE_RULE(double value);
-		double get_PAGE_RULE();
-		void set_UNKNOWN_RULE(double value);
-		double get_UNKNOWN_RULE();
-		void set_FONT_FACE_RULE(double value);
-		double get_FONT_FACE_RULE();
-		void set_CHARSET_RULE(double value);
-		double get_CHARSET_RULE();
-		static void set_prototype(CSSRule* value);
-		static CSSRule* get_prototype();
-		CSSRule();
-		static void set_IMPORT_RULE(double value);
-		static double get_IMPORT_RULE();
-		static void set_MEDIA_RULE(double value);
-		static double get_MEDIA_RULE();
-		static void set_STYLE_RULE(double value);
-		static double get_STYLE_RULE();
-		static void set_NAMESPACE_RULE(double value);
-		static double get_NAMESPACE_RULE();
-		static void set_PAGE_RULE(double value);
-		static double get_PAGE_RULE();
-		static void set_UNKNOWN_RULE(double value);
-		static double get_UNKNOWN_RULE();
-		static void set_FONT_FACE_RULE(double value);
-		static double get_FONT_FACE_RULE();
-		static void set_CHARSET_RULE(double value);
-		static double get_CHARSET_RULE();
-	};
-
-	class SVGPathSegLinetoAbs : SVGPathSeg 
-	{
-	public:
-		void set_y(double value);
-		double get_y();
-		void set_x(double value);
-		double get_x();
-		static void set_prototype(SVGPathSegLinetoAbs* value);
-		static SVGPathSegLinetoAbs* get_prototype();
-		SVGPathSegLinetoAbs();
-	};
-
-	class MSMouseEventExtensions 
-	{
-	public:
-		void set_toElement(Element* value);
-		Element* get_toElement();
-		void set_layerY(double value);
-		double get_layerY();
-		void set_fromElement(Element* value);
-		Element* get_fromElement();
-		void set_which(double value);
-		double get_which();
-		void set_layerX(double value);
-		double get_layerX();
-	};
-
-	class HTMLModElement : HTMLElement, MSHTMLModElementExtensions 
-	{
-	public:
-		void set_dateTime(String* value);
-		String* get_dateTime();
-		void set_cite(String* value);
-		String* get_cite();
-		static void set_prototype(HTMLModElement* value);
-		static HTMLModElement* get_prototype();
-		HTMLModElement();
-	};
-
-	class DOML2DeprecatedWordWrapSuppression 
-	{
-	public:
-		void set_noWrap(bool value);
-		bool get_noWrap();
-	};
-
-	class BeforeUnloadEvent : Event 
-	{
-	public:
-		void set_returnValue(String* value);
-		String* get_returnValue();
-		static void set_prototype(BeforeUnloadEvent* value);
-		static BeforeUnloadEvent* get_prototype();
-		BeforeUnloadEvent();
-	};
-
-	class MSPopupWindow 
-	{
-	public:
-		void set_document(HTMLDocument* value);
-		HTMLDocument* get_document();
-		void set_isOpen(bool value);
-		bool get_isOpen();
-		void show(double x, double y, double w, double h);
-		void show(double x, double y, double w, double h, Object* element);
-		void hide();
-		static void set_prototype(MSPopupWindow* value);
-		static MSPopupWindow* get_prototype();
-		MSPopupWindow();
-	};
-
-	class SVGMatrix 
-	{
-	public:
-		void set_e(double value);
-		double get_e();
-		void set_c(double value);
-		double get_c();
-		void set_a(double value);
-		double get_a();
-		void set_b(double value);
-		double get_b();
-		void set_d(double value);
-		double get_d();
-		void set_f(double value);
-		double get_f();
-		SVGMatrix* multiply(SVGMatrix* secondMatrix);
-		SVGMatrix* flipY();
-		SVGMatrix* skewY(double angle);
-		SVGMatrix* inverse();
-		SVGMatrix* scaleNonUniform(double scaleFactorX, double scaleFactorY);
-		SVGMatrix* rotate(double angle);
-		SVGMatrix* flipX();
-		SVGMatrix* translate(double x, double y);
-		SVGMatrix* scale(double scaleFactor);
-		SVGMatrix* rotateFromVector(double x, double y);
-		SVGMatrix* skewX(double angle);
-		static void set_prototype(SVGMatrix* value);
-		static SVGMatrix* get_prototype();
-		SVGMatrix();
-	};
-
-	class SVGUseElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
-	{
-	public:
-		void set_y(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y();
-		void set_width(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_width();
-		void set_animatedInstanceRoot(SVGElementInstance* value);
-		SVGElementInstance* get_animatedInstanceRoot();
-		void set_instanceRoot(SVGElementInstance* value);
-		SVGElementInstance* get_instanceRoot();
-		void set_x(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x();
-		void set_height(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_height();
-		static void set_prototype(SVGUseElement* value);
-		static SVGUseElement* get_prototype();
-		SVGUseElement();
-	};
-
-	class Event : MSEventExtensions 
-	{
-	public:
-		void set_timeStamp(double value);
-		double get_timeStamp();
-		void set_defaultPrevented(bool value);
-		bool get_defaultPrevented();
-		void set_isTrusted(bool value);
-		bool get_isTrusted();
-		void set_currentTarget(EventTarget* value);
-		EventTarget* get_currentTarget();
-		void set_target(EventTarget* value);
-		EventTarget* get_target();
-		void set_eventPhase(double value);
-		double get_eventPhase();
-		void set_type(String* value);
-		String* get_type();
-		void set_cancelable(bool value);
-		bool get_cancelable();
-		void set_bubbles(bool value);
-		bool get_bubbles();
-		void initEvent(const String& eventTypeArg, bool canBubbleArg, bool cancelableArg);
-		void stopPropagation();
-		void stopImmediatePropagation();
-		void preventDefault();
-		void set_CAPTURING_PHASE(double value);
-		double get_CAPTURING_PHASE();
-		void set_AT_TARGET(double value);
-		double get_AT_TARGET();
-		void set_BUBBLING_PHASE(double value);
-		double get_BUBBLING_PHASE();
-		static void set_prototype(Event* value);
-		static Event* get_prototype();
-		Event();
-		static void set_CAPTURING_PHASE(double value);
-		static double get_CAPTURING_PHASE();
-		static void set_AT_TARGET(double value);
-		static double get_AT_TARGET();
-		static void set_BUBBLING_PHASE(double value);
-		static double get_BUBBLING_PHASE();
-	};
-
-	class ImageData 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-		void set_data(double[] value);
-		double[] get_data();
-		void set_height(double value);
-		double get_height();
-		static void set_prototype(ImageData* value);
-		static ImageData* get_prototype();
-		ImageData();
-	};
-
-	class MSHTMLElementExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_onlosecapture)(MSEventObj* ev);
-		void set_onlosecapture(callback_for_onlosecapture value);
-		callback_for_onlosecapture get_onlosecapture();
-		typedef Object* (*callback_for_onrowexit)(MSEventObj* ev);
-		void set_onrowexit(callback_for_onrowexit value);
-		callback_for_onrowexit get_onrowexit();
-		typedef Object* (*callback_for_oncontrolselect)(MSEventObj* ev);
-		void set_oncontrolselect(callback_for_oncontrolselect value);
-		callback_for_oncontrolselect get_oncontrolselect();
-		typedef Object* (*callback_for_onrowsinserted)(MSEventObj* ev);
-		void set_onrowsinserted(callback_for_onrowsinserted value);
-		callback_for_onrowsinserted get_onrowsinserted();
-		typedef Object* (*callback_for_onmouseleave)(MouseEvent* ev);
-		void set_onmouseleave(callback_for_onmouseleave value);
-		callback_for_onmouseleave get_onmouseleave();
-		void set_document(HTMLDocument* value);
-		HTMLDocument* get_document();
-		void set_behaviorUrns(MSBehaviorUrnsCollection* value);
-		MSBehaviorUrnsCollection* get_behaviorUrns();
-		typedef Object* (*callback_for_onpropertychange)(MSEventObj* ev);
-		void set_onpropertychange(callback_for_onpropertychange value);
-		callback_for_onpropertychange get_onpropertychange();
-		void set_children(HTMLCollection* value);
-		HTMLCollection* get_children();
-		void set_filters(Object* value);
-		Object* get_filters();
-		typedef Object* (*callback_for_onbeforecut)(DragEvent* ev);
-		void set_onbeforecut(callback_for_onbeforecut value);
-		callback_for_onbeforecut get_onbeforecut();
-		void set_scopeName(String* value);
-		String* get_scopeName();
-		typedef Object* (*callback_for_onbeforepaste)(DragEvent* ev);
-		void set_onbeforepaste(callback_for_onbeforepaste value);
-		callback_for_onbeforepaste get_onbeforepaste();
-		typedef Object* (*callback_for_onmove)(MSEventObj* ev);
-		void set_onmove(callback_for_onmove value);
-		callback_for_onmove get_onmove();
-		typedef Object* (*callback_for_onafterupdate)(MSEventObj* ev);
-		void set_onafterupdate(callback_for_onafterupdate value);
-		callback_for_onafterupdate get_onafterupdate();
-		typedef Object* (*callback_for_onbeforecopy)(DragEvent* ev);
-		void set_onbeforecopy(callback_for_onbeforecopy value);
-		callback_for_onbeforecopy get_onbeforecopy();
-		typedef Object* (*callback_for_onlayoutcomplete)(MSEventObj* ev);
-		void set_onlayoutcomplete(callback_for_onlayoutcomplete value);
-		callback_for_onlayoutcomplete get_onlayoutcomplete();
-		typedef Object* (*callback_for_onresizeend)(MSEventObj* ev);
-		void set_onresizeend(callback_for_onresizeend value);
-		callback_for_onresizeend get_onresizeend();
-		void set_uniqueID(String* value);
-		String* get_uniqueID();
-		typedef Object* (*callback_for_onhelp)(Event* ev);
-		void set_onhelp(callback_for_onhelp value);
-		callback_for_onhelp get_onhelp();
-		typedef Object* (*callback_for_onbeforeactivate)(UIEvent* ev);
-		void set_onbeforeactivate(callback_for_onbeforeactivate value);
-		callback_for_onbeforeactivate get_onbeforeactivate();
-		void set_isMultiLine(bool value);
-		bool get_isMultiLine();
-		void set_uniqueNumber(double value);
-		double get_uniqueNumber();
-		void set_tagUrn(String* value);
-		String* get_tagUrn();
-		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
-		void set_onfocusout(callback_for_onfocusout value);
-		callback_for_onfocusout get_onfocusout();
-		typedef Object* (*callback_for_ondataavailable)(MSEventObj* ev);
-		void set_ondataavailable(callback_for_ondataavailable value);
-		callback_for_ondataavailable get_ondataavailable();
-		void set_hideFocus(bool value);
-		bool get_hideFocus();
-		typedef Object* (*callback_for_onbeforeupdate)(MSEventObj* ev);
-		void set_onbeforeupdate(callback_for_onbeforeupdate value);
-		callback_for_onbeforeupdate get_onbeforeupdate();
-		typedef Object* (*callback_for_onfilterchange)(MSEventObj* ev);
-		void set_onfilterchange(callback_for_onfilterchange value);
-		callback_for_onfilterchange get_onfilterchange();
-		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
-		void set_onfocusin(callback_for_onfocusin value);
-		callback_for_onfocusin get_onfocusin();
-		void set_recordNumber(Object* value);
-		Object* get_recordNumber();
-		void set_parentTextEdit(Element* value);
-		Element* get_parentTextEdit();
-		typedef Object* (*callback_for_ondatasetcomplete)(MSEventObj* ev);
-		void set_ondatasetcomplete(callback_for_ondatasetcomplete value);
-		callback_for_ondatasetcomplete get_ondatasetcomplete();
-		typedef Object* (*callback_for_onbeforedeactivate)(UIEvent* ev);
-		void set_onbeforedeactivate(callback_for_onbeforedeactivate value);
-		callback_for_onbeforedeactivate get_onbeforedeactivate();
-		void set_outerText(String* value);
-		String* get_outerText();
-		typedef Object* (*callback_for_onresizestart)(MSEventObj* ev);
-		void set_onresizestart(callback_for_onresizestart value);
-		callback_for_onresizestart get_onresizestart();
-		typedef Object* (*callback_for_onactivate)(UIEvent* ev);
-		void set_onactivate(callback_for_onactivate value);
-		callback_for_onactivate get_onactivate();
-		void set_isTextEdit(bool value);
-		bool get_isTextEdit();
-		void set_isDisabled(bool value);
-		bool get_isDisabled();
-		void set_readyState(String* value);
-		String* get_readyState();
-		void set_all(HTMLCollection* value);
-		HTMLCollection* get_all();
-		typedef Object* (*callback_for_onmouseenter)(MouseEvent* ev);
-		void set_onmouseenter(callback_for_onmouseenter value);
-		callback_for_onmouseenter get_onmouseenter();
-		typedef Object* (*callback_for_onmovestart)(MSEventObj* ev);
-		void set_onmovestart(callback_for_onmovestart value);
-		callback_for_onmovestart get_onmovestart();
-		typedef Object* (*callback_for_onselectstart)(Event* ev);
-		void set_onselectstart(callback_for_onselectstart value);
-		callback_for_onselectstart get_onselectstart();
-		typedef Object* (*callback_for_onpaste)(DragEvent* ev);
-		void set_onpaste(callback_for_onpaste value);
-		callback_for_onpaste get_onpaste();
-		void set_canHaveHTML(bool value);
-		bool get_canHaveHTML();
-		void set_innerText(String* value);
-		String* get_innerText();
-		typedef Object* (*callback_for_onerrorupdate)(MSEventObj* ev);
-		void set_onerrorupdate(callback_for_onerrorupdate value);
-		callback_for_onerrorupdate get_onerrorupdate();
-		typedef Object* (*callback_for_ondeactivate)(UIEvent* ev);
-		void set_ondeactivate(callback_for_ondeactivate value);
-		callback_for_ondeactivate get_ondeactivate();
-		typedef Object* (*callback_for_oncut)(DragEvent* ev);
-		void set_oncut(callback_for_oncut value);
-		callback_for_oncut get_oncut();
-		typedef Object* (*callback_for_onmoveend)(MSEventObj* ev);
-		void set_onmoveend(callback_for_onmoveend value);
-		callback_for_onmoveend get_onmoveend();
-		typedef Object* (*callback_for_onresize)(UIEvent* ev);
-		void set_onresize(callback_for_onresize value);
-		callback_for_onresize get_onresize();
-		void set_language(String* value);
-		String* get_language();
-		typedef Object* (*callback_for_ondatasetchanged)(MSEventObj* ev);
-		void set_ondatasetchanged(callback_for_ondatasetchanged value);
-		callback_for_ondatasetchanged get_ondatasetchanged();
-		typedef Object* (*callback_for_oncopy)(DragEvent* ev);
-		void set_oncopy(callback_for_oncopy value);
-		callback_for_oncopy get_oncopy();
-		typedef Object* (*callback_for_onrowsdelete)(MSEventObj* ev);
-		void set_onrowsdelete(callback_for_onrowsdelete value);
-		callback_for_onrowsdelete get_onrowsdelete();
-		void set_parentElement(HTMLElement* value);
-		HTMLElement* get_parentElement();
-		typedef Object* (*callback_for_onrowenter)(MSEventObj* ev);
-		void set_onrowenter(callback_for_onrowenter value);
-		callback_for_onrowenter get_onrowenter();
-		typedef Object* (*callback_for_onbeforeeditfocus)(MSEventObj* ev);
-		void set_onbeforeeditfocus(callback_for_onbeforeeditfocus value);
-		callback_for_onbeforeeditfocus get_onbeforeeditfocus();
-		void set_canHaveChildren(bool value);
-		bool get_canHaveChildren();
-		void set_sourceIndex(double value);
-		double get_sourceIndex();
-		typedef Object* (*callback_for_oncellchange)(MSEventObj* ev);
-		void set_oncellchange(callback_for_oncellchange value);
-		callback_for_oncellchange get_oncellchange();
-		bool dragDrop();
-		void releaseCapture();
-		void addFilter(Object* filter);
-		void setCapture();
-		void setCapture(bool containerCapture);
-		bool removeBehavior(double cookie);
-		bool contains(HTMLElement* child);
-		Element* applyElement(Element* apply);
-		Element* applyElement(Element* apply, const String& where);
-		String* replaceAdjacentText(const String& where, const String& newText);
-		void mergeAttributes(HTMLElement* source);
-		void mergeAttributes(HTMLElement* source, bool preserveIdentity);
-		Element* insertAdjacentElement(const String& position, Element* insertedElement);
-		void insertAdjacentText(const String& where, const String& text);
-		String* getAdjacentText(const String& where);
-		void removeFilter(Object* filter);
-		void setActive();
-		double addBehavior(const String& bstrUrl);
-		double addBehavior(const String& bstrUrl, Object* factory);
-		void clearAttributes();
-	};
-
-	class HTMLTableColElement : HTMLElement, MSHTMLTableColElementExtensions, HTMLTableAlignment, DOML2DeprecatedAlignmentStyle_HTMLTableColElement 
-	{
-	public:
-		void set_width(Object* value);
-		Object* get_width();
-		void set_span(double value);
-		double get_span();
-		static void set_prototype(HTMLTableColElement* value);
-		static HTMLTableColElement* get_prototype();
-		HTMLTableColElement();
-	};
-
-	class HTMLDocument : MSEventAttachmentTarget, MSHTMLDocumentSelection, MSHTMLDocumentExtensions, MSNodeExtensions, MSResourceMetadata, MSHTMLDocumentEventExtensions, MSHTMLDocumentViewExtensions 
+	class HTMLDocument
 	{
 	public:
 		typedef Object* (*callback_for_ondragend)(DragEvent* ev);
@@ -7054,9 +4427,9 @@ namespace client
 		NodeList* getElementsByName(const String& elementName);
 		void writeln(String** content);
 		Object* open();
-		Object* open(, const String& url);
-		Object* open(, const String& url, );
-		Object* open(, const String& url, , const String& name);
+		//Object* open(, const String& url);
+		//Object* open(, const String& url, );
+		//Object* open(, const String& url, , const String& name);
 		Object* open(const String& url, const String& name, const String& features, bool replace);
 		bool queryCommandState(const String& commandId);
 		void close();
@@ -7069,571 +4442,1202 @@ namespace client
 		String* queryCommandText(const String& commandId);
 	};
 
-	class SVGException 
+	class DocumentTraversal 
 	{
 	public:
-		void set_code(double value);
-		double get_code();
-		void set_message(String* value);
-		String* get_message();
-		String* toString();
-		void set_SVG_MATRIX_NOT_INVERTABLE(double value);
-		double get_SVG_MATRIX_NOT_INVERTABLE();
-		void set_SVG_WRONG_TYPE_ERR(double value);
-		double get_SVG_WRONG_TYPE_ERR();
-		void set_SVG_INVALID_VALUE_ERR(double value);
-		double get_SVG_INVALID_VALUE_ERR();
-		static void set_prototype(SVGException* value);
-		static SVGException* get_prototype();
-		SVGException();
-		static void set_SVG_MATRIX_NOT_INVERTABLE(double value);
-		static double get_SVG_MATRIX_NOT_INVERTABLE();
-		static void set_SVG_WRONG_TYPE_ERR(double value);
-		static double get_SVG_WRONG_TYPE_ERR();
-		static void set_SVG_INVALID_VALUE_ERR(double value);
-		static double get_SVG_INVALID_VALUE_ERR();
+		NodeIterator* createNodeIterator(Node* root, double whatToShow, NodeFilterCallback* filter, bool entityReferenceExpansion);
+		TreeWalker* createTreeWalker(Node* root, double whatToShow, NodeFilterCallback* filter, bool entityReferenceExpansion);
 	};
 
-	class DOML2DeprecatedTableCellHeight 
+	class DocumentView 
 	{
 	public:
-		void set_height(Object* value);
-		Object* get_height();
+		void set_defaultView(AbstractView* value);
+		AbstractView* get_defaultView();
+		Element* elementFromPoint(double x, double y);
 	};
 
-	class HTMLTableAlignment 
+	class Comment;
+	class DocumentFragment;
+	class ProcessingInstruction;
+
+	class Document : public Node, DocumentStyle, DocumentRange, HTMLDocument, NodeSelector, DocumentEvent, DocumentTraversal, DocumentView, SVGDocument 
 	{
 	public:
-		void set_ch(String* value);
-		String* get_ch();
-		void set_vAlign(String* value);
-		String* get_vAlign();
-		void set_chOff(String* value);
-		String* get_chOff();
+		void set_doctype(DocumentType* value);
+		DocumentType* get_doctype();
+		void set_xmlVersion(String* value);
+		String* get_xmlVersion();
+		void set_implementation(DOMImplementation* value);
+		DOMImplementation* get_implementation();
+		void set_xmlEncoding(String* value);
+		String* get_xmlEncoding();
+		void set_xmlStandalone(bool value);
+		bool get_xmlStandalone();
+		void set_documentElement(HTMLElement* value);
+		HTMLElement* get_documentElement();
+		void set_inputEncoding(String* value);
+		String* get_inputEncoding();
+		HTMLElement* createElement(const String& tagName);
+		Node* adoptNode(Node* source);
+		Comment* createComment(const String& data);
+		DocumentFragment* createDocumentFragment();
+		NodeList* getElementsByTagName(const String& tagname);
+		NodeList* getElementsByTagNameNS(const String& namespaceURI, const String& localName);
+		ProcessingInstruction* createProcessingInstruction(const String& target, const String& data);
+		Element* createElementNS(const String& namespaceURI, const String& qualifiedName);
+		Attr* createAttribute(const String& name);
+		Text* createTextNode(const String& data);
+		Node* importNode(Node* importedNode, bool deep);
+		CDATASection* createCDATASection(const String& data);
+		Attr* createAttributeNS(const String& namespaceURI, const String& qualifiedName);
+		HTMLElement* getElementById(const String& elementId);
+		static void set_prototype(Document* value);
+		static Document* get_prototype();
+		Document();
 	};
 
-	class SVGAnimatedEnumeration 
+	class MessageEvent : public Event 
 	{
 	public:
-		void set_animVal(double value);
-		double get_animVal();
-		void set_baseVal(double value);
-		double get_baseVal();
-		static void set_prototype(SVGAnimatedEnumeration* value);
-		static SVGAnimatedEnumeration* get_prototype();
-		SVGAnimatedEnumeration();
+		void set_source(Window* value);
+		Window* get_source();
+		void set_origin(String* value);
+		String* get_origin();
+		void set_data(Object* value);
+		Object* get_data();
+		void initMessageEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Object* dataArg, const String& originArg, const String& lastEventIdArg, Window* sourceArg);
+		static void set_prototype(MessageEvent* value);
+		static MessageEvent* get_prototype();
+		MessageEvent();
 	};
 
-	class SVGLinearGradientElement : SVGGradientElement 
+	class HTMLScriptElement : public HTMLElement 
 	{
 	public:
-		void set_y1(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y1();
-		void set_x2(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x2();
-		void set_x1(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x1();
-		void set_y2(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y2();
-		static void set_prototype(SVGLinearGradientElement* value);
-		static SVGLinearGradientElement* get_prototype();
-		SVGLinearGradientElement();
+		void set_defer(bool value);
+		bool get_defer();
+		void set_text(String* value);
+		String* get_text();
+		void set_src(String* value);
+		String* get_src();
+		void set_htmlFor(String* value);
+		String* get_htmlFor();
+		void set_charset(String* value);
+		String* get_charset();
+		void set_type(String* value);
+		String* get_type();
+		void set_event(String* value);
+		String* get_event();
+		static void set_prototype(HTMLScriptElement* value);
+		static HTMLScriptElement* get_prototype();
+		HTMLScriptElement();
 	};
 
-	class DOML2DeprecatedSizeProperty 
+	class MSHTMLBodyElementExtensions : public DOML2DeprecatedWordWrapSuppression_HTMLBodyElement 
 	{
 	public:
-		void set_size(double value);
-		double get_size();
+		void set_scroll(String* value);
+		String* get_scroll();
+		void set_bottomMargin(Object* value);
+		Object* get_bottomMargin();
+		void set_topMargin(Object* value);
+		Object* get_topMargin();
+		void set_rightMargin(Object* value);
+		Object* get_rightMargin();
+		void set_bgProperties(String* value);
+		String* get_bgProperties();
+		void set_leftMargin(Object* value);
+		Object* get_leftMargin();
+		TextRange* createTextRange();
 	};
 
-	class MSHTMLHeadingElementExtensions : DOML2DeprecatedTextFlowControl_HTMLBlockElement 
+	class HTMLTableRowElement : public HTMLElement, HTMLTableAlignment, DOML2DeprecatedAlignmentStyle_HTMLTableRowElement, DOML2DeprecatedBackgroundColorStyle 
 	{
 	public:
+		void set_rowIndex(double value);
+		double get_rowIndex();
+		void set_cells(HTMLCollection* value);
+		HTMLCollection* get_cells();
+		void set_sectionRowIndex(double value);
+		double get_sectionRowIndex();
+		void deleteCell();
+		void deleteCell(double index);
+		HTMLElement* insertCell();
+		HTMLElement* insertCell(double index);
+		static void set_prototype(HTMLTableRowElement* value);
+		static HTMLTableRowElement* get_prototype();
+		HTMLTableRowElement();
 	};
 
-	class MSBorderColorStyle_HTMLTableCellElement 
+	class MSCommentExtensions 
 	{
 	public:
-		void set_borderColor(Object* value);
-		Object* get_borderColor();
+		void set_text(String* value);
+		String* get_text();
 	};
 
-	class DOML2DeprecatedWidthStyle_HTMLHRElement 
+	class DOML2DeprecatedMarginStyle_HTMLMarqueeElement 
 	{
 	public:
-		void set_width(double value);
-		double get_width();
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
-	class HTMLUListElement : HTMLElement, DOML2DeprecatedListSpaceReduction, DOML2DeprecatedListNumberingAndBulletStyle, MSHTMLUListElementExtensions 
+	class HTMLCanvasElement;
+	class ImageData;
+	class CanvasPattern;
+
+	class CanvasRenderingContext2D 
 	{
 	public:
-		static void set_prototype(HTMLUListElement* value);
-		static HTMLUListElement* get_prototype();
-		HTMLUListElement();
+		void set_shadowOffsetX(double value);
+		double get_shadowOffsetX();
+		void set_lineWidth(double value);
+		double get_lineWidth();
+		void set_miterLimit(double value);
+		double get_miterLimit();
+		void set_canvas(HTMLCanvasElement* value);
+		HTMLCanvasElement* get_canvas();
+		void set_strokeStyle(Object* value);
+		Object* get_strokeStyle();
+		void set_font(String* value);
+		String* get_font();
+		void set_globalAlpha(double value);
+		double get_globalAlpha();
+		void set_globalCompositeOperation(String* value);
+		String* get_globalCompositeOperation();
+		void set_shadowOffsetY(double value);
+		double get_shadowOffsetY();
+		void set_fillStyle(Object* value);
+		Object* get_fillStyle();
+		void set_lineCap(String* value);
+		String* get_lineCap();
+		void set_shadowBlur(double value);
+		double get_shadowBlur();
+		void set_textAlign(String* value);
+		String* get_textAlign();
+		void set_textBaseline(String* value);
+		String* get_textBaseline();
+		void set_shadowColor(String* value);
+		String* get_shadowColor();
+		void set_lineJoin(String* value);
+		String* get_lineJoin();
+		void restore();
+		void setTransform(double m11, double m12, double m21, double m22, double dx, double dy);
+		void save();
+		void arc(double x, double y, double radius, double startAngle, double endAngle);
+		void arc(double x, double y, double radius, double startAngle, double endAngle, bool anticlockwise);
+		TextMetrics* measureText(const String& text);
+		bool isPointInPath(double x, double y);
+		void quadraticCurveTo(double cpx, double cpy, double x, double y);
+		void putImageData(ImageData* imagedata, double dx, double dy);
+		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX);
+		//void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, );
+		//void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, , double dirtyY);
+		void putImageData(ImageData* imagedata, double dx, double dy, double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight);
+		void rotate(double angle);
+		void fillText(const String& text, double x, double y);
+		void fillText(const String& text, double x, double y, double maxWidth);
+		void translate(double x, double y);
+		void scale(double x, double y);
+		CanvasGradient* createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1);
+		void lineTo(double x, double y);
+		void fill();
+		CanvasPattern* createPattern(HTMLElement* image, const String& repetition);
+		void closePath();
+		void rect(double x, double y, double w, double h);
+		void clip();
+		ImageData* createImageData(Object* imageDataOrSw);
+		ImageData* createImageData(Object* imageDataOrSw, double sh);
+		void clearRect(double x, double y, double w, double h);
+		void moveTo(double x, double y);
+		ImageData* getImageData(double sx, double sy, double sw, double sh);
+		void fillRect(double x, double y, double w, double h);
+		void bezierCurveTo(double cp1x, double cp1y, double cp2x, double cp2y, double x, double y);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width);
+		//void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, );
+		//void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height);
+		//void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height, );
+		//void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, , double height, , double canvasOffsetX);
+		void drawImage(HTMLElement* image, double offsetX, double offsetY, double width, double height, double canvasOffsetX, double canvasOffsetY, double canvasImageWidth, double canvasImageHeight);
+		void transform(double m11, double m12, double m21, double m22, double dx, double dy);
+		void stroke();
+		void strokeRect(double x, double y, double w, double h);
+		void strokeText(const String& text, double x, double y);
+		void strokeText(const String& text, double x, double y, double maxWidth);
+		void beginPath();
+		void arcTo(double x1, double y1, double x2, double y2, double radius);
+		CanvasGradient* createLinearGradient(double x0, double y0, double x1, double y1);
+		static void set_prototype(CanvasRenderingContext2D* value);
+		static CanvasRenderingContext2D* get_prototype();
+		CanvasRenderingContext2D();
 	};
 
-	class SVGRectElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	class SVGPathSegLinetoHorizontalAbs : public SVGPathSeg 
 	{
 	public:
-		void set_y(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y();
-		void set_width(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_width();
-		void set_ry(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_ry();
-		void set_rx(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_rx();
-		void set_x(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x();
-		void set_height(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_height();
-		static void set_prototype(SVGRectElement* value);
-		static SVGRectElement* get_prototype();
-		SVGRectElement();
+		void set_x(double value);
+		double get_x();
+		static void set_prototype(SVGPathSegLinetoHorizontalAbs* value);
+		static SVGPathSegLinetoHorizontalAbs* get_prototype();
+		SVGPathSegLinetoHorizontalAbs();
 	};
 
-	class DOML2DeprecatedBorderStyle 
+	class DOML2DeprecatedBorderStyle_MSHTMLIFrameElementExtensions 
 	{
 	public:
 		void set_border(String* value);
 		String* get_border();
 	};
 
-	class HTMLDivElement : HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLDivElement, MSHTMLDivElementExtensions, MSDataBindingExtensions 
-	{
-	public:
-		static void set_prototype(HTMLDivElement* value);
-		static HTMLDivElement* get_prototype();
-		HTMLDivElement();
-	};
-
-	class NavigatorDoNotTrack 
-	{
-	public:
-		void set_msDoNotTrack(String* value);
-		String* get_msDoNotTrack();
-	};
-
-	class SVG1_1Properties 
-	{
-	public:
-		void set_fillRule(String* value);
-		String* get_fillRule();
-		void set_strokeLinecap(String* value);
-		String* get_strokeLinecap();
-		void set_stopColor(String* value);
-		String* get_stopColor();
-		void set_glyphOrientationHorizontal(String* value);
-		String* get_glyphOrientationHorizontal();
-		void set_kerning(String* value);
-		String* get_kerning();
-		void set_alignmentBaseline(String* value);
-		String* get_alignmentBaseline();
-		void set_dominantBaseline(String* value);
-		String* get_dominantBaseline();
-		void set_fill(String* value);
-		String* get_fill();
-		void set_strokeMiterlimit(String* value);
-		String* get_strokeMiterlimit();
-		void set_marker(String* value);
-		String* get_marker();
-		void set_glyphOrientationVertical(String* value);
-		String* get_glyphOrientationVertical();
-		void set_markerMid(String* value);
-		String* get_markerMid();
-		void set_textAnchor(String* value);
-		String* get_textAnchor();
-		void set_fillOpacity(String* value);
-		String* get_fillOpacity();
-		void set_strokeDasharray(String* value);
-		String* get_strokeDasharray();
-		void set_mask(String* value);
-		String* get_mask();
-		void set_stopOpacity(String* value);
-		String* get_stopOpacity();
-		void set_stroke(String* value);
-		String* get_stroke();
-		void set_strokeDashoffset(String* value);
-		String* get_strokeDashoffset();
-		void set_strokeOpacity(String* value);
-		String* get_strokeOpacity();
-		void set_markerStart(String* value);
-		String* get_markerStart();
-		void set_pointerEvents(String* value);
-		String* get_pointerEvents();
-		void set_baselineShift(String* value);
-		String* get_baselineShift();
-		void set_markerEnd(String* value);
-		String* get_markerEnd();
-		void set_clipRule(String* value);
-		String* get_clipRule();
-		void set_strokeLinejoin(String* value);
-		String* get_strokeLinejoin();
-		void set_clipPath(String* value);
-		String* get_clipPath();
-		void set_strokeWidth(String* value);
-		String* get_strokeWidth();
-	};
-
-	class NamedNodeMap 
-	{
-	public:
-		Node* operator[](double index);
-		Node* operator[](const String& name);
-		void set_length(double value);
-		double get_length();
-		Node* removeNamedItemNS(const String& namespaceURI, const String& localName);
-		Node* item(double index);
-		Node* removeNamedItem(const String& name);
-		Node* getNamedItem(const String& name);
-		Node* setNamedItem(Node* arg);
-		Node* getNamedItemNS(const String& namespaceURI, const String& localName);
-		Node* setNamedItemNS(Node* arg);
-		static void set_prototype(NamedNodeMap* value);
-		static NamedNodeMap* get_prototype();
-		NamedNodeMap();
-	};
-
-	class MediaList 
-	{
-	public:
-		String* operator[](double index);
-		void set_length(double value);
-		double get_length();
-		void set_mediaText(String* value);
-		String* get_mediaText();
-		void deleteMedium(const String& oldMedium);
-		void appendMedium(const String& newMedium);
-		String* item(double index);
-		String* toString();
-		static void set_prototype(MediaList* value);
-		static MediaList* get_prototype();
-		MediaList();
-	};
-
-	class SVGPathSegCurvetoQuadraticSmoothAbs : SVGPathSeg 
+	class SVGPathSegArcAbs : public SVGPathSeg 
 	{
 	public:
 		void set_y(double value);
 		double get_y();
+		void set_sweepFlag(bool value);
+		bool get_sweepFlag();
+		void set_r2(double value);
+		double get_r2();
 		void set_x(double value);
 		double get_x();
-		static void set_prototype(SVGPathSegCurvetoQuadraticSmoothAbs* value);
-		static SVGPathSegCurvetoQuadraticSmoothAbs* get_prototype();
-		SVGPathSegCurvetoQuadraticSmoothAbs();
+		void set_angle(double value);
+		double get_angle();
+		void set_r1(double value);
+		double get_r1();
+		void set_largeArcFlag(bool value);
+		bool get_largeArcFlag();
+		static void set_prototype(SVGPathSegArcAbs* value);
+		static SVGPathSegArcAbs* get_prototype();
+		SVGPathSegArcAbs();
 	};
 
-	class SVGLengthList 
+	class MSScreenExtensions 
+	{
+	public:
+		void set_deviceXDPI(double value);
+		double get_deviceXDPI();
+		void set_fontSmoothingEnabled(bool value);
+		bool get_fontSmoothingEnabled();
+		void set_bufferDepth(double value);
+		double get_bufferDepth();
+		void set_logicalXDPI(double value);
+		double get_logicalXDPI();
+		void set_systemXDPI(double value);
+		double get_systemXDPI();
+		void set_logicalYDPI(double value);
+		double get_logicalYDPI();
+		void set_systemYDPI(double value);
+		double get_systemYDPI();
+		void set_updateInterval(double value);
+		double get_updateInterval();
+		void set_deviceYDPI(double value);
+		double get_deviceYDPI();
+	};
+
+	class HTMLHtmlElement : public HTMLElement, HTMLHtmlElementDOML2Deprecated 
+	{
+	public:
+		static void set_prototype(HTMLHtmlElement* value);
+		static HTMLHtmlElement* get_prototype();
+		HTMLHtmlElement();
+	};
+
+	class SVGTransform;
+
+	class SVGTransformList 
 	{
 	public:
 		void set_numberOfItems(double value);
 		double get_numberOfItems();
-		SVGLength* replaceItem(SVGLength* newItem, double index);
-		SVGLength* getItem(double index);
+		SVGTransform* getItem(double index);
+		SVGTransform* consolidate();
 		void clear();
-		SVGLength* appendItem(SVGLength* newItem);
-		SVGLength* initialize(SVGLength* newItem);
-		SVGLength* removeItem(double index);
-		SVGLength* insertItemBefore(SVGLength* newItem, double index);
-		static void set_prototype(SVGLengthList* value);
-		static SVGLengthList* get_prototype();
-		SVGLengthList();
+		SVGTransform* appendItem(SVGTransform* newItem);
+		SVGTransform* initialize(SVGTransform* newItem);
+		SVGTransform* removeItem(double index);
+		SVGTransform* insertItemBefore(SVGTransform* newItem, double index);
+		SVGTransform* replaceItem(SVGTransform* newItem, double index);
+		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
+		static void set_prototype(SVGTransformList* value);
+		static SVGTransformList* get_prototype();
+		SVGTransformList();
 	};
 
-	class SVGPathSegCurvetoCubicSmoothRel : SVGPathSeg 
+	class SVGPathSegClosePath : public SVGPathSeg 
 	{
 	public:
-		void set_y(double value);
-		double get_y();
-		void set_x2(double value);
-		double get_x2();
+		static void set_prototype(SVGPathSegClosePath* value);
+		static SVGPathSegClosePath* get_prototype();
+		SVGPathSegClosePath();
+	};
+
+	class DOML2DeprecatedMarginStyle_MSHTMLIFrameElementExtensions 
+	{
+	public:
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
+	};
+
+	class HTMLFrameElement : public HTMLElement, GetSVGDocument
+	{
+	public:
+		void set_scrolling(String* value);
+		String* get_scrolling();
+		void set_marginHeight(String* value);
+		String* get_marginHeight();
+		void set_src(String* value);
+		String* get_src();
+		void set_name(String* value);
+		String* get_name();
+		void set_marginWidth(String* value);
+		String* get_marginWidth();
+		void set_contentDocument(Document* value);
+		Document* get_contentDocument();
+		void set_longDesc(String* value);
+		String* get_longDesc();
+		void set_noResize(bool value);
+		bool get_noResize();
+		static void set_prototype(HTMLFrameElement* value);
+		static HTMLFrameElement* get_prototype();
+		HTMLFrameElement();
+	};
+
+	class SVGLength;
+
+	class SVGAnimatedLength 
+	{
+	public:
+		void set_animVal(SVGLength* value);
+		SVGLength* get_animVal();
+		void set_baseVal(SVGLength* value);
+		SVGLength* get_baseVal();
+		static void set_prototype(SVGAnimatedLength* value);
+		static SVGAnimatedLength* get_prototype();
+		SVGAnimatedLength();
+	};
+
+	class CSSMediaRule : public CSSRule 
+	{
+	public:
+		void set_media(MediaList* value);
+		MediaList* get_media();
+		void set_cssRules(CSSRuleList* value);
+		CSSRuleList* get_cssRules();
+		double insertRule(const String& rule);
+		double insertRule(const String& rule, double index);
+		void deleteRule();
+		void deleteRule(double index);
+		static void set_prototype(CSSMediaRule* value);
+		static CSSMediaRule* get_prototype();
+		CSSMediaRule();
+	};
+
+	class HTMLQuoteElement : public HTMLElement 
+	{
+	public:
+		void set_cite(String* value);
+		String* get_cite();
+		static void set_prototype(HTMLQuoteElement* value);
+		static HTMLQuoteElement* get_prototype();
+		HTMLQuoteElement();
+	};
+
+	class SVGDefsElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		static void set_prototype(SVGDefsElement* value);
+		static SVGDefsElement* get_prototype();
+		SVGDefsElement();
+	};
+
+	class SVGAnimatedPoints 
+	{
+	public:
+		void set_points(SVGPointList* value);
+		SVGPointList* get_points();
+		void set_animatedPoints(SVGPointList* value);
+		SVGPointList* get_animatedPoints();
+	};
+
+	class WindowModal 
+	{
+	public:
+		void set_dialogArguments(Object* value);
+		Object* get_dialogArguments();
+		void set_returnValue(Object* value);
+		Object* get_returnValue();
+	};
+
+	class MSHTMLButtonElementExtensions 
+	{
+	public:
+		void set_status(Object* value);
+		Object* get_status();
+		TextRange* createTextRange();
+	};
+
+	class XMLHttpRequest : public EventTarget
+	{
+	public:
+		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
+		void set_onreadystatechange(callback_for_onreadystatechange value);
+		callback_for_onreadystatechange get_onreadystatechange();
+		void set_status(double value);
+		double get_status();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		void set_readyState(double value);
+		double get_readyState();
+		void set_responseText(String* value);
+		String* get_responseText();
+		void set_responseXML(Document* value);
+		Document* get_responseXML();
+		void set_statusText(String* value);
+		String* get_statusText();
+		void open(const String& method, const String& url);
+		void open(const String& method, const String& url, bool async);
+		//void open(const String& method, const String& url, bool async, );
+		void open(const String& method, const String& url, bool async, const String& user, const String& password);
+		void send();
+		void send(Object* data);
+		void abort();
+		String* getAllResponseHeaders();
+		void setRequestHeader(const String& header, const String& value);
+		String* getResponseHeader(const String& header);
+		void set_LOADING(double value);
+		double get_LOADING();
+		void set_DONE(double value);
+		double get_DONE();
+		void set_UNSENT(double value);
+		double get_UNSENT();
+		void set_OPENED(double value);
+		double get_OPENED();
+		void set_HEADERS_RECEIVED(double value);
+		double get_HEADERS_RECEIVED();
+		static void set_prototype(XMLHttpRequest* value);
+		static XMLHttpRequest* get_prototype();
+		XMLHttpRequest();
+	};
+
+	class HTMLTableHeaderCellElement : public HTMLTableCellElement, HTMLTableHeaderCellScope 
+	{
+	public:
+		static void set_prototype(HTMLTableHeaderCellElement* value);
+		static HTMLTableHeaderCellElement* get_prototype();
+		HTMLTableHeaderCellElement();
+	};
+
+	class HTMLDListElement : public HTMLElement, DOML2DeprecatedListSpaceReduction
+	{
+	public:
+		static void set_prototype(HTMLDListElement* value);
+		static HTMLDListElement* get_prototype();
+		HTMLDListElement();
+	};
+
+	class SVGEllipseElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		void set_ry(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_ry();
+		void set_cx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cx();
+		void set_rx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_rx();
+		void set_cy(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cy();
+		static void set_prototype(SVGEllipseElement* value);
+		static SVGEllipseElement* get_prototype();
+		SVGEllipseElement();
+	};
+
+	class SVGPathSegLinetoHorizontalRel : public SVGPathSeg 
+	{
+	public:
 		void set_x(double value);
 		double get_x();
-		void set_y2(double value);
-		double get_y2();
-		static void set_prototype(SVGPathSegCurvetoCubicSmoothRel* value);
-		static SVGPathSegCurvetoCubicSmoothRel* get_prototype();
-		SVGPathSegCurvetoCubicSmoothRel();
+		static void set_prototype(SVGPathSegLinetoHorizontalRel* value);
+		static SVGPathSegLinetoHorizontalRel* get_prototype();
+		SVGPathSegLinetoHorizontalRel();
 	};
 
-	class MSWindowExtensions 
+	class SVGAElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
 	{
 	public:
-		void set_status(String* value);
-		String* get_status();
-		typedef Object* (*callback_for_onmouseleave)(MouseEvent* ev);
-		void set_onmouseleave(callback_for_onmouseleave value);
-		callback_for_onmouseleave get_onmouseleave();
-		void set_screenLeft(double value);
-		double get_screenLeft();
-		void set_offscreenBuffering(Object* value);
-		Object* get_offscreenBuffering();
-		void set_maxConnectionsPerServer(double value);
-		double get_maxConnectionsPerServer();
-		typedef Object* (*callback_for_onmouseenter)(MouseEvent* ev);
-		void set_onmouseenter(callback_for_onmouseenter value);
-		callback_for_onmouseenter get_onmouseenter();
-		void set_clipboardData(DataTransfer* value);
-		DataTransfer* get_clipboardData();
-		void set_defaultStatus(String* value);
-		String* get_defaultStatus();
-		void set_clientInformation(Navigator* value);
-		Navigator* get_clientInformation();
-		void set_closed(bool value);
-		bool get_closed();
-		typedef Object* (*callback_for_onhelp)(Event* ev);
-		void set_onhelp(callback_for_onhelp value);
-		callback_for_onhelp get_onhelp();
-		void set_external(BrowserPublic* value);
-		BrowserPublic* get_external();
-		void set_event(MSEventObj* value);
-		MSEventObj* get_event();
-		typedef Object* (*callback_for_onfocusout)(FocusEvent* ev);
-		void set_onfocusout(callback_for_onfocusout value);
-		callback_for_onfocusout get_onfocusout();
-		void set_screenTop(double value);
-		double get_screenTop();
-		typedef Object* (*callback_for_onfocusin)(FocusEvent* ev);
-		void set_onfocusin(callback_for_onfocusin value);
-		callback_for_onfocusin get_onfocusin();
-		Window* showModelessDialog();
-		Window* showModelessDialog(, const String& url);
-		Window* showModelessDialog(, const String& url, );
-		Window* showModelessDialog(const String& url, Object* argument, Object* options);
-		void navigate(const String& url);
-		void resizeBy();
-		void resizeBy(, double x);
-		void resizeBy(double x, double y);
-		Object* item(Object* index);
-		void resizeTo();
-		void resizeTo(, double x);
-		void resizeTo(double x, double y);
-		MSPopupWindow* createPopup();
-		MSPopupWindow* createPopup(Object* arguments);
-		String* toStaticHTML(const String& html);
-		Object* execScript(const String& code);
-		Object* execScript(const String& code, const String& language);
-		void msWriteProfilerMark(const String& profilerMarkName);
-		void moveTo();
-		void moveTo(, double x);
-		void moveTo(double x, double y);
-		void moveBy();
-		void moveBy(, double x);
-		void moveBy(double x, double y);
-		void showHelp(const String& url);
-		void showHelp(const String& url, Object* helpArg);
-		void showHelp(const String& url, Object* helpArg, const String& features);
+		void set_target(SVGAnimatedString* value);
+		SVGAnimatedString* get_target();
+		static void set_prototype(SVGAElement* value);
+		static SVGAElement* get_prototype();
+		SVGAElement();
 	};
 
-	class ProcessingInstruction : Node 
+	class MSHTMLMetaElementExtensions 
 	{
 	public:
-		void set_target(String* value);
-		String* get_target();
-		void set_data(String* value);
-		String* get_data();
-		static void set_prototype(ProcessingInstruction* value);
-		static ProcessingInstruction* get_prototype();
-		ProcessingInstruction();
+		void set_url(String* value);
+		String* get_url();
+		void set_charset(String* value);
+		String* get_charset();
 	};
 
-	class MSBehaviorUrnsCollection 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		String* item(double index);
-		static void set_prototype(MSBehaviorUrnsCollection* value);
-		static MSBehaviorUrnsCollection* get_prototype();
-		MSBehaviorUrnsCollection();
-	};
-
-	class CSSFontFaceRule : CSSRule 
-	{
-	public:
-		void set_style(CSSStyleDeclaration* value);
-		CSSStyleDeclaration* get_style();
-		static void set_prototype(CSSFontFaceRule* value);
-		static CSSFontFaceRule* get_prototype();
-		CSSFontFaceRule();
-	};
-
-	class DOML2DeprecatedBackgroundStyle 
-	{
-	public:
-		void set_background(String* value);
-		String* get_background();
-	};
-
-	class TextEvent : UIEvent 
-	{
-	public:
-		void set_inputMethod(double value);
-		double get_inputMethod();
-		void set_data(String* value);
-		String* get_data();
-		void set_locale(String* value);
-		String* get_locale();
-		void initTextEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, double inputMethod, const String& locale);
-		void set_DOM_INPUT_METHOD_KEYBOARD(double value);
-		double get_DOM_INPUT_METHOD_KEYBOARD();
-		void set_DOM_INPUT_METHOD_DROP(double value);
-		double get_DOM_INPUT_METHOD_DROP();
-		void set_DOM_INPUT_METHOD_IME(double value);
-		double get_DOM_INPUT_METHOD_IME();
-		void set_DOM_INPUT_METHOD_SCRIPT(double value);
-		double get_DOM_INPUT_METHOD_SCRIPT();
-		void set_DOM_INPUT_METHOD_VOICE(double value);
-		double get_DOM_INPUT_METHOD_VOICE();
-		void set_DOM_INPUT_METHOD_UNKNOWN(double value);
-		double get_DOM_INPUT_METHOD_UNKNOWN();
-		void set_DOM_INPUT_METHOD_PASTE(double value);
-		double get_DOM_INPUT_METHOD_PASTE();
-		void set_DOM_INPUT_METHOD_HANDWRITING(double value);
-		double get_DOM_INPUT_METHOD_HANDWRITING();
-		void set_DOM_INPUT_METHOD_OPTION(double value);
-		double get_DOM_INPUT_METHOD_OPTION();
-		void set_DOM_INPUT_METHOD_MULTIMODAL(double value);
-		double get_DOM_INPUT_METHOD_MULTIMODAL();
-		static void set_prototype(TextEvent* value);
-		static TextEvent* get_prototype();
-		TextEvent();
-		static void set_DOM_INPUT_METHOD_KEYBOARD(double value);
-		static double get_DOM_INPUT_METHOD_KEYBOARD();
-		static void set_DOM_INPUT_METHOD_DROP(double value);
-		static double get_DOM_INPUT_METHOD_DROP();
-		static void set_DOM_INPUT_METHOD_IME(double value);
-		static double get_DOM_INPUT_METHOD_IME();
-		static void set_DOM_INPUT_METHOD_SCRIPT(double value);
-		static double get_DOM_INPUT_METHOD_SCRIPT();
-		static void set_DOM_INPUT_METHOD_VOICE(double value);
-		static double get_DOM_INPUT_METHOD_VOICE();
-		static void set_DOM_INPUT_METHOD_UNKNOWN(double value);
-		static double get_DOM_INPUT_METHOD_UNKNOWN();
-		static void set_DOM_INPUT_METHOD_PASTE(double value);
-		static double get_DOM_INPUT_METHOD_PASTE();
-		static void set_DOM_INPUT_METHOD_HANDWRITING(double value);
-		static double get_DOM_INPUT_METHOD_HANDWRITING();
-		static void set_DOM_INPUT_METHOD_OPTION(double value);
-		static double get_DOM_INPUT_METHOD_OPTION();
-		static void set_DOM_INPUT_METHOD_MULTIMODAL(double value);
-		static double get_DOM_INPUT_METHOD_MULTIMODAL();
-	};
-
-	class MSHTMLHRElementExtensions : DOML2DeprecatedColorProperty 
+	class MSHTMLTableCellElementExtensions 
 	{
 	public:
 	};
 
-	class AbstractView 
+	class HTMLFrameSetElement : public HTMLElement 
 	{
 	public:
-		void set_styleMedia(StyleMedia* value);
-		StyleMedia* get_styleMedia();
-		void set_document(Document* value);
-		Document* get_document();
+		typedef Object* (*callback_for_onresize)(UIEvent* ev);
+		void set_onresize(callback_for_onresize value);
+		callback_for_onresize get_onresize();
+		typedef Object* (*callback_for_ononline)(Event* ev);
+		void set_ononline(callback_for_ononline value);
+		callback_for_ononline get_ononline();
+		typedef Object* (*callback_for_onafterprint)(Event* ev);
+		void set_onafterprint(callback_for_onafterprint value);
+		callback_for_onafterprint get_onafterprint();
+		typedef Object* (*callback_for_onbeforeprint)(Event* ev);
+		void set_onbeforeprint(callback_for_onbeforeprint value);
+		callback_for_onbeforeprint get_onbeforeprint();
+		typedef Object* (*callback_for_onoffline)(Event* ev);
+		void set_onoffline(callback_for_onoffline value);
+		callback_for_onoffline get_onoffline();
+		void set_rows(String* value);
+		String* get_rows();
+		void set_cols(String* value);
+		String* get_cols();
+		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
+		void set_onblur(callback_for_onblur value);
+		callback_for_onblur get_onblur();
+		typedef Object* (*callback_for_onunload)(Event* ev);
+		void set_onunload(callback_for_onunload value);
+		callback_for_onunload get_onunload();
+		typedef Object* (*callback_for_onhashchange)(Event* ev);
+		void set_onhashchange(callback_for_onhashchange value);
+		callback_for_onhashchange get_onhashchange();
+		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
+		void set_onfocus(callback_for_onfocus value);
+		callback_for_onfocus get_onfocus();
+		typedef Object* (*callback_for_onmessage)(MessageEvent* ev);
+		void set_onmessage(callback_for_onmessage value);
+		callback_for_onmessage get_onmessage();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		typedef Object* (*callback_for_onerror)(Event* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		typedef Object* (*callback_for_onbeforeunload)(BeforeUnloadEvent* ev);
+		void set_onbeforeunload(callback_for_onbeforeunload value);
+		callback_for_onbeforeunload get_onbeforeunload();
+		typedef Object* (*callback_for_onstorage)(StorageEvent* ev);
+		void set_onstorage(callback_for_onstorage value);
+		callback_for_onstorage get_onstorage();
+		static void set_prototype(HTMLFrameSetElement* value);
+		static HTMLFrameSetElement* get_prototype();
+		HTMLFrameSetElement();
 	};
 
-	class DocumentFragment : Node, NodeSelector, MSEventAttachmentTarget, MSNodeExtensions 
-	{
-	public:
-		static void set_prototype(DocumentFragment* value);
-		static DocumentFragment* get_prototype();
-		DocumentFragment();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLFieldSetElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class SVGPolylineElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGAnimatedPoints, SVGTests 
-	{
-	public:
-		static void set_prototype(SVGPolylineElement* value);
-		static SVGPolylineElement* get_prototype();
-		SVGPolylineElement();
-	};
-
-	class DOML2DeprecatedWidthStyle 
+	class Screen : public MSScreenExtensions 
 	{
 	public:
 		void set_width(double value);
 		double get_width();
+		void set_colorDepth(double value);
+		double get_colorDepth();
+		void set_availWidth(double value);
+		double get_availWidth();
+		void set_pixelDepth(double value);
+		double get_pixelDepth();
+		void set_availHeight(double value);
+		double get_availHeight();
+		void set_height(double value);
+		double get_height();
+		static void set_prototype(Screen* value);
+		static Screen* get_prototype();
+		Screen();
 	};
 
-	class DOML2DeprecatedAlignmentStyle_HTMLHeadingElement 
+	class Coordinates 
+	{
+	public:
+		void set_altitudeAccuracy(double value);
+		double get_altitudeAccuracy();
+		void set_longitude(double value);
+		double get_longitude();
+		void set_latitude(double value);
+		double get_latitude();
+		void set_speed(double value);
+		double get_speed();
+		void set_heading(double value);
+		double get_heading();
+		void set_altitude(double value);
+		double get_altitude();
+		void set_accuracy(double value);
+		double get_accuracy();
+		static void set_prototype(Coordinates* value);
+		static Coordinates* get_prototype();
+		Coordinates();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLTableColElement 
 	{
 	public:
 		void set_align(String* value);
 		String* get_align();
 	};
 
-	class SVGAnimatedPathData 
+	class EventListener 
 	{
 	public:
-		void set_pathSegList(SVGPathSegList* value);
-		SVGPathSegList* get_pathSegList();
+		void operator()(Event* evt);
 	};
 
-	class Position 
+	class DataTransfer 
 	{
 	public:
-		void set_timestamp(Date* value);
-		Date* get_timestamp();
-		void set_coords(Coordinates* value);
-		Coordinates* get_coords();
-		static void set_prototype(Position* value);
-		static Position* get_prototype();
-		Position();
+		void set_effectAllowed(String* value);
+		String* get_effectAllowed();
+		void set_dropEffect(String* value);
+		String* get_dropEffect();
+		bool clearData();
+		bool clearData(const String& format);
+		bool setData(const String& format, const String& data);
+		String* getData(const String& format);
+		static void set_prototype(DataTransfer* value);
+		static DataTransfer* get_prototype();
+		DataTransfer();
 	};
 
-	class BookmarkCollection 
+	class FocusEvent : public UIEvent 
 	{
 	public:
+		void set_relatedTarget(EventTarget* value);
+		EventTarget* get_relatedTarget();
+		void initFocusEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, EventTarget* relatedTargetArg);
+		static void set_prototype(FocusEvent* value);
+		static FocusEvent* get_prototype();
+		FocusEvent();
+	};
+
+	class Range 
+	{
+	public:
+		void set_startOffset(double value);
+		double get_startOffset();
+		void set_collapsed(bool value);
+		bool get_collapsed();
+		void set_endOffset(double value);
+		double get_endOffset();
+		void set_startContainer(Node* value);
+		Node* get_startContainer();
+		void set_endContainer(Node* value);
+		Node* get_endContainer();
+		void set_commonAncestorContainer(Node* value);
+		Node* get_commonAncestorContainer();
+		void setStart(Node* refNode, double offset);
+		void setEndBefore(Node* refNode);
+		void setStartBefore(Node* refNode);
+		void selectNode(Node* refNode);
+		void detach();
+		ClientRect* getBoundingClientRect();
+		String* toString();
+		double compareBoundaryPoints(double how, Range* sourceRange);
+		void insertNode(Node* newNode);
+		void collapse(bool toStart);
+		void selectNodeContents(Node* refNode);
+		DocumentFragment* cloneContents();
+		void setEnd(Node* refNode, double offset);
+		Range* cloneRange();
+		ClientRectList* getClientRects();
+		void surroundContents(Node* newParent);
+		void deleteContents();
+		void setStartAfter(Node* refNode);
+		DocumentFragment* extractContents();
+		void setEndAfter(Node* refNode);
+		void set_END_TO_END(double value);
+		double get_END_TO_END();
+		void set_START_TO_START(double value);
+		double get_START_TO_START();
+		void set_START_TO_END(double value);
+		double get_START_TO_END();
+		void set_END_TO_START(double value);
+		double get_END_TO_START();
+		static void set_prototype(Range* value);
+		static Range* get_prototype();
+		Range();
+	};
+
+	class MSHTMLPreElementExtensions : public DOML2DeprecatedTextFlowControl_HTMLBlockElement 
+	{
+	public:
+		void set_cite(String* value);
+		String* get_cite();
+	};
+
+	class SVGPoint 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
+		SVGPoint* matrixTransform(SVGMatrix* matrix);
+		static void set_prototype(SVGPoint* value);
+		static SVGPoint* get_prototype();
+		SVGPoint();
+	};
+
+	class MSPluginsCollection 
+	{
+	public:
+		void set_length(double value);
+		double get_length();
+		void refresh();
+		void refresh(bool reload);
+		static void set_prototype(MSPluginsCollection* value);
+		static MSPluginsCollection* get_prototype();
+		MSPluginsCollection();
+	};
+
+	class MSHTMLFontElementExtensions 
+	{
+	public:
+	};
+
+	class SVGNumberList;
+
+	class SVGAnimatedNumberList 
+	{
+	public:
+		void set_animVal(SVGNumberList* value);
+		SVGNumberList* get_animVal();
+		void set_baseVal(SVGNumberList* value);
+		SVGNumberList* get_baseVal();
+		static void set_prototype(SVGAnimatedNumberList* value);
+		static SVGAnimatedNumberList* get_prototype();
+		SVGAnimatedNumberList();
+	};
+
+	class ViewCSS_SVGSVGElement 
+	{
+	public:
+		CSSStyleDeclaration* getComputedStyle(Element* elt);
+		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
+	};
+
+	class SVGNumber;
+
+	class SVGSVGElement : public SVGElement, SVGZoomAndPan, SVGLangSpace, SVGLocatable, SVGTests, SVGFitToViewBox, SVGSVGElementEventHandlers, SVGStylable, DocumentEvent, ViewCSS_SVGSVGElement 
+	{
+	public:
+		void set_width(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_width();
+		void set_x(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x();
+		void set_contentStyleType(String* value);
+		String* get_contentStyleType();
+		void set_screenPixelToMillimeterY(double value);
+		double get_screenPixelToMillimeterY();
+		void set_height(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_height();
+		void set_contentScriptType(String* value);
+		String* get_contentScriptType();
+		void set_pixelUnitToMillimeterX(double value);
+		double get_pixelUnitToMillimeterX();
+		void set_currentTranslate(SVGPoint* value);
+		SVGPoint* get_currentTranslate();
+		void set_y(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y();
+		void set_viewport(SVGRect* value);
+		SVGRect* get_viewport();
+		void set_currentScale(double value);
+		double get_currentScale();
+		void set_screenPixelToMillimeterX(double value);
+		double get_screenPixelToMillimeterX();
+		void set_pixelUnitToMillimeterY(double value);
+		double get_pixelUnitToMillimeterY();
+		void setCurrentTime(double seconds);
+		SVGLength* createSVGLength();
+		NodeList* getIntersectionList(SVGRect* rect, SVGElement* referenceElement);
+		void unpauseAnimations();
+		SVGRect* createSVGRect();
+		bool checkIntersection(SVGElement* element, SVGRect* rect);
+		void unsuspendRedrawAll();
+		void pauseAnimations();
+		double suspendRedraw(double maxWaitMilliseconds);
+		void deselectAll();
+		SVGAngle* createSVGAngle();
+		NodeList* getEnclosureList(SVGRect* rect, SVGElement* referenceElement);
+		SVGTransform* createSVGTransform();
+		void unsuspendRedraw(double suspendHandleID);
+		void forceRedraw();
+		double getCurrentTime();
+		bool checkEnclosure(SVGElement* element, SVGRect* rect);
+		SVGMatrix* createSVGMatrix();
+		SVGPoint* createSVGPoint();
+		SVGNumber* createSVGNumber();
+		SVGTransform* createSVGTransformFromMatrix(SVGMatrix* matrix);
+		Element* getElementById(const String& elementId);
+		static void set_prototype(SVGSVGElement* value);
+		static SVGSVGElement* get_prototype();
+		SVGSVGElement();
+	};
+
+	class HTMLLabelElement : public HTMLElement
+	{
+	public:
+		void set_htmlFor(String* value);
+		String* get_htmlFor();
+		void set_form(HTMLFormElement* value);
+		HTMLFormElement* get_form();
+		static void set_prototype(HTMLLabelElement* value);
+		static HTMLLabelElement* get_prototype();
+		HTMLLabelElement();
+	};
+
+	class MSResourceMetadata 
+	{
+	public:
+		void set_protocol(String* value);
+		String* get_protocol();
+		void set_fileSize(String* value);
+		String* get_fileSize();
+		void set_fileUpdatedDate(String* value);
+		String* get_fileUpdatedDate();
+		void set_nameProp(String* value);
+		String* get_nameProp();
+		void set_fileCreatedDate(String* value);
+		String* get_fileCreatedDate();
+		void set_fileModifiedDate(String* value);
+		String* get_fileModifiedDate();
+		void set_mimeType(String* value);
+		String* get_mimeType();
+	};
+
+	class MSHTMLQuoteElementExtensions 
+	{
+	public:
+		void set_dateTime(String* value);
+		String* get_dateTime();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLLegendElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class HTMLLegendElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLLegendElement
+	{
+	public:
+		void set_form(HTMLFormElement* value);
+		HTMLFormElement* get_form();
+		static void set_prototype(HTMLLegendElement* value);
+		static HTMLLegendElement* get_prototype();
+		HTMLLegendElement();
+	};
+
+	class HTMLDirectoryElement : public HTMLElement, DOML2DeprecatedListSpaceReduction
+	{
+	public:
+		static void set_prototype(HTMLDirectoryElement* value);
+		static HTMLDirectoryElement* get_prototype();
+		HTMLDirectoryElement();
+	};
+
+	class MSHTMLImageElementExtensions 
+	{
+	public:
+		void set_href(String* value);
+		String* get_href();
+	};
+
+	class SVGAnimatedInteger 
+	{
+	public:
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
+		static void set_prototype(SVGAnimatedInteger* value);
+		static SVGAnimatedInteger* get_prototype();
+		SVGAnimatedInteger();
+	};
+
+	class SVGTextElement : public SVGTextPositioningElement, SVGTransformable 
+	{
+	public:
+		static void set_prototype(SVGTextElement* value);
+		static SVGTextElement* get_prototype();
+		SVGTextElement();
+	};
+
+	class SVGTSpanElement : public SVGTextPositioningElement 
+	{
+	public:
+		static void set_prototype(SVGTSpanElement* value);
+		static SVGTSpanElement* get_prototype();
+		SVGTSpanElement();
+	};
+
+	class HTMLLIElement : public HTMLElement, DOML2DeprecatedListNumberingAndBulletStyle
+	{
+	public:
+		void set_value(double value);
+		double get_value();
+		static void set_prototype(HTMLLIElement* value);
+		static HTMLLIElement* get_prototype();
+		HTMLLIElement();
+	};
+
+	class SVGPathSegLinetoVerticalAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		static void set_prototype(SVGPathSegLinetoVerticalAbs* value);
+		static SVGPathSegLinetoVerticalAbs* get_prototype();
+		SVGPathSegLinetoVerticalAbs();
+	};
+
+	class MSAttrExtensions 
+	{
+	public:
+		void set_expando(bool value);
+		bool get_expando();
+	};
+
+	class MSStorageExtensions 
+	{
+	public:
+		void set_remainingSpace(double value);
+		double get_remainingSpace();
+	};
+
+	class SVGStyleElement : public SVGElement, SVGLangSpace 
+	{
+	public:
+		void set_media(String* value);
+		String* get_media();
+		void set_type(String* value);
+		String* get_type();
+		void set_title(String* value);
+		String* get_title();
+		static void set_prototype(SVGStyleElement* value);
+		static SVGStyleElement* get_prototype();
+		SVGStyleElement();
+	};
+
+	class MSCurrentStyleCSSProperties : public MSCSSProperties 
+	{
+	public:
+		void set_blockDirection(String* value);
+		String* get_blockDirection();
+		void set_clipBottom(String* value);
+		String* get_clipBottom();
+		void set_clipLeft(String* value);
+		String* get_clipLeft();
+		void set_clipRight(String* value);
+		String* get_clipRight();
+		void set_clipTop(String* value);
+		String* get_clipTop();
+		void set_hasLayout(String* value);
+		String* get_hasLayout();
+		static void set_prototype(MSCurrentStyleCSSProperties* value);
+		static MSCurrentStyleCSSProperties* get_prototype();
+		MSCurrentStyleCSSProperties();
+	};
+
+	class MSLinkStyleExtensions 
+	{
+	public:
+		void set_styleSheet(StyleSheet* value);
+		StyleSheet* get_styleSheet();
+	};
+
+	class MSHTMLCollectionExtensions 
+	{
+	public:
+		Object* urns(Object* urn);
+		Object* tags(Object* tagName);
+	};
+
+	class DOML2DeprecatedWordWrapSuppression_HTMLDivElement 
+	{
+	public:
+		void set_noWrap(bool value);
+		bool get_noWrap();
+	};
+
+	class Storage : public MSStorageExtensions 
+	{
+	public:
+		Object* operator[](const String& key);
 		Object* operator[](double index);
 		void set_length(double value);
 		double get_length();
-		Object* item(double index);
-		static void set_prototype(BookmarkCollection* value);
-		static BookmarkCollection* get_prototype();
-		BookmarkCollection();
+		Object* getItem(const String& key);
+		void setItem(const String& key, const String& data);
+		void clear();
+		void removeItem(const String& key);
+		String* key(double index);
+		static void set_prototype(Storage* value);
+		static Storage* get_prototype();
+		Storage();
 	};
 
-	class CSSPageRule : CSSRule, StyleSheetPage 
+	class HTMLIFrameElement : public HTMLElement, GetSVGDocument, DOML2DeprecatedAlignmentStyle_HTMLIFrameElement 
 	{
 	public:
-		void set_selectorText(String* value);
-		String* get_selectorText();
-		void set_style(CSSStyleDeclaration* value);
-		CSSStyleDeclaration* get_style();
-		static void set_prototype(CSSPageRule* value);
-		static CSSPageRule* get_prototype();
-		CSSPageRule();
+		void set_width(String* value);
+		String* get_width();
+		void set_contentWindow(Window* value);
+		Window* get_contentWindow();
+		void set_scrolling(String* value);
+		String* get_scrolling();
+		void set_src(String* value);
+		String* get_src();
+		void set_marginHeight(String* value);
+		String* get_marginHeight();
+		void set_name(String* value);
+		String* get_name();
+		void set_marginWidth(String* value);
+		String* get_marginWidth();
+		void set_height(String* value);
+		String* get_height();
+		void set_contentDocument(Document* value);
+		Document* get_contentDocument();
+		void set_longDesc(String* value);
+		String* get_longDesc();
+		void set_frameBorder(String* value);
+		String* get_frameBorder();
+		static void set_prototype(HTMLIFrameElement* value);
+		static HTMLIFrameElement* get_prototype();
+		HTMLIFrameElement();
 	};
 
-	class WindowPerformance 
+	class TextRangeCollection 
 	{
 	public:
-		void set_performance(Object* value);
-		Object* get_performance();
+		TextRange* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		TextRange* item(double index);
+		static void set_prototype(TextRangeCollection* value);
+		static TextRangeCollection* get_prototype();
+		TextRangeCollection();
 	};
 
-	class HTMLBRElement : HTMLElement, DOML2DeprecatedTextFlowControl_HTMLBRElement 
+	class HTMLBodyElementDOML2Deprecated 
 	{
 	public:
-		static void set_prototype(HTMLBRElement* value);
-		static HTMLBRElement* get_prototype();
-		HTMLBRElement();
+		void set_link(Object* value);
+		Object* get_link();
+		void set_aLink(Object* value);
+		Object* get_aLink();
+		void set_text(Object* value);
+		Object* get_text();
+		void set_vLink(Object* value);
+		Object* get_vLink();
 	};
 
-	class MSHTMLDivElementExtensions : DOML2DeprecatedWordWrapSuppression_HTMLDivElement 
+	class HTMLBodyElement : public HTMLElement, HTMLBodyElementDOML2Deprecated, MSHTMLBodyElementExtensions, DOML2DeprecatedBackgroundStyle, DOML2DeprecatedBackgroundColorStyle 
 	{
 	public:
+		typedef Object* (*callback_for_onresize)(UIEvent* ev);
+		void set_onresize(callback_for_onresize value);
+		callback_for_onresize get_onresize();
+		typedef Object* (*callback_for_ononline)(Event* ev);
+		void set_ononline(callback_for_ononline value);
+		callback_for_ononline get_ononline();
+		typedef Object* (*callback_for_onafterprint)(Event* ev);
+		void set_onafterprint(callback_for_onafterprint value);
+		callback_for_onafterprint get_onafterprint();
+		typedef Object* (*callback_for_onbeforeprint)(Event* ev);
+		void set_onbeforeprint(callback_for_onbeforeprint value);
+		callback_for_onbeforeprint get_onbeforeprint();
+		typedef Object* (*callback_for_onoffline)(Event* ev);
+		void set_onoffline(callback_for_onoffline value);
+		callback_for_onoffline get_onoffline();
+		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
+		void set_onblur(callback_for_onblur value);
+		callback_for_onblur get_onblur();
+		typedef Object* (*callback_for_onhashchange)(Event* ev);
+		void set_onhashchange(callback_for_onhashchange value);
+		callback_for_onhashchange get_onhashchange();
+		typedef Object* (*callback_for_onunload)(Event* ev);
+		void set_onunload(callback_for_onunload value);
+		callback_for_onunload get_onunload();
+		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
+		void set_onfocus(callback_for_onfocus value);
+		callback_for_onfocus get_onfocus();
+		typedef Object* (*callback_for_onmessage)(MessageEvent* ev);
+		void set_onmessage(callback_for_onmessage value);
+		callback_for_onmessage get_onmessage();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		typedef Object* (*callback_for_onerror)(Event* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		typedef Object* (*callback_for_onbeforeunload)(BeforeUnloadEvent* ev);
+		void set_onbeforeunload(callback_for_onbeforeunload value);
+		callback_for_onbeforeunload get_onbeforeunload();
+		typedef Object* (*callback_for_onstorage)(StorageEvent* ev);
+		void set_onstorage(callback_for_onstorage value);
+		callback_for_onstorage get_onstorage();
+		static void set_prototype(HTMLBodyElement* value);
+		static HTMLBodyElement* get_prototype();
+		HTMLBodyElement();
+	};
+
+	class NamedNodeMap;
+
+	class DocumentType : public Node 
+	{
+	public:
+		void set_name(String* value);
+		String* get_name();
+		void set_notations(NamedNodeMap* value);
+		NamedNodeMap* get_notations();
+		void set_systemId(String* value);
+		String* get_systemId();
+		void set_internalSubset(String* value);
+		String* get_internalSubset();
+		void set_entities(NamedNodeMap* value);
+		NamedNodeMap* get_entities();
+		void set_publicId(String* value);
+		String* get_publicId();
+		static void set_prototype(DocumentType* value);
+		static DocumentType* get_prototype();
+		DocumentType();
+	};
+
+	class DOML2DeprecatedMarginStyle_HTMLInputElement 
+	{
+	public:
+		void set_vspace(double value);
+		double get_vspace();
+		void set_hspace(double value);
+		double get_hspace();
 	};
 
 	class DOML2DeprecatedBorderStyle_HTMLInputElement 
@@ -7643,110 +5647,822 @@ namespace client
 		String* get_border();
 	};
 
-	class HTMLSpanElement : HTMLElement, MSHTMLSpanElementExtensions, MSDataBindingExtensions 
+	class MSHTMLInputElementExtensions : public DOML2DeprecatedMarginStyle_HTMLInputElement, DOML2DeprecatedBorderStyle_HTMLInputElement 
 	{
 	public:
-		static void set_prototype(HTMLSpanElement* value);
-		static HTMLSpanElement* get_prototype();
-		HTMLSpanElement();
+		void set_status(bool value);
+		bool get_status();
+		void set_complete(bool value);
+		bool get_complete();
+		TextRange* createTextRange();
 	};
 
-	class HTMLHRElementDOML2Deprecated 
+	class SVGGradientElement : public SVGElement, SVGUnitTypes, SVGStylable, SVGURIReference 
 	{
 	public:
-		void set_noShade(bool value);
-		bool get_noShade();
+		void set_spreadMethod(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_spreadMethod();
+		void set_gradientTransform(SVGAnimatedTransformList* value);
+		SVGAnimatedTransformList* get_gradientTransform();
+		void set_gradientUnits(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_gradientUnits();
+		void set_SVG_SPREADMETHOD_REFLECT(double value);
+		double get_SVG_SPREADMETHOD_REFLECT();
+		void set_SVG_SPREADMETHOD_PAD(double value);
+		double get_SVG_SPREADMETHOD_PAD();
+		void set_SVG_SPREADMETHOD_UNKNOWN(double value);
+		double get_SVG_SPREADMETHOD_UNKNOWN();
+		void set_SVG_SPREADMETHOD_REPEAT(double value);
+		double get_SVG_SPREADMETHOD_REPEAT();
+		static void set_prototype(SVGGradientElement* value);
+		static SVGGradientElement* get_prototype();
+		SVGGradientElement();
 	};
 
-	class HTMLHeadElement : HTMLElement 
+	class SVGRadialGradientElement : public SVGGradientElement 
 	{
 	public:
-		void set_profile(String* value);
-		String* get_profile();
-		static void set_prototype(HTMLHeadElement* value);
-		static HTMLHeadElement* get_prototype();
-		HTMLHeadElement();
+		void set_cx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cx();
+		void set_r(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_r();
+		void set_cy(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cy();
+		void set_fx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_fx();
+		void set_fy(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_fy();
+		static void set_prototype(SVGRadialGradientElement* value);
+		static SVGRadialGradientElement* get_prototype();
+		SVGRadialGradientElement();
 	};
 
-	class NodeFilterCallback 
+	class MutationEvent : public Event 
 	{
 	public:
-		Object* operator()(Object** args);
+		void set_newValue(String* value);
+		String* get_newValue();
+		void set_attrChange(double value);
+		double get_attrChange();
+		void set_attrName(String* value);
+		String* get_attrName();
+		void set_prevValue(String* value);
+		String* get_prevValue();
+		void set_relatedNode(Node* value);
+		Node* get_relatedNode();
+		void initMutationEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Node* relatedNodeArg, const String& prevValueArg, const String& newValueArg, const String& attrNameArg, double attrChangeArg);
+		void set_MODIFICATION(double value);
+		double get_MODIFICATION();
+		void set_REMOVAL(double value);
+		double get_REMOVAL();
+		void set_ADDITION(double value);
+		double get_ADDITION();
+		static void set_prototype(MutationEvent* value);
+		static MutationEvent* get_prototype();
+		MutationEvent();
 	};
 
-	class HTMLHeadingElement : HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLHeadingElement, MSHTMLHeadingElementExtensions 
+	class DragEvent : public MouseEvent 
 	{
 	public:
-		static void set_prototype(HTMLHeadingElement* value);
-		static HTMLHeadingElement* get_prototype();
-		HTMLHeadingElement();
+		void set_dataTransfer(DataTransfer* value);
+		DataTransfer* get_dataTransfer();
+		void initDragEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, bool ctrlKeyArg, bool altKeyArg, bool shiftKeyArg, bool metaKeyArg, double buttonArg, EventTarget* relatedTargetArg, DataTransfer* dataTransferArg);
+		static void set_prototype(DragEvent* value);
+		static DragEvent* get_prototype();
+		DragEvent();
 	};
 
-	class HTMLFormElement : HTMLElement, MSHTMLFormElementExtensions, MSHTMLCollectionExtensions 
+	class DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement 
 	{
 	public:
-		Object* operator[](const String& name);
-		Object* operator()(Object* name, Object* index);
-		Object* operator()(const String& name);
-		void set_length(double value);
-		double get_length();
-		void set_target(String* value);
-		String* get_target();
-		void set_acceptCharset(String* value);
-		String* get_acceptCharset();
-		void set_enctype(String* value);
-		String* get_enctype();
-		void set_elements(HTMLCollection* value);
-		HTMLCollection* get_elements();
-		void set_action(String* value);
-		String* get_action();
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLInputElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class HTMLTableSectionElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement, HTMLTableAlignment 
+	{
+	public:
+		void set_rows(HTMLCollection* value);
+		HTMLCollection* get_rows();
+		void deleteRow();
+		void deleteRow(double index);
+		HTMLElement* insertRow();
+		HTMLElement* insertRow(double index);
+		static void set_prototype(HTMLTableSectionElement* value);
+		static HTMLTableSectionElement* get_prototype();
+		HTMLTableSectionElement();
+	};
+
+	class HTMLInputElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLInputElement
+	{
+	public:
+		void set_width(String* value);
+		String* get_width();
+		void set_defaultChecked(bool value);
+		bool get_defaultChecked();
+		void set_alt(String* value);
+		String* get_alt();
+		void set_accept(String* value);
+		String* get_accept();
+		void set_value(String* value);
+		String* get_value();
+		void set_src(String* value);
+		String* get_src();
+		void set_useMap(String* value);
+		String* get_useMap();
 		void set_name(String* value);
 		String* get_name();
-		void set_method(String* value);
-		String* get_method();
-		void reset();
-		Object* item();
-		Object* item(, Object* name);
-		Object* item(Object* name, Object* index);
-		void submit();
-		Object* namedItem(const String& name);
-		static void set_prototype(HTMLFormElement* value);
-		static HTMLFormElement* get_prototype();
-		HTMLFormElement();
+		void set_form(HTMLFormElement* value);
+		HTMLFormElement* get_form();
+		void set_selectionStart(double value);
+		double get_selectionStart();
+		void set_height(String* value);
+		String* get_height();
+		void set_indeterminate(bool value);
+		bool get_indeterminate();
+		void set_readOnly(bool value);
+		bool get_readOnly();
+		void set_size(double value);
+		double get_size();
+		void set_checked(bool value);
+		bool get_checked();
+		void set_maxLength(double value);
+		double get_maxLength();
+		void set_selectionEnd(double value);
+		double get_selectionEnd();
+		void set_type(String* value);
+		String* get_type();
+		void set_defaultValue(String* value);
+		String* get_defaultValue();
+		void setSelectionRange(double start, double end);
+		void select();
+		static void set_prototype(HTMLInputElement* value);
+		static HTMLInputElement* get_prototype();
+		HTMLInputElement();
 	};
 
-	class SVGZoomAndPan 
+	class HTMLAnchorElement : public HTMLElement, MSHTMLAnchorElementExtensions, MSDataBindingExtensions 
 	{
 	public:
-		void set_zoomAndPan(double value);
-		double get_zoomAndPan();
-		void set_SVG_ZOOMANDPAN_MAGNIFY(double value);
-		double get_SVG_ZOOMANDPAN_MAGNIFY();
-		void set_SVG_ZOOMANDPAN_UNKNOWN(double value);
-		double get_SVG_ZOOMANDPAN_UNKNOWN();
-		void set_SVG_ZOOMANDPAN_DISABLE(double value);
-		double get_SVG_ZOOMANDPAN_DISABLE();
-		static void set_prototype(SVGZoomAndPan* value);
-		static SVGZoomAndPan* get_prototype();
-		SVGZoomAndPan();
-		static void set_SVG_ZOOMANDPAN_MAGNIFY(double value);
-		static double get_SVG_ZOOMANDPAN_MAGNIFY();
-		static void set_SVG_ZOOMANDPAN_UNKNOWN(double value);
-		static double get_SVG_ZOOMANDPAN_UNKNOWN();
-		static void set_SVG_ZOOMANDPAN_DISABLE(double value);
-		static double get_SVG_ZOOMANDPAN_DISABLE();
+		void set_rel(String* value);
+		String* get_rel();
+		void set_protocol(String* value);
+		String* get_protocol();
+		void set_search(String* value);
+		String* get_search();
+		void set_coords(String* value);
+		String* get_coords();
+		void set_hostname(String* value);
+		String* get_hostname();
+		void set_pathname(String* value);
+		String* get_pathname();
+		void set_target(String* value);
+		String* get_target();
+		void set_href(String* value);
+		String* get_href();
+		void set_name(String* value);
+		String* get_name();
+		void set_charset(String* value);
+		String* get_charset();
+		void set_hreflang(String* value);
+		String* get_hreflang();
+		void set_port(String* value);
+		String* get_port();
+		void set_host(String* value);
+		String* get_host();
+		void set_hash(String* value);
+		String* get_hash();
+		void set_rev(String* value);
+		String* get_rev();
+		void set_type(String* value);
+		String* get_type();
+		void set_shape(String* value);
+		String* get_shape();
+		String* toString();
+		static void set_prototype(HTMLAnchorElement* value);
+		static HTMLAnchorElement* get_prototype();
+		HTMLAnchorElement();
 	};
 
-	class MSEventExtensions 
+	class SVGImageElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
 	{
 	public:
-		void set_cancelBubble(bool value);
-		bool get_cancelBubble();
-		void set_srcElement(Element* value);
-		Element* get_srcElement();
+		void set_y(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y();
+		void set_width(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_width();
+		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio* value);
+		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
+		void set_x(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x();
+		void set_height(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_height();
+		static void set_prototype(SVGImageElement* value);
+		static SVGImageElement* get_prototype();
+		SVGImageElement();
 	};
 
-	class HTMLMediaElement : HTMLElement 
+	class MSElementExtensions 
+	{
+	public:
+		bool msMatchesSelector(const String& selectors);
+		bool fireEvent(const String& eventName);
+		bool fireEvent(const String& eventName, Object* eventObj);
+	};
+
+	class HTMLParamElement : public HTMLElement 
+	{
+	public:
+		void set_value(String* value);
+		String* get_value();
+		void set_name(String* value);
+		String* get_name();
+		void set_type(String* value);
+		String* get_type();
+		void set_valueType(String* value);
+		String* get_valueType();
+		static void set_prototype(HTMLParamElement* value);
+		static HTMLParamElement* get_prototype();
+		HTMLParamElement();
+	};
+
+	class MSHTMLDocumentViewExtensions 
+	{
+	public:
+		CSSStyleSheet* createStyleSheet();
+		//CSSStyleSheet* createStyleSheet(, const String& href);
+		CSSStyleSheet* createStyleSheet(const String& href, double index);
+	};
+
+	class SVGAnimatedNumber 
+	{
+	public:
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
+		static void set_prototype(SVGAnimatedNumber* value);
+		static SVGAnimatedNumber* get_prototype();
+		SVGAnimatedNumber();
+	};
+
+	class PerformanceTiming 
+	{
+	public:
+		void set_redirectStart(double value);
+		double get_redirectStart();
+		void set_domainLookupEnd(double value);
+		double get_domainLookupEnd();
+		void set_responseStart(double value);
+		double get_responseStart();
+		void set_domComplete(double value);
+		double get_domComplete();
+		void set_domainLookupStart(double value);
+		double get_domainLookupStart();
+		void set_loadEventStart(double value);
+		double get_loadEventStart();
+		void set_msFirstPaint(double value);
+		double get_msFirstPaint();
+		void set_unloadEventEnd(double value);
+		double get_unloadEventEnd();
+		void set_fetchStart(double value);
+		double get_fetchStart();
+		void set_requestStart(double value);
+		double get_requestStart();
+		void set_domInteractive(double value);
+		double get_domInteractive();
+		void set_navigationStart(double value);
+		double get_navigationStart();
+		void set_connectEnd(double value);
+		double get_connectEnd();
+		void set_loadEventEnd(double value);
+		double get_loadEventEnd();
+		void set_connectStart(double value);
+		double get_connectStart();
+		void set_responseEnd(double value);
+		double get_responseEnd();
+		void set_domLoading(double value);
+		double get_domLoading();
+		void set_redirectEnd(double value);
+		double get_redirectEnd();
+		void set_unloadEventStart(double value);
+		double get_unloadEventStart();
+		void set_domContentLoadedEventStart(double value);
+		double get_domContentLoadedEventStart();
+		void set_domContentLoadedEventEnd(double value);
+		double get_domContentLoadedEventEnd();
+		Object* toJSON();
+		static void set_prototype(PerformanceTiming* value);
+		static PerformanceTiming* get_prototype();
+		PerformanceTiming();
+	};
+
+	class DOML2DeprecatedWidthStyle_HTMLHRElement 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+	};
+
+	class DOML2DeprecatedWidthStyle 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+	};
+
+	class HTMLPreElement : public HTMLElement, DOML2DeprecatedWidthStyle
+	{
+	public:
+		static void set_prototype(HTMLPreElement* value);
+		static HTMLPreElement* get_prototype();
+		HTMLPreElement();
+	};
+
+	class EventException 
+	{
+	public:
+		void set_code(double value);
+		double get_code();
+		void set_message(String* value);
+		String* get_message();
+		String* toString();
+		void set_DISPATCH_REQUEST_ERR(double value);
+		double get_DISPATCH_REQUEST_ERR();
+		void set_UNSPECIFIED_EVENT_TYPE_ERR(double value);
+		double get_UNSPECIFIED_EVENT_TYPE_ERR();
+		static void set_prototype(EventException* value);
+		static EventException* get_prototype();
+		EventException();
+	};
+
+	class SVGMetadataElement : public SVGElement 
+	{
+	public:
+		static void set_prototype(SVGMetadataElement* value);
+		static SVGMetadataElement* get_prototype();
+		SVGMetadataElement();
+	};
+
+	class SVGPathSegArcRel : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_sweepFlag(bool value);
+		bool get_sweepFlag();
+		void set_r2(double value);
+		double get_r2();
+		void set_x(double value);
+		double get_x();
+		void set_angle(double value);
+		double get_angle();
+		void set_r1(double value);
+		double get_r1();
+		void set_largeArcFlag(bool value);
+		bool get_largeArcFlag();
+		static void set_prototype(SVGPathSegArcRel* value);
+		static SVGPathSegArcRel* get_prototype();
+		SVGPathSegArcRel();
+	};
+
+	class SVGPathSegMovetoAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
+		static void set_prototype(SVGPathSegMovetoAbs* value);
+		static SVGPathSegMovetoAbs* get_prototype();
+		SVGPathSegMovetoAbs();
+	};
+
+	class SVGStringList 
+	{
+	public:
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		String* replaceItem(const String& newItem, double index);
+		String* getItem(double index);
+		void clear();
+		String* appendItem(const String& newItem);
+		String* initialize(const String& newItem);
+		String* removeItem(double index);
+		String* insertItemBefore(const String& newItem, double index);
+		static void set_prototype(SVGStringList* value);
+		static SVGStringList* get_prototype();
+		SVGStringList();
+	};
+
+	class XDomainRequest 
+	{
+	public:
+		void set_timeout(double value);
+		double get_timeout();
+		typedef Object* (*callback_for_onerror)(Event* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		typedef Object* (*callback_for_onload)(Event* ev);
+		void set_onload(callback_for_onload value);
+		callback_for_onload get_onload();
+		typedef Object* (*callback_for_onprogress)(Object* ev);
+		void set_onprogress(callback_for_onprogress value);
+		callback_for_onprogress get_onprogress();
+		typedef Object* (*callback_for_ontimeout)(Event* ev);
+		void set_ontimeout(callback_for_ontimeout value);
+		callback_for_ontimeout get_ontimeout();
+		void set_responseText(String* value);
+		String* get_responseText();
+		void set_contentType(String* value);
+		String* get_contentType();
+		void open(const String& method, const String& url);
+		void abort();
+		void send();
+		void send(Object* data);
+		static void set_prototype(XDomainRequest* value);
+		static XDomainRequest* get_prototype();
+		XDomainRequest();
+	};
+
+	class SVGLength 
+	{
+	public:
+		void set_valueAsString(String* value);
+		String* get_valueAsString();
+		void set_valueInSpecifiedUnits(double value);
+		double get_valueInSpecifiedUnits();
+		void set_value(double value);
+		double get_value();
+		void set_unitType(double value);
+		double get_unitType();
+		void newValueSpecifiedUnits(double unitType, double valueInSpecifiedUnits);
+		void convertToSpecifiedUnits(double unitType);
+		void set_SVG_LENGTHTYPE_NUMBER(double value);
+		double get_SVG_LENGTHTYPE_NUMBER();
+		void set_SVG_LENGTHTYPE_CM(double value);
+		double get_SVG_LENGTHTYPE_CM();
+		void set_SVG_LENGTHTYPE_PC(double value);
+		double get_SVG_LENGTHTYPE_PC();
+		void set_SVG_LENGTHTYPE_PERCENTAGE(double value);
+		double get_SVG_LENGTHTYPE_PERCENTAGE();
+		void set_SVG_LENGTHTYPE_MM(double value);
+		double get_SVG_LENGTHTYPE_MM();
+		void set_SVG_LENGTHTYPE_PT(double value);
+		double get_SVG_LENGTHTYPE_PT();
+		void set_SVG_LENGTHTYPE_IN(double value);
+		double get_SVG_LENGTHTYPE_IN();
+		void set_SVG_LENGTHTYPE_EMS(double value);
+		double get_SVG_LENGTHTYPE_EMS();
+		void set_SVG_LENGTHTYPE_PX(double value);
+		double get_SVG_LENGTHTYPE_PX();
+		void set_SVG_LENGTHTYPE_UNKNOWN(double value);
+		double get_SVG_LENGTHTYPE_UNKNOWN();
+		void set_SVG_LENGTHTYPE_EXS(double value);
+		double get_SVG_LENGTHTYPE_EXS();
+		static void set_prototype(SVGLength* value);
+		static SVGLength* get_prototype();
+		SVGLength();
+	};
+
+	class SVGPolygonElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGAnimatedPoints, SVGTests 
+	{
+	public:
+		static void set_prototype(SVGPolygonElement* value);
+		static SVGPolygonElement* get_prototype();
+		SVGPolygonElement();
+	};
+
+	class HTMLPhraseElement : public HTMLElement 
+	{
+	public:
+		void set_dateTime(String* value);
+		String* get_dateTime();
+		void set_cite(String* value);
+		String* get_cite();
+		static void set_prototype(HTMLPhraseElement* value);
+		static HTMLPhraseElement* get_prototype();
+		HTMLPhraseElement();
+	};
+
+	class MSHTMLAreaElementExtensions 
+	{
+	public:
+	};
+
+	class SVGPathSegCurvetoCubicRel : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		void set_y2(double value);
+		double get_y2();
+		static void set_prototype(SVGPathSegCurvetoCubicRel* value);
+		static SVGPathSegCurvetoCubicRel* get_prototype();
+		SVGPathSegCurvetoCubicRel();
+	};
+
+	class MSHTMLLIElementExtensions 
+	{
+	public:
+	};
+
+	class HTMLCanvasElement : public HTMLElement 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+		void set_height(double value);
+		double get_height();
+		String* toDataURL();
+		String* toDataURL(const String& type, Object** args);
+		CanvasRenderingContext2D* getContext(const String& contextId);
+		static void set_prototype(HTMLCanvasElement* value);
+		static HTMLCanvasElement* get_prototype();
+		HTMLCanvasElement();
+	};
+
+	class HTMLTitleElement : public HTMLElement 
+	{
+	public:
+		void set_text(String* value);
+		String* get_text();
+		static void set_prototype(HTMLTitleElement* value);
+		static HTMLTitleElement* get_prototype();
+		HTMLTitleElement();
+	};
+
+	class Location 
+	{
+	public:
+		void set_hash(String* value);
+		String* get_hash();
+		void set_protocol(String* value);
+		String* get_protocol();
+		void set_search(String* value);
+		String* get_search();
+		void set_href(String* value);
+		String* get_href();
+		void set_hostname(String* value);
+		String* get_hostname();
+		void set_port(String* value);
+		String* get_port();
+		void set_pathname(String* value);
+		String* get_pathname();
+		void set_host(String* value);
+		String* get_host();
+		void reload();
+		void reload(bool flag);
+		void replace(const String& url);
+		void assign(const String& url);
+		String* toString();
+		static void set_prototype(Location* value);
+		static Location* get_prototype();
+		Location();
+	};
+
+	class HTMLStyleElement : public HTMLElement, MSLinkStyleExtensions, LinkStyle 
+	{
+	public:
+		void set_media(String* value);
+		String* get_media();
+		void set_type(String* value);
+		String* get_type();
+		static void set_prototype(HTMLStyleElement* value);
+		static HTMLStyleElement* get_prototype();
+		HTMLStyleElement();
+	};
+
+	class MSHTMLOptGroupElementExtensions 
+	{
+	public:
+		void set_index(double value);
+		double get_index();
+		void set_defaultSelected(bool value);
+		bool get_defaultSelected();
+		void set_text(String* value);
+		String* get_text();
+		void set_value(String* value);
+		String* get_value();
+		void set_form(HTMLFormElement* value);
+		HTMLFormElement* get_form();
+		void set_selected(bool value);
+		bool get_selected();
+	};
+
+	class DOML2DeprecatedSizeProperty_HTMLBaseFontElement 
+	{
+	public:
+		void set_size(double value);
+		double get_size();
+	};
+
+	class SVGTransform 
+	{
+	public:
+		void set_type(double value);
+		double get_type();
+		void set_angle(double value);
+		double get_angle();
+		void set_matrix(SVGMatrix* value);
+		SVGMatrix* get_matrix();
+		void setTranslate(double tx, double ty);
+		void setScale(double sx, double sy);
+		void setMatrix(SVGMatrix* matrix);
+		void setSkewY(double angle);
+		void setRotate(double angle, double cx, double cy);
+		void setSkewX(double angle);
+		void set_SVG_TRANSFORM_SKEWX(double value);
+		double get_SVG_TRANSFORM_SKEWX();
+		void set_SVG_TRANSFORM_UNKNOWN(double value);
+		double get_SVG_TRANSFORM_UNKNOWN();
+		void set_SVG_TRANSFORM_SCALE(double value);
+		double get_SVG_TRANSFORM_SCALE();
+		void set_SVG_TRANSFORM_TRANSLATE(double value);
+		double get_SVG_TRANSFORM_TRANSLATE();
+		void set_SVG_TRANSFORM_MATRIX(double value);
+		double get_SVG_TRANSFORM_MATRIX();
+		void set_SVG_TRANSFORM_ROTATE(double value);
+		double get_SVG_TRANSFORM_ROTATE();
+		void set_SVG_TRANSFORM_SKEWY(double value);
+		double get_SVG_TRANSFORM_SKEWY();
+		static void set_prototype(SVGTransform* value);
+		static SVGTransform* get_prototype();
+		SVGTransform();
+	};
+
+	class MSCSSFilter 
+	{
+	public:
+		void set_Percent(double value);
+		double get_Percent();
+		void set_Enabled(bool value);
+		bool get_Enabled();
+		void set_Duration(double value);
+		double get_Duration();
+		void Play(double Duration);
+		void Apply();
+		void Stop();
+		static void set_prototype(MSCSSFilter* value);
+		static MSCSSFilter* get_prototype();
+		MSCSSFilter();
+	};
+
+	class WheelEvent : public MouseEvent 
+	{
+	public:
+		void set_deltaZ(double value);
+		double get_deltaZ();
+		void set_deltaX(double value);
+		double get_deltaX();
+		void set_deltaMode(double value);
+		double get_deltaMode();
+		void set_deltaY(double value);
+		double get_deltaY();
+		void initWheelEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double buttonArg, EventTarget* relatedTargetArg, const String& modifiersListArg, double deltaXArg, double deltaYArg, double deltaZArg, double deltaMode);
+		void set_DOM_DELTA_PIXEL(double value);
+		double get_DOM_DELTA_PIXEL();
+		void set_DOM_DELTA_LINE(double value);
+		double get_DOM_DELTA_LINE();
+		void set_DOM_DELTA_PAGE(double value);
+		double get_DOM_DELTA_PAGE();
+		static void set_prototype(WheelEvent* value);
+		static WheelEvent* get_prototype();
+		WheelEvent();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLDivElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class SVGNumber 
+	{
+	public:
+		void set_value(double value);
+		double get_value();
+		static void set_prototype(SVGNumber* value);
+		static SVGNumber* get_prototype();
+		SVGNumber();
+	};
+
+	class SVGPathSegList;
+
+	class SVGAnimatedPathData 
+	{
+	public:
+		void set_pathSegList(SVGPathSegList* value);
+		SVGPathSegList* get_pathSegList();
+	};
+
+	class SVGPathSegCurvetoQuadraticAbs;
+	class SVGPathSegLinetoRel;
+	class SVGPathSegCurvetoCubicAbs;
+	class SVGPathSegLinetoAbs;
+	class SVGPathSegCurvetoQuadraticSmoothAbs;
+	class SVGPathSegCurvetoCubicSmoothRel;
+
+	class SVGPathElement : public SVGElement, SVGStylable, SVGAnimatedPathData, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		double getPathSegAtLength(double distance);
+		SVGPoint* getPointAtLength(double distance);
+		SVGPathSegCurvetoQuadraticAbs* createSVGPathSegCurvetoQuadraticAbs(double x, double y, double x1, double y1);
+		SVGPathSegLinetoRel* createSVGPathSegLinetoRel(double x, double y);
+		SVGPathSegCurvetoQuadraticRel* createSVGPathSegCurvetoQuadraticRel(double x, double y, double x1, double y1);
+		SVGPathSegCurvetoCubicAbs* createSVGPathSegCurvetoCubicAbs(double x, double y, double x1, double y1, double x2, double y2);
+		SVGPathSegLinetoAbs* createSVGPathSegLinetoAbs(double x, double y);
+		SVGPathSegClosePath* createSVGPathSegClosePath();
+		SVGPathSegCurvetoCubicRel* createSVGPathSegCurvetoCubicRel(double x, double y, double x1, double y1, double x2, double y2);
+		SVGPathSegCurvetoQuadraticSmoothRel* createSVGPathSegCurvetoQuadraticSmoothRel(double x, double y);
+		SVGPathSegMovetoRel* createSVGPathSegMovetoRel(double x, double y);
+		SVGPathSegCurvetoCubicSmoothAbs* createSVGPathSegCurvetoCubicSmoothAbs(double x, double y, double x2, double y2);
+		SVGPathSegMovetoAbs* createSVGPathSegMovetoAbs(double x, double y);
+		SVGPathSegLinetoVerticalRel* createSVGPathSegLinetoVerticalRel(double y);
+		SVGPathSegArcRel* createSVGPathSegArcRel(double x, double y, double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag);
+		SVGPathSegCurvetoQuadraticSmoothAbs* createSVGPathSegCurvetoQuadraticSmoothAbs(double x, double y);
+		SVGPathSegLinetoHorizontalRel* createSVGPathSegLinetoHorizontalRel(double x);
+		double getTotalLength();
+		SVGPathSegCurvetoCubicSmoothRel* createSVGPathSegCurvetoCubicSmoothRel(double x, double y, double x2, double y2);
+		SVGPathSegLinetoHorizontalAbs* createSVGPathSegLinetoHorizontalAbs(double x);
+		SVGPathSegLinetoVerticalAbs* createSVGPathSegLinetoVerticalAbs(double y);
+		SVGPathSegArcAbs* createSVGPathSegArcAbs(double x, double y, double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag);
+		static void set_prototype(SVGPathElement* value);
+		static SVGPathElement* get_prototype();
+		SVGPathElement();
+	};
+
+	class SVGAnimatedRect 
+	{
+	public:
+		void set_animVal(SVGRect* value);
+		SVGRect* get_animVal();
+		void set_baseVal(SVGRect* value);
+		SVGRect* get_baseVal();
+		static void set_prototype(SVGAnimatedRect* value);
+		static SVGAnimatedRect* get_prototype();
+		SVGAnimatedRect();
+	};
+
+	class CSSNamespaceRule : public CSSRule 
+	{
+	public:
+		void set_namespaceURI(String* value);
+		String* get_namespaceURI();
+		void set_prefix(String* value);
+		String* get_prefix();
+		static void set_prototype(CSSNamespaceRule* value);
+		static CSSNamespaceRule* get_prototype();
+		CSSNamespaceRule();
+	};
+
+	class HTMLUnknownElement : public HTMLElement 
+	{
+	public:
+		static void set_prototype(HTMLUnknownElement* value);
+		static HTMLUnknownElement* get_prototype();
+		HTMLUnknownElement();
+	};
+
+	class SVGPathSegList 
+	{
+	public:
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGPathSeg* replaceItem(SVGPathSeg* newItem, double index);
+		SVGPathSeg* getItem(double index);
+		void clear();
+		SVGPathSeg* appendItem(SVGPathSeg* newItem);
+		SVGPathSeg* initialize(SVGPathSeg* newItem);
+		SVGPathSeg* removeItem(double index);
+		SVGPathSeg* insertItemBefore(SVGPathSeg* newItem, double index);
+		static void set_prototype(SVGPathSegList* value);
+		static SVGPathSegList* get_prototype();
+		SVGPathSegList();
+	};
+
+	class TimeRanges;
+	class MediaError;
+
+	class HTMLMediaElement : public HTMLElement 
 	{
 	public:
 		void set_initialTime(double value);
@@ -7820,33 +6536,871 @@ namespace client
 		static void set_prototype(HTMLMediaElement* value);
 		static HTMLMediaElement* get_prototype();
 		HTMLMediaElement();
-		static void set_HAVE_METADATA(double value);
-		static double get_HAVE_METADATA();
-		static void set_HAVE_CURRENT_DATA(double value);
-		static double get_HAVE_CURRENT_DATA();
-		static void set_HAVE_NOTHING(double value);
-		static double get_HAVE_NOTHING();
-		static void set_NETWORK_NO_SOURCE(double value);
-		static double get_NETWORK_NO_SOURCE();
-		static void set_HAVE_ENOUGH_DATA(double value);
-		static double get_HAVE_ENOUGH_DATA();
-		static void set_NETWORK_EMPTY(double value);
-		static double get_NETWORK_EMPTY();
-		static void set_NETWORK_LOADING(double value);
-		static double get_NETWORK_LOADING();
-		static void set_NETWORK_IDLE(double value);
-		static double get_NETWORK_IDLE();
-		static void set_HAVE_FUTURE_DATA(double value);
-		static double get_HAVE_FUTURE_DATA();
 	};
 
-	class ElementCSSInlineStyle : MSElementCSSInlineStyleExtensions 
+	class HTMLAudioElement : public HTMLMediaElement 
 	{
 	public:
-		void set_runtimeStyle(MSStyleCSSProperties* value);
-		MSStyleCSSProperties* get_runtimeStyle();
-		void set_currentStyle(MSCurrentStyleCSSProperties* value);
-		MSCurrentStyleCSSProperties* get_currentStyle();
+		static void set_prototype(HTMLAudioElement* value);
+		static HTMLAudioElement* get_prototype();
+		HTMLAudioElement();
+	};
+
+	class MSImageResourceExtensions 
+	{
+	public:
+		void set_dynsrc(String* value);
+		String* get_dynsrc();
+		void set_vrml(String* value);
+		String* get_vrml();
+		void set_lowsrc(String* value);
+		String* get_lowsrc();
+		void set_start(String* value);
+		String* get_start();
+		void set_loop(double value);
+		double get_loop();
+	};
+
+	class MSBorderColorHighlightStyle_HTMLTableRowElement 
+	{
+	public:
+		void set_borderColorLight(Object* value);
+		Object* get_borderColorLight();
+		void set_borderColorDark(Object* value);
+		Object* get_borderColorDark();
+	};
+
+	class PositionError 
+	{
+	public:
+		void set_code(double value);
+		double get_code();
+		void set_message(String* value);
+		String* get_message();
+		String* toString();
+		void set_POSITION_UNAVAILABLE(double value);
+		double get_POSITION_UNAVAILABLE();
+		void set_PERMISSION_DENIED(double value);
+		double get_PERMISSION_DENIED();
+		void set_TIMEOUT(double value);
+		double get_TIMEOUT();
+	};
+
+	class BrowserPublic 
+	{
+	public:
+		static void set_prototype(BrowserPublic* value);
+		static BrowserPublic* get_prototype();
+		BrowserPublic();
+	};
+
+	class SVGElementInstanceList;
+	class SVGUseElement;
+
+	class SVGElementInstance : public EventTarget 
+	{
+	public:
+		void set_previousSibling(SVGElementInstance* value);
+		SVGElementInstance* get_previousSibling();
+		void set_parentNode(SVGElementInstance* value);
+		SVGElementInstance* get_parentNode();
+		void set_lastChild(SVGElementInstance* value);
+		SVGElementInstance* get_lastChild();
+		void set_nextSibling(SVGElementInstance* value);
+		SVGElementInstance* get_nextSibling();
+		void set_childNodes(SVGElementInstanceList* value);
+		SVGElementInstanceList* get_childNodes();
+		void set_correspondingUseElement(SVGUseElement* value);
+		SVGUseElement* get_correspondingUseElement();
+		void set_correspondingElement(SVGElement* value);
+		SVGElement* get_correspondingElement();
+		void set_firstChild(SVGElementInstance* value);
+		SVGElementInstance* get_firstChild();
+		static void set_prototype(SVGElementInstance* value);
+		static SVGElementInstance* get_prototype();
+		SVGElementInstance();
+	};
+
+	class MSHTMLUListElementExtensions 
+	{
+	public:
+	};
+
+	class SVGCircleElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		void set_cx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cx();
+		void set_r(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_r();
+		void set_cy(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_cy();
+		static void set_prototype(SVGCircleElement* value);
+		static SVGCircleElement* get_prototype();
+		SVGCircleElement();
+	};
+
+	class HTMLBaseFontElement : public HTMLElement, DOML2DeprecatedSizeProperty_HTMLBaseFontElement, DOML2DeprecatedColorProperty 
+	{
+	public:
+		void set_face(String* value);
+		String* get_face();
+		static void set_prototype(HTMLBaseFontElement* value);
+		static HTMLBaseFontElement* get_prototype();
+		HTMLBaseFontElement();
+	};
+
+	class CustomEvent : public Event 
+	{
+	public:
+		void set_detail(Object* value);
+		Object* get_detail();
+		void initCustomEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, Object* detailArg);
+		static void set_prototype(CustomEvent* value);
+		static CustomEvent* get_prototype();
+		CustomEvent();
+	};
+
+	class CSSImportRule : public CSSRule 
+	{
+	public:
+		void set_styleSheet(CSSStyleSheet* value);
+		CSSStyleSheet* get_styleSheet();
+		void set_href(String* value);
+		String* get_href();
+		void set_media(MediaList* value);
+		MediaList* get_media();
+		static void set_prototype(CSSImportRule* value);
+		static CSSImportRule* get_prototype();
+		CSSImportRule();
+	};
+
+	class HTMLTextAreaElement : public HTMLElement, MSDataBindingExtensions, MSHTMLTextAreaElementExtensions 
+	{
+	public:
+		void set_value(String* value);
+		String* get_value();
+		void set_form(HTMLFormElement* value);
+		HTMLFormElement* get_form();
+		void set_name(String* value);
+		String* get_name();
+		void set_selectionStart(double value);
+		double get_selectionStart();
+		void set_rows(double value);
+		double get_rows();
+		void set_cols(double value);
+		double get_cols();
+		void set_readOnly(bool value);
+		bool get_readOnly();
+		void set_wrap(String* value);
+		String* get_wrap();
+		void set_selectionEnd(double value);
+		double get_selectionEnd();
+		void set_type(String* value);
+		String* get_type();
+		void set_defaultValue(String* value);
+		String* get_defaultValue();
+		void setSelectionRange(double start, double end);
+		void select();
+		static void set_prototype(HTMLTextAreaElement* value);
+		static HTMLTextAreaElement* get_prototype();
+		HTMLTextAreaElement();
+	};
+
+	class MSHTMLFormElementExtensions 
+	{
+	public:
+		void set_encoding(String* value);
+		String* get_encoding();
+	};
+
+	class PositionCallback;
+	class PositionErrorCallback;
+	class PositionOptions;
+
+	class Geolocation 
+	{
+	public:
+		void clearWatch(double watchId);
+		void getCurrentPosition(PositionCallback* successCallback);
+		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
+		void getCurrentPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
+		double watchPosition(PositionCallback* successCallback);
+		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback);
+		double watchPosition(PositionCallback* successCallback, PositionErrorCallback* errorCallback, PositionOptions* options);
+		static void set_prototype(Geolocation* value);
+		static Geolocation* get_prototype();
+		Geolocation();
+	};
+
+	class MSWindowModeless 
+	{
+	public:
+		void set_dialogTop(Object* value);
+		Object* get_dialogTop();
+		void set_dialogLeft(Object* value);
+		Object* get_dialogLeft();
+		void set_dialogWidth(Object* value);
+		Object* get_dialogWidth();
+		void set_dialogHeight(Object* value);
+		Object* get_dialogHeight();
+		void set_menuArguments(Object* value);
+		Object* get_menuArguments();
+	};
+
+	class HTMLMarqueeElement : public HTMLElement, DOML2DeprecatedMarginStyle_HTMLMarqueeElement, DOML2DeprecatedBackgroundColorStyle 
+	{
+	public:
+		void set_width(String* value);
+		String* get_width();
+		typedef Object* (*callback_for_onbounce)(Event* ev);
+		void set_onbounce(callback_for_onbounce value);
+		callback_for_onbounce get_onbounce();
+		void set_trueSpeed(bool value);
+		bool get_trueSpeed();
+		void set_scrollAmount(double value);
+		double get_scrollAmount();
+		void set_scrollDelay(double value);
+		double get_scrollDelay();
+		void set_behavior(String* value);
+		String* get_behavior();
+		void set_height(String* value);
+		String* get_height();
+		void set_loop(double value);
+		double get_loop();
+		void set_direction(String* value);
+		String* get_direction();
+		typedef Object* (*callback_for_onstart)(Event* ev);
+		void set_onstart(callback_for_onstart value);
+		callback_for_onstart get_onstart();
+		typedef Object* (*callback_for_onfinish)(Event* ev);
+		void set_onfinish(callback_for_onfinish value);
+		callback_for_onfinish get_onfinish();
+		void stop();
+		void start();
+		static void set_prototype(HTMLMarqueeElement* value);
+		static HTMLMarqueeElement* get_prototype();
+		HTMLMarqueeElement();
+	};
+
+	class SVGRect 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_width(double value);
+		double get_width();
+		void set_x(double value);
+		double get_x();
+		void set_height(double value);
+		double get_height();
+		static void set_prototype(SVGRect* value);
+		static SVGRect* get_prototype();
+		SVGRect();
+	};
+
+	class History 
+	{
+	public:
+		void set_length(double value);
+		double get_length();
+		void back();
+		void back(Object* distance);
+		void forward();
+		void forward(Object* distance);
+		void go();
+		void go(Object* delta);
+		static void set_prototype(History* value);
+		static History* get_prototype();
+		History();
+	};
+
+	class SVGPathSegCurvetoCubicAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		void set_y2(double value);
+		double get_y2();
+		static void set_prototype(SVGPathSegCurvetoCubicAbs* value);
+		static SVGPathSegCurvetoCubicAbs* get_prototype();
+		SVGPathSegCurvetoCubicAbs();
+	};
+
+	class TimeRanges 
+	{
+	public:
+		void set_length(double value);
+		double get_length();
+		double start(double index);
+		double end(double index);
+		static void set_prototype(TimeRanges* value);
+		static TimeRanges* get_prototype();
+		TimeRanges();
+	};
+
+	class SVGPathSegCurvetoQuadraticAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_y1(double value);
+		double get_y1();
+		void set_x(double value);
+		double get_x();
+		void set_x1(double value);
+		double get_x1();
+		static void set_prototype(SVGPathSegCurvetoQuadraticAbs* value);
+		static SVGPathSegCurvetoQuadraticAbs* get_prototype();
+		SVGPathSegCurvetoQuadraticAbs();
+	};
+
+	class MSHTMLSelectElementExtensions 
+	{
+	public:
+	};
+
+	class SVGPathSegLinetoAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
+		static void set_prototype(SVGPathSegLinetoAbs* value);
+		static SVGPathSegLinetoAbs* get_prototype();
+		SVGPathSegLinetoAbs();
+	};
+
+	class MSMouseEventExtensions 
+	{
+	public:
+		void set_toElement(Element* value);
+		Element* get_toElement();
+		void set_layerY(double value);
+		double get_layerY();
+		void set_fromElement(Element* value);
+		Element* get_fromElement();
+		void set_which(double value);
+		double get_which();
+		void set_layerX(double value);
+		double get_layerX();
+	};
+
+	class HTMLModElement : public HTMLElement
+	{
+	public:
+		void set_dateTime(String* value);
+		String* get_dateTime();
+		void set_cite(String* value);
+		String* get_cite();
+		static void set_prototype(HTMLModElement* value);
+		static HTMLModElement* get_prototype();
+		HTMLModElement();
+	};
+
+	class BeforeUnloadEvent : public Event 
+	{
+	public:
+		void set_returnValue(String* value);
+		String* get_returnValue();
+		static void set_prototype(BeforeUnloadEvent* value);
+		static BeforeUnloadEvent* get_prototype();
+		BeforeUnloadEvent();
+	};
+
+	class MSPopupWindow 
+	{
+	public:
+		void set_document(HTMLDocument* value);
+		HTMLDocument* get_document();
+		void set_isOpen(bool value);
+		bool get_isOpen();
+		void show(double x, double y, double w, double h);
+		void show(double x, double y, double w, double h, Object* element);
+		void hide();
+		static void set_prototype(MSPopupWindow* value);
+		static MSPopupWindow* get_prototype();
+		MSPopupWindow();
+	};
+
+	class SVGMatrix 
+	{
+	public:
+		void set_e(double value);
+		double get_e();
+		void set_c(double value);
+		double get_c();
+		void set_a(double value);
+		double get_a();
+		void set_b(double value);
+		double get_b();
+		void set_d(double value);
+		double get_d();
+		void set_f(double value);
+		double get_f();
+		SVGMatrix* multiply(SVGMatrix* secondMatrix);
+		SVGMatrix* flipY();
+		SVGMatrix* skewY(double angle);
+		SVGMatrix* inverse();
+		SVGMatrix* scaleNonUniform(double scaleFactorX, double scaleFactorY);
+		SVGMatrix* rotate(double angle);
+		SVGMatrix* flipX();
+		SVGMatrix* translate(double x, double y);
+		SVGMatrix* scale(double scaleFactor);
+		SVGMatrix* rotateFromVector(double x, double y);
+		SVGMatrix* skewX(double angle);
+		static void set_prototype(SVGMatrix* value);
+		static SVGMatrix* get_prototype();
+		SVGMatrix();
+	};
+
+	class SVGUseElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests, SVGURIReference 
+	{
+	public:
+		void set_y(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y();
+		void set_width(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_width();
+		void set_animatedInstanceRoot(SVGElementInstance* value);
+		SVGElementInstance* get_animatedInstanceRoot();
+		void set_instanceRoot(SVGElementInstance* value);
+		SVGElementInstance* get_instanceRoot();
+		void set_x(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x();
+		void set_height(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_height();
+		static void set_prototype(SVGUseElement* value);
+		static SVGUseElement* get_prototype();
+		SVGUseElement();
+	};
+
+	class ImageData 
+	{
+	public:
+		void set_width(double value);
+		double get_width();
+//		void set_data(double[] value);
+//		double[] get_data();
+		void set_height(double value);
+		double get_height();
+		static void set_prototype(ImageData* value);
+		static ImageData* get_prototype();
+		ImageData();
+	};
+
+	class HTMLTableColElement : public HTMLElement, HTMLTableAlignment, DOML2DeprecatedAlignmentStyle_HTMLTableColElement 
+	{
+	public:
+		void set_width(Object* value);
+		Object* get_width();
+		void set_span(double value);
+		double get_span();
+		static void set_prototype(HTMLTableColElement* value);
+		static HTMLTableColElement* get_prototype();
+		HTMLTableColElement();
+	};
+
+	class SVGException 
+	{
+	public:
+		void set_code(double value);
+		double get_code();
+		void set_message(String* value);
+		String* get_message();
+		String* toString();
+		void set_SVG_MATRIX_NOT_INVERTABLE(double value);
+		double get_SVG_MATRIX_NOT_INVERTABLE();
+		void set_SVG_WRONG_TYPE_ERR(double value);
+		double get_SVG_WRONG_TYPE_ERR();
+		void set_SVG_INVALID_VALUE_ERR(double value);
+		double get_SVG_INVALID_VALUE_ERR();
+		static void set_prototype(SVGException* value);
+		static SVGException* get_prototype();
+		SVGException();
+	};
+
+	class SVGAnimatedEnumeration 
+	{
+	public:
+		void set_animVal(double value);
+		double get_animVal();
+		void set_baseVal(double value);
+		double get_baseVal();
+		static void set_prototype(SVGAnimatedEnumeration* value);
+		static SVGAnimatedEnumeration* get_prototype();
+		SVGAnimatedEnumeration();
+	};
+
+	class SVGLinearGradientElement : public SVGGradientElement 
+	{
+	public:
+		void set_y1(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y1();
+		void set_x2(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x2();
+		void set_x1(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x1();
+		void set_y2(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y2();
+		static void set_prototype(SVGLinearGradientElement* value);
+		static SVGLinearGradientElement* get_prototype();
+		SVGLinearGradientElement();
+	};
+
+	class MSHTMLHeadingElementExtensions : public DOML2DeprecatedTextFlowControl_HTMLBlockElement 
+	{
+	public:
+	};
+
+	class MSBorderColorStyle_HTMLTableCellElement 
+	{
+	public:
+		void set_borderColor(Object* value);
+		Object* get_borderColor();
+	};
+
+	class HTMLUListElement : public HTMLElement, DOML2DeprecatedListSpaceReduction, DOML2DeprecatedListNumberingAndBulletStyle, MSHTMLUListElementExtensions 
+	{
+	public:
+		static void set_prototype(HTMLUListElement* value);
+		static HTMLUListElement* get_prototype();
+		HTMLUListElement();
+	};
+
+	class SVGRectElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	{
+	public:
+		void set_y(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y();
+		void set_width(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_width();
+		void set_ry(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_ry();
+		void set_rx(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_rx();
+		void set_x(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x();
+		void set_height(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_height();
+		static void set_prototype(SVGRectElement* value);
+		static SVGRectElement* get_prototype();
+		SVGRectElement();
+	};
+
+	class HTMLDivElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLDivElement
+	{
+	public:
+		static void set_prototype(HTMLDivElement* value);
+		static HTMLDivElement* get_prototype();
+		HTMLDivElement();
+	};
+
+	class NamedNodeMap 
+	{
+	public:
+		Node* operator[](double index);
+		Node* operator[](const String& name);
+		void set_length(double value);
+		double get_length();
+		Node* removeNamedItemNS(const String& namespaceURI, const String& localName);
+		Node* item(double index);
+		Node* removeNamedItem(const String& name);
+		Node* getNamedItem(const String& name);
+		Node* setNamedItem(Node* arg);
+		Node* getNamedItemNS(const String& namespaceURI, const String& localName);
+		Node* setNamedItemNS(Node* arg);
+		static void set_prototype(NamedNodeMap* value);
+		static NamedNodeMap* get_prototype();
+		NamedNodeMap();
+	};
+
+	class SVGPathSegCurvetoQuadraticSmoothAbs : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x(double value);
+		double get_x();
+		static void set_prototype(SVGPathSegCurvetoQuadraticSmoothAbs* value);
+		static SVGPathSegCurvetoQuadraticSmoothAbs* get_prototype();
+		SVGPathSegCurvetoQuadraticSmoothAbs();
+	};
+
+	class SVGLengthList 
+	{
+	public:
+		void set_numberOfItems(double value);
+		double get_numberOfItems();
+		SVGLength* replaceItem(SVGLength* newItem, double index);
+		SVGLength* getItem(double index);
+		void clear();
+		SVGLength* appendItem(SVGLength* newItem);
+		SVGLength* initialize(SVGLength* newItem);
+		SVGLength* removeItem(double index);
+		SVGLength* insertItemBefore(SVGLength* newItem, double index);
+		static void set_prototype(SVGLengthList* value);
+		static SVGLengthList* get_prototype();
+		SVGLengthList();
+	};
+
+	class SVGPathSegCurvetoCubicSmoothRel : public SVGPathSeg 
+	{
+	public:
+		void set_y(double value);
+		double get_y();
+		void set_x2(double value);
+		double get_x2();
+		void set_x(double value);
+		double get_x();
+		void set_y2(double value);
+		double get_y2();
+		static void set_prototype(SVGPathSegCurvetoCubicSmoothRel* value);
+		static SVGPathSegCurvetoCubicSmoothRel* get_prototype();
+		SVGPathSegCurvetoCubicSmoothRel();
+	};
+
+	class ProcessingInstruction : public Node 
+	{
+	public:
+		void set_target(String* value);
+		String* get_target();
+		void set_data(String* value);
+		String* get_data();
+		static void set_prototype(ProcessingInstruction* value);
+		static ProcessingInstruction* get_prototype();
+		ProcessingInstruction();
+	};
+
+	class MSBehaviorUrnsCollection 
+	{
+	public:
+		void set_length(double value);
+		double get_length();
+		String* item(double index);
+		static void set_prototype(MSBehaviorUrnsCollection* value);
+		static MSBehaviorUrnsCollection* get_prototype();
+		MSBehaviorUrnsCollection();
+	};
+
+	class CSSFontFaceRule : public CSSRule 
+	{
+	public:
+		void set_style(CSSStyleDeclaration* value);
+		CSSStyleDeclaration* get_style();
+		static void set_prototype(CSSFontFaceRule* value);
+		static CSSFontFaceRule* get_prototype();
+		CSSFontFaceRule();
+	};
+
+	class TextEvent : public UIEvent 
+	{
+	public:
+		void set_inputMethod(double value);
+		double get_inputMethod();
+		void set_data(String* value);
+		String* get_data();
+		void set_locale(String* value);
+		String* get_locale();
+		void initTextEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, const String& dataArg, double inputMethod, const String& locale);
+		void set_DOM_INPUT_METHOD_KEYBOARD(double value);
+		double get_DOM_INPUT_METHOD_KEYBOARD();
+		void set_DOM_INPUT_METHOD_DROP(double value);
+		double get_DOM_INPUT_METHOD_DROP();
+		void set_DOM_INPUT_METHOD_IME(double value);
+		double get_DOM_INPUT_METHOD_IME();
+		void set_DOM_INPUT_METHOD_SCRIPT(double value);
+		double get_DOM_INPUT_METHOD_SCRIPT();
+		void set_DOM_INPUT_METHOD_VOICE(double value);
+		double get_DOM_INPUT_METHOD_VOICE();
+		void set_DOM_INPUT_METHOD_UNKNOWN(double value);
+		double get_DOM_INPUT_METHOD_UNKNOWN();
+		void set_DOM_INPUT_METHOD_PASTE(double value);
+		double get_DOM_INPUT_METHOD_PASTE();
+		void set_DOM_INPUT_METHOD_HANDWRITING(double value);
+		double get_DOM_INPUT_METHOD_HANDWRITING();
+		void set_DOM_INPUT_METHOD_OPTION(double value);
+		double get_DOM_INPUT_METHOD_OPTION();
+		void set_DOM_INPUT_METHOD_MULTIMODAL(double value);
+		double get_DOM_INPUT_METHOD_MULTIMODAL();
+		static void set_prototype(TextEvent* value);
+		static TextEvent* get_prototype();
+		TextEvent();
+	};
+
+	class DocumentFragment : public Node, NodeSelector 
+	{
+	public:
+		static void set_prototype(DocumentFragment* value);
+		static DocumentFragment* get_prototype();
+		DocumentFragment();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLFieldSetElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class SVGPolylineElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGAnimatedPoints, SVGTests 
+	{
+	public:
+		static void set_prototype(SVGPolylineElement* value);
+		static SVGPolylineElement* get_prototype();
+		SVGPolylineElement();
+	};
+
+	class DOML2DeprecatedAlignmentStyle_HTMLHeadingElement 
+	{
+	public:
+		void set_align(String* value);
+		String* get_align();
+	};
+
+	class Position 
+	{
+	public:
+		void set_timestamp(Date* value);
+		Date* get_timestamp();
+		void set_coords(Coordinates* value);
+		Coordinates* get_coords();
+		static void set_prototype(Position* value);
+		static Position* get_prototype();
+		Position();
+	};
+
+	class BookmarkCollection 
+	{
+	public:
+		Object* operator[](double index);
+		void set_length(double value);
+		double get_length();
+		Object* item(double index);
+		static void set_prototype(BookmarkCollection* value);
+		static BookmarkCollection* get_prototype();
+		BookmarkCollection();
+	};
+
+	class StyleSheetPage 
+	{
+	public:
+		void set_pseudoClass(String* value);
+		String* get_pseudoClass();
+		void set_selector(String* value);
+		String* get_selector();
+	};
+
+	class CSSPageRule : public CSSRule, StyleSheetPage 
+	{
+	public:
+		void set_selectorText(String* value);
+		String* get_selectorText();
+		void set_style(CSSStyleDeclaration* value);
+		CSSStyleDeclaration* get_style();
+		static void set_prototype(CSSPageRule* value);
+		static CSSPageRule* get_prototype();
+		CSSPageRule();
+	};
+
+	class DOML2DeprecatedTextFlowControl_HTMLBRElement 
+	{
+	public:
+		void set_clear(String* value);
+		String* get_clear();
+	};
+
+	class HTMLBRElement : public HTMLElement, DOML2DeprecatedTextFlowControl_HTMLBRElement 
+	{
+	public:
+		static void set_prototype(HTMLBRElement* value);
+		static HTMLBRElement* get_prototype();
+		HTMLBRElement();
+	};
+
+	class MSHTMLDivElementExtensions : public DOML2DeprecatedWordWrapSuppression_HTMLDivElement 
+	{
+	public:
+	};
+
+	class HTMLSpanElement : public HTMLElement, MSHTMLSpanElementExtensions, MSDataBindingExtensions 
+	{
+	public:
+		static void set_prototype(HTMLSpanElement* value);
+		static HTMLSpanElement* get_prototype();
+		HTMLSpanElement();
+	};
+
+	class HTMLHRElementDOML2Deprecated 
+	{
+	public:
+		void set_noShade(bool value);
+		bool get_noShade();
+	};
+
+	class HTMLHeadElement : public HTMLElement 
+	{
+	public:
+		void set_profile(String* value);
+		String* get_profile();
+		static void set_prototype(HTMLHeadElement* value);
+		static HTMLHeadElement* get_prototype();
+		HTMLHeadElement();
+	};
+
+	class NodeFilterCallback 
+	{
+	public:
+		Object* operator()(Object** args);
+	};
+
+	class HTMLHeadingElement : public HTMLElement, DOML2DeprecatedAlignmentStyle_HTMLHeadingElement, MSHTMLHeadingElementExtensions 
+	{
+	public:
+		static void set_prototype(HTMLHeadingElement* value);
+		static HTMLHeadingElement* get_prototype();
+		HTMLHeadingElement();
+	};
+
+	class HTMLFormElement : public HTMLElement, MSHTMLFormElementExtensions, MSHTMLCollectionExtensions 
+	{
+	public:
+		Object* operator[](const String& name);
+		Object* operator()(Object* name, Object* index);
+		Object* operator()(const String& name);
+		void set_length(double value);
+		double get_length();
+		void set_target(String* value);
+		String* get_target();
+		void set_acceptCharset(String* value);
+		String* get_acceptCharset();
+		void set_enctype(String* value);
+		String* get_enctype();
+		void set_elements(HTMLCollection* value);
+		HTMLCollection* get_elements();
+		void set_action(String* value);
+		String* get_action();
+		void set_name(String* value);
+		String* get_name();
+		void set_method(String* value);
+		String* get_method();
+		void reset();
+		Object* item();
+		//Object* item(, Object* name);
+		Object* item(Object* name, Object* index);
+		void submit();
+		Object* namedItem(const String& name);
+		static void set_prototype(HTMLFormElement* value);
+		static HTMLFormElement* get_prototype();
+		HTMLFormElement();
 	};
 
 	class DOMParser 
@@ -7858,53 +7412,7 @@ namespace client
 		DOMParser();
 	};
 
-	class MSMimeTypesCollection 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		static void set_prototype(MSMimeTypesCollection* value);
-		static MSMimeTypesCollection* get_prototype();
-		MSMimeTypesCollection();
-	};
-
-	class StyleSheet 
-	{
-	public:
-		void set_disabled(bool value);
-		bool get_disabled();
-		void set_ownerNode(Node* value);
-		Node* get_ownerNode();
-		void set_parentStyleSheet(StyleSheet* value);
-		StyleSheet* get_parentStyleSheet();
-		void set_href(String* value);
-		String* get_href();
-		void set_media(MediaList* value);
-		MediaList* get_media();
-		void set_type(String* value);
-		String* get_type();
-		void set_title(String* value);
-		String* get_title();
-		static void set_prototype(StyleSheet* value);
-		static StyleSheet* get_prototype();
-		StyleSheet();
-	};
-
-	class DOML2DeprecatedBorderStyle_HTMLTableElement 
-	{
-	public:
-		void set_border(String* value);
-		String* get_border();
-	};
-
-	class DOML2DeprecatedWidthStyle_HTMLAppletElement 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-	};
-
-	class SVGTextPathElement : SVGTextContentElement, SVGURIReference 
+	class SVGTextPathElement : public SVGTextContentElement, SVGURIReference 
 	{
 	public:
 		void set_startOffset(SVGAnimatedLength* value);
@@ -7928,18 +7436,6 @@ namespace client
 		static void set_prototype(SVGTextPathElement* value);
 		static SVGTextPathElement* get_prototype();
 		SVGTextPathElement();
-		static void set_TEXTPATH_SPACINGTYPE_EXACT(double value);
-		static double get_TEXTPATH_SPACINGTYPE_EXACT();
-		static void set_TEXTPATH_METHODTYPE_STRETCH(double value);
-		static double get_TEXTPATH_METHODTYPE_STRETCH();
-		static void set_TEXTPATH_SPACINGTYPE_AUTO(double value);
-		static double get_TEXTPATH_SPACINGTYPE_AUTO();
-		static void set_TEXTPATH_SPACINGTYPE_UNKNOWN(double value);
-		static double get_TEXTPATH_SPACINGTYPE_UNKNOWN();
-		static void set_TEXTPATH_METHODTYPE_UNKNOWN(double value);
-		static double get_TEXTPATH_METHODTYPE_UNKNOWN();
-		static void set_TEXTPATH_METHODTYPE_ALIGN(double value);
-		static double get_TEXTPATH_METHODTYPE_ALIGN();
 	};
 
 	class NodeList 
@@ -7954,7 +7450,14 @@ namespace client
 		NodeList();
 	};
 
-	class HTMLDTElement : HTMLElement, DOML2DeprecatedWordWrapSuppression_HTMLDTElement 
+	class DOML2DeprecatedWordWrapSuppression_HTMLDTElement 
+	{
+	public:
+		void set_noWrap(bool value);
+		bool get_noWrap();
+	};
+
+	class HTMLDTElement : public HTMLElement, DOML2DeprecatedWordWrapSuppression_HTMLDTElement 
 	{
 	public:
 		static void set_prototype(HTMLDTElement* value);
@@ -7969,71 +7472,6 @@ namespace client
 		static void set_prototype(XMLSerializer* value);
 		static XMLSerializer* get_prototype();
 		XMLSerializer();
-	};
-
-	class StyleSheetPage 
-	{
-	public:
-		void set_pseudoClass(String* value);
-		String* get_pseudoClass();
-		void set_selector(String* value);
-		String* get_selector();
-	};
-
-	class DOML2DeprecatedWordWrapSuppression_HTMLDDElement 
-	{
-	public:
-		void set_noWrap(bool value);
-		bool get_noWrap();
-	};
-
-	class MSHTMLTableRowElementExtensions 
-	{
-	public:
-		void set_height(Object* value);
-		Object* get_height();
-	};
-
-	class SVGGradientElement : SVGElement, SVGUnitTypes, SVGStylable, SVGURIReference 
-	{
-	public:
-		void set_spreadMethod(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_spreadMethod();
-		void set_gradientTransform(SVGAnimatedTransformList* value);
-		SVGAnimatedTransformList* get_gradientTransform();
-		void set_gradientUnits(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_gradientUnits();
-		void set_SVG_SPREADMETHOD_REFLECT(double value);
-		double get_SVG_SPREADMETHOD_REFLECT();
-		void set_SVG_SPREADMETHOD_PAD(double value);
-		double get_SVG_SPREADMETHOD_PAD();
-		void set_SVG_SPREADMETHOD_UNKNOWN(double value);
-		double get_SVG_SPREADMETHOD_UNKNOWN();
-		void set_SVG_SPREADMETHOD_REPEAT(double value);
-		double get_SVG_SPREADMETHOD_REPEAT();
-		static void set_prototype(SVGGradientElement* value);
-		static SVGGradientElement* get_prototype();
-		SVGGradientElement();
-		static void set_SVG_SPREADMETHOD_REFLECT(double value);
-		static double get_SVG_SPREADMETHOD_REFLECT();
-		static void set_SVG_SPREADMETHOD_PAD(double value);
-		static double get_SVG_SPREADMETHOD_PAD();
-		static void set_SVG_SPREADMETHOD_UNKNOWN(double value);
-		static double get_SVG_SPREADMETHOD_UNKNOWN();
-		static void set_SVG_SPREADMETHOD_REPEAT(double value);
-		static double get_SVG_SPREADMETHOD_REPEAT();
-	};
-
-	class DOML2DeprecatedTextFlowControl_HTMLBRElement 
-	{
-	public:
-		void set_clear(String* value);
-		String* get_clear();
-	};
-
-	class MSHTMLParagraphElementExtensions : DOML2DeprecatedTextFlowControl_HTMLBlockElement 
-	{
-	public:
 	};
 
 	class NodeFilter 
@@ -8075,118 +7513,9 @@ namespace client
 		static void set_prototype(NodeFilter* value);
 		static NodeFilter* get_prototype();
 		NodeFilter();
-		static void set_SHOW_ENTITY_REFERENCE(double value);
-		static double get_SHOW_ENTITY_REFERENCE();
-		static void set_SHOW_NOTATION(double value);
-		static double get_SHOW_NOTATION();
-		static void set_SHOW_ENTITY(double value);
-		static double get_SHOW_ENTITY();
-		static void set_SHOW_DOCUMENT(double value);
-		static double get_SHOW_DOCUMENT();
-		static void set_SHOW_PROCESSING_INSTRUCTION(double value);
-		static double get_SHOW_PROCESSING_INSTRUCTION();
-		static void set_FILTER_REJECT(double value);
-		static double get_FILTER_REJECT();
-		static void set_SHOW_CDATA_SECTION(double value);
-		static double get_SHOW_CDATA_SECTION();
-		static void set_FILTER_ACCEPT(double value);
-		static double get_FILTER_ACCEPT();
-		static void set_SHOW_ALL(double value);
-		static double get_SHOW_ALL();
-		static void set_SHOW_DOCUMENT_TYPE(double value);
-		static double get_SHOW_DOCUMENT_TYPE();
-		static void set_SHOW_TEXT(double value);
-		static double get_SHOW_TEXT();
-		static void set_SHOW_ELEMENT(double value);
-		static double get_SHOW_ELEMENT();
-		static void set_SHOW_COMMENT(double value);
-		static double get_SHOW_COMMENT();
-		static void set_FILTER_SKIP(double value);
-		static double get_FILTER_SKIP();
-		static void set_SHOW_ATTRIBUTE(double value);
-		static double get_SHOW_ATTRIBUTE();
-		static void set_SHOW_DOCUMENT_FRAGMENT(double value);
-		static double get_SHOW_DOCUMENT_FRAGMENT();
 	};
 
-	class MSBorderColorStyle_HTMLFrameElement 
-	{
-	public:
-		void set_borderColor(Object* value);
-		Object* get_borderColor();
-	};
-
-	class MSHTMLOListElementExtensions 
-	{
-	public:
-	};
-
-	class DOML2DeprecatedWordWrapSuppression_HTMLDTElement 
-	{
-	public:
-		void set_noWrap(bool value);
-		bool get_noWrap();
-	};
-
-	class ScreenView : AbstractView 
-	{
-	public:
-		void set_outerWidth(double value);
-		double get_outerWidth();
-		void set_pageXOffset(double value);
-		double get_pageXOffset();
-		void set_innerWidth(double value);
-		double get_innerWidth();
-		void set_pageYOffset(double value);
-		double get_pageYOffset();
-		void set_screenY(double value);
-		double get_screenY();
-		void set_outerHeight(double value);
-		double get_outerHeight();
-		void set_screen(Screen* value);
-		Screen* get_screen();
-		void set_innerHeight(double value);
-		double get_innerHeight();
-		void set_screenX(double value);
-		double get_screenX();
-		void scroll();
-		void scroll(, double x);
-		void scroll(double x, double y);
-		void scrollBy();
-		void scrollBy(, double x);
-		void scrollBy(double x, double y);
-		void scrollTo();
-		void scrollTo(, double x);
-		void scrollTo(double x, double y);
-	};
-
-	class DOML2DeprecatedMarginStyle_HTMLObjectElement 
-	{
-	public:
-		void set_vspace(double value);
-		double get_vspace();
-		void set_hspace(double value);
-		double get_hspace();
-	};
-
-	class DOML2DeprecatedMarginStyle_HTMLInputElement 
-	{
-	public:
-		void set_vspace(double value);
-		double get_vspace();
-		void set_hspace(double value);
-		double get_hspace();
-	};
-
-	class MSHTMLTableSectionElementExtensions : DOML2DeprecatedBackgroundColorStyle 
-	{
-	public:
-		Object* moveRow();
-		Object* moveRow(, double indexFrom);
-		Object* moveRow(double indexFrom, double indexTo);
-	};
-
-	class HTMLFieldSetElement : HTMLElement, MSHTMLFieldSetElementExtensions 
+	class HTMLFieldSetElement : public HTMLElement 
 	{
 	public:
 		void set_form(HTMLFormElement* value);
@@ -8212,14 +7541,6 @@ namespace client
 		static void set_prototype(MediaError* value);
 		static MediaError* get_prototype();
 		MediaError();
-		static void set_MEDIA_ERR_ABORTED(double value);
-		static double get_MEDIA_ERR_ABORTED();
-		static void set_MEDIA_ERR_NETWORK(double value);
-		static double get_MEDIA_ERR_NETWORK();
-		static void set_MEDIA_ERR_SRC_NOT_SUPPORTED(double value);
-		static double get_MEDIA_ERR_SRC_NOT_SUPPORTED();
-		static void set_MEDIA_ERR_DECODE(double value);
-		static double get_MEDIA_ERR_DECODE();
 	};
 
 	class SVGNumberList 
@@ -8239,7 +7560,7 @@ namespace client
 		SVGNumberList();
 	};
 
-	class HTMLBGSoundElement : HTMLElement 
+	class HTMLBGSoundElement : public HTMLElement 
 	{
 	public:
 		void set_balance(Object* value);
@@ -8255,211 +7576,7 @@ namespace client
 		HTMLBGSoundElement();
 	};
 
-	class HTMLElement : Element, MSHTMLElementRangeExtensions, ElementCSSInlineStyle, MSEventAttachmentTarget, MSHTMLElementExtensions, MSNodeExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_ondragend)(DragEvent* ev);
-		void set_ondragend(callback_for_ondragend value);
-		callback_for_ondragend get_ondragend();
-		typedef Object* (*callback_for_onkeydown)(KeyboardEvent* ev);
-		void set_onkeydown(callback_for_onkeydown value);
-		callback_for_onkeydown get_onkeydown();
-		typedef Object* (*callback_for_ondragover)(DragEvent* ev);
-		void set_ondragover(callback_for_ondragover value);
-		callback_for_ondragover get_ondragover();
-		typedef Object* (*callback_for_onkeyup)(KeyboardEvent* ev);
-		void set_onkeyup(callback_for_onkeyup value);
-		callback_for_onkeyup get_onkeyup();
-		void set_offsetTop(double value);
-		double get_offsetTop();
-		typedef Object* (*callback_for_onreset)(Event* ev);
-		void set_onreset(callback_for_onreset value);
-		callback_for_onreset get_onreset();
-		typedef Object* (*callback_for_onmouseup)(MouseEvent* ev);
-		void set_onmouseup(callback_for_onmouseup value);
-		callback_for_onmouseup get_onmouseup();
-		typedef Object* (*callback_for_ondragstart)(DragEvent* ev);
-		void set_ondragstart(callback_for_ondragstart value);
-		callback_for_ondragstart get_ondragstart();
-		typedef Object* (*callback_for_ondrag)(DragEvent* ev);
-		void set_ondrag(callback_for_ondrag value);
-		callback_for_ondrag get_ondrag();
-		void set_innerHTML(String* value);
-		String* get_innerHTML();
-		typedef Object* (*callback_for_onmouseover)(MouseEvent* ev);
-		void set_onmouseover(callback_for_onmouseover value);
-		callback_for_onmouseover get_onmouseover();
-		typedef Object* (*callback_for_ondragleave)(DragEvent* ev);
-		void set_ondragleave(callback_for_ondragleave value);
-		callback_for_ondragleave get_ondragleave();
-		void set_lang(String* value);
-		String* get_lang();
-		typedef Object* (*callback_for_onpause)(Event* ev);
-		void set_onpause(callback_for_onpause value);
-		callback_for_onpause get_onpause();
-		void set_className(String* value);
-		String* get_className();
-		typedef Object* (*callback_for_onseeked)(Event* ev);
-		void set_onseeked(callback_for_onseeked value);
-		callback_for_onseeked get_onseeked();
-		typedef Object* (*callback_for_onmousedown)(MouseEvent* ev);
-		void set_onmousedown(callback_for_onmousedown value);
-		callback_for_onmousedown get_onmousedown();
-		void set_title(String* value);
-		String* get_title();
-		typedef Object* (*callback_for_onclick)(MouseEvent* ev);
-		void set_onclick(callback_for_onclick value);
-		callback_for_onclick get_onclick();
-		typedef Object* (*callback_for_onwaiting)(Event* ev);
-		void set_onwaiting(callback_for_onwaiting value);
-		callback_for_onwaiting get_onwaiting();
-		void set_outerHTML(String* value);
-		String* get_outerHTML();
-		void set_offsetLeft(double value);
-		double get_offsetLeft();
-		typedef Object* (*callback_for_ondurationchange)(Event* ev);
-		void set_ondurationchange(callback_for_ondurationchange value);
-		callback_for_ondurationchange get_ondurationchange();
-		void set_offsetHeight(double value);
-		double get_offsetHeight();
-		void set_dir(String* value);
-		String* get_dir();
-		typedef Object* (*callback_for_onblur)(FocusEvent* ev);
-		void set_onblur(callback_for_onblur value);
-		callback_for_onblur get_onblur();
-		typedef Object* (*callback_for_onemptied)(Event* ev);
-		void set_onemptied(callback_for_onemptied value);
-		callback_for_onemptied get_onemptied();
-		typedef Object* (*callback_for_onseeking)(Event* ev);
-		void set_onseeking(callback_for_onseeking value);
-		callback_for_onseeking get_onseeking();
-		typedef Object* (*callback_for_oncanplay)(Event* ev);
-		void set_oncanplay(callback_for_oncanplay value);
-		callback_for_oncanplay get_oncanplay();
-		typedef Object* (*callback_for_onstalled)(Event* ev);
-		void set_onstalled(callback_for_onstalled value);
-		callback_for_onstalled get_onstalled();
-		typedef Object* (*callback_for_onmousemove)(MouseEvent* ev);
-		void set_onmousemove(callback_for_onmousemove value);
-		callback_for_onmousemove get_onmousemove();
-		void set_style(MSStyleCSSProperties* value);
-		MSStyleCSSProperties* get_style();
-		void set_isContentEditable(bool value);
-		bool get_isContentEditable();
-		typedef Object* (*callback_for_onratechange)(Event* ev);
-		void set_onratechange(callback_for_onratechange value);
-		callback_for_onratechange get_onratechange();
-		typedef Object* (*callback_for_onloadstart)(Event* ev);
-		void set_onloadstart(callback_for_onloadstart value);
-		callback_for_onloadstart get_onloadstart();
-		typedef Object* (*callback_for_ondragenter)(DragEvent* ev);
-		void set_ondragenter(callback_for_ondragenter value);
-		callback_for_ondragenter get_ondragenter();
-		void set_contentEditable(String* value);
-		String* get_contentEditable();
-		typedef Object* (*callback_for_onsubmit)(Event* ev);
-		void set_onsubmit(callback_for_onsubmit value);
-		callback_for_onsubmit get_onsubmit();
-		void set_tabIndex(double value);
-		double get_tabIndex();
-		typedef Object* (*callback_for_onprogress)(Object* ev);
-		void set_onprogress(callback_for_onprogress value);
-		callback_for_onprogress get_onprogress();
-		typedef Object* (*callback_for_ondblclick)(MouseEvent* ev);
-		void set_ondblclick(callback_for_ondblclick value);
-		callback_for_ondblclick get_ondblclick();
-		typedef Object* (*callback_for_oncontextmenu)(MouseEvent* ev);
-		void set_oncontextmenu(callback_for_oncontextmenu value);
-		callback_for_oncontextmenu get_oncontextmenu();
-		typedef Object* (*callback_for_onchange)(Event* ev);
-		void set_onchange(callback_for_onchange value);
-		callback_for_onchange get_onchange();
-		typedef Object* (*callback_for_onloadedmetadata)(Event* ev);
-		void set_onloadedmetadata(callback_for_onloadedmetadata value);
-		callback_for_onloadedmetadata get_onloadedmetadata();
-		typedef Object* (*callback_for_onerror)(Event* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onplay)(Event* ev);
-		void set_onplay(callback_for_onplay value);
-		callback_for_onplay get_onplay();
-		void set_id(String* value);
-		String* get_id();
-		typedef Object* (*callback_for_onplaying)(Event* ev);
-		void set_onplaying(callback_for_onplaying value);
-		callback_for_onplaying get_onplaying();
-		typedef Object* (*callback_for_oncanplaythrough)(Event* ev);
-		void set_oncanplaythrough(callback_for_oncanplaythrough value);
-		callback_for_oncanplaythrough get_oncanplaythrough();
-		typedef Object* (*callback_for_onabort)(UIEvent* ev);
-		void set_onabort(callback_for_onabort value);
-		callback_for_onabort get_onabort();
-		typedef Object* (*callback_for_onreadystatechange)(Event* ev);
-		void set_onreadystatechange(callback_for_onreadystatechange value);
-		callback_for_onreadystatechange get_onreadystatechange();
-		typedef Object* (*callback_for_onkeypress)(KeyboardEvent* ev);
-		void set_onkeypress(callback_for_onkeypress value);
-		callback_for_onkeypress get_onkeypress();
-		void set_offsetParent(Element* value);
-		Element* get_offsetParent();
-		typedef Object* (*callback_for_onloadeddata)(Event* ev);
-		void set_onloadeddata(callback_for_onloadeddata value);
-		callback_for_onloadeddata get_onloadeddata();
-		void set_disabled(bool value);
-		bool get_disabled();
-		typedef Object* (*callback_for_onsuspend)(Event* ev);
-		void set_onsuspend(callback_for_onsuspend value);
-		callback_for_onsuspend get_onsuspend();
-		void set_accessKey(String* value);
-		String* get_accessKey();
-		typedef Object* (*callback_for_onfocus)(FocusEvent* ev);
-		void set_onfocus(callback_for_onfocus value);
-		callback_for_onfocus get_onfocus();
-		typedef Object* (*callback_for_ontimeupdate)(Event* ev);
-		void set_ontimeupdate(callback_for_ontimeupdate value);
-		callback_for_ontimeupdate get_ontimeupdate();
-		typedef Object* (*callback_for_onselect)(UIEvent* ev);
-		void set_onselect(callback_for_onselect value);
-		callback_for_onselect get_onselect();
-		typedef Object* (*callback_for_ondrop)(DragEvent* ev);
-		void set_ondrop(callback_for_ondrop value);
-		callback_for_ondrop get_ondrop();
-		void set_offsetWidth(double value);
-		double get_offsetWidth();
-		typedef Object* (*callback_for_onmouseout)(MouseEvent* ev);
-		void set_onmouseout(callback_for_onmouseout value);
-		callback_for_onmouseout get_onmouseout();
-		typedef Object* (*callback_for_onended)(Event* ev);
-		void set_onended(callback_for_onended value);
-		callback_for_onended get_onended();
-		typedef Object* (*callback_for_onscroll)(UIEvent* ev);
-		void set_onscroll(callback_for_onscroll value);
-		callback_for_onscroll get_onscroll();
-		typedef Object* (*callback_for_onmousewheel)(MouseWheelEvent* ev);
-		void set_onmousewheel(callback_for_onmousewheel value);
-		callback_for_onmousewheel get_onmousewheel();
-		typedef Object* (*callback_for_onvolumechange)(Event* ev);
-		void set_onvolumechange(callback_for_onvolumechange value);
-		callback_for_onvolumechange get_onvolumechange();
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		typedef Object* (*callback_for_oninput)(Event* ev);
-		void set_oninput(callback_for_oninput value);
-		callback_for_oninput get_oninput();
-		void click();
-		NodeList* getElementsByClassName(const String& classNames);
-		void scrollIntoView();
-		void scrollIntoView(bool top);
-		void focus();
-		void blur();
-		void insertAdjacentHTML(const String& where, const String& html);
-		static void set_prototype(HTMLElement* value);
-		static HTMLElement* get_prototype();
-		HTMLElement();
-	};
-
-	class Comment : CharacterData, MSCommentExtensions 
+	class Comment : public CharacterData, MSCommentExtensions 
 	{
 	public:
 		static void set_prototype(Comment* value);
@@ -8475,7 +7592,7 @@ namespace client
 		CanvasPattern();
 	};
 
-	class HTMLHRElement : HTMLElement, DOML2DeprecatedWidthStyle_HTMLHRElement, MSHTMLHRElementExtensions, HTMLHRElementDOML2Deprecated, DOML2DeprecatedAlignmentStyle_HTMLHRElement, DOML2DeprecatedSizeProperty 
+	class HTMLHRElement : public HTMLElement, DOML2DeprecatedWidthStyle_HTMLHRElement, HTMLHRElementDOML2Deprecated, DOML2DeprecatedAlignmentStyle_HTMLHRElement, DOML2DeprecatedSizeProperty 
 	{
 	public:
 		static void set_prototype(HTMLHRElement* value);
@@ -8496,13 +7613,6 @@ namespace client
 		Object* get_frameSpacing();
 	};
 
-	class DOML2DeprecatedTextFlowControl_HTMLBlockElement 
-	{
-	public:
-		void set_clear(String* value);
-		String* get_clear();
-	};
-
 	class PositionOptions 
 	{
 	public:
@@ -8514,7 +7624,7 @@ namespace client
 		double get_maximumAge();
 	};
 
-	class HTMLObjectElement : HTMLElement, MSHTMLObjectElementExtensions, GetSVGDocument, DOML2DeprecatedMarginStyle_HTMLObjectElement, MSDataBindingExtensions, MSDataBindingRecordSetExtensions, DOML2DeprecatedAlignmentStyle_HTMLObjectElement, DOML2DeprecatedBorderStyle_HTMLObjectElement 
+	class HTMLObjectElement : public HTMLElement, GetSVGDocument, DOML2DeprecatedMarginStyle_HTMLObjectElement, DOML2DeprecatedAlignmentStyle_HTMLObjectElement, DOML2DeprecatedBorderStyle_HTMLObjectElement 
 	{
 	public:
 		void set_width(String* value);
@@ -8555,15 +7665,7 @@ namespace client
 	public:
 	};
 
-	class DocumentView 
-	{
-	public:
-		void set_defaultView(AbstractView* value);
-		AbstractView* get_defaultView();
-		Element* elementFromPoint(double x, double y);
-	};
-
-	class StorageEvent : Event 
+	class StorageEvent : public Event 
 	{
 	public:
 		void set_oldValue(Object* value);
@@ -8582,7 +7684,7 @@ namespace client
 		StorageEvent();
 	};
 
-	class HTMLEmbedElement : HTMLElement, GetSVGDocument, MSHTMLEmbedElementExtensions 
+	class HTMLEmbedElement : public HTMLElement, GetSVGDocument 
 	{
 	public:
 		void set_width(String* value);
@@ -8598,31 +7700,7 @@ namespace client
 		HTMLEmbedElement();
 	};
 
-	class CharacterData : Node 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		void set_data(String* value);
-		String* get_data();
-		void deleteData(double offset, double count);
-		void replaceData(double offset, double count, const String& arg);
-		void appendData(const String& arg);
-		void insertData(double offset, const String& arg);
-		String* substringData(double offset, double count);
-		static void set_prototype(CharacterData* value);
-		static CharacterData* get_prototype();
-		CharacterData();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLTableSectionElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class HTMLOptGroupElement : HTMLElement, MSDataBindingExtensions, MSHTMLOptGroupElementExtensions 
+	class HTMLOptGroupElement : public HTMLElement
 	{
 	public:
 		void set_label(String* value);
@@ -8632,7 +7710,7 @@ namespace client
 		HTMLOptGroupElement();
 	};
 
-	class HTMLIsIndexElement : HTMLElement, MSHTMLIsIndexElementExtensions 
+	class HTMLIsIndexElement : public HTMLElement 
 	{
 	public:
 		void set_form(HTMLFormElement* value);
@@ -8644,7 +7722,7 @@ namespace client
 		HTMLIsIndexElement();
 	};
 
-	class SVGPathSegLinetoRel : SVGPathSeg 
+	class SVGPathSegLinetoRel : public SVGPathSeg 
 	{
 	public:
 		void set_y(double value);
@@ -8654,13 +7732,6 @@ namespace client
 		static void set_prototype(SVGPathSegLinetoRel* value);
 		static SVGPathSegLinetoRel* get_prototype();
 		SVGPathSegLinetoRel();
-	};
-
-	class MSHTMLDocumentSelection 
-	{
-	public:
-		void set_selection(MSSelection* value);
-		MSSelection* get_selection();
 	};
 
 	class DOMException 
@@ -8722,72 +7793,6 @@ namespace client
 		static void set_prototype(DOMException* value);
 		static DOMException* get_prototype();
 		DOMException();
-		static void set_HIERARCHY_REQUEST_ERR(double value);
-		static double get_HIERARCHY_REQUEST_ERR();
-		static void set_NO_MODIFICATION_ALLOWED_ERR(double value);
-		static double get_NO_MODIFICATION_ALLOWED_ERR();
-		static void set_INVALID_MODIFICATION_ERR(double value);
-		static double get_INVALID_MODIFICATION_ERR();
-		static void set_NAMESPACE_ERR(double value);
-		static double get_NAMESPACE_ERR();
-		static void set_INVALID_CHARACTER_ERR(double value);
-		static double get_INVALID_CHARACTER_ERR();
-		static void set_TYPE_MISMATCH_ERR(double value);
-		static double get_TYPE_MISMATCH_ERR();
-		static void set_ABORT_ERR(double value);
-		static double get_ABORT_ERR();
-		static void set_INVALID_STATE_ERR(double value);
-		static double get_INVALID_STATE_ERR();
-		static void set_SECURITY_ERR(double value);
-		static double get_SECURITY_ERR();
-		static void set_NETWORK_ERR(double value);
-		static double get_NETWORK_ERR();
-		static void set_WRONG_DOCUMENT_ERR(double value);
-		static double get_WRONG_DOCUMENT_ERR();
-		static void set_QUOTA_EXCEEDED_ERR(double value);
-		static double get_QUOTA_EXCEEDED_ERR();
-		static void set_INDEX_SIZE_ERR(double value);
-		static double get_INDEX_SIZE_ERR();
-		static void set_DOMSTRING_SIZE_ERR(double value);
-		static double get_DOMSTRING_SIZE_ERR();
-		static void set_SYNTAX_ERR(double value);
-		static double get_SYNTAX_ERR();
-		static void set_SERIALIZE_ERR(double value);
-		static double get_SERIALIZE_ERR();
-		static void set_VALIDATION_ERR(double value);
-		static double get_VALIDATION_ERR();
-		static void set_NOT_FOUND_ERR(double value);
-		static double get_NOT_FOUND_ERR();
-		static void set_URL_MISMATCH_ERR(double value);
-		static double get_URL_MISMATCH_ERR();
-		static void set_PARSE_ERR(double value);
-		static double get_PARSE_ERR();
-		static void set_NO_DATA_ALLOWED_ERR(double value);
-		static double get_NO_DATA_ALLOWED_ERR();
-		static void set_NOT_SUPPORTED_ERR(double value);
-		static double get_NOT_SUPPORTED_ERR();
-		static void set_INVALID_ACCESS_ERR(double value);
-		static double get_INVALID_ACCESS_ERR();
-		static void set_INUSE_ATTRIBUTE_ERR(double value);
-		static double get_INUSE_ATTRIBUTE_ERR();
-	};
-
-	class MSCompatibleInfoCollection 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		MSCompatibleInfo* item(double index);
-		static void set_prototype(MSCompatibleInfoCollection* value);
-		static MSCompatibleInfoCollection* get_prototype();
-		MSCompatibleInfoCollection();
-	};
-
-	class MSHTMLIsIndexElementExtensions 
-	{
-	public:
-		void set_action(String* value);
-		String* get_action();
 	};
 
 	class SVGAnimatedBoolean 
@@ -8802,24 +7807,12 @@ namespace client
 		SVGAnimatedBoolean();
 	};
 
-	class SVGSwitchElement : SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
+	class SVGSwitchElement : public SVGElement, SVGStylable, SVGTransformable, SVGLangSpace, SVGTests 
 	{
 	public:
 		static void set_prototype(SVGSwitchElement* value);
 		static SVGSwitchElement* get_prototype();
 		SVGSwitchElement();
-	};
-
-	class MSHTMLIFrameElementExtensions : DOML2DeprecatedMarginStyle_MSHTMLIFrameElementExtensions, DOML2DeprecatedBorderStyle_MSHTMLIFrameElementExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_onload)(Event* ev);
-		void set_onload(callback_for_onload value);
-		callback_for_onload get_onload();
-		void set_frameSpacing(Object* value);
-		Object* get_frameSpacing();
-		void set_noResize(bool value);
-		bool get_noResize();
 	};
 
 	class SVGPreserveAspectRatio 
@@ -8860,37 +7853,9 @@ namespace client
 		static void set_prototype(SVGPreserveAspectRatio* value);
 		static SVGPreserveAspectRatio* get_prototype();
 		SVGPreserveAspectRatio();
-		static void set_SVG_PRESERVEASPECTRATIO_NONE(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_NONE();
-		static void set_SVG_PRESERVEASPECTRATIO_XMINYMID(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMINYMID();
-		static void set_SVG_PRESERVEASPECTRATIO_XMAXYMIN(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMAXYMIN();
-		static void set_SVG_PRESERVEASPECTRATIO_XMINYMAX(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMINYMAX();
-		static void set_SVG_PRESERVEASPECTRATIO_XMAXYMAX(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMAXYMAX();
-		static void set_SVG_MEETORSLICE_UNKNOWN(double value);
-		static double get_SVG_MEETORSLICE_UNKNOWN();
-		static void set_SVG_PRESERVEASPECTRATIO_XMAXYMID(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMAXYMID();
-		static void set_SVG_PRESERVEASPECTRATIO_XMIDYMAX(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMIDYMAX();
-		static void set_SVG_PRESERVEASPECTRATIO_XMINYMIN(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMINYMIN();
-		static void set_SVG_MEETORSLICE_MEET(double value);
-		static double get_SVG_MEETORSLICE_MEET();
-		static void set_SVG_PRESERVEASPECTRATIO_XMIDYMID(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMIDYMID();
-		static void set_SVG_PRESERVEASPECTRATIO_XMIDYMIN(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_XMIDYMIN();
-		static void set_SVG_MEETORSLICE_SLICE(double value);
-		static double get_SVG_MEETORSLICE_SLICE();
-		static void set_SVG_PRESERVEASPECTRATIO_UNKNOWN(double value);
-		static double get_SVG_PRESERVEASPECTRATIO_UNKNOWN();
 	};
 
-	class Attr : Node, MSAttrExtensions 
+	class Attr : public Node
 	{
 	public:
 		void set_specified(bool value);
@@ -8904,20 +7869,6 @@ namespace client
 		static void set_prototype(Attr* value);
 		static Attr* get_prototype();
 		Attr();
-	};
-
-	class MSBorderColorStyle_HTMLTableRowElement 
-	{
-	public:
-		void set_borderColor(Object* value);
-		Object* get_borderColor();
-	};
-
-	class DOML2DeprecatedAlignmentStyle_HTMLTableCaptionElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
 	};
 
 	class PerformanceNavigation 
@@ -8939,30 +7890,9 @@ namespace client
 		static void set_prototype(PerformanceNavigation* value);
 		static PerformanceNavigation* get_prototype();
 		PerformanceNavigation();
-		static void set_TYPE_RELOAD(double value);
-		static double get_TYPE_RELOAD();
-		static void set_TYPE_RESERVED(double value);
-		static double get_TYPE_RESERVED();
-		static void set_TYPE_BACK_FORWARD(double value);
-		static double get_TYPE_BACK_FORWARD();
-		static void set_TYPE_NAVIGATE(double value);
-		static double get_TYPE_NAVIGATE();
 	};
 
-	class HTMLBodyElementDOML2Deprecated 
-	{
-	public:
-		void set_link(Object* value);
-		Object* get_link();
-		void set_aLink(Object* value);
-		Object* get_aLink();
-		void set_text(Object* value);
-		Object* get_text();
-		void set_vLink(Object* value);
-		Object* get_vLink();
-	};
-
-	class SVGStopElement : SVGElement, SVGStylable 
+	class SVGStopElement : public SVGElement, SVGStylable 
 	{
 	public:
 		void set_offset(SVGAnimatedNumber* value);
@@ -8978,32 +7908,12 @@ namespace client
 		void operator()(Position* position);
 	};
 
-	class SVGSymbolElement : SVGElement, SVGStylable, SVGLangSpace, SVGFitToViewBox 
+	class SVGSymbolElement : public SVGElement, SVGStylable, SVGLangSpace, SVGFitToViewBox 
 	{
 	public:
 		static void set_prototype(SVGSymbolElement* value);
 		static SVGSymbolElement* get_prototype();
 		SVGSymbolElement();
-	};
-
-	class SVGElementInstanceList 
-	{
-	public:
-		void set_length(double value);
-		double get_length();
-		SVGElementInstance* item(double index);
-		static void set_prototype(SVGElementInstanceList* value);
-		static SVGElementInstanceList* get_prototype();
-		SVGElementInstanceList();
-	};
-
-	class MSDataBindingRecordSetExtensions 
-	{
-	public:
-		void set_recordset(Object* value);
-		Object* get_recordset();
-		Object* namedRecordset(const String& dataMember);
-		Object* namedRecordset(const String& dataMember, Object* hierarchy);
 	};
 
 	class CSSRuleList 
@@ -9023,19 +7933,12 @@ namespace client
 	public:
 	};
 
-	class LinkStyle 
-	{
-	public:
-		void set_sheet(StyleSheet* value);
-		StyleSheet* get_sheet();
-	};
-
 	class MSHTMLMarqueeElementExtensions 
 	{
 	public:
 	};
 
-	class HTMLVideoElement : HTMLMediaElement 
+	class HTMLVideoElement : public HTMLMediaElement 
 	{
 	public:
 		void set_width(double value);
@@ -9077,14 +7980,7 @@ namespace client
 		ClientRectList();
 	};
 
-	class DOML2DeprecatedAlignmentStyle_HTMLTableCellElement 
-	{
-	public:
-		void set_align(String* value);
-		String* get_align();
-	};
-
-	class SVGMaskElement : SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGTests 
+	class SVGMaskElement : public SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGTests 
 	{
 	public:
 		void set_y(SVGAnimatedLength* value);
@@ -9102,16 +7998,6 @@ namespace client
 		static void set_prototype(SVGMaskElement* value);
 		static SVGMaskElement* get_prototype();
 		SVGMaskElement();
-		HTMLAudioElement();
-		HTMLAudioElement(const String& src);
-		HTMLOptionElement();
-		HTMLOptionElement(, const String& text);
-		HTMLOptionElement(, const String& text, );
-		HTMLOptionElement(, const String& text, , const String& value);
-		HTMLOptionElement(const String& text, const String& value, bool defaultSelected, bool selected);
-		HTMLImageElement();
-		HTMLImageElement(, double width);
-		HTMLImageElement(double width, double height);
 	};
 	extern Object* (*ondragend)(DragEvent* ev);
 	extern Object* (*onkeydown)(KeyboardEvent* ev);
@@ -9191,13 +8077,9 @@ namespace client
 	extern void focus();
 	extern void print();
 	extern String* prompt();
-	extern String* prompt(, const String& message);
 	extern String* prompt(const String& message, const String& defaul);
 	extern String* toString();
 	extern Window* open();
-	extern Window* open(, const String& url);
-	extern Window* open(, const String& url, );
-	extern Window* open(, const String& url, , const String& target);
 	extern Window* open(const String& url, const String& target, const String& features, bool replace);
 	extern void close();
 	extern bool confirm();
@@ -9205,15 +8087,13 @@ namespace client
 	extern void postMessage(Object* message, const String& targetOrigin);
 	extern void postMessage(Object* message, const String& targetOrigin, Object* ports);
 	extern Object* showModalDialog();
-	extern Object* showModalDialog(, const String& url);
-	extern Object* showModalDialog(, const String& url, );
 	extern Object* showModalDialog(const String& url, Object* argument, Object* options);
 	extern void blur();
 	extern Selection* getSelection();
 	extern CSSStyleDeclaration* getComputedStyle(Element* elt);
 	extern CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
-	extern bool attachEvent(const String& event, EventListener* listener);
-	extern void detachEvent(const String& event, EventListener* listener);
+	extern bool attachEvent(const String& event, const EventListener& listener);
+	extern void detachEvent(const String& event, const EventListener& listener);
 	extern String* status;
 	extern Object* (*onmouseleave)(MouseEvent* ev);
 	extern double screenLeft;
@@ -9226,21 +8106,16 @@ namespace client
 	extern bool closed;
 	extern Object* (*onhelp)(Event* ev);
 	extern BrowserPublic* external;
-	extern MSEventObj* event;
 	extern Object* (*onfocusout)(FocusEvent* ev);
 	extern double screenTop;
 	extern Object* (*onfocusin)(FocusEvent* ev);
 	extern Window* showModelessDialog();
-	extern Window* showModelessDialog(, const String& url);
-	extern Window* showModelessDialog(, const String& url, );
 	extern Window* showModelessDialog(const String& url, Object* argument, Object* options);
 	extern void navigate(const String& url);
 	extern void resizeBy();
-	extern void resizeBy(, double x);
 	extern void resizeBy(double x, double y);
 	extern Object* item(Object* index);
 	extern void resizeTo();
-	extern void resizeTo(, double x);
 	extern void resizeTo(double x, double y);
 	extern MSPopupWindow* createPopup();
 	extern MSPopupWindow* createPopup(Object* arguments);
@@ -9249,10 +8124,8 @@ namespace client
 	extern Object* execScript(const String& code, const String& language);
 	extern void msWriteProfilerMark(const String& profilerMarkName);
 	extern void moveTo();
-	extern void moveTo(, double x);
 	extern void moveTo(double x, double y);
 	extern void moveBy();
-	extern void moveBy(, double x);
 	extern void moveBy(double x, double y);
 	extern void showHelp(const String& url);
 	extern void showHelp(const String& url, Object* helpArg);
@@ -9268,20 +8141,17 @@ namespace client
 	extern double innerHeight;
 	extern double screenX;
 	extern void scroll();
-	extern void scroll(, double x);
 	extern void scroll(double x, double y);
 	extern void scrollBy();
-	extern void scrollBy(, double x);
 	extern void scrollBy(double x, double y);
 	extern void scrollTo();
-	extern void scrollTo(, double x);
 	extern void scrollTo(double x, double y);
 	extern StyleMedia* styleMedia;
 	extern Document* document;
-	extern void removeEventListener(const String& type, EventListener* listener);
-	extern void removeEventListener(const String& type, EventListener* listener, bool useCapture);
-	extern void addEventListener(const String& type, EventListener* listener);
-	extern void addEventListener(const String& type, EventListener* listener, bool useCapture);
+	extern void removeEventListener(const String& type, const EventListener& listener);
+	extern void removeEventListener(const String& type, const EventListener& listener, bool useCapture);
+	extern void addEventListener(const String& type, const EventListener& listener);
+	extern void addEventListener(const String& type, const EventListener& listener, bool useCapture);
 	extern bool dispatchEvent(Event* evt);
 	extern Storage* localStorage;
 	extern Storage* sessionStorage;
@@ -9294,136 +8164,7 @@ namespace client
 	extern double setInterval(Object* expression, double msec);
 	extern double setInterval(Object* expression, double msec, Object* language);
 
-	class HTMLBodyElement 
-	{
-	public:
-		typedef Object* (*callback_for_onpopstate)(PopStateEvent* ev);
-		void set_onpopstate(callback_for_onpopstate value);
-		callback_for_onpopstate get_onpopstate();
-	};
-
-	class MSGestureEvent : UIEvent 
-	{
-	public:
-		void set_offsetY(double value);
-		double get_offsetY();
-		void set_translationY(double value);
-		double get_translationY();
-		void set_velocityExpansion(double value);
-		double get_velocityExpansion();
-		void set_velocityY(double value);
-		double get_velocityY();
-		void set_velocityAngular(double value);
-		double get_velocityAngular();
-		void set_translationX(double value);
-		double get_translationX();
-		void set_velocityX(double value);
-		double get_velocityX();
-		void set_hwTimestamp(double value);
-		double get_hwTimestamp();
-		void set_offsetX(double value);
-		double get_offsetX();
-		void set_screenX(double value);
-		double get_screenX();
-		void set_rotation(double value);
-		double get_rotation();
-		void set_expansion(double value);
-		double get_expansion();
-		void set_clientY(double value);
-		double get_clientY();
-		void set_screenY(double value);
-		double get_screenY();
-		void set_scale(double value);
-		double get_scale();
-		void set_gestureObject(Object* value);
-		Object* get_gestureObject();
-		void set_clientX(double value);
-		double get_clientX();
-		void initGestureEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, double offsetXArg, double offsetYArg, double translationXArg, double translationYArg, double scaleArg, double expansionArg, double rotationArg, double velocityXArg, double velocityYArg, double velocityExpansionArg, double velocityAngularArg, double hwTimestampArg);
-		void set_MSGESTURE_FLAG_BEGIN(double value);
-		double get_MSGESTURE_FLAG_BEGIN();
-		void set_MSGESTURE_FLAG_END(double value);
-		double get_MSGESTURE_FLAG_END();
-		void set_MSGESTURE_FLAG_CANCEL(double value);
-		double get_MSGESTURE_FLAG_CANCEL();
-		void set_MSGESTURE_FLAG_INERTIA(double value);
-		double get_MSGESTURE_FLAG_INERTIA();
-		void set_MSGESTURE_FLAG_NONE(double value);
-		double get_MSGESTURE_FLAG_NONE();
-		static void set_prototype(MSGestureEvent* value);
-		static MSGestureEvent* get_prototype();
-		MSGestureEvent();
-		static void set_MSGESTURE_FLAG_BEGIN(double value);
-		static double get_MSGESTURE_FLAG_BEGIN();
-		static void set_MSGESTURE_FLAG_END(double value);
-		static double get_MSGESTURE_FLAG_END();
-		static void set_MSGESTURE_FLAG_CANCEL(double value);
-		static double get_MSGESTURE_FLAG_CANCEL();
-		static void set_MSGESTURE_FLAG_INERTIA(double value);
-		static double get_MSGESTURE_FLAG_INERTIA();
-		static void set_MSGESTURE_FLAG_NONE(double value);
-		static double get_MSGESTURE_FLAG_NONE();
-	};
-
-	class HTMLAnchorElement 
-	{
-	public:
-		void set_text(String* value);
-		String* get_text();
-	};
-
-	class HTMLInputElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_files(FileList* value);
-		FileList* get_files();
-		void set_max(String* value);
-		String* get_max();
-		void set_formTarget(String* value);
-		String* get_formTarget();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		void set_step(String* value);
-		String* get_step();
-		void set_autofocus(bool value);
-		bool get_autofocus();
-		void set_required(bool value);
-		bool get_required();
-		void set_formEnctype(String* value);
-		String* get_formEnctype();
-		void set_valueAsNumber(double value);
-		double get_valueAsNumber();
-		void set_placeholder(String* value);
-		String* get_placeholder();
-		void set_formMethod(String* value);
-		String* get_formMethod();
-		void set_list(HTMLElement* value);
-		HTMLElement* get_list();
-		void set_autocomplete(String* value);
-		String* get_autocomplete();
-		void set_min(String* value);
-		String* get_min();
-		void set_formAction(String* value);
-		String* get_formAction();
-		void set_pattern(String* value);
-		String* get_pattern();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_formNoValidate(String* value);
-		String* get_formNoValidate();
-		void set_multiple(bool value);
-		bool get_multiple();
-		bool checkValidity();
-		void stepDown();
-		void stepDown(double n);
-		void stepUp();
-		void stepUp(double n);
-		void setCustomValidity(const String& error);
-	};
-
-	class ErrorEvent : Event 
+	class ErrorEvent : public Event 
 	{
 	public:
 		void set_colno(double value);
@@ -9440,7 +8181,7 @@ namespace client
 		ErrorEvent();
 	};
 
-	class SVGFilterElement : SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGURIReference 
+	class SVGFilterElement : public SVGElement, SVGUnitTypes, SVGStylable, SVGLangSpace, SVGURIReference 
 	{
 	public:
 		void set_y(SVGAnimatedLength* value);
@@ -9465,7 +8206,7 @@ namespace client
 		SVGFilterElement();
 	};
 
-	class TrackEvent : Event 
+	class TrackEvent : public Event 
 	{
 	public:
 		void set_track(Object* value);
@@ -9475,7 +8216,7 @@ namespace client
 		TrackEvent();
 	};
 
-	class SVGFEMergeNodeElement : SVGElement 
+	class SVGFEMergeNodeElement : public SVGElement 
 	{
 	public:
 		void set_in1(SVGAnimatedString* value);
@@ -9485,7 +8226,22 @@ namespace client
 		SVGFEMergeNodeElement();
 	};
 
-	class SVGFEFloodElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFilterPrimitiveStandardAttributes : public SVGStylable 
+	{
+	public:
+		void set_y(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_y();
+		void set_width(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_width();
+		void set_x(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_x();
+		void set_height(SVGAnimatedLength* value);
+		SVGAnimatedLength* get_height();
+		void set_result(SVGAnimatedString* value);
+		SVGAnimatedString* get_result();
+	};
+
+	class SVGFEFloodElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		static void set_prototype(SVGFEFloodElement* value);
@@ -9493,89 +8249,9 @@ namespace client
 		SVGFEFloodElement();
 	};
 
-	class MSElementExtensions 
-	{
-	public:
-		void set_msRegionOverflow(String* value);
-		String* get_msRegionOverflow();
-		typedef Object* (*callback_for_onmspointerdown)(Object* ev);
-		void set_onmspointerdown(callback_for_onmspointerdown value);
-		callback_for_onmspointerdown get_onmspointerdown();
-		typedef Object* (*callback_for_onmsgotpointercapture)(Object* ev);
-		void set_onmsgotpointercapture(callback_for_onmsgotpointercapture value);
-		callback_for_onmsgotpointercapture get_onmsgotpointercapture();
-		typedef Object* (*callback_for_onmsgesturedoubletap)(Object* ev);
-		void set_onmsgesturedoubletap(callback_for_onmsgesturedoubletap value);
-		callback_for_onmsgesturedoubletap get_onmsgesturedoubletap();
-		typedef Object* (*callback_for_onmspointerhover)(Object* ev);
-		void set_onmspointerhover(callback_for_onmspointerhover value);
-		callback_for_onmspointerhover get_onmspointerhover();
-		typedef Object* (*callback_for_onmsgesturehold)(Object* ev);
-		void set_onmsgesturehold(callback_for_onmsgesturehold value);
-		callback_for_onmsgesturehold get_onmsgesturehold();
-		typedef Object* (*callback_for_onmspointermove)(Object* ev);
-		void set_onmspointermove(callback_for_onmspointermove value);
-		callback_for_onmspointermove get_onmspointermove();
-		typedef Object* (*callback_for_onmsgesturechange)(Object* ev);
-		void set_onmsgesturechange(callback_for_onmsgesturechange value);
-		callback_for_onmsgesturechange get_onmsgesturechange();
-		typedef Object* (*callback_for_onmsgesturestart)(Object* ev);
-		void set_onmsgesturestart(callback_for_onmsgesturestart value);
-		callback_for_onmsgesturestart get_onmsgesturestart();
-		typedef Object* (*callback_for_onmspointercancel)(Object* ev);
-		void set_onmspointercancel(callback_for_onmspointercancel value);
-		callback_for_onmspointercancel get_onmspointercancel();
-		typedef Object* (*callback_for_onmsgestureend)(Object* ev);
-		void set_onmsgestureend(callback_for_onmsgestureend value);
-		callback_for_onmsgestureend get_onmsgestureend();
-		typedef Object* (*callback_for_onmsgesturetap)(Object* ev);
-		void set_onmsgesturetap(callback_for_onmsgesturetap value);
-		callback_for_onmsgesturetap get_onmsgesturetap();
-		typedef Object* (*callback_for_onmspointerout)(Object* ev);
-		void set_onmspointerout(callback_for_onmspointerout value);
-		callback_for_onmspointerout get_onmspointerout();
-		typedef Object* (*callback_for_onmsinertiastart)(Object* ev);
-		void set_onmsinertiastart(callback_for_onmsinertiastart value);
-		callback_for_onmsinertiastart get_onmsinertiastart();
-		typedef Object* (*callback_for_onmslostpointercapture)(Object* ev);
-		void set_onmslostpointercapture(callback_for_onmslostpointercapture value);
-		callback_for_onmslostpointercapture get_onmslostpointercapture();
-		typedef Object* (*callback_for_onmspointerover)(Object* ev);
-		void set_onmspointerover(callback_for_onmspointerover value);
-		callback_for_onmspointerover get_onmspointerover();
-		void set_msContentZoomFactor(double value);
-		double get_msContentZoomFactor();
-		typedef Object* (*callback_for_onmspointerup)(Object* ev);
-		void set_onmspointerup(callback_for_onmspointerup value);
-		callback_for_onmspointerup get_onmspointerup();
-		MSRangeCollection* msGetRegionContent();
-		void msReleasePointerCapture(double pointerId);
-		void msSetPointerCapture(double pointerId);
-		static void set_prototype(MSElementExtensions* value);
-		static MSElementExtensions* get_prototype();
-		MSElementExtensions();
-	};
+	class TextTrack;
 
-	class MSCSSScrollTranslationProperties 
-	{
-	public:
-		void set_msScrollTranslation(String* value);
-		String* get_msScrollTranslation();
-	};
-
-	class MSGesture 
-	{
-	public:
-		void set_target(Element* value);
-		Element* get_target();
-		void addPointer(double pointerId);
-		void stop();
-		static void set_prototype(MSGesture* value);
-		static MSGesture* get_prototype();
-		MSGesture();
-	};
-
-	class TextTrackCue : EventTarget 
+	class TextTrackCue : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_onenter)(Event* ev);
@@ -9600,37 +8276,6 @@ namespace client
 		static void set_prototype(TextTrackCue* value);
 		static TextTrackCue* get_prototype();
 		TextTrackCue();
-	};
-
-	class MSHTMLDocumentViewExtensions 
-	{
-	public:
-		void set_msCSSOMElementFloatMetrics(bool value);
-		bool get_msCSSOMElementFloatMetrics();
-		NodeList* msElementsFromPoint(double x, double y);
-		NodeList* msElementsFromRect(double left, double top, double width, double height);
-		static void set_prototype(MSHTMLDocumentViewExtensions* value);
-		static MSHTMLDocumentViewExtensions* get_prototype();
-		MSHTMLDocumentViewExtensions();
-	};
-
-	class MSStreamReader : MSBaseReader 
-	{
-	public:
-		void set_error(DOMError* value);
-		DOMError* get_error();
-		void readAsArrayBuffer(MSStream* stream);
-		void readAsArrayBuffer(MSStream* stream, double size);
-		void readAsBlob(MSStream* stream);
-		void readAsBlob(MSStream* stream, double size);
-		void readAsDataURL(MSStream* stream);
-		void readAsDataURL(MSStream* stream, double size);
-		void readAsText(MSStream* stream);
-		void readAsText(MSStream* stream, const String& encoding);
-		void readAsText(MSStream* stream, const String& encoding, double size);
-		static void set_prototype(MSStreamReader* value);
-		static MSStreamReader* get_prototype();
-		MSStreamReader();
 	};
 
 	class CSSFlexibleBoxProperties 
@@ -9679,14 +8324,41 @@ namespace client
 		DOMTokenList();
 	};
 
-	class EventException 
+	class SVGComponentTransferFunctionElement : public SVGElement 
 	{
 	public:
-		void set_name(String* value);
-		String* get_name();
+		void set_tableValues(SVGAnimatedNumberList* value);
+		SVGAnimatedNumberList* get_tableValues();
+		void set_slope(SVGAnimatedNumber* value);
+		SVGAnimatedNumber* get_slope();
+		void set_type(SVGAnimatedEnumeration* value);
+		SVGAnimatedEnumeration* get_type();
+		void set_exponent(SVGAnimatedNumber* value);
+		SVGAnimatedNumber* get_exponent();
+		void set_amplitude(SVGAnimatedNumber* value);
+		SVGAnimatedNumber* get_amplitude();
+		void set_intercept(SVGAnimatedNumber* value);
+		SVGAnimatedNumber* get_intercept();
+		void set_offset(SVGAnimatedNumber* value);
+		SVGAnimatedNumber* get_offset();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_TABLE(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_TABLE();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE();
+		void set_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR(double value);
+		double get_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR();
+		static void set_prototype(SVGComponentTransferFunctionElement* value);
+		static SVGComponentTransferFunctionElement* get_prototype();
+		SVGComponentTransferFunctionElement();
 	};
 
-	class SVGFEFuncAElement : SVGComponentTransferFunctionElement 
+	class SVGFEFuncAElement : public SVGComponentTransferFunctionElement 
 	{
 	public:
 		static void set_prototype(SVGFEFuncAElement* value);
@@ -9694,13 +8366,7 @@ namespace client
 		SVGFEFuncAElement();
 	};
 
-	class Performance 
-	{
-	public:
-		double now();
-	};
-
-	class SVGFETileElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFETileElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_in1(SVGAnimatedString* value);
@@ -9710,7 +8376,7 @@ namespace client
 		SVGFETileElement();
 	};
 
-	class SVGFEBlendElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEBlendElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_in2(SVGAnimatedString* value);
@@ -9734,32 +8400,9 @@ namespace client
 		static void set_prototype(SVGFEBlendElement* value);
 		static SVGFEBlendElement* get_prototype();
 		SVGFEBlendElement();
-		static void set_SVG_FEBLEND_MODE_DARKEN(double value);
-		static double get_SVG_FEBLEND_MODE_DARKEN();
-		static void set_SVG_FEBLEND_MODE_UNKNOWN(double value);
-		static double get_SVG_FEBLEND_MODE_UNKNOWN();
-		static void set_SVG_FEBLEND_MODE_MULTIPLY(double value);
-		static double get_SVG_FEBLEND_MODE_MULTIPLY();
-		static void set_SVG_FEBLEND_MODE_NORMAL(double value);
-		static double get_SVG_FEBLEND_MODE_NORMAL();
-		static void set_SVG_FEBLEND_MODE_SCREEN(double value);
-		static double get_SVG_FEBLEND_MODE_SCREEN();
-		static void set_SVG_FEBLEND_MODE_LIGHTEN(double value);
-		static double get_SVG_FEBLEND_MODE_LIGHTEN();
 	};
 
-	class WindowTimers : WindowTimersExtension 
-	{
-	public:
-		static void set_prototype(WindowTimers* value);
-		static WindowTimers* get_prototype();
-		WindowTimers();
-	};
-
-	class CSSStyleDeclaration : CSS2DTransformsProperties, CSSTransitionsProperties, CSSFontsProperties, MSCSSHighContrastProperties, CSSGridProperties, CSSAnimationsProperties, MSCSSContentZoomProperties, MSCSSScrollTranslationProperties, MSCSSTouchManipulationProperties, CSSFlexibleBoxProperties, MSCSSPositionedFloatsProperties, MSCSSRegionProperties, MSCSSSelectionBoundaryProperties, CSSMultiColumnProperties, CSSTextProperties, CSS3DTransformsProperties 
-	{
-	public:
-	};
+	class MessagePort;
 
 	class MessageChannel 
 	{
@@ -9773,7 +8416,7 @@ namespace client
 		MessageChannel();
 	};
 
-	class SVGFEMergeElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEMergeElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		static void set_prototype(SVGFEMergeElement* value);
@@ -9781,12 +8424,7 @@ namespace client
 		SVGFEMergeElement();
 	};
 
-	class Navigator : MSFileSaver 
-	{
-	public:
-	};
-
-	class TransitionEvent : Event 
+	class TransitionEvent : public Event 
 	{
 	public:
 		void set_propertyName(String* value);
@@ -9798,6 +8436,8 @@ namespace client
 		static TransitionEvent* get_prototype();
 		TransitionEvent();
 	};
+
+	class MediaQueryListListener;
 
 	class MediaQueryList 
 	{
@@ -9824,7 +8464,7 @@ namespace client
 		DOMError();
 	};
 
-	class SVGFEPointLightElement : SVGElement 
+	class SVGFEPointLightElement : public SVGElement 
 	{
 	public:
 		void set_y(SVGAnimatedNumber* value);
@@ -9847,7 +8487,7 @@ namespace client
 		String* get_fontFeatureSettings();
 	};
 
-	class CloseEvent : Event 
+	class CloseEvent : public Event 
 	{
 	public:
 		void set_wasClean(bool value);
@@ -9862,7 +8502,7 @@ namespace client
 		CloseEvent();
 	};
 
-	class WebSocket : EventTarget 
+	class WebSocket : public EventTarget 
 	{
 	public:
 		void set_protocol(String* value);
@@ -9890,7 +8530,6 @@ namespace client
 		void set_url(String* value);
 		String* get_url();
 		void close();
-		void close(, double code);
 		void close(double code, const String& reason);
 		void send(Object* data);
 		void set_OPEN(double value);
@@ -9906,17 +8545,9 @@ namespace client
 		WebSocket(const String& url);
 		WebSocket(const String& url, const String& prototcol);
 		WebSocket(const String& url, String** prototcol);
-		static void set_OPEN(double value);
-		static double get_OPEN();
-		static void set_CLOSING(double value);
-		static double get_CLOSING();
-		static void set_CONNECTING(double value);
-		static double get_CONNECTING();
-		static void set_CLOSED(double value);
-		static double get_CLOSED();
 	};
 
-	class ProgressEvent : Event 
+	class ProgressEvent : public Event 
 	{
 	public:
 		void set_loaded(double value);
@@ -9931,11 +8562,11 @@ namespace client
 		ProgressEvent();
 	};
 
-	class HTMLCanvasElement 
-	{
-	public:
-		Blob* msToBlob();
-	};
+	class DOMStringList;
+	class IDBTransaction;
+	class IDBRequest;
+	class IDBIndex;
+	class IDBKeyRange;
 
 	class IDBObjectStore 
 	{
@@ -9958,7 +8589,6 @@ namespace client
 		IDBRequest* put(Object* value);
 		IDBRequest* put(Object* value, Object* key);
 		IDBRequest* openCursor();
-		IDBRequest* openCursor(, Object* range);
 		IDBRequest* openCursor(Object* range, const String& direction);
 		void deleteIndex(const String& indexName);
 		IDBIndex* index(const String& name);
@@ -9976,7 +8606,7 @@ namespace client
 		bool get_oneTimeOnly();
 	};
 
-	class SVGFEGaussianBlurElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEGaussianBlurElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_stdDeviationX(SVGAnimatedNumber* value);
@@ -10054,22 +8684,7 @@ namespace client
 		String* get_msUserSelect();
 	};
 
-	class SVGFilterPrimitiveStandardAttributes : SVGStylable 
-	{
-	public:
-		void set_y(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_y();
-		void set_width(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_width();
-		void set_x(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_x();
-		void set_height(SVGAnimatedLength* value);
-		SVGAnimatedLength* get_height();
-		void set_result(SVGAnimatedString* value);
-		SVGAnimatedString* get_result();
-	};
-
-	class IDBVersionChangeEvent : Event 
+	class IDBVersionChangeEvent : public Event 
 	{
 	public:
 		void set_newVersion(double value);
@@ -10096,16 +8711,16 @@ namespace client
 		IDBRequest* count(Object* key);
 		IDBRequest* getKey(Object* key);
 		IDBRequest* openKeyCursor();
-		IDBRequest* openKeyCursor(, IDBKeyRange* range);
 		IDBRequest* openKeyCursor(IDBKeyRange* range, const String& direction);
 		IDBRequest* get(Object* key);
 		IDBRequest* openCursor();
-		IDBRequest* openCursor(, IDBKeyRange* range);
 		IDBRequest* openCursor(IDBKeyRange* range, const String& direction);
 		static void set_prototype(IDBIndex* value);
 		static IDBIndex* get_prototype();
 		IDBIndex();
 	};
+
+	class File;
 
 	class FileList 
 	{
@@ -10181,7 +8796,7 @@ namespace client
 		String* get_msAnimationDuration();
 	};
 
-	class SVGFESpecularLightingElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFESpecularLightingElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_kernelUnitLengthY(SVGAnimatedNumber* value);
@@ -10201,7 +8816,21 @@ namespace client
 		SVGFESpecularLightingElement();
 	};
 
-	class File : Blob 
+	class Blob 
+	{
+	public:
+		void set_type(String* value);
+		String* get_type();
+		void set_size(double value);
+		double get_size();
+		Object* msDetachStream();
+		Blob* slice();
+		Blob* slice(double start, double end, const String& contentType);
+		void close();
+		void msClose();
+	};
+
+	class File : public Blob 
 	{
 	public:
 		void set_lastModifiedDate(Object* value);
@@ -10222,14 +8851,7 @@ namespace client
 	};
 	extern URL* URL;
 
-	class RangeException 
-	{
-	public:
-		void set_name(String* value);
-		String* get_name();
-	};
-
-	class IDBCursorWithValue : IDBCursor 
+	class IDBCursorWithValue : public IDBCursor 
 	{
 	public:
 		void set_value(Object* value);
@@ -10239,28 +8861,7 @@ namespace client
 		IDBCursorWithValue();
 	};
 
-	class HTMLTextAreaElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_autofocus(bool value);
-		bool get_autofocus();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_required(bool value);
-		bool get_required();
-		void set_maxLength(double value);
-		double get_maxLength();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		void set_placeholder(String* value);
-		String* get_placeholder();
-		bool checkValidity();
-		void setCustomValidity(const String& error);
-	};
-
-	class XMLHttpRequestEventTarget : EventTarget 
+	class XMLHttpRequestEventTarget : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_onprogress)(ProgressEvent* ev);
@@ -10289,6 +8890,8 @@ namespace client
 		XMLHttpRequestEventTarget();
 	};
 
+	class IDBFactory;
+
 	class IDBEnvironment 
 	{
 	public:
@@ -10298,7 +8901,9 @@ namespace client
 		IDBFactory* get_indexedDB();
 	};
 
-	class AudioTrackList : EventTarget 
+	class AudioTrack;
+
+	class AudioTrackList : public EventTarget 
 	{
 	public:
 		AudioTrack* operator[](double index);
@@ -10317,7 +8922,7 @@ namespace client
 		AudioTrackList();
 	};
 
-	class MSBaseReader : EventTarget 
+	class MSBaseReader : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_onprogress)(ProgressEvent* ev);
@@ -10351,28 +8956,7 @@ namespace client
 		double get_DONE();
 	};
 
-	class History 
-	{
-	public:
-		void set_state(Object* value);
-		Object* get_state();
-		void replaceState(Object* statedata, const String& title);
-		void replaceState(Object* statedata, const String& title, const String& url);
-		void pushState(Object* statedata, const String& title);
-		void pushState(Object* statedata, const String& title, const String& url);
-	};
-
-	class MSProtocol 
-	{
-	public:
-		void set_protocol(String* value);
-		String* get_protocol();
-		static void set_prototype(MSProtocol* value);
-		static MSProtocol* get_prototype();
-		MSProtocol();
-	};
-
-	class SVGFEMorphologyElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEMorphologyElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_operator(SVGAnimatedEnumeration* value);
@@ -10392,29 +8976,6 @@ namespace client
 		static void set_prototype(SVGFEMorphologyElement* value);
 		static SVGFEMorphologyElement* get_prototype();
 		SVGFEMorphologyElement();
-		static void set_SVG_MORPHOLOGY_OPERATOR_UNKNOWN(double value);
-		static double get_SVG_MORPHOLOGY_OPERATOR_UNKNOWN();
-		static void set_SVG_MORPHOLOGY_OPERATOR_ERODE(double value);
-		static double get_SVG_MORPHOLOGY_OPERATOR_ERODE();
-		static void set_SVG_MORPHOLOGY_OPERATOR_DILATE(double value);
-		static double get_SVG_MORPHOLOGY_OPERATOR_DILATE();
-	};
-
-	class HTMLSelectElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_autofocus(bool value);
-		bool get_autofocus();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_required(bool value);
-		bool get_required();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		bool checkValidity();
-		void setCustomValidity(const String& error);
 	};
 
 	class CSSTransitionsProperties 
@@ -10442,23 +9003,12 @@ namespace client
 		String* get_msTransitionProperty();
 	};
 
-	class SVGFEFuncRElement : SVGComponentTransferFunctionElement 
+	class SVGFEFuncRElement : public SVGComponentTransferFunctionElement 
 	{
 	public:
 		static void set_prototype(SVGFEFuncRElement* value);
 		static SVGFEFuncRElement* get_prototype();
 		SVGFEFuncRElement();
-	};
-
-	class CSSRule 
-	{
-	public:
-		void set_KEYFRAMES_RULE(double value);
-		double get_KEYFRAMES_RULE();
-		void set_KEYFRAME_RULE(double value);
-		double get_KEYFRAME_RULE();
-		void set_VIEWPORT_RULE(double value);
-		double get_VIEWPORT_RULE();
 	};
 
 	class WindowTimersExtension 
@@ -10470,7 +9020,7 @@ namespace client
 		double setImmediate(Object* expression, Object** args);
 	};
 
-	class SVGFEDisplacementMapElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEDisplacementMapElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_in2(SVGAnimatedString* value);
@@ -10496,40 +9046,9 @@ namespace client
 		static void set_prototype(SVGFEDisplacementMapElement* value);
 		static SVGFEDisplacementMapElement* get_prototype();
 		SVGFEDisplacementMapElement();
-		static void set_SVG_CHANNEL_B(double value);
-		static double get_SVG_CHANNEL_B();
-		static void set_SVG_CHANNEL_R(double value);
-		static double get_SVG_CHANNEL_R();
-		static void set_SVG_CHANNEL_G(double value);
-		static double get_SVG_CHANNEL_G();
-		static void set_SVG_CHANNEL_UNKNOWN(double value);
-		static double get_SVG_CHANNEL_UNKNOWN();
-		static void set_SVG_CHANNEL_A(double value);
-		static double get_SVG_CHANNEL_A();
 	};
 
-	class MSCSSContentZoomProperties 
-	{
-	public:
-		void set_msContentZoomLimit(String* value);
-		String* get_msContentZoomLimit();
-		void set_msContentZooming(String* value);
-		String* get_msContentZooming();
-		void set_msContentZoomSnapType(String* value);
-		String* get_msContentZoomSnapType();
-		void set_msContentZoomLimitMax(Object* value);
-		Object* get_msContentZoomLimitMax();
-		void set_msContentZoomSnapPoints(String* value);
-		String* get_msContentZoomSnapPoints();
-		void set_msContentZoomSnap(String* value);
-		String* get_msContentZoomSnap();
-		void set_msContentZoomLimitMin(Object* value);
-		Object* get_msContentZoomLimitMin();
-		void set_msContentZoomChaining(String* value);
-		String* get_msContentZoomChaining();
-	};
-
-	class AnimationEvent : Event 
+	class AnimationEvent : public Event 
 	{
 	public:
 		void set_animationName(String* value);
@@ -10540,52 +9059,6 @@ namespace client
 		static void set_prototype(AnimationEvent* value);
 		static AnimationEvent* get_prototype();
 		AnimationEvent();
-	};
-
-	class SVGComponentTransferFunctionElement : SVGElement 
-	{
-	public:
-		void set_tableValues(SVGAnimatedNumberList* value);
-		SVGAnimatedNumberList* get_tableValues();
-		void set_slope(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_slope();
-		void set_type(SVGAnimatedEnumeration* value);
-		SVGAnimatedEnumeration* get_type();
-		void set_exponent(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_exponent();
-		void set_amplitude(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_amplitude();
-		void set_intercept(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_intercept();
-		void set_offset(SVGAnimatedNumber* value);
-		SVGAnimatedNumber* get_offset();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_TABLE(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_TABLE();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE();
-		void set_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR(double value);
-		double get_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR();
-		static void set_prototype(SVGComponentTransferFunctionElement* value);
-		static SVGComponentTransferFunctionElement* get_prototype();
-		SVGComponentTransferFunctionElement();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_TABLE(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_TABLE();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_GAMMA();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE();
-		static void set_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR(double value);
-		static double get_SVG_FECOMPONENTTRANSFER_TYPE_LINEAR();
 	};
 
 	class MSRangeCollection 
@@ -10623,14 +9096,7 @@ namespace client
 		String* get_msWrapFlow();
 	};
 
-	class SVGException 
-	{
-	public:
-		void set_name(String* value);
-		String* get_name();
-	};
-
-	class SVGFEDistantLightElement : SVGElement 
+	class SVGFEDistantLightElement : public SVGElement 
 	{
 	public:
 		void set_azimuth(SVGAnimatedNumber* value);
@@ -10653,7 +9119,7 @@ namespace client
 		String* get_msWrapThrough();
 	};
 
-	class SVGFEFuncBElement : SVGComponentTransferFunctionElement 
+	class SVGFEFuncBElement : public SVGComponentTransferFunctionElement 
 	{
 	public:
 		static void set_prototype(SVGFEFuncBElement* value);
@@ -10685,6 +9151,8 @@ namespace client
 		IDBKeyRange();
 	};
 
+	class Console;
+
 	class WindowConsole 
 	{
 	public:
@@ -10692,27 +9160,9 @@ namespace client
 		Console* get_console();
 	};
 
-	class SVG1_1Properties 
-	{
-	public:
-		void set_floodOpacity(String* value);
-		String* get_floodOpacity();
-		void set_floodColor(String* value);
-		String* get_floodColor();
-		void set_filter(String* value);
-		String* get_filter();
-		void set_lightingColor(String* value);
-		String* get_lightingColor();
-		void set_enableBackground(String* value);
-		String* get_enableBackground();
-		void set_colorInterpolationFilters(String* value);
-		String* get_colorInterpolationFilters();
-		static void set_prototype(SVG1_1Properties* value);
-		static SVG1_1Properties* get_prototype();
-		SVG1_1Properties();
-	};
+	class IDBDatabase;
 
-	class IDBTransaction : EventTarget 
+	class IDBTransaction : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_oncomplete)(Event* ev);
@@ -10737,57 +9187,6 @@ namespace client
 		IDBTransaction();
 	};
 
-	class MSWindowExtensions 
-	{
-	public:
-		typedef Object* (*callback_for_onmspointerdown)(Object* ev);
-		void set_onmspointerdown(callback_for_onmspointerdown value);
-		callback_for_onmspointerdown get_onmspointerdown();
-		typedef Object* (*callback_for_onmspointercancel)(Object* ev);
-		void set_onmspointercancel(callback_for_onmspointercancel value);
-		callback_for_onmspointercancel get_onmspointercancel();
-		typedef Object* (*callback_for_onmsgesturedoubletap)(Object* ev);
-		void set_onmsgesturedoubletap(callback_for_onmsgesturedoubletap value);
-		callback_for_onmsgesturedoubletap get_onmsgesturedoubletap();
-		typedef Object* (*callback_for_onmsgestureend)(Object* ev);
-		void set_onmsgestureend(callback_for_onmsgestureend value);
-		callback_for_onmsgestureend get_onmsgestureend();
-		typedef Object* (*callback_for_onmsgesturetap)(Object* ev);
-		void set_onmsgesturetap(callback_for_onmsgesturetap value);
-		callback_for_onmsgesturetap get_onmsgesturetap();
-		typedef Object* (*callback_for_onmspointerout)(Object* ev);
-		void set_onmspointerout(callback_for_onmspointerout value);
-		callback_for_onmspointerout get_onmspointerout();
-		typedef Object* (*callback_for_onmspointerhover)(Object* ev);
-		void set_onmspointerhover(callback_for_onmspointerhover value);
-		callback_for_onmspointerhover get_onmspointerhover();
-		typedef Object* (*callback_for_onmsinertiastart)(Object* ev);
-		void set_onmsinertiastart(callback_for_onmsinertiastart value);
-		callback_for_onmsinertiastart get_onmsinertiastart();
-		typedef Object* (*callback_for_onmspointermove)(Object* ev);
-		void set_onmspointermove(callback_for_onmspointermove value);
-		callback_for_onmspointermove get_onmspointermove();
-		typedef Object* (*callback_for_onmsgesturehold)(Object* ev);
-		void set_onmsgesturehold(callback_for_onmsgesturehold value);
-		callback_for_onmsgesturehold get_onmsgesturehold();
-		typedef Object* (*callback_for_onmspointerover)(Object* ev);
-		void set_onmspointerover(callback_for_onmspointerover value);
-		callback_for_onmspointerover get_onmspointerover();
-		typedef Object* (*callback_for_onmsgesturechange)(Object* ev);
-		void set_onmsgesturechange(callback_for_onmsgesturechange value);
-		callback_for_onmsgesturechange get_onmsgesturechange();
-		typedef Object* (*callback_for_onmsgesturestart)(Object* ev);
-		void set_onmsgesturestart(callback_for_onmsgesturestart value);
-		callback_for_onmsgesturestart get_onmsgesturestart();
-		typedef Object* (*callback_for_onmspointerup)(Object* ev);
-		void set_onmspointerup(callback_for_onmspointerup value);
-		callback_for_onmspointerup get_onmspointerup();
-		bool msIsStaticHTML(const String& html);
-		static void set_prototype(MSWindowExtensions* value);
-		static MSWindowExtensions* get_prototype();
-		MSWindowExtensions();
-	};
-
 	class AudioTrack 
 	{
 	public:
@@ -10806,7 +9205,7 @@ namespace client
 		AudioTrack();
 	};
 
-	class SVGFEConvolveMatrixElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEConvolveMatrixElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_orderY(SVGAnimatedInteger* value);
@@ -10844,14 +9243,6 @@ namespace client
 		static void set_prototype(SVGFEConvolveMatrixElement* value);
 		static SVGFEConvolveMatrixElement* get_prototype();
 		SVGFEConvolveMatrixElement();
-		static void set_SVG_EDGEMODE_WRAP(double value);
-		static double get_SVG_EDGEMODE_WRAP();
-		static void set_SVG_EDGEMODE_DUPLICATE(double value);
-		static double get_SVG_EDGEMODE_DUPLICATE();
-		static void set_SVG_EDGEMODE_UNKNOWN(double value);
-		static double get_SVG_EDGEMODE_UNKNOWN();
-		static void set_SVG_EDGEMODE_NONE(double value);
-		static double get_SVG_EDGEMODE_NONE();
 	};
 
 	class TextTrackCueList 
@@ -10867,7 +9258,9 @@ namespace client
 		TextTrackCueList();
 	};
 
-	class CSSKeyframesRule : CSSRule 
+	class CSSKeyframeRule;
+
+	class CSSKeyframesRule : public CSSRule 
 	{
 	public:
 		void set_name(String* value);
@@ -10917,19 +9310,7 @@ namespace client
 		String* get_msTouchSelect();
 	};
 
-	class Window : WindowAnimationTiming, WindowBase64, IDBEnvironment, WindowConsole 
-	{
-	public:
-		typedef Object* (*callback_for_onpopstate)(PopStateEvent* ev);
-		void set_onpopstate(callback_for_onpopstate value);
-		callback_for_onpopstate get_onpopstate();
-		void set_applicationCache(ApplicationCache* value);
-		ApplicationCache* get_applicationCache();
-		MediaQueryList* matchMedia(const String& mediaQuery);
-		MediaQueryList* msMatchMedia(const String& mediaQuery);
-	};
-
-	class SVGFETurbulenceElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFETurbulenceElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_baseFrequencyX(SVGAnimatedNumber* value);
@@ -10959,18 +9340,6 @@ namespace client
 		static void set_prototype(SVGFETurbulenceElement* value);
 		static SVGFETurbulenceElement* get_prototype();
 		SVGFETurbulenceElement();
-		static void set_SVG_STITCHTYPE_UNKNOWN(double value);
-		static double get_SVG_STITCHTYPE_UNKNOWN();
-		static void set_SVG_STITCHTYPE_NOSTITCH(double value);
-		static double get_SVG_STITCHTYPE_NOSTITCH();
-		static void set_SVG_TURBULENCE_TYPE_UNKNOWN(double value);
-		static double get_SVG_TURBULENCE_TYPE_UNKNOWN();
-		static void set_SVG_TURBULENCE_TYPE_TURBULENCE(double value);
-		static double get_SVG_TURBULENCE_TYPE_TURBULENCE();
-		static void set_SVG_TURBULENCE_TYPE_FRACTALNOISE(double value);
-		static double get_SVG_TURBULENCE_TYPE_FRACTALNOISE();
-		static void set_SVG_STITCHTYPE_STITCH(double value);
-		static double get_SVG_STITCHTYPE_STITCH();
 	};
 
 	class TextTrackList 
@@ -10985,6 +9354,8 @@ namespace client
 		TextTrackList();
 	};
 
+	class FrameRequestCallback;
+
 	class WindowAnimationTiming 
 	{
 	public:
@@ -10998,7 +9369,7 @@ namespace client
 		double msRequestAnimationFrame(FrameRequestCallback* callback);
 	};
 
-	class SVGFEFuncGElement : SVGComponentTransferFunctionElement 
+	class SVGFEFuncGElement : public SVGComponentTransferFunctionElement 
 	{
 	public:
 		static void set_prototype(SVGFEFuncGElement* value);
@@ -11006,7 +9377,7 @@ namespace client
 		SVGFEFuncGElement();
 	};
 
-	class SVGFEColorMatrixElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEColorMatrixElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_in1(SVGAnimatedString* value);
@@ -11028,16 +9399,6 @@ namespace client
 		static void set_prototype(SVGFEColorMatrixElement* value);
 		static SVGFEColorMatrixElement* get_prototype();
 		SVGFEColorMatrixElement();
-		static void set_SVG_FECOLORMATRIX_TYPE_SATURATE(double value);
-		static double get_SVG_FECOLORMATRIX_TYPE_SATURATE();
-		static void set_SVG_FECOLORMATRIX_TYPE_UNKNOWN(double value);
-		static double get_SVG_FECOLORMATRIX_TYPE_UNKNOWN();
-		static void set_SVG_FECOLORMATRIX_TYPE_MATRIX(double value);
-		static double get_SVG_FECOLORMATRIX_TYPE_MATRIX();
-		static void set_SVG_FECOLORMATRIX_TYPE_HUEROTATE(double value);
-		static double get_SVG_FECOLORMATRIX_TYPE_HUEROTATE();
-		static void set_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA(double value);
-		static double get_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA();
 	};
 
 	class Console 
@@ -11066,7 +9427,7 @@ namespace client
 		Console();
 	};
 
-	class SVGFESpotLightElement : SVGElement 
+	class SVGFESpotLightElement : public SVGElement 
 	{
 	public:
 		void set_pointsAtY(SVGAnimatedNumber* value);
@@ -11110,7 +9471,7 @@ namespace client
 		String* atob(const String& encodedString);
 	};
 
-	class IDBDatabase : EventTarget 
+	class IDBDatabase : public EventTarget 
 	{
 	public:
 		void set_version(String* value);
@@ -11188,7 +9549,31 @@ namespace client
 		Object* get_columnRuleWidth();
 	};
 
-	class IDBOpenDBRequest : IDBRequest 
+	class IDBRequest : public EventTarget 
+	{
+	public:
+		void set_source(Object* value);
+		Object* get_source();
+		typedef Object* (*callback_for_onsuccess)(Event* ev);
+		void set_onsuccess(callback_for_onsuccess value);
+		callback_for_onsuccess get_onsuccess();
+		void set_error(DOMError* value);
+		DOMError* get_error();
+		void set_transaction(IDBTransaction* value);
+		IDBTransaction* get_transaction();
+		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
+		void set_onerror(callback_for_onerror value);
+		callback_for_onerror get_onerror();
+		void set_readyState(String* value);
+		String* get_readyState();
+		void set_result(Object* value);
+		Object* get_result();
+		static void set_prototype(IDBRequest* value);
+		static IDBRequest* get_prototype();
+		IDBRequest();
+	};
+
+	class IDBOpenDBRequest : public IDBRequest 
 	{
 	public:
 		typedef Object* (*callback_for_onupgradeneeded)(IDBVersionChangeEvent* ev);
@@ -11202,32 +9587,7 @@ namespace client
 		IDBOpenDBRequest();
 	};
 
-	class HTMLButtonElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_formTarget(String* value);
-		String* get_formTarget();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		void set_formAction(String* value);
-		String* get_formAction();
-		void set_autofocus(bool value);
-		bool get_autofocus();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_formNoValidate(String* value);
-		String* get_formNoValidate();
-		void set_formEnctype(String* value);
-		String* get_formEnctype();
-		void set_formMethod(String* value);
-		String* get_formMethod();
-		bool checkValidity();
-		void setCustomValidity(const String& error);
-	};
-
-	class HTMLProgressElement : HTMLElement 
+	class HTMLProgressElement : public HTMLElement 
 	{
 	public:
 		void set_value(double value);
@@ -11243,7 +9603,7 @@ namespace client
 		HTMLProgressElement();
 	};
 
-	class SVGFEOffsetElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEOffsetElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_dy(SVGAnimatedNumber* value);
@@ -11257,51 +9617,7 @@ namespace client
 		SVGFEOffsetElement();
 	};
 
-	class HTMLFormElement 
-	{
-	public:
-		void set_autocomplete(String* value);
-		String* get_autocomplete();
-		void set_noValidate(bool value);
-		bool get_noValidate();
-		bool checkValidity();
-	};
-
-	class MSUnsafeFunctionCallback 
-	{
-	public:
-		Object* operator()();
-	};
-
-	class Document : DocumentVisibility 
-	{
-	public:
-	};
-
-	class MessageEvent : Event 
-	{
-	public:
-		void set_ports(Object* value);
-		Object* get_ports();
-	};
-
-	class HTMLScriptElement 
-	{
-	public:
-		void set_async(bool value);
-		bool get_async();
-	};
-
-	class HTMLMediaElement : MSHTMLMediaElementExtensions 
-	{
-	public:
-		void set_textTracks(TextTrackList* value);
-		TextTrackList* get_textTracks();
-		void set_audioTracks(AudioTrackList* value);
-		AudioTrackList* get_audioTracks();
-	};
-
-	class TextTrack : EventTarget 
+	class TextTrack : public EventTarget 
 	{
 	public:
 		void set_language(String* value);
@@ -11344,20 +9660,6 @@ namespace client
 		static void set_prototype(TextTrack* value);
 		static TextTrack* get_prototype();
 		TextTrack();
-		static void set_ERROR(double value);
-		static double get_ERROR();
-		static void set_SHOWING(double value);
-		static double get_SHOWING();
-		static void set_LOADING(double value);
-		static double get_LOADING();
-		static void set_LOADED(double value);
-		static double get_LOADED();
-		static void set_NONE(double value);
-		static double get_NONE();
-		static void set_HIDDEN(double value);
-		static double get_HIDDEN();
-		static void set_DISABLED(double value);
-		static double get_DISABLED();
 	};
 
 	class MediaQueryListListener 
@@ -11366,31 +9668,7 @@ namespace client
 		void operator()(MediaQueryList* mql);
 	};
 
-	class IDBRequest : EventTarget 
-	{
-	public:
-		void set_source(Object* value);
-		Object* get_source();
-		typedef Object* (*callback_for_onsuccess)(Event* ev);
-		void set_onsuccess(callback_for_onsuccess value);
-		callback_for_onsuccess get_onsuccess();
-		void set_error(DOMError* value);
-		DOMError* get_error();
-		void set_transaction(IDBTransaction* value);
-		IDBTransaction* get_transaction();
-		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		void set_readyState(String* value);
-		String* get_readyState();
-		void set_result(Object* value);
-		Object* get_result();
-		static void set_prototype(IDBRequest* value);
-		static IDBRequest* get_prototype();
-		IDBRequest();
-	};
-
-	class MessagePort : EventTarget 
+	class MessagePort : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_onmessage)(Object* ev);
@@ -11405,7 +9683,7 @@ namespace client
 		MessagePort();
 	};
 
-	class FileReader : MSBaseReader 
+	class FileReader : public MSBaseReader 
 	{
 	public:
 		void set_error(DOMError* value);
@@ -11419,22 +9697,6 @@ namespace client
 		FileReader();
 	};
 
-	class Blob 
-	{
-	public:
-		void set_type(String* value);
-		String* get_type();
-		void set_size(double value);
-		double get_size();
-		Object* msDetachStream();
-		Blob* slice();
-		Blob* slice(, double start);
-		Blob* slice(, double start, );
-		Blob* slice(double start, double end, const String& contentType);
-		void close();
-		void msClose();
-	};
-
 	class BlobPropertyBag 
 	{
 	public:
@@ -11444,12 +9706,9 @@ namespace client
 		String* get_endings();
 		static void set_prototype(Blob* value);
 		static Blob* get_prototype();
-		Blob();
-		Blob(, Object** blobParts);
-		Blob(Object** blobParts, BlobPropertyBag* options);
 	};
 
-	class ApplicationCache : EventTarget 
+	class ApplicationCache : public EventTarget 
 	{
 	public:
 		void set_status(double value);
@@ -11496,48 +9755,6 @@ namespace client
 		static void set_prototype(ApplicationCache* value);
 		static ApplicationCache* get_prototype();
 		ApplicationCache();
-		static void set_CHECKING(double value);
-		static double get_CHECKING();
-		static void set_UNCACHED(double value);
-		static double get_UNCACHED();
-		static void set_UPDATEREADY(double value);
-		static double get_UPDATEREADY();
-		static void set_DOWNLOADING(double value);
-		static double get_DOWNLOADING();
-		static void set_IDLE(double value);
-		static double get_IDLE();
-		static void set_OBSOLETE(double value);
-		static double get_OBSOLETE();
-	};
-
-	class MSHTMLVideoElementExtensions 
-	{
-	public:
-		void set_msIsStereo3D(bool value);
-		bool get_msIsStereo3D();
-		void set_msStereo3DPackingMode(String* value);
-		String* get_msStereo3DPackingMode();
-		typedef Object* (*callback_for_onMSVideoOptimalLayoutChanged)(Object* ev);
-		void set_onMSVideoOptimalLayoutChanged(callback_for_onMSVideoOptimalLayoutChanged value);
-		callback_for_onMSVideoOptimalLayoutChanged get_onMSVideoOptimalLayoutChanged();
-		typedef Object* (*callback_for_onMSVideoFrameStepCompleted)(Object* ev);
-		void set_onMSVideoFrameStepCompleted(callback_for_onMSVideoFrameStepCompleted value);
-		callback_for_onMSVideoFrameStepCompleted get_onMSVideoFrameStepCompleted();
-		void set_msStereo3DRenderMode(String* value);
-		String* get_msStereo3DRenderMode();
-		void set_msIsLayoutOptimalForPlayback(bool value);
-		bool get_msIsLayoutOptimalForPlayback();
-		void set_msHorizontalMirror(bool value);
-		bool get_msHorizontalMirror();
-		typedef Object* (*callback_for_onMSVideoFormatChanged)(Object* ev);
-		void set_onMSVideoFormatChanged(callback_for_onMSVideoFormatChanged value);
-		callback_for_onMSVideoFormatChanged get_onMSVideoFormatChanged();
-		void set_msZoom(bool value);
-		bool get_msZoom();
-		void msInsertVideoEffect(const String& activatableClassId, bool effectRequired);
-		void msInsertVideoEffect(const String& activatableClassId, bool effectRequired, Object* config);
-		void msSetVideoRectangle(double left, double top, double right, double bottom);
-		void msFrameStep(bool forward);
 	};
 
 	class FrameRequestCallback 
@@ -11567,14 +9784,7 @@ namespace client
 		String* get_msPerspective();
 	};
 
-	class XMLHttpRequest 
-	{
-	public:
-		void set_withCredentials(bool value);
-		bool get_withCredentials();
-	};
-
-	class PopStateEvent : Event 
+	class PopStateEvent : public Event 
 	{
 	public:
 		void set_state(Object* value);
@@ -11585,7 +9795,7 @@ namespace client
 		PopStateEvent();
 	};
 
-	class CSSKeyframeRule : CSSRule 
+	class CSSKeyframeRule : public CSSRule 
 	{
 	public:
 		void set_keyText(String* value);
@@ -11639,66 +9849,7 @@ namespace client
 		MSStream();
 	};
 
-	class MediaError : MSMediaErrorExtensions 
-	{
-	public:
-	};
-
-	class HTMLFieldSetElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		bool checkValidity();
-		void setCustomValidity(const String& error);
-	};
-
-	class MSBlobBuilder 
-	{
-	public:
-		void append(Object* data);
-		void append(Object* data, const String& endings);
-		Blob* getBlob();
-		Blob* getBlob(const String& contentType);
-		static void set_prototype(MSBlobBuilder* value);
-		static MSBlobBuilder* get_prototype();
-		MSBlobBuilder();
-	};
-
-	class MSRangeExtensions 
-	{
-	public:
-		DocumentFragment* createContextualFragment(const String& fragment);
-	};
-
-	class HTMLElement 
-	{
-	public:
-		typedef Object* (*callback_for_oncuechange)(Event* ev);
-		void set_oncuechange(callback_for_oncuechange value);
-		callback_for_oncuechange get_oncuechange();
-		void set_spellcheck(bool value);
-		bool get_spellcheck();
-		void set_classList(DOMTokenList* value);
-		DOMTokenList* get_classList();
-		void set_draggable(bool value);
-		bool get_draggable();
-	};
-
-	class DataTransfer 
-	{
-	public:
-		void set_types(DOMStringList* value);
-		DOMStringList* get_types();
-		void set_files(FileList* value);
-		FileList* get_files();
-	};
-
-	class DOMSettableTokenList : DOMTokenList 
+	class DOMSettableTokenList : public DOMTokenList 
 	{
 	public:
 		void set_value(String* value);
@@ -11718,71 +9869,6 @@ namespace client
 		static void set_prototype(IDBFactory* value);
 		static IDBFactory* get_prototype();
 		IDBFactory();
-	};
-
-	class Range : MSRangeExtensions 
-	{
-	public:
-	};
-
-	class HTMLObjectElement 
-	{
-	public:
-		void set_validationMessage(String* value);
-		String* get_validationMessage();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_willValidate(bool value);
-		bool get_willValidate();
-		bool checkValidity();
-		void setCustomValidity(const String& error);
-	};
-
-	class MSPointerEvent : MouseEvent 
-	{
-	public:
-		void set_width(double value);
-		double get_width();
-		void set_rotation(double value);
-		double get_rotation();
-		void set_pressure(double value);
-		double get_pressure();
-		void set_pointerType(double value);
-		double get_pointerType();
-		void set_isPrimary(bool value);
-		bool get_isPrimary();
-		void set_tiltY(double value);
-		double get_tiltY();
-		void set_height(double value);
-		double get_height();
-		void set_intermediatePoints(Object* value);
-		Object* get_intermediatePoints();
-		void set_currentPoint(Object* value);
-		Object* get_currentPoint();
-		void set_tiltX(double value);
-		double get_tiltX();
-		void set_hwTimestamp(double value);
-		double get_hwTimestamp();
-		void set_pointerId(double value);
-		double get_pointerId();
-		void initPointerEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, AbstractView* viewArg, double detailArg, double screenXArg, double screenYArg, double clientXArg, double clientYArg, bool ctrlKeyArg, bool altKeyArg, bool shiftKeyArg, bool metaKeyArg, double buttonArg, EventTarget* relatedTargetArg, double offsetXArg, double offsetYArg, double widthArg, double heightArg, double pressure, double rotation, double tiltX, double tiltY, double pointerIdArg, double pointerType, double hwTimestampArg, bool isPrimary);
-		void getCurrentPoint(Element* element);
-		void getIntermediatePoints(Element* element);
-		void set_MSPOINTER_TYPE_PEN(double value);
-		double get_MSPOINTER_TYPE_PEN();
-		void set_MSPOINTER_TYPE_MOUSE(double value);
-		double get_MSPOINTER_TYPE_MOUSE();
-		void set_MSPOINTER_TYPE_TOUCH(double value);
-		double get_MSPOINTER_TYPE_TOUCH();
-		static void set_prototype(MSPointerEvent* value);
-		static MSPointerEvent* get_prototype();
-		MSPointerEvent();
-		static void set_MSPOINTER_TYPE_PEN(double value);
-		static double get_MSPOINTER_TYPE_PEN();
-		static void set_MSPOINTER_TYPE_MOUSE(double value);
-		static double get_MSPOINTER_TYPE_MOUSE();
-		static void set_MSPOINTER_TYPE_TOUCH(double value);
-		static double get_MSPOINTER_TYPE_TOUCH();
 	};
 
 	class CSSTextProperties 
@@ -11809,19 +9895,6 @@ namespace client
 		String* get_transformOrigin();
 	};
 
-	class DOMException 
-	{
-	public:
-		void set_name(String* value);
-		String* get_name();
-		void set_INVALID_NODE_TYPE_ERR(double value);
-		double get_INVALID_NODE_TYPE_ERR();
-		void set_DATA_CLONE_ERR(double value);
-		double get_DATA_CLONE_ERR();
-		void set_TIMEOUT_ERR(double value);
-		double get_TIMEOUT_ERR();
-	};
-
 	class MSCSSHighContrastProperties 
 	{
 	public:
@@ -11829,7 +9902,7 @@ namespace client
 		String* get_msHighContrastAdjust();
 	};
 
-	class MSManipulationEvent : UIEvent 
+	class MSManipulationEvent : public UIEvent 
 	{
 	public:
 		void set_lastState(double value);
@@ -11846,12 +9919,6 @@ namespace client
 		static void set_prototype(MSManipulationEvent* value);
 		static MSManipulationEvent* get_prototype();
 		MSManipulationEvent();
-		static void set_MS_MANIPULATION_STATE_STOPPED(double value);
-		static double get_MS_MANIPULATION_STATE_STOPPED();
-		static void set_MS_MANIPULATION_STATE_ACTIVE(double value);
-		static double get_MS_MANIPULATION_STATE_ACTIVE();
-		static void set_MS_MANIPULATION_STATE_INERTIA(double value);
-		static double get_MS_MANIPULATION_STATE_INERTIA();
 	};
 
 	class FormData 
@@ -11865,43 +9932,7 @@ namespace client
 		FormData(HTMLFormElement* form);
 	};
 
-	class MSHTMLImageElementExtensions 
-	{
-	public:
-		void set_msPlayToPrimary(bool value);
-		bool get_msPlayToPrimary();
-		void set_msPlayToDisabled(bool value);
-		bool get_msPlayToDisabled();
-		void set_msPlayToSource(Object* value);
-		Object* get_msPlayToSource();
-		static void set_prototype(MSHTMLImageElementExtensions* value);
-		static MSHTMLImageElementExtensions* get_prototype();
-		MSHTMLImageElementExtensions();
-	};
-
-	class MSHTMLMediaElementExtensions 
-	{
-	public:
-		void set_msAudioCategory(String* value);
-		String* get_msAudioCategory();
-		void set_msRealTime(bool value);
-		bool get_msRealTime();
-		void set_msPlayToPrimary(bool value);
-		bool get_msPlayToPrimary();
-		void set_msPlayToDisabled(bool value);
-		bool get_msPlayToDisabled();
-		void set_msPlayToSource(Object* value);
-		Object* get_msPlayToSource();
-		void set_msAudioDeviceType(String* value);
-		String* get_msAudioDeviceType();
-		void msClearEffects();
-		void msSetMediaProtectionManager();
-		void msSetMediaProtectionManager(Object* mediaProtectionManager);
-		void msInsertAudioEffect(const String& activatableClassId, bool effectRequired);
-		void msInsertAudioEffect(const String& activatableClassId, bool effectRequired, Object* config);
-	};
-
-	class SVGFEImageElement : SVGElement, SVGLangSpace, SVGFilterPrimitiveStandardAttributes, SVGURIReference 
+	class SVGFEImageElement : public SVGElement, SVGLangSpace, SVGFilterPrimitiveStandardAttributes, SVGURIReference 
 	{
 	public:
 		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio* value);
@@ -11911,7 +9942,7 @@ namespace client
 		SVGFEImageElement();
 	};
 
-	class HTMLDataListElement : HTMLElement 
+	class HTMLDataListElement : public HTMLElement 
 	{
 	public:
 		void set_options(HTMLCollection* value);
@@ -11921,7 +9952,7 @@ namespace client
 		HTMLDataListElement();
 	};
 
-	class AbstractWorker : EventTarget 
+	class AbstractWorker : public EventTarget 
 	{
 	public:
 		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
@@ -11929,7 +9960,7 @@ namespace client
 		callback_for_onerror get_onerror();
 	};
 
-	class SVGFECompositeElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFECompositeElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_operator(SVGAnimatedEnumeration* value);
@@ -11963,20 +9994,6 @@ namespace client
 		static void set_prototype(SVGFECompositeElement* value);
 		static SVGFECompositeElement* get_prototype();
 		SVGFECompositeElement();
-		static void set_SVG_FECOMPOSITE_OPERATOR_OUT(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_OUT();
-		static void set_SVG_FECOMPOSITE_OPERATOR_OVER(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_OVER();
-		static void set_SVG_FECOMPOSITE_OPERATOR_XOR(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_XOR();
-		static void set_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_ARITHMETIC();
-		static void set_SVG_FECOMPOSITE_OPERATOR_UNKNOWN(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_UNKNOWN();
-		static void set_SVG_FECOMPOSITE_OPERATOR_IN(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_IN();
-		static void set_SVG_FECOMPOSITE_OPERATOR_ATOP(double value);
-		static double get_SVG_FECOMPOSITE_OPERATOR_ATOP();
 	};
 
 	class ValidityState 
@@ -12005,12 +10022,7 @@ namespace client
 		ValidityState();
 	};
 
-	class HTMLVideoElement : MSHTMLVideoElementExtensions 
-	{
-	public:
-	};
-
-	class HTMLTrackElement : HTMLElement 
+	class HTMLTrackElement : public HTMLElement 
 	{
 	public:
 		void set_kind(String* value);
@@ -12030,52 +10042,7 @@ namespace client
 		HTMLTrackElement();
 	};
 
-	class MSApp 
-	{
-	public:
-		File* createFileFromStorageFile(Object* storageFile);
-		Blob* createBlobFromRandomAccessStream(const String& type, Object* seeker);
-		MSStream* createStreamFromInputStream(const String& type, Object* inputStream);
-		void terminateApp(Object* exceptionObject);
-		Object* createDataPackage(Object* object);
-		Object* execUnsafeLocalFunction(MSUnsafeFunctionCallback* unsafeFunction);
-		Object* getHtmlPrintDocumentSource(Object* htmlDoc);
-		Object* getHtmlPrintDocumentSource(Object* htmlDoc, const String& printTemplate);
-		void addPublicLocalApplicationUri(const String& uri);
-		Object* createDataPackageFromSelection();
-	};
-	extern MSApp* MSApp;
-
-	class MSXMLHttpRequestExtensions 
-	{
-	public:
-		void set_response(Object* value);
-		Object* get_response();
-		typedef Object* (*callback_for_onprogress)(ProgressEvent* ev);
-		void set_onprogress(callback_for_onprogress value);
-		callback_for_onprogress get_onprogress();
-		typedef Object* (*callback_for_onabort)(Object* ev);
-		void set_onabort(callback_for_onabort value);
-		callback_for_onabort get_onabort();
-		void set_responseType(String* value);
-		String* get_responseType();
-		typedef Object* (*callback_for_onloadend)(ProgressEvent* ev);
-		void set_onloadend(callback_for_onloadend value);
-		callback_for_onloadend get_onloadend();
-		void set_upload(XMLHttpRequestEventTarget* value);
-		XMLHttpRequestEventTarget* get_upload();
-		typedef Object* (*callback_for_onerror)(ErrorEvent* ev);
-		void set_onerror(callback_for_onerror value);
-		callback_for_onerror get_onerror();
-		typedef Object* (*callback_for_onloadstart)(Object* ev);
-		void set_onloadstart(callback_for_onloadstart value);
-		callback_for_onloadstart get_onloadstart();
-		static void set_prototype(MSXMLHttpRequestExtensions* value);
-		static MSXMLHttpRequestExtensions* get_prototype();
-		MSXMLHttpRequestExtensions();
-	};
-
-	class SVGFEDiffuseLightingElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEDiffuseLightingElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_kernelUnitLengthY(SVGAnimatedNumber* value);
@@ -12093,7 +10060,7 @@ namespace client
 		SVGFEDiffuseLightingElement();
 	};
 
-	class SVGFEComponentTransferElement : SVGElement, SVGFilterPrimitiveStandardAttributes 
+	class SVGFEComponentTransferElement : public SVGElement, SVGFilterPrimitiveStandardAttributes 
 	{
 	public:
 		void set_in1(SVGAnimatedString* value);
@@ -12171,7 +10138,7 @@ namespace client
 		MSCSSMatrix(const String& text);
 	};
 
-	class Worker : AbstractWorker 
+	class Worker : public AbstractWorker 
 	{
 	public:
 		typedef Object* (*callback_for_onmessage)(Object* ev);
@@ -12185,35 +10152,6 @@ namespace client
 		Worker(const String& stringUrl);
 	};
 
-	class HTMLIFrameElement 
-	{
-	public:
-		void set_sandbox(DOMSettableTokenList* value);
-		DOMSettableTokenList* get_sandbox();
-	};
-
-	class MSMediaErrorExtensions 
-	{
-	public:
-		void set_msExtendedCode(double value);
-		double get_msExtendedCode();
-	};
-
-	class MSNavigatorAbilities 
-	{
-	public:
-		void set_msProtocols(MSProtocolsCollection* value);
-		MSProtocolsCollection* get_msProtocols();
-		void set_msMaxTouchPoints(double value);
-		double get_msMaxTouchPoints();
-		void set_msPointerEnabled(bool value);
-		bool get_msPointerEnabled();
-		void set_msManipulationViewsEnabled(bool value);
-		bool get_msManipulationViewsEnabled();
-		static void set_prototype(MSNavigatorAbilities* value);
-		static MSNavigatorAbilities* get_prototype();
-		MSNavigatorAbilities();
-	};
 	extern Object* (*onpopstate)(PopStateEvent* ev);
 	extern ApplicationCache* applicationCache;
 	extern MediaQueryList* matchMedia(const String& mediaQuery);
