@@ -74,6 +74,7 @@ typedef unsigned int UnsignedLong;
 typedef double UnsignedLongLong;
 typedef void Void;
 typedef unsigned int Boolean;
+typedef double Double;
 typedef Object* Any;
 
 }

@@ -53,7 +53,7 @@ void serialize(char* outData, const int& data)
 }
 
 template<class T>
-T deserialize(char*& data);
+T deserialize(const char*& data);
 
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct argumentDeserializer
@@ -69,7 +69,7 @@ struct argumentDeserializer
 			if((sizeof...(ArgsImpl)>0 && data[0]!=',') || (sizeof...(ArgsImpl)==0 && data[0]!=']'))
 				throw DeserializationException("Malformed arguments array");
 			//Pass down the updated data, the previous args and the new arg
-			return argumentDeserializer<Signature,Func,ArgsImpl...>::
+			return argumentDeserializer<Signature,Func,Ret,ArgsImpl...>::
 				executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
 		}
 	};
