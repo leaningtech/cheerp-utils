@@ -39,8 +39,10 @@ public:
 	__attribute__((always_inline)) String(const std::string& s):String(s.c_str())
 	{
 	}
-	String* concat(const String&);
 	String* concat(const String*);
+	String* concat(const String&);
+	String* concat(const String&,const String&);
+	String* concat(const String&,const String&,const String&);
 };
 
 class Array: public Object

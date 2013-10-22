@@ -20,6 +20,7 @@
 
 #include "types.h"
 #include "dom4.h"
+#include "xhr.h"
 
 namespace client
 {
@@ -87,6 +88,10 @@ template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[client]]
 {
 	argumentSerializer<Args...> serializer;
-	volatile client::String* data=serializer.execute(std::forward<Args>(args)...);
+	client::String* data=serializer.execute(std::forward<Args>(args)...);
+	client::XMLHttpRequest* r=new client::XMLHttpRequest();
+	client::String* url=new client::String("http://127.0.0.1:1987/duetto_call?f=");
+	url=url->concat(funcName,"&a=",*data);
+	r->open("GET",*url,false);
+	r->send();
 }
-
