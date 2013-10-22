@@ -18,8 +18,8 @@
  *
  ***************************************************************/
 
-#ifndef DUETTO_TYPES_H
-#define DUETTO_TYPES_H
+#ifndef _DUETTO_TYPES_H_2043d438
+#define _DUETTO_TYPES_H_2043d438
 
 namespace client
 {

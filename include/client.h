@@ -18,9 +18,12 @@
  *
  ***************************************************************/
 
-#include "types.h"
-#include "dom4.h"
-#include "xhr.h"
+#ifndef _DUETTO_CLIENT_a335cd00
+#define _DUETTO_CLIENT_a335cd00
+
+#include "duetto/types.h"
+#include "duetto/dom4.h"
+#include "duetto/xhr.h"
 
 #include <utility>
 
@@ -151,3 +154,4 @@ Ret clientStub(const char* funcName, Args... args) [[client]]
 	return clientStubImpl<Ret, Args...>(funcName, std::forward<Args>(args)...);
 }
 
+#endif
