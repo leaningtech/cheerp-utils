@@ -1,5 +1,7 @@
 .PHONY: install
 
+INSTALL_PREFIX ?= /opt/duetto
+
 install: client.h types.h webgl.h
-	mkdir -p /opt/duetto/include/duetto
-	cp -v $^ /opt/duetto/include/duetto
+	mkdir -p ${INSTALL_PREFIX}/include/duetto
+	cp -v $^ ${INSTALL_PREFIX}/include/duetto

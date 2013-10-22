@@ -40,6 +40,9 @@ def runTest(engine, testName, outFile):
 		report.write(stderrLog.read());
 		report.write('</failure>');
 	report.write('</testcase>')
+	if ret != 0:
+		stderrLog.close();
+		return
 	for testLine in stdoutLog:
 		m=re.match("^(.*) : (.*)",testLine)
 		checkName = m.group(1)
