@@ -71,6 +71,7 @@ public:
 
 typedef unsigned int UnsignedShort;
 typedef unsigned int UnsignedLong;
+typedef signed int Long;
 typedef double UnsignedLongLong;
 typedef void Void;
 typedef unsigned int Boolean;
