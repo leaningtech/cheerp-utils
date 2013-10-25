@@ -11,4 +11,6 @@ void webMain()
 	int a;
 	new (&a) int(42);
 	assertEqual(a, 42, "Placement new");
+	//This should cause an error
+	//new ((void*)&a) int(42);
 }
