@@ -4713,23 +4713,6 @@ namespace client
 		IDBCursorWithValue();
 	};
 
-	class HTMLTextAreaElement{
-	public:
-		String* get_validationMessage();
-		void set_autofocus(Boolean value);
-		Boolean get_autofocus();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		void set_required(Boolean value);
-		Boolean get_required();
-		double get_maxLength();
-		Boolean get_willValidate();
-		void set_placeholder(const String& value);
-		String* get_placeholder();
-		Boolean checkValidity();
-		void setCustomValidity(const String& error);
-	};
-
 	class XMLHttpRequestEventTarget: public EventTarget {
 	public:
 		typedef Object* (*callback_for_onprogress)(ProgressEvent* ev);
@@ -5684,6 +5667,23 @@ namespace client
 		DOMTokenList* get_classList();
 		void set_draggable(Boolean value);
 		Boolean get_draggable();
+	};
+
+	class HTMLTextAreaElement: public HTMLElement{
+	public:
+		String* get_validationMessage();
+		void set_autofocus(Boolean value);
+		Boolean get_autofocus();
+		void set_validity(ValidityState* value);
+		ValidityState* get_validity();
+		void set_required(Boolean value);
+		Boolean get_required();
+		double get_maxLength();
+		Boolean get_willValidate();
+		void set_placeholder(const String& value);
+		String* get_placeholder();
+		Boolean checkValidity();
+		void setCustomValidity(const String& error);
 	};
 
 	class HTMLDataListElement: public HTMLElement {
@@ -8790,14 +8790,14 @@ extern void addEventListener(const String& type, EventListener* listener, Boolea
 extern Boolean dispatchEvent(Event* evt);
 extern Storage localStorage;
 extern Storage sessionStorage;
-extern void clearTimeout(double handle);
-extern double setTimeout(Object* expression);
-extern double setTimeout(Object* expression, double msec);
-extern double setTimeout(Object* expression, double msec, Object* language);
-extern void clearInterval(double handle);
-extern double setInterval(Object* expression);
-extern double setInterval(Object* expression, double msec);
-extern double setInterval(Object* expression, double msec, Object* language);
+extern void clearTimeout(int handle);
+extern int setTimeout(const EventListener& listener);
+extern int setTimeout(const EventListener& listener, int msec);
+extern int setTimeout(const EventListener& listener, int msec, Object* language);
+extern void clearInterval(int handle);
+extern int setInterval(const EventListener& listener);
+extern int setInterval(const EventListener& listener, int msec);
+extern int setInterval(const EventListener& listener, int msec, Object* language);
 extern URL URL;
 extern MSApp MSApp;
 extern Object* (*onpopstate)(PopStateEvent* ev);

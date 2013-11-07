@@ -3,11 +3,11 @@ Maintainer: Alessandro Pignotti <alessandro@leaningtech.com>
 Section: devel
 Priority: optional
 Standards-Version: 3.9.2
-Build-Depends: debhelper (>=8), duetto
+Build-Depends: debhelper (>=8), duetto-llvm-clang
 
 Package: duetto-utils
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, duetto
+Depends: ${shlibs:Depends}, ${misc:Depends}, duetto-llvm-clang
 Description: A C++ compiler for the Web, includes and tools
  Duetto is a tool to bring C++ programming to the Web,
  designed to provide a seamless experience for client/server

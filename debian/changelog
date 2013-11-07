@@ -1,3 +1,9 @@
+duetto-utils (0.9.1) raring; urgency=low
+
+  * Bump version number
+
+ -- Alessandro Pignotti <a.pignotti@sssup.it>  Thu, 07 Nov 2013 22:56:40 +0100
+
 duetto-utils (0.9-1) raring; urgency=low
 
   * Initial release.

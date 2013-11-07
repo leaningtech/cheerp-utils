@@ -1,5 +1,9 @@
 Duetto: C++ for the Web
 
+Version 0.9:
+
+	* First release to the public
+
 Version 0.3:
 
 	* Rebased over LLVM 3.3
