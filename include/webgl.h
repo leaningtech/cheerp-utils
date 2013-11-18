@@ -21,10 +21,12 @@
 #ifndef __DUETTO_WEBGL
 #define __DUETTO_WEBGL
 
+#include <duetto/types.h>
+
 namespace client
 {
 
-class WebGLObject
+class WebGLObject : public Object
 {
 public: 
 
@@ -66,7 +68,7 @@ public:
 
 };
 
-class WebGLUniformLocation
+class WebGLUniformLocation : public Object
 {
 public: 
 
@@ -719,7 +721,7 @@ public:
     //Object* getExtension(string);
     void activeTexture(double);
     void attachShader(WebGLProgram*, WebGLShader*);
-    //void bindAttribLocation(WebGLProgram*, double, string);
+    void bindAttribLocation(WebGLProgram*, double, const String&);
     void bindBuffer(double, WebGLBuffer*);
     void bindFramebuffer(double, WebGLFramebuffer*);
     void bindRenderbuffer(double, WebGLRenderbuffer*);
@@ -730,9 +732,9 @@ public:
     void blendFunc(double, double);
     void blendFuncSeparate(double, double, double, double);
     void bufferData(double, double, double);
-    void bufferData(double, const ArrayBufferView&, double);
+    void bufferData(double, const ArrayBufferView*, double);
     //void bufferData(double, ArrayBuffer*, double);
-    //void bufferSubData(double, double, ArrayBufferView*);
+    void bufferSubData(double, double, const ArrayBufferView*);
     //void bufferSubData(double, double, ArrayBuffer*);
     double checkFramebufferStatus(double);
     void clear(double);
@@ -806,7 +808,7 @@ public:
     void linkProgram(WebGLProgram*);
     void pixelStorei(double, double);
     void polygonOffset(double, double);
-    //void readPixels(double, double, double, double, double, double, ArrayBufferView*);
+    void readPixels(int, int, int, int, int, int, ArrayBufferView*);
     void renderbufferStorage(double, double, double, double);
     void sampleCoverage(double, bool);
     void scissor(double, double, double, double);
@@ -817,44 +819,37 @@ public:
     void stencilMaskSeparate(double, double);
     void stencilOp(double, double, double);
     void stencilOpSeparate(double, double, double, double);
-    void texImage2D(double, double, double, double, double, double, double, double, ArrayBufferView*);
-    //void texImage2D(double, double, double, double, double, ImageData*);
-    void texImage2D(double, double, double, double, double, HTMLImageElement*);
-    void texImage2D(double, double, double, double, double, HTMLCanvasElement*);
-    //void texImage2D(double, double, double, double, double, HTMLVideoElement*);
+    void texImage2D(int, int, int, int, int, int, int, int, ArrayBufferView*);
+    //void texImage2D(int, int, int, int, int, ImageData*);
+    void texImage2D(int, int, int, int, int, HTMLImageElement*);
+    void texImage2D(int, int, int, int, int, HTMLCanvasElement*);
+    //void texImage2D(int, int, int, int, int, HTMLVideoElement*);
     void texParameterf(double, double, double);
     void texParameteri(double, double, double);
-    //void texSubImage2D(double, double, double, double, double, double, double, double, ArrayBufferView*);
+    void texSubImage2D(double, double, double, double, double, double, double, double, ArrayBufferView*);
     //void texSubImage2D(double, double, double, double, double, double, ImageData*);
     //void texSubImage2D(double, double, double, double, double, double, HTMLImageElement*);
     void texSubImage2D(double, double, double, double, double, double, HTMLCanvasElement*);
     //void texSubImage2D(double, double, double, double, double, double, HTMLVideoElement*);
     void uniform1f(WebGLUniformLocation*, double);
     void uniform1fv(WebGLUniformLocation*, const Float32Array&);
-    void uniform1i(WebGLUniformLocation*, double);
-    void uniform1iv(WebGLUniformLocation*, int*);
-    void uniform1iv(WebGLUniformLocation*, double*);
+    void uniform1i(WebGLUniformLocation*, int);
+    void uniform1iv(WebGLUniformLocation*, const Int32Array&);
     void uniform2f(WebGLUniformLocation*, double, double);
     void uniform2fv(WebGLUniformLocation*, const Float32Array&);
-    void uniform2i(WebGLUniformLocation*, double, double);
-    void uniform2iv(WebGLUniformLocation*, int*);
-    void uniform2iv(WebGLUniformLocation*, double*);
+    void uniform2i(WebGLUniformLocation*, int, int);
+    void uniform2iv(WebGLUniformLocation*, const Int32Array&);
     void uniform3f(WebGLUniformLocation*, double, double, double);
     void uniform3fv(WebGLUniformLocation*, const Float32Array&);
-    void uniform3i(WebGLUniformLocation*, double, double, double);
-    void uniform3iv(WebGLUniformLocation*, int*);
-    void uniform3iv(WebGLUniformLocation*, double*);
+    void uniform3i(WebGLUniformLocation*, int, int, int);
+    void uniform3iv(WebGLUniformLocation*, const Int32Array&);
     void uniform4f(WebGLUniformLocation*, double, double, double, double);
     void uniform4fv(WebGLUniformLocation*, const Float32Array&);
-    void uniform4i(WebGLUniformLocation*, double, double, double, double);
-    void uniform4iv(WebGLUniformLocation*, int*);
-    void uniform4iv(WebGLUniformLocation*, double*);
-    void uniformMatrix2fv(WebGLUniformLocation*, bool, float*);
-    void uniformMatrix2fv(WebGLUniformLocation*, bool, double*);
+    void uniform4i(WebGLUniformLocation*, int, int, int, int);
+    void uniform4iv(WebGLUniformLocation*, const Int32Array&);
+    void uniformMatrix2fv(WebGLUniformLocation*, bool, const Float32Array&);
     void uniformMatrix3fv(WebGLUniformLocation*, bool, const Float32Array&);
-    void uniformMatrix3fv(WebGLUniformLocation*, bool, double*);
     void uniformMatrix4fv(WebGLUniformLocation*, bool, const Float32Array&);
-    void uniformMatrix4fv(WebGLUniformLocation*, bool, double*);
     void useProgram(WebGLProgram*);
     void validateProgram(WebGLProgram*);
     void vertexAttrib1f(double, double);
