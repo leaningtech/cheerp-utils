@@ -48,7 +48,6 @@ public:
 class Array: public Object
 {
 public:
-	//Builtin constructor, implemented in duetto.js
 	template<typename... Args>
 	Array(Args... args);
 	//Element access, implemented in duetto.js
