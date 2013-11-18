@@ -1,4 +1,4 @@
-Duetto Beta 0.3: For testing purposes only
+Duetto Beta 0.9
 ------------------------------------------
 
 Duetto is a tool to bring C++ programming to the Web,
@@ -125,7 +125,7 @@ Properties of DOM objects are always accessed through setters/getters
 
 Small examples are included in /opt/duetto/share/duetto/examples/
 
-Limitations as of version 0.3
+Limitations as of this version
 ------------------------------------------
 Major limitations of this version are:
 	-) Virtual bases and covariant returns are not yet supported
