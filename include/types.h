@@ -21,13 +21,15 @@
 #ifndef _DUETTO_TYPES_H_2043d438
 #define _DUETTO_TYPES_H_2043d438
 
+#include <utility>
+
 namespace client
 {
 
 template<typename Ret, typename ...Args>
-Ret duettoVariadicTrap(const char*, const Args... args);
+Ret duettoVariadicTrap(const char*, Args&&... args);
 template<typename Ret, typename T, typename ...Args>
-Ret duettoVariadicMemberTrap(const char*, const T* t, const Args... args);
+Ret duettoVariadicMemberTrap(const char*, const T* t, Args&&... args);
 
 class Object
 {
@@ -60,10 +62,7 @@ public:
 	int indexOf(Object* searchElement);
 	int indexOf(Object* searchElement, int fromIndex);
 	template<typename... Args>
-	int push(Args... args)
-	{
-		return duettoVariadicMemberTrap<int>("push",this,/*static_cast<const Object*>*/(args)...);
-	}
+	int push(Args... args);
 };
 
 class Number: public Object

@@ -21,6 +21,9 @@
 #ifndef _DUETTO_LIB_4a91e6c5
 #define _DUETTO_LIB_4a91e6c5
 #include "types.h"
+
+#include <utility>
+
 namespace client
 {
 	class PropertyDescriptor;
@@ -668,12 +671,12 @@ namespace client
 		double floor(double x);
 		double log(double x);
 		template<typename... Args> 
-		double max(const Args&... args )
+		double max(Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("max",this,static_cast<const double&>(args)...);
 		}
 		template<typename... Args> 
-		double min(const Args&... args )
+		double min(Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("min",this,static_cast<const double&>(args)...);
 		}
@@ -781,7 +784,7 @@ namespace client
 		String* toString();
 		String* toLocaleString();
 		template<typename... Args> 
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ concat(const Args&... args )
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ concat(Args&&... args )
 		{
 			duettoVariadicMemberTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("concat",this,static_cast<const String&>(args)...);
 		}
@@ -789,7 +792,7 @@ namespace client
 		String* join(const String& seperator);
 		String* pop();
 		template<typename... Args> 
-		double push(const Args&... args )
+		double push(Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("push",static_cast<const String&>(args)...);
 		}
@@ -800,12 +803,12 @@ namespace client
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ sort(double (*compareFn)(const String& a, const String& b));
 		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start);
 		template<typename... Args> 
-		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start, double deleteCount, const Args&... args )
+		Array* /*{ARRAY_BASE_TYPE=String*}*/ splice(double start, double deleteCount, Args&&... args )
 		{
 			duettoVariadicMemberTrap<Array* /*{ARRAY_BASE_TYPE=String*}*/>("splice",this,static_cast<const String&>(args)...);
 		}
 		template<typename... Args> 
-		double unshift(const Args&... args )
+		double unshift(Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("unshift",this,static_cast<const String&>(args)...);
 		}
@@ -3687,7 +3690,7 @@ namespace client
 	class NodeFilterCallback{
 	public:
 		template<typename... Args> 
-		Object* operator()(const Args&... args /*{{ARRAY_BASE_TYPE=Object*}}*/);
+		Object* operator()(Args&&... args /*{{ARRAY_BASE_TYPE=Object*}}*/);
 	};
 
 	class SVGZoomAndPan{
@@ -4828,14 +4831,14 @@ namespace client
 	class WindowTimersExtension{
 	public:
 		template<typename... Args> 
-		double msSetImmediate(Object* expression, const Args&... args )
+		double msSetImmediate(Object* expression, Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("msSetImmediate",this,static_cast<const Object&>(args)...);
 		}
 		void clearImmediate(double handle);
 		void msClearImmediate(double handle);
 		template<typename... Args> 
-		double setImmediate(Object* expression, const Args&... args )
+		double setImmediate(Object* expression, Args&&... args )
 		{
 			duettoVariadicMemberTrap<double>("setImmediate",this,static_cast<const Object&>(args)...);
 		}
@@ -5105,7 +5108,7 @@ namespace client
 	public:
 		void info();
 		template<typename... Args> 
-		void info(Object* message, const Args&... args )
+		void info(Object* message, Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("info",this,static_cast<const Object&>(args)...);
 		}
@@ -5114,29 +5117,29 @@ namespace client
 		void assert();
 		void assert(Boolean test);
 		template<typename... Args> 
-		void assert(Boolean test, Object* message, const Args&... args )
+		void assert(Boolean test, Object* message, Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("assert",this,static_cast<const Object&>(args)...);
 		}
 		Boolean msIsIndependentlyComposed(Element* element);
 		Boolean clear();
 		template<typename... Args> 
-		Boolean dir(Object* value, const Args&... args )
+		Boolean dir(Object* value, Args&&... args )
 		{
 			duettoVariadicMemberTrap<Boolean>("dir",this,static_cast<const Object&>(args)...);
 		}
 		template<typename... Args> 
-		void warn(const Args&... args )
+		void warn(Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("warn",this,static_cast<const String&>(args)...);
 		}
 		template<typename... Args> 
-		void error(const Args&... args )
+		void error(Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("error",this,static_cast<const String&>(args)...);
 		}
 		template<typename... Args> 
-		void log(const Args&... args )
+		void log(Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("log",this,static_cast<const String&>(args)...);
 		}
@@ -6837,7 +6840,7 @@ namespace client
 		double get_height();
 		String* toDataURL();
 		template<typename... Args> 
-		String* toDataURL(const String& type, const Args&... args )
+		String* toDataURL(const String& type, Args&&... args )
 		{
 			duettoVariadicMemberTrap<String*>("toDataURL",this,static_cast<const Object&>(args)...);
 		}
@@ -7187,7 +7190,7 @@ namespace client
 		Boolean execCommand(const String& commandId, Boolean showUI, Object* value);
 		NodeList* getElementsByName(const String& elementName);
 		template<typename... Args> 
-		void writeln(const Args&... args )
+		void writeln(Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("writeln",this,static_cast<const String&>(args)...);
 		}
@@ -7204,7 +7207,7 @@ namespace client
 		Selection* getSelection();
 		Boolean queryCommandEnabled(const String& commandId);
 		template<typename... Args> 
-		void write(const Args&... args )
+		void write(Args&&... args )
 		{
 			duettoVariadicMemberTrap<void>("write",this,static_cast<const String&>(args)...);
 		}
@@ -8700,9 +8703,9 @@ extern void alert();
 extern void alert(const String& message);
 extern void focus();
 template<typename ...Args>
-extern void print(const Args&... args)
+extern void print(Args&&... args)
 {
-	duettoVariadicTrap<void>("print",static_cast<const String&>(args)...);
+	duettoVariadicTrap<void>("print",static_cast<const String&>(/*std::forward<Args>*/(args))...);
 }
 extern String* prompt();
 extern String* prompt(const String& message);
@@ -8815,7 +8818,7 @@ extern IDBFactory msIndexedDB;
 extern IDBFactory indexedDB;
 extern Console console;
 template<typename... Args> 
-extern void importScripts(const Args&... args /*{{ARRAY_BASE_TYPE=String*}}*/);
+extern void importScripts(Args&&... args /*{{ARRAY_BASE_TYPE=String*}}*/);
 
 } 
 #endif
