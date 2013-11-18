@@ -24,6 +24,11 @@
 namespace client
 {
 
+template<typename Ret, typename ...Args>
+Ret duettoVariadicTrap(const char*, const Args... args);
+template<typename Ret, typename T, typename ...Args>
+Ret duettoVariadicMemberTrap(const char*, const T* t, const Args... args);
+
 class Object
 {
 public:
@@ -52,6 +57,13 @@ public:
 	Array(Args... args);
 	//Element access, implemented in duetto.js
 	Object*& operator[](int index);
+	int indexOf(Object* searchElement);
+	int indexOf(Object* searchElement, int fromIndex);
+	template<typename... Args>
+	int push(Args... args)
+	{
+		return duettoVariadicMemberTrap<int>("push",this,/*static_cast<const Object*>*/(args)...);
+	}
 };
 
 class Number: public Object
@@ -67,11 +79,6 @@ typedef unsigned int Boolean;
 typedef double Double;
 typedef Object* Any;
 typedef void* (*Function)(void*);
-
-template<typename Ret, typename ...Args>
-Ret duettoVariadicTrap(const char*, const Args&... args);
-template<typename Ret, typename T, typename ...Args>
-Ret duettoVariadicMemberTrap(const char*, const T* t, const Args&... args);
 
 }
 
