@@ -5114,13 +5114,6 @@ namespace client
 		}
 		Boolean profile();
 		Boolean profile(const String& reportName);
-		void assert();
-		void assert(Boolean test);
-		template<typename... Args> 
-		void assert(Boolean test, Object* message, Args&&... args )
-		{
-			duettoVariadicMemberTrap<void>("assert",this,static_cast<const Object&>(args)...);
-		}
 		Boolean msIsIndependentlyComposed(Element* element);
 		Boolean clear();
 		template<typename... Args> 
