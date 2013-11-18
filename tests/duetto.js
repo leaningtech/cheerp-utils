@@ -38,10 +38,10 @@ function __ZNK6client6ObjectcvdEv(a)
 	return (a - 0);
 }
 
-//Operator [] for array objects
+//Operator [] for array objects, must return an assignable pointer
 function __ZN6client5ArrayixEi(a,i)
 {
-	return a[i];
+	return { d:a, o:i };
 }
 
 function handleVAArg(ptr)
