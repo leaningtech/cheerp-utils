@@ -1096,7 +1096,6 @@ namespace client
 		Float32Array(ArrayBuffer* buffer);
 		Float32Array(ArrayBuffer* buffer, double byteOffset);
 		Float32Array(ArrayBuffer* buffer, double byteOffset, double length);
-		Float32Array(float* data);
 	};
 
 	class Float64Array: public ArrayBufferView {
