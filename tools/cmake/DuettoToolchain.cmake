@@ -9,7 +9,7 @@ SET(CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
 CMAKE_FORCE_C_COMPILER(/opt/duetto/bin/clang GNU)
-CMAKE_FORCE_CXX_COMPILER(/opt/duetto/bin/clang GNU)
+CMAKE_FORCE_CXX_COMPILER(/opt/duetto/bin/clang++ GNU)
 
 # where is the target environment 
 SET(CMAKE_FIND_ROOT_PATH /opt/duetto)

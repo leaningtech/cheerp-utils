@@ -12,22 +12,20 @@ Currently Duetto needs to be unpacked in /opt/duetto/
 Usage
 ------------------------------------------
 Duetto is integrated in the LLVM/clang infrastructure.
-To build client side JavaScript code from a C++ source file
+To build client side JavaScript code from C++ source files
 
-	/opt/duetto/bin/clang -O3 -std=c++11 -S -target duetto <file.cpp> -o <file.js>
+	/opt/duetto/bin/clang -O3 -std=c++11 -target duetto <file1.cpp> <file2.cpp> -o <file.js>
 
-Building from multiple source files is also possible, although
-slighly more complex at the moment
+Building objects file separately and linking only at the end is also possible.
 
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
-	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <linkedfile.bc>
-	/opt/duetto/bin/duetto-compiler <linkedfile.bc> #Will generate linkedfile.js
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/clang++ -target duetto <file1.bc> <file2.bc> -o <linkedfile.js>
 
 Libraries can be built as well, they are stored using LLVM binary representation
 
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -emit-llvm -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file2.cpp> -o <file2.bc>
 	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <library.bc>
 
 A cmake toolchain file is provided in /opt/duetto/share/cmake/Modules/DuettoToolchain.cmake
