@@ -24,3 +24,10 @@ Duetto examples installation
 ```
 make -C tests install INSTALL_PREFIX=/opt/duetto
 ```
+
+Duetto GLES implementation installlation
+----------------------------------------
+
+```
+make -C webgles install INSTALL_PREFIX=/opt/duetto DUETTO_PREFIX=/opt/duetto
+```
