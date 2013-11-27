@@ -4,6 +4,8 @@ Version 0.9.2:
 
 	* First webGLES release
 	* Improved toolchain usability
+	* Automatic linking to system libraries
+	* Mac OS X build
 
 Version 0.9.1:
 
