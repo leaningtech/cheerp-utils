@@ -26,7 +26,7 @@
 #include <iostream>
 #include <string.h>
 
-namespace server
+namespace duetto
 {
 
 class DeserializationException//: public std::exception
@@ -112,7 +112,7 @@ struct returnSerializer
 	static void serialize(char* outData, const char* inData)
 	{
 		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
-		server::serialize<Ret>(outData, r);
+		duetto::serialize<Ret>(outData, r);
 	}
 };
 
@@ -138,10 +138,10 @@ void serverSkel(char* outData, const char* inData)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(inData[0]!='[')
-			throw server::DeserializationException("Missing [ at the start of parameters");
-		server::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
+			throw duetto::DeserializationException("Missing [ at the start of parameters");
+		duetto::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
 	}
-	catch(server::DeserializationException& e)
+	catch(duetto::DeserializationException& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}

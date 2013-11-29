@@ -22,7 +22,7 @@
 #include <assert.h>
 #include "server.h"
 
-using namespace server;
+using namespace duetto;
 
 static bool isJSONWhitespace(char c)
 {
@@ -50,7 +50,7 @@ static char getJSONDigit(char c)
 }
 
 template<>
-int server::deserialize(const char*& data)
+int duetto::deserialize(const char*& data)
 {
 	//JSON decoder for int
 	//derived from number, just expect no decimal part
@@ -80,7 +80,7 @@ int server::deserialize(const char*& data)
 }
 
 template<>
-float server::deserialize(const char*& data)
+float duetto::deserialize(const char*& data)
 {
 	//JSON decoder for number
 	float ret=0;
