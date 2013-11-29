@@ -18,6 +18,9 @@
  *
  ***************************************************************/
 
+#ifndef _DUETTO_SERVER_H
+#define _DUETTO_SERVER_H
+
 #include <utility>
 #include <exception>
 #include <iostream>
@@ -162,3 +165,4 @@ void serverSkel(char* outData, const char* inData)
 		std::cerr << e.what() << std::endl;
 	}
 }
+#endif
