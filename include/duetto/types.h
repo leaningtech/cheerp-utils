@@ -43,10 +43,11 @@ public:
 	//Builtin constructor, implemented in duetto.js
 	String(const char* s) throw();
 	String(int a) throw();
-	String* concat(const String*);
-	String* concat(const String&);
-	String* concat(const String&,const String&);
-	String* concat(const String&,const String&,const String&);
+	template<typename... Args>
+	String* concat(Args&&... args)
+	{
+		return duettoVariadicMemberTrap<String*>("concat",this,static_cast<const String&>(std::forward<Args>(args))...);
+	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
 	int charCodeAt(int index) const;
