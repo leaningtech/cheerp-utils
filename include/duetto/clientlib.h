@@ -8698,7 +8698,7 @@ extern void focus();
 template<typename ...Args>
 extern void print(Args&&... args)
 {
-	duettoVariadicTrap<void>("print",static_cast<const String&>(/*std::forward<Args>*/(args))...);
+	duettoVariadicTrap<void>("print",static_cast<const String&>(std::forward<Args>(args))...);
 }
 extern String* prompt();
 extern String* prompt(const String& message);
