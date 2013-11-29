@@ -74,54 +74,35 @@ int serialize(char* outData, const std::string& data)
 template<class T>
 T deserialize(const char*& data);
 
+//This is used for the no arguments case
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct argumentDeserializer
 {
-	template<class Deserialize, typename ...ArgsImpl>
-	struct impl
-	{
-		template<typename ...FuncArgs>
-		static Ret executeImpl(const char* data, FuncArgs... funcArgs)
-		{
-			const Deserialize& d=deserialize<Deserialize>(data);
-			//Expect a comma or the end of the array
-			if((sizeof...(ArgsImpl)>0 && data[0]!=',') || (sizeof...(ArgsImpl)==0 && data[0]!=']'))
-				throw DeserializationException("Malformed arguments array");
-			//Pass down the updated data, the previous args and the new arg
-			return argumentDeserializer<Signature,Func,Ret,ArgsImpl...>::
-				executeImpl(data+1, std::forward<FuncArgs>(funcArgs)..., d);
-		}
-	};
 	template<typename ...FuncArgs>
-	static Ret executeImpl(const char* data, FuncArgs... funcArgs)
-	{
-		return impl<Args...>::executeImpl(data, std::forward<FuncArgs>(funcArgs)...);
-	}
-	static Ret execute(const char* data)
+	static Ret execute(const char* data, FuncArgs... funcArgs)
 	{
 		//Arguments are passed as array, skip the first parenthesis
-		if(data[0]!='[')
-			throw DeserializationException("Missing [ at the start of parameters");
-		return impl<Args...>::executeImpl(data+1);
+		if(data[0]!=']')
+			throw DeserializationException("Malformed arguments array");
+		//Finally call the method
+		return Func(std::forward<FuncArgs>(funcArgs)...);
 	}
 };
 
 //Base version for no arguments
-template<typename Signature, Signature Func, typename Ret>
-struct argumentDeserializer<Signature, Func, Ret>
+template<typename Signature, Signature Func, typename Ret, typename Deserialize, typename ...Args>
+struct argumentDeserializer<Signature, Func, Ret, Deserialize, Args...>
 {
 	template<typename ...FuncArgs>
-	static Ret executeImpl(const char*, FuncArgs... funcArgs)
+	static Ret execute(const char* data, FuncArgs... funcArgs)
 	{
-		//Finally call the method
-		return Func(std::forward<FuncArgs>(funcArgs)...);
-	}
-	static Ret execute(const char* data)
-	{
-		//Arguments are passed as array, skip the first parenthesis
-		if(data[0]!='[' || data[1]!=']')
+		const Deserialize& d=deserialize<Deserialize>(data);
+		//Expect a comma or the end of the array
+		if(sizeof...(Args)>0 && data[0]!=',')
 			throw DeserializationException("Malformed arguments array");
-		return executeImpl(NULL);
+		//Pass down the updated data, the previous args and the new arg
+		return argumentDeserializer<Signature,Func,Ret,Args...>::
+			execute(data+1, std::forward<FuncArgs>(funcArgs)..., d);
 	}
 };
 
@@ -130,8 +111,7 @@ struct returnSerializer
 {
 	static void serialize(char* outData, const char* inData)
 	{
-		argumentDeserializer<Signature,Func,Ret,Args...> deserializer;
-		const Ret& r=deserializer.execute(inData);
+		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
 		server::serialize<Ret>(outData, r);
 	}
 };
@@ -141,8 +121,7 @@ struct returnSerializer<Signature,Func,void,Args...>
 {
 	static void serialize(char* outData, const char* inData)
 	{
-		argumentDeserializer<Signature,Func,void,Args...> serializer;
-		serializer.execute(inData);
+		argumentDeserializer<Signature,Func,void,Args...>::execute(inData);
 		*outData='\0';
 	}
 };
@@ -157,8 +136,10 @@ void serverSkel(char* outData, const char* inData)
 {
 	try
 	{
-		server::returnSerializer<Signature,Func,Ret,Args...> rs;
-		rs.serialize(outData,inData);
+		//Arguments are passed as array, skip the first parenthesis
+		if(inData[0]!='[')
+			throw server::DeserializationException("Missing [ at the start of parameters");
+		server::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
 	}
 	catch(server::DeserializationException& e)
 	{
