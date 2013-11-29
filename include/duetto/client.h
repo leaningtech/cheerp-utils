@@ -67,6 +67,12 @@ struct CallbackHelper<T, R(C::*)(Args...) const>:
 {
 };
 
+template<class T, class C, class R, class... Args>
+struct CallbackHelper<T, R(C::*)(Args...)>:
+	public CallbackHelperBase<std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
+{
+};
+
 namespace client
 {
 
