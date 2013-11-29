@@ -110,41 +110,6 @@ inline void deserialize<void>(const String* s) [[client]]
 	return;
 }
 
-
-template<class Serialize, typename ...Args>
-struct argumentSerializer
-{
-	static String* executeImpl(const Serialize& s, Args... args) [[client]]
-	{
-		String* ret=serialize(s)->concat(",");
-		argumentSerializer<Args...> downSerializer;
-		return ret->concat(downSerializer.executeImpl(std::forward<Args>(args)...));
-	}
-	static String* execute(const Serialize& s, Args... args) [[client]]
-	{
-		//We must return an array
-		String* ret=new String("[");
-		ret=ret->concat(executeImpl(s,std::forward<Args>(args)...));
-		return ret->concat("]");
-	}
-};
-
-template<class Serialize>
-struct argumentSerializer<Serialize>
-{
-	static String* executeImpl(const Serialize& s) [[client]]
-	{
-		return serialize(s);
-	}
-	static String* execute(const Serialize& s) [[client]]
-	{
-		//We must return an array
-		String* ret=new String("[");
-		ret=ret->concat(executeImpl(s));
-		return ret->concat("]");
-	}
-};
-
 template<class T>
 client::EventListener& Callback(const T& func)
 {
@@ -159,36 +124,46 @@ client::EventListener& Callback(R func(Args...))
 	return SimpleCallback((void (*)())func);
 }
 
-}
-
 template<typename Ret, typename ...Args>
-Ret clientStubImpl(const char* funcName, Args... args) [[client]]
+struct clientStubImpl
 {
-	client::argumentSerializer<Args...> serializer;
-	client::String* data=serializer.execute(std::forward<Args>(args)...);
-	client::XMLHttpRequest* r=new client::XMLHttpRequest();
-	client::String* url=new client::String("/duetto_call?f=");
-	url=url->concat(funcName,"&a=",*data);
-	r->open("GET",*url,false);
-	r->send();
-	return client::deserialize<Ret>(r->get_responseText());
-}
-
-template<typename Ret>
-Ret clientStubImpl(const char* funcName) [[client]]
-{
-	client::XMLHttpRequest* r=new client::XMLHttpRequest();
-	client::String* url=new client::String("/duetto_call?f=");
-	url=url->concat(funcName,"&a=[]");
-	r->open("GET",*url,false);
-	r->send();
-	return client::deserialize<Ret>(r->get_responseText());
+	static String* serializeArgsImpl(String* ret) [[client]]
+	{
+		return ret;
+	}
+	template<class Serialize, typename ...Args2>
+	static String* serializeArgsImpl(String* ret, const Serialize& s, Args2&&... args) [[client]]
+	{
+		ret=ret->concat(",",*serialize(s));
+		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
+	}
+	template<class Serialize, typename ...Args2>
+	static String* serializeArgs(const Serialize& s, Args2&&... args) [[client]]
+	{
+		String* ret=serialize(s);
+		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
+	}
+	static String* serializeArgs() [[client]]
+	{
+		return new String("");
+	}
+	static Ret run(const char* funcName, Args&&... args)
+	{
+		client::String* data=serializeArgs(std::forward<Args>(args)...);
+		client::XMLHttpRequest* r=new client::XMLHttpRequest();
+		client::String* url=new client::String("/duetto_call?f=");
+		url=url->concat(funcName,"&a=[",*data,"]");
+		r->open("GET",*url,false);
+		r->send();
+		return client::deserialize<Ret>(r->get_responseText());
+	}
+};
 }
 
 template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[client]]
 {
-	return clientStubImpl<Ret, Args...>(funcName, std::forward<Args>(args)...);
+	return client::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
 }
 
 #endif
