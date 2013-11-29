@@ -5,6 +5,8 @@ LLVMOPT=/opt/duetto/bin/opt
 LLVMDIS=/opt/duetto/bin/llvm-dis
 LLVMTOJS=../llvm/build/bin/duetto-compiler
 
+INSTALL_PREFIX ?= /opt/duetto
+
 all: server1-client.js server1 server2-client.js server2 server3-client.js server3 tictactoe
 
 %.bc: %.cpp
