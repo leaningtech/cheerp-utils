@@ -51,6 +51,7 @@ public:
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
 	int charCodeAt(int index) const;
+	int get_length() const;
 };
 
 class Array: public Object
