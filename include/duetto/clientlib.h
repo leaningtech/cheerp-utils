@@ -4189,48 +4189,6 @@ namespace client
 		String* get_text();
 	};
 
-	class HTMLInputElement{
-	public:
-		String* get_validationMessage();
-		void set_files(FileList* value);
-		FileList* get_files();
-		void set_max(const String& value);
-		String* get_max();
-		String* get_formTarget();
-		Boolean get_willValidate();
-		void set_step(const String& value);
-		String* get_step();
-		void set_autofocus(Boolean value);
-		Boolean get_autofocus();
-		void set_required(Boolean value);
-		Boolean get_required();
-		String* get_formEnctype();
-		double get_valueAsNumber();
-		void set_placeholder(const String& value);
-		String* get_placeholder();
-		String* get_formMethod();
-		void set_list(HTMLElement* value);
-		HTMLElement* get_list();
-		void set_autocomplete(const String& value);
-		String* get_autocomplete();
-		void set_min(const String& value);
-		String* get_min();
-		String* get_formAction();
-		void set_pattern(const String& value);
-		String* get_pattern();
-		void set_validity(ValidityState* value);
-		ValidityState* get_validity();
-		String* get_formNoValidate();
-		void set_multiple(Boolean value);
-		Boolean get_multiple();
-		Boolean checkValidity();
-		void stepDown();
-		void stepDown(double n);
-		void stepUp();
-		void stepUp(double n);
-		void setCustomValidity(const String& error);
-	};
-
 	class MSElementExtensions{
 	public:
 		Boolean msMatchesSelector(const String& selectors);
@@ -5662,6 +5620,50 @@ namespace client
 		DOMTokenList* get_classList();
 		void set_draggable(Boolean value);
 		Boolean get_draggable();
+	};
+
+	class HTMLInputElement: public HTMLElement{
+	public:
+		String* get_validationMessage();
+		void set_files(FileList* value);
+		FileList* get_files();
+		void set_max(const String& value);
+		String* get_max();
+		String* get_formTarget();
+		Boolean get_willValidate();
+		void set_step(const String& value);
+		String* get_step();
+		void set_autofocus(Boolean value);
+		Boolean get_autofocus();
+		void set_required(Boolean value);
+		Boolean get_required();
+		String* get_formEnctype();
+		double get_valueAsNumber();
+		void set_placeholder(const String& value);
+		String* get_placeholder();
+		String* get_formMethod();
+		void set_list(HTMLElement* value);
+		HTMLElement* get_list();
+		void set_autocomplete(const String& value);
+		String* get_autocomplete();
+		void set_min(const String& value);
+		String* get_min();
+		String* get_formAction();
+		void set_pattern(const String& value);
+		String* get_pattern();
+		void set_validity(ValidityState* value);
+		ValidityState* get_validity();
+		String* get_formNoValidate();
+		void set_multiple(Boolean value);
+		Boolean get_multiple();
+		void set_value(const String& value);
+		String* get_value();
+		Boolean checkValidity();
+		void stepDown();
+		void stepDown(double n);
+		void stepUp();
+		void stepUp(double n);
+		void setCustomValidity(const String& error);
 	};
 
 	class HTMLTextAreaElement: public HTMLElement{
