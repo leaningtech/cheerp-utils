@@ -114,7 +114,9 @@ void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 
 int main()
 {
-	HTTPServerPtr server(new HTTPServer(1987));  
+	pion::PionSingleServiceScheduler sched;
+	sched.setNumThreads(1);
+	HTTPServerPtr server(new HTTPServer(sched,1987));
 	server->addResource("/duetto_call", requestHandler);
 	server->addResource("/", fileRequestHandler);
 	server->start();
