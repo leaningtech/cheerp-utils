@@ -79,7 +79,7 @@ template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct argumentDeserializer
 {
 	template<typename ...FuncArgs>
-	static Ret execute(const char* data, FuncArgs... funcArgs)
+	static Ret execute(const char* data, FuncArgs&&... funcArgs)
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(data[0]!=']')
@@ -94,15 +94,20 @@ template<typename Signature, Signature Func, typename Ret, typename Deserialize,
 struct argumentDeserializer<Signature, Func, Ret, Deserialize, Args...>
 {
 	template<typename ...FuncArgs>
-	static Ret execute(const char* data, FuncArgs... funcArgs)
+	static Ret execute(const char* data, FuncArgs&&... funcArgs)
 	{
-		const Deserialize& d=deserialize<Deserialize>(data);
-		//Expect a comma or the end of the array
-		if(sizeof...(Args)>0 && data[0]!=',')
-			throw DeserializationException("Malformed arguments array");
+		const Deserialize& d=deserialize<typename std::remove_reference<Deserialize>::type>(data);
+		//Expect a comma if we expect more args
+		if(sizeof...(Args)>0)
+		{
+			if(data[0]!=',')
+				throw DeserializationException("Malformed arguments array");
+			else
+				data++;
+		}
 		//Pass down the updated data, the previous args and the new arg
 		return argumentDeserializer<Signature,Func,Ret,Args...>::
-			execute(data+1, std::forward<FuncArgs>(funcArgs)..., d);
+			execute(data, std::forward<FuncArgs>(funcArgs)..., d);
 	}
 };
 
