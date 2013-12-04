@@ -21,6 +21,7 @@
 #include <pion/net/HTTPServer.hpp>
 #include <pion/net/HTTPRequest.hpp>
 #include <pion/net/HTTPResponse.hpp>
+#include <pion/PionAlgorithms.hpp>
 #include <iostream>
 #include <fstream>
 
@@ -41,7 +42,7 @@ extern DuettoMap duettoFuncMap[];
 void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
 	const string& callName=request->getQuery("f");
-	const string& callArgs=request->getQuery("a");
+	const string& callArgs=pion::algo::url_decode(request->getQuery("a"));
 	entryPointSig callFunc=NULL;
 	for(DuettoMap* cur=duettoFuncMap; cur->funcName!=NULL; cur++)
 	{
