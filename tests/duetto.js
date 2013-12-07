@@ -1,26 +1,5 @@
 //Builtin and utility for duetto
 
-function __duettoCreateBuiltin_ZN6client6StringC1EPKc(a)
-{
-	//The pointer is a const char*, so we expect
-	//the referenced data to be convertible to String
-	var ret = "";
-	var buf=a.d;
-	var len=a.d.length;
-	for(var i=a.o;;i++)
-	{
-		if(buf[i]===0 || i==len)
-			break;
-		ret+=String.fromCharCode(buf[i]);
-	}
-	return ret;
-}
-
-function __duettoCreateBuiltin_ZN6client6StringC1Ei(a)
-{
-	return new String(a);
-}
-
 //Passthrough code to pass event handlers in a semi type safe manner
 function __Z14SimpleCallbackPFvvE(func)
 {
