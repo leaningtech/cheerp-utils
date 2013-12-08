@@ -39,10 +39,24 @@ public:
 
 class String: public Object
 {
+private:
+	static String* fromCharPtr(const char* s)
+	{
+		String* ret=new String();
+		for(;*s;s++)
+		{
+			ret=ret->concat(*String::fromCharCode(*s));
+		}
+		return ret;
+	}
 public:
+	String() throw();
+	String(const String&) throw();
 	//Builtin constructor, implemented in duetto.js
-	String(const char* s) throw();
 	String(int a) throw();
+	String(const char* s):String(*fromCharPtr(s))
+	{
+	}
 	template<typename... Args>
 	String* concat(Args&&... args)
 	{
