@@ -27,9 +27,9 @@ namespace client
 {
 
 template<typename Ret, typename ...Args>
-Ret duettoVariadicTrap(const char*, Args&&... args);
+Ret duettoVariadicTrap(const char*, Args... args);
 template<typename Ret, typename T, typename ...Args>
-Ret duettoVariadicMemberTrap(const char*, const T* t, Args&&... args);
+Ret duettoVariadicMemberTrap(const char*, const T* t, Args... args);
 
 class Object
 {
@@ -66,6 +66,10 @@ public:
 	String* substr(int start, int length) const;
 	int charCodeAt(int index) const;
 	int get_length() const;
+	static String* fromCharCode(int c)
+	{
+		return duettoVariadicTrap<String*>("String.fromCharCode", (int)c);
+	}
 };
 
 class Array: public Object
