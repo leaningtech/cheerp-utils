@@ -49,9 +49,9 @@ private:
 		}
 		return ret;
 	}
+	String(const String&) throw();
 public:
 	String() throw();
-	String(const String&) throw();
 	//Builtin constructor, implemented in duetto.js
 	String(int a) throw();
 	String(const char* s):String(*fromCharPtr(s))
