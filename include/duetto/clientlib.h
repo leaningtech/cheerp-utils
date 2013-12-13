@@ -5092,7 +5092,7 @@ namespace client
 		template<typename... Args> 
 		void log(Args&&... args )
 		{
-			duettoVariadicMemberTrap<void>("log",this,static_cast<const String&>(args)...);
+			duettoVariadicMemberTrap<void,Console,decltype(static_cast<const String&>(std::forward<Args>(args)))...>("log",this,std::forward<Args>(args)...);
 		}
 		Boolean profileEnd();
 		Console();
@@ -8700,7 +8700,7 @@ extern void focus();
 template<typename ...Args>
 extern void print(Args&&... args)
 {
-	duettoVariadicTrap<void>("print",static_cast<const String&>(std::forward<Args>(args))...);
+	duettoVariadicTrap<void,decltype(static_cast<const String&>(std::forward<Args>(args)))...>("print",std::forward<Args>(args)...);
 }
 extern String* prompt();
 extern String* prompt(const String& message);
