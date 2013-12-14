@@ -45,7 +45,7 @@ def runTest(engine, testName, outFile):
 	stderrLog = open("testErrs.out","w+");
 	stdoutLog = open("testOut.out","w+");
 	report.write('<testcase classname="run" name="%s">' % testName)
-	ret=subprocess.call([engine, "duetto.js", outFile],stderr=stderrLog,stdout=stdoutLog);
+	ret=subprocess.call([engine, outFile],stderr=stderrLog,stdout=stdoutLog);
 	stderrLog.seek(0);
 	stdoutLog.seek(0);
 	if ret != 0:
@@ -66,9 +66,14 @@ def runTest(engine, testName, outFile):
 		report.write('</testcase>')
 	stderrLog.close();
 
+def finalizeTest(inFile,outFile):
+	out = open(outFile,"w+")
+	subprocess.call(["cat","duetto.js",inFile],stdout=out)
+
 report.write('<testsuite>');
 for t in tests:
-	compileTest(clang, t, "out.js");
+	compileTest(clang, t, "tmp.js");
+	finalizeTest("tmp.js","out.js");
 	runTest(jsEngine, t, "out.js");
 report.write('</testsuite>');
 
