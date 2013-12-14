@@ -11,11 +11,7 @@
 template<class T, class U>
 void assertEqual(const T& value, const U& expected, const char* msg)
 {
-	client::Console* volatile c=&client::console;
-	if(c)
-		client::console.log(msg,(value==expected)?": SUCCESS":": FAILURE");
-	else
-		client::print(msg, (value==expected)?": SUCCESS":": FAILURE");
+	client::console.log(msg,(value==expected)?": SUCCESS":": FAILURE");
 }
 
 #endif
