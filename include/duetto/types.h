@@ -78,7 +78,10 @@ public:
 	template<typename... Args>
 	Array(Args... args);
 	//Element access, implemented in duetto.js
-	Object*& operator[](int index);
+	Object*& operator[](int index)
+	{
+		return ((Object**)this)[index];
+	}
 	int indexOf(Object* searchElement);
 	int indexOf(Object* searchElement, int fromIndex);
 	template<typename... Args>

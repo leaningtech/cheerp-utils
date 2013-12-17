@@ -17,12 +17,6 @@ function __ZNK6client6ObjectcvdEv(a)
 	return (a - 0);
 }
 
-//Operator [] for array objects, must return an assignable pointer
-function __ZN6client5ArrayixEi(a,i)
-{
-	return { d:a, o:i };
-}
-
 //Helper to convert a pointer to an ArrayBufferView
 //it is supposed to only work for numerical arrays
 function __Z16BufferForPointerPKv(ptr)
