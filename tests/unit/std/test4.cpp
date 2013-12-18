@@ -2,13 +2,16 @@
 //	Copyright 2013 Leaning Technlogies
 //===----------------------------------------------------------------------===//
 
-//#include <tests.h>
+#include <tests.h>
 #include <iostream>
+#include <sstream>
 
 void webMain()
 {
 	//iostream and sstream test
 	std::cout << "Cout output : SUCCESS" << std::endl;
 	std::cerr << "Cerr output : SUCCESS" << std::endl;
-	//assertEqual(str.size(), 0, "String construction");
+	std::ostringstream str;
+	str << "test " << 42;
+	assertEqual(str.str(), "test 42", "stringstream");
 }
