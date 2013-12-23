@@ -52,7 +52,6 @@ private:
 	String(const String&) throw();
 public:
 	String() throw();
-	//Builtin constructor, implemented in duetto.js
 	String(int a) throw();
 	String(const char* s):String(*fromCharPtr(s))
 	{
