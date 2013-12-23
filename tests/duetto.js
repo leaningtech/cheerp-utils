@@ -17,22 +17,6 @@ function __ZNK6client6ObjectcvdEv(a)
 	return (a - 0);
 }
 
-//Helper to convert a pointer to an ArrayBufferView
-//it is supposed to only work for numerical arrays
-function __Z16BufferForPointerPKv(ptr)
-{
-	if(ptr.o == 0)
-		return ptr.d;
-	else
-		return ptr.d.subarray(ptr.o);
-}
-
-// NOTE: size must be in bytes
-function __Z16BufferForPointerPKvj(ptr, size)
-{
-	return ptr.d.subarray(ptr.o, size/ptr.d.BYTES_PER_ELEMENT);
-}
-
 function handleVAArg(ptr)
 {
 	var ret=ptr.d[ptr.o];
