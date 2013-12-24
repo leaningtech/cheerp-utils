@@ -1,16 +1,5 @@
 //Builtin and utility for duetto
 
-//Passthrough code to pass event handlers in a semi type safe manner
-function __Z14SimpleCallbackPFvvE(func)
-{
-	return func;
-}
-
-function __Z8CallbackPFvvEPv(func, obj)
-{
-	return function(e) { func(obj, e); };
-}
-
 //Conversion operator from generic object to Number/double
 function __ZNK6client6ObjectcvdEv(a)
 {

@@ -27,7 +27,14 @@
 #include <utility>
 #include <functional>
 
-client::EventListener& SimpleCallback(void (*func)());
+//Passthrough code to pass event handlers in a semi type safe manner
+inline client::EventListener& SimpleCallback(void (*func)())
+{
+	//Return the value itself, it is a valid JS method
+	return *(client::EventListener*)func;
+}
+
+//Handled internally by the compiler
 client::EventListener& Callback(void (*func)(), void* obj);
 
 template<class, class> struct CallbackHelper; // undefined
