@@ -1,11 +1,5 @@
 //Builtin and utility for duetto
 
-//Conversion operator from generic object to Number/double
-function __ZNK6client6ObjectcvdEv(a)
-{
-	return (a - 0);
-}
-
 function handleVAArg(ptr)
 {
 	var ret=ptr.d[ptr.o];

@@ -34,7 +34,13 @@ Ret duettoVariadicMemberTrap(const char*, const T* t, Args... args);
 class Object
 {
 public:
-	operator double() const;
+	operator double() const
+	{
+		//We need a temporary value to reinterpret the
+		//JS Object as a Number
+		const Object* tmp=this;
+		return *reinterpret_cast<float*>(&tmp);
+	}
 };
 
 class String: public Object
