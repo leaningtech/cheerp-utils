@@ -55,17 +55,19 @@ private:
 		}
 		return ret;
 	}
-	String(const String&) throw();
 public:
 	String() throw();
+	//Utility constructor to use an existing String
+	String(const String*) throw();
 	String(int a) throw();
-	String(const char* s):String(*fromCharPtr(s))
+	String(const char* s):String(fromCharPtr(s))
 	{
 	}
 	template<typename... Args>
 	String* concat(Args&&... args)
 	{
-		return duettoVariadicMemberTrap<String*>("concat",this,static_cast<const String&>(std::forward<Args>(args))...);
+		return duettoVariadicMemberTrap<String*,String,decltype(static_cast<const String&>(std::forward<Args>(args)))...>("concat",
+						this,std::forward<Args>(args)...);
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
