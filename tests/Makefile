@@ -10,7 +10,7 @@ INSTALL_PREFIX ?= /opt/duetto
 all: server1-client.js server1 server2-client.js server2 server3-client.js server3 tictactoe
 
 %.bc: %.cpp
-	$(CLANG) -O2 -target duetto -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -O2 -target duetto -c $^ -o $@
 
 %-client-base.bc %-server.o: %.bc
 	$(DUETTO) $^
@@ -22,7 +22,7 @@ all: server1-client.js server1 server2-client.js server2 server3-client.js serve
 	$(LLVMDIS) $^ -o $@
 
 cxxlib-holefiller.bc: cxxlib-holefiller.cpp
-	$(CLANG) -std=c++11 -emit-llvm -c $^ -o $@
+	$(CLANG) -c $^ -o $@
 
 %.js: %.ll
 	$(LLVMTOJS) $^ -o $@
@@ -32,7 +32,7 @@ server_stub.o: server_stub.cpp
 	$(CLANG) -g -c $^ -o $@
 
 %.o: %.cpp
-	$(CLANG) -I ../include -std=c++11 -g -c $^ -o $@
+	$(CLANG) -I ../include -g -c $^ -o $@
 
 server1: server1-server.o server_stub.o deserializer.o
 	$(CLANG) -g -lboost_thread -lboost_system -lpion-net-4.0 -lpion-common-4.0 -llog4cpp $^ -o $@

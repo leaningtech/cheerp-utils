@@ -14,18 +14,18 @@ Usage
 Duetto is integrated in the LLVM/clang infrastructure.
 To build client side JavaScript code from C++ source files
 
-	/opt/duetto/bin/clang -O3 -std=c++11 -target duetto <file1.cpp> <file2.cpp> -o <file.js>
+	/opt/duetto/bin/clang -O3 -target duetto <file1.cpp> <file2.cpp> -o <file.js>
 
 Building objects file separately and linking only at the end is also possible.
 
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/clang++ -O3 -c -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -c -target duetto <file2.cpp> -o <file2.bc>
 	/opt/duetto/bin/clang++ -target duetto <file1.bc> <file2.bc> -o <linkedfile.js>
 
 Libraries can be built as well, they are stored using LLVM binary representation
 
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -std=c++11 -c -target duetto <file2.cpp> -o <file2.bc>
+	/opt/duetto/bin/clang++ -O3 -c -target duetto <file1.cpp> -o <file1.bc>
+	/opt/duetto/bin/clang++ -O3 -c -target duetto <file2.cpp> -o <file2.bc>
 	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <library.bc>
 
 A cmake toolchain file is provided in /opt/duetto/share/cmake/Modules/DuettoToolchain.cmake
@@ -37,7 +37,7 @@ Please note that, currently, only building static libraries is supported.
 
 To build a server side executable you will need to have libpion available on the system
 
-	/opt/duetto/bin/clang++ -duetto-side=server -std=c++11 -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
+	/opt/duetto/bin/clang++ -duetto-side=server -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
 
 The files server_stub.cpp and deserializer.cpp provided with Duetto include boiler plate code to
 listen to RPC requests and serve static files in the current directory for testing purposes. The
