@@ -66,14 +66,9 @@ def runTest(engine, testName, outFile):
 		report.write('</testcase>')
 	stderrLog.close();
 
-def finalizeTest(inFile,outFile):
-	out = open(outFile,"w+")
-	subprocess.call(["cat","duetto.js",inFile],stdout=out)
-
 report.write('<testsuite>');
 for t in tests:
-	compileTest(clang, t, "tmp.js");
-	finalizeTest("tmp.js","out.js");
+	compileTest(clang, t, "out.js");
 	runTest(jsEngine, t, "out.js");
 report.write('</testsuite>');
 

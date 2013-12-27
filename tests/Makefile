@@ -51,5 +51,4 @@ install:
 	cp -v dom/dom1.cpp dom/test1.html ${INSTALL_PREFIX}/share/duetto/examples/dom/
 	mkdir -p ${INSTALL_PREFIX}/share/duetto/examples/webgl
 	cp -v webgl/webgl.cpp webgl/webgl.html webgl/webgl-util.js ${INSTALL_PREFIX}/share/duetto/examples/webgl/
-	cp -v duetto.js ${INSTALL_PREFIX}/share/duetto/examples/
 	cp -v server_stub.cpp deserializer.cpp ${INSTALL_PREFIX}/share/duetto/

@@ -82,7 +82,6 @@ class Array: public Object
 public:
 	template<typename... Args>
 	Array(Args... args);
-	//Element access, implemented in duetto.js
 	Object*& operator[](int index)
 	{
 		return ((Object**)this)[index];
