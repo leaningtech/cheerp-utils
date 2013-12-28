@@ -146,3 +146,21 @@ float duetto::deserialize(const char*& data)
 	ret*=sign;
 	return ret;
 }
+
+template<>
+const std::string duetto::deserialize(const char*& data)
+{
+	//JSON decoder for string
+	std::string ret;
+	if(*data!='"')
+		throw DeserializationException("Invalid format for string");
+	data++;
+	//TODO: FIX: This is unsafe
+	while(*data!='"')
+	{
+		ret.push_back(*data);
+		data++;
+	}
+	data++;
+	return ret;
+}
