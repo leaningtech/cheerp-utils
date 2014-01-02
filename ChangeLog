@@ -1,5 +1,13 @@
 Duetto: C++ for the Web
 
+Version 0.9.3:
+
+	* Support memset with non-constant values
+	* stdout/stderr support
+	* Added server.h to the installed files
+	* The duetto.js utility file is not needed anymore
+	* Use C++11 by default
+
 Version 0.9.2:
 
 	* First webGLES release
