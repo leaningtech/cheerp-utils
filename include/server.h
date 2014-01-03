@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2013 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2014 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,6 +28,32 @@
 
 namespace duetto
 {
+
+class SerializationInterface
+{
+protected:
+	enum { BUFFER_SIZE = 128 };
+	char buffer[BUFFER_SIZE];
+	uint32_t offset;
+public:
+	SerializationInterface():offset(0)
+	{
+	}
+	virtual void flush() = 0;
+	void write(const char* buf, uint32_t length)
+	{
+		while(length)
+		{
+			uint32_t cur = (length<(128-offset))?length:128-offset;
+			memcpy(buffer+offset, buf, cur);
+			buf+=cur;
+			length-=cur;
+			offset+=cur;
+			if(length)
+				flush();
+		}
+	}
+};
 
 class DeserializationException//: public std::exception
 {
