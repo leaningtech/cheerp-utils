@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2013 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2014 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,11 +24,12 @@
 #include <pion/PionAlgorithms.hpp>
 #include <iostream>
 #include <fstream>
+#include <server.h>
 
 using namespace pion::net;
 using namespace std;
 
-typedef void (*entryPointSig)(char* inData, const char* outData);
+typedef void (*entryPointSig)(duetto::SerializationInterface* inData, const char* outData);
 
 struct DuettoMap
 {
@@ -37,7 +38,22 @@ struct DuettoMap
 };
 
 extern DuettoMap duettoFuncMap[];
-//extern char* duettoFuncMap;
+
+class PionSerializationInterface: public duetto::SerializationInterface
+{
+private:
+	TCPConnectionPtr conn;
+public:
+	PionSerializationInterface(TCPConnectionPtr c):conn(c)
+	{
+	}
+	void flush()
+	{
+		boost::system::error_code error;
+		conn->write(boost::asio::buffer(buffer, offset), error);
+		offset=0;
+	}
+};
 
 void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
@@ -64,18 +80,18 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 		return;
 	}
 
-	//By convention the output buffer size is statically set at 1024
-	//This should be changed to a serialization interface
-	char* outBuf=new char[1024];
-	callFunc(outBuf,callArgs.c_str());
+	//Send the headers first
 	HTTPResponse response(*request);
 	response.setStatusCode(200);
-	response.setContent(outBuf);
+	response.setDoNotSendContentLength();
 	boost::system::error_code error;
-	response.send(*conn, error);
+	response.send(*conn, error, true);
+	//Send the data using the serialization interface
+	PionSerializationInterface outData(conn);
+	callFunc(&outData,callArgs.c_str());
+	outData.flush();
 	cout << "FINISH" << endl;
 	conn->finish();
-	delete[] outBuf;
 }
 
 void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)

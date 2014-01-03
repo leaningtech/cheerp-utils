@@ -70,32 +70,48 @@ public:
 };
 
 template<typename T>
-static int serialize(char* outData, const T& data)
+struct serialize
 {
-	return data.serialize(outData);
-}
+	static void run(SerializationInterface* outData, const T& data)
+	{
+		data.serialize(outData);
+	}
+};
 
 template<>
-int serialize(char* outData, const bool& data)
+struct serialize<bool>
 {
-	//TODO: The maximum length is fixed at 1024 by convention
-	return snprintf(outData,1024,"%i",(int)data);
-}
+	static void run(SerializationInterface* outData, bool data)
+	{
+		if(data)
+			outData->write("1",1);
+		else
+			outData->write("0",1);
+	}
+};
 
 template<>
-int serialize(char* outData, const int& data)
+struct serialize<int>
 {
-	//TODO: The maximum length is fixed at 1024 by convention
-	return snprintf(outData,1024,"%i",data);
-}
+	static void run(SerializationInterface* outData, int data)
+	{
+		int reqBuf = snprintf(NULL,0,"%i",data);
+		if(reqBuf < 0)
+			return 0;
+		char buf[reqBuf+1];
+		sprintf(buf,"%i",data);
+		outData->write(buf, reqBuf);
+	}
+};
 
 template<>
-int serialize(char* outData, const std::string& data)
+struct serialize<const std::string&>
 {
-	//TODO: The maximum length is fixed at 1024 by convention
-	strncpy(outData,data.c_str(),1024);
-	return data.size();
-}
+	static void run(SerializationInterface* outData, const std::string& data)
+	{
+		outData->write(data.data(), data.size());
+	}
+};
 
 template<class T>
 T deserialize(const char*& data);
@@ -140,10 +156,10 @@ struct argumentDeserializer<Signature, Func, Ret, Deserialize, Args...>
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct returnSerializer
 {
-	static void serialize(char* outData, const char* inData)
+	static void serialize(SerializationInterface* outData, const char* inData)
 	{
 		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
-		duetto::serialize<Ret>(outData, r);
+		duetto::serialize<Ret>::run(outData, r);
 	}
 };
 
@@ -163,7 +179,7 @@ struct returnSerializer<Signature,Func,void,Args...>
  * The output buffer is assumed to be 1024 bytes in size
  */
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
-void serverSkel(char* outData, const char* inData)
+void serverSkel(duetto::SerializationInterface* outData, const char* inData)
 {
 	try
 	{
