@@ -62,7 +62,7 @@ def runTest(engine, testName, outFile):
 		result = m.group(2)
 		report.write('<testcase classname="check" name="%s">' % checkName)
 		if result!="SUCCESS":
-			report.write('<failure type="Self check error"/>');
+			report.write('<failure type="Self check error">%s</failure>' % testLine);
 		report.write('</testcase>')
 	stderrLog.close();
 
