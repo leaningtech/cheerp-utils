@@ -20,10 +20,23 @@ public:
 	}
 };
 
+class C
+{
+public:
+	short a;
+	unsigned int b : 1;
+	C():a(3),b(1)
+	{
+	}
+};
+
 void webMain()
 {
 	B b;
 
-	assertEqual(b.a, 42, "Alignment at the end of class [1/2]");
-	assertEqual(b.b, 0xdeadbeaf, "Alignment at the end of class [2/2]");
+	assertEqual(b.a, 42, "Alignment at the end of class [1/3]");
+	assertEqual(b.b, 0xdeadbeaf, "Alignment at the end of class [2/3]");
+
+	volatile C c;
+	assertEqual(c.a, 3, "Alignment at the end of class [3/3]");
 }
