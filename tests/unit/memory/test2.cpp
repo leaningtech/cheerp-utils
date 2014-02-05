@@ -13,6 +13,12 @@ void webMain()
 	assertEqual(a[1], 42, "Access malloc allocated memory");
 	free(a);
 
+	//Test legacy C memory calloc
+	int* volatile d=(int*)calloc(2,sizeof(int));
+	d[1] = 45;
+	assertEqual(d[1], 45, "Access calloc allocated memory");
+	free(d);
+
 	//Test C++ memory allocation
 	int* volatile b=new int[2];
 	b[1]=43;
