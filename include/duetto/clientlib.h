@@ -5058,8 +5058,8 @@ namespace client
 		double get_msAnimationStartTime();
 		void msCancelRequestAnimationFrame(double handle);
 		void cancelAnimationFrame(double handle);
-		double requestAnimationFrame(FrameRequestCallback* callback);
-		double msRequestAnimationFrame(FrameRequestCallback* callback);
+		double requestAnimationFrame(const EventListener &);
+		double msRequestAnimationFrame(const EventListener &);
 	};
 
 	class Console{
@@ -8805,8 +8805,8 @@ extern double animationStartTime;
 extern double msAnimationStartTime;
 extern void msCancelRequestAnimationFrame(double handle);
 extern void cancelAnimationFrame(double handle);
-extern double requestAnimationFrame(FrameRequestCallback* callback);
-extern double msRequestAnimationFrame(FrameRequestCallback* callback);
+extern double requestAnimationFrame(const EventListener &);
+extern double msRequestAnimationFrame(const EventListener &);
 extern String* btoa(const String& rawString);
 extern String* atob(const String& encodedString);
 extern IDBFactory msIndexedDB;
