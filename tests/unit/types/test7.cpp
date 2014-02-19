@@ -1,0 +1,29 @@
+//===---------------------------------------------------------------------===//
+//	Copyright 2014 Leaning Technlogies
+//===----------------------------------------------------------------------===//
+
+#include <tests.h>
+
+bool testSuccessful = false;
+
+class [[jsexport]] JsStruct
+{
+private:
+	float a;
+	int b;
+public:
+	JsStruct(float _a, int _b):a(_a),b(_b)
+	{
+	}
+	void test()
+	{
+		testSuccessful = true;
+	}
+};
+
+void webMain()
+{
+	//Test JS-layout struct
+	__asm__("var a=new JsStruct(); a.test()");
+	assertEqual(testSuccessful, true, "JS interoperability using [[jsexport]]/__asm__");
+}
