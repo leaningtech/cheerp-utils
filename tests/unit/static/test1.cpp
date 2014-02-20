@@ -10,6 +10,7 @@ public:
 	int a;
 	A():a(42)
 	{
+		client::console.log("Static initialiation of class instances 1/3 : SUCCESS");
 	}
 };
 
@@ -22,6 +23,6 @@ int f()
 
 void webMain()
 {
-	assertEqual(f(), 43, "Static initialiation of class instances 1/2");
-	assertEqual(f(), 44, "Static initialiation of class instances 2/2");
+	assertEqual(f(), 43, "Static initialiation of class instances 2/3");
+	assertEqual(f(), 44, "Static initialiation of class instances 3/3");
 }
