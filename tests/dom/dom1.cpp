@@ -1,6 +1,5 @@
 #include <duetto/client.h>
 #include <duetto/clientlib.h>
-#include <duetto/webgl.h>
 
 using namespace client;
 
@@ -12,8 +11,7 @@ void loadCallback() [[client]]
 	body->appendChild(newTile);
 }
 
-int webMain() [[client]]
+void webMain() [[client]]
 {
 	document.addEventListener("DOMContentLoaded",Callback(loadCallback));
-	return 0;
 }

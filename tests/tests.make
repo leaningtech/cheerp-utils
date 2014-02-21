@@ -5,4 +5,4 @@ CLANG=/opt/duetto/bin/clang
 	${DUETTO_COMPILER} $^
 
 %.js: %.cpp
-	${CLANG} -target duetto -fno-math-errno -O2 -S $^ -o $@
+	${CLANG} -target duetto -O2 $^ -o $@
