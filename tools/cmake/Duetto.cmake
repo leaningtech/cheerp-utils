@@ -8,3 +8,6 @@ SET(CMAKE_CXX_FLAGS_INIT "-target duetto")
 set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc")
 set(CMAKE_EXECUTABLE_SUFFIX ".js")
 set(CMAKE_CXX_CREATE_STATIC_LIBRARY "/opt/duetto/bin/llvm-link <OBJECTS> -o <TARGET>")
+set(CMAKE_C_CREATE_STATIC_LIBRARY "/opt/duetto/bin/llvm-link <OBJECTS> -o <TARGET>")
+
+SET(CMAKE_SYSTEM_INCLUDE_PATH "/include")
