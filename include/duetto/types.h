@@ -62,7 +62,11 @@ public:
 	String() throw();
 	//Utility constructor to use an existing String
 	String(const String*) throw();
+	String(long a) throw();
+	String(unsigned long a) throw();
 	String(int a) throw();
+	String(unsigned int a) throw();
+	String(float a) throw();
 	String(const char* s):String(fromCharPtr(s))
 	{
 	}
@@ -96,6 +100,7 @@ public:
 	int indexOf(Object* searchElement, int fromIndex);
 	template<typename... Args>
 	int push(Args... args);
+	int get_length() const;
 };
 
 template<class T>
