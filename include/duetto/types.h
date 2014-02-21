@@ -43,6 +43,9 @@ public:
 	}
 };
 
+template<class T>
+class TArray;
+
 class String: public Object
 {
 private:
@@ -73,6 +76,7 @@ public:
 	String* substr(int start, int length) const;
 	int charCodeAt(int index) const;
 	int get_length() const;
+	TArray<String>* split(const String&) const;
 	static String* fromCharCode(int c)
 	{
 		return duettoVariadicTrap<String*>("String.fromCharCode", (int)c);
@@ -92,6 +96,18 @@ public:
 	int indexOf(Object* searchElement, int fromIndex);
 	template<typename... Args>
 	int push(Args... args);
+};
+
+template<class T>
+class TArray: public Array
+{
+public:
+	template<typename... Args>
+	TArray(Args... args);
+	T*& operator[](int index)
+	{
+		return (T*&)Array::operator[](index);
+	}
 };
 
 class Number: public Object
