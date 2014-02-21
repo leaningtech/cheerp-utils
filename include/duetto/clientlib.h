@@ -8609,8 +8609,8 @@ namespace client
 extern double NaN;
 extern double Infinity;
 extern Object* eval(const String& x);
-extern double parseInt(const String& s);
-extern double parseInt(const String& s, double radix);
+extern int parseInt(const String& s);
+extern int parseInt(const String& s, double radix);
 extern double parseFloat(const String& string);
 extern Boolean isNaN(double number);
 extern Boolean isFinite(double number);
