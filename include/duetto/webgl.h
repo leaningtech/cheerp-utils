@@ -119,12 +119,9 @@ public:
 class WebGLRenderingContext
 {
 public: 
-    double get_DEPTH_BUFFER_BIT();
-    void set_DEPTH_BUFFER_BIT(double);
-    double get_STENCIL_BUFFER_BIT();
-    void set_STENCIL_BUFFER_BIT(double);
-    double get_COLOR_BUFFER_BIT();
-    void set_COLOR_BUFFER_BIT(double);
+    int get_DEPTH_BUFFER_BIT();
+    int get_STENCIL_BUFFER_BIT();
+    int get_COLOR_BUFFER_BIT();
     double get_POINTS();
     void set_POINTS(double);
     double get_LINES();
@@ -789,7 +786,7 @@ public:
     Object* getRenderbufferParameter(double, double);
     Object* getShaderParameter(WebGLShader*, double);
     WebGLShaderPrecisionFormat* getShaderPrecisionFormat(double, double);
-    //string getShaderInfoLog(WebGLShader*);
+    String* getShaderInfoLog(WebGLShader*);
     //string getShaderSource(WebGLShader*);
     Object* getTexParameter(double, double);
     Object* getUniform(WebGLProgram*, WebGLUniformLocation*);
