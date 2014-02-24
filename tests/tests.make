@@ -1,5 +1,5 @@
 DUETTO_COMPILER=/opt/duetto/bin/duetto-compiler
-CLANG=/opt/duetto/bin/clang
+CLANG=/opt/duetto/bin/clang++
 
 %.js: %.bc
 	${DUETTO_COMPILER} $^
