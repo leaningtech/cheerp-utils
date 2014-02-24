@@ -1,20 +1,37 @@
-#include <duetto/client.h>
-#include <duetto/clientlib.h>
-#include <duetto/webgl.h>
+#include <duetto/client.h> //Misc client side stuff
+#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
+#include <string>
 
 using namespace client;
 
-void loadCallback(Event* e) [[client]]
+void setupInputAndDisplay()
 {
-	HTMLElement* body=document.get_body();
-	HTMLElement* newTile=document.createElement("h1");
-	newTile->set_textContent("Hello World");
-	body->appendChild(newTile);
+    client::HTMLElement * body = document.get_body();
+    
+    std::string original_text = "hello, world!";
+
+    HTMLElement * textDisplay = document.createElement("h1");
+    textDisplay->set_textContent(original_text.c_str());
+
+    HTMLInputElement * inputBox = static_cast<HTMLInputElement*>(document.createElement("input") );
+    inputBox->setAttribute("type", "text");
+    inputBox->setAttribute("style", "width:200px");
+    
+    // This sets the default value
+    inputBox->setAttribute("value", original_text.c_str() );
+
+    inputBox->addEventListener("input", Callback([textDisplay, inputBox]() -> void { 
+        String * text = inputBox->get_value();
+        textDisplay->set_textContent( text );
+
+    }) );
+    
+    body->appendChild( textDisplay );
+    body->appendChild( inputBox );
+    
 }
 
-int webMain() [[client]]
+void webMain()
 {
-	//const EventListener& c=Callback(loadCallback);
-	document.addEventListener("DOMContentLoaded",Callback(loadCallback));
-	return 0;
+        document.addEventListener("DOMContentLoaded",Callback(setupInputAndDisplay));
 }
