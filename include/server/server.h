@@ -25,35 +25,11 @@
 #include <exception>
 #include <iostream>
 #include <string.h>
+#include <duetto/promise.h>
+#include <duetto/connection.h>
 
 namespace duetto
 {
-
-class SerializationInterface
-{
-protected:
-	enum { BUFFER_SIZE = 128 };
-	char buffer[BUFFER_SIZE];
-	uint32_t offset;
-public:
-	SerializationInterface():offset(0)
-	{
-	}
-	virtual void flush() = 0;
-	void write(const char* buf, uint32_t length)
-	{
-		while(length)
-		{
-			uint32_t cur = (length<(128-offset))?length:128-offset;
-			memcpy(buffer+offset, buf, cur);
-			buf+=cur;
-			length-=cur;
-			offset+=cur;
-			if(length)
-				flush();
-		}
-	}
-};
 
 class DeserializationException//: public std::exception
 {
@@ -90,26 +66,86 @@ struct serialize<bool>
 	}
 };
 
+inline void serializeInt(SerializationInterface* outData, int data)
+{
+	int reqBuf = snprintf(NULL,0,"%i",data);
+	if(reqBuf < 0)
+		return;
+	char buf[reqBuf+1];
+	sprintf(buf,"%i",data);
+	outData->write(buf, reqBuf);
+}
+
+inline void serializeUnsignedInt(SerializationInterface* outData, unsigned int data)
+{
+	int reqBuf = snprintf(NULL,0,"%u",data);
+	if(reqBuf < 0)
+		return;
+	char buf[reqBuf+1];
+	sprintf(buf,"%u",data);
+	outData->write(buf, reqBuf);
+}
+
+template<>
+struct serialize<char>
+{
+	static void run(SerializationInterface* outData, char data)
+	{
+		serializeInt(outData, data);
+	}
+};
+
+template<>
+struct serialize<unsigned char>
+{
+	static void run(SerializationInterface* outData, unsigned char data)
+	{
+		serializeUnsignedInt(outData, data);
+	}
+};
+
 template<>
 struct serialize<int>
 {
 	static void run(SerializationInterface* outData, int data)
 	{
-		int reqBuf = snprintf(NULL,0,"%i",data);
-		if(reqBuf < 0)
-			return 0;
-		char buf[reqBuf+1];
-		sprintf(buf,"%i",data);
-		outData->write(buf, reqBuf);
+		serializeInt(outData, data);
 	}
 };
 
 template<>
-struct serialize<const std::string&>
+struct serialize<std::string>
 {
 	static void run(SerializationInterface* outData, const std::string& data)
 	{
 		outData->write(data.data(), data.size());
+	}
+};
+
+template<class InputIterator>
+inline void serializeRange(duetto::SerializationInterface* outData, InputIterator begin, const InputIterator end)
+{
+	//Serialize as an array
+	outData->write("[",1);
+	bool first=true;
+	for(;begin!=end;++begin)
+	{
+		if(!first)
+			outData->write(",",1);
+		serialize<
+			typename std::remove_const<typename std::remove_reference<decltype(*begin)>::type>::type
+			>::run(outData, *begin);
+		first=false;
+	}
+	outData->write("]",1);
+}
+
+template<class T>
+struct serialize<std::vector<T>>
+{
+	static void run(duetto::SerializationInterface* outData, const std::vector<T>& data)
+	{
+		serializeRange(outData, data.begin(), data.end());
 	}
 };
 
@@ -153,23 +189,62 @@ struct argumentDeserializer<Signature, Func, Ret, Deserialize, Args...>
 	}
 };
 
+template<class R>
+struct voidUtils
+{
+	static void addCallback(Promise<R>* p)
+	{
+		Connection* c=connection;
+		p->then([c] (const R& r) mutable {
+			duetto::serialize<R>::run(c, r);
+			c->flush();
+			});
+	}
+};
+
+template<>
+struct voidUtils<void>
+{
+	static void addCallback(Promise<void>* p)
+	{
+		Connection* c(connection);
+		p->then([c]() mutable {
+			c->flush();
+			});
+	}
+};
+
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
 struct returnSerializer
 {
-	static void serialize(SerializationInterface* outData, const char* inData)
+	static PromiseBase* serialize(SerializationInterface* outData, const char* inData)
 	{
 		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
 		duetto::serialize<Ret>::run(outData, r);
+		return NULL;
 	}
 };
 
 template<typename Signature, Signature Func, typename ...Args>
 struct returnSerializer<Signature,Func,void,Args...>
 {
-	static void serialize(char* outData, const char* inData)
+	static PromiseBase* serialize(SerializationInterface* outData, const char* inData)
 	{
 		argumentDeserializer<Signature,Func,void,Args...>::execute(inData);
-		*outData='\0';
+		return NULL;
+	}
+};
+
+template<typename Signature, Signature Func, typename Ret, typename ...Args>
+struct returnSerializer<Signature,Func,Promise<Ret>*,Args...>
+{
+	static PromiseBase* serialize(SerializationInterface* outData, const char* inData)
+	{
+		argumentDeserializer<Signature,Func,Promise<Ret>*,Args...> serializer;
+		Promise<Ret>* ret=serializer.execute(inData);
+		voidUtils<Ret>::addCallback(ret);
+		// Save connection by copy in the lambda, this seems to require a temporary
+		return ret;
 	}
 };
 
@@ -177,20 +252,22 @@ struct returnSerializer<Signature,Func,void,Args...>
 
 /*
  * The output buffer is assumed to be 1024 bytes in size
+ * It the method returns a promise it is forwarded to the caller
  */
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
-void serverSkel(duetto::SerializationInterface* outData, const char* inData)
+duetto::PromiseBase* serverSkel(duetto::SerializationInterface* outData, const char* inData)
 {
 	try
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(inData[0]!='[')
 			throw duetto::DeserializationException("Missing [ at the start of parameters");
-		duetto::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
+		return duetto::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
 	}
 	catch(duetto::DeserializationException& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
+	return NULL;
 }
 #endif

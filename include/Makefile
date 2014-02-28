@@ -2,12 +2,12 @@
 
 INSTALL_PREFIX ?= /opt/duetto
 
-install_client: duetto/client.h duetto/types.h duetto/webgl.h duetto/clientlib.h duetto/int64utils.h
+install_client: client/client.h client/types.h client/webgl.h client/clientlib.h client/int64utils.h
 	mkdir -p ${INSTALL_PREFIX}/include/client/duetto/
 	cp -v $^ ${INSTALL_PREFIX}/include/client/duetto/
 
-install_server: server.h
-	mkdir -p ${INSTALL_PREFIX}/include/native/
-	cp -v $^ ${INSTALL_PREFIX}/include/native/
+install_server: server/server.h
+	mkdir -p ${INSTALL_PREFIX}/include/server/duetto/
+	cp -v $^ ${INSTALL_PREFIX}/include/server/duetto/
 
 install: install_client install_server
