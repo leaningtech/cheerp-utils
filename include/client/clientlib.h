@@ -2028,7 +2028,11 @@ namespace client
 		MSCSSRuleList();
 	};
 
-	class CanvasRenderingContext2D{
+	class RenderingContext
+	{
+	};
+
+	class CanvasRenderingContext2D: public RenderingContext{
 	public:
 		double get_shadowOffsetX();
 		double get_lineWidth();
@@ -6839,7 +6843,7 @@ namespace client
 		{
 			duettoVariadicMemberTrap<String*>("toDataURL",this,static_cast<const Object&>(args)...);
 		}
-		CanvasRenderingContext2D* getContext(const String& contextId);
+		RenderingContext* getContext(const String& contextId);
 		HTMLCanvasElement();
 	};
 
