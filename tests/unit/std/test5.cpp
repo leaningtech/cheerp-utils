@@ -4,6 +4,7 @@
 
 #include <tests.h>
 #include <mutex>
+#include <atomic>
 
 void webMain()
 {
@@ -12,4 +13,10 @@ void webMain()
 	m.lock();
 	m.unlock();
 	assertEqual(true, true, "Fake mutex support");
+	//Test atomic
+	std::atomic<int> a(1);
+	a++;
+	a--;
+	++a;
+	assertEqual(a.load(), 2, "Fake atomic support");
 }

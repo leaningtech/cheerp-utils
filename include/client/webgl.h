@@ -116,7 +116,7 @@ public:
 
 };
 
-class WebGLRenderingContext
+class WebGLRenderingContext: public RenderingContext
 {
 public: 
     int get_DEPTH_BUFFER_BIT();
