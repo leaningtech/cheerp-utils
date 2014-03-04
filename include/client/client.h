@@ -80,6 +80,98 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 {
 };
 
+namespace duetto
+{
+
+template<typename T>
+struct TypedArrayForPointerType;
+
+template<>
+struct TypedArrayForPointerType<unsigned char>
+{
+	typedef client::Uint8Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<signed char>
+{
+	typedef client::Int8Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<unsigned short>
+{
+	typedef client::Uint16Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<signed short>
+{
+	typedef client::Int16Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<unsigned int>
+{
+	typedef client::Uint32Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<signed int>
+{
+	typedef client::Int32Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<float>
+{
+	typedef client::Float32Array type;
+};
+
+template<>
+struct TypedArrayForPointerType<double>
+{
+	typedef client::Float64Array type;
+};
+
+template<typename P,typename T=typename TypedArrayForPointerType<P>::type>
+T* MakeTypedArray(const P* ptr, size_t size=0)
+{
+	size_t offset=__builtin_duetto_pointer_offset(ptr);
+	T* buf=(T*)__builtin_duetto_pointer_base(ptr);
+	size_t elementSize=sizeof(P);
+	if(size==0)
+		return buf->subarray(offset);
+	else
+		return buf->subarray(offset, size/elementSize);
+}
+
+template<typename T>
+T* MakeTypedArray(const void* ptr, size_t size=0)
+{
+	size_t offset=__builtin_duetto_pointer_offset(ptr);
+	T* buf=(T*)__builtin_duetto_pointer_base(ptr);
+	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
+	if(size==0)
+		return buf->subarray(offset);
+	else
+		return buf->subarray(offset, size/elementSize);
+}
+
+inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size=0)
+{
+	size_t offset=__builtin_duetto_pointer_offset(ptr);
+	//We use Int8Array to access BYTES_PER_ELEMENT
+	client::Int8Array* buf=(client::Int8Array*)__builtin_duetto_pointer_base(ptr);
+	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
+	if(size==0)
+		return buf->subarray(offset);
+	else
+		return buf->subarray(offset, size/elementSize);
+}
+
+}
+
 namespace client
 {
 
