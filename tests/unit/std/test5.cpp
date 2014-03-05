@@ -5,6 +5,8 @@
 #include <tests.h>
 #include <mutex>
 #include <atomic>
+//Including this should cause an error
+//#include <thread>
 
 void webMain()
 {
