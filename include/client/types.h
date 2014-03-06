@@ -109,6 +109,10 @@ public:
 	{
 		return ((Object**)this)[index];
 	}
+	Object* operator[](int index) const
+	{
+		return ((Object**)this)[index];
+	}
 	int indexOf(Object* searchElement);
 	int indexOf(Object* searchElement, int fromIndex);
 	template<typename... Args>
