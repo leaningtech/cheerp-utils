@@ -79,6 +79,8 @@ public:
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
+	String* substring(int start) const;
+	String* substring(int start, int end) const;
 	int charCodeAt(int index) const;
 	int get_length() const;
 	TArray<String>* split(const String&) const;
