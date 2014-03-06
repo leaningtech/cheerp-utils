@@ -1,5 +1,3 @@
-include ../tests.make
-
 EMCC=~/Sources/emscripten/emcc
 CLOSURE=../../closure/compiler.jar
 

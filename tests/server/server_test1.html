@@ -1,0 +1,18 @@
+<head>
+<script type="text/javascript">
+function loadCallback()
+{
+	var xhr=new XMLHttpRequest();
+	var args=[-42,0.0021];
+	xhr.open("GET","/duetto_call?f=_Z10serverTestif&a="+JSON.stringify(args),false);
+	xhr.send(null);
+	if(xhr.status!=200)
+		alert("Error in XHR");
+	else
+		document.write(xhr.responseText);
+}
+document.addEventListener("DOMContentLoaded",loadCallback);
+</script>
+</head>
+<body>
+</body>

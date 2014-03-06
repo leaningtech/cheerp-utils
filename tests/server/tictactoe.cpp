@@ -1,11 +1,12 @@
-#include "client.h"
-#include "server.h"
-#include "canvas.h"
+#ifdef __DUETTO_CLIENT__
+#include <duetto/client.h>
+#include <duetto/clientlib.h>
+#endif
+#ifdef __DUETTO_SERVER__
+#include <duetto/server.h>
+#endif
 
 #include <iostream>
-#include <vector>
-
-using namespace client;
 
 //TODO: enforce access only on server code
 struct GameState
@@ -38,44 +39,32 @@ struct GameState
 
 static GameState gameState;
 
-inline int serverTest() [[server]]
-{
-//	return "String created on the server";
-	std::cerr << "SERVER SIDE" << std::endl;
-	return 42;
-}
-
 struct gameAnswer
 {
 	int x;
 	int y;
 	bool valid;
-	//HACK: emscripten fails badly when working on small structs. Pad them for now
-	int pad1;
-	int pad2;
 	gameAnswer(int _x, int _y,bool v):x(_x),y(_y),valid(v){}
-	int serialize(char* outData) const
+#ifdef __DUETTO_SERVER__
+	void serialize(duetto::SerializationInterface* outData) const
 	{
-		outData[0]='[';
-		int ret=1;
-		ret+=server::serialize(outData+ret,x);
-		outData[ret]=',';
-		ret++;
-		ret+=server::serialize(outData+ret,y);
-		outData[ret]=',';
-		ret++;
-		ret+=server::serialize(outData+ret,valid);
-		outData[ret]=']';
-		outData[ret+1]='\0';
-		ret+=2;
-		return ret;
+		outData->write("[",1);
+		duetto::serialize<int>::run(outData,x);
+		outData->write(",",1);
+		duetto::serialize<int>::run(outData,y);
+		outData->write(",",1);
+		duetto::serialize<bool>::run(outData,valid);
+		outData->write("]",1);
 	}
-	static gameAnswer deserialize(const String& s) [[client]]
+#endif
+#ifdef __DUETTO_CLIENT__
+	static gameAnswer deserialize(const client::String& s) [[client]]
 	{
-		Array* a=static_cast<Array*>(Client::get_JSON()->parse(s));
+		client::Array* a=static_cast<client::Array*>(client::JSON.parse(s));
 		gameAnswer ret(*(*a)[0],*(*a)[1],*(*a)[2]);
 		return ret;
 	}
+#endif
 };
 
 /*
@@ -99,19 +88,20 @@ gameAnswer notifyClick(int x, int y) [[server]]
 	return gameAnswer(retX,retY,true);
 }
 
-void handleEvent(MouseEvent* e) [[client]]
+#ifdef __DUETTO_CLIENT__
+void handleEvent(client::MouseEvent* e) [[client]]
 {
-	Document* d=Client::get_document();
-	Element* elem=d->getElementById("canvas");
-	int relX = e->get_clientX() - elem->get_offsetLeft();
-	int relY = e->get_clientY() - elem->get_offsetTop();
+	client::Document* d=&client::document;
+	client::HTMLElement* elem=(client::HTMLElement*)d->getElementById("canvas");
+	int relX = e->get_offsetX();
+	int relY = e->get_offsetY();
 	int gameX = relX / 200;
 	int gameY = relY / 200;
 	const gameAnswer& a=notifyClick(gameX,gameY);
 	if(a.valid)
 	{
-		HTMLCanvasElement* canvas=static_cast<HTMLCanvasElement*>(elem);
-		CanvasRenderingContext2D* ctx=static_cast<CanvasRenderingContext2D*>(canvas->getContext("2d"));
+		client::HTMLCanvasElement* canvas=static_cast<client::HTMLCanvasElement*>(elem);
+		client::CanvasRenderingContext2D* ctx=static_cast<client::CanvasRenderingContext2D*>(canvas->getContext("2d"));
 		ctx->moveTo(gameX*200+10,gameY*200+10);
 		ctx->lineTo(gameX*200+190,gameY*200+190);
 		ctx->moveTo(gameX*200+10,gameY*200+190);
@@ -122,6 +112,7 @@ void handleEvent(MouseEvent* e) [[client]]
 		ctx->stroke();
 	}
 }
+#endif
 
 int getClickCount() [[server]]
 {
@@ -130,20 +121,22 @@ int getClickCount() [[server]]
 	return clickCount;
 }
 
-void handleRightClick(MouseEvent* e) [[client]]
+#ifdef __DUETTO_CLIENT__
+void handleRightClick(client::MouseEvent* e) [[client]]
 {
-	Document* d=Client::get_document();
-	Element* elem = d->getElementById("title");
+	client::Document* d=&client::document;
+	client::Element* elem = d->getElementById("clickcount");
 	elem->set_textContent(getClickCount());
 	e->preventDefault();
 }
+#endif
 
 void clientTest() [[client]]
 {
-	Document* d=Client::get_document();
-	Element* e=d->getElementById("canvas");
-	HTMLCanvasElement* canvas=static_cast<HTMLCanvasElement*>(e);
-	CanvasRenderingContext2D* ctx=static_cast<CanvasRenderingContext2D*>(canvas->getContext("2d"));
+	client::Document* d=&client::document;
+	client::Element* e=d->getElementById("canvas");
+	client::HTMLCanvasElement* canvas=static_cast<client::HTMLCanvasElement*>(e);
+	client::CanvasRenderingContext2D* ctx=static_cast<client::CanvasRenderingContext2D*>(canvas->getContext("2d"));
 	for(int i=1;i<3;i++)
 	{
 		ctx->moveTo(i*200,0);
@@ -169,10 +162,5 @@ inline void resetGame() [[server]]
 void webMain() [[client]]
 {
 	resetGame();
-}
-
-void serverMain() [[server]]
-{
-	std::cerr << "Initializing game" << std::endl;
-	resetGame();
+	client::document.addEventListener("DOMContentLoaded",client::Callback(clientTest));
 }
