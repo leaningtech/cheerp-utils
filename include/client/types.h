@@ -22,6 +22,7 @@
 #define _DUETTO_TYPES_H_2043d438
 
 #include <utility>
+#include <string>
 
 namespace client
 {
@@ -84,6 +85,16 @@ public:
 	static String* fromCharCode(int c)
 	{
 		return duettoVariadicTrap<String*>("String.fromCharCode", (int)c);
+	}
+	explicit operator std::string() const
+	{
+		//This assume an ascii string
+		//TODO: Try wstring or similar
+		std::string ret;
+		ret.resize(get_length());
+		for(int i=0;i<get_length();i++)
+			ret[i] = charCodeAt(i);
+		return ret;
 	}
 };
 
