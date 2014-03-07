@@ -20,7 +20,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include "server.h"
+#include <duetto/server.h>
 
 using namespace duetto;
 
@@ -77,6 +77,12 @@ int duetto::deserialize(const char*& data)
 	//Stop here, no other stuff is allowed, parsing will fail later if there is
 	//a fractional part
 	return ret;
+}
+
+template<>
+unsigned char duetto::deserialize(const char*& data)
+{
+	return duetto::deserialize<int>(data);
 }
 
 template<>

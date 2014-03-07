@@ -24,7 +24,7 @@
 #include <pion/PionAlgorithms.hpp>
 #include <iostream>
 #include <fstream>
-#include <server.h>
+#include <duetto/server.h>
 
 using namespace pion::net;
 using namespace std;
