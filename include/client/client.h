@@ -26,6 +26,7 @@
 
 #include <utility>
 #include <functional>
+#include <vector>
 
 //Passthrough code to pass event handlers in a semi type safe manner
 inline client::EventListener& SimpleCallback(void (*func)())
@@ -178,41 +179,205 @@ namespace client
 extern Document document;
 
 template<typename T>
-String* serialize(const T& data)
+struct serializeImpl
 {
-	return data.serialize();
-}
+	static client::String* run(const T& data)
+	{
+		return data.serialize();
+	}
+};
 
-inline String* serialize(int data) [[client]]
+template<>
+struct serializeImpl<char>
 {
-	return JSON.stringify(data);
-}
+	static client::String* run(char data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
 
-inline String* serialize(float data) [[client]]
+template<>
+struct serializeImpl<unsigned char>
 {
-	return JSON.stringify(data);
+	static client::String* run(unsigned char data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<int>
+{
+	static client::String* run(int data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<unsigned int>
+{
+	static client::String* run(unsigned int data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<long>
+{
+	static client::String* run(long data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<unsigned long>
+{
+	static client::String* run(unsigned long data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<float>
+{
+	static client::String* run(float data) [[client]]
+	{
+		return client::JSON.stringify(data);
+	}
+};
+
+template<>
+struct serializeImpl<std::string>
+{
+	static client::String* run(const std::string& data) [[client]]
+	{
+		return client::JSON.stringify(new client::String(data.c_str()));
+	}
+};
+
+template<typename T>
+inline client::String* serialize(const T& data) [[client]]
+{
+	return serializeImpl<T>::run(data);
 }
 
 //TODO: add generic deserializer
 template<typename T>
-T deserialize(const String* s)
+struct deserializeImpl
 {
-	return T::deserialize(s);
-}
+	static T run(const client::String* s)
+	{
+		return T::deserialize(s);
+	}
+};
 
 template<>
-inline int deserialize<int>(const String* s) [[client]]
+struct deserializeImpl<int>
 {
-	Object* ret=JSON.parse(*s);
-	//TODO: Find a proper way to check for type
-	return *ret;
+	static int run(const client::String* s) [[client]]
+	{
+		client::Object* ret=client::JSON.parse(*s);
+		return *ret;
+	}
+};
+
+template<>
+struct deserializeImpl<unsigned int>
+{
+	static unsigned int run(const client::String* s) [[client]]
+	{
+		client::Object* ret=client::JSON.parse(*s);
+		return *ret;
+	}
+};
+
+template<>
+struct deserializeImpl<long>
+{
+	static long run(const client::String* s) [[client]]
+	{
+		client::Object* ret=client::JSON.parse(*s);
+		return *ret;
+	}
+};
+
+template<>
+struct deserializeImpl<unsigned long>
+{
+	static unsigned long run(const client::String* s) [[client]]
+	{
+		client::Object* ret=client::JSON.parse(*s);
+		return *ret;
+	}
+};
+
+template<typename T>
+struct deserializeImpl<std::vector<T>>
+{
+	static std::vector<T> run(const client::String* s) [[client]]
+	{
+		std::vector<T> ret;
+		if(s->charCodeAt(0)!='[')
+			return ret;
+		int wrapCount=0;
+		int firstChar=1;
+		for(int lastChar=1;lastChar<s->get_length();lastChar++)
+		{
+			//TODO: Support [], inside strings
+			if(wrapCount==0 && (s->charCodeAt(lastChar)==',' || s->charCodeAt(lastChar)==']'))
+			{
+				ret.emplace_back(deserializeImpl<T>::run(s->substring(firstChar, lastChar)));
+				firstChar=lastChar+1;
+			}
+			else if(s->charCodeAt(lastChar)=='[')
+				wrapCount++;
+			else if(s->charCodeAt(lastChar)==']')
+				wrapCount--;
+		}
+		return ret;
+	}
+};
+
+template<>
+struct deserializeImpl<std::string>
+{
+	static std::string run(const client::String* s) [[client]]
+	{
+		return (std::string)*s;
+	}
+};
+
+template<class OutputIterator>
+inline void deserializeArrayInPlace(OutputIterator begin, const OutputIterator end, const client::String* s)
+{
+	const client::Array& a=*(client::Array*)client::JSON.parse(*s);
+	int index=0;
+	for(;begin!=end;++begin)
+	{
+		//TODO: Fix this, Currently only works for integer
+		*begin = *a[index];
+		index++;
+	}
 }
 
 //TODO: add meaningful error messages when the deserializer is missing
 template<>
-inline void deserialize<void>(const String* s) [[client]]
+struct deserializeImpl<void>
 {
-	return;
+	static void run(const client::String* s) [[client]]
+	{
+		return;
+	}
+};
+
+template<typename T>
+T deserialize(const client::String* s) [[client]]
+{
+	return deserializeImpl<T>::run(s);
 }
 
 template<class T>
