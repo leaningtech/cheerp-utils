@@ -46,7 +46,7 @@ public:
 };
 
 template<typename T>
-struct serialize
+struct serializeImpl
 {
 	static void run(SerializationInterface* outData, const T& data)
 	{
@@ -55,7 +55,7 @@ struct serialize
 };
 
 template<>
-struct serialize<bool>
+struct serializeImpl<bool>
 {
 	static void run(SerializationInterface* outData, bool data)
 	{
@@ -86,8 +86,18 @@ inline void serializeUnsignedInt(SerializationInterface* outData, unsigned int d
 	outData->write(buf, reqBuf);
 }
 
+inline void serializeDouble(SerializationInterface* outData, double data)
+{
+	int reqBuf = snprintf(NULL,0,"%g",data);
+	if(reqBuf < 0)
+		return;
+	char buf[reqBuf+1];
+	sprintf(buf,"%g",data);
+	outData->write(buf, reqBuf);
+}
+
 template<>
-struct serialize<char>
+struct serializeImpl<char>
 {
 	static void run(SerializationInterface* outData, char data)
 	{
@@ -96,7 +106,7 @@ struct serialize<char>
 };
 
 template<>
-struct serialize<unsigned char>
+struct serializeImpl<unsigned char>
 {
 	static void run(SerializationInterface* outData, unsigned char data)
 	{
@@ -105,7 +115,7 @@ struct serialize<unsigned char>
 };
 
 template<>
-struct serialize<int>
+struct serializeImpl<int>
 {
 	static void run(SerializationInterface* outData, int data)
 	{
@@ -114,7 +124,25 @@ struct serialize<int>
 };
 
 template<>
-struct serialize<std::string>
+struct serializeImpl<unsigned int>
+{
+	static void run(SerializationInterface* outData, unsigned int data)
+	{
+		serializeUnsignedInt(outData, data);
+	}
+};
+
+template<>
+struct serializeImpl<float>
+{
+	static void run(SerializationInterface* outData, float data)
+	{
+		serializeDouble(outData, data);
+	}
+};
+
+template<>
+struct serializeImpl<std::string>
 {
 	static void run(SerializationInterface* outData, const std::string& data)
 	{
@@ -132,7 +160,7 @@ inline void serializeRange(duetto::SerializationInterface* outData, InputIterato
 	{
 		if(!first)
 			outData->write(",",1);
-		serialize<
+		serializeImpl<
 			typename std::remove_const<typename std::remove_reference<decltype(*begin)>::type>::type
 			>::run(outData, *begin);
 		first=false;
@@ -141,13 +169,19 @@ inline void serializeRange(duetto::SerializationInterface* outData, InputIterato
 }
 
 template<class T>
-struct serialize<std::vector<T>>
+struct serializeImpl<std::vector<T>>
 {
 	static void run(duetto::SerializationInterface* outData, const std::vector<T>& data)
 	{
 		serializeRange(outData, data.begin(), data.end());
 	}
 };
+
+template<typename T>
+inline void serialize(duetto::SerializationInterface* outData, const T& data)
+{
+	return serializeImpl<T>::run(outData, data);
+}
 
 template<class T>
 T deserialize(const char*& data);
@@ -196,7 +230,7 @@ struct voidUtils
 	{
 		Connection* c=connection;
 		p->then([c] (const R& r) mutable {
-			duetto::serialize<R>::run(c, r);
+			duetto::serializeImpl<R>::run(c, r);
 			c->flush();
 			});
 	}
@@ -220,7 +254,7 @@ struct returnSerializer
 	static PromiseBase* serialize(SerializationInterface* outData, const char* inData)
 	{
 		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
-		duetto::serialize<Ret>::run(outData, r);
+		duetto::serializeImpl<Ret>::run(outData, r);
 		return NULL;
 	}
 };
