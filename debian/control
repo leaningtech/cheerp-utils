@@ -8,6 +8,7 @@ Build-Depends: debhelper (>=8), duetto-llvm-clang
 Package: duetto-utils
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, duetto-llvm-clang
+Conflicts: duetto
 Description: A C++ compiler for the Web, includes and tools
  Duetto is a tool to bring C++ programming to the Web,
  designed to provide a seamless experience for client/server
