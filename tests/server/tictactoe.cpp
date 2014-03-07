@@ -49,11 +49,11 @@ struct gameAnswer
 	void serialize(duetto::SerializationInterface* outData) const
 	{
 		outData->write("[",1);
-		duetto::serialize<int>::run(outData,x);
+		duetto::serialize<int>(outData,x);
 		outData->write(",",1);
-		duetto::serialize<int>::run(outData,y);
+		duetto::serialize<int>(outData,y);
 		outData->write(",",1);
-		duetto::serialize<bool>::run(outData,valid);
+		duetto::serialize<bool>(outData,valid);
 		outData->write("]",1);
 	}
 #endif
