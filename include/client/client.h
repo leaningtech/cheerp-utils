@@ -171,13 +171,6 @@ inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size
 		return buf->subarray(offset, size/elementSize);
 }
 
-}
-
-namespace client
-{
-
-extern Document document;
-
 template<typename T>
 struct serializeImpl
 {
@@ -380,6 +373,47 @@ T deserialize(const client::String* s) [[client]]
 	return deserializeImpl<T>::run(s);
 }
 
+template<typename Ret, typename ...Args>
+struct clientStubImpl
+{
+	static client::String* serializeArgsImpl(client::String* ret) [[client]]
+	{
+		return ret;
+	}
+	template<class Serialize, typename ...Args2>
+	static client::String* serializeArgsImpl(client::String* ret, const Serialize& s, Args2&&... args) [[client]]
+	{
+		ret=ret->concat(",",*serialize(s));
+		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
+	}
+	template<class Serialize, typename ...Args2>
+	static client::String* serializeArgs(const Serialize& s, Args2&&... args) [[client]]
+	{
+		client::String* ret=serialize(s);
+		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
+	}
+	static client::String* serializeArgs() [[client]]
+	{
+		return new client::String("");
+	}
+	static Ret run(const char* funcName, Args&&... args)
+	{
+		client::String* data=serializeArgs(std::forward<Args>(args)...);
+		client::XMLHttpRequest* r=new client::XMLHttpRequest();
+		client::String* url=new client::String("/duetto_call?f=");
+		url=url->concat(funcName,"&a=[",*encodeURIComponent(*data),"]");
+		r->open("GET",*url,false);
+		r->send();
+		return duetto::deserialize<Ret>(r->get_responseText());
+	}
+};
+} //End of namespace duetto
+
+namespace client
+{
+
+extern Document document;
+
 template<class T>
 client::EventListener& Callback(const T& func)
 {
@@ -394,46 +428,12 @@ client::EventListener& Callback(R func(Args...))
 	return SimpleCallback((void (*)())func);
 }
 
-template<typename Ret, typename ...Args>
-struct clientStubImpl
-{
-	static String* serializeArgsImpl(String* ret) [[client]]
-	{
-		return ret;
-	}
-	template<class Serialize, typename ...Args2>
-	static String* serializeArgsImpl(String* ret, const Serialize& s, Args2&&... args) [[client]]
-	{
-		ret=ret->concat(",",*serialize(s));
-		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
-	}
-	template<class Serialize, typename ...Args2>
-	static String* serializeArgs(const Serialize& s, Args2&&... args) [[client]]
-	{
-		String* ret=serialize(s);
-		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
-	}
-	static String* serializeArgs() [[client]]
-	{
-		return new String("");
-	}
-	static Ret run(const char* funcName, Args&&... args)
-	{
-		client::String* data=serializeArgs(std::forward<Args>(args)...);
-		client::XMLHttpRequest* r=new client::XMLHttpRequest();
-		client::String* url=new client::String("/duetto_call?f=");
-		url=url->concat(funcName,"&a=[",*data,"]");
-		r->open("GET",*url,false);
-		r->send();
-		return client::deserialize<Ret>(r->get_responseText());
-	}
-};
 }
 
 template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[client]]
 {
-	return client::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
+	return duetto::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
 }
 
 #endif
