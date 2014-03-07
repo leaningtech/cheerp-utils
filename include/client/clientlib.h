@@ -3080,10 +3080,10 @@ namespace client
 
 	class KeyboardEventExtensions{
 	public:
-		double get_keyCode();
+		int get_keyCode();
 		void set_which(double value);
 		double get_which();
-		double get_charCode();
+		int get_charCode();
 	};
 
 	class History{
