@@ -11,11 +11,6 @@
 
 using namespace client;
 
-//Bridge method implemented in JS since feature testing is not yet supported by Duetto
-extern "C" {
-	void compatRequestAnimationFrame(const EventListener&);
-}
-
 void MakePerspective(float* matrix, double FOV, double AspectRatio, double Closest, double Farest)
 {
 	double YLimit = Closest * client::Math.tan(FOV * client::Math.get_PI() / 360);
@@ -94,7 +89,7 @@ double lastTime;
 
 void drawCallback() [[client]]
 {
-	compatRequestAnimationFrame(Callback(drawCallback));
+	requestAnimationFrame(Callback(drawCallback));
 
 	gl->clearColor(0,0,0,1);
 	gl->clear(gl->get_COLOR_BUFFER_BIT());
@@ -109,13 +104,13 @@ void drawCallback() [[client]]
 	double currentTime=client::Date.now();
 	Translate(mvMatrix, 0, (currentTime-lastTime)/1000, 0);
 	lastTime=currentTime;
-	gl->uniformMatrix4fv(mvMatrixUniform, false, mvMatrix);
+	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
 }
 
 void loadCallback() [[client]]
 {
 	auto canvas=static_cast<HTMLCanvasElement*>(document.getElementById("glcanvas"));
-	gl=reinterpret_cast<WebGLRenderingContext*>(canvas->getContext("experimental-webgl"));
+	gl=static_cast<WebGLRenderingContext*>(canvas->getContext("experimental-webgl"));
 	WebGLUniformLocation* pMatrixUniform;
 	WebGLProgram* program=gl->createProgram();
 	WebGLShader* pShader=gl->createShader(gl->get_FRAGMENT_SHADER());
@@ -159,14 +154,14 @@ void loadCallback() [[client]]
 	positionBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), positionBuf);
 	float vertices[] = {0.0,  1.0,  -6.0, -1.0, -1.0,  -6.0, 1.0, -1.0, -6.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), Float32Array(vertices), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), duetto::MakeTypedArray(vertices), gl->get_STATIC_DRAW());
 
 	colorBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), colorBuf);
 	float colors[] = {1.0,  0.0,  0.0, 1.0,
 			0.0, 1.0, 0.0, 1.0,
 			0.0, 0.0, 1.0, 1.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), Float32Array(colors), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), duetto::MakeTypedArray(colors), gl->get_STATIC_DRAW());
 
 	float pMatrix[16];
 	MakePerspective(pMatrix, 45, 1, 0.1, 100);
@@ -174,8 +169,8 @@ void loadCallback() [[client]]
 	MakeIdentity(mvMatrix);
 	lastTime=client::Date.now();
 
-	gl->uniformMatrix4fv(pMatrixUniform, false, pMatrix);
-	gl->uniformMatrix4fv(mvMatrixUniform, false, mvMatrix);
+	gl->uniformMatrix4fv(pMatrixUniform, false, duetto::MakeTypedArray(pMatrix));
+	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
 
 	drawCallback();
 }
