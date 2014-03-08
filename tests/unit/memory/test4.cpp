@@ -1,5 +1,5 @@
 //===---------------------------------------------------------------------===//
-//	Copyright 2013 Leaning Technlogies
+//	Copyright 2013-2014 Leaning Technlogies
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
@@ -26,5 +26,5 @@ void webMain()
 	assertEqual(a2.b, 0, "C++ implicit operator=() 2/4");
 	a2 = a1;
 	assertEqual(a2.a, 10, "C++ implicit operator=() 3/4");
-	assertEqual(a2.b, 0.2, "C++ implicit operator=() 4/4");
+	assertEqual(a2.b, 0.2f, "C++ implicit operator=() 4/4");
 }
