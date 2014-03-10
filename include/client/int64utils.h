@@ -45,13 +45,13 @@ public:
 	BaseInt64(BaseInt64<S> r):high(r.high),low(r.low)
 	{
 	}
-	BaseInt64<Signed>& operator=(uint32_t r)
+	BaseInt64<Signed>& operator=(unsigned long r)
 	{
 		high = 0;
 		low = r;
 		return *this;
 	}
-	BaseInt64<Signed>& operator=(int32_t r)
+	BaseInt64<Signed>& operator=(long r)
 	{
 		high = (r<0)?0xffffffff:0;
 		low = r;
@@ -84,14 +84,14 @@ public:
 		low+=r;
 		return *this;
 	}
-	BaseInt64<Signed>& operator+=(uint32_t r)
+	BaseInt64<Signed>& operator+=(unsigned long r)
 	{
 		bool overflow = low > 0xffffffff - r;
 		high+=overflow;
 		low+=r;
 		return *this;
 	}
-	BaseInt64<Signed>& operator+=(int32_t r)
+	BaseInt64<Signed>& operator+=(long r)
 	{
 		bool overflow = low > 0xffffffff - r;
 		high+=overflow;
@@ -120,12 +120,12 @@ public:
 		low+=r.low;
 		return *this;
 	}
-	BaseInt64<Signed>& operator-=(uint32_t r)
+	BaseInt64<Signed>& operator-=(unsigned long r)
 	{
 		*this += (-r);
 		return *this;
 	}
-	BaseInt64<Signed>& operator-=(int32_t r)
+	BaseInt64<Signed>& operator-=(long r)
 	{
 		*this += (-r);
 		return *this;
@@ -146,12 +146,12 @@ public:
 		*this += (-r);
 		return *this;
 	}
-	BaseInt64<Signed>& operator*=(uint32_t r)
+	BaseInt64<Signed>& operator*=(unsigned long r)
 	{
 		*this *= BaseInt64<false>(r);
 		return *this;
 	}
-	BaseInt64<true>& operator*=(int32_t r)
+	BaseInt64<true>& operator*=(long r)
 	{
 		*this *= BaseInt64<true>(r);
 		return *this;
@@ -203,13 +203,13 @@ public:
 		ret+=b;
 		return ret;
 	}
-	BaseInt64<Signed> operator+(uint32_t r) const
+	BaseInt64<Signed> operator+(unsigned long r) const
 	{
 		BaseInt64<Signed> ret=*this;
 		ret+=r;
 		return ret;
 	}
-	BaseInt64<true> operator+(int32_t r) const
+	BaseInt64<true> operator+(long r) const
 	{
 		BaseInt64<true> ret=*this;
 		ret+=r;
@@ -234,13 +234,13 @@ public:
 		ret+=r;
 		return ret;
 	}
-	BaseInt64<true> operator-(uint32_t r) const
+	BaseInt64<true> operator-(unsigned long r) const
 	{
 		BaseInt64<true> ret=*this;
 		ret-=r;
 		return ret;
 	}
-	BaseInt64<true> operator-(int32_t r) const
+	BaseInt64<true> operator-(long r) const
 	{
 		BaseInt64<true> ret=*this;
 		ret-=r;
@@ -265,13 +265,13 @@ public:
 		ret-=r;
 		return ret;
 	}
-	BaseInt64<Signed> operator*(uint32_t r) const
+	BaseInt64<Signed> operator*(unsigned long r) const
 	{
 		BaseInt64<Signed> ret=*this;
 		ret*=r;
 		return ret;
 	}
-	BaseInt64<true> operator*(int32_t r) const
+	BaseInt64<true> operator*(long r) const
 	{
 		BaseInt64<Signed> ret=*this;
 		ret*=r;
@@ -384,11 +384,11 @@ public:
 		ret <<= r;
 		return ret;
 	}
-	bool operator==(uint32_t r) const
+	bool operator==(unsigned long r) const
 	{
 		return high==0 && low==r;
 	}
-	bool operator==(int32_t r) const
+	bool operator==(long r) const
 	{
 		return high==0 && low==r;
 	}
@@ -405,11 +405,11 @@ public:
 	{
 		return high==r.high && low==r.low;
 	}
-	bool operator<(uint32_t r) const
+	bool operator<(unsigned long r) const
 	{
 		return *this < BaseInt64<false>(r);
 	}
-	bool operator<(int32_t r) const
+	bool operator<(long r) const
 	{
 		return *this < BaseInt64<true>(r);
 	}
@@ -439,11 +439,11 @@ public:
 			return true;
 		return false;
 	}
-	bool operator<=(uint32_t r) const
+	bool operator<=(unsigned long r) const
 	{
 		return *this < BaseInt64<false>(r);
 	}
-	bool operator<=(int32_t r) const
+	bool operator<=(long r) const
 	{
 		return *this < BaseInt64<true>(r);
 	}
@@ -473,11 +473,11 @@ public:
 			return true;
 		return false;
 	}
-	bool operator>(uint32_t r) const
+	bool operator>(unsigned long r) const
 	{
 		return *this > BaseInt64<false>(r);
 	}
-	bool operator>(int32_t r) const
+	bool operator>(long r) const
 	{
 		return *this > BaseInt64<true>(r);
 	}
@@ -507,11 +507,11 @@ public:
 			return true;
 		return false;
 	}
-	bool operator>=(uint32_t r) const
+	bool operator>=(unsigned long r) const
 	{
 		return *this >= BaseInt64<false>(r);
 	}
-	bool operator>=(int32_t r) const
+	bool operator>=(long r) const
 	{
 		return *this >= BaseInt64<true>(r);
 	}
@@ -552,7 +552,7 @@ public:
 typedef BaseInt64<true> Int64;
 typedef BaseInt64<false> UInt64;
 
-inline Int64 operator*(int32_t l, Int64 r)
+inline Int64 operator*(long l, Int64 r)
 {
 	return BaseInt64<true>(l)*r;
 }
