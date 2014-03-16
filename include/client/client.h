@@ -23,6 +23,7 @@
 
 #include "duetto/types.h"
 #include "duetto/clientlib.h"
+#include <duetto/promise.h>
 
 #include <utility>
 #include <functional>
@@ -80,6 +81,27 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 	public CallbackHelperBase<std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
 {
 };
+
+namespace client
+{
+
+extern Document document;
+
+template<class T>
+client::EventListener& Callback(const T& func)
+{
+	typedef decltype(&T::operator()) lambda_type;
+	typedef CallbackHelper<T, lambda_type> callback_helper;
+	return callback_helper::make_callback(func);
+}
+
+template<class R, class... Args>
+client::EventListener& Callback(R func(Args...))
+{
+	return SimpleCallback((void (*)())func);
+}
+
+}
 
 namespace duetto
 {
@@ -253,6 +275,42 @@ struct serializeImpl<std::string>
 };
 
 template<typename T>
+struct serializeImpl<std::vector<T>>
+{
+	static client::String* run(const std::vector<T>& data) [[client]]
+	{
+		client::String* ret=new client::String("[");
+		for(uint32_t i=0;i<data.size();i++)
+		{
+			if(i!=0)
+				ret=ret->concat(",",serializeImpl<T>::run(data[i]));
+			else
+				ret=ret->concat(serializeImpl<T>::run(data[i]));
+		}
+		return ret->concat("]");
+	}
+};
+
+template<class InputIterator>
+inline client::String* serializeRange(InputIterator begin, const InputIterator end)
+{
+	//Serialize as an array
+	client::String* ret=new client::String("[");
+	bool first=true;
+	for(;begin!=end;++begin)
+	{
+		if(!first)
+			ret=ret->concat(",");
+		ret=ret->concat(serializeImpl<
+			typename std::remove_const<typename std::remove_reference<decltype(*begin)>::type>::type
+			>::run(*begin));
+		first=false;
+	}
+	return ret->concat("]");
+}
+
+
+template<typename T>
 inline client::String* serialize(const T& data) [[client]]
 {
 	return serializeImpl<T>::run(data);
@@ -321,7 +379,8 @@ struct deserializeImpl<std::vector<T>>
 		for(int lastChar=1;lastChar<s->get_length();lastChar++)
 		{
 			//TODO: Support [], inside strings
-			if(wrapCount==0 && (s->charCodeAt(lastChar)==',' || s->charCodeAt(lastChar)==']'))
+			if(wrapCount==0 && lastChar!=firstChar &&
+				(s->charCodeAt(lastChar)==',' || s->charCodeAt(lastChar)==']'))
 			{
 				ret.emplace_back(deserializeImpl<T>::run(s->substring(firstChar, lastChar)));
 				firstChar=lastChar+1;
@@ -373,6 +432,68 @@ T deserialize(const client::String* s) [[client]]
 	return deserializeImpl<T>::run(s);
 }
 
+template<class T>
+struct voidUtils
+{
+	static void triggerDone(duetto::Promise<T>* p, client::XMLHttpRequest* r)
+	{
+		p->done(duetto::deserialize<T>(r->get_responseText()));
+	}
+};
+
+template<>
+struct voidUtils<void>
+{
+	static void triggerDone(duetto::Promise<void>* p, client::XMLHttpRequest*)
+	{
+		p->done();
+	}
+};
+
+template<class T>
+struct promiseUtils: public std::false_type
+{
+	static void* addCallbackIfNeeded(client::XMLHttpRequest* r)
+	{
+		return NULL;
+	}
+	static T getReturn(void* p, client::XMLHttpRequest* r)
+	{
+		return duetto::deserialize<T>(r->get_responseText());
+	}
+	static bool is_promise()
+	{
+		return value;
+	}
+};
+
+template<class T>
+struct promiseUtils<duetto::Promise<T>*>: public std::true_type
+{
+	// addCallback create the onload callback for the asynchronous case
+	// and returns a pointer to the promise. The synchronous implementation
+	// returns an unused NULL void*
+	static duetto::Promise<T>* addCallbackIfNeeded(client::XMLHttpRequest* r)
+	{
+		duetto::Promise<T>* ret=new duetto::Promise<T>();
+		r->addEventListener("load",client::Callback([ret](client::ProgressEvent* e) mutable {
+				client::XMLHttpRequest* r=(client::XMLHttpRequest*)e->get_target();
+				voidUtils<T>::triggerDone(ret, r);
+				}));
+		return ret;
+	}
+	// This forwards the promise to the caller. The synchronous implementation runs the
+	// deserialization and returns the full object, while ignoring the fake promiseRet
+	static duetto::Promise<T>* getReturn(duetto::Promise<T>* p, client::XMLHttpRequest* r)
+	{
+		return p;
+	}
+	static bool is_promise()
+	{
+		return value;
+	}
+};
+
 template<typename Ret, typename ...Args>
 struct clientStubImpl
 {
@@ -402,33 +523,14 @@ struct clientStubImpl
 		client::XMLHttpRequest* r=new client::XMLHttpRequest();
 		client::String* url=new client::String("/duetto_call?f=");
 		url=url->concat(funcName,"&a=[",*encodeURIComponent(*data),"]");
-		r->open("GET",*url,false);
+		auto promiseRet = promiseUtils<Ret>::addCallbackIfNeeded(r);
+		// If the return is not a promise we will be synchronous
+		r->open("GET",*url,promiseUtils<Ret>::is_promise());
 		r->send();
-		return duetto::deserialize<Ret>(r->get_responseText());
+		return promiseUtils<Ret>::getReturn(promiseRet, r);
 	}
 };
 } //End of namespace duetto
-
-namespace client
-{
-
-extern Document document;
-
-template<class T>
-client::EventListener& Callback(const T& func)
-{
-	typedef decltype(&T::operator()) lambda_type;
-	typedef CallbackHelper<T, lambda_type> callback_helper;
-	return callback_helper::make_callback(func);
-}
-
-template<class R, class... Args>
-client::EventListener& Callback(R func(Args...))
-{
-	return SimpleCallback((void (*)())func);
-}
-
-}
 
 template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[client]]

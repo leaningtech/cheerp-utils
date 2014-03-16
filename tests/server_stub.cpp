@@ -25,11 +25,19 @@
 #include <iostream>
 #include <fstream>
 #include <duetto/server.h>
+#include <duetto/promise.h>
+#include <duetto/connection.h>
 
 using namespace pion::net;
 using namespace std;
 
-typedef void (*entryPointSig)(duetto::SerializationInterface* inData, const char* outData);
+namespace duetto
+{
+	Connection* connection;
+	Server* server;
+}
+
+typedef duetto::PromiseBase* (*entryPointSig)(duetto::SerializationInterface* inData, const char* outData);
 
 struct DuettoMap
 {
@@ -38,22 +46,6 @@ struct DuettoMap
 };
 
 extern DuettoMap duettoFuncMap[];
-
-class PionSerializationInterface: public duetto::SerializationInterface
-{
-private:
-	TCPConnectionPtr conn;
-public:
-	PionSerializationInterface(TCPConnectionPtr c):conn(c)
-	{
-	}
-	void flush()
-	{
-		boost::system::error_code error;
-		conn->write(boost::asio::buffer(buffer, offset), error);
-		offset=0;
-	}
-};
 
 void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
@@ -80,18 +72,15 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 		return;
 	}
 
-	//Send the headers first
-	HTTPResponse response(*request);
-	response.setStatusCode(200);
-	response.setDoNotSendContentLength();
-	boost::system::error_code error;
-	response.send(*conn, error, true);
+	duetto::connection =
+		new duetto::Connection(HTTPResponseWriter::create(conn, *request, boost::bind(&TCPConnection::finish, conn)));
 	//Send the data using the serialization interface
-	PionSerializationInterface outData(conn);
-	callFunc(&outData,callArgs.c_str());
-	outData.flush();
-	cout << "FINISH" << endl;
-	conn->finish();
+	duetto::PromiseBase* promise=callFunc(duetto::connection,callArgs.c_str());
+	if(!promise)
+	{
+		duetto::connection->flush();
+		duetto::connection->send();
+	}
 }
 
 void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
@@ -133,6 +122,7 @@ int main()
 	pion::PionSingleServiceScheduler sched;
 	sched.setNumThreads(1);
 	HTTPServerPtr server(new HTTPServer(sched,1987));
+	duetto::server = new duetto::Server(server, sched.getIOService());
 	server->addResource("/duetto_call", requestHandler);
 	server->addResource("/", fileRequestHandler);
 	server->start();

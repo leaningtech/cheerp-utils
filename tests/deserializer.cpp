@@ -86,6 +86,13 @@ unsigned char duetto::deserialize(const char*& data)
 }
 
 template<>
+unsigned int duetto::deserialize(const char*& data)
+{
+	//TODO: Check for minus sign
+	return duetto::deserialize<int>(data);
+}
+
+template<>
 float duetto::deserialize(const char*& data)
 {
 	//JSON decoder for number

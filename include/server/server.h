@@ -184,7 +184,41 @@ inline void serialize(duetto::SerializationInterface* outData, const T& data)
 }
 
 template<class T>
-T deserialize(const char*& data);
+T deserialize(const char*& data)
+{
+	return T::deserialize(data);
+}
+
+template<>
+unsigned char deserialize(const char*& data);
+
+template<>
+unsigned int deserialize(const char*& data);
+
+template<>
+int deserialize(const char*& data);
+
+template<>
+float deserialize(const char*& data);
+
+template<>
+const std::string deserialize(const char*& data);
+
+template<class OutputIterator>
+inline void deserializeArrayInPlace(OutputIterator begin, const OutputIterator end, const char*& data)
+{
+	//First char is '['
+	data++;
+	for(;begin!=end;++begin)
+	{
+		*begin=deserialize<
+			typename std::remove_reference<decltype(*begin)>::type
+		>(data);
+		//A comma follows
+		data++;
+	}
+}
+
 
 //This is used for the no arguments case
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
@@ -232,7 +266,9 @@ struct voidUtils
 		p->then([c] (const R& r) mutable {
 			duetto::serializeImpl<R>::run(c, r);
 			c->flush();
+			c->send();
 			});
+		p->complete();
 	}
 };
 
@@ -244,7 +280,9 @@ struct voidUtils<void>
 		Connection* c(connection);
 		p->then([c]() mutable {
 			c->flush();
+			c->send();
 			});
+		p->complete();
 	}
 };
 
