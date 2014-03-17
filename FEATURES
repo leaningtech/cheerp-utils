@@ -1,3 +1,0 @@
-No auto splitting of JS methods, difficult to do, performance issues
-TODO: use WebWorkers to keep interativity
-Sync AJAX
