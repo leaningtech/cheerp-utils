@@ -1,5 +1,5 @@
 //===---------------------------------------------------------------------===//
-//	Copyright 2013 Leaning Technlogies
+//	Copyright 2013-2014 Leaning Technlogies
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
@@ -13,6 +13,8 @@ static const char* str3=str+2;
 static char str4[] = "testStr3";
 
 static char* str5[] = { str4 };
+
+static char* str6[] = { &str4[3] };
 
 void webMain()
 {
@@ -49,7 +51,15 @@ void webMain()
 	char a5=*lstr6[0];
 	char b5=lstr6[0][0];
 	char c5=lstr6[0][1];
-	assertEqual(a5, 't', "Access to global array using local pointer with offset 1/3");
-	assertEqual(b5, 't', "Access to global array using local pointer with offset 2/3");
-	assertEqual(c5, 'e', "Access to global array using local pointer with offset 3/3");
+	assertEqual(a5, 't', "Access to global array using local pointer with offset 1/6");
+	assertEqual(b5, 't', "Access to global array using local pointer with offset 2/6");
+	assertEqual(c5, 'e', "Access to global array using local pointer with offset 3/6");
+
+	char** lstr7 = str6;
+	char a6=*lstr7[0];
+	char b6=lstr7[0][0];
+	char c6=lstr7[0][1];
+	assertEqual(a6, 't', "Access to global array using local pointer with offset 4/6");
+	assertEqual(b6, 't', "Access to global array using local pointer with offset 5/6");
+	assertEqual(c6, 'S', "Access to global array using local pointer with offset 6/6");
 }
