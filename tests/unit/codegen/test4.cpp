@@ -4,7 +4,6 @@
 
 #include <tests.h>
 
-
 int * foo(int * a,int * b)
 {
     a[2] = b[1];
