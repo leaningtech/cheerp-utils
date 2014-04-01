@@ -9,7 +9,7 @@ function loadCallback()
 	if(xhr.status!=200)
 		alert("Error in XHR");
 	else
-		document.write(xhr.responseText);
+		console.log(xhr.responseText);
 }
 document.addEventListener("DOMContentLoaded",loadCallback);
 </script>
