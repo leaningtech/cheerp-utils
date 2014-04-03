@@ -1,5 +1,10 @@
 Duetto: C++ for the Web
 
+Version 0.9.5:
+
+	* Rebase on top of current LLVM/clang
+	* Several bug fixes
+
 Version 0.9.4:
 
 	* Reduce verbosity of type safety warning
