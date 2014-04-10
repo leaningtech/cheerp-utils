@@ -5,7 +5,7 @@
 #include <tests.h>
 #include <set>
 
-void webMain()
+void testSet()
 {
 	std::set<int> a;
 	assertEqual(a.size(), 0, "std::set 1/4");
@@ -27,4 +27,34 @@ void webMain()
 		++it;
 	}
 	assertEqual(correctOrder, true, "std::set ordering 4/4");
+}
+
+void testMultiset()
+{
+	std::multiset<int> a;
+	assertEqual(a.size(), 0, "std::multiset 1/4");
+	a.insert(1);
+	assertEqual(a.size(), 1, "std::multiset 2/4");
+	a.insert(10);
+	a.insert(99);
+	a.insert(100);
+	a.insert(100);
+	a.insert(-2);
+	assertEqual(a.size(), 6, "std::multiset 3/4");
+	int expected[] = {-2, 1, 10, 99, 100, 100};
+	std::multiset<int>::iterator it = a.begin();
+	bool correctOrder = true;
+	for(int i=0;i<a.size();i++)
+	{
+		if(*it != expected[i])
+			correctOrder = false;
+		++it;
+	}
+	assertEqual(correctOrder, true, "std::multiset ordering 4/4");
+}
+
+void webMain()
+{
+	testSet();
+	testMultiset();
 }
