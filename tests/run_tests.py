@@ -24,7 +24,7 @@ tests = ['unit/downcast/test1.cpp',
 		'unit/types/test5.cpp','unit/types/test6.cpp','unit/types/test7.cpp',
 	 'unit/globals/test1.cpp','unit/globals/test2.cpp','unit/globals/test3.cpp','unit/globals/test4.cpp',
 	 'unit/codegen/test1.cpp','unit/codegen/test2.cpp','unit/codegen/test3.cpp','unit/codegen/test4.cpp',
-		 'unit/codegen/test5.cpp','unit/codegen/test6.cpp',
+		 'unit/codegen/test5.cpp','unit/codegen/test6.cpp','unit/codegen/test7.cpp',
 	 'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp',
 	 'unit/static/test1.cpp']
 
