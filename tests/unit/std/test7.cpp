@@ -78,9 +78,18 @@ void testUnorderedSet()
 	assertEqual(correctOrder, true, "std::unordered_set ordering 4/4");
 }
 
+void testPointerSet()
+{
+	//These report an error as sets of pointers are not supported
+	//std::set<void*> a;
+	//std::multiset<void*> m;
+	//std::unordered_set<void*> u;
+}
+
 void webMain()
 {
 	testSet();
 	testMultiSet();
 	testUnorderedSet();
+	testPointerSet();
 }
