@@ -17,13 +17,14 @@ public:
 	}
 	void test()
 	{
-		testSuccessful = true;
+		if(b  == 42)
+			testSuccessful = true;
 	}
 };
 
 void webMain()
 {
 	//Test JS-layout struct
-	__asm__("var a=new JsStruct(); a.test()");
+	__asm__("var a=new JsStruct(3.0,42); a.test()");
 	assertEqual(testSuccessful, true, "JS interoperability using [[jsexport]]/__asm__");
 }
