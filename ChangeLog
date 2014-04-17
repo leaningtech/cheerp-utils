@@ -1,5 +1,15 @@
 Duetto: C++ for the Web
 
+Version 0.9.6:
+
+	* Initial support for debugging using Source Maps
+	* Improved type safety of SROA optimization and enabled it
+	* Collapse allocations when possible
+	* Enable GNU extensions to C++ by default
+	* Generate "strict" mode JavaScript
+	* Explicitly disable unsupported sets and maps of pointers
+	* Fixed std set and map for other types
+
 Version 0.9.5:
 
 	* Rebase on top of current LLVM/clang
