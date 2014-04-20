@@ -59,6 +59,9 @@ private:
 		}
 		return ret;
 	}
+	template<typename... Args>
+	String* concat(const String&, Args&&... args);
+	String* concat();
 public:
 	String() throw();
 	//Utility constructor to use an existing String
@@ -74,8 +77,7 @@ public:
 	template<typename... Args>
 	String* concat(Args&&... args)
 	{
-		return duettoVariadicMemberTrap<String*,String,decltype(static_cast<const String&>(std::forward<Args>(args)))...>("concat",
-						this,std::forward<Args>(args)...);
+		return concat(static_cast<const String&>(std::forward<Args>(args))...);
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
@@ -84,10 +86,7 @@ public:
 	int charCodeAt(int index) const;
 	int get_length() const;
 	TArray<String>* split(const String&) const;
-	static String* fromCharCode(int c)
-	{
-		return duettoVariadicTrap<String*>("String.fromCharCode", (int)c);
-	}
+	static String* fromCharCode(int c) [[static]];
 	explicit operator std::string() const
 	{
 		//This assume an ascii string

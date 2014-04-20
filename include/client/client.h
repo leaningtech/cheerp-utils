@@ -30,14 +30,14 @@
 #include <vector>
 
 //Passthrough code to pass event handlers in a semi type safe manner
-inline client::EventListener& SimpleCallback(void (*func)())
+inline client::EventListener* SimpleCallback(void (*func)())
 {
 	//Return the value itself, it is a valid JS method
-	return *(client::EventListener*)func;
+	return (client::EventListener*)func;
 }
 
 //Handled internally by the compiler
-client::EventListener& Callback(void (*func)(), void* obj);
+client::EventListener* Callback(void (*func)(), void* obj);
 
 template<class, class> struct CallbackHelper; // undefined
 
@@ -53,7 +53,7 @@ struct CallbackHelperBase<false, R, Args...>
 		//delete func;
 	}
 	template<class T>
-	static client::EventListener& make_callback(const T& func)
+	static client::EventListener* make_callback(const T& func)
 	{
 		return Callback((void (*)())&invoke, new std::function<func_type>(func));
 	}
@@ -64,7 +64,7 @@ struct CallbackHelperBase<true, R, Args...>
 {
 	typedef R (func_type)(Args...);
 	template<class T>
-	static client::EventListener& make_callback(const T& func)
+	static client::EventListener* make_callback(const T& func)
 	{
 		return SimpleCallback((void(*)())(func_type*)func);
 	}
@@ -88,7 +88,7 @@ namespace client
 extern Document document;
 
 template<class T>
-client::EventListener& Callback(const T& func)
+client::EventListener* Callback(const T& func)
 {
 	typedef decltype(&T::operator()) lambda_type;
 	typedef CallbackHelper<T, lambda_type> callback_helper;
@@ -96,7 +96,7 @@ client::EventListener& Callback(const T& func)
 }
 
 template<class R, class... Args>
-client::EventListener& Callback(R func(Args...))
+client::EventListener* Callback(R func(Args...))
 {
 	return SimpleCallback((void (*)())func);
 }

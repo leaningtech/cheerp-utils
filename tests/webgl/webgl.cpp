@@ -101,7 +101,7 @@ void drawCallback() [[client]]
 
 	gl->drawArrays(gl->get_TRIANGLES(), 0, 3);
 
-	double currentTime=client::Date.now();
+	double currentTime=client::Date::now();
 	Translate(mvMatrix, 0, (currentTime-lastTime)/1000, 0);
 	lastTime=currentTime;
 	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
@@ -167,7 +167,7 @@ void loadCallback() [[client]]
 	MakePerspective(pMatrix, 45, 1, 0.1, 100);
 
 	MakeIdentity(mvMatrix);
-	lastTime=client::Date.now();
+	lastTime=client::Date::now();
 
 	gl->uniformMatrix4fv(pMatrixUniform, false, duetto::MakeTypedArray(pMatrix));
 	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
