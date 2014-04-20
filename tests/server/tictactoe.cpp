@@ -93,8 +93,18 @@ void handleEvent(client::MouseEvent* e) [[client]]
 {
 	client::Document* d=&client::document;
 	client::HTMLElement* elem=(client::HTMLElement*)d->getElementById("canvas");
-	int relX = e->get_offsetX();
-	int relY = e->get_offsetY();
+	int relX=-1;
+	int relY=-1;
+	if(!client::isNaN(e->get_offsetX()))
+	{
+		relX += e->get_offsetX();
+		relY += e->get_offsetY();
+	}
+	else if(!client::isNaN(e->get_layerX()))
+	{
+		relX = e->get_layerX()-elem->get_offsetLeft();
+		relY = e->get_layerY()-elem->get_offsetTop();
+	}
 	int gameX = relX / 200;
 	int gameY = relY / 200;
 	const gameAnswer& a=notifyClick(gameX,gameY);
