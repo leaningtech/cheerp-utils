@@ -4207,7 +4207,7 @@ namespace client
 		Performance* get_performance();
 		void set_performance(Performance*);
 		void alert();
-		void alert(Object* message);
+		void alert(const String& message);
 		void scroll();
 		void scroll(double x);
 		void scroll(double x, double y);
@@ -10620,7 +10620,7 @@ namespace client
 	extern EventListener* oninput;
 	extern Performance performance;
 	void alert();
-	void alert(Object* message);
+	void alert(const String& message);
 	void scroll();
 	void scroll(double x);
 	void scroll(double x, double y);
