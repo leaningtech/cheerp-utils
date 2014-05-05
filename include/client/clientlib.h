@@ -534,7 +534,7 @@ namespace client
 	class OES_standard_derivatives;
 	class OES_texture_float_linear;
 	class EXT_texture_filter_anisotropic;
-	class PropertyDescriptor{
+	class PropertyDescriptor: public Object{
 	public:
 		bool get_configurable();
 		void set_configurable(bool);
@@ -548,11 +548,11 @@ namespace client
 		void set(Object* v);
 	};
 
-	class PropertyDescriptorMap{
+	class PropertyDescriptorMap: public Object{
 	public:
 	};
 
-	class IArguments{
+	class IArguments: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -560,7 +560,7 @@ namespace client
 		void set_callee(Function*);
 	};
 
-	class Math{
+	class Math: public Object{
 	public:
 		double get_E();
 		double get_LN10();
@@ -595,7 +595,7 @@ namespace client
 		template<typename... Args> double min(double, Args&&... values);
 	};
 
-	class Date{
+	class Date: public Object{
 	public:
 		String* toString();
 		String* toDateString();
@@ -680,7 +680,7 @@ namespace client
 		static double now() [[static]];
 	};
 
-	class RegExpExecArray{
+	class RegExpExecArray: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -734,7 +734,7 @@ namespace client
 		template<typename... Args> double unshift(const String&, Args&&... items);
 	};
 
-	class RegExp{
+	class RegExp: public Object{
 	public:
 		RegExpExecArray* exec(const String& string);
 		bool test(const String& string);
@@ -764,7 +764,7 @@ namespace client
 		void set_lastMatch(const String&);
 	};
 
-	class Error{
+	class Error: public Object{
 	public:
 		String* get_name();
 		void set_name(const String&);
@@ -824,7 +824,7 @@ namespace client
 		void set_prototype(URIError*);
 	};
 
-	class JSON{
+	class JSON: public Object{
 	public:
 		Object* parse(const String& text);
 		Object* parse(const String& text, EventListener* reviver);
@@ -836,7 +836,7 @@ namespace client
 		String* stringify(Object* value, Array* replacer, Object* space);
 	};
 
-	class ArrayBuffer{
+	class ArrayBuffer: public Object{
 	public:
 		double get_byteLength();
 		void set_byteLength(double);
@@ -845,7 +845,7 @@ namespace client
 		ArrayBuffer(double byteLength);
 	};
 
-	class ArrayBufferView{
+	class ArrayBufferView: public Object{
 	public:
 		ArrayBuffer* get_buffer();
 		void set_buffer(ArrayBuffer*);
@@ -1076,7 +1076,7 @@ namespace client
 		DataView(ArrayBuffer* buffer, double byteOffset, double length);
 	};
 
-	class PositionOptions{
+	class PositionOptions: public Object{
 	public:
 		bool get_enableHighAccuracy();
 		void set_enableHighAccuracy(bool);
@@ -1086,7 +1086,7 @@ namespace client
 		void set_maximumAge(double);
 	};
 
-	class NavigatorID{
+	class NavigatorID: public Object{
 	public:
 		String* get_appVersion();
 		void set_appVersion(const String&);
@@ -1102,7 +1102,7 @@ namespace client
 		void set_vendor(const String&);
 	};
 
-	class EventTarget{
+	class EventTarget: public Object{
 	public:
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
@@ -1183,13 +1183,13 @@ namespace client
 		double get_DOCUMENT_POSITION_PRECEDING();
 	};
 
-	class NodeSelector{
+	class NodeSelector: public Object{
 	public:
 		NodeList* querySelectorAll(const String& selectors);
 		Element* querySelector(const String& selectors);
 	};
 
-	class ElementTraversal{
+	class ElementTraversal: public Object{
 	public:
 		double get_childElementCount();
 		void set_childElementCount(double);
@@ -1306,7 +1306,7 @@ namespace client
 		Element();
 	};
 
-	class ElementCSSInlineStyle{
+	class ElementCSSInlineStyle: public Object{
 	public:
 		MSStyleCSSProperties* get_runtimeStyle();
 		void set_runtimeStyle(MSStyleCSSProperties*);
@@ -1317,13 +1317,13 @@ namespace client
 		String* componentFromPoint(double x, double y);
 	};
 
-	class MSEventAttachmentTarget{
+	class MSEventAttachmentTarget: public Object{
 	public:
 		bool attachEvent(const String& event, EventListener* listener);
 		void detachEvent(const String& event, EventListener* listener);
 	};
 
-	class MSNodeExtensions{
+	class MSNodeExtensions: public Object{
 	public:
 		Node* swapNode(Node* otherNode);
 		Node* removeNode();
@@ -1647,7 +1647,7 @@ namespace client
 		HTMLElement();
 	};
 
-	class MSDataBindingTableExtensions{
+	class MSDataBindingTableExtensions: public Object{
 	public:
 		double get_dataPageSize();
 		void set_dataPageSize(double);
@@ -1658,7 +1658,7 @@ namespace client
 		void lastPage();
 	};
 
-	class MSDataBindingExtensions{
+	class MSDataBindingExtensions: public Object{
 	public:
 		String* get_dataSrc();
 		void set_dataSrc(const String&);
@@ -1668,13 +1668,13 @@ namespace client
 		void set_dataFld(const String&);
 	};
 
-	class DOML2DeprecatedBackgroundStyle{
+	class DOML2DeprecatedBackgroundStyle: public Object{
 	public:
 		String* get_background();
 		void set_background(const String&);
 	};
 
-	class DOML2DeprecatedBackgroundColorStyle{
+	class DOML2DeprecatedBackgroundColorStyle: public Object{
 	public:
 		Object* get_bgColor();
 		void set_bgColor(Object*);
@@ -1739,7 +1739,7 @@ namespace client
 		HTMLTableElement();
 	};
 
-	class TreeWalker{
+	class TreeWalker: public Object{
 	public:
 		double get_whatToShow();
 		void set_whatToShow(double);
@@ -1763,12 +1763,12 @@ namespace client
 		TreeWalker();
 	};
 
-	class GetSVGDocument{
+	class GetSVGDocument: public Object{
 	public:
 		Document* getSVGDocument();
 	};
 
-	class SVGPathSeg{
+	class SVGPathSeg: public Object{
 	public:
 		double get_pathSegType();
 		void set_pathSegType(double);
@@ -1814,7 +1814,7 @@ namespace client
 		SVGPathSegCurvetoQuadraticRel();
 	};
 
-	class Performance{
+	class Performance: public Object{
 	public:
 		PerformanceNavigation* get_navigation();
 		void set_navigation(PerformanceNavigation*);
@@ -1845,7 +1845,7 @@ namespace client
 		Performance();
 	};
 
-	class Event{
+	class Event: public Object{
 	public:
 		double get_timeStamp();
 		void set_timeStamp(double);
@@ -1905,7 +1905,7 @@ namespace client
 		CompositionEvent();
 	};
 
-	class WindowTimers{
+	class WindowTimers: public Object{
 	public:
 		void clearTimeout(double handle);
 		template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(std::forward<Args>(args))...); }
@@ -1955,7 +1955,7 @@ namespace client
 		SVGElement();
 	};
 
-	class SVGStylable{
+	class SVGStylable: public Object{
 	public:
 		SVGAnimatedString* get_className();
 		void set_className(SVGAnimatedString*);
@@ -1963,7 +1963,7 @@ namespace client
 		void set_style(CSSStyleDeclaration*);
 	};
 
-	class SVGLangSpace{
+	class SVGLangSpace: public Object{
 	public:
 		String* get_xmllang();
 		void set_xmllang(const String&);
@@ -1971,7 +1971,7 @@ namespace client
 		void set_xmlspace(const String&);
 	};
 
-	class SVGFitToViewBox{
+	class SVGFitToViewBox: public Object{
 	public:
 		SVGAnimatedRect* get_viewBox();
 		void set_viewBox(SVGAnimatedRect*);
@@ -1979,7 +1979,7 @@ namespace client
 		void set_preserveAspectRatio(SVGAnimatedPreserveAspectRatio*);
 	};
 
-	class SVGExternalResourcesRequired{
+	class SVGExternalResourcesRequired: public Object{
 	public:
 		SVGAnimatedBoolean* get_externalResourcesRequired();
 		void set_externalResourcesRequired(SVGAnimatedBoolean*);
@@ -2014,7 +2014,7 @@ namespace client
 		double get_SVG_MARKERUNITS_USERSPACEONUSE();
 	};
 
-	class CSSStyleDeclaration{
+	class CSSStyleDeclaration: public Object{
 	public:
 		String* get_backgroundAttachment();
 		void set_backgroundAttachment(const String&);
@@ -2603,7 +2603,7 @@ namespace client
 		CSSStyleDeclaration();
 	};
 
-	class SVGLocatable{
+	class SVGLocatable: public Object{
 	public:
 		SVGElement* get_farthestViewportElement();
 		void set_farthestViewportElement(SVGElement*);
@@ -2621,7 +2621,7 @@ namespace client
 		void set_transform(SVGAnimatedTransformList*);
 	};
 
-	class SVGTests{
+	class SVGTests: public Object{
 	public:
 		SVGStringList* get_requiredFeatures();
 		void set_requiredFeatures(SVGStringList*);
@@ -2753,17 +2753,17 @@ namespace client
 		MSStyleCSSProperties();
 	};
 
-	class NavigatorOnLine{
+	class NavigatorOnLine: public Object{
 	public:
 		bool get_onLine();
 		void set_onLine(bool);
 	};
 
-	class NavigatorContentUtils{
+	class NavigatorContentUtils: public Object{
 	public:
 	};
 
-	class MSNavigatorExtensions{
+	class MSNavigatorExtensions: public Object{
 	public:
 		String* get_userLanguage();
 		void set_userLanguage(const String&);
@@ -2791,13 +2791,13 @@ namespace client
 		void set_language(const String&);
 	};
 
-	class NavigatorGeolocation{
+	class NavigatorGeolocation: public Object{
 	public:
 		Geolocation* get_geolocation();
 		void set_geolocation(Geolocation*);
 	};
 
-	class MSNavigatorDoNotTrack{
+	class MSNavigatorDoNotTrack: public Object{
 	public:
 		String* get_msDoNotTrack();
 		void set_msDoNotTrack(const String&);
@@ -2809,7 +2809,7 @@ namespace client
 		bool confirmWebWideTrackingException(ExceptionInformation* args);
 	};
 
-	class NavigatorStorageUtils{
+	class NavigatorStorageUtils: public Object{
 	public:
 	};
 
@@ -2865,7 +2865,7 @@ namespace client
 		SVGZoomEvent();
 	};
 
-	class HTMLTableAlignment{
+	class HTMLTableAlignment: public Object{
 	public:
 		String* get_ch();
 		void set_ch(const String&);
@@ -2928,7 +2928,7 @@ namespace client
 		HTMLBaseElement();
 	};
 
-	class ClientRect{
+	class ClientRect: public Object{
 	public:
 		double get_left();
 		void set_left(double);
@@ -2947,11 +2947,11 @@ namespace client
 		ClientRect();
 	};
 
-	class PositionErrorCallback{
+	class PositionErrorCallback: public Object{
 	public:
 	};
 
-	class DOMImplementation{
+	class DOMImplementation: public Object{
 	public:
 		DocumentType* createDocumentType(const String& qualifiedName, const String& publicId, const String& systemId);
 		Document* createDocument(const String& namespaceURI, const String& qualifiedName, DocumentType* doctype);
@@ -2963,7 +2963,7 @@ namespace client
 		DOMImplementation();
 	};
 
-	class SVGUnitTypes{
+	class SVGUnitTypes: public Object{
 	public:
 		SVGUnitTypes* get_prototype();
 		void set_prototype(SVGUnitTypes*);
@@ -3008,7 +3008,7 @@ namespace client
 		SVGLineElement();
 	};
 
-	class DOML2DeprecatedTextFlowControl{
+	class DOML2DeprecatedTextFlowControl: public Object{
 	public:
 		String* get_clear();
 		void set_clear(const String&);
@@ -3023,7 +3023,7 @@ namespace client
 		HTMLParagraphElement();
 	};
 
-	class MSHTMLCollectionExtensions{
+	class MSHTMLCollectionExtensions: public Object{
 	public:
 		Object* urns(Object* urn);
 		Object* tags(Object* tagName);
@@ -3071,13 +3071,13 @@ namespace client
 		SVGPathSegCurvetoQuadraticSmoothRel();
 	};
 
-	class DOML2DeprecatedListSpaceReduction{
+	class DOML2DeprecatedListSpaceReduction: public Object{
 	public:
 		bool get_compact();
 		void set_compact(bool);
 	};
 
-	class MSScriptHost{
+	class MSScriptHost: public Object{
 	public:
 		MSScriptHost* get_prototype();
 		void set_prototype(MSScriptHost*);
@@ -3146,7 +3146,7 @@ namespace client
 		MouseEvent();
 	};
 
-	class RangeException{
+	class RangeException: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -3202,7 +3202,7 @@ namespace client
 		SVGTextPositioningElement();
 	};
 
-	class DOML2DeprecatedMarginStyle{
+	class DOML2DeprecatedMarginStyle: public Object{
 	public:
 		double get_vspace();
 		void set_vspace(double);
@@ -3210,19 +3210,19 @@ namespace client
 		void set_hspace(double);
 	};
 
-	class DOML2DeprecatedBorderStyle{
+	class DOML2DeprecatedBorderStyle: public Object{
 	public:
 		String* get_border();
 		void set_border(const String&);
 	};
 
-	class DOML2DeprecatedAlignmentStyle{
+	class DOML2DeprecatedAlignmentStyle: public Object{
 	public:
 		String* get_align();
 		void set_align(const String&);
 	};
 
-	class MSDataBindingRecordSetExtensions{
+	class MSDataBindingRecordSetExtensions: public Object{
 	public:
 		Object* get_recordset();
 		void set_recordset(Object*);
@@ -3275,7 +3275,7 @@ namespace client
 		HTMLAppletElement();
 	};
 
-	class TextMetrics{
+	class TextMetrics: public Object{
 	public:
 		double get_width();
 		void set_width(double);
@@ -3284,12 +3284,12 @@ namespace client
 		TextMetrics();
 	};
 
-	class DocumentEvent{
+	class DocumentEvent: public Object{
 	public:
 		Event* createEvent(const String& eventInterface);
 	};
 
-	class DOML2DeprecatedListNumberingAndBulletStyle{
+	class DOML2DeprecatedListNumberingAndBulletStyle: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -3313,7 +3313,7 @@ namespace client
 		SVGPathSegLinetoVerticalRel();
 	};
 
-	class SVGAnimatedString{
+	class SVGAnimatedString: public Object{
 	public:
 		String* get_animVal();
 		void set_animVal(const String&);
@@ -3358,7 +3358,7 @@ namespace client
 		CDATASection();
 	};
 
-	class StyleMedia{
+	class StyleMedia: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -3413,7 +3413,7 @@ namespace client
 		HTMLSelectElement();
 	};
 
-	class TextRange{
+	class TextRange: public Object{
 	public:
 		double get_boundingLeft();
 		void set_boundingLeft(double);
@@ -3485,7 +3485,7 @@ namespace client
 		HTMLBlockElement();
 	};
 
-	class StyleSheet{
+	class StyleSheet: public Object{
 	public:
 		bool get_disabled();
 		void set_disabled(bool);
@@ -3550,7 +3550,7 @@ namespace client
 		CSSStyleSheet();
 	};
 
-	class MSSelection{
+	class MSSelection: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -3584,7 +3584,7 @@ namespace client
 		HTMLMetaElement();
 	};
 
-	class SVGURIReference{
+	class SVGURIReference: public Object{
 	public:
 		SVGAnimatedString* get_href();
 		void set_href(SVGAnimatedString*);
@@ -3611,7 +3611,7 @@ namespace client
 		SVGPatternElement();
 	};
 
-	class SVGAnimatedAngle{
+	class SVGAnimatedAngle: public Object{
 	public:
 		SVGAngle* get_animVal();
 		void set_animVal(SVGAngle*);
@@ -3622,7 +3622,7 @@ namespace client
 		SVGAnimatedAngle();
 	};
 
-	class Selection{
+	class Selection: public Object{
 	public:
 		bool get_isCollapsed();
 		void set_isCollapsed(bool);
@@ -3669,7 +3669,7 @@ namespace client
 		HTMLDDElement();
 	};
 
-	class MSDataBindingRecordSetReadonlyExtensions{
+	class MSDataBindingRecordSetReadonlyExtensions: public Object{
 	public:
 		Object* get_recordset();
 		void set_recordset(Object*);
@@ -3677,7 +3677,7 @@ namespace client
 		Object* namedRecordset(const String& dataMember, Object* hierarchy);
 	};
 
-	class CSSRule{
+	class CSSRule: public Object{
 	public:
 		String* get_cssText();
 		void set_cssText(const String&);
@@ -3713,7 +3713,7 @@ namespace client
 		CSSStyleRule();
 	};
 
-	class NodeIterator{
+	class NodeIterator: public Object{
 	public:
 		double get_whatToShow();
 		void set_whatToShow(double);
@@ -3731,7 +3731,7 @@ namespace client
 		NodeIterator();
 	};
 
-	class SVGZoomAndPan{
+	class SVGZoomAndPan: public Object{
 	public:
 		double get_zoomAndPan();
 		void set_zoomAndPan(double);
@@ -3752,7 +3752,7 @@ namespace client
 		SVGViewElement();
 	};
 
-	class LinkStyle{
+	class LinkStyle: public Object{
 	public:
 		StyleSheet* get_styleSheet();
 		void set_styleSheet(StyleSheet*);
@@ -3783,13 +3783,13 @@ namespace client
 		HTMLLinkElement();
 	};
 
-	class DOML2DeprecatedColorProperty{
+	class DOML2DeprecatedColorProperty: public Object{
 	public:
 		String* get_color();
 		void set_color(const String&);
 	};
 
-	class DOML2DeprecatedSizeProperty{
+	class DOML2DeprecatedSizeProperty: public Object{
 	public:
 		double get_size();
 		void set_size(double);
@@ -3811,7 +3811,7 @@ namespace client
 		SVGTitleElement();
 	};
 
-	class ControlRangeCollection{
+	class ControlRangeCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -3854,13 +3854,13 @@ namespace client
 		MSNamespaceInfo();
 	};
 
-	class WindowSessionStorage{
+	class WindowSessionStorage: public Object{
 	public:
 		Storage* get_sessionStorage();
 		void set_sessionStorage(Storage*);
 	};
 
-	class SVGAnimatedTransformList{
+	class SVGAnimatedTransformList: public Object{
 	public:
 		SVGTransformList* get_animVal();
 		void set_animVal(SVGTransformList*);
@@ -3934,7 +3934,7 @@ namespace client
 		MouseWheelEvent();
 	};
 
-	class SVGPointList{
+	class SVGPointList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -3950,7 +3950,7 @@ namespace client
 		SVGPointList();
 	};
 
-	class SVGAnimatedLengthList{
+	class SVGAnimatedLengthList: public Object{
 	public:
 		SVGLengthList* get_animVal();
 		void set_animVal(SVGLengthList*);
@@ -3961,13 +3961,13 @@ namespace client
 		SVGAnimatedLengthList();
 	};
 
-	class WindowLocalStorage{
+	class WindowLocalStorage: public Object{
 	public:
 		Storage* get_localStorage();
 		void set_localStorage(Storage*);
 	};
 
-	class MSWindowExtensions{
+	class MSWindowExtensions: public Object{
 	public:
 		String* get_status();
 		void set_status(const String&);
@@ -4309,7 +4309,7 @@ namespace client
 		Window();
 	};
 
-	class SVGAnimatedPreserveAspectRatio{
+	class SVGAnimatedPreserveAspectRatio: public Object{
 	public:
 		SVGPreserveAspectRatio* get_animVal();
 		void set_animVal(SVGPreserveAspectRatio*);
@@ -4331,7 +4331,7 @@ namespace client
 		MSSiteModeEvent();
 	};
 
-	class StyleSheetPageList{
+	class StyleSheetPageList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -4341,7 +4341,7 @@ namespace client
 		StyleSheetPageList();
 	};
 
-	class MSImageResourceExtensions{
+	class MSImageResourceExtensions: public Object{
 	public:
 		String* get_dynsrc();
 		void set_dynsrc(const String&);
@@ -4355,7 +4355,7 @@ namespace client
 		void set_loop(double);
 	};
 
-	class MSResourceMetadata{
+	class MSResourceMetadata: public Object{
 	public:
 		String* get_protocol();
 		void set_protocol(const String&);
@@ -4457,7 +4457,7 @@ namespace client
 		HTMLAreaElement();
 	};
 
-	class SVGAngle{
+	class SVGAngle: public Object{
 	public:
 		String* get_valueAsString();
 		void set_valueAsString(const String&);
@@ -4532,7 +4532,7 @@ namespace client
 		HTMLSourceElement();
 	};
 
-	class CanvasGradient{
+	class CanvasGradient: public Object{
 	public:
 		void addColorStop(double offset, const String& color);
 		CanvasGradient* get_prototype();
@@ -5027,7 +5027,7 @@ namespace client
 		HTMLTableRowElement();
 	};
 
-	class RenderingContext{
+	class RenderingContext: public Object{
 	public:
 	};
 
@@ -5128,7 +5128,7 @@ namespace client
 		CanvasRenderingContext2D();
 	};
 
-	class MSCSSRuleList{
+	class MSCSSRuleList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -5169,7 +5169,7 @@ namespace client
 		SVGPathSegArcAbs();
 	};
 
-	class SVGTransformList{
+	class SVGTransformList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -5246,7 +5246,7 @@ namespace client
 		HTMLFrameElement();
 	};
 
-	class SVGAnimatedLength{
+	class SVGAnimatedLength: public Object{
 	public:
 		SVGLength* get_animVal();
 		void set_animVal(SVGLength*);
@@ -5257,7 +5257,7 @@ namespace client
 		SVGAnimatedLength();
 	};
 
-	class SVGAnimatedPoints{
+	class SVGAnimatedPoints: public Object{
 	public:
 		SVGPointList* get_points();
 		void set_points(SVGPointList*);
@@ -5298,7 +5298,7 @@ namespace client
 		CSSMediaRule();
 	};
 
-	class WindowModal{
+	class WindowModal: public Object{
 	public:
 		Object* get_dialogArguments();
 		void set_dialogArguments(Object*);
@@ -5477,7 +5477,7 @@ namespace client
 		HTMLFrameSetElement();
 	};
 
-	class Screen{
+	class Screen: public Object{
 	public:
 		double get_width();
 		void set_width(double);
@@ -5522,7 +5522,7 @@ namespace client
 		Screen();
 	};
 
-	class Coordinates{
+	class Coordinates: public Object{
 	public:
 		double get_altitudeAccuracy();
 		void set_altitudeAccuracy(double);
@@ -5543,11 +5543,11 @@ namespace client
 		Coordinates();
 	};
 
-	class EventListener{
+	class EventListener: public Object{
 	public:
 	};
 
-	class DataTransfer{
+	class DataTransfer: public Object{
 	public:
 		String* get_effectAllowed();
 		void set_effectAllowed(const String&);
@@ -5576,7 +5576,7 @@ namespace client
 		FocusEvent();
 	};
 
-	class Range{
+	class Range: public Object{
 	public:
 		double get_startOffset();
 		void set_startOffset(double);
@@ -5620,7 +5620,7 @@ namespace client
 		double get_END_TO_START();
 	};
 
-	class SVGPoint{
+	class SVGPoint: public Object{
 	public:
 		double get_y();
 		void set_y(double);
@@ -5632,7 +5632,7 @@ namespace client
 		SVGPoint();
 	};
 
-	class MSPluginsCollection{
+	class MSPluginsCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -5643,7 +5643,7 @@ namespace client
 		MSPluginsCollection();
 	};
 
-	class SVGAnimatedNumberList{
+	class SVGAnimatedNumberList: public Object{
 	public:
 		SVGNumberList* get_animVal();
 		void set_animVal(SVGNumberList*);
@@ -5754,7 +5754,7 @@ namespace client
 		HTMLDirectoryElement();
 	};
 
-	class SVGAnimatedInteger{
+	class SVGAnimatedInteger: public Object{
 	public:
 		double get_animVal();
 		void set_animVal(double);
@@ -5797,7 +5797,7 @@ namespace client
 		SVGPathSegLinetoVerticalAbs();
 	};
 
-	class MSStorageExtensions{
+	class MSStorageExtensions: public Object{
 	public:
 		double get_remainingSpace();
 		void set_remainingSpace(double);
@@ -5898,7 +5898,7 @@ namespace client
 		HTMLIFrameElement();
 	};
 
-	class TextRangeCollection{
+	class TextRangeCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -6280,7 +6280,7 @@ namespace client
 		SVGImageElement();
 	};
 
-	class SVGAnimatedNumber{
+	class SVGAnimatedNumber: public Object{
 	public:
 		double get_animVal();
 		void set_animVal(double);
@@ -6291,7 +6291,7 @@ namespace client
 		SVGAnimatedNumber();
 	};
 
-	class PerformanceTiming{
+	class PerformanceTiming: public Object{
 	public:
 		double get_redirectStart();
 		void set_redirectStart(double);
@@ -6352,7 +6352,7 @@ namespace client
 		HTMLPreElement();
 	};
 
-	class EventException{
+	class EventException: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -6407,7 +6407,7 @@ namespace client
 		SVGPathSegMovetoAbs();
 	};
 
-	class SVGStringList{
+	class SVGStringList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -6423,7 +6423,7 @@ namespace client
 		SVGStringList();
 	};
 
-	class XDomainRequest{
+	class XDomainRequest: public Object{
 	public:
 		double get_timeout();
 		void set_timeout(double);
@@ -6451,7 +6451,7 @@ namespace client
 		XDomainRequest();
 	};
 
-	class SVGLength{
+	class SVGLength: public Object{
 	public:
 		String* get_valueAsString();
 		void set_valueAsString(const String&);
@@ -6637,7 +6637,7 @@ namespace client
 		template<typename... Args> RenderingContext* getContext(const String& contextId, Object*, Args&&... args);
 	};
 
-	class Location{
+	class Location: public Object{
 	public:
 		String* get_hash();
 		void set_hash(const String&);
@@ -6685,7 +6685,7 @@ namespace client
 		HTMLStyleElement();
 	};
 
-	class PerformanceEntry{
+	class PerformanceEntry: public Object{
 	public:
 		String* get_name();
 		void set_name(const String&);
@@ -6700,7 +6700,7 @@ namespace client
 		PerformanceEntry();
 	};
 
-	class SVGTransform{
+	class SVGTransform: public Object{
 	public:
 		double get_type();
 		void set_type(double);
@@ -6746,7 +6746,7 @@ namespace client
 		double get_DOM_DELTA_PAGE();
 	};
 
-	class SVGNumber{
+	class SVGNumber: public Object{
 	public:
 		double get_value();
 		void set_value(double);
@@ -6755,7 +6755,7 @@ namespace client
 		SVGNumber();
 	};
 
-	class SVGAnimatedPathData{
+	class SVGAnimatedPathData: public Object{
 	public:
 		SVGPathSegList* get_pathSegList();
 		void set_pathSegList(SVGPathSegList*);
@@ -6790,7 +6790,7 @@ namespace client
 		SVGPathElement();
 	};
 
-	class MSCompatibleInfo{
+	class MSCompatibleInfo: public Object{
 	public:
 		String* get_version();
 		void set_version(const String&);
@@ -6801,7 +6801,7 @@ namespace client
 		MSCompatibleInfo();
 	};
 
-	class SVGAnimatedRect{
+	class SVGAnimatedRect: public Object{
 	public:
 		SVGRect* get_animVal();
 		void set_animVal(SVGRect*);
@@ -6823,7 +6823,7 @@ namespace client
 		CSSNamespaceRule();
 	};
 
-	class SVGPathSegList{
+	class SVGPathSegList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -6954,7 +6954,7 @@ namespace client
 		HTMLAudioElement();
 	};
 
-	class PositionError{
+	class PositionError: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -6992,7 +6992,7 @@ namespace client
 		SVGElementInstance();
 	};
 
-	class MSNamespaceInfoCollection{
+	class MSNamespaceInfoCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7019,7 +7019,7 @@ namespace client
 		SVGCircleElement();
 	};
 
-	class StyleSheetList{
+	class StyleSheetList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7114,7 +7114,7 @@ namespace client
 		HTMLTextAreaElement();
 	};
 
-	class Geolocation{
+	class Geolocation: public Object{
 	public:
 		void clearWatch(double watchId);
 		void getCurrentPosition(PositionCallback* successCallback);
@@ -7128,7 +7128,7 @@ namespace client
 		Geolocation();
 	};
 
-	class MSWindowModeless{
+	class MSWindowModeless: public Object{
 	public:
 		Object* get_dialogTop();
 		void set_dialogTop(Object*);
@@ -7179,7 +7179,7 @@ namespace client
 		HTMLMarqueeElement();
 	};
 
-	class SVGRect{
+	class SVGRect: public Object{
 	public:
 		double get_y();
 		void set_y(double);
@@ -7194,7 +7194,7 @@ namespace client
 		SVGRect();
 	};
 
-	class History{
+	class History: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7249,7 +7249,7 @@ namespace client
 		SVGPathSegCurvetoQuadraticAbs();
 	};
 
-	class TimeRanges{
+	class TimeRanges: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7282,7 +7282,7 @@ namespace client
 		HTMLModElement();
 	};
 
-	class SVGMatrix{
+	class SVGMatrix: public Object{
 	public:
 		double get_e();
 		void set_e(double);
@@ -7312,7 +7312,7 @@ namespace client
 		SVGMatrix();
 	};
 
-	class MSPopupWindow{
+	class MSPopupWindow: public Object{
 	public:
 		Document* get_document();
 		void set_document(Document*);
@@ -7354,7 +7354,7 @@ namespace client
 		SVGUseElement();
 	};
 
-	class ImageData{
+	class ImageData: public Object{
 	public:
 		double get_width();
 		void set_width(double);
@@ -7380,7 +7380,7 @@ namespace client
 		HTMLTableColElement();
 	};
 
-	class SVGException{
+	class SVGException: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -7412,7 +7412,7 @@ namespace client
 		SVGLinearGradientElement();
 	};
 
-	class SVGAnimatedEnumeration{
+	class SVGAnimatedEnumeration: public Object{
 	public:
 		double get_animVal();
 		void set_animVal(double);
@@ -7449,7 +7449,7 @@ namespace client
 		SVGRectElement();
 	};
 
-	class ErrorEventHandler{
+	class ErrorEventHandler: public Object{
 	public:
 	};
 
@@ -7464,7 +7464,7 @@ namespace client
 		HTMLDivElement();
 	};
 
-	class NamedNodeMap{
+	class NamedNodeMap: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7480,7 +7480,7 @@ namespace client
 		NamedNodeMap();
 	};
 
-	class MediaList{
+	class MediaList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7521,7 +7521,7 @@ namespace client
 		SVGPathSegCurvetoCubicSmoothRel();
 	};
 
-	class SVGLengthList{
+	class SVGLengthList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -7548,7 +7548,7 @@ namespace client
 		ProcessingInstruction();
 	};
 
-	class MSBehaviorUrnsCollection{
+	class MSBehaviorUrnsCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7605,7 +7605,7 @@ namespace client
 		SVGPolylineElement();
 	};
 
-	class Position{
+	class Position: public Object{
 	public:
 		double get_timestamp();
 		void set_timestamp(double);
@@ -7616,7 +7616,7 @@ namespace client
 		Position();
 	};
 
-	class BookmarkCollection{
+	class BookmarkCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7718,7 +7718,7 @@ namespace client
 		HTMLFormElement();
 	};
 
-	class DOMParser{
+	class DOMParser: public Object{
 	public:
 		Document* parseFromString(const String& source, const String& mimeType);
 		DOMParser* get_prototype();
@@ -7726,7 +7726,7 @@ namespace client
 		DOMParser();
 	};
 
-	class MSMimeTypesCollection{
+	class MSMimeTypesCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7763,7 +7763,7 @@ namespace client
 		HTMLDTElement();
 	};
 
-	class NodeList{
+	class NodeList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -7773,7 +7773,7 @@ namespace client
 		NodeList();
 	};
 
-	class XMLSerializer{
+	class XMLSerializer: public Object{
 	public:
 		String* serializeToString(Node* target);
 		XMLSerializer* get_prototype();
@@ -7788,7 +7788,7 @@ namespace client
 		PerformanceMeasure();
 	};
 
-	class NodeFilter{
+	class NodeFilter: public Object{
 	public:
 		double acceptNode(Node* n);
 		NodeFilter* get_prototype();
@@ -7812,7 +7812,7 @@ namespace client
 		double get_SHOW_DOCUMENT_FRAGMENT();
 	};
 
-	class SVGNumberList{
+	class SVGNumberList: public Object{
 	public:
 		double get_numberOfItems();
 		void set_numberOfItems(double);
@@ -7828,7 +7828,7 @@ namespace client
 		SVGNumberList();
 	};
 
-	class MediaError{
+	class MediaError: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -7915,7 +7915,7 @@ namespace client
 		PerformanceResourceTiming();
 	};
 
-	class CanvasPattern{
+	class CanvasPattern: public Object{
 	public:
 		CanvasPattern* get_prototype();
 		void set_prototype(CanvasPattern*);
@@ -8092,7 +8092,7 @@ namespace client
 		SVGPathSegLinetoRel();
 	};
 
-	class DOMException{
+	class DOMException: public Object{
 	public:
 		double get_code();
 		void set_code(double);
@@ -8130,7 +8130,7 @@ namespace client
 		double get_INUSE_ATTRIBUTE_ERR();
 	};
 
-	class SVGAnimatedBoolean{
+	class SVGAnimatedBoolean: public Object{
 	public:
 		bool get_animVal();
 		void set_animVal(bool);
@@ -8141,7 +8141,7 @@ namespace client
 		SVGAnimatedBoolean();
 	};
 
-	class MSCompatibleInfoCollection{
+	class MSCompatibleInfoCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8158,7 +8158,7 @@ namespace client
 		SVGSwitchElement();
 	};
 
-	class SVGPreserveAspectRatio{
+	class SVGPreserveAspectRatio: public Object{
 	public:
 		double get_align();
 		void set_align(double);
@@ -8200,7 +8200,7 @@ namespace client
 		Attr();
 	};
 
-	class PerformanceNavigation{
+	class PerformanceNavigation: public Object{
 	public:
 		double get_redirectCount();
 		void set_redirectCount(double);
@@ -8225,7 +8225,7 @@ namespace client
 		SVGStopElement();
 	};
 
-	class PositionCallback{
+	class PositionCallback: public Object{
 	public:
 	};
 
@@ -8236,7 +8236,7 @@ namespace client
 		SVGSymbolElement();
 	};
 
-	class SVGElementInstanceList{
+	class SVGElementInstanceList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8246,7 +8246,7 @@ namespace client
 		SVGElementInstanceList();
 	};
 
-	class CSSRuleList{
+	class CSSRuleList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8298,7 +8298,7 @@ namespace client
 		HTMLVideoElement();
 	};
 
-	class ClientRectList{
+	class ClientRectList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8327,14 +8327,14 @@ namespace client
 		SVGMaskElement();
 	};
 
-	class External{
+	class External: public Object{
 	public:
 		External* get_prototype();
 		void set_prototype(External*);
 		External();
 	};
 
-	class ObjectURLOptions{
+	class ObjectURLOptions: public Object{
 	public:
 		bool get_oneTimeOnly();
 		void set_oneTimeOnly(bool);
@@ -8450,7 +8450,7 @@ namespace client
 	public:
 	};
 
-	class MSGesture{
+	class MSGesture: public Object{
 	public:
 		Element* get_target();
 		void set_target(Element*);
@@ -8531,7 +8531,7 @@ namespace client
 		MSStreamReader();
 	};
 
-	class DOMTokenList{
+	class DOMTokenList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8593,7 +8593,7 @@ namespace client
 		double get_SVG_FEBLEND_MODE_LIGHTEN();
 	};
 
-	class MessageChannel{
+	class MessageChannel: public Object{
 	public:
 		MessagePort* get_port2();
 		void set_port2(MessagePort*);
@@ -8617,7 +8617,7 @@ namespace client
 		void initTransitionEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, const String& propertyNameArg, double elapsedTimeArg);
 	};
 
-	class MediaQueryList{
+	class MediaQueryList: public Object{
 	public:
 		bool get_matches();
 		void set_matches(bool);
@@ -8627,7 +8627,7 @@ namespace client
 		void removeListener(MediaQueryListListener* listener);
 	};
 
-	class DOMError{
+	class DOMError: public Object{
 	public:
 		String* get_name();
 		void set_name(const String&);
@@ -8705,7 +8705,7 @@ namespace client
 		void initProgressEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, bool lengthComputableArg, double loadedArg, double totalArg);
 	};
 
-	class IDBObjectStore{
+	class IDBObjectStore: public Object{
 	public:
 		DOMStringList* get_indexNames();
 		void set_indexNames(DOMStringList*);
@@ -8752,7 +8752,7 @@ namespace client
 		void set_oldVersion(double);
 	};
 
-	class IDBIndex{
+	class IDBIndex: public Object{
 	public:
 		bool get_unique();
 		void set_unique(bool);
@@ -8774,14 +8774,14 @@ namespace client
 		IDBRequest* openCursor(IDBKeyRange* range, const String& direction);
 	};
 
-	class FileList{
+	class FileList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
 		File* item(double index);
 	};
 
-	class IDBCursor{
+	class IDBCursor: public Object{
 	public:
 		Object* get_source();
 		void set_source(Object*);
@@ -8814,7 +8814,7 @@ namespace client
 		void set_specularConstant(SVGAnimatedNumber*);
 	};
 
-	class Blob{
+	class Blob: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -8841,7 +8841,7 @@ namespace client
 		void set_name(const String&);
 	};
 
-	class URL{
+	class URL: public Object{
 	public:
 		void revokeObjectURL(const String& url);
 		String* createObjectURL(Object* object);
@@ -8874,7 +8874,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class IDBEnvironment{
+	class IDBEnvironment: public Object{
 	public:
 		IDBFactory* get_msIndexedDB();
 		void set_msIndexedDB(IDBFactory*);
@@ -8917,7 +8917,7 @@ namespace client
 	public:
 	};
 
-	class WindowTimersExtension{
+	class WindowTimersExtension: public Object{
 	public:
 		template<typename... Args> double msSetImmediate(Object* expression, Args&&... args) { return msSetImmediate(expression, static_cast<Object*>(std::forward<Args>(args))...); }
 		double msSetImmediate(Object* expression);
@@ -8958,7 +8958,7 @@ namespace client
 		void initAnimationEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, const String& animationNameArg, double elapsedTimeArg);
 	};
 
-	class MSRangeCollection{
+	class MSRangeCollection: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -8977,7 +8977,7 @@ namespace client
 	public:
 	};
 
-	class IDBKeyRange{
+	class IDBKeyRange: public Object{
 	public:
 		Object* get_upper();
 		void set_upper(Object*);
@@ -8997,7 +8997,7 @@ namespace client
 		IDBKeyRange* upperBound(Object* bound, bool open);
 	};
 
-	class WindowConsole{
+	class WindowConsole: public Object{
 	public:
 		Console* get_console();
 		void set_console(Console*);
@@ -9023,7 +9023,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class AudioTrack{
+	class AudioTrack: public Object{
 	public:
 		String* get_kind();
 		void set_kind(const String&);
@@ -9071,7 +9071,7 @@ namespace client
 		double get_SVG_EDGEMODE_NONE();
 	};
 
-	class TextTrackCueList{
+	class TextTrackCueList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -9112,7 +9112,7 @@ namespace client
 		double get_SVG_STITCHTYPE_STITCH();
 	};
 
-	class TextTrackList{
+	class TextTrackList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -9142,7 +9142,7 @@ namespace client
 		double get_SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA();
 	};
 
-	class Console{
+	class Console: public Object{
 	public:
 		void info();
 		template<typename... Args> void info(const String& message, Args&&... optionalParams) { return info(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
@@ -9215,7 +9215,7 @@ namespace client
 		void set_pointsAtX(SVGAnimatedNumber*);
 	};
 
-	class WindowBase64{
+	class WindowBase64: public Object{
 	public:
 		String* btoa(const String& rawString);
 		String* atob(const String& encodedString);
@@ -9243,7 +9243,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class DOMStringList{
+	class DOMStringList: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -9293,7 +9293,7 @@ namespace client
 		void set_form(HTMLFormElement*);
 	};
 
-	class MSLaunchUriCallback{
+	class MSLaunchUriCallback: public Object{
 	public:
 	};
 
@@ -9307,7 +9307,7 @@ namespace client
 		void set_dx(SVGAnimatedNumber*);
 	};
 
-	class MSUnsafeFunctionCallback{
+	class MSUnsafeFunctionCallback: public Object{
 	public:
 	};
 
@@ -9346,7 +9346,7 @@ namespace client
 		double get_DISABLED();
 	};
 
-	class MediaQueryListListener{
+	class MediaQueryListListener: public Object{
 	public:
 	};
 
@@ -9376,7 +9376,7 @@ namespace client
 		FileReader();
 	};
 
-	class BlobPropertyBag{
+	class BlobPropertyBag: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -9417,7 +9417,7 @@ namespace client
 		double get_OBSOLETE();
 	};
 
-	class FrameRequestCallback{
+	class FrameRequestCallback: public Object{
 	public:
 	};
 
@@ -9436,7 +9436,7 @@ namespace client
 		void set_style(CSSStyleDeclaration*);
 	};
 
-	class MSFileSaver{
+	class MSFileSaver: public Object{
 	public:
 		bool msSaveBlob(Object* blob);
 		bool msSaveBlob(Object* blob, const String& defaultName);
@@ -9444,7 +9444,7 @@ namespace client
 		bool msSaveOrOpenBlob(Object* blob, const String& defaultName);
 	};
 
-	class MSStream{
+	class MSStream: public Object{
 	public:
 		String* get_type();
 		void set_type(const String&);
@@ -9452,7 +9452,7 @@ namespace client
 		void msClose();
 	};
 
-	class MSBlobBuilder{
+	class MSBlobBuilder: public Object{
 	public:
 		void append(Object* data);
 		void append(Object* data, const String& endings);
@@ -9469,7 +9469,7 @@ namespace client
 		void set_value(const String&);
 	};
 
-	class IDBFactory{
+	class IDBFactory: public Object{
 	public:
 		IDBOpenDBRequest* open(const String& name);
 		IDBOpenDBRequest* open(const String& name, double version);
@@ -9523,7 +9523,7 @@ namespace client
 		double get_MS_MANIPULATION_STATE_INERTIA();
 	};
 
-	class FormData{
+	class FormData: public Object{
 	public:
 		void append(Object* name, Object* value);
 		void append(Object* name, Object* value, const String& blobName);
@@ -9578,7 +9578,7 @@ namespace client
 		double get_SVG_FECOMPOSITE_OPERATOR_ATOP();
 	};
 
-	class ValidityState{
+	class ValidityState: public Object{
 	public:
 		bool get_customError();
 		void set_customError(bool);
@@ -9622,7 +9622,7 @@ namespace client
 		double get_NONE();
 	};
 
-	class MSApp{
+	class MSApp: public Object{
 	public:
 		File* createFileFromStorageFile(Object* storageFile);
 		Blob* createBlobFromRandomAccessStream(const String& type, Object* seeker);
@@ -9671,7 +9671,7 @@ namespace client
 		void set_diffuseConstant(SVGAnimatedNumber*);
 	};
 
-	class MSCSSMatrix{
+	class MSCSSMatrix: public Object{
 	public:
 		double get_m24();
 		void set_m24(double);
@@ -9752,7 +9752,7 @@ namespace client
 		Worker(const String& stringUrl);
 	};
 
-	class ExceptionInformation{
+	class ExceptionInformation: public Object{
 	public:
 		String* get_domain();
 		void set_domain(const String&);
@@ -9780,11 +9780,11 @@ namespace client
 		void set_arrayOfDomainStrings(Array*);
 	};
 
-	class AlgorithmParameters{
+	class AlgorithmParameters: public Object{
 	public:
 	};
 
-	class MutationObserverInit{
+	class MutationObserverInit: public Object{
 	public:
 		bool get_childList();
 		void set_childList(bool);
@@ -9802,7 +9802,7 @@ namespace client
 		void set_attributeFilter(Array*);
 	};
 
-	class MsZoomToOptions{
+	class MsZoomToOptions: public Object{
 	public:
 		double get_contentX();
 		void set_contentX(double);
@@ -9818,7 +9818,7 @@ namespace client
 		void set_animate(const String&);
 	};
 
-	class DeviceAccelerationDict{
+	class DeviceAccelerationDict: public Object{
 	public:
 		double get_x();
 		void set_x(double);
@@ -9828,7 +9828,7 @@ namespace client
 		void set_z(double);
 	};
 
-	class DeviceRotationRateDict{
+	class DeviceRotationRateDict: public Object{
 	public:
 		double get_alpha();
 		void set_alpha(double);
@@ -9838,7 +9838,7 @@ namespace client
 		void set_gamma(double);
 	};
 
-	class Algorithm{
+	class Algorithm: public Object{
 	public:
 		String* get_name();
 		void set_name(const String&);
@@ -9846,11 +9846,11 @@ namespace client
 		void set_params(AlgorithmParameters*);
 	};
 
-	class MSExecAtPriorityFunctionCallback{
+	class MSExecAtPriorityFunctionCallback: public Object{
 	public:
 	};
 
-	class MSGraphicsTrust{
+	class MSGraphicsTrust: public Object{
 	public:
 		String* get_status();
 		void set_status(const String&);
@@ -9858,7 +9858,7 @@ namespace client
 		void set_constrictionActive(bool);
 	};
 
-	class SubtleCrypto{
+	class SubtleCrypto: public Object{
 	public:
 		KeyOperation* unwrapKey(ArrayBufferView* wrappedKey, Object* keyAlgorithm, Key* keyEncryptionKey);
 		KeyOperation* unwrapKey(ArrayBufferView* wrappedKey, Object* keyAlgorithm, Key* keyEncryptionKey, bool extractable);
@@ -9886,7 +9886,7 @@ namespace client
 		CryptoOperation* decrypt(Object* algorithm, Key* key, ArrayBufferView* buffer);
 	};
 
-	class RandomSource{
+	class RandomSource: public Object{
 	public:
 		ArrayBufferView* getRandomValues(ArrayBufferView* array);
 	};
@@ -9897,7 +9897,7 @@ namespace client
 		void set_subtle(SubtleCrypto*);
 	};
 
-	class VideoPlaybackQuality{
+	class VideoPlaybackQuality: public Object{
 	public:
 		double get_totalFrameDelay();
 		void set_totalFrameDelay(double);
@@ -9909,7 +9909,7 @@ namespace client
 		void set_droppedVideoFrames(double);
 	};
 
-	class GlobalEventHandlers{
+	class GlobalEventHandlers: public Object{
 	public:
 		EventListener* get_onpointerenter();
 		void set_onpointerenter(EventListener*);
@@ -9931,7 +9931,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class Key{
+	class Key: public Object{
 	public:
 		Algorithm* get_algorithm();
 		void set_algorithm(Algorithm*);
@@ -9943,7 +9943,7 @@ namespace client
 		void set_keyUsage(Array*);
 	};
 
-	class DeviceAcceleration{
+	class DeviceAcceleration: public Object{
 	public:
 		double get_y();
 		void set_y(double);
@@ -9958,7 +9958,7 @@ namespace client
 		Element* namedItem(const String& name);
 	};
 
-	class AesGcmEncryptResult{
+	class AesGcmEncryptResult: public Object{
 	public:
 		ArrayBuffer* get_ciphertext();
 		void set_ciphertext(ArrayBuffer*);
@@ -9980,7 +9980,7 @@ namespace client
 		void set_isSuccess(bool);
 	};
 
-	class MutationRecord{
+	class MutationRecord: public Object{
 	public:
 		String* get_oldValue();
 		void set_oldValue(const String&);
@@ -10002,7 +10002,7 @@ namespace client
 		void set_type(const String&);
 	};
 
-	class MimeTypeArray{
+	class MimeTypeArray: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -10022,7 +10022,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class DOMStringMap{
+	class DOMStringMap: public Object{
 	public:
 	};
 
@@ -10039,7 +10039,7 @@ namespace client
 		void initDeviceOrientationEvent(const String& type, bool bubbles, bool cancelable, double alpha, double beta, double gamma, bool absolute);
 	};
 
-	class MSMediaKeys{
+	class MSMediaKeys: public Object{
 	public:
 		String* get_keySystem();
 		void set_keySystem(const String&);
@@ -10134,7 +10134,7 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class DeviceRotationRate{
+	class DeviceRotationRate: public Object{
 	public:
 		double get_gamma();
 		void set_gamma(double);
@@ -10144,7 +10144,7 @@ namespace client
 		void set_beta(double);
 	};
 
-	class PluginArray{
+	class PluginArray: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -10154,7 +10154,7 @@ namespace client
 		Plugin* namedItem(const String& name);
 	};
 
-	class MSMediaKeyError{
+	class MSMediaKeyError: public Object{
 	public:
 		double get_systemCode();
 		void set_systemCode(double);
@@ -10168,7 +10168,7 @@ namespace client
 		double get_MS_MEDIA_KEYERR_CLIENT();
 	};
 
-	class Plugin{
+	class Plugin: public Object{
 	public:
 		double get_length();
 		void set_length(double);
@@ -10228,7 +10228,7 @@ namespace client
 		void initDeviceMotionEvent(const String& type, bool bubbles, bool cancelable, DeviceAccelerationDict* acceleration, DeviceAccelerationDict* accelerationIncludingGravity, DeviceRotationRateDict* rotationRate, double interval);
 	};
 
-	class MimeType{
+	class MimeType: public Object{
 	public:
 		Plugin* get_enabledPlugin();
 		void set_enabledPlugin(Plugin*);
@@ -10271,13 +10271,13 @@ namespace client
 		void getIntermediatePoints(Element* element);
 	};
 
-	class MSDocumentExtensions{
+	class MSDocumentExtensions: public Object{
 	public:
 		void captureEvents();
 		void releaseEvents();
 	};
 
-	class MutationObserver{
+	class MutationObserver: public Object{
 	public:
 		void observe(Node* target, MutationObserverInit* options);
 		Array* takeRecords();
@@ -10384,7 +10384,7 @@ namespace client
 		void set_executionTime(double);
 	};
 
-	class MSAppView{
+	class MSAppView: public Object{
 	public:
 		double get_viewId();
 		void set_viewId(double);
@@ -10393,7 +10393,7 @@ namespace client
 		void postMessage(Object* message, const String& targetOrigin, Object* ports);
 	};
 
-	class PerfWidgetExternal{
+	class PerfWidgetExternal: public Object{
 	public:
 		double get_maxCpuSpeed();
 		void set_maxCpuSpeed(double);
@@ -10436,7 +10436,7 @@ namespace client
 		void set_persisted(bool);
 	};
 
-	class MutationCallback{
+	class MutationCallback: public Object{
 	public:
 	};
 
@@ -10444,7 +10444,7 @@ namespace client
 	public:
 	};
 
-	class KeyPair{
+	class KeyPair: public Object{
 	public:
 		Key* get_privateKey();
 		void set_privateKey(Key*);
@@ -10493,11 +10493,11 @@ namespace client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 	};
 
-	class OES_texture_float{
+	class OES_texture_float: public Object{
 	public:
 	};
 
-	class WEBGL_compressed_texture_s3tc{
+	class WEBGL_compressed_texture_s3tc: public Object{
 	public:
 		double get_COMPRESSED_RGBA_S3TC_DXT1_EXT();
 		double get_COMPRESSED_RGBA_S3TC_DXT5_EXT();
@@ -10505,16 +10505,16 @@ namespace client
 		double get_COMPRESSED_RGB_S3TC_DXT1_EXT();
 	};
 
-	class OES_standard_derivatives{
+	class OES_standard_derivatives: public Object{
 	public:
 		double get_FRAGMENT_SHADER_DERIVATIVE_HINT_OES();
 	};
 
-	class OES_texture_float_linear{
+	class OES_texture_float_linear: public Object{
 	public:
 	};
 
-	class EXT_texture_filter_anisotropic{
+	class EXT_texture_filter_anisotropic: public Object{
 	public:
 		double get_TEXTURE_MAX_ANISOTROPY_EXT();
 		double get_MAX_TEXTURE_MAX_ANISOTROPY_EXT();
