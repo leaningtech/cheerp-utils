@@ -85,8 +85,6 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 namespace client
 {
 
-extern Document document;
-
 template<class T>
 client::EventListener* Callback(const T& func)
 {
