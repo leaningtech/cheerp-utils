@@ -18,8 +18,8 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_COMMON_H
-#define _DUETTO_COMMON_H
+#ifndef _DUETTO_PROMISE_H
+#define _DUETTO_PROMISE_H
 
 #include <functional>
 #include <vector>
