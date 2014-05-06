@@ -29,16 +29,6 @@
 #include <functional>
 #include <vector>
 
-//Passthrough code to pass event handlers in a semi type safe manner
-inline client::EventListener* SimpleCallback(void (*func)())
-{
-	//Return the value itself, it is a valid JS method
-	return (client::EventListener*)func;
-}
-
-//Handled internally by the compiler
-client::EventListener* Callback(void (*func)(), void* obj);
-
 template<class, class> struct CallbackHelper; // undefined
 
 template<bool B, class R, class... Args> struct CallbackHelperBase;
@@ -55,7 +45,8 @@ struct CallbackHelperBase<false, R, Args...>
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
 	{
-		return Callback((void (*)())&invoke, new std::function<func_type>(func));
+		return (client::EventListener*)__builtin_duetto_create_closure((void*)&invoke,
+						new std::function<func_type>(func));
 	}
 };
 
@@ -66,7 +57,7 @@ struct CallbackHelperBase<true, R, Args...>
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
 	{
-		return SimpleCallback((void(*)())(func_type*)func);
+		return (client::EventListener*)((void (*)())(func_type*)func);
 	}
 };
 
@@ -96,7 +87,7 @@ client::EventListener* Callback(const T& func)
 template<class R, class... Args>
 client::EventListener* Callback(R func(Args...))
 {
-	return SimpleCallback((void (*)())func);
+	return (client::EventListener*)((void (*)())func);
 }
 
 }
