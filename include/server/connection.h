@@ -21,6 +21,8 @@
 #ifndef _DUETTO_CONNECTION_H
 #define _DUETTO_CONNECTION_H
 
+#define BOOST_NO_CXX11_NOEXCEPT
+#define BOOST_ASIO_DISABLE_MOVE
 #include <pion/net/HTTPResponseWriter.hpp>
 #include <pion/net/HTTPServer.hpp>
 

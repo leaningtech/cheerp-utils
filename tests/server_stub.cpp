@@ -18,6 +18,8 @@
  *
  ***************************************************************/
 
+#define BOOST_NO_CXX11_NOEXCEPT
+#define BOOST_ASIO_DISABLE_MOVE
 #include <pion/net/HTTPServer.hpp>
 #include <pion/net/HTTPRequest.hpp>
 #include <pion/net/HTTPResponse.hpp>
