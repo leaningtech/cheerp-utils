@@ -29,6 +29,9 @@
 #include <functional>
 #include <vector>
 
+namespace duetto
+{
+
 template<class, class> struct CallbackHelper; // undefined
 
 template<bool B, class R, class... Args> struct CallbackHelperBase;
@@ -73,9 +76,6 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 {
 };
 
-namespace client
-{
-
 template<class T>
 client::EventListener* Callback(const T& func)
 {
@@ -89,11 +89,6 @@ client::EventListener* Callback(R func(Args...))
 {
 	return (client::EventListener*)((void (*)())func);
 }
-
-}
-
-namespace duetto
-{
 
 template<typename T>
 struct TypedArrayForPointerType;
@@ -465,7 +460,7 @@ struct promiseUtils<duetto::Promise<T>*>: public std::true_type
 	static duetto::Promise<T>* addCallbackIfNeeded(client::XMLHttpRequest* r)
 	{
 		duetto::Promise<T>* ret=new duetto::Promise<T>();
-		r->addEventListener("load",client::Callback([ret](client::ProgressEvent* e) mutable {
+		r->addEventListener("load",Callback([ret](client::ProgressEvent* e) mutable {
 				client::XMLHttpRequest* r=(client::XMLHttpRequest*)e->get_target();
 				voidUtils<T>::triggerDone(ret, r);
 				}));

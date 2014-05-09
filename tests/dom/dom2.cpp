@@ -20,7 +20,7 @@ void setupInputAndDisplay()
     // This sets the default value
     inputBox->setAttribute("value", original_text.c_str() );
 
-    inputBox->addEventListener("input", Callback([textDisplay, inputBox]() -> void { 
+    inputBox->addEventListener("input", duetto::Callback([textDisplay, inputBox]() -> void { 
         String * text = inputBox->get_value();
         textDisplay->set_textContent( text );
 
@@ -33,5 +33,5 @@ void setupInputAndDisplay()
 
 void webMain()
 {
-        document.addEventListener("DOMContentLoaded",Callback(setupInputAndDisplay));
+        document.addEventListener("DOMContentLoaded",duetto::Callback(setupInputAndDisplay));
 }

@@ -159,8 +159,8 @@ void clientTest() [[client]]
 	}
 	ctx->stroke();
 
-	canvas->addEventListener("click",Callback(handleEvent));
-	canvas->addEventListener("contextmenu",Callback(handleRightClick));
+	canvas->addEventListener("click",duetto::Callback(handleEvent));
+	canvas->addEventListener("contextmenu",duetto::Callback(handleRightClick));
 }
 
 inline void resetGame() [[server]]
@@ -172,5 +172,5 @@ inline void resetGame() [[server]]
 void webMain() [[client]]
 {
 	resetGame();
-	client::document.addEventListener("DOMContentLoaded",client::Callback(clientTest));
+	client::document.addEventListener("DOMContentLoaded",duetto::Callback(clientTest));
 }

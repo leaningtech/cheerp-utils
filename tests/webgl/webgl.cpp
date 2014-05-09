@@ -89,7 +89,7 @@ double lastTime;
 
 void drawCallback() [[client]]
 {
-	requestAnimationFrame(Callback(drawCallback));
+	requestAnimationFrame(duetto::Callback(drawCallback));
 
 	gl->clearColor(0,0,0,1);
 	gl->clear(gl->get_COLOR_BUFFER_BIT());
@@ -177,6 +177,6 @@ void loadCallback() [[client]]
 
 int webMain() [[client]]
 {
-	document.addEventListener("DOMContentLoaded",Callback(loadCallback));
+	document.addEventListener("DOMContentLoaded",duetto::Callback(loadCallback));
 	return 0;
 }

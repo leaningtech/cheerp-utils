@@ -13,5 +13,5 @@ void loadCallback() [[client]]
 
 void webMain() [[client]]
 {
-	document.addEventListener("DOMContentLoaded",Callback(loadCallback));
+	document.addEventListener("DOMContentLoaded",duetto::Callback(loadCallback));
 }

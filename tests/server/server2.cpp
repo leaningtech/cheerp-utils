@@ -32,5 +32,5 @@ void webMain() [[client]]
 	serverTest(1);
 	serverTest2();
 	serverTest3(3, 4);
-	client::document.addEventListener("DOMContentLoaded",client::Callback(clientTest));
+	client::document.addEventListener("DOMContentLoaded",duetto::Callback(clientTest));
 }

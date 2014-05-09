@@ -22,5 +22,5 @@ void clientTest() [[client]]
 
 void webMain() [[client]]
 {
-	client::document.addEventListener("DOMContentLoaded",client::Callback(clientTest));
+	client::document.addEventListener("DOMContentLoaded",duetto::Callback(clientTest));
 }
