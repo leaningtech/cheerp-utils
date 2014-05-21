@@ -1,5 +1,11 @@
 Duetto: C++ for the Web
 
+Version 1.0:
+
+	* Greatly improved clientlib.h header
+	* Generated Doxygen documentation for Web APIs
+	* Several fixes to robustness and performance
+
 Version 0.9.6:
 
 	* Initial support for debugging using Source Maps
