@@ -26,35 +26,35 @@
 #include <pion/PionAlgorithms.hpp>
 #include <iostream>
 #include <fstream>
-#include <duetto/server.h>
-#include <duetto/promise.h>
-#include <duetto/connection.h>
+#include <cheerp/server.h>
+#include <cheerp/promise.h>
+#include <cheerp/connection.h>
 
 using namespace pion::net;
 using namespace std;
 
-namespace duetto
+namespace cheerp
 {
 	Connection* connection;
 	Server* server;
 }
 
-typedef duetto::PromiseBase* (*entryPointSig)(duetto::SerializationInterface* inData, const char* outData);
+typedef cheerp::PromiseBase* (*entryPointSig)(cheerp::SerializationInterface* inData, const char* outData);
 
-struct DuettoMap
+struct CheerpMap
 {
 	char* funcName;
 	entryPointSig entryPoint;
 };
 
-extern DuettoMap duettoFuncMap[];
+extern CheerpMap cheerpFuncMap[];
 
 void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
 	const string& callName=request->getQuery("f");
 	const string& callArgs=pion::algo::url_decode(request->getQuery("a"));
 	entryPointSig callFunc=NULL;
-	for(DuettoMap* cur=duettoFuncMap; cur->funcName!=NULL; cur++)
+	for(CheerpMap* cur=cheerpFuncMap; cur->funcName!=NULL; cur++)
 	{
 		if(callName==cur->funcName)
 		{
@@ -74,14 +74,14 @@ void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 		return;
 	}
 
-	duetto::connection =
-		new duetto::Connection(HTTPResponseWriter::create(conn, *request, boost::bind(&TCPConnection::finish, conn)));
+	cheerp::connection =
+		new cheerp::Connection(HTTPResponseWriter::create(conn, *request, boost::bind(&TCPConnection::finish, conn)));
 	//Send the data using the serialization interface
-	duetto::PromiseBase* promise=callFunc(duetto::connection,callArgs.c_str());
+	cheerp::PromiseBase* promise=callFunc(cheerp::connection,callArgs.c_str());
 	if(!promise)
 	{
-		duetto::connection->flush();
-		duetto::connection->send();
+		cheerp::connection->flush();
+		cheerp::connection->send();
 	}
 }
 
@@ -124,8 +124,8 @@ int main()
 	pion::PionSingleServiceScheduler sched;
 	sched.setNumThreads(1);
 	HTTPServerPtr server(new HTTPServer(sched,1987));
-	duetto::server = new duetto::Server(server, sched.getIOService());
-	server->addResource("/duetto_call", requestHandler);
+	cheerp::server = new cheerp::Server(server, sched.getIOService());
+	server->addResource("/cheerp_call", requestHandler);
 	server->addResource("/", fileRequestHandler);
 	server->start();
 	server->join();

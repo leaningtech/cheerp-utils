@@ -1,12 +1,12 @@
-#ifdef __DUETTO_CLIENT__
-#include <duetto/client.h>
+#ifdef __CHEERP_CLIENT__
+#include <cheerp/client.h>
 #else
 #include "server.h"
 #endif
 
 #include <string>
 
-#ifdef __DUETTO_CLIENT__
+#ifdef __CHEERP_CLIENT__
 using namespace client;
 #endif
 

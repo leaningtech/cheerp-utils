@@ -2,8 +2,8 @@
 //	Copyright 2014 Leaning Technlogies
 //===----------------------------------------------------------------------===//
 
-#include <duetto/client.h>
-#include <duetto/clientlib.h>
+#include <cheerp/client.h>
+#include <cheerp/clientlib.h>
 #include "tests.h"
 
 void webMain()

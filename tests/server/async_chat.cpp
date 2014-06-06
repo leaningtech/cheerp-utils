@@ -1,16 +1,16 @@
-#include <duetto/promise.h>
+#include <cheerp/promise.h>
 #include <string>
 #include <vector>
 
-#ifdef __DUETTO_SERVER__
-#include <duetto/server.h>
+#ifdef __CHEERP_SERVER__
+#include <cheerp/server.h>
 #endif
-#ifdef __DUETTO_CLIENT__
-#include <duetto/client.h>
-#include <duetto/clientlib.h>
+#ifdef __CHEERP_CLIENT__
+#include <cheerp/client.h>
+#include <cheerp/clientlib.h>
 #endif
 
-using duetto::Promise;
+using cheerp::Promise;
 using namespace std;
 
 // Pending requests for messages

@@ -4,7 +4,7 @@ function loadCallback()
 {
 	var xhr=new XMLHttpRequest();
 	var args=[-42,0.0021];
-	xhr.open("GET","/duetto_call?f=_Z10serverTestif&a="+JSON.stringify(args),false);
+	xhr.open("GET","/cheerp_call?f=_Z10serverTestif&a="+JSON.stringify(args),false);
 	xhr.send(null);
 	if(xhr.status!=200)
 		alert("Error in XHR");

@@ -1,5 +1,5 @@
-#include <duetto/client.h> //Misc client side stuff
-#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
+#include <cheerp/client.h> //Misc client side stuff
+#include <cheerp/clientlib.h> //Complete DOM/HTML5 interface
 #include <string>
 
 using namespace client;
@@ -20,7 +20,7 @@ void setupInputAndDisplay()
     // This sets the default value
     inputBox->setAttribute("value", original_text.c_str() );
 
-    inputBox->addEventListener("input", duetto::Callback([textDisplay, inputBox]() -> void { 
+    inputBox->addEventListener("input", cheerp::Callback([textDisplay, inputBox]() -> void { 
         String * text = inputBox->get_value();
         textDisplay->set_textContent( text );
 
@@ -33,5 +33,5 @@ void setupInputAndDisplay()
 
 void webMain()
 {
-        document.addEventListener("DOMContentLoaded",duetto::Callback(setupInputAndDisplay));
+        document.addEventListener("DOMContentLoaded",cheerp::Callback(setupInputAndDisplay));
 }

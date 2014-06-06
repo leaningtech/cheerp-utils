@@ -18,8 +18,8 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_TYPES_H_2043d438
-#define _DUETTO_TYPES_H_2043d438
+#ifndef _CHEERP_TYPES_H_2043d438
+#define _CHEERP_TYPES_H_2043d438
 
 #include <utility>
 #include <string>

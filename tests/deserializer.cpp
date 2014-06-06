@@ -20,9 +20,9 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include <duetto/server.h>
+#include <cheerp/server.h>
 
-using namespace duetto;
+using namespace cheerp;
 
 static bool isJSONWhitespace(char c)
 {
@@ -50,7 +50,7 @@ static char getJSONDigit(char c)
 }
 
 template<>
-int duetto::deserialize(const char*& data)
+int cheerp::deserialize(const char*& data)
 {
 	//JSON decoder for int
 	//derived from number, just expect no decimal part
@@ -80,20 +80,20 @@ int duetto::deserialize(const char*& data)
 }
 
 template<>
-unsigned char duetto::deserialize(const char*& data)
+unsigned char cheerp::deserialize(const char*& data)
 {
-	return duetto::deserialize<int>(data);
+	return cheerp::deserialize<int>(data);
 }
 
 template<>
-unsigned int duetto::deserialize(const char*& data)
+unsigned int cheerp::deserialize(const char*& data)
 {
 	//TODO: Check for minus sign
-	return duetto::deserialize<int>(data);
+	return cheerp::deserialize<int>(data);
 }
 
 template<>
-float duetto::deserialize(const char*& data)
+float cheerp::deserialize(const char*& data)
 {
 	//JSON decoder for number
 	float ret=0;
@@ -161,7 +161,7 @@ float duetto::deserialize(const char*& data)
 }
 
 template<>
-const std::string duetto::deserialize(const char*& data)
+const std::string cheerp::deserialize(const char*& data)
 {
 	//JSON decoder for string
 	std::string ret;

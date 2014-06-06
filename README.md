@@ -1,26 +1,26 @@
-Duetto: A C++ compiler for the Web
+Cheerp: A C++ compiler for the Web
 ==================================
 
 Please report bugs on launchpad:
-https://bugs.launchpad.net/duetto
+https://bugs.launchpad.net/cheerp
 
-Duetto headers installation
+Cheerp headers installation
 ---------------------------
 
 ```
-make -C include install INSTALL_PREFIX=/opt/duetto
+make -C include install INSTALL_PREFIX=/opt/cheerp
 ```
 
-Duetto cmake helpers installation
+Cheerp cmake helpers installation
 ---------------------------------
 
 ```
-make -C tools install INSTALL_PREFIX=/opt/duetto
+make -C tools install INSTALL_PREFIX=/opt/cheerp
 ```
 
-Duetto examples installation
+Cheerp examples installation
 ----------------------------
 
 ```
-make -C tests install INSTALL_PREFIX=/opt/duetto
+make -C tests install INSTALL_PREFIX=/opt/cheerp
 ```

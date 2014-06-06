@@ -18,17 +18,17 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_SERVER_H
-#define _DUETTO_SERVER_H
+#ifndef _CHEERP_SERVER_H
+#define _CHEERP_SERVER_H
 
 #include <utility>
 #include <exception>
 #include <iostream>
 #include <string.h>
-#include <duetto/promise.h>
-#include <duetto/connection.h>
+#include <cheerp/promise.h>
+#include <cheerp/connection.h>
 
-namespace duetto
+namespace cheerp
 {
 
 class DeserializationException//: public std::exception
@@ -151,7 +151,7 @@ struct serializeImpl<std::string>
 };
 
 template<class InputIterator>
-inline void serializeRange(duetto::SerializationInterface* outData, InputIterator begin, const InputIterator end)
+inline void serializeRange(cheerp::SerializationInterface* outData, InputIterator begin, const InputIterator end)
 {
 	//Serialize as an array
 	outData->write("[",1);
@@ -171,14 +171,14 @@ inline void serializeRange(duetto::SerializationInterface* outData, InputIterato
 template<class T>
 struct serializeImpl<std::vector<T>>
 {
-	static void run(duetto::SerializationInterface* outData, const std::vector<T>& data)
+	static void run(cheerp::SerializationInterface* outData, const std::vector<T>& data)
 	{
 		serializeRange(outData, data.begin(), data.end());
 	}
 };
 
 template<typename T>
-inline void serialize(duetto::SerializationInterface* outData, const T& data)
+inline void serialize(cheerp::SerializationInterface* outData, const T& data)
 {
 	return serializeImpl<T>::run(outData, data);
 }
@@ -264,7 +264,7 @@ struct voidUtils
 	{
 		Connection* c=connection;
 		p->then([c] (const R& r) mutable {
-			duetto::serializeImpl<R>::run(c, r);
+			cheerp::serializeImpl<R>::run(c, r);
 			c->flush();
 			c->send();
 			});
@@ -292,7 +292,7 @@ struct returnSerializer
 	static PromiseBase* serialize(SerializationInterface* outData, const char* inData)
 	{
 		const Ret& r=argumentDeserializer<Signature,Func,Ret,Args...>::execute(inData);
-		duetto::serializeImpl<Ret>::run(outData, r);
+		cheerp::serializeImpl<Ret>::run(outData, r);
 		return NULL;
 	}
 };
@@ -327,16 +327,16 @@ struct returnSerializer<Signature,Func,Promise<Ret>*,Args...>
  * It the method returns a promise it is forwarded to the caller
  */
 template<typename Signature, Signature Func, typename Ret, typename ...Args>
-duetto::PromiseBase* serverSkel(duetto::SerializationInterface* outData, const char* inData)
+cheerp::PromiseBase* serverSkel(cheerp::SerializationInterface* outData, const char* inData)
 {
 	try
 	{
 		//Arguments are passed as array, skip the first parenthesis
 		if(inData[0]!='[')
-			throw duetto::DeserializationException("Missing [ at the start of parameters");
-		return duetto::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
+			throw cheerp::DeserializationException("Missing [ at the start of parameters");
+		return cheerp::returnSerializer<Signature,Func,Ret,Args...>::serialize(outData,inData+1);
 	}
-	catch(duetto::DeserializationException& e)
+	catch(cheerp::DeserializationException& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}

@@ -1,8 +1,8 @@
-#ifdef __DUETTO_CLIENT__
-#include <duetto/client.h>
+#ifdef __CHEERP_CLIENT__
+#include <cheerp/client.h>
 #endif
-#ifdef __DUETTO_SERVER__
-#include <duetto/server.h>
+#ifdef __CHEERP_SERVER__
+#include <cheerp/server.h>
 #endif
 
 inline std::string serverTest() [[server]]
@@ -22,5 +22,5 @@ void clientTest() [[client]]
 
 void webMain() [[client]]
 {
-	client::document.addEventListener("DOMContentLoaded",duetto::Callback(clientTest));
+	client::document.addEventListener("DOMContentLoaded",cheerp::Callback(clientTest));
 }

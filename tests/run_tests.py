@@ -35,7 +35,7 @@ report = open("testReport.test","w")
 def compileTest(compiler, testName, outFile):
 	stderrLog = open("testErrs.out","w+");
 	report.write('<testcase classname="compilation" name="%s">' % testName)
-	ret=subprocess.call([compiler, "-O1", "-target", "duetto", "-Iunit",
+	ret=subprocess.call([compiler, "-O1", "-target", "cheerp", "-Iunit",
 		t, "-o", outFile],stderr=stderrLog);
 	if ret != 0:
 		report.write('<failure type="Compilation error">');

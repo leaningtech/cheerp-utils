@@ -1,45 +1,45 @@
-Duetto: A C++ compiler for the Web
+Cheerp: A C++ compiler for the Web
 ------------------------------------------
 
-Duetto is a tool to bring C++ programming to the Web,
+Cheerp is a tool to bring C++ programming to the Web,
 designed to provide a seamless experience for client/server
 development.
 
 Installation
 ------------------------------------------
-Currently Duetto needs to be unpacked in /opt/duetto/
+Currently Cheerp needs to be unpacked in /opt/cheerp/
 
 Usage
 ------------------------------------------
-Duetto is integrated in the LLVM/clang infrastructure.
+Cheerp is integrated in the LLVM/clang infrastructure.
 To build client side JavaScript code from C++ source files
 
-	/opt/duetto/bin/clang -O3 -target duetto <file1.cpp> <file2.cpp> -o <file.js>
+	/opt/cheerp/bin/clang -O3 -target cheerp <file1.cpp> <file2.cpp> -o <file.js>
 
 Building objects file separately and linking only at the end is also possible.
 
-	/opt/duetto/bin/clang++ -O3 -c -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -c -target duetto <file2.cpp> -o <file2.bc>
-	/opt/duetto/bin/clang++ -target duetto <file1.bc> <file2.bc> -o <linkedfile.js>
+	/opt/cheerp/bin/clang++ -O3 -c -target cheerp <file1.cpp> -o <file1.bc>
+	/opt/cheerp/bin/clang++ -O3 -c -target cheerp <file2.cpp> -o <file2.bc>
+	/opt/cheerp/bin/clang++ -target cheerp <file1.bc> <file2.bc> -o <linkedfile.js>
 
 Libraries can be built as well, they are stored using LLVM binary representation
 
-	/opt/duetto/bin/clang++ -O3 -c -target duetto <file1.cpp> -o <file1.bc>
-	/opt/duetto/bin/clang++ -O3 -c -target duetto <file2.cpp> -o <file2.bc>
-	/opt/duetto/bin/llvm-link <file1.bc> <file2.bc> ... -o <library.bc>
+	/opt/cheerp/bin/clang++ -O3 -c -target cheerp <file1.cpp> -o <file1.bc>
+	/opt/cheerp/bin/clang++ -O3 -c -target cheerp <file2.cpp> -o <file2.bc>
+	/opt/cheerp/bin/llvm-link <file1.bc> <file2.bc> ... -o <library.bc>
 
-A cmake toolchain file is provided in /opt/duetto/share/cmake/Modules/DuettoToolchain.cmake
-it's possible to cross-compile cmake projects for the Duetto platform using the syntax
+A cmake toolchain file is provided in /opt/cheerp/share/cmake/Modules/CheerpToolchain.cmake
+it's possible to cross-compile cmake projects for the Cheerp platform using the syntax
 
-	cmake -DCMAKE_TOOLCHAIN_FILE=/opt/duetto/share/cmake/Modules/DuettoToolchain.cmake <regular arguments>
+	cmake -DCMAKE_TOOLCHAIN_FILE=/opt/cheerp/share/cmake/Modules/CheerpToolchain.cmake <regular arguments>
 
 Please note that, currently, only building static libraries is supported.
 
 To build a server side executable you will need to have libpion available on the system
 
-	/opt/duetto/bin/clang++ -duetto-side=server -O3 /opt/duetto/share/duetto/server_stub.cpp /opt/duetto/share/duetto/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
+	/opt/cheerp/bin/clang++ -cheerp-side=server -O3 /opt/cheerp/share/cheerp/server_stub.cpp /opt/cheerp/share/cheerp/deserializer.cpp <file1.cpp> -o <file1> -lboost_system -lpion-net-4.0 -pthread -lpion-common-4.0 -lboost_thread -lssl -lcrypto -llog4cpp
 
-The files server_stub.cpp and deserializer.cpp provided with Duetto include boiler plate code to
+The files server_stub.cpp and deserializer.cpp provided with Cheerp include boiler plate code to
 listen to RPC requests and serve static files in the current directory for testing purposes. The
 server binds to port 1987 by default.
 
@@ -55,7 +55,7 @@ be marked using the C++11 attribute syntax:
 	}
 
 Methods that are tagged using the [[server]] attribute will be treated differently depending on
-the -duetto-side=<client|server> command line option. In client mode they will become stubs for
+the -cheerp-side=<client|server> command line option. In client mode they will become stubs for
 RPC on the server: they will automatically serialize the arguments and get an answer from the server.
 In server mode they will be compiled regularly and server side boiler plate code will forward
 each request to the right method.
@@ -83,9 +83,9 @@ code verbosity by
 
 The relevant headers that defines client interfaces are
 
-	#include <duetto/client.h> //Misc client side stuff
-	#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
-	#include <duetto/webgl.h> //WebGL interface
+	#include <cheerp/client.h> //Misc client side stuff
+	#include <cheerp/clientlib.h> //Complete DOM/HTML5 interface
+	#include <cheerp/webgl.h> //WebGL interface
 
 By convention the method that will be called first on the
 client side should have the following signature
@@ -121,7 +121,7 @@ Properties of DOM objects are always accessed through setters/getters
 		auto body = document.get_body();
 	}
 
-Small examples are included in /opt/duetto/share/duetto/examples/
+Small examples are included in /opt/cheerp/share/cheerp/examples/
 
 Limitations as of this version
 ------------------------------------------

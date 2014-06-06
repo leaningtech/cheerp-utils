@@ -1,4 +1,4 @@
-CLANG=/opt/duetto/bin/clang++
+CLANG=/opt/cheerp/bin/clang++
 
 %.js: %.cpp
-	${CLANG} -target duetto -O2 $^ -o $@
+	${CLANG} -target cheerp -O2 $^ -o $@

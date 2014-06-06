@@ -3,7 +3,7 @@
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
-#include <duetto/client.h>
+#include <cheerp/client.h>
 
 void webMain()
 {

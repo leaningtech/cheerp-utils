@@ -18,8 +18,8 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_CONNECTION_H
-#define _DUETTO_CONNECTION_H
+#ifndef _CHEERP_CONNECTION_H
+#define _CHEERP_CONNECTION_H
 
 #define BOOST_NO_CXX11_NOEXCEPT
 #define BOOST_ASIO_DISABLE_MOVE
@@ -28,7 +28,7 @@
 
 // This file contains the backend specific connection data
 // Currently we assume pion
-namespace duetto
+namespace cheerp
 {
 
 class SerializationInterface

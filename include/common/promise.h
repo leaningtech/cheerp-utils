@@ -18,13 +18,13 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_PROMISE_H
-#define _DUETTO_PROMISE_H
+#ifndef _CHEERP_PROMISE_H
+#define _CHEERP_PROMISE_H
 
 #include <functional>
 #include <vector>
 
-namespace duetto
+namespace cheerp
 {
 
 template<class T>

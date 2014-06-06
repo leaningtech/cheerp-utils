@@ -18,12 +18,12 @@
  *
  ***************************************************************/
 
-#ifndef __DUETTO_PLATFORM_UTILS
-#define __DUETTO_PLATFORM_UTILS
+#ifndef __CHEERP_PLATFORM_UTILS
+#define __CHEERP_PLATFORM_UTILS
 
 #include <stdint.h>
 
-namespace duetto
+namespace cheerp
 {
 
 template<bool Signed>
@@ -564,9 +564,9 @@ inline Int64 operator*(int l, Int64 r)
 
 }
 
-#ifdef DUETTO_EMULATE_INT64
-typedef duetto::Int64 int64_t;
-typedef duetto::UInt64 uint64_t;
+#ifdef CHEERP_EMULATE_INT64
+typedef cheerp::Int64 int64_t;
+typedef cheerp::UInt64 uint64_t;
 #endif
 
 #endif

@@ -1,4 +1,4 @@
-#include <duetto/server.h>
+#include <cheerp/server.h>
 #include <iostream>
 
 std::string serverTest(int i, float f) [[server]]

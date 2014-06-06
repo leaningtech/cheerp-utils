@@ -18,8 +18,8 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_CLIENTLIB_acc90e6e
-#define _DUETTO_CLIENTLIB_acc90e6e
+#ifndef _CHEERP_CLIENTLIB_acc90e6e
+#define _CHEERP_CLIENTLIB_acc90e6e
 #include "types.h"
 
 #include <utility>

@@ -2,11 +2,11 @@
 //	Copyright 2013 Leaning Technlogies
 //===----------------------------------------------------------------------===//
 
-#ifndef _DUETTO_TESTS_H
-#define _DUETTO_TESTS_H
+#ifndef _CHEERP_TESTS_H
+#define _CHEERP_TESTS_H
 
-#include <duetto/types.h>
-#include <duetto/clientlib.h>
+#include <cheerp/types.h>
+#include <cheerp/clientlib.h>
 
 template<class T, class U>
 void assertEqual(const T& value, const U& expected, const char* msg)

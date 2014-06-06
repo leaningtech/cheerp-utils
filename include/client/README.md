@@ -1,16 +1,16 @@
-Duetto: A C++ compiler for the Web {#mainpage}
+Cheerp: A C++ compiler for the Web {#mainpage}
 =========
 
 # Introduction
-Duetto is a C++ compiler for the Web. As so it provides full access to all the capabilities provided by modern browsers. Duetto is not a framework, so it does not provide any high level construct such as widgets or abstraction layers. You are free to build such capabilities on top of the browser APIs exposed by Duetto.
+Cheerp is a C++ compiler for the Web. As so it provides full access to all the capabilities provided by modern browsers. Cheerp is not a framework, so it does not provide any high level construct such as widgets or abstraction layers. You are free to build such capabilities on top of the browser APIs exposed by Cheerp.
 
-This introductory page will show how to use Duetto to code a client-side application to run on the browser. When using any browser API with Duetto, you are directly accessing the implementation which provided by the browser. There is no implementation or abstraction layer inside Duetto.
+This introductory page will show how to use Cheerp to code a client-side application to run on the browser. When using any browser API with Cheerp, you are directly accessing the implementation which provided by the browser. There is no implementation or abstraction layer inside Cheerp.
 
 # Hello World!
 
 ~~~~~~~~~~~~~{.cpp}
-		#include <duetto/client.h> //Misc client side stuff
-		#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
+		#include <cheerp/client.h> //Misc client side stuff
+		#include <cheerp/clientlib.h> //Complete DOM/HTML5 interface
 
 		using namespace client;
 
@@ -23,12 +23,12 @@ This introductory page will show how to use Duetto to code a client-side applica
 To compile this code into JavaScript, just type:
 
 ~~~~~~~~~~~~~{.sh}
-		/opt/duetto/bin/clang++ -O3 -target duetto HelloClient.cpp -o HelloClient.js
+		/opt/cheerp/bin/clang++ -O3 -target cheerp HelloClient.cpp -o HelloClient.js
 ~~~~~~~~~~~~~
 
 # The webMain entry point
 
-In the example above you can see that, in Duetto, ```webMain``` is the entry point of your application. On the other hand traditional C++ applications starts in the ```main``` function, which is not only the entry point of the application, but actually contains the whole program execution, as the program terminates when main returns.
+In the example above you can see that, in Cheerp, ```webMain``` is the entry point of your application. On the other hand traditional C++ applications starts in the ```main``` function, which is not only the entry point of the application, but actually contains the whole program execution, as the program terminates when main returns.
 
 ```webMain``` instead is only the entry point of the application, as your program will be executing after webMain returns. In ```webMain``` you should register callbacks for any event you might be interested on, then the browser will invoke the callbacks you registered when the relevant event happens.
 
@@ -38,12 +38,12 @@ If you are porting an existing application, be careful about any object allocate
 
 ## The client namespace
 
-Browser APIs are declared inside headers which are provided with Duetto, namely
+Browser APIs are declared inside headers which are provided with Cheerp, namely
 
 ~~~~~~~~~~~~~{.cpp}
-		#include <duetto/client.h> //Misc client side stuff
-		#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
-		#include <duetto/webgl.h> //WebGL interface
+		#include <cheerp/client.h> //Misc client side stuff
+		#include <cheerp/clientlib.h> //Complete DOM/HTML5 interface
+		#include <cheerp/webgl.h> //WebGL interface
 ~~~~~~~~~~~~~
 
 All classes, global variables and methods exposed by the browser are declared into the ```client`` namespace. 
@@ -57,8 +57,8 @@ All classes, global variables and methods exposed by the browser are declared in
 You can access the ```document``` global object directly from C++ code. In the next example we will add an event handler to run our code after the DOM is fully loaded.
 
 ~~~~~~~~~~~~~{.cpp}
-		#include <duetto/client.h> //Misc client side stuff
-		#include <duetto/clientlib.h> //Complete DOM/HTML5 interface
+		#include <cheerp/client.h> //Misc client side stuff
+		#include <cheerp/clientlib.h> //Complete DOM/HTML5 interface
 
 		using namespace client;
 
@@ -76,7 +76,7 @@ You can access the ```document``` global object directly from C++ code. In the n
 
 ## Manipulating the DOM
 
-Duetto works at the same level as JavaScript. It is designed to complement or replace JavaScript as a programming language for the Web. It does not attempt at replacing other Web technologies such as HTML and CSS. When using Duetto you still have to design your page using HTML, CSS and the tools you already know.
+Cheerp works at the same level as JavaScript. It is designed to complement or replace JavaScript as a programming language for the Web. It does not attempt at replacing other Web technologies such as HTML and CSS. When using Cheerp you still have to design your page using HTML, CSS and the tools you already know.
 
 If you want to manipulate the DOM at run-time you can use the same APIs you would use when writing JavaScript. In the following example we will create two DOM elements and set up event handling using the DOM APIs exposed by the browser.
 
@@ -119,7 +119,7 @@ If you want to manipulate the DOM at run-time you can use the same APIs you woul
 
 ## Using DOM Strings
 
-DOM/JS String can be used from Duetto through the ```client::String``` object. DOM Strings are immutable data types which are used to pass text to DOM APIs. Given that this is a browser-native implementation, it may be more efficient to manipulate text data using ```client::String``` than equivalent ```std::string``` or plain buffers of ```char```s.
+DOM/JS String can be used from Cheerp through the ```client::String``` object. DOM Strings are immutable data types which are used to pass text to DOM APIs. Given that this is a browser-native implementation, it may be more efficient to manipulate text data using ```client::String``` than equivalent ```std::string``` or plain buffers of ```char```s.
 
 ```client::String``` has a constructor which accepts C-style ```const char*``` and can be used to create DOM Strings from C++ string literals or arrays of characters. This constructor will also be invoked implicitly whenever passing a ```const char*``` where a DOM String is expected
 
@@ -172,9 +172,9 @@ DOM objects created using ```new```, such as the ```client::XMLHttpRequest``` ob
 
 # Accessing the DOM, under the hood
 
-Duetto provides access to the DOM using a simple convention on the way the APIs are declared. All the APIs are compiled to the corresponding function call inside the generated JavaScript code with no intermediate implementation.
+Cheerp provides access to the DOM using a simple convention on the way the APIs are declared. All the APIs are compiled to the corresponding function call inside the generated JavaScript code with no intermediate implementation.
 
-The convention used by Duetto is to declare all the functionalities provided by the browser in the ```client``` namespace.
+The convention used by Cheerp is to declare all the functionalities provided by the browser in the ```client``` namespace.
 
 ~~~~~~~~~~~~~{.cpp}
 		namespace client

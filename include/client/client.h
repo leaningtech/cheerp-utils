@@ -18,18 +18,18 @@
  *
  ***************************************************************/
 
-#ifndef _DUETTO_CLIENT_a335cd00
-#define _DUETTO_CLIENT_a335cd00
+#ifndef _CHEERP_CLIENT_a335cd00
+#define _CHEERP_CLIENT_a335cd00
 
-#include "duetto/types.h"
-#include "duetto/clientlib.h"
-#include <duetto/promise.h>
+#include "cheerp/types.h"
+#include "cheerp/clientlib.h"
+#include <cheerp/promise.h>
 
 #include <utility>
 #include <functional>
 #include <vector>
 
-namespace duetto
+namespace cheerp
 {
 
 template<class, class> struct CallbackHelper; // undefined
@@ -48,7 +48,7 @@ struct CallbackHelperBase<false, R, Args...>
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
 	{
-		return (client::EventListener*)__builtin_duetto_create_closure((void*)&invoke,
+		return (client::EventListener*)__builtin_cheerp_create_closure((void*)&invoke,
 						new std::function<func_type>(func));
 	}
 };
@@ -144,8 +144,8 @@ struct TypedArrayForPointerType<double>
 template<typename P,typename T=typename TypedArrayForPointerType<P>::type>
 T* MakeTypedArray(const P* ptr, size_t size=0)
 {
-	size_t offset=__builtin_duetto_pointer_offset(ptr);
-	T* buf=(T*)__builtin_duetto_pointer_base(ptr);
+	size_t offset=__builtin_cheerp_pointer_offset(ptr);
+	T* buf=(T*)__builtin_cheerp_pointer_base(ptr);
 	size_t elementSize=sizeof(P);
 	if(size==0)
 		return buf->subarray(offset);
@@ -156,8 +156,8 @@ T* MakeTypedArray(const P* ptr, size_t size=0)
 template<typename T>
 T* MakeTypedArray(const void* ptr, size_t size=0)
 {
-	size_t offset=__builtin_duetto_pointer_offset(ptr);
-	T* buf=(T*)__builtin_duetto_pointer_base(ptr);
+	size_t offset=__builtin_cheerp_pointer_offset(ptr);
+	T* buf=(T*)__builtin_cheerp_pointer_base(ptr);
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
@@ -167,9 +167,9 @@ T* MakeTypedArray(const void* ptr, size_t size=0)
 
 inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size=0)
 {
-	size_t offset=__builtin_duetto_pointer_offset(ptr);
+	size_t offset=__builtin_cheerp_pointer_offset(ptr);
 	//We use Int8Array to access BYTES_PER_ELEMENT
-	client::Int8Array* buf=(client::Int8Array*)__builtin_duetto_pointer_base(ptr);
+	client::Int8Array* buf=(client::Int8Array*)__builtin_cheerp_pointer_base(ptr);
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
@@ -419,16 +419,16 @@ T deserialize(const client::String* s) [[client]]
 template<class T>
 struct voidUtils
 {
-	static void triggerDone(duetto::Promise<T>* p, client::XMLHttpRequest* r)
+	static void triggerDone(cheerp::Promise<T>* p, client::XMLHttpRequest* r)
 	{
-		p->done(duetto::deserialize<T>(r->get_responseText()));
+		p->done(cheerp::deserialize<T>(r->get_responseText()));
 	}
 };
 
 template<>
 struct voidUtils<void>
 {
-	static void triggerDone(duetto::Promise<void>* p, client::XMLHttpRequest*)
+	static void triggerDone(cheerp::Promise<void>* p, client::XMLHttpRequest*)
 	{
 		p->done();
 	}
@@ -443,7 +443,7 @@ struct promiseUtils: public std::false_type
 	}
 	static T getReturn(void* p, client::XMLHttpRequest* r)
 	{
-		return duetto::deserialize<T>(r->get_responseText());
+		return cheerp::deserialize<T>(r->get_responseText());
 	}
 	static bool is_promise()
 	{
@@ -452,14 +452,14 @@ struct promiseUtils: public std::false_type
 };
 
 template<class T>
-struct promiseUtils<duetto::Promise<T>*>: public std::true_type
+struct promiseUtils<cheerp::Promise<T>*>: public std::true_type
 {
 	// addCallback create the onload callback for the asynchronous case
 	// and returns a pointer to the promise. The synchronous implementation
 	// returns an unused NULL void*
-	static duetto::Promise<T>* addCallbackIfNeeded(client::XMLHttpRequest* r)
+	static cheerp::Promise<T>* addCallbackIfNeeded(client::XMLHttpRequest* r)
 	{
-		duetto::Promise<T>* ret=new duetto::Promise<T>();
+		cheerp::Promise<T>* ret=new cheerp::Promise<T>();
 		r->addEventListener("load",Callback([ret](client::ProgressEvent* e) mutable {
 				client::XMLHttpRequest* r=(client::XMLHttpRequest*)e->get_target();
 				voidUtils<T>::triggerDone(ret, r);
@@ -468,7 +468,7 @@ struct promiseUtils<duetto::Promise<T>*>: public std::true_type
 	}
 	// This forwards the promise to the caller. The synchronous implementation runs the
 	// deserialization and returns the full object, while ignoring the fake promiseRet
-	static duetto::Promise<T>* getReturn(duetto::Promise<T>* p, client::XMLHttpRequest* r)
+	static cheerp::Promise<T>* getReturn(cheerp::Promise<T>* p, client::XMLHttpRequest* r)
 	{
 		return p;
 	}
@@ -505,7 +505,7 @@ struct clientStubImpl
 	{
 		client::String* data=serializeArgs(std::forward<Args>(args)...);
 		client::XMLHttpRequest* r=new client::XMLHttpRequest();
-		client::String* url=new client::String("/duetto_call?f=");
+		client::String* url=new client::String("/cheerp_call?f=");
 		url=url->concat(funcName,"&a=[",*encodeURIComponent(*data),"]");
 		auto promiseRet = promiseUtils<Ret>::addCallbackIfNeeded(r);
 		// If the return is not a promise we will be synchronous
@@ -514,12 +514,12 @@ struct clientStubImpl
 		return promiseUtils<Ret>::getReturn(promiseRet, r);
 	}
 };
-} //End of namespace duetto
+} //End of namespace cheerp
 
 template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[client]]
 {
-	return duetto::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
+	return cheerp::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
 }
 
 #endif

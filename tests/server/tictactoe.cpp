@@ -1,9 +1,9 @@
-#ifdef __DUETTO_CLIENT__
-#include <duetto/client.h>
-#include <duetto/clientlib.h>
+#ifdef __CHEERP_CLIENT__
+#include <cheerp/client.h>
+#include <cheerp/clientlib.h>
 #endif
-#ifdef __DUETTO_SERVER__
-#include <duetto/server.h>
+#ifdef __CHEERP_SERVER__
+#include <cheerp/server.h>
 #endif
 
 #include <iostream>
@@ -45,19 +45,19 @@ struct gameAnswer
 	int y;
 	bool valid;
 	gameAnswer(int _x, int _y,bool v):x(_x),y(_y),valid(v){}
-#ifdef __DUETTO_SERVER__
-	void serialize(duetto::SerializationInterface* outData) const
+#ifdef __CHEERP_SERVER__
+	void serialize(cheerp::SerializationInterface* outData) const
 	{
 		outData->write("[",1);
-		duetto::serialize<int>(outData,x);
+		cheerp::serialize<int>(outData,x);
 		outData->write(",",1);
-		duetto::serialize<int>(outData,y);
+		cheerp::serialize<int>(outData,y);
 		outData->write(",",1);
-		duetto::serialize<bool>(outData,valid);
+		cheerp::serialize<bool>(outData,valid);
 		outData->write("]",1);
 	}
 #endif
-#ifdef __DUETTO_CLIENT__
+#ifdef __CHEERP_CLIENT__
 	static gameAnswer deserialize(const client::String& s) [[client]]
 	{
 		client::Array* a=static_cast<client::Array*>(client::JSON.parse(s));
@@ -88,7 +88,7 @@ gameAnswer notifyClick(int x, int y) [[server]]
 	return gameAnswer(retX,retY,true);
 }
 
-#ifdef __DUETTO_CLIENT__
+#ifdef __CHEERP_CLIENT__
 void handleEvent(client::MouseEvent* e) [[client]]
 {
 	client::Document* d=&client::document;
@@ -131,7 +131,7 @@ int getClickCount() [[server]]
 	return clickCount;
 }
 
-#ifdef __DUETTO_CLIENT__
+#ifdef __CHEERP_CLIENT__
 void handleRightClick(client::MouseEvent* e) [[client]]
 {
 	client::Document* d=&client::document;
@@ -159,8 +159,8 @@ void clientTest() [[client]]
 	}
 	ctx->stroke();
 
-	canvas->addEventListener("click",duetto::Callback(handleEvent));
-	canvas->addEventListener("contextmenu",duetto::Callback(handleRightClick));
+	canvas->addEventListener("click",cheerp::Callback(handleEvent));
+	canvas->addEventListener("contextmenu",cheerp::Callback(handleRightClick));
 }
 
 inline void resetGame() [[server]]
@@ -172,5 +172,5 @@ inline void resetGame() [[server]]
 void webMain() [[client]]
 {
 	resetGame();
-	client::document.addEventListener("DOMContentLoaded",duetto::Callback(clientTest));
+	client::document.addEventListener("DOMContentLoaded",cheerp::Callback(clientTest));
 }

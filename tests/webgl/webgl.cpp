@@ -5,9 +5,9 @@
  * 		     and http://net.tutsplus.com/tutorials/webgl-essentials-part-i/
  */
 
-#include <duetto/client.h>
-#include <duetto/clientlib.h>
-#include <duetto/webgl.h>
+#include <cheerp/client.h>
+#include <cheerp/clientlib.h>
+#include <cheerp/webgl.h>
 
 using namespace client;
 
@@ -89,7 +89,7 @@ double lastTime;
 
 void drawCallback() [[client]]
 {
-	requestAnimationFrame(duetto::Callback(drawCallback));
+	requestAnimationFrame(cheerp::Callback(drawCallback));
 
 	gl->clearColor(0,0,0,1);
 	gl->clear(gl->get_COLOR_BUFFER_BIT());
@@ -104,7 +104,7 @@ void drawCallback() [[client]]
 	double currentTime=client::Date::now();
 	Translate(mvMatrix, 0, (currentTime-lastTime)/1000, 0);
 	lastTime=currentTime;
-	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
+	gl->uniformMatrix4fv(mvMatrixUniform, false, cheerp::MakeTypedArray(mvMatrix));
 }
 
 void loadCallback() [[client]]
@@ -154,14 +154,14 @@ void loadCallback() [[client]]
 	positionBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), positionBuf);
 	float vertices[] = {0.0,  1.0,  -6.0, -1.0, -1.0,  -6.0, 1.0, -1.0, -6.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), duetto::MakeTypedArray(vertices), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), cheerp::MakeTypedArray(vertices), gl->get_STATIC_DRAW());
 
 	colorBuf=gl->createBuffer();
 	gl->bindBuffer(gl->get_ARRAY_BUFFER(), colorBuf);
 	float colors[] = {1.0,  0.0,  0.0, 1.0,
 			0.0, 1.0, 0.0, 1.0,
 			0.0, 0.0, 1.0, 1.0};
-	gl->bufferData(gl->get_ARRAY_BUFFER(), duetto::MakeTypedArray(colors), gl->get_STATIC_DRAW());
+	gl->bufferData(gl->get_ARRAY_BUFFER(), cheerp::MakeTypedArray(colors), gl->get_STATIC_DRAW());
 
 	float pMatrix[16];
 	MakePerspective(pMatrix, 45, 1, 0.1, 100);
@@ -169,14 +169,14 @@ void loadCallback() [[client]]
 	MakeIdentity(mvMatrix);
 	lastTime=client::Date::now();
 
-	gl->uniformMatrix4fv(pMatrixUniform, false, duetto::MakeTypedArray(pMatrix));
-	gl->uniformMatrix4fv(mvMatrixUniform, false, duetto::MakeTypedArray(mvMatrix));
+	gl->uniformMatrix4fv(pMatrixUniform, false, cheerp::MakeTypedArray(pMatrix));
+	gl->uniformMatrix4fv(mvMatrixUniform, false, cheerp::MakeTypedArray(mvMatrix));
 
 	drawCallback();
 }
 
 int webMain() [[client]]
 {
-	document.addEventListener("DOMContentLoaded",duetto::Callback(loadCallback));
+	document.addEventListener("DOMContentLoaded",cheerp::Callback(loadCallback));
 	return 0;
 }

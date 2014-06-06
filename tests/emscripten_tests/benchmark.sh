@@ -6,11 +6,11 @@ TEST=$1
 
 rm -f benchmark-data-${TEST}-*
 
-echo Benchmarking $TEST-Duetto on V8
+echo Benchmarking $TEST-Cheerp on V8
 count=0;
 while [ $count -lt 10 ]
 do
-	time -f "%e" -a -o benchmark-data-${TEST}-duetto-v8 $V8 $TEST-duetto.js
+	time -f "%e" -a -o benchmark-data-${TEST}-cheerp-v8 $V8 $TEST-cheerp.js
 	count=$(($count+1))
 done
 
@@ -22,11 +22,11 @@ do
 	count=$(($count+1))
 done
 
-echo Benchmarking $TEST-Duetto on SpiderMonkey
+echo Benchmarking $TEST-Cheerp on SpiderMonkey
 count=0;
 while [ $count -lt 10 ]
 do
-	time -f "%e" -a -o benchmark-data-${TEST}-duetto-spidermonkey $SM --no-baseline --no-ion $TEST-duetto.js
+	time -f "%e" -a -o benchmark-data-${TEST}-cheerp-spidermonkey $SM --no-baseline --no-ion $TEST-cheerp.js
 	count=$(($count+1))
 done
 

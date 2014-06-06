@@ -18,10 +18,10 @@
  *
  ***************************************************************/
 
-#ifndef __DUETTO_WEBGL
-#define __DUETTO_WEBGL
+#ifndef __CHEERP_WEBGL
+#define __CHEERP_WEBGL
 
-#include <duetto/types.h>
+#include <cheerp/types.h>
 
 namespace client
 {
