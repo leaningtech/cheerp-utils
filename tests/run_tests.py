@@ -2,14 +2,23 @@
 
 import subprocess
 import sys
+import os
 import re
+from optparse import OptionParser
 
-if len(sys.argv)!=3:
+parser = OptionParser()
+parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
+parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
+(option, args) = parser.parse_args()
+
+if len(args)!=2:
 	print("Usage: %s <compiler> <js engine>\n" % sys.argv[0]);
 	exit(1);
 
-clang = sys.argv[1]
-jsEngine = sys.argv[2]
+clang = args[0]
+jsEngine = args[1]
+optlevel = option.optlevel
+prefix = option.prefix
 
 tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
@@ -36,7 +45,7 @@ report = open("testReport.test","w")
 def compileTest(compiler, testName, outFile):
 	stderrLog = open("testErrs.out","w+");
 	report.write('<testcase classname="compilation" name="%s">' % testName)
-	ret=subprocess.call([compiler, "-O1", "-target", "cheerp", "-Iunit",
+	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-Iunit",
 		t, "-o", outFile],stderr=stderrLog);
 	if ret != 0:
 		report.write('<failure type="Compilation error">');
@@ -73,8 +82,15 @@ def runTest(engine, testName, outFile):
 
 report.write('<testsuite>');
 for t in tests:
-	compileTest(clang, t, "out.js");
-	runTest(jsEngine, t, "out.js");
+	if prefix :
+		head,tail = os.path.split(t)
+		name,ext = os.path.splitext(tail)
+		outFile = os.path.join(head, prefix + "_" + name + ".js")
+	else :
+		outFile = "out.js"
+	
+	compileTest(clang, t, outFile);
+	runTest(jsEngine, t, outFile);
 report.write('</testsuite>');
 
 report.close()
