@@ -4,10 +4,13 @@ import subprocess
 import sys
 import os
 import re
+import concurrent.futures
 from optparse import OptionParser
+
 
 parser = OptionParser()
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
+parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
 (option, args) = parser.parse_args()
 
@@ -19,6 +22,8 @@ clang = args[0]
 jsEngine = args[1]
 optlevel = option.optlevel
 prefix = option.prefix
+jobs = option.jobs
+progress = 0
 
 tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
@@ -41,57 +46,97 @@ tests = ['unit/downcast/test1.cpp',
 		'unit/dom/test5.cpp',
 	 'unit/static/test1.cpp']
 
-report = open("testReport.test","w")
-
-def compileTest(compiler, testName, outFile):
-	stderrLog = open("testErrs.out","w+");
-	report.write('<testcase classname="compilation" name="%s">' % testName)
+def compileTest(compiler, testName, outFile, testReport, testErrs ):
+	testReport.write('<testcase classname="compilation" name="%s">' % testName)
 	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-Iunit",
-		t, "-o", outFile],stderr=stderrLog);
+		testName, "-o", outFile],stderr=testErrs);
 	if ret != 0:
-		report.write('<failure type="Compilation error">');
-		stderrLog.seek(0);
-		report.write(stderrLog.read());
-		report.write('</failure>');
-	report.write('</testcase>')
-	stderrLog.close();
+		testReport.write('<failure type="Compilation error">');
+		testErrs.seek(0);
+		testReport.write(testErrs.read());
+		testReport.write('</failure>');
+	testReport.write('</testcase>')
 
-def runTest(engine, testName, outFile):
-	stderrLog = open("testErrs.out","w+");
-	stdoutLog = open("testOut.out","w+");
-	report.write('<testcase classname="run" name="%s">' % testName)
-	ret=subprocess.call([engine, outFile],stderr=stderrLog,stdout=stdoutLog);
-	stderrLog.seek(0);
-	stdoutLog.seek(0);
-	if ret != 0:
-		report.write('<failure type="Runtime error">');
-		report.write(stderrLog.read());
-		report.write('</failure>');
-	report.write('</testcase>')
-	if ret != 0:
-		stderrLog.close();
-		return
-	for testLine in stdoutLog:
-		m=re.match("^(.*) : (.*)",testLine)
-		checkName = m.group(1)
-		result = m.group(2)
-		report.write('<testcase classname="check" name="%s">' % checkName)
-		if result!="SUCCESS":
-			report.write('<failure type="Self check error">%s</failure>' % testLine);
-		report.write('</testcase>')
-	stderrLog.close();
+def runTest(engine, testName, outFile, testReport, testErrs, testOut):
 
-report.write('<testsuite>');
-for t in tests:
-	if prefix :
-		head,tail = os.path.split(t)
-		name,ext = os.path.splitext(tail)
+	ret=subprocess.call([engine, outFile],stderr=testErrs,stdout=testOut);
+	testErrs.seek(0);
+	testOut.seek(0);
+
+	testReport.write('<testcase classname="run" name="%s">' % testName)
+	if ret != 0:
+		testReport.write('<failure type="Runtime error">');
+		testReport.write(testErrs.read());
+		testReport.write('</failure>');
+	testReport.write('</testcase>')
+
+	if ret == 0:
+		for testLine in testOut:
+			m=re.match("^(.*) : (.*)",testLine)
+			checkName = m.group(1)
+			result = m.group(2)
+			testReport.write('<testcase classname="check" name="%s">' % checkName)
+			if result!="SUCCESS":
+				testReport.write('<failure type="Self check error">%s</failure>' % testLine);
+			testReport.write('</testcase>')
+
+def do_test(test):
+	global progress
+	print("[%d%%] Compiling and executing test: %s" % (( progress * 100 / len(tests) ), test) )
+
+	head,tail = os.path.split(test)
+	name,ext = os.path.splitext(tail)
+
+	if prefix:
 		outFile = os.path.join(head, prefix + "_" + name + ".js")
-	else :
-		outFile = "out.js"
-	
-	compileTest(clang, t, outFile);
-	runTest(jsEngine, t, outFile);
-report.write('</testsuite>');
+	else:
+		outFile = os.path.join(head, name + ".js")
 
-report.close()
+	stderrLog = open("%s_testerr" % test,"w+");
+	stdoutLog = open("%s_testout" % test,"w+");
+	stdrepLog = open("%s_testreport" % test,"w+");
+
+	compileTest(clang, test, outFile, stdrepLog, stderrLog);
+	runTest(jsEngine, test, outFile, stdrepLog, stderrLog, stdoutLog)
+
+	stderrLog.close()
+	stdoutLog.close()
+	stdrepLog.close()
+
+	progress = progress + 1
+
+
+executor = concurrent.futures.ThreadPoolExecutor(jobs)
+futures = [executor.submit(do_test, test) for test in tests]
+concurrent.futures.wait(futures)
+
+# Build back the testReport, testErrs and testOut files
+testReport = open("testReport.test","w")
+testErrs = open("testErrs.out","w+");
+testOut = open("testOut.out","w+");
+
+testReport.write('<testsuite>');
+
+for t in tests:
+	tr = open("%s_testreport" % t,"r")
+	te = open("%s_testerr" % t,"r")
+	to = open("%s_testout" % t,"r")
+
+	for line in tr:
+		testReport.write(line)
+	for line in te:
+		testErrs.write(line)
+	for line in to:
+		testOut.write(line)
+
+	to.close()
+	te.close()
+	tr.close()
+
+	os.remove("%s_testreport" %t)
+	os.remove("%s_testerr" %t)
+	os.remove("%s_testout" %t)
+	
+testReport.write('</testsuite>');
+
+testReport.close()
