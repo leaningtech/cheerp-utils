@@ -24,6 +24,7 @@
 #include "cheerp/types.h"
 #include "cheerp/clientlib.h"
 #include <cheerp/promise.h>
+#include <cheerpintrin.h>
 
 #include <utility>
 #include <functional>
@@ -48,7 +49,7 @@ struct CallbackHelperBase<false, R, Args...>
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
 	{
-		return (client::EventListener*)__builtin_cheerp_create_closure((void*)&invoke,
+		return __builtin_cheerp_create_closure<client::EventListener>(&invoke,
 						new std::function<func_type>(func));
 	}
 };
@@ -60,7 +61,7 @@ struct CallbackHelperBase<true, R, Args...>
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
 	{
-		return (client::EventListener*)((void (*)())(func_type*)func);
+		return __builtin_cheerp_make_complete_object<client::EventListener>((func_type*)func);
 	}
 };
 
@@ -85,9 +86,9 @@ client::EventListener* Callback(const T& func)
 }
 
 template<class R, class... Args>
-client::EventListener* Callback(R func(Args...))
+client::EventListener* Callback(R (*func)(Args...))
 {
-	return (client::EventListener*)((void (*)())func);
+	return __builtin_cheerp_make_complete_object<client::EventListener>(func);
 }
 
 template<typename T>
@@ -145,7 +146,7 @@ template<typename P,typename T=typename TypedArrayForPointerType<P>::type>
 T* MakeTypedArray(const P* ptr, size_t size=0)
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
-	T* buf=(T*)__builtin_cheerp_pointer_base(ptr);
+	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base(ptr));
 	size_t elementSize=sizeof(P);
 	if(size==0)
 		return buf->subarray(offset);
@@ -157,7 +158,7 @@ template<typename T>
 T* MakeTypedArray(const void* ptr, size_t size=0)
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
-	T* buf=(T*)__builtin_cheerp_pointer_base(ptr);
+	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base(ptr));
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
@@ -169,7 +170,7 @@ inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
 	//We use Int8Array to access BYTES_PER_ELEMENT
-	client::Int8Array* buf=(client::Int8Array*)__builtin_cheerp_pointer_base(ptr);
+	client::Int8Array* buf=__builtin_cheerp_make_complete_object<client::Int8Array>(__builtin_cheerp_pointer_base(ptr));
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
