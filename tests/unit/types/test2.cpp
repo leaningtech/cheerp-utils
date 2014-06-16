@@ -23,7 +23,7 @@ void webMain()
 	opaque1 = &a;
 
 	float* pa = (float*)opaque1;
-	assertEqual(*pa, 0.2, "Float, cast to void* and back");
+	assertEqual(*pa, 0.2f, "Float, cast to void* and back");
 
 	S s;
 	s.i = 42;
