@@ -5,6 +5,12 @@
 #include <tests.h>
 #include <stdlib.h>
 
+struct A
+{
+	int a;
+	float b;
+};
+
 void webMain()
 {
 	//Test legacy C memory allocation
@@ -18,6 +24,21 @@ void webMain()
 	d[1] = 45;
 	assertEqual(d[1], 45, "Access calloc allocated memory");
 	free(d);
+
+	//Test legacy C memory realloc
+	a[0] = 46;
+	int* volatile e=(int*)realloc(a, 1*sizeof(int));
+	assertEqual(e[0], 46, "Access realloc-ed memory 1/4");
+	int* volatile f=(int*)realloc(e, 3*sizeof(int));
+	f[1] = 47;
+	assertEqual(f[1], 47, "Access realloc-ed memory 2/4");
+	A* volatile objA= (A*)malloc(2*sizeof(A));
+	objA[0].a = 42;
+	A* volatile objB = (A*)realloc(objA, 1*sizeof(A));
+	assertEqual(objB[0].a, 42, "Access realloc-ed memory 3/4");
+	A* volatile objC = (A*)realloc(objB, 3*sizeof(A));
+	objC[2].a = 43;
+	assertEqual(objC[2].a, 43, "Access realloc-ed memory 4/4");
 
 	//Test C++ memory allocation
 	int* volatile b=new int[2];
