@@ -36,12 +36,12 @@ private:
 	// Make it impossible to blindly copy a browser object
 	Object(const Object&) = delete;
 public:
+	// valueOf may return different types, the users should specify which one is expected
+	template<typename T>
+	T valueOf();
 	operator double() const
 	{
-		//We need a temporary value to reinterpret the
-		//JS Object as a Number
-		const Object* tmp=this;
-		return *reinterpret_cast<float*>(&tmp);
+		return const_cast<Object*>(this)->valueOf<double>();
 	}
 };
 
