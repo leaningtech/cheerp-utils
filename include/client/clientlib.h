@@ -8844,8 +8844,8 @@ namespace client
 	class URL: public Object{
 	public:
 		void revokeObjectURL(const String& url);
-		String* createObjectURL(Object* object);
-		String* createObjectURL(Object* object, ObjectURLOptions* options);
+		static String* createObjectURL(Object* object) [[static]];
+		static String* createObjectURL(Object* object, ObjectURLOptions* options) [[static]];
 	};
 
 	class IDBCursorWithValue: public IDBCursor {
