@@ -51,7 +51,8 @@ class TArray;
 class String: public Object
 {
 private:
-	static String* fromCharPtr(const char* s)
+	template<typename C>
+	static String* fromCharPtr(const C* s)
 	{
 		String* ret=new String();
 		for(;*s;s++)
@@ -72,7 +73,10 @@ public:
 	String(int a) throw();
 	String(unsigned int a) throw();
 	String(float a) throw();
-	String(const char* s):String(fromCharPtr(s))
+	String(const char* s):String(fromCharPtr<char>(s))
+	{
+	}
+	String(const wchar_t* s):String(fromCharPtr<wchar_t>(s))
 	{
 	}
 	template<typename... Args>
