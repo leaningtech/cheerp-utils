@@ -23,6 +23,7 @@
 
 #include <utility>
 #include <string>
+#include <cheerpintrin.h>
 
 namespace client
 {
@@ -112,11 +113,11 @@ public:
 	Array(Args... args);
 	Object*& operator[](int index)
 	{
-		return ((Object**)this)[index];
+		return __builtin_cheerp_make_regular<Object*>(this, 0)[index];
 	}
 	Object* operator[](int index) const
 	{
-		return ((Object**)this)[index];
+		return __builtin_cheerp_make_regular<Object*>(this, 0)[index];
 	}
 	int indexOf(Object* searchElement);
 	int indexOf(Object* searchElement, int fromIndex);
