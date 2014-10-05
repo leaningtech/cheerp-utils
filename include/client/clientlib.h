@@ -5064,6 +5064,7 @@ namespace client
 		double get_shadowOffsetY();
 		void set_shadowOffsetY(double);
 		Object* get_fillStyle();
+		void set_fillStyle(const String&);
 		void set_fillStyle(Object*);
 		double get_shadowBlur();
 		void set_shadowBlur(double);
