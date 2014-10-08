@@ -43,8 +43,8 @@ struct CallbackHelperBase<false, R, Args...>
 	typedef R (func_type)(Args...);
 	static R invoke(std::function<R(Args...)>* func, Args... args)
 	{
+		std::unique_ptr<std::function<R(Args...)>> funcDeleter(func);
 		return (*func)(std::forward<Args>(args)...);
-		//delete func;
 	}
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
