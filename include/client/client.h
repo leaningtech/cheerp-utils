@@ -77,6 +77,11 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 {
 };
 
+/**
+ * Adapter from C++ functors and lambdas to code callable from JavaScript and the browser
+ * The implementation tries hard to directly forward the C++ function to JavaScript woth zero overhead when possible.
+ * For functors and capturing lambdas an std::function object and a JavaScript closure are created.
+ */
 template<class T>
 client::EventListener* Callback(const T& func)
 {
@@ -85,6 +90,10 @@ client::EventListener* Callback(const T& func)
 	return callback_helper::make_callback(func);
 }
 
+/**
+ * Adapter from C++ funtions to code callable from JavaScript and the browser
+ * The implementation directly forward the C++ function to JavaScript with zero overhead.
+ */
 template<class R, class... Args>
 client::EventListener* Callback(R (*func)(Args...))
 {
