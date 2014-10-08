@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2013 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2014 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
