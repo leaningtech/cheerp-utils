@@ -25,7 +25,7 @@ prefix = option.prefix
 jobs = option.jobs
 progress = 0
 
-tests = ['unit/downcast/test1.cpp',
+tests = ['unit/downcast/test1.cpp','unit/downcast/test2.cpp',
 	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
 	 'unit/memory/test1.cpp','unit/memory/test2.cpp','unit/memory/test3.cpp',
 		'unit/memory/test4.cpp','unit/memory/test5.cpp','unit/memory/test6.cpp',
@@ -42,7 +42,7 @@ tests = ['unit/downcast/test1.cpp',
 	 'unit/codegen/test1.cpp','unit/codegen/test2.cpp','unit/codegen/test3.cpp','unit/codegen/test4.cpp',
 		 'unit/codegen/test5.cpp','unit/codegen/test6.cpp','unit/codegen/test7.cpp',
 		 'unit/codegen/test8.cpp','unit/codegen/test9.cpp','unit/codegen/test10.cpp',
-		 'unit/codegen/test11.cpp','unit/codegen/test12.cpp',
+		 'unit/codegen/test11.cpp','unit/codegen/test12.cpp','unit/codegen/test13.cpp',
 	 'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp',
 	 'unit/static/test1.cpp']
