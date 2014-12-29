@@ -155,7 +155,7 @@ template<typename P,typename T=typename TypedArrayForPointerType<P>::type>
 T* MakeTypedArray(const P* ptr, size_t size=0)
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
-	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base(ptr));
+	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base<T>(ptr));
 	size_t elementSize=sizeof(P);
 	if(size==0)
 		return buf->subarray(offset);
@@ -167,7 +167,7 @@ template<typename T>
 T* MakeTypedArray(const void* ptr, size_t size=0)
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
-	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base(ptr));
+	T* buf=__builtin_cheerp_make_complete_object<T>(__builtin_cheerp_pointer_base<T>(ptr));
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
@@ -179,7 +179,7 @@ inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size
 {
 	size_t offset=__builtin_cheerp_pointer_offset(ptr);
 	//We use Int8Array to access BYTES_PER_ELEMENT
-	client::Int8Array* buf=__builtin_cheerp_make_complete_object<client::Int8Array>(__builtin_cheerp_pointer_base(ptr));
+	client::Int8Array* buf=__builtin_cheerp_make_complete_object<client::Int8Array>(__builtin_cheerp_pointer_base<client::Int8Array>(ptr));
 	size_t elementSize=buf->get_BYTES_PER_ELEMENT();
 	if(size==0)
 		return buf->subarray(offset);
