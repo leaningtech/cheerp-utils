@@ -9357,6 +9357,7 @@ namespace client
 		void set_onmessage(EventListener*);
 		void close();
 		void postMessage();
+		void postMessage(const String& message);
 		void postMessage(Object* message);
 		void postMessage(Object* message, Object* ports);
 		void start();
@@ -9743,6 +9744,7 @@ namespace client
 	public:
 		EventListener* get_onmessage();
 		void set_onmessage(EventListener*);
+		void postMessage(const String& message);
 		void postMessage(Object* message);
 		void postMessage(Object* message, Object* ports);
 		void terminate();
@@ -10645,6 +10647,9 @@ namespace client
 	bool confirm();
 	bool confirm(const String& message);
 	void close();
+	void postMessage(Object* message);
+	void postMessage(const String& message);
+	void postMessage(Object* message, Object* ports);
 	void postMessage(Object* message, const String& targetOrigin);
 	void postMessage(Object* message, const String& targetOrigin, Object* ports);
 	Object* showModalDialog();
