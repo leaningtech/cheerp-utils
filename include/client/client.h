@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2014 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2015 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -160,7 +160,7 @@ T* MakeTypedArray(const P* ptr, size_t size=0)
 	if(size==0)
 		return buf->subarray(offset);
 	else
-		return buf->subarray(offset, size/elementSize);
+		return buf->subarray(offset, offset+size/elementSize);
 }
 
 template<typename T>
