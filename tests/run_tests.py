@@ -54,7 +54,7 @@ tests = ['unit/downcast/test1.cpp',
 
 def compileTest(compiler, testName, outFile, testReport, testErrs ):
 	testReport.write('<testcase classname="compilation" name="%s">' % testName)
-	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-Iunit",
+	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-Iunit","-cheerp-no-math-imul",
 		testName, "-o", outFile],stderr=testErrs);
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
