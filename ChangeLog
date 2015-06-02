@@ -1,5 +1,9 @@
 Cheerp: C++ for the Web
 
+Version 1.1:
+
+	* Greatly improved performance for the generated code
+
 Version 1.0:
 
 	* Greatly improved clientlib.h header
