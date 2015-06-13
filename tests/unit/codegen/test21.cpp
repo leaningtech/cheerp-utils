@@ -70,8 +70,6 @@ static void testAddSubOps() {
 	assertEqual(d - d, 0x00000000, "int64_t sub support 5/N");
 }
 
-// TODO Add C file to test "if (int64_t)"
-
 static void testUnaryOps() {
 	long long a = 0x0;
 	long long b = 0x1;
@@ -89,6 +87,69 @@ static void testUnaryOps() {
 	assertEqual(!d, false, "int64_t lnot support 4/N");
 }
 
+static void testBitwiseCompoundAssignmentOps() {
+	long long a = 0x0;
+	long long b = 0x1;
+	long long c = 0x0000000100000000;
+	long long d = 0xffffffffffffffff;
+	long long t;
+
+	// TODO: test these operations with non-int64_t rhs values
+	t = a; t &= b;
+	assertEqual(t, 0x0000000000000000, "int64_t and assign support 1/N");
+	t = b; t &= c;
+	assertEqual(t, 0x0000000000000000, "int64_t and assign support 2/N");
+	t = c; t &= d;
+	assertEqual(t, 0x0000000100000000, "int64_t and assign support 3/N");
+	t = d; t &= a;
+	assertEqual(t, 0x0000000000000000, "int64_t and assign support 4/N");
+
+	t = a; t |= b;
+	assertEqual(t, 0x0000000000000001, "int64_t or assign support 1/N");
+	t = b; t |= c;
+	assertEqual(t, 0x0000000100000001, "int64_t or assign support 2/N");
+	t = c; t |= d;
+	assertEqual(t, 0xffffffffffffffff, "int64_t or assign support 3/N");
+	t = d; t |= a;
+	assertEqual(t, 0xffffffffffffffff, "int64_t or assign support 4/N");
+
+	t = a; t ^= b;
+	assertEqual(t, 0x0000000000000001, "int64_t xor assign support 1/N");
+	t = b; t ^= c;
+	assertEqual(t, 0x0000000100000001, "int64_t xor assign support 2/N");
+	t = c; t ^= d;
+	assertEqual(t, 0xfffffffeffffffff, "int64_t xor assign support 3/N");
+	t = d; t ^= a;
+	assertEqual(t, 0xffffffffffffffff, "int64_t xor assign support 4/N");
+}
+
+static void testArithmeticCompoundAssignmentOps() {
+	long long a = 0x0;
+	long long b = 0x1;
+	long long c = 0x0000000100000000;
+	long long d = 0xffffffffffffffff;
+	long long t;
+
+	// TODO: test these operations with non-int64_t rhs values
+	t = a; t += b;
+	assertEqual(t, 0x0000000000000001, "int64_t add assign support 1/N");
+	t = b; t += c;
+	assertEqual(t, 0x0000000100000001, "int64_t add assign support 2/N");
+	t = c; t += d;
+	assertEqual(t, 0x00000000ffffffff, "int64_t add assign support 3/N");
+	t = d; t += a;
+	assertEqual(t, 0xffffffffffffffff, "int64_t add assign support 4/N");
+
+	t = a; t -= b;
+	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 1/N");
+	t = b; t -= c;
+	assertEqual(t, 0xffffffff00000001, "int64_t sub assign support 2/N");
+	t = c; t -= d;
+	assertEqual(t, 0x0000000100000001, "int64_t sub assign support 3/N");
+	t = d; t -= a;
+	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 4/N");
+}
+
 static void testDump() {
 	long long t = 0xff;
 	client::console.log("test dump(0xff):");
@@ -100,5 +161,7 @@ void webMain() {
 	testBitwiseOps();
 	testAddSubOps();
 	testUnaryOps();
+	testBitwiseCompoundAssignmentOps();
+	testArithmeticCompoundAssignmentOps();
 	testDump();
 }
