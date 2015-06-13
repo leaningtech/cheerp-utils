@@ -150,6 +150,32 @@ static void testArithmeticCompoundAssignmentOps() {
 	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 4/N");
 }
 
+static void testCastToFloat() {
+	long long a = 0x0;
+	long long b = 0x1;
+	long long c = 0x0000000100000000;
+	long long e = 0xffffffffffffffff;
+	float f;
+
+	assertEqual((float) a, 0., 1e-6, "int64_t cast to float support 1/N");
+	assertEqual((float) b, 1., 1e-6, "int64_t cast to float support 2/N");
+	// TODO verify that '(float) 0x0000000100000000' is '0'.
+	assertEqual((float) c, 0., 1e-6, "int64_t cast to float support 3/N");
+	assertEqual((float) e, -1., 1e-6, "int64_t cast to float support 4/N");
+}
+
+static void testCastFromFloat() {
+	float a = 0;
+	float b = 1;
+	float c = 1337.;
+	float d = 3.142;
+
+	assertEqual((int64_t) a, 0, "int64_t cast from float support 1/N");
+	assertEqual((int64_t) b, 1, "int64_t cast from float support 2/N");
+	assertEqual((int64_t) c, 1337, "int64_t cast from float support 3/N");
+	assertEqual((int64_t) d, 3, "int64_t cast from float support 4/N");
+}
+
 static void testDump() {
 	long long t = 0xff;
 	client::console.log("test dump(0xff):");
@@ -163,5 +189,7 @@ void webMain() {
 	testUnaryOps();
 	testBitwiseCompoundAssignmentOps();
 	testArithmeticCompoundAssignmentOps();
+	testCastToFloat();
+	testCastFromFloat();
 	testDump();
 }
