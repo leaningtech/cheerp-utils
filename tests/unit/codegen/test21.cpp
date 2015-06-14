@@ -150,6 +150,46 @@ static void testArithmeticCompoundAssignmentOps() {
 	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 4/N");
 }
 
+static void testComparisonOps() {
+	long long a = 0x0;
+	long long b = 0x1;
+	long long c = 0x0000000100000000;
+	long long e = 0xffffffffffffffff;
+	long long t = a;
+
+	assertEqual(a < b, true, "int64_t lt support 1/N");
+	assertEqual(a < c, true, "int64_t lt support 2/N");
+	assertEqual(e < a, true, "int64_t lt support 3/N");
+	assertEqual(e < c, true, "int64_t lt support 4/N");
+	assertEqual(b < c, true, "int64_t lt support 5/N");
+	assertEqual(c < b, false, "int64_t lt support 6/N");
+	assertEqual(t < a, false, "int64_t lt support 7/N");
+
+	assertEqual(a <= b, true, "int64_t le support 1/N");
+	assertEqual(a <= c, true, "int64_t le support 2/N");
+	assertEqual(e <= a, true, "int64_t le support 3/N");
+	assertEqual(e <= c, true, "int64_t le support 4/N");
+	assertEqual(b <= c, true, "int64_t le support 5/N");
+	assertEqual(c <= b, false, "int64_t le support 6/N");
+	assertEqual(t <= a, true, "int64_t le support 7/N");
+
+	assertEqual(a > b, false, "int64_t gt support 1/N");
+	assertEqual(a > c, false, "int64_t gt support 2/N");
+	assertEqual(e > a, false, "int64_t gt support 3/N");
+	assertEqual(e > c, false, "int64_t gt support 4/N");
+	assertEqual(b > c, false, "int64_t gt support 5/N");
+	assertEqual(c > b, true, "int64_t gt support 6/N");
+	assertEqual(t > a, false, "int64_t gt support 7/N");
+
+	assertEqual(a >= b, false, "int64_t ge support 1/N");
+	assertEqual(a >= c, false, "int64_t ge support 2/N");
+	assertEqual(e >= a, false, "int64_t ge support 3/N");
+	assertEqual(e >= c, false, "int64_t ge support 4/N");
+	assertEqual(b >= c, false, "int64_t ge support 5/N");
+	assertEqual(c >= b, true, "int64_t ge support 6/N");
+	assertEqual(t >= a, true, "int64_t ge support 7/N");
+}
+
 static void testCastToFloat() {
 	long long a = 0x0;
 	long long b = 0x1;
@@ -189,6 +229,7 @@ void webMain() {
 	testUnaryOps();
 	testBitwiseCompoundAssignmentOps();
 	testArithmeticCompoundAssignmentOps();
+	testComparisonOps();
 	testCastToFloat();
 	testCastFromFloat();
 	testDump();
