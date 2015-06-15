@@ -14,7 +14,7 @@ static void dump(T t) {
 }
 
 template <typename T>
-static void testShiftLeft() {
+static void testShiftOps() {
 	T a = 0x10000;
 	T b = 0x100000000;
 	T c = 0x1000000000000;
@@ -28,23 +28,17 @@ static void testShiftLeft() {
 	assertEqual(b >> 16, a, "int64_t shr support 1/N");
 	assertEqual(c >> 32, a, "int64_t shr support 2/N");
 	assertEqual(e >> 32, d, "int64_t shr support 3/N");
-}
 
-static void testShiftRight() {
-	// TODO: test with unsigned long long
-	long long a = 0x10000;
-	long long b = 0x100000000;
-	long long c = 0x1000000000000;
-	long long d = 0x7fffffffLL;
-	long long e = 0x7fffffff00000000LL;
-
-	assertEqual(a << 16, b, "int64_t shl support 1/N");
-	assertEqual(a << 32, c, "int64_t shl support 2/N");
-	assertEqual(d << 32, e, "int64_t shl support 3/N");
-
-	assertEqual(b >> 16, a, "int64_t shr support 1/N");
-	assertEqual(c >> 32, a, "int64_t shr support 2/N");
-	assertEqual(e >> 32, d, "int64_t shr support 3/N");
+	if (std::is_unsigned<T>::value) {
+		T f = 0xffffffff;
+		T g = 0xffffffff00000000;
+		dump(g >> 32);
+		assertEqual(g >> 32, f, "int64_t shr support 4a/N");
+	} else {
+		T f = 0xffffffffffffffff;
+		T g = 0xffffffff00000000;
+		assertEqual(g >> 32, f, "int64_t shr support 4b/N");
+	}
 }
 
 template <typename T>
@@ -248,9 +242,9 @@ static void testCastToFloat() {
 	assertEqual((float) c, 0., 1e-6, "int64_t cast to float support 3/N");
 
 	if (std::is_unsigned<T>::value)
-		assertEqual((float) e, 4294967295., 1e-6, "int64_t cast to float support 4/N");
+		assertEqual((float) e, 4294967295., 1e-6, "int64_t cast to float support 4a/N");
 	else
-		assertEqual((float) e, -1., 1e-6, "int64_t cast to float support 4/N");
+		assertEqual((float) e, -1., 1e-6, "int64_t cast to float support 4b/N");
 }
 
 template <typename T>
@@ -273,9 +267,8 @@ static void testDump() {
 }
 
 void webMain() {
-	testShiftLeft<long long>();
-	testShiftLeft<unsigned long long>();
-	testShiftRight();
+	testShiftOps<long long>();
+	testShiftOps<unsigned long long>();
 	testBitwiseOps<long long>();
 	testBitwiseOps<unsigned long long>();
 	testAddSubOps<long long>();
