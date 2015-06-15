@@ -70,6 +70,24 @@ static void testAddSubOps() {
 	assertEqual(d - d, 0x00000000, "int64_t sub support 5/N");
 }
 
+static void testMulDivOps() {
+	long long a = 0x00018001;
+	assertEqual(a * 2, 0x00030002, "int64_t mul support 1/N");
+
+	long long b = 0x0000000088888888;
+	assertEqual(b * 2, 0x0000000111111110, "int64_t mul support 2/N");
+
+	long long c = 0x8888888800000000;
+	assertEqual(c * 2, 0x1111111000000000, "int64_t mul support 3/N");
+
+	long long d = 0x1122334455667788;
+	long long e = 0x1111111111111111;
+	assertEqual(d * e, 0xcba862fb71c5f808, "int64_t mul support 4/N");
+
+	long long f = 0xffffffff;
+	assertEqual(f * f, 0xfffffffe00000001, "int64_t mul support 5/N");
+}
+
 static void testUnaryOps() {
 	long long a = 0x0;
 	long long b = 0x1;
@@ -226,6 +244,7 @@ void webMain() {
 	testShiftOps();
 	testBitwiseOps();
 	testAddSubOps();
+	testMulDivOps();
 	testUnaryOps();
 	testBitwiseCompoundAssignmentOps();
 	testArithmeticCompoundAssignmentOps();
