@@ -6,13 +6,32 @@
 
 // Test 64-bit integer arithmetics
 
-static void dump(long long t) {
+template <class T>
+static void dump(T t) {
 	long h = (long)((t & (0xffffffffll << 32)) >> 32);
 	long l = (long)(t & 0xffffffff);
 	client::console.log("highint h:", h, "l:", l);
 }
 
-static void testShiftOps() {
+template <typename T>
+static void testShiftLeft() {
+	T a = 0x10000;
+	T b = 0x100000000;
+	T c = 0x1000000000000;
+	T d = 0x7fffffffLL;
+	T e = 0x7fffffff00000000LL;
+
+	assertEqual(a << 16, b, "int64_t shl support 1/N");
+	assertEqual(a << 32, c, "int64_t shl support 2/N");
+	assertEqual(d << 32, e, "int64_t shl support 3/N");
+
+	assertEqual(b >> 16, a, "int64_t shr support 1/N");
+	assertEqual(c >> 32, a, "int64_t shr support 2/N");
+	assertEqual(e >> 32, d, "int64_t shr support 3/N");
+}
+
+static void testShiftRight() {
+	// TODO: test with unsigned long long
 	long long a = 0x10000;
 	long long b = 0x100000000;
 	long long c = 0x1000000000000;
@@ -28,11 +47,12 @@ static void testShiftOps() {
 	assertEqual(e >> 32, d, "int64_t shr support 3/N");
 }
 
+template <typename T>
 static void testBitwiseOps() {
-	long long a = 0xffffffffffffffffLL;
-	long long b = 0x0000000000000000LL;
-	long long l = 0x00000000ffffffffLL;
-	long long u = 0xffffffff00000000LL;
+	T a = 0xffffffffffffffffLL;
+	T b = 0x0000000000000000LL;
+	T l = 0x00000000ffffffffLL;
+	T u = 0xffffffff00000000LL;
 
 	assertEqual(a & l, l, "int64_t and support 1/N");
 	assertEqual(a & u, u, "int64_t and support 2/N");
@@ -51,12 +71,13 @@ static void testBitwiseOps() {
 	assertEqual(~l, u, "int64_t not support 3/N");
 }
 
+template <typename T>
 static void testAddSubOps() {
-	long long a = 0x0deadbeaf;
-	long long b = 0x100000000;
-	long long c = 0x0ffffffff;
-	long long d = 0xffffffffffffffff;
-	long long e = 0xfffffffffffffffe;
+	T a = 0x0deadbeaf;
+	T b = 0x100000000;
+	T c = 0x0ffffffff;
+	T d = 0xffffffffffffffff;
+	T e = 0xfffffffffffffffe;
 
 	assertEqual(a + b, 0x1deadbeaf, "int64_t add support 1/N");
 	assertEqual(c + 1, 0x100000000, "int64_t add support 2/N");
@@ -70,29 +91,31 @@ static void testAddSubOps() {
 	assertEqual(d - d, 0x00000000, "int64_t sub support 5/N");
 }
 
+template <typename T>
 static void testMulDivOps() {
-	long long a = 0x00018001;
+	T a = 0x00018001;
 	assertEqual(a * 2, 0x00030002, "int64_t mul support 1/N");
 
-	long long b = 0x0000000088888888;
+	T b = 0x0000000088888888;
 	assertEqual(b * 2, 0x0000000111111110, "int64_t mul support 2/N");
 
-	long long c = 0x8888888800000000;
+	T c = 0x8888888800000000;
 	assertEqual(c * 2, 0x1111111000000000, "int64_t mul support 3/N");
 
-	long long d = 0x1122334455667788;
-	long long e = 0x1111111111111111;
+	T d = 0x1122334455667788;
+	T e = 0x1111111111111111;
 	assertEqual(d * e, 0xcba862fb71c5f808, "int64_t mul support 4/N");
 
-	long long f = 0xffffffff;
+	T f = 0xffffffff;
 	assertEqual(f * f, 0xfffffffe00000001, "int64_t mul support 5/N");
 }
 
+template <typename T>
 static void testUnaryOps() {
-	long long a = 0x0;
-	long long b = 0x1;
-	long long c = 0x0000000100000000;
-	long long d = 0xffffffffffffffff;
+	T a = 0x0;
+	T b = 0x1;
+	T c = 0x0000000100000000;
+	T d = 0xffffffffffffffff;
 
 	assertEqual(-a, 0, "int64_t neg support 1/N");
 	assertEqual(-b, 0xffffffffffffffff, "int64_t neg support 2/N");
@@ -105,12 +128,13 @@ static void testUnaryOps() {
 	assertEqual(!d, false, "int64_t lnot support 4/N");
 }
 
+template <typename T>
 static void testBitwiseCompoundAssignmentOps() {
-	long long a = 0x0;
-	long long b = 0x1;
-	long long c = 0x0000000100000000;
-	long long d = 0xffffffffffffffff;
-	long long t;
+	T a = 0x0;
+	T b = 0x1;
+	T c = 0x0000000100000000;
+	T d = 0xffffffffffffffff;
+	T t;
 
 	// TODO: test these operations with non-int64_t rhs values
 	t = a; t &= b;
@@ -141,12 +165,13 @@ static void testBitwiseCompoundAssignmentOps() {
 	assertEqual(t, 0xffffffffffffffff, "int64_t xor assign support 4/N");
 }
 
+template <typename T>
 static void testArithmeticCompoundAssignmentOps() {
-	long long a = 0x0;
-	long long b = 0x1;
-	long long c = 0x0000000100000000;
-	long long d = 0xffffffffffffffff;
-	long long t;
+	T a = 0x0;
+	T b = 0x1;
+	T c = 0x0000000100000000;
+	T d = 0xffffffffffffffff;
+	T t;
 
 	// TODO: test these operations with non-int64_t rhs values
 	t = a; t += b;
@@ -168,12 +193,13 @@ static void testArithmeticCompoundAssignmentOps() {
 	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 4/N");
 }
 
+template <typename T>
 static void testComparisonOps() {
-	long long a = 0x0;
-	long long b = 0x1;
-	long long c = 0x0000000100000000;
-	long long e = 0xffffffffffffffff;
-	long long t = a;
+	T a = 0x0;
+	T b = 0x1;
+	T c = 0x0000000100000000;
+	T e = 0xffffffffffffffff;
+	T t = a;
 
 	assertEqual(a < b, true, "int64_t lt support 1/N");
 	assertEqual(a < c, true, "int64_t lt support 2/N");
@@ -208,20 +234,26 @@ static void testComparisonOps() {
 	assertEqual(t >= a, true, "int64_t ge support 7/N");
 }
 
+template <typename T>
 static void testCastToFloat() {
-	long long a = 0x0;
-	long long b = 0x1;
-	long long c = 0x0000000100000000;
-	long long e = 0xffffffffffffffff;
+	T a = 0x0;
+	T b = 0x1;
+	T c = 0x0000000100000000;
+	T e = 0xffffffffffffffff;
 	float f;
 
 	assertEqual((float) a, 0., 1e-6, "int64_t cast to float support 1/N");
 	assertEqual((float) b, 1., 1e-6, "int64_t cast to float support 2/N");
 	// TODO verify that '(float) 0x0000000100000000' is '0'.
 	assertEqual((float) c, 0., 1e-6, "int64_t cast to float support 3/N");
-	assertEqual((float) e, -1., 1e-6, "int64_t cast to float support 4/N");
+
+	if (std::is_unsigned<T>::value)
+		assertEqual((float) e, 4294967295., 1e-6, "int64_t cast to float support 4/N");
+	else
+		assertEqual((float) e, -1., 1e-6, "int64_t cast to float support 4/N");
 }
 
+template <typename T>
 static void testCastFromFloat() {
 	float a = 0;
 	float b = 1;
@@ -241,15 +273,26 @@ static void testDump() {
 }
 
 void webMain() {
-	testShiftOps();
-	testBitwiseOps();
-	testAddSubOps();
-	testMulDivOps();
-	testUnaryOps();
-	testBitwiseCompoundAssignmentOps();
-	testArithmeticCompoundAssignmentOps();
-	testComparisonOps();
-	testCastToFloat();
-	testCastFromFloat();
+	testShiftLeft<long long>();
+	testShiftLeft<unsigned long long>();
+	testShiftRight();
+	testBitwiseOps<long long>();
+	testBitwiseOps<unsigned long long>();
+	testAddSubOps<long long>();
+	testAddSubOps<unsigned long long>();
+	testMulDivOps<long long>();
+	testMulDivOps<unsigned long long>();
+	testUnaryOps<long long>();
+	testUnaryOps<unsigned long long>();
+	testBitwiseCompoundAssignmentOps<long long>();
+	testBitwiseCompoundAssignmentOps<unsigned long long>();
+	testArithmeticCompoundAssignmentOps<long long>();
+	testArithmeticCompoundAssignmentOps<unsigned long long>();
+	testComparisonOps<long long>();
+	testComparisonOps<unsigned long long>();
+	testCastToFloat<long long>();
+	testCastToFloat<unsigned long long>();
+	testCastFromFloat<long long>();
+	testCastFromFloat<unsigned long long>();
 	testDump();
 }
