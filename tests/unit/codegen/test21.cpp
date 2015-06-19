@@ -226,6 +226,11 @@ static void testComparisonOps() {
 	assertEqual(b >= c, false, "int64_t ge support 5/N");
 	assertEqual(c >= b, true, "int64_t ge support 6/N");
 	assertEqual(t >= a, true, "int64_t ge support 7/N");
+
+	bool zeroIsFalse = true;
+	if(a)
+		zeroIsFalse = false;
+	assertEqual(zeroIsFalse, true, "int64_t zero is false 1/N");
 }
 
 template <typename T>
