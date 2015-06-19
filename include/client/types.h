@@ -31,9 +31,6 @@ namespace client
 class Object
 {
 private:
-	// Make it impossible to call delete on a browser object
-	void operator delete(void*);
-	void operator delete(void*, void*);
 	// Make it impossible to blindly copy a browser object
 	Object(const Object&) = delete;
 public:
