@@ -47,7 +47,7 @@ tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/test11.cpp','unit/codegen/test12.cpp','unit/codegen/test13.cpp',
 		 'unit/codegen/test14.cpp','unit/codegen/test15.cpp','unit/codegen/test16.cpp',
 		 'unit/codegen/test17.cpp','unit/codegen/test18.cpp', 'unit/codegen/test19.cpp',
-		 'unit/codegen/test20.cpp',
+		 'unit/codegen/test20.cpp','unit/codegen/test21.cpp',
 	 'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
 	 'unit/static/test1.cpp']
