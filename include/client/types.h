@@ -71,6 +71,7 @@ public:
 	String(int a) throw();
 	String(unsigned int a) throw();
 	String(float a) throw();
+	String(double a) throw();
 	String(const char* s):String(fromCharPtr<char>(s))
 	{
 	}
