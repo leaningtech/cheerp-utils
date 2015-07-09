@@ -26,7 +26,7 @@ jobs = option.jobs
 progress = 0
 
 tests = ['unit/downcast/test1.cpp',
-	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp',
+	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp','unit/virtual/test3.cpp',
 	 'unit/memory/test1.cpp','unit/memory/test2.cpp','unit/memory/test3.cpp',
 		'unit/memory/test4.cpp','unit/memory/test5.cpp','unit/memory/test6.cpp',
 		'unit/memory/test7.cpp','unit/memory/test8.cpp',
