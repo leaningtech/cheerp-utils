@@ -409,6 +409,106 @@ static void testIncrement() {
 	assertEqual(b, 0xfffffffffffffffe, "int64_t pre decrement support 3/N");
 }
 
+template <typename T>
+static void testStructs() {
+	typedef struct s_ {
+		T a;
+		T b;
+		int c;
+	} s;
+
+	s foo;
+	foo.a = 42;
+	foo.b = 0x7fffffffffffffff;
+	foo.c = 1;
+
+	assertEqual(foo.a < foo.b, true, "int64_t struct support 1/N");
+	assertEqual(foo.a > foo.c, true, "int64_t struct support 2/N");
+	assertEqual(foo.b > foo.c, true, "int64_t struct support 3/N");
+}
+
+template <typename T>
+static void increment(T& a) {
+	a += 1;
+}
+
+template <typename T>
+static void testPointerArithmetic() {
+	T *a = new T[20];
+	bool valid = true;
+	for (int i = 0; i < 20; i++)
+		valid &= (a[i] == 0);
+	assertEqual(valid, true, "int64_t list support 1/N");
+
+	for (int i = 0; i < 20; i++) {
+		a[i] = ((0xffffffffLL - i) << 32) + i;
+	}
+
+	valid = true;
+	for (int i = 0; i < 20; i++)
+		valid &= (a[i] != 0);
+	assertEqual(valid, true, "int64_t list support 2/N");
+}
+
+template <typename T>
+static void testPointersAndReferences() {
+	T a = 42;
+	increment<T>(a);
+	assertEqual(a, 43, "int64_t reference support 1/N");
+}
+
+static void testBitfields() {
+	struct A {
+		unsigned long long a : 3;
+		unsigned long long b : 3;
+	};
+	struct A foo;
+	foo.a = 7;
+	foo.b = 4;
+	assertEqual(foo.a, 7, "int64_t bit fields support 1/N");
+	assertEqual(foo.b, 4, "int64_t bit fields support 2/N");
+
+	// Test 0 bit field
+	struct B {
+		unsigned long long a1 : 3;
+		unsigned long long a2 : 3;
+		unsigned long long : 0;
+		unsigned long long b1 : 3;
+		unsigned long long b2 : 3;
+	};
+	struct B bar;
+	bar.a1 = 7;
+	bar.a2 = 4;
+	bar.b1 = 7;
+	bar.b2 = 4;
+	assertEqual(bar.a1, 7, "int64_t bit fields support 3/N");
+	assertEqual(bar.a2, 4, "int64_t bit fields support 4/N");
+	assertEqual(bar.b1, 7, "int64_t bit fields support 5/N");
+	assertEqual(bar.b2, 4, "int64_t bit fields support 6/N");
+
+	// Test >32 bit field
+	struct C {
+		unsigned long long a : 34;
+		unsigned long long b : 30;
+	};
+	struct C baz;
+	baz.a = 7;
+	baz.b = 4;
+	assertEqual(baz.a, 7, "int64_t bit fields support 7/N");
+	assertEqual(baz.b, 4, "int64_t bit fields support 8/N");
+
+	// Test signed >32 bit field
+	struct D {
+		long long a : 34;
+		long long b : 30;
+	};
+	struct D quux;
+	quux.a = 7;
+	quux.b = -1;
+	assertEqual(quux.a, 7, "int64_t bit fields support 9/N");
+	assertEqual(quux.b, -1, "int64_t bit fields support 10/N");
+}
+
 static void testDump() {
 	long long t = 0xff;
 	client::console.log("test dump(0xff):");
@@ -440,6 +540,13 @@ void webMain() {
 	testCastFromFloat<unsigned long long>();
 	testIncrement<long long>();
 	testIncrement<unsigned long long>();
+	testStructs<long long>();
+	testStructs<unsigned long long>();
+	testPointerArithmetic<long long>();
+	testPointerArithmetic<unsigned long long>();
+	testPointersAndReferences<long long>();
+	testPointersAndReferences<unsigned long long>();
+	testBitfields();
 }
 
 // vim: noexpandtab
