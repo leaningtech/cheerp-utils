@@ -34,6 +34,7 @@ private:
 	// Make it impossible to blindly copy a browser object
 	Object(const Object&) = delete;
 public:
+	Object();
 	// valueOf may return different types, the users should specify which one is expected
 	template<typename T>
 	T valueOf();
