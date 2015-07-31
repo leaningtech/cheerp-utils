@@ -21,5 +21,10 @@ void webMain()
 	}
 	buffer.push_back('0' + val);
 	
-	assertEqual(buffer, "100", "Converting 64-bit integers to string");
+	assertEqual(buffer, "100", "Converting 64-bit integers to string 1/2");
+
+	char charBuffer[10];
+	d = 100;
+	sprintf(charBuffer,"%llu",d);
+	assertEqual(strcmp(charBuffer, "100"), 0, "Converting 64-bit integers to string 2/2");
 }
