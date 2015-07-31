@@ -91,6 +91,8 @@ public:
 	String* replace(const String&, const String&);
 	int charCodeAt(int index) const;
 	int get_length() const;
+	int indexOf(const String&);
+	int indexOf(const String&, int);
 	TArray<String>* split(const String&) const;
 	static String* fromCharCode(int c) [[static]];
 	explicit operator std::string() const
@@ -123,6 +125,8 @@ public:
 	template<typename... Args>
 	int push(Args... args);
 	int get_length() const;
+	template<typename... Args>
+	Array* splice(int start, int deleteCount, Args... args);
 };
 
 template<class T>
