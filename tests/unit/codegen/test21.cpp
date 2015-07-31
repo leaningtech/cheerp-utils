@@ -506,6 +506,26 @@ static void testBitfields() {
 	assertEqual(quux.b, -1, "int64_t bit fields support 10/N");
 }
 
+template <typename T>
+static void testSwitch()
+{
+	volatile T a = 11;
+	bool result = false;
+	switch(a)
+	{
+		case 11:
+			result = true;
+			break;
+		case 10:
+			result = false;
+			break;
+		default:
+			result = false;
+			break;
+	}
+	assertEqual(result, true, "int64_t in switch statements");
+}
+
 static void testDump() {
 	long long t = 0xff;
 	client::console.log("test dump(0xff):");
@@ -544,6 +564,9 @@ void webMain() {
 	testPointersAndReferences<long long>();
 	testPointersAndReferences<unsigned long long>();
 	testBitfields();
+	//switch with 64-bit values is not supported
+	//testSwitch<long long>();
+	//testSwitch<unsigned long long>();
 }
 
 // vim: noexpandtab
