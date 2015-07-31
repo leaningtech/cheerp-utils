@@ -78,12 +78,26 @@ void testUnorderedMap()
 	assertEqual(correctOrder, true, "std::unordered_map ordering 4/4");
 }
 
+void testUnorderedMapOrPointers()
+{
+	std::unordered_map<void*, int> a;
+	assertEqual(a.size(), 0, "std::unordered_map of pointers 1/4");
+	a.insert(std::make_pair((void*)NULL,2));
+	assertEqual(a.size(), 1, "std::unordered_map of pointers 2/4");
+	int i1,i2,i3,i4;
+	a.insert(std::make_pair(&i1,11));
+	a.insert(std::make_pair(&i2,100));
+	a.insert(std::make_pair(&i3,101));
+	a.insert(std::make_pair(&i3,101));
+	a.insert(std::make_pair(&i4, -1));
+	assertEqual(a.size(), 5, "std::unordered_map of pointers 3/4");
+}
+
 void testPointerMap()
 {
 	//These report an error as maps of pointers are not supported
 	//std::map<void*,int> a;
 	//std::multimap<void*,int> m;
-	//std::unordered_map<void*,int> u;
 }
 
 void webMain()
@@ -92,4 +106,5 @@ void webMain()
 	testMultiMap();
 	testUnorderedMap();
 	testPointerMap();
+	testUnorderedMapOrPointers();
 }
