@@ -224,10 +224,8 @@ static void testArithmeticCompoundAssignmentOps() {
 	} else {
 		assertEqual(t, 0x0000000000000000, "int64_t mod assign support 3b/N");
 	}
-	// TODO: this is extremely SLOW:
-	//t = d; t %= b;
-	//if (std::is_unsigned<T>::value) dump(t);
-	//assertEqual(t, 0x0000000000000000, "int64_t mod assign support 4/N");
+	t = d; t %= b;
+	assertEqual(t, 0x0000000000000000, "int64_t mod assign support 4/N");
 
 	t = a; t *= b;
 	assertEqual(t, 0x0000000000000000, "int64_t mul assign support 1/N");
@@ -248,9 +246,8 @@ static void testArithmeticCompoundAssignmentOps() {
 	} else {
 		assertEqual(t, -c, "int64_t mod assign support 3b/N");
 	}
-	// TODO: this is extremely SLOW:
-	// t = d; t /= b;
-	//assertEqual(t, 0xffffffff00000000, "int64_t div assign support 4/N");
+	t = d; t /= b;
+	assertEqual(t, 0xffffffffffffffff, "int64_t div assign support 4/N");
 
 	t = b; t <<= 0;
 	dump(t);
