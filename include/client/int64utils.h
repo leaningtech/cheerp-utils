@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2014 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2014-2015 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,6 +20,8 @@
 
 #ifndef __CHEERP_PLATFORM_UTILS
 #define __CHEERP_PLATFORM_UTILS
+
+#warning "int64utils.h is deprecated. You can now use normal 64-bit integers"
 
 #include <stdint.h>
 
