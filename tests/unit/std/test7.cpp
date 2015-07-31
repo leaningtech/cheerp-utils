@@ -78,12 +78,26 @@ void testUnorderedSet()
 	assertEqual(correctOrder, true, "std::unordered_set ordering 4/4");
 }
 
+void testUnorderedSetOfPointers()
+{
+	std::unordered_set<void*> a;
+	assertEqual(a.size(), 0, "std::unordered_set of pointers 1/4");
+	a.insert(NULL);
+	assertEqual(a.size(), 1, "std::unordered_set of pointers 2/4");
+	int i1,i2,i3,i4;
+	a.insert(&i1);
+	a.insert(&i2);
+	a.insert(&i3);
+	a.insert(&i3);
+	a.insert(&i4);
+	assertEqual(a.size(), 5, "std::unordered_set of pointers 3/4");
+}
+
 void testPointerSet()
 {
 	//These report an error as sets of pointers are not supported
 	//std::set<void*> a;
 	//std::multiset<void*> m;
-	//std::unordered_set<void*> u;
 }
 
 void webMain()
@@ -92,4 +106,5 @@ void webMain()
 	testMultiSet();
 	testUnorderedSet();
 	testPointerSet();
+	testUnorderedSetOfPointers();
 }
