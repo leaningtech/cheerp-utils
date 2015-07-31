@@ -98,7 +98,7 @@ public:
 
 };
 
-class WebGLContextAttributes
+class WebGLContextAttributes: public Object
 {
 public: 
     bool get_alpha();
