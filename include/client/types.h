@@ -73,10 +73,10 @@ public:
 	String(unsigned int a) throw();
 	String(float a) throw();
 	String(double a) throw();
-	String(const char* s):String(fromCharPtr<char>(s))
+	String(const char* s) __attribute__((noinline)) :String(fromCharPtr<char>(s))
 	{
 	}
-	String(const wchar_t* s):String(fromCharPtr<wchar_t>(s))
+	String(const wchar_t* s) __attribute__((noinline)) :String(fromCharPtr<wchar_t>(s))
 	{
 	}
 	template<typename... Args>
