@@ -17,6 +17,15 @@ void assertEqual(double value, double expected, double epsilon, const char* msg)
 	}
 }
 
+void assertEqual(const char *value, const char *expected, const char* msg)
+{
+	if (strcmp(value, expected) == 0) {
+		client::console.log(msg, ": SUCCESS");
+	} else {
+		client::console.log(msg, ": FAILURE");
+	}
+}
+
 template<class T, class U>
 void assertEqual(const T& value, const U& expected, const char* msg)
 {
