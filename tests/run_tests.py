@@ -27,6 +27,7 @@ progress = 0
 
 tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp','unit/virtual/test2.cpp','unit/virtual/test3.cpp',
+		'unit/virtual/rtti.cpp',
 	 'unit/memory/test1.cpp','unit/memory/test2.cpp','unit/memory/test3.cpp',
 		'unit/memory/test4.cpp','unit/memory/test5.cpp','unit/memory/test6.cpp',
 		'unit/memory/test7.cpp','unit/memory/test8.cpp',
@@ -56,7 +57,7 @@ tests = ['unit/downcast/test1.cpp',
 
 def compileTest(compiler, testName, outFile, testReport, testErrs ):
 	testReport.write('<testcase classname="compilation" name="%s">' % testName)
-	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-Iunit","-cheerp-no-math-imul",
+	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp", "-frtti", "-Iunit","-cheerp-no-math-imul",
 		testName, "-o", outFile],stderr=testErrs);
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
