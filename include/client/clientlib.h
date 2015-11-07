@@ -5058,6 +5058,7 @@ namespace client
 		HTMLCanvasElement* get_canvas();
 		void set_canvas(HTMLCanvasElement*);
 		Object* get_strokeStyle();
+		void set_strokeStyle(const String&);
 		void set_strokeStyle(Object*);
 		double get_globalAlpha();
 		void set_globalAlpha(double);
