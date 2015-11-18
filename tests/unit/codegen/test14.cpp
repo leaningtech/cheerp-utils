@@ -23,5 +23,5 @@ void webMain()
 	for(int i=0;i<10;i++)
 		a2[i].i = i;
 	assertEqual(b.a->i, 42, "Accessing member of stack allocated struct");
-	assertEqual(a2[8].i, 8, "Accessing member of heap allocated struct");
+	assertEqual((int)a2[8].i, 8, "Accessing member of heap allocated struct");
 }

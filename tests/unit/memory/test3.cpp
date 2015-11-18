@@ -11,7 +11,7 @@ void webMain()
 
 	int* volatile a1=&a[1];
 	int* volatile a2=&a[5];
-	assertEqual(a2-a1, 4, "Pointer subtraction");
+	assertEqual(a2-a1, 4L, "Pointer subtraction");
 
 	int* volatile a3=a+2;
 	assertEqual(*a3, 3, "Pointer addition");

@@ -9,5 +9,5 @@ void webMain()
 {
 	volatile float a = -42.0f;
 	volatile float b = fabsf(a);
-	assertEqual(b, 42, "fabs");
+	assertEqual((float)b, 42.f, "fabs");
 }

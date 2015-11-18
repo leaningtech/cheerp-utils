@@ -34,9 +34,9 @@ void webMain()
 {
 	B b;
 
-	assertEqual(b.a, 42, "Alignment at the end of class [1/3]");
-	assertEqual(b.b, 0xdeadbeaf, "Alignment at the end of class [2/3]");
+	assertEqual<char>(b.a, 42, "Alignment at the end of class [1/3]");
+	assertEqual<int>(b.b, 0xdeadbeaf, "Alignment at the end of class [2/3]");
 
 	volatile C c;
-	assertEqual(c.a, 3, "Alignment at the end of class [3/3]");
+	assertEqual((short)c.a, (short)3, "Alignment at the end of class [3/3]");
 }

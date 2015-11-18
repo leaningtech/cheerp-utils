@@ -23,7 +23,7 @@ void webMain()
 	A a2(0,0);
 
 	assertEqual(a2.a, 0, "C++ implicit operator=() 1/4");
-	assertEqual(a2.b, 0, "C++ implicit operator=() 2/4");
+	assertEqual(a2.b, 0.f, "C++ implicit operator=() 2/4");
 	a2 = a1;
 	assertEqual(a2.a, 10, "C++ implicit operator=() 3/4");
 	assertEqual(a2.b, 0.2f, "C++ implicit operator=() 4/4");

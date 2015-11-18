@@ -15,6 +15,6 @@ void webMain()
 	A a;
 	a.a1=7;
 	a.a2=1;
-	assertEqual<int,int>(a.a1, 7, "Bitfield test 1/2");
-	assertEqual<int,int>(a.a2, 1, "Bitfield test 2/2");
+	assertEqual<int>(a.a1, 7, "Bitfield test 1/2");
+	assertEqual<int>(a.a2, 1, "Bitfield test 2/2");
 }

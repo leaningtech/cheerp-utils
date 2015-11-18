@@ -31,5 +31,5 @@ void webMain()
 		p2 = selectorFunc(&a, 0);
 	a.p = 44;
 	volatile int p3 = *p2;
-	assertEqual(p3,44,"GEP aliasing");
+	assertEqual((int)p3, 44, "GEP aliasing");
 }

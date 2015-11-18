@@ -9,15 +9,15 @@
 void testMap()
 {
 	std::map<int, int> a;
-	assertEqual(a.size(), 0, "std::map 1/4");
+	assertEqual(a.size(), 0u, "std::map 1/4");
 	a.insert(std::make_pair(1,2));
-	assertEqual(a.size(), 1, "std::map 2/4");
+	assertEqual(a.size(), 1u, "std::map 2/4");
 	a.insert(std::make_pair(10,11));
 	a.insert(std::make_pair(99,100));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(-2, -1));
-	assertEqual(a.size(), 5, "std::map 3/4");
+	assertEqual(a.size(), 5u, "std::map 3/4");
 	int expected[] = {-2, 1, 10, 99, 100};
 	std::map<int, int>::iterator it = a.begin();
 	bool correctOrder = true;
@@ -33,15 +33,15 @@ void testMap()
 void testMultiMap()
 {
 	std::multimap<int, int> a;
-	assertEqual(a.size(), 0, "std::multimap 1/4");
+	assertEqual(a.size(), 0u, "std::multimap 1/4");
 	a.insert(std::make_pair(1,2));
-	assertEqual(a.size(), 1, "std::multimap 2/4");
+	assertEqual(a.size(), 1u, "std::multimap 2/4");
 	a.insert(std::make_pair(10,11));
 	a.insert(std::make_pair(99,100));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(-2, -1));
-	assertEqual(a.size(), 6, "std::multimap 3/4");
+	assertEqual(a.size(), 6u, "std::multimap 3/4");
 	int expected[] = {-2, 1, 10, 99, 100, 100};
 	std::multimap<int, int>::iterator it = a.begin();
 	bool correctOrder = true;
@@ -57,15 +57,15 @@ void testMultiMap()
 void testUnorderedMap()
 {
 	std::unordered_map<int, int> a;
-	assertEqual(a.size(), 0, "std::unordered_map 1/4");
+	assertEqual(a.size(), 0u, "std::unordered_map 1/4");
 	a.insert(std::make_pair(1,2));
-	assertEqual(a.size(), 1, "std::unordered_map 2/4");
+	assertEqual(a.size(), 1u, "std::unordered_map 2/4");
 	a.insert(std::make_pair(10,11));
 	a.insert(std::make_pair(99,100));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(100,101));
 	a.insert(std::make_pair(-2, -1));
-	assertEqual(a.size(), 5, "std::unordered_map 3/4");
+	assertEqual(a.size(), 5u, "std::unordered_map 3/4");
 	int expected[] = {-2, 99, 100, 10, 1};
 	std::unordered_map<int, int>::iterator it = a.begin();
 	bool correctOrder = true;
@@ -81,16 +81,16 @@ void testUnorderedMap()
 void testUnorderedMapOrPointers()
 {
 	std::unordered_map<void*, int> a;
-	assertEqual(a.size(), 0, "std::unordered_map of pointers 1/4");
+	assertEqual(a.size(), 0u, "std::unordered_map of pointers 1/4");
 	a.insert(std::make_pair((void*)NULL,2));
-	assertEqual(a.size(), 1, "std::unordered_map of pointers 2/4");
+	assertEqual(a.size(), 1u, "std::unordered_map of pointers 2/4");
 	int i1,i2,i3,i4;
 	a.insert(std::make_pair(&i1,11));
 	a.insert(std::make_pair(&i2,100));
 	a.insert(std::make_pair(&i3,101));
 	a.insert(std::make_pair(&i3,101));
 	a.insert(std::make_pair(&i4, -1));
-	assertEqual(a.size(), 5, "std::unordered_map of pointers 3/4");
+	assertEqual(a.size(), 5u, "std::unordered_map of pointers 3/4");
 }
 
 void testPointerMap()

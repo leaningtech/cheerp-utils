@@ -36,5 +36,5 @@ void webMain()
 	// The next line can succeed only if c2 is merged in c1
 	char* tmp2=a.c1;
 	assertEqual(tmp2[4], a.c2[0], "Merging arrays in structs 3/4");
-	assertEqual(tmp2[4], 10, "Merging arrays in structs 4/4");
+	assertEqual(tmp2[4], (char)10, "Merging arrays in structs 4/4");
 }

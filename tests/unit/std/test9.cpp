@@ -10,7 +10,7 @@ void webMain()
 	std::vector<float> v;
 	for(int i=0;i<10;i++)
 		v.push_back(i);
-	assertEqual(v.end()-v.begin(), 10, "std::vector 1/1");
+	assertEqual(v.end()-v.begin(), 10L, "std::vector 1/1");
 	v.erase(v.begin()+3);
-	assertEqual(v.end()-v.begin(), 9, "std::vector 2/2");
+	assertEqual(v.end()-v.begin(), 9L, "std::vector 2/2");
 }

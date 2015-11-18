@@ -33,9 +33,9 @@ void webMain()
 	short d1=*numbers;
 	short e1=numbers[0];
 	short f1=numbers[3];
-	assertEqual(d1, 2, "Access to global array 4/6");
-	assertEqual(e1, 2, "Access to global array 5/6");
-	assertEqual(f1, 42, "Access to global array 6/6");
+	assertEqual<short>(d1, 2, "Access to global array 4/6");
+	assertEqual<short>(e1, 2, "Access to global array 5/6");
+	assertEqual<short>(f1, 42, "Access to global array 6/6");
 
 	char a2=*str2;
 	char b2=str2[0];
@@ -46,9 +46,9 @@ void webMain()
 	short d2=*numbers2;
 	short e2=numbers2[0];
 	short f2=numbers2[3];
-	assertEqual(d2, 2, "Access to global array using pointer 4/6");
-	assertEqual(e2, 2, "Access to global array using pointer 5/6");
-	assertEqual(f2, 42, "Access to global array using pointer 6/6");
+	assertEqual<short>(d2, 2, "Access to global array using pointer 4/6");
+	assertEqual<short>(e2, 2, "Access to global array using pointer 5/6");
+	assertEqual<short>(f2, 42, "Access to global array using pointer 6/6");
 
 	char a3=*str3;
 	char b3=str3[0];
@@ -59,9 +59,9 @@ void webMain()
 	short d3=*numbers3;
 	short e3=numbers3[0];
 	short f3=numbers3[3];
-	assertEqual(d3, 7, "Access to global array using pointer with offset 4/6");
-	assertEqual(e3, 7, "Access to global array using pointer with offset 5/6");
-	assertEqual(f3, 8, "Access to global array using pointer with offset 6/6");
+	assertEqual<short>(d3, 7, "Access to global array using pointer with offset 4/6");
+	assertEqual<short>(e3, 7, "Access to global array using pointer with offset 5/6");
+	assertEqual<short>(f3, 8, "Access to global array using pointer with offset 6/6");
 
 	const char* str4 = str+2;
 	char a4=*str4;

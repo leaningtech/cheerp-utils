@@ -23,7 +23,7 @@ void webMain()
 	a.a[1] = 46;
 	a.a[2] = 47;
 	a.f();
-	assertEqual(a.a[0], -1.0f, "Collapsing struct to element 1/3");
-	assertEqual(a.a[1], 45.0f, "Collapsing struct to element 2/3");
-	assertEqual(a.a[2], 46.0f, "Collapsing struct to element 3/3");
+	assertEqual(a.a[0], -1.0, "Collapsing struct to element 1/3");
+	assertEqual(a.a[1], 45.0, "Collapsing struct to element 2/3");
+	assertEqual(a.a[2], 46.0, "Collapsing struct to element 3/3");
 }
