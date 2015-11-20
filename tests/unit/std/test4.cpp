@@ -13,5 +13,5 @@ void webMain()
 	std::cerr << "Cerr output : SUCCESS" << std::endl;
 	std::ostringstream str;
 	str << "test " << 42;
-	assertEqual(str.str(), "test 42", "stringstream");
+	assertEqual(str.str().c_str(), "test 42", "stringstream");
 }

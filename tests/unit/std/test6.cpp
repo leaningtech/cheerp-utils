@@ -18,7 +18,7 @@ void webMain()
 	list<A> l;
 
 	l.push_back(move(obj));
-	assertEqual(l.size(), 1, "List push_back 1/2");
+	assertEqual(l.size(), 1u, "List push_back 1/2");
 	l.push_back(obj);
-	assertEqual(l.size(), 2, "List push_back 2/2");
+	assertEqual(l.size(), 2u, "List push_back 2/2");
 }

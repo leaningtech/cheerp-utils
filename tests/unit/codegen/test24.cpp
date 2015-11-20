@@ -21,7 +21,7 @@ void webMain()
 	}
 	buffer.push_back('0' + val);
 	
-	assertEqual(buffer, "100", "Converting 64-bit integers to string 1/2");
+	assertEqual(buffer.c_str(), "100", "Converting 64-bit integers to string 1/2");
 
 	char charBuffer[10];
 	d = 100;

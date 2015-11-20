@@ -15,6 +15,6 @@ void webMain()
 	A a;
 	a.a1=(1LL<<61)|23;
 	a.b=0xdeadbeaf;
-	assertEqual<int,int>(a.a1, 23, "Bitfield test 1/2");
-	assertEqual<int,int>(a.b, 0xdeadbeaf, "Bitfield test 2/2");
+	assertEqual<int>(a.a1, 23, "Bitfield test 1/2");
+	assertEqual<int>(a.b, 0xdeadbeaf, "Bitfield test 2/2");
 }

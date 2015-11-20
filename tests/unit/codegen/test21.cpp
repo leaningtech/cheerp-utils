@@ -14,11 +14,10 @@ static void dump(T t) {
 }
 
 void testRepresentation() {
-	assertEqual((long long) 0, 0x0000000000000000, "int64_t representation 1/N");
-	assertEqual((long long) -1, 0xffffffffffffffff, "int64_t representation 2/N");
-	assertEqual((unsigned long long) -1, 0xffffffffffffffff, "int64_t representation 3/N");
-	assertEqual(9223372036854775807LL, 0x7fffffffffffffff, "int64_t representation 4/N");
-	// TODO test enumeration type
+	assertEqual((long long) 0, 0x0000000000000000LL, "int64_t representation 1/N");
+	assertEqual(-1 == 0xffffffffffffffffLL, true, "int64_t representation 2/N");
+	assertEqual((unsigned long long) -1, 0xffffffffffffffffULL, "int64_t representation 3/N");
+	assertEqual(9223372036854775807LL, 0x7fffffffffffffffLL, "int64_t representation 4/N");
 }
 
 template <typename T>
@@ -30,13 +29,13 @@ static void testShiftOps() {
 	T e = 0x7fffffff00000000LL;
 
 	assertEqual(a <<  0, a, "int64_t shl support 1/N");
-	assertEqual(a <<  8, 0x01000000, "int64_t shl support 2/N");
+	assertEqual(a <<  8, (T)0x01000000, "int64_t shl support 2/N");
 	assertEqual(a << 16, b, "int64_t shl support 3/N");
 	assertEqual(a << 32, c, "int64_t shl support 4/N");
 	assertEqual(d << 32, e, "int64_t shl support 5/N");
 
 	assertEqual(a >>  0, a, "int64_t shr support 1/N");
-	assertEqual(a >>  8, 0x00000100, "int64_t shl support 2/N");
+	assertEqual(a >>  8, (T)0x00000100, "int64_t shl support 2/N");
 	assertEqual(b >> 16, a, "int64_t shr support 3/N");
 	assertEqual(c >> 32, a, "int64_t shr support 4/N");
 	assertEqual(e >> 32, d, "int64_t shr support 5/N");
@@ -84,51 +83,51 @@ static void testAddSubOps() {
 	T d = 0xffffffffffffffff;
 	T e = 0xfffffffffffffffe;
 
-	assertEqual(a + b, 0x1deadbeaf, "int64_t add support 1/N");
-	assertEqual(c + 1, 0x100000000, "int64_t add support 2/N");
-	assertEqual(d + 1, 0x000000000, "int64_t add support 3/N");
+	assertEqual(a + b, (T)0x1deadbeaf, "int64_t add support 1/N");
+	assertEqual(c + 1, (T)0x100000000, "int64_t add support 2/N");
+	assertEqual(d + 1, (T)0x000000000, "int64_t add support 3/N");
 	assertEqual(d + d, e, "int64_t add support 4/N");
 
-	assertEqual(a - 1, 0xdeadbeae, "int64_t sub support 1/N");
-	assertEqual(b - 1, 0xffffffff, "int64_t sub support 2/N");
-	assertEqual(b - b, 0x00000000, "int64_t sub support 3/N");
-	assertEqual(c - b, 0xffffffffffffffff, "int64_t sub support 4/N");
-	assertEqual(d - d, 0x00000000, "int64_t sub support 5/N");
+	assertEqual(a - 1, (T)0xdeadbeae, "int64_t sub support 1/N");
+	assertEqual(b - 1, (T)0xffffffff, "int64_t sub support 2/N");
+	assertEqual(b - b, (T)0x00000000, "int64_t sub support 3/N");
+	assertEqual(c - b, (T)0xffffffffffffffff, "int64_t sub support 4/N");
+	assertEqual(d - d, (T)0x00000000, "int64_t sub support 5/N");
 	T f = -1;
-	assertEqual(f + -1, 0xfffffffffffffffe, "int64_t sub support 6/N");
+	assertEqual(f + -1, (T)0xfffffffffffffffe, "int64_t sub support 6/N");
 }
 
 template <typename T>
 static void testMulDivModOps() {
 	T a = 0x00018001;
-	assertEqual(a * 2, 0x00030002, "int64_t mul support 1/N");
+	assertEqual(a * 2, (T)0x00030002, "int64_t mul support 1/N");
 
 	T b = 0x0000000088888888;
-	assertEqual(b * 2, 0x0000000111111110, "int64_t mul support 2/N");
+	assertEqual(b * 2, (T)0x0000000111111110, "int64_t mul support 2/N");
 
 	T c = 0x8888888800000000;
-	assertEqual(c * 2, 0x1111111000000000, "int64_t mul support 3/N");
+	assertEqual(c * 2, (T)0x1111111000000000, "int64_t mul support 3/N");
 
 	T d = 0x1122334455667788;
 	T e = 0x1111111111111111;
-	assertEqual(d * e, 0xcba862fb71c5f808, "int64_t mul support 4/N");
+	assertEqual(d * e, (T)0xcba862fb71c5f808, "int64_t mul support 4/N");
 
 	T f = 0xffffffff;
-	assertEqual(f * f, 0xfffffffe00000001, "int64_t mul support 5/N");
+	assertEqual(f * f, (T)0xfffffffe00000001, "int64_t mul support 5/N");
 
-	assertEqual(f / f, 1, "int64_t div support 1/N");
-	assertEqual(d / d, 1, "int64_t div support 2/N");
+	assertEqual(f / f, (T)1, "int64_t div support 1/N");
+	assertEqual(d / d, (T)1, "int64_t div support 2/N");
 	if (std::is_unsigned<T>::value) {
-		assertEqual((-d) / d, 13, "int64_t div support 3a/N");
+		assertEqual((T)((-d) / d), (T)13, "int64_t div support 3a/N");
 	} else {
-		assertEqual((-d) / d, -1, "int64_t div support 3b/N");
+		assertEqual((T)((-d) / d), (T)-1, "int64_t div support 3b/N");
 	}
 	T g = 0xf;
-	assertEqual(g / 3, 5, "int64_t div support 4/N");
+	assertEqual(g / 3, (T)5, "int64_t div support 4/N");
 
-	assertEqual(f % f, 0, "int64_t mod support 1/N");
-	assertEqual((-1) % 1, 0, "int64_t mod support 2/N");
-	assertEqual(d % e, 0x0011223344556677, "int64_t mod support 3/N");
+	assertEqual(f % f, (T)0, "int64_t mod support 1/N");
+	assertEqual((T)(-1) % 1, (T)0, "int64_t mod support 2/N");
+	assertEqual(d % e, (T)0x0011223344556677, "int64_t mod support 3/N");
 }
 
 template <typename T>
@@ -139,12 +138,12 @@ static void testUnaryOps() {
 	T d = 0xffffffffffffffff;
 	T e = 0x1122334455667788;
 
-	assertEqual(-a, 0, "int64_t neg support 1/N");
-	assertEqual(-b, 0xffffffffffffffff, "int64_t neg support 2/N");
-	assertEqual(-c, 0xffffffff00000000, "int64_t neg support 3/N");
-	assertEqual(-d, 0x00000001, "int64_t neg support 4/N");
-	assertEqual(-e, 0xeeddccbbaa998878, "int64_t neg support 5/N");
-	assertEqual(-0x7fffffffffffffff, 0x8000000000000001, "int64_t neg support 6a/N");
+	assertEqual(-a, (T)0, "int64_t neg support 1/N");
+	assertEqual(-b, (T)0xffffffffffffffff, "int64_t neg support 2/N");
+	assertEqual(-c, (T)0xffffffff00000000, "int64_t neg support 3/N");
+	assertEqual(-d, (T)0x00000001, "int64_t neg support 4/N");
+	assertEqual(-e, (T)0xeeddccbbaa998878, "int64_t neg support 5/N");
+	assertEqual(-0x7fffffffffffffff == 0x8000000000000001, true, "int64_t neg support 6a/N");
 
 	assertEqual(!a, true, "int64_t lnot support 1/N");
 	assertEqual(!b, false, "int64_t lnot support 2/N");
@@ -161,31 +160,31 @@ static void testBitwiseCompoundAssignmentOps() {
 	T t;
 
 	t = a; t &= b;
-	assertEqual(t, 0x0000000000000000, "int64_t and assign support 1/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t and assign support 1/N");
 	t = b; t &= c;
-	assertEqual(t, 0x0000000000000000, "int64_t and assign support 2/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t and assign support 2/N");
 	t = c; t &= d;
-	assertEqual(t, 0x0000000100000000, "int64_t and assign support 3/N");
+	assertEqual(t, (T)0x0000000100000000, "int64_t and assign support 3/N");
 	t = d; t &= a;
-	assertEqual(t, 0x0000000000000000, "int64_t and assign support 4/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t and assign support 4/N");
 
 	t = a; t |= b;
-	assertEqual(t, 0x0000000000000001, "int64_t or assign support 1/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t or assign support 1/N");
 	t = b; t |= c;
-	assertEqual(t, 0x0000000100000001, "int64_t or assign support 2/N");
+	assertEqual(t, (T)0x0000000100000001, "int64_t or assign support 2/N");
 	t = c; t |= d;
-	assertEqual(t, 0xffffffffffffffff, "int64_t or assign support 3/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t or assign support 3/N");
 	t = d; t |= a;
-	assertEqual(t, 0xffffffffffffffff, "int64_t or assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t or assign support 4/N");
 
 	t = a; t ^= b;
-	assertEqual(t, 0x0000000000000001, "int64_t xor assign support 1/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t xor assign support 1/N");
 	t = b; t ^= c;
-	assertEqual(t, 0x0000000100000001, "int64_t xor assign support 2/N");
+	assertEqual(t, (T)0x0000000100000001, "int64_t xor assign support 2/N");
 	t = c; t ^= d;
-	assertEqual(t, 0xfffffffeffffffff, "int64_t xor assign support 3/N");
+	assertEqual(t, (T)0xfffffffeffffffff, "int64_t xor assign support 3/N");
 	t = d; t ^= a;
-	assertEqual(t, 0xffffffffffffffff, "int64_t xor assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t xor assign support 4/N");
 }
 
 template <typename T>
@@ -197,76 +196,76 @@ static void testArithmeticCompoundAssignmentOps() {
 	T t;
 
 	t = a; t += b;
-	assertEqual(t, 0x0000000000000001, "int64_t add assign support 1/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t add assign support 1/N");
 	t = b; t += c;
-	assertEqual(t, 0x0000000100000001, "int64_t add assign support 2/N");
+	assertEqual(t, (T)0x0000000100000001, "int64_t add assign support 2/N");
 	t = c; t += d;
-	assertEqual(t, 0x00000000ffffffff, "int64_t add assign support 3/N");
+	assertEqual(t, (T)0x00000000ffffffff, "int64_t add assign support 3/N");
 	t = d; t += a;
-	assertEqual(t, 0xffffffffffffffff, "int64_t add assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t add assign support 4/N");
 
 	t = a; t -= b;
-	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 1/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t sub assign support 1/N");
 	t = b; t -= c;
-	assertEqual(t, 0xffffffff00000001, "int64_t sub assign support 2/N");
+	assertEqual(t, (T)0xffffffff00000001, "int64_t sub assign support 2/N");
 	t = c; t -= d;
-	assertEqual(t, 0x0000000100000001, "int64_t sub assign support 3/N");
+	assertEqual(t, (T)0x0000000100000001, "int64_t sub assign support 3/N");
 	t = d; t -= a;
-	assertEqual(t, 0xffffffffffffffff, "int64_t sub assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t sub assign support 4/N");
 
 	t = a; t %= b;
-	assertEqual(t, 0x0000000000000000, "int64_t mod assign support 1/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t mod assign support 1/N");
 	t = b; t %= c;
-	assertEqual(t, 0x0000000000000001, "int64_t mod assign support 2/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t mod assign support 2/N");
 	t = c; t %= d;
 	if (std::is_unsigned<T>::value) {
-		assertEqual(t, 0x0000000100000000, "int64_t mod assign support 3a/N");
+		assertEqual(t, (T)0x0000000100000000, "int64_t mod assign support 3a/N");
 	} else {
-		assertEqual(t, 0x0000000000000000, "int64_t mod assign support 3b/N");
+		assertEqual(t, (T)0x0000000000000000, "int64_t mod assign support 3b/N");
 	}
 	t = d; t %= b;
-	assertEqual(t, 0x0000000000000000, "int64_t mod assign support 4/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t mod assign support 4/N");
 
 	t = a; t *= b;
-	assertEqual(t, 0x0000000000000000, "int64_t mul assign support 1/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t mul assign support 1/N");
 	t = b; t *= c;
-	assertEqual(t, 0x0000000100000000, "int64_t mul assign support 2/N");
+	assertEqual(t, (T)0x0000000100000000, "int64_t mul assign support 2/N");
 	t = c; t *= d;
 	assertEqual(t, -c, "int64_t mul assign support 3/N");
 	t = d; t *= b;
-	assertEqual(t, 0xffffffffffffffff, "int64_t mul assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t mul assign support 4/N");
 
 	t = a; t /= b;
-	assertEqual(t, 0x0000000000000000, "int64_t div assign support 1/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t div assign support 1/N");
 	t = b; t /= c;
-	assertEqual(t, 0x0000000000000000, "int64_t div assign support 2/N");
+	assertEqual(t, (T)0x0000000000000000, "int64_t div assign support 2/N");
 	t = c; t /= d;
 	if (std::is_unsigned<T>::value) {
-		assertEqual(t, 0x0000000000000000, "int64_t mod assign support 3a/N");
+		assertEqual(t, (T)0x0000000000000000, "int64_t mod assign support 3a/N");
 	} else {
 		assertEqual(t, -c, "int64_t mod assign support 3b/N");
 	}
 	t = d; t /= b;
-	assertEqual(t, 0xffffffffffffffff, "int64_t div assign support 4/N");
+	assertEqual(t, (T)0xffffffffffffffff, "int64_t div assign support 4/N");
 
 	t = b; t <<= 0;
 	dump(t);
-	assertEqual(t, 0x0000000000000001, "int64_t shl assign support 1/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t shl assign support 1/N");
 	t = c; t <<= 16;
-	assertEqual(t, 0x0001000000000000, "int64_t shl assign support 2/N");
+	assertEqual(t, (T)0x0001000000000000, "int64_t shl assign support 2/N");
 	t = d; t <<= 32;
-	assertEqual(t, 0xffffffff00000000, "int64_t shl assign support 3/N");
+	assertEqual(t, (T)0xffffffff00000000, "int64_t shl assign support 3/N");
 
 	t = b; t >>= 0;
 	dump(t);
-	assertEqual(t, 0x0000000000000001, "int64_t shr assign support 1/N");
+	assertEqual(t, (T)0x0000000000000001, "int64_t shr assign support 1/N");
 	t = c; t >>= 16;
-	assertEqual(t, 0x0000000000010000, "int64_t shr assign support 2/N");
+	assertEqual(t, (T)0x0000000000010000, "int64_t shr assign support 2/N");
 	t = d; t >>= 32;
 	if (std::is_unsigned<T>::value) {
-		assertEqual(t, 0x00000000ffffffff, "int64_t shr assign support 3a/N");
+		assertEqual(t, (T)0x00000000ffffffff, "int64_t shr assign support 3a/N");
 	} else {
-		assertEqual(t, 0xffffffffffffffff, "int64_t shr assign support 3b/N");
+		assertEqual(t, (T)0xffffffffffffffff, "int64_t shr assign support 3b/N");
 	}
 }
 
@@ -328,9 +327,9 @@ static void testCastToFloat() {
 	T c = 0x0000000100000000;
 	T e = 0xffffffffffffffff;
 
-	assertEqual((float) a, 0., 1e-6, "int64_t cast to float support 1/N");
-	assertEqual((float) b, 1., 1e-6, "int64_t cast to float support 2/N");
-	assertEqual((float) c, 4.2949673e9, 1e-6, "int64_t cast to float support 3/N");
+	assertEqual((float) a, 0.f, 1e-6, "int64_t cast to float support 1/N");
+	assertEqual((float) b, 1.f, 1e-6, "int64_t cast to float support 2/N");
+	assertEqual((float) c, 4.2949673e9f, 1e-6, "int64_t cast to float support 3/N");
 
 	T h = 9223372036854775807LL;
 	assertEqual((double) h, 9.223372036854776e18, 1e-10, "int64_t cast to float support 4/N");
@@ -354,19 +353,19 @@ static void testCastFromFloat() {
 	float d = 3.142;
 	float e = -1.;
 
-	assertEqual((T) a, 0, "int64_t cast from float support 1/N");
-	assertEqual((T) b, 1, "int64_t cast from float support 2/N");
-	assertEqual((T) c, 1337, "int64_t cast from float support 3/N");
-	assertEqual((T) d, 3, "int64_t cast from float support 4/N");
+	assertEqual((T) a, (T)0, "int64_t cast from float support 1/N");
+	assertEqual((T) b, (T)1, "int64_t cast from float support 2/N");
+	assertEqual((T) c, (T)1337, "int64_t cast from float support 3/N");
+	assertEqual((T) d, (T)3, "int64_t cast from float support 4/N");
 
 	if (std::is_signed<T>::value) {
-		assertEqual((T) e, -1, "int64_t cast from float support 5a/N");
+		assertEqual((T) e, (T)-1, "int64_t cast from float support 5a/N");
 
 		float f = -3.2e3;
-		assertEqual((T) f, -3200, "int64_t cast from float support 6/N");
+		assertEqual((T) f, (T)-3200, "int64_t cast from float support 6/N");
 
 		float g = -3.2e9;
-		assertEqual((T) g, -3200000000, "int64_t cast from float support 7/N");
+		assertEqual((T) g, (T)-3200000000, "int64_t cast from float support 7/N");
 
 		T h = 0x7ffffffffffff000;
 		double i = 9223372036854771712.;
@@ -378,32 +377,32 @@ template <typename T>
 static void testIncrement() {
 	T a = 0;
 	a++;
-	assertEqual(a, 1, "int64_t post increment support 1/N");
+	assertEqual(a, (T)1, "int64_t post increment support 1/N");
 	a = 0x00000000ffffffff;
-	assertEqual(a++, 0x0000000100000000, "int64_t post increment support 2/N");
-	assertEqual(a, 0x0000000100000000, "int64_t post increment support 3/N");
+	assertEqual(a++, (T)0x0000000100000000, "int64_t post increment support 2/N");
+	assertEqual(a, (T)0x0000000100000000, "int64_t post increment support 3/N");
 
 	T b = 0;
 	++b;
-	assertEqual(b, 1, "int64_t pre increment support 1/N");
+	assertEqual(b, (T)1, "int64_t pre increment support 1/N");
 	b = 0x00000000ffffffff;
-	assertEqual(++b, 0x0000000100000000, "int64_t pre increment support 2/N");
-	assertEqual(b, 0x0000000100000000, "int64_t pre increment support 3/N");
+	assertEqual(++b, (T)0x0000000100000000, "int64_t pre increment support 2/N");
+	assertEqual(b, (T)0x0000000100000000, "int64_t pre increment support 3/N");
 
 	a = 0;
 	a--;
-	assertEqual(a, 0xffffffffffffffff, "int64_t post decrement support 1/N");
+	assertEqual(a, (T)0xffffffffffffffff, "int64_t post decrement support 1/N");
 
 	a = 0xffffffffffffffff;
-	assertEqual(a--, 0xfffffffffffffffe, "int64_t post decrement support 2/N");
-	assertEqual(a, 0xfffffffffffffffe, "int64_t post decrement support 3/N");
+	assertEqual(a--, (T)0xfffffffffffffffe, "int64_t post decrement support 2/N");
+	assertEqual(a, (T)0xfffffffffffffffe, "int64_t post decrement support 3/N");
 
 	b = 0;
 	--b;
-	assertEqual(b, 0xffffffffffffffff, "int64_t pre decrement support 1/N");
+	assertEqual(b, (T)0xffffffffffffffff, "int64_t pre decrement support 1/N");
 	b = 0xffffffffffffffff;
-	assertEqual(--b, 0xfffffffffffffffe, "int64_t pre decrement support 2/N");
-	assertEqual(b, 0xfffffffffffffffe, "int64_t pre decrement support 3/N");
+	assertEqual(--b, (T)0xfffffffffffffffe, "int64_t pre decrement support 2/N");
+	assertEqual(b, (T)0xfffffffffffffffe, "int64_t pre decrement support 3/N");
 }
 
 template <typename T>
@@ -451,7 +450,7 @@ template <typename T>
 static void testPointersAndReferences() {
 	T a = 42;
 	increment<T>(a);
-	assertEqual(a, 43, "int64_t reference support 1/N");
+	assertEqual(a, (T)43, "int64_t reference support 1/N");
 }
 
 static void testBitfields() {
@@ -462,8 +461,8 @@ static void testBitfields() {
 	struct A foo;
 	foo.a = 7;
 	foo.b = 4;
-	assertEqual(foo.a, 7, "int64_t bit fields support 1/N");
-	assertEqual(foo.b, 4, "int64_t bit fields support 2/N");
+	assertEqual(foo.a, 7ULL, "int64_t bit fields support 1/N");
+	assertEqual(foo.b, 4ULL, "int64_t bit fields support 2/N");
 
 	// Test 0 bit field
 	struct B {
@@ -478,10 +477,10 @@ static void testBitfields() {
 	bar.a2 = 4;
 	bar.b1 = 7;
 	bar.b2 = 4;
-	assertEqual(bar.a1, 7, "int64_t bit fields support 3/N");
-	assertEqual(bar.a2, 4, "int64_t bit fields support 4/N");
-	assertEqual(bar.b1, 7, "int64_t bit fields support 5/N");
-	assertEqual(bar.b2, 4, "int64_t bit fields support 6/N");
+	assertEqual(bar.a1, 7ULL, "int64_t bit fields support 3/N");
+	assertEqual(bar.a2, 4ULL, "int64_t bit fields support 4/N");
+	assertEqual(bar.b1, 7ULL, "int64_t bit fields support 5/N");
+	assertEqual(bar.b2, 4ULL, "int64_t bit fields support 6/N");
 
 	// Test >32 bit field
 	struct C {
@@ -491,8 +490,8 @@ static void testBitfields() {
 	struct C baz;
 	baz.a = 7;
 	baz.b = 4;
-	assertEqual(baz.a, 7, "int64_t bit fields support 7/N");
-	assertEqual(baz.b, 4, "int64_t bit fields support 8/N");
+	assertEqual(baz.a, 7ULL, "int64_t bit fields support 7/N");
+	assertEqual(baz.b, 4ULL, "int64_t bit fields support 8/N");
 
 	// Test signed >32 bit field
 	struct D {
@@ -502,8 +501,8 @@ static void testBitfields() {
 	struct D quux;
 	quux.a = 7;
 	quux.b = -1;
-	assertEqual(quux.a, 7, "int64_t bit fields support 9/N");
-	assertEqual(quux.b, -1, "int64_t bit fields support 10/N");
+	assertEqual(quux.a, 7LL, "int64_t bit fields support 9/N");
+	assertEqual(quux.b, -1LL, "int64_t bit fields support 10/N");
 }
 
 template <typename T>

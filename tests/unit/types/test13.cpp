@@ -22,6 +22,6 @@ void webMain()
 	volatile int ai = a.i;
 	volatile int bi = b.i;
 
-	assertEqual(ai, 1, "Pointers to member variables 1/2");
-	assertEqual(bi, 2, "Pointers to member variables 2/2");
+	assertEqual<int>((int)ai, 1, "Pointers to member variables 1/2");
+	assertEqual<int>((int)bi, 2, "Pointers to member variables 2/2");
 }

@@ -18,7 +18,7 @@ struct Point
 void webMain()
 {
 	std::list<Point> l;
-	assertEqual(l.size(), 0, "List construction");
+	assertEqual(l.size(), 0u, "List construction");
 	l.insert(l.begin(),Point{.x=1,.y=2});
-	assertEqual(l.size(), 1, "List insert");
+	assertEqual(l.size(), 1u, "List insert");
 }

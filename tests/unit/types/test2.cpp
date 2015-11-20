@@ -37,5 +37,5 @@ void webMain()
 	opaque1 = &t;
 
 	T* pt = (T*)opaque1;
-	assertEqual(pt->f, 42, "Structure, cast to void* and back 2/2");
+	assertEqual(pt->f, 42.f, "Structure, cast to void* and back 2/2");
 }

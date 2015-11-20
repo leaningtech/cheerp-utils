@@ -11,5 +11,5 @@ void webMain()
 	mbstate_t s;
 	size_t ret=mbsrtowcs(0, &h, 0, &s);
 
-	assertEqual(ret, 5, "Multibyte string support");
+	assertEqual<size_t>(ret, 5, "Multibyte string support");
 }

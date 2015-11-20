@@ -48,6 +48,6 @@ void webMain()
 	//Test sparse arrays of native types
 	float sa[9] = {0.0, 1.0, 0.0, -1.0, -1.0, 0.0, 1.0, -1.0, 0.0};
 	float* volatile psa = &sa[4];
-	assertEqual(*psa, -1.0, "Accessing sparse arrays");
+	assertEqual(*psa, -1.0, 1e-6, "Accessing sparse arrays");
 
 }

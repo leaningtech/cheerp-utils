@@ -18,15 +18,15 @@ void webMain()
 	unsigned long long a = 1LL << 32;
 	unsigned long long b = 1000000000;
 	long long udiv = __udivti3(a, b);
-	assertEqual(udiv, 4, "Runtime based division and modulo 1/N");
+	assertEqual(udiv, 4LL, "Runtime based division and modulo 1/N");
 	long long umod = __umodti3(a, b);
-	assertEqual(umod, 294967296, "Runtime based division and modulo 2/N");
+	assertEqual(umod, 294967296LL, "Runtime based division and modulo 2/N");
 	long long c = -a;
 	long long sdiv = __divti3(c, b);
-	assertEqual((long)sdiv, -4, "Runtime based division and modulo 3/N");
+	assertEqual((long)sdiv, -4L, "Runtime based division and modulo 3/N");
 	long long smod = __modti3(c, b);
-	assertEqual((long)smod, -294967296, "Runtime based division and modulo 4/N");
+	assertEqual((long)smod, -294967296L, "Runtime based division and modulo 4/N");
 	long long d = -1LL;
 	long long udiv2 = __udivti3(d, d);
-	assertEqual(udiv2, 1, "Runtime based division and modulo 5/N");
+	assertEqual(udiv2, 1LL, "Runtime based division and modulo 5/N");
 }
