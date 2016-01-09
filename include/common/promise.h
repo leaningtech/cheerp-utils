@@ -65,7 +65,7 @@ template<class T>
 class PromiseMid: public PromiseBase
 {
 private:
-	T fulfillValue [[noinit]];
+	T fulfillValue [[cheerp::noinit]];
 public:
 	~PromiseMid()
 	{

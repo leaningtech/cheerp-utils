@@ -58,7 +58,7 @@ struct gameAnswer
 	}
 #endif
 #ifdef __CHEERP_CLIENT__
-	static gameAnswer deserialize(const client::String& s) [[client]]
+	static gameAnswer deserialize(const client::String& s) [[cheerp::client]]
 	{
 		client::Array* a=static_cast<client::Array*>(client::JSON.parse(s));
 		gameAnswer ret(*(*a)[0],*(*a)[1],*(*a)[2]);
@@ -71,7 +71,7 @@ struct gameAnswer
  * The returned struct tells the client if the click is valid and if so
  * what's the server answer to the move
  */
-gameAnswer notifyClick(int x, int y) [[server]]
+gameAnswer notifyClick(int x, int y) [[cheerp::server]]
 {
 	if(x < 0 || x > 2 || y < 0 || y > 2)
 		return gameAnswer(0,0,false);
@@ -89,7 +89,7 @@ gameAnswer notifyClick(int x, int y) [[server]]
 }
 
 #ifdef __CHEERP_CLIENT__
-void handleEvent(client::MouseEvent* e) [[client]]
+void handleEvent(client::MouseEvent* e) [[cheerp::client]]
 {
 	client::Document* d=&client::document;
 	client::HTMLElement* elem=(client::HTMLElement*)d->getElementById("canvas");
@@ -124,7 +124,7 @@ void handleEvent(client::MouseEvent* e) [[client]]
 }
 #endif
 
-int getClickCount() [[server]]
+int getClickCount() [[cheerp::server]]
 {
 	static int clickCount = 0;
 	clickCount++;
@@ -132,7 +132,7 @@ int getClickCount() [[server]]
 }
 
 #ifdef __CHEERP_CLIENT__
-void handleRightClick(client::MouseEvent* e) [[client]]
+void handleRightClick(client::MouseEvent* e) [[cheerp::client]]
 {
 	client::Document* d=&client::document;
 	client::Element* elem = d->getElementById("clickcount");
@@ -141,7 +141,7 @@ void handleRightClick(client::MouseEvent* e) [[client]]
 }
 #endif
 
-void clientTest() [[client]]
+void clientTest() [[cheerp::client]]
 {
 	client::Document* d=&client::document;
 	client::Element* e=d->getElementById("canvas");
@@ -163,13 +163,13 @@ void clientTest() [[client]]
 	canvas->addEventListener("contextmenu",cheerp::Callback(handleRightClick));
 }
 
-inline void resetGame() [[server]]
+inline void resetGame() [[cheerp::server]]
 {
 	for(int i=0;i<9;i++)
 		gameState.state[i]=false;
 }
 
-void webMain() [[client]]
+void webMain() [[cheerp::client]]
 {
 	resetGame();
 	client::document.addEventListener("DOMContentLoaded",cheerp::Callback(clientTest));

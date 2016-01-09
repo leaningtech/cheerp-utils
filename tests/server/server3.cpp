@@ -5,12 +5,12 @@
 #include <cheerp/server.h>
 #endif
 
-inline std::string serverTest() [[server]]
+inline std::string serverTest() [[cheerp::server]]
 {
 	return "String created on the server";
 }
 
-void clientTest() [[client]]
+void clientTest() [[cheerp::client]]
 {
 	std::string ret=serverTest();
 	client::Document* d=&client::document;
@@ -20,7 +20,7 @@ void clientTest() [[client]]
 	d->get_body()->appendChild(e);
 }
 
-void webMain() [[client]]
+void webMain() [[cheerp::client]]
 {
 	client::document.addEventListener("DOMContentLoaded",cheerp::Callback(clientTest));
 }

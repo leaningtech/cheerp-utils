@@ -6,7 +6,7 @@
 
 bool testSuccessful = false;
 
-class [[jsexport]] JsStruct
+class [[cheerp::jsexport]] JsStruct
 {
 public:
 	JsStruct()

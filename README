@@ -49,23 +49,23 @@ Code conventions
 Methods that should be compiled on the client side should
 be marked using the C++11 attribute syntax:
 
-	int f1() [[client]]
+	int f1() [[cheerp::client]]
 	{
 		...
 	}
 
-Methods that are tagged using the [[server]] attribute will be treated differently depending on
+Methods that are tagged using the [[cheerp::server]] attribute will be treated differently depending on
 the -cheerp-side=<client|server> command line option. In client mode they will become stubs for
 RPC on the server: they will automatically serialize the arguments and get an answer from the server.
 In server mode they will be compiled regularly and server side boiler plate code will forward
 each request to the right method.
 
-	int serverTest(int i, float f) [[server]]
+	int serverTest(int i, float f) [[cheerp::server]]
 	{
 		return f * 10 + i;
 	}
 
-	void webMain() [[client]]
+	void webMain() [[cheerp::client]]
 	{
 		int serverVal = serverTest(10, 0.2f); //This will be compiled as an RPC call
 		console.log(serverVal);
@@ -90,19 +90,19 @@ The relevant headers that defines client interfaces are
 By convention the method that will be called first on the
 client side should have the following signature
 
-	void webMain() [[client]]
+	void webMain() [[cheerp::client]]
 
 NOTE: As usual in JavaScript programming the script will be
 loaded before the DOM is completely loaded, and so webMain will
 be called on an incomplete document, to execute a callback after
 loading is complete you can do this
 
-	void loadCallback() [[client]]
+	void loadCallback() [[cheerp::client]]
 	{
 		...
 	}
 
-	void webMain() [[client]]
+	void webMain() [[cheerp::client]]
 	{
 		document.addEventListener("DOMContentLoaded",Callback(loadCallback));
 	}

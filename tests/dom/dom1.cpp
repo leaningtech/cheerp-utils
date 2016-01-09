@@ -3,7 +3,7 @@
 
 using namespace client;
 
-void loadCallback() [[client]]
+void loadCallback() [[cheerp::client]]
 {
 	HTMLElement* body=document.get_body();
 	HTMLElement* newTitle=document.createElement("h1");
@@ -11,7 +11,7 @@ void loadCallback() [[client]]
 	body->appendChild(newTitle);
 }
 
-void webMain() [[client]]
+void webMain() [[cheerp::client]]
 {
 	document.addEventListener("DOMContentLoaded",cheerp::Callback(loadCallback));
 }

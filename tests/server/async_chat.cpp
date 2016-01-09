@@ -16,7 +16,7 @@ using namespace std;
 // Pending requests for messages
 vector<Promise<string>*> pendingRequests;
 
-Promise<string>* getChatMessageRemote() [[server]]
+Promise<string>* getChatMessageRemote() [[cheerp::server]]
 {
     auto ret=new Promise<std::string>();
     // Store the new promise, you can use it later to complete
@@ -25,21 +25,21 @@ Promise<string>* getChatMessageRemote() [[server]]
     return ret;
 }
 
-void sendMessageRemote(const string& str) [[server]]
+void sendMessageRemote(const string& str) [[cheerp::server]]
 {
     for (auto p: pendingRequests)
         p->done(str);
     pendingRequests.clear();
 }
 
-void messageHandler(const string& newMessage) [[client]]
+void messageHandler(const string& newMessage) [[cheerp::client]]
 {
     client::console.log("Message received ",newMessage.c_str());
 }
 
-void badMessageHandler(int newMessage) [[client]];
+void badMessageHandler(int newMessage) [[cheerp::client]];
 
-void webMain() [[client]]
+void webMain() [[cheerp::client]]
 {
     // First wait for messages
     auto promise = getChatMessageRemote();

@@ -199,7 +199,7 @@ struct serializeImpl
 template<>
 struct serializeImpl<char>
 {
-	static client::String* run(char data) [[client]]
+	static client::String* run(char data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -208,7 +208,7 @@ struct serializeImpl<char>
 template<>
 struct serializeImpl<unsigned char>
 {
-	static client::String* run(unsigned char data) [[client]]
+	static client::String* run(unsigned char data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -217,7 +217,7 @@ struct serializeImpl<unsigned char>
 template<>
 struct serializeImpl<int>
 {
-	static client::String* run(int data) [[client]]
+	static client::String* run(int data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -226,7 +226,7 @@ struct serializeImpl<int>
 template<>
 struct serializeImpl<unsigned int>
 {
-	static client::String* run(unsigned int data) [[client]]
+	static client::String* run(unsigned int data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -235,7 +235,7 @@ struct serializeImpl<unsigned int>
 template<>
 struct serializeImpl<long>
 {
-	static client::String* run(long data) [[client]]
+	static client::String* run(long data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -244,7 +244,7 @@ struct serializeImpl<long>
 template<>
 struct serializeImpl<unsigned long>
 {
-	static client::String* run(unsigned long data) [[client]]
+	static client::String* run(unsigned long data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -253,7 +253,7 @@ struct serializeImpl<unsigned long>
 template<>
 struct serializeImpl<float>
 {
-	static client::String* run(float data) [[client]]
+	static client::String* run(float data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(data);
 	}
@@ -262,7 +262,7 @@ struct serializeImpl<float>
 template<>
 struct serializeImpl<std::string>
 {
-	static client::String* run(const std::string& data) [[client]]
+	static client::String* run(const std::string& data) [[cheerp::client]]
 	{
 		return client::JSON.stringify(new client::String(data.c_str()));
 	}
@@ -271,7 +271,7 @@ struct serializeImpl<std::string>
 template<typename T>
 struct serializeImpl<std::vector<T>>
 {
-	static client::String* run(const std::vector<T>& data) [[client]]
+	static client::String* run(const std::vector<T>& data) [[cheerp::client]]
 	{
 		client::String* ret=new client::String("[");
 		for(uint32_t i=0;i<data.size();i++)
@@ -305,7 +305,7 @@ inline client::String* serializeRange(InputIterator begin, const InputIterator e
 
 
 template<typename T>
-inline client::String* serialize(const T& data) [[client]]
+inline client::String* serialize(const T& data) [[cheerp::client]]
 {
 	return serializeImpl<T>::run(data);
 }
@@ -323,7 +323,7 @@ struct deserializeImpl
 template<>
 struct deserializeImpl<int>
 {
-	static int run(const client::String* s) [[client]]
+	static int run(const client::String* s) [[cheerp::client]]
 	{
 		client::Object* ret=client::JSON.parse(*s);
 		return *ret;
@@ -333,7 +333,7 @@ struct deserializeImpl<int>
 template<>
 struct deserializeImpl<unsigned int>
 {
-	static unsigned int run(const client::String* s) [[client]]
+	static unsigned int run(const client::String* s) [[cheerp::client]]
 	{
 		client::Object* ret=client::JSON.parse(*s);
 		return *ret;
@@ -343,7 +343,7 @@ struct deserializeImpl<unsigned int>
 template<>
 struct deserializeImpl<long>
 {
-	static long run(const client::String* s) [[client]]
+	static long run(const client::String* s) [[cheerp::client]]
 	{
 		client::Object* ret=client::JSON.parse(*s);
 		return *ret;
@@ -353,7 +353,7 @@ struct deserializeImpl<long>
 template<>
 struct deserializeImpl<unsigned long>
 {
-	static unsigned long run(const client::String* s) [[client]]
+	static unsigned long run(const client::String* s) [[cheerp::client]]
 	{
 		client::Object* ret=client::JSON.parse(*s);
 		return *ret;
@@ -363,7 +363,7 @@ struct deserializeImpl<unsigned long>
 template<typename T>
 struct deserializeImpl<std::vector<T>>
 {
-	static std::vector<T> run(const client::String* s) [[client]]
+	static std::vector<T> run(const client::String* s) [[cheerp::client]]
 	{
 		std::vector<T> ret;
 		if(s->charCodeAt(0)!='[')
@@ -391,7 +391,7 @@ struct deserializeImpl<std::vector<T>>
 template<>
 struct deserializeImpl<std::string>
 {
-	static std::string run(const client::String* s) [[client]]
+	static std::string run(const client::String* s) [[cheerp::client]]
 	{
 		return (std::string)*s;
 	}
@@ -414,14 +414,14 @@ inline void deserializeArrayInPlace(OutputIterator begin, const OutputIterator e
 template<>
 struct deserializeImpl<void>
 {
-	static void run(const client::String* s) [[client]]
+	static void run(const client::String* s) [[cheerp::client]]
 	{
 		return;
 	}
 };
 
 template<typename T>
-T deserialize(const client::String* s) [[client]]
+T deserialize(const client::String* s) [[cheerp::client]]
 {
 	return deserializeImpl<T>::run(s);
 }
@@ -491,23 +491,23 @@ struct promiseUtils<cheerp::Promise<T>*>: public std::true_type
 template<typename Ret, typename ...Args>
 struct clientStubImpl
 {
-	static client::String* serializeArgsImpl(client::String* ret) [[client]]
+	static client::String* serializeArgsImpl(client::String* ret) [[cheerp::client]]
 	{
 		return ret;
 	}
 	template<class Serialize, typename ...Args2>
-	static client::String* serializeArgsImpl(client::String* ret, const Serialize& s, Args2&&... args) [[client]]
+	static client::String* serializeArgsImpl(client::String* ret, const Serialize& s, Args2&&... args) [[cheerp::client]]
 	{
 		ret=ret->concat(",",*serialize(s));
 		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
 	}
 	template<class Serialize, typename ...Args2>
-	static client::String* serializeArgs(const Serialize& s, Args2&&... args) [[client]]
+	static client::String* serializeArgs(const Serialize& s, Args2&&... args) [[cheerp::client]]
 	{
 		client::String* ret=serialize(s);
 		return serializeArgsImpl(ret, std::forward<Args2>(args)...);
 	}
-	static client::String* serializeArgs() [[client]]
+	static client::String* serializeArgs() [[cheerp::client]]
 	{
 		return new client::String("");
 	}
@@ -527,7 +527,7 @@ struct clientStubImpl
 } //End of namespace cheerp
 
 template<typename Ret, typename ...Args>
-Ret clientStub(const char* funcName, Args... args) [[client]]
+Ret clientStub(const char* funcName, Args... args) [[cheerp::client]]
 {
 	return cheerp::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
 }

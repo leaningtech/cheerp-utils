@@ -670,14 +670,14 @@ namespace client
 		Date(double year, double month, double date, double hours, double minutes, double seconds, double ms);
 		Date* get_prototype();
 		void set_prototype(Date*);
-		static double parse(const String& s) [[static]];
-		static double UTC(double year, double month) [[static]];
-		static double UTC(double year, double month, double date) [[static]];
-		static double UTC(double year, double month, double date, double hours) [[static]];
-		static double UTC(double year, double month, double date, double hours, double minutes) [[static]];
-		static double UTC(double year, double month, double date, double hours, double minutes, double seconds) [[static]];
-		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms) [[static]];
-		static double now() [[static]];
+		static double parse(const String& s) [[cheerp::static]];
+		static double UTC(double year, double month) [[cheerp::static]];
+		static double UTC(double year, double month, double date) [[cheerp::static]];
+		static double UTC(double year, double month, double date, double hours) [[cheerp::static]];
+		static double UTC(double year, double month, double date, double hours, double minutes) [[cheerp::static]];
+		static double UTC(double year, double month, double date, double hours, double minutes, double seconds) [[cheerp::static]];
+		static double UTC(double year, double month, double date, double hours, double minutes, double seconds, double ms) [[cheerp::static]];
+		static double now() [[cheerp::static]];
 	};
 
 	class RegExpExecArray: public Object{
@@ -8846,8 +8846,8 @@ namespace client
 	class URL: public Object{
 	public:
 		void revokeObjectURL(const String& url);
-		static String* createObjectURL(Object* object) [[static]];
-		static String* createObjectURL(Object* object, ObjectURLOptions* options) [[static]];
+		static String* createObjectURL(Object* object) [[cheerp::static]];
+		static String* createObjectURL(Object* object, ObjectURLOptions* options) [[cheerp::static]];
 	};
 
 	class IDBCursorWithValue: public IDBCursor {

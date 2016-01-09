@@ -10,17 +10,17 @@
 using namespace client;
 #endif
 
-int serverTest(int i, float f) [[server]]
+int serverTest(int i, float f) [[cheerp::server]]
 {
 	return f * 10 + i;
 }
 
-int serverTest(int i, int i2) [[server]]
+int serverTest(int i, int i2) [[cheerp::server]]
 {
 	return i-i2;
 }
 
-void webMain() [[client]]
+void webMain() [[cheerp::client]]
 {
 	const std::string str("CreateTest");
 	int serverVal = serverTest(10, 0.2f);

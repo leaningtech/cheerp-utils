@@ -94,7 +94,7 @@ public:
 	int indexOf(const String&);
 	int indexOf(const String&, int);
 	TArray<String>* split(const String&) const;
-	static String* fromCharCode(int c) [[static]];
+	static String* fromCharCode(int c) [[cheerp::static]];
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
