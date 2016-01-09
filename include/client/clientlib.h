@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2013-2014 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2013-2016 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -876,6 +876,14 @@ namespace client
 		Int8Array(ArrayBuffer* buffer, double byteOffset);
 		Int8Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		char& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<char>(this, 0)[index];
+		}
+		char operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<char>(this, 0)[index];
+		}
 	};
 
 	class Uint8Array: public ArrayBufferView {
@@ -899,6 +907,14 @@ namespace client
 		Uint8Array(ArrayBuffer* buffer, double byteOffset);
 		Uint8Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		unsigned char& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<unsigned char>(this, 0)[index];
+		}
+		unsigned char operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<unsigned char>(this, 0)[index];
+		}
 	};
 
 	class Int16Array: public ArrayBufferView {
@@ -922,6 +938,14 @@ namespace client
 		Int16Array(ArrayBuffer* buffer, double byteOffset);
 		Int16Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		short& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<short>(this, 0)[index];
+		}
+		short operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<short>(this, 0)[index];
+		}
 	};
 
 	class Uint16Array: public ArrayBufferView {
@@ -945,6 +969,14 @@ namespace client
 		Uint16Array(ArrayBuffer* buffer, double byteOffset);
 		Uint16Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		unsigned short& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<unsigned short>(this, 0)[index];
+		}
+		unsigned short operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<unsigned short>(this, 0)[index];
+		}
 	};
 
 	class Int32Array: public ArrayBufferView {
@@ -968,6 +1000,14 @@ namespace client
 		Int32Array(ArrayBuffer* buffer, double byteOffset);
 		Int32Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		int& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<int>(this, 0)[index];
+		}
+		int operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<int>(this, 0)[index];
+		}
 	};
 
 	class Uint32Array: public ArrayBufferView {
@@ -991,6 +1031,14 @@ namespace client
 		Uint32Array(ArrayBuffer* buffer, double byteOffset);
 		Uint32Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		unsigned int& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<unsigned int>(this, 0)[index];
+		}
+		unsigned int operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<unsigned int>(this, 0)[index];
+		}
 	};
 
 	class Float32Array: public ArrayBufferView {
@@ -1014,6 +1062,14 @@ namespace client
 		Float32Array(ArrayBuffer* buffer, double byteOffset);
 		Float32Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		float& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<float>(this, 0)[index];
+		}
+		float operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<float>(this, 0)[index];
+		}
 	};
 
 	class Float64Array: public ArrayBufferView {
@@ -1037,6 +1093,14 @@ namespace client
 		Float64Array(ArrayBuffer* buffer, double byteOffset);
 		Float64Array(ArrayBuffer* buffer, double byteOffset, double length);
 		double get_BYTES_PER_ELEMENT();
+		double& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<double>(this, 0)[index];
+		}
+		double operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<double>(this, 0)[index];
+		}
 	};
 
 	class DataView: public ArrayBufferView {
