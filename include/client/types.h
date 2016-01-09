@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2013 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2016 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -28,6 +28,8 @@
 namespace client
 {
 
+class String;
+
 class Object
 {
 private:
@@ -42,6 +44,10 @@ public:
 	{
 		return const_cast<Object*>(this)->valueOf<double>();
 	}
+	Object* operator[](const client::String& name) const;
+	// operator[] for arbitrary assignment can't be expressed as we can't have a pointer to an arbitrary member of an object
+	// We provide the following function instead
+	void set_(const client::String& name, Object* v);
 };
 
 template<class T>
