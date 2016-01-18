@@ -22,7 +22,16 @@ void webMain()
 	//Test legacy C memory calloc
 	int* volatile d=(int*)calloc(2,sizeof(int));
 	d[1] = 45;
-	assertEqual(d[1], 45, "Access calloc allocated memory");
+	assertEqual(d[1], 45, "Access calloc allocated memory 1/3");
+	free(d);
+	d=(int*)calloc(1,sizeof(int)*2);
+	d[1] = 44;
+	assertEqual(d[1], 44, "Access calloc allocated memory 2/3");
+	free(d);
+	volatile int elementCount = 1;
+	d=(int*)calloc(elementCount,sizeof(int)*2);
+	d[1] = 43;
+	assertEqual(d[1], 43, "Access calloc allocated memory 3/3");
 	free(d);
 
 	//Test legacy C memory realloc
