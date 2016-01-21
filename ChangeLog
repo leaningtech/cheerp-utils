@@ -1,5 +1,18 @@
 Cheerp: C++ for the Web
 
+Version 1.2:
+
+	* Based on updated LLVM/clang
+	* Support covariant return types
+	* Add support for 64-bit integers
+	* Support RTTI and dynamic_cast
+	* Improved compiler diagnostic messages
+	* Reduced code size
+	* Reduced code startup time
+	* Improved performance of generated code
+	* Support JavaScript module pattern
+	* Improved SourceMaps
+
 Version 1.1:
 
 	* Greatly improved performance for the generated code
