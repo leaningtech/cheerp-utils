@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2014 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2014-2016 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,16 +45,10 @@ public:
 class PromiseBase
 {
 protected:
-	std::function<void()> callback;
 	bool fulfilled;
 	bool completed;
 	PromiseBase():fulfilled(false),completed(false)
 	{
-	}
-	template<class T>
-	typename PromiseTypes<T>::callbackType& getCastedCallback()
-	{
-		return (typename PromiseTypes<T>::callbackType&)PromiseBase::callback;
 	}
 };
 
@@ -64,6 +58,8 @@ class Promise;
 template<class T>
 class PromiseMid: public PromiseBase
 {
+protected:
+	std::function<void(const T&)> callback;
 private:
 	T fulfillValue [[cheerp::noinit]];
 public:
@@ -79,7 +75,7 @@ public:
 		// Otherwise we need to store the data for later use
 		if(completed)
 		{
-			getCastedCallback<T>()(std::forward<T>(t));
+			callback(t);
 			delete this;
 		}
 		else
@@ -92,7 +88,7 @@ public:
 	{
 		if(completed)
 		{
-			getCastedCallback<T>()(t);
+			callback(t);
 			delete this;
 		}
 		else
@@ -112,7 +108,7 @@ public:
 		// If the promise is already fulfilled we can call back directly
 		if(fulfilled)
 		{
-			getCastedCallback<T>()(fulfillValue);
+			callback(fulfillValue);
 			delete this;
 		}
 	}
@@ -122,13 +118,15 @@ public:
 template<>
 class PromiseMid<void>: public PromiseBase
 {
+protected:
+	std::function<void()> callback;
 public:
 	void done()
 	{
 		fulfilled = true;
 		if(completed)
 		{
-			getCastedCallback<void>()();
+			callback();
 			delete this;
 		}
 	}
@@ -137,7 +135,7 @@ public:
 		completed = true;
 		if(fulfilled)
 		{
-			getCastedCallback<void>()();
+			callback();
 			delete this;
 		}
 	}
@@ -150,7 +148,7 @@ public:
 	template<class F>
 	void then(F&& f)
 	{
-		PromiseBase::getCastedCallback<T>() = std::forward<F>(f);
+		this->callback = std::forward<F>(f);
 	}
 };
 
