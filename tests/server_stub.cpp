@@ -130,3 +130,19 @@ int main()
 	server->start();
 	server->join();
 }
+
+namespace pion
+{
+	namespace net
+	{
+		const std::string HTTPTypes::STRING_EMPTY;
+		const std::string HTTPTypes::STRING_CRLF("\x0D\x0A");
+		const std::string HTTPTypes::STRING_HTTP_VERSION("HTTP/");
+		const std::string HTTPTypes::HEADER_NAME_VALUE_DELIMITER(": ");
+		const std::string HTTPTypes::REQUEST_METHOD_HEAD("HEAD");
+		const std::string HTTPTypes::HEADER_CONNECTION("Connection");
+		const std::string HTTPTypes::HEADER_TRANSFER_ENCODING("Transfer-Encoding");
+		const std::string HTTPTypes::HEADER_CONTENT_LENGTH("Content-Length");
+		const std::string HTTPTypes::RESPONSE_MESSAGE_OK("OK");
+	}
+}

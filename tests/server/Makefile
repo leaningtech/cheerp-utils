@@ -9,7 +9,7 @@ server_stub.o: /opt/cheerp/share/cheerp/server_stub.cpp
 	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=server -c $^ -o $@
 
 deserializer.o: /opt/cheerp/share/cheerp/deserializer.cpp
-	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=server -c $^ -o $@
+	/opt/cheerp/bin/clang++ $(CXXFLAGS) -D_GLIBCXX_USE_CXX11_ABI=0 -cheerp-side=server -c $^ -o $@
 
 server1: server1.cpp $(SERVEROBJS)
 	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=server $^ -o $@ $(SERVERLIBS)
@@ -33,7 +33,7 @@ tictactoe-client.js: tictactoe.cpp
 	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=client -target cheerp $^ -o $@
 
 async_chat: async_chat.cpp $(SERVEROBJS)
-	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=server $^ -o $@ $(SERVERLIBS)
+	/opt/cheerp/bin/clang++ $(CXXFLAGS) -D_GLIBCXX_USE_CXX11_ABI=0 -cheerp-side=server $^ -o $@ $(SERVERLIBS)
 
 async_chat-client.js: async_chat.cpp
 	/opt/cheerp/bin/clang++ $(CXXFLAGS) -cheerp-side=client -target cheerp $^ -o $@
