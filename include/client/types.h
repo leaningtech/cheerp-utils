@@ -24,31 +24,10 @@
 #include <utility>
 #include <string>
 #include <cheerpintrin.h>
+#include "jsobject.h"
 
 namespace client
 {
-
-class String;
-
-class Object
-{
-private:
-	// Make it impossible to blindly copy a browser object
-	Object(const Object&) = delete;
-public:
-	Object();
-	// valueOf may return different types, the users should specify which one is expected
-	template<typename T>
-	T valueOf();
-	operator double() const
-	{
-		return const_cast<Object*>(this)->valueOf<double>();
-	}
-	Object* operator[](const client::String& name) const;
-	// operator[] for arbitrary assignment can't be expressed as we can't have a pointer to an arbitrary member of an object
-	// We provide the following function instead
-	void set_(const client::String& name, Object* v);
-};
 
 template<class T>
 class TArray;

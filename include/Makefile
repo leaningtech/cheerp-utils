@@ -2,7 +2,7 @@
 
 INSTALL_PREFIX ?= /opt/cheerp
 
-install_client: client/client.h client/types.h client/webgl.h client/clientlib.h client/int64utils.h
+install_client: client/client.h client/jsobject.h client/types.h client/webgl.h client/clientlib.h client/int64utils.h
 	mkdir -p ${INSTALL_PREFIX}/include/client/cheerp/
 	cp -v $^ ${INSTALL_PREFIX}/include/client/cheerp/
 
