@@ -74,16 +74,14 @@ public:
 
 };
 
-class WebGLActiveInfo
+class WebGLActiveInfo : public Object
 {
 public: 
     double get_size();
     void set_size(double);
     double get_type();
     void set_type(double);
-    //string get_name();
-    //void set_name(string);
-
+    String* get_name();
 };
 
 class WebGLShaderPrecisionFormat
