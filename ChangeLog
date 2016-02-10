@@ -1,5 +1,10 @@
 Cheerp: C++ for the Web
 
+Version 1.2.1:
+
+	* Fixed encoding of literal strings in JS
+	* Minor fixes
+
 Version 1.2:
 
 	* Based on updated LLVM/clang
