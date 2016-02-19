@@ -44,11 +44,11 @@ public:
 class C : public I {
 public:
 	virtual void foo() {
-		B_foo_called++;
+		C_foo_called++;
 	};
 
 	virtual void bar() {
-		B_bar_called++;
+		C_bar_called++;
 	}
 };
 
@@ -127,7 +127,7 @@ void testDynamicCast()
 
 	assertEqual(A_foo_called, 1, "A::foo is called");
 	assertEqual(A_bar_called, 0, "A::bar is not called");
-	assertEqual(B_foo_called, 0, "B::foo is not called");
+	assertEqual(B_foo_called, 1, "B::foo is called");
 	assertEqual(B_bar_called, 1, "B::bar is called");
 
 	void *v = dynamic_cast<void *>(a);
