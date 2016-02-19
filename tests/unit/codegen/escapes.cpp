@@ -6,6 +6,6 @@
 
 void webMain()
 {
-	client::console.log("V\bery evil\t string\n\xff");
-	// No tests, but it should run
+	client::String* escaped = new client::String("V\bery evil\t string\n\xff");
+	assertEqual(escaped->get_length(), 20, "String literal support");
 }
