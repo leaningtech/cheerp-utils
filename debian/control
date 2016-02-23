@@ -3,11 +3,11 @@ Maintainer: Alessandro Pignotti <alessandro@leaningtech.com>
 Section: devel
 Priority: optional
 Standards-Version: 3.9.2
-Build-Depends: debhelper (>=8), cheerp-llvm-clang
+Build-Depends: debhelper (>=8), cheerp-llvm-clang (>=${source:Version})
 
 Package: cheerp-utils
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, cheerp-llvm-clang
+Depends: ${shlibs:Depends}, ${misc:Depends}, cheerp-llvm-clang (>=${binary:Version})
 Conflicts: cheerp
 Description: A C++ compiler for the Web, includes and tools
  Cheerp is a tool to bring C++ programming to the Web,
