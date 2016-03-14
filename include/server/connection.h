@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2013 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2013-2016 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,13 +21,8 @@
 #ifndef _CHEERP_CONNECTION_H
 #define _CHEERP_CONNECTION_H
 
-#define BOOST_NO_CXX11_NOEXCEPT
-#define BOOST_ASIO_DISABLE_MOVE
-#include <pion/net/HTTPResponseWriter.hpp>
-#include <pion/net/HTTPServer.hpp>
+#include <string.h>
 
-// This file contains the backend specific connection data
-// Currently we assume pion
 namespace cheerp
 {
 
@@ -60,35 +55,10 @@ public:
 class Connection: public SerializationInterface
 {
 public:
-	boost::shared_ptr<pion::net::HTTPResponseWriter> writer;
-	Connection(boost::shared_ptr<pion::net::HTTPResponseWriter> w):writer(w)
-	{
-	}
-	void flush()
-	{
-		writer->write(buffer, offset);
-		offset=0;
-	}
-	void send()
-	{
-		writer->send();
-	}
-};
-
-class Server
-{
-public:
-	boost::shared_ptr<pion::net::HTTPServer> server;
-	boost::asio::io_service& service;
-	Server(boost::shared_ptr<pion::net::HTTPServer> _server, boost::asio::io_service& _service):
-		server(_server),service(_service)
-	{
-	}
+	virtual void send() = 0;
 };
 
 extern Connection* connection;
-
-extern Server* server;
 
 }
 

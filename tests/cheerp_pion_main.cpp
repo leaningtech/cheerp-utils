@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2014 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2016 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,72 +18,42 @@
  *
  ***************************************************************/
 
-#define BOOST_NO_CXX11_NOEXCEPT
-#define BOOST_ASIO_DISABLE_MOVE
 #include <pion/net/HTTPServer.hpp>
 #include <pion/net/HTTPRequest.hpp>
 #include <pion/net/HTTPResponse.hpp>
+#include <pion/net/HTTPResponseWriter.hpp>
 #include <pion/PionAlgorithms.hpp>
 #include <iostream>
 #include <fstream>
-#include <cheerp/server.h>
-#include <cheerp/promise.h>
 #include <cheerp/connection.h>
 
 using namespace pion::net;
 using namespace std;
 
+class PionConnection: public cheerp::Connection
+{
+public:
+	boost::shared_ptr<pion::net::HTTPResponseWriter> writer;
+	PionConnection(boost::shared_ptr<pion::net::HTTPResponseWriter> w):writer(w)
+	{
+	}
+	void flush()
+	{
+		writer->write(buffer, offset);
+		offset=0;
+	}
+	void send()
+	{
+		writer->send();
+	}
+};
+
 namespace cheerp
 {
 	Connection* connection;
-	Server* server;
 }
 
-typedef cheerp::PromiseBase* (*entryPointSig)(cheerp::SerializationInterface* inData, const char* outData);
-
-struct CheerpMap
-{
-	char* funcName;
-	entryPointSig entryPoint;
-};
-
-extern CheerpMap cheerpFuncMap[];
-
-void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
-{
-	const string& callName=request->getQuery("f");
-	const string& callArgs=pion::algo::url_decode(request->getQuery("a"));
-	entryPointSig callFunc=NULL;
-	for(CheerpMap* cur=cheerpFuncMap; cur->funcName!=NULL; cur++)
-	{
-		if(callName==cur->funcName)
-		{
-			cout << "Found " << cur->funcName << endl;
-			callFunc=cur->entryPoint;
-			break;
-		}
-	}
-	if(callFunc==NULL)
-	{
-		cout << "Invalid call " << callName << endl;
-		HTTPResponse response(*request);
-		response.setStatusCode(404);
-		boost::system::error_code error;
-		response.send(*conn, error);
-		conn->finish();
-		return;
-	}
-
-	cheerp::connection =
-		new cheerp::Connection(HTTPResponseWriter::create(conn, *request, boost::bind(&TCPConnection::finish, conn)));
-	//Send the data using the serialization interface
-	cheerp::PromiseBase* promise=callFunc(cheerp::connection,callArgs.c_str());
-	if(!promise)
-	{
-		cheerp::connection->flush();
-		cheerp::connection->send();
-	}
-}
+void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn);
 
 void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 {
@@ -99,7 +69,7 @@ void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 		conn->finish();
 		return;
 	}
-	ifstream file("."+fileName, std::ios::in | std::ios::binary);
+	ifstream file(("."+fileName).c_str(), std::ios::in | std::ios::binary);
 	if(!file.is_open())
 	{
 		response.setStatusCode(404);
@@ -119,30 +89,34 @@ void fileRequestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
 	conn->finish();
 }
 
+bool cheerpRequestHandler(const char* callName, const char* callArgs);
+
+void requestHandler(HTTPRequestPtr request, TCPConnectionPtr conn)
+{
+	const string& callName=request->getQuery("f");
+	const string& callArgs=pion::algo::url_decode(request->getQuery("a"));
+	cheerp::connection =
+		new PionConnection(HTTPResponseWriter::create(conn, *request, boost::bind(&TCPConnection::finish, conn)));
+	bool validCall=cheerpRequestHandler(callName.c_str(), callArgs.c_str());
+	if(!validCall)
+	{
+		cout << "Invalid call " << callName << endl;
+		HTTPResponse response(*request);
+		response.setStatusCode(404);
+		boost::system::error_code error;
+		response.send(*conn, error);
+		conn->finish();
+	}
+}
+
 int main()
 {
 	pion::PionSingleServiceScheduler sched;
 	sched.setNumThreads(1);
 	HTTPServerPtr server(new HTTPServer(sched,1987));
-	cheerp::server = new cheerp::Server(server, sched.getIOService());
 	server->addResource("/cheerp_call", requestHandler);
 	server->addResource("/", fileRequestHandler);
 	server->start();
 	server->join();
 }
 
-namespace pion
-{
-	namespace net
-	{
-		const std::string HTTPTypes::STRING_EMPTY;
-		const std::string HTTPTypes::STRING_CRLF("\x0D\x0A");
-		const std::string HTTPTypes::STRING_HTTP_VERSION("HTTP/");
-		const std::string HTTPTypes::HEADER_NAME_VALUE_DELIMITER(": ");
-		const std::string HTTPTypes::REQUEST_METHOD_HEAD("HEAD");
-		const std::string HTTPTypes::HEADER_CONNECTION("Connection");
-		const std::string HTTPTypes::HEADER_TRANSFER_ENCODING("Transfer-Encoding");
-		const std::string HTTPTypes::HEADER_CONTENT_LENGTH("Content-Length");
-		const std::string HTTPTypes::RESPONSE_MESSAGE_OK("OK");
-	}
-}

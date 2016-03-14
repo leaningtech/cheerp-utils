@@ -5,4 +5,4 @@ install:
 	cp -v dom/dom1.cpp dom/test1.html ${INSTALL_PREFIX}/share/cheerp/examples/dom/
 	mkdir -p ${INSTALL_PREFIX}/share/cheerp/examples/webgl
 	cp -v webgl/webgl.cpp webgl/webgl.html ${INSTALL_PREFIX}/share/cheerp/examples/webgl/
-	cp -v server_stub.cpp deserializer.cpp ${INSTALL_PREFIX}/share/cheerp/
+	cp -v cheerp_server_stub.cpp cheerp_pion_main.cpp deserializer.cpp ${INSTALL_PREFIX}/share/cheerp/
