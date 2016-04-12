@@ -6,7 +6,7 @@ import os
 import re
 import concurrent.futures
 from optparse import OptionParser
-
+from xml.sax.saxutils import escape
 
 parser = OptionParser()
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
@@ -88,7 +88,7 @@ def runTest(engine, testName, outFile, testReport, testErrs, testOut):
 			m=re.match("^(.*) : (.*)",testLine)
 			checkName = m.group(1)
 			result = m.group(2)
-			testReport.write('<testcase classname="check" name="%s">' % checkName)
+			testReport.write('<testcase classname="check" name="%s">' % escape(checkName))
 			if result!="SUCCESS":
 				testReport.write('<failure type="Self check error">%s</failure>' % testLine);
 			testReport.write('</testcase>')
