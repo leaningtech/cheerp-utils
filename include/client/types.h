@@ -119,7 +119,9 @@ class TArray: public Array
 {
 public:
 	template<typename... Args>
-	TArray(Args... args);
+	TArray(Args... args):Array(args...)
+	{
+	}
 	T*& operator[](int index)
 	{
 		return (T*&)Array::operator[](index);
