@@ -11,4 +11,5 @@ override_dh_auto_install:
 	make -C include install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
 	make -C tools install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
 	make -C tests install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
+	make -C scripts install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
 	cp COPYING README ChangeLog $(CURDIR)/debian/cheerp-utils/opt/cheerp
