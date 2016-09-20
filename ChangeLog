@@ -1,5 +1,26 @@
 Cheerp: C++ for the Web
 
+Version 1.3:
+
+	* Improve support for unions
+	* Make it possible to define globals in the client namespace
+	* Improve support for variadic arguments
+	* Improvements to PreExecuter
+	* Improvements to JavaScript minimizer
+	* Declare all variables at the beginning of the functions
+	* Add -cheerp-reserved-names option to skip specific names in the minimizer
+	* Improve support for [[cheerp::jsexport]]
+	* Make it possible to use [[cheerp::jsexport]] on free functions beside classes
+	* Improve precision of float constants
+	* Merge small integers fields together
+	* Improve promotion of pointer to value arguments
+	* Initial support for PreExecusing main/webMain
+	* Introduce debug command line flags -cheerp-bounds-check and -cheerp-defined-members-check
+	* Enable 64-bit enums
+	* Enable dynamic_cast of references
+	* Improve compilation speed
+	* Various optimizations
+
 Version 1.2.1:
 
 	* Fixed encoding of literal strings in JS
