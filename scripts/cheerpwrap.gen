@@ -1,0 +1,8 @@
+INSTALL_PREFIX=$1
+cat << EOF
+#!/bin/sh
+
+export CHEERP_PREFIX=$INSTALL_PREFIX
+export PATH=\$CHEERP_PREFIX/libexec:\$PATH
+exec \$@
+EOF

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-export CHEERP_PREFIX=/opt/cheerp/
-export PATH=$CHEERP_PREFIX/libexec:$PATH
-exec $@
