@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (Cheerp_Utils)
 
-set (CHEERP_PREFIX /opt/cheerp)
+set (CHEERP_PREFIX ${CMAKE_INSTALL_PREFIX})
 
 configure_file (
 	"${PROJECT_SOURCE_DIR}/cheerpwrap.in"
