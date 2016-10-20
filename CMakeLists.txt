@@ -29,9 +29,9 @@ configure_file (
 	)
 
 install (FILES "${PROJECT_BINARY_DIR}/Cheerp.cmake"
-		DESTINATION share/cmake/Modules )
-install (FILES "${PROJECT_BINARY_DIR}/CheerpToolchain.cmake"
 		DESTINATION share/cmake/Modules/Platform )
+install (FILES "${PROJECT_BINARY_DIR}/CheerpToolchain.cmake"
+		DESTINATION share/cmake/Modules )
 
 # tests
 install (FILES tests/dom/dom1.cpp tests/dom/test1.html
