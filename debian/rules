@@ -1,15 +1,12 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@
+	dh $@ -Scmake --parallel
 
 override_dh_auto_configure:
-
-override_dh_auto_build:
+	dh_auto_configure -- \
+	    -DCMAKE_INSTALL_PREFIX=/opt/cheerp
 
 override_dh_auto_install:
-	make -C include install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
-	make -C tools install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
-	make -C tests install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
-	make -C scripts install INSTALL_PREFIX=$(CURDIR)/debian/cheerp-utils/opt/cheerp
+	dh_auto_install --destdir=debian/cheerp-utils
 	cp COPYING README ChangeLog $(CURDIR)/debian/cheerp-utils/opt/cheerp
