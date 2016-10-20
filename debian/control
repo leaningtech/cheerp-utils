@@ -3,7 +3,7 @@ Maintainer: Alessandro Pignotti <alessandro@leaningtech.com>
 Section: devel
 Priority: optional
 Standards-Version: 3.9.2
-Build-Depends: debhelper (>=8), cheerp-llvm-clang (>=${source:Version})
+Build-Depends: debhelper (>=8), cmake, cheerp-llvm-clang (>=${source:Version})
 
 Package: cheerp-utils
 Architecture: any
