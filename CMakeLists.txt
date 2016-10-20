@@ -44,5 +44,9 @@ install (FILES tests/cheerp_server_stub.cpp tests/cheerp_pion_main.cpp tests/des
 	DESTINATION share/cheerp/ )
 
 # include
-install (DIRECTORY include/client include/common include/server
-	DESTINATION include )
+install (DIRECTORY include/client/
+	DESTINATION include/client/cheerp )
+install (DIRECTORY include/server/
+	DESTINATION include/server/cheerp )
+install (DIRECTORY include/common/
+	DESTINATION include/common/cheerp )
