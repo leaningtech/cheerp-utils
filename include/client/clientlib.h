@@ -5161,8 +5161,8 @@ namespace client
 		Array* getLineDash();
 		void fill();
 		void fill(const String& fillRule);
-		ImageData* createImageData(Object* imageDataOrSw);
-		ImageData* createImageData(Object* imageDataOrSw, double sh);
+		ImageData* createImageData(Object* imageData);
+		ImageData* createImageData(double sw, double sh);
 		CanvasPattern* createPattern(HTMLElement* image, const String& repetition);
 		void closePath();
 		void rect(double x, double y, double w, double h);

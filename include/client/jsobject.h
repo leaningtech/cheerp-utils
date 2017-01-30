@@ -44,6 +44,7 @@ public:
 	// operator[] for arbitrary assignment can't be expressed as we can't have a pointer to an arbitrary member of an object
 	// We provide the following function instead
 	void set_(const client::String& name, Object* v);
+	bool hasOwnProperty(const client::String& name);
 };
 
 }
