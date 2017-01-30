@@ -267,6 +267,13 @@ static void testArithmeticCompoundAssignmentOps() {
 	} else {
 		assertEqual(t, (T)0xffffffffffffffff, "int64_t shr assign support 3b/N");
 	}
+
+	T s;
+	volatile T r;
+	t = a; r = t += a;
+	s = r;
+	assertEqual(t, s, "int64_t compound assign result support");
+
 }
 
 template <typename T>
