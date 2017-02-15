@@ -41,8 +41,10 @@ struct C: public B
 void webMain()
 {
 	C c;
-	B* volatile b=&c;
-	A* volatile a=&c;
+	C* volatile c2=&c;
+	B* volatile b=c2;
+	A* volatile a=c2;
+	C* volatile c3=static_cast<C*>(a);
 
 	assertEqual(a->f(), 3, "Complex virtual call 1/5");
 	assertEqual(b->f(), 3, "Complex virtual call 2/5");
