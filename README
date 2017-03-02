@@ -7,10 +7,26 @@ development.
 
 Installation
 ------------------------------------------
-Currently Cheerp needs to be unpacked in /opt/cheerp/
+
+Depending on your platform, cheerp needs to be unpacked in a different path:
+
+Windows
+
+	c:\cheerp\
+
+Mac OS
+
+	/Applications/cheerp
+
+Linux
+
+	/opt/cheerp
+
+In the following instructions  /opt/cheerp/ is assumed.
 
 Usage
 ------------------------------------------
+
 Cheerp is integrated in the LLVM/clang infrastructure.
 To build client side JavaScript code from C++ source files
 
@@ -125,5 +141,6 @@ Small examples are included in /opt/cheerp/share/cheerp/examples/
 
 Limitations as of this version
 ------------------------------------------
+
 Major limitations of this version are:
 	-) Virtual bases and covariant returns are not yet supported
