@@ -4,23 +4,13 @@ Cheerp: A C++ compiler for the Web
 Please report bugs on launchpad:
 https://bugs.launchpad.net/cheerp
 
-Cheerp headers installation
+Cheerp Utilities installation
 ---------------------------
 
 ```
-make -C include install INSTALL_PREFIX=/opt/cheerp
-```
-
-Cheerp cmake helpers installation
----------------------------------
-
-```
-make -C tools install INSTALL_PREFIX=/opt/cheerp
-```
-
-Cheerp examples installation
-----------------------------
-
-```
-make -C tests install INSTALL_PREFIX=/opt/cheerp
+cd $CHEERP_SRC/cheerp-utils
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/opt/cheerp ..
+make install
 ```
