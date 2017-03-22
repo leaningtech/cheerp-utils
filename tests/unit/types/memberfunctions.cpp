@@ -61,6 +61,7 @@ struct E: public D, public A
 };
 
 typedef int(A::*FP)(int);
+typedef int(E::*FPE)(int);
 
 void webMain()
 {
@@ -74,6 +75,8 @@ void webMain()
 	assertEqual((C(3).*fC)(42), 65, "Cast member function pointer to primary base 3/3");
 
 	FP volatile fE = static_cast<FP>(&E::func);
-	FP volatile fE2 = static_cast<FP>(&E::func);
-	assertEqual((E().*fE)(42), 172, "Cast member function pointer to not primary base");
+	FPE volatile fE2 = &E::func;
+	FP volatile fE3 = static_cast<FP>(fE2);
+	assertEqual((E().*fE)(42), 172, "Cast member function pointer to not primary base 1/2");
+	assertEqual((E().*fE3)(43), 173, "Cast member function pointer to not primary base 2/2");
 }
