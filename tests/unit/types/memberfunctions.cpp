@@ -63,6 +63,11 @@ struct E: public D, public A
 typedef int(A::*FP)(int);
 typedef int(E::*FPE)(int);
 
+FP __attribute__((noinline)) getMemberPointer()
+{
+	return static_cast<FP>(&E::func);
+}
+
 void webMain()
 {
 	// Test simple linear inheritance
@@ -77,6 +82,8 @@ void webMain()
 	FP volatile fE = static_cast<FP>(&E::func);
 	FPE volatile fE2 = &E::func;
 	FP volatile fE3 = static_cast<FP>(fE2);
-	assertEqual((E().*fE)(42), 172, "Cast member function pointer to not primary base 1/2");
-	assertEqual((E().*fE3)(43), 173, "Cast member function pointer to not primary base 2/2");
+	FP volatile fE4 = getMemberPointer();
+	assertEqual((E().*fE)(42), 172, "Cast member function pointer to not primary base 1/3");
+	assertEqual((E().*fE3)(43), 173, "Cast member function pointer to not primary base 2/3");
+	assertEqual((E().*fE4)(44), 174, "Cast member function pointer to not primary base 3/3");
 }
