@@ -16,6 +16,11 @@ struct A
 	{
 		return baseVal+a;
 	}
+	// Adding this virtual function break the error on casting member pointer to non-primary base class
+	virtual int funcV(int a)
+	{
+		return 0;
+	}
 };
 
 struct B: public A
@@ -39,6 +44,10 @@ struct C: public A
 	int func(int a)
 	{
 		return baseVal+derivedVal+a;
+	}
+	int funcV(int a) override
+	{
+		return func(a);
 	}
 };
 
@@ -86,4 +95,7 @@ void webMain()
 	assertEqual((E().*fE)(42), 172, "Cast member function pointer to not primary base 1/3");
 	assertEqual((E().*fE3)(43), 173, "Cast member function pointer to not primary base 2/3");
 	assertEqual((E().*fE4)(44), 174, "Cast member function pointer to not primary base 3/3");
+
+	FP volatile fV = static_cast<FP>(&A::funcV);
+	assertEqual((C(3).*fV)(43), 66, "Virtual member function pointer");
 }
