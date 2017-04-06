@@ -12,8 +12,7 @@ parser = OptionParser()
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
 parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
-parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asm.js mode", action="store_true")
-parser.set_defaults(asmjs=False)
+parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asm.js mode", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if len(args)!=2:
