@@ -10,7 +10,7 @@ public:
 	int a;
 	A():a(42)
 	{
-		client::console.log("Static initialiation of class instances 1/3 : SUCCESS");
+		log_helper("Static initialiation of class instances 1/3",": SUCCESS");
 	}
 };
 
