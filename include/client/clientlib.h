@@ -24,7 +24,7 @@
 
 #include <utility>
 
-namespace client
+namespace [[cheerp::genericjs]] client
 {
 	class PropertyDescriptor;
 	class PropertyDescriptorMap;

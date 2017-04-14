@@ -21,7 +21,7 @@
 #ifndef _CHEERP_JSOBJECT_H_65a8f9e1
 #define _CHEERP_JSOBJECT_H_65a8f9e1
 
-namespace client
+namespace [[cheerp::genericjs]] client
 {
 
 class String;

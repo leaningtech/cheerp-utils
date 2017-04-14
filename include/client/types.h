@@ -26,7 +26,7 @@
 #include <cheerpintrin.h>
 #include "jsobject.h"
 
-namespace client
+namespace [[cheerp::genericjs]] client
 {
 
 template<class T>

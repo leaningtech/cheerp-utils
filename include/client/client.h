@@ -30,8 +30,14 @@
 #include <functional>
 #include <vector>
 
-namespace cheerp
+namespace [[cheerp::genericjs]] cheerp
 {
+
+template<typename... Args>
+void console_log(const char* message, Args&&... optionalParams)
+{ 
+	client::console.log(message, std::forward<Args>(optionalParams)...);
+}
 
 template<class, class> struct CallbackHelper; // undefined
 

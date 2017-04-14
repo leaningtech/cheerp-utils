@@ -23,7 +23,7 @@
 
 #include <cheerp/types.h>
 
-namespace client
+namespace [[cheerp::genericjs]] client
 {
 
 class WebGLObject : public Object
