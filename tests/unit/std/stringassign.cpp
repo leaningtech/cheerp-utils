@@ -27,4 +27,15 @@ void webMain()
 		str1 = str2;
 		assertEqual(str1, str2, "std::u16string::assign");
 	}
+	{
+		std::string str1;
+		str1 = 32;
+		assertEqual(str1, std::string(" "), "std::string::assign from char 1/3");
+		str1 = "A";
+		str1 = 32;
+		assertEqual(str1, std::string(" "), "std::string::assign from char 2/3");
+		str1 = "AB";
+		str1 = 32;
+		assertEqual(str1, std::string(" "), "std::string::assign from char 3/3");
+	}
 }
