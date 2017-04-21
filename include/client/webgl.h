@@ -713,7 +713,7 @@ public:
     WebGLContextAttributes* getContextAttributes();
     bool isContextLost();
     //string[]* getSupportedExtensions();
-    //Object* getExtension(string);
+    Object* getExtension(const String&);
     void activeTexture(double);
     void attachShader(WebGLProgram*, WebGLShader*);
     void bindAttribLocation(WebGLProgram*, double, const String&);
@@ -861,6 +861,23 @@ public:
     void vertexAttrib4fv(double, double*);
     void vertexAttribPointer(double, double, double, bool, double, double);
     void viewport(double, double, double, double);
+
+};
+
+class WebGLVertexArrayOES : public WebGLObject
+{
+public:
+
+};
+
+class OESVertexArrayObject: public Object
+{
+public:
+    int get_VERTEX_ARRAY_BINDING_OES();
+    void bindVertexArrayOES(WebGLVertexArrayOES*);
+    WebGLVertexArrayOES* createVertexArrayOES();
+    void deleteVertexArrayOES(WebGLVertexArrayOES*);
+    bool isVertexArrayOES(WebGLVertexArrayOES*);
 
 };
 
