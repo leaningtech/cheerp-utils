@@ -126,6 +126,10 @@ public:
 	{
 		return (T*&)Array::operator[](index);
 	}
+	T* operator[](int index) const
+	{
+		return (T*)Array::operator[](index);
+	}
 };
 
 class Number: public Object

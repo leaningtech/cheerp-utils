@@ -712,7 +712,7 @@ public:
     void set_drawingBufferHeight(double);
     WebGLContextAttributes* getContextAttributes();
     bool isContextLost();
-    //string[]* getSupportedExtensions();
+    const TArray<String>* getSupportedExtensions();
     Object* getExtension(const String&);
     void activeTexture(double);
     void attachShader(WebGLProgram*, WebGLShader*);
