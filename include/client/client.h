@@ -39,6 +39,11 @@ void console_log(const char* message, Args&&... optionalParams)
 	client::console.log(message, std::forward<Args>(optionalParams)...);
 }
 
+static double date_now()
+{
+	return client::Date::now();
+}
+
 template<class, class> struct CallbackHelper; // undefined
 
 template<bool B, class R, class... Args> struct CallbackHelperBase;
