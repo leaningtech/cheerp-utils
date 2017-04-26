@@ -10,7 +10,7 @@ public:
 	int a;
 	A():a(42)
 	{
-		log_helper("Static initialiation of class instances 1/3",": SUCCESS");
+		cheerp::console_log("Static initialiation of class instances 1/3",": SUCCESS");
 	}
 };
 

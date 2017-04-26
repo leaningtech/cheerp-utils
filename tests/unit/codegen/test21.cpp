@@ -10,7 +10,7 @@ template <typename T>
 static void dump(T t) {
 	long h = (long)((t & (0xffffffffll << 32)) >> 32);
 	long l = (long)(t & 0xffffffff);
-	client::console.log("highint h:", h, "l:", l);
+	cheerp::console_log("highint h:", h, "l:", l);
 }
 
 void testRepresentation() {
@@ -534,7 +534,7 @@ static void testSwitch()
 
 static void testDump() {
 	long long t = 0xff;
-	client::console.log("test dump(0xff):");
+	cheerp::console_log("test dump(0xff):");
 	dump(t);
 }
 
