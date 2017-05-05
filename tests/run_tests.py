@@ -63,6 +63,9 @@ common_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp',
 	 'unit/static/test1.cpp']
 genericjs_tests = [
+		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
+		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
+		'unit/dom/test8.cpp','unit/dom/noconstructor.cpp',
 		'unit/memory/typedarrays_operator.cpp',
 		'unit/std/stringhashing.cpp',
 		'unit/types/test7.cpp',
