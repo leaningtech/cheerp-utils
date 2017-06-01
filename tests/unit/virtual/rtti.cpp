@@ -89,13 +89,6 @@ void testTypeidName() {
 		const std::type_info &ti = typeid(*doubleptr);
 		assertEqual(ti.name(), "d", "typeid().name() support 4/N");
 	}
-
-	// Dereferencing a null pointer: not okay for a polymorphic lvalue
-	{
-		B* bad_ptr = NULL;
-		const std::type_info &ti = typeid(*bad_ptr);
-		assertEqual(ti.name(), "P1B", "typeid().name() support 5/N");
-	}
 }
 
 void testDynamicCast()
