@@ -72,7 +72,9 @@ genericjs_tests = [
 		'unit/codegen/test20.cpp',
 		'unit/codegen/escapes.cpp',
 	 ]
-asmjs_tests = []
+asmjs_tests = [
+        'unit/ffi/test1.cpp',
+        ]
 
 if asmjs:
 	tests = common_tests + asmjs_tests
