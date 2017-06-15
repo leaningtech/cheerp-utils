@@ -63,6 +63,28 @@ public:
 	}
 };
 
+class E {
+public:
+	virtual int getData()
+	{
+		return 0;
+	}
+};
+
+class F: public A, public E
+{
+public:
+	F():i1(42),f2(43)
+	{
+	}
+	int getData() override
+	{
+		return i1;
+	}
+	int i1;
+	float f2;
+};
+
 void testTypeidName() {
 	{
 		I* a = new A();
@@ -125,6 +147,11 @@ void testDynamicCast()
 
 	void *v = dynamic_cast<void *>(a);
 	assertEqual(!v, false, "Cast to void support 1/N");
+
+	F* f = new F();
+	I* volatile i = f;
+	E* e = dynamic_cast<E*>(i);
+	assertEqual(e->getData(), 42, "dynamic_cast to empty non-primary base class");
 }
 
 void testMultipleInheritance()
