@@ -13,6 +13,7 @@ parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)"
 parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
 parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asm.js mode", action="store_true", default=False)
+parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if len(args)!=2:
@@ -27,7 +28,7 @@ jobs = option.jobs
 progress = 0
 asmjs = option.asmjs
 
-common_tests = ['unit/downcast/test1.cpp',
+pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
 		'unit/virtual/test2.cpp',
 		'unit/virtual/test3.cpp',
@@ -36,11 +37,9 @@ common_tests = ['unit/downcast/test1.cpp',
 		'unit/memory/test4.cpp','unit/memory/test5.cpp','unit/memory/test6.cpp',
 		'unit/memory/test7.cpp','unit/memory/test8.cpp',
 	 'unit/std/test1.cpp','unit/std/test2.cpp','unit/std/test3.cpp',
-        'unit/std/test4.cpp','unit/std/test5.cpp','unit/std/test6.cpp',
+		'unit/std/test4.cpp','unit/std/test5.cpp','unit/std/test6.cpp',
 		'unit/std/test7.cpp','unit/std/test8.cpp','unit/std/test9.cpp',
-		'unit/std/tostring.cpp',
-		'unit/std/sscanf.cpp',
-		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp','unit/std/stringassign.cpp',
+		'unit/std/tostring.cpp','unit/std/stringassign.cpp', 'unit/std/sscanf.cpp',
 		'unit/std/stdmemfuncs.cpp','unit/std/sort.cpp','unit/std/mapdestruction.cpp',
 	 'unit/bitfield/test1.cpp','unit/bitfield/test2.cpp','unit/bitfield/test3.cpp',
 		 'unit/bitfield/test4.cpp','unit/bitfield/test5.cpp',
@@ -58,10 +57,13 @@ common_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/test11.cpp','unit/codegen/test12.cpp','unit/codegen/test13.cpp',
 		 'unit/codegen/test14.cpp','unit/codegen/test15.cpp','unit/codegen/test16.cpp',
 		 'unit/codegen/test17.cpp','unit/codegen/test18.cpp', 'unit/codegen/test19.cpp',
-         'unit/codegen/test21.cpp','unit/codegen/test22.cpp',
+		 'unit/codegen/test21.cpp','unit/codegen/test22.cpp',
 		 'unit/codegen/test23.cpp','unit/codegen/test24.cpp','unit/codegen/bswap.cpp',
 		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp',
 	 'unit/static/test1.cpp']
+common_tests = pre_executer_tests + [
+		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp',
+		]
 genericjs_tests = [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
@@ -73,13 +75,34 @@ genericjs_tests = [
 		'unit/codegen/escapes.cpp',
 	 ]
 asmjs_tests = [
-        'unit/ffi/test1.cpp',
-        ]
+		'unit/ffi/test1.cpp',
+		]
 
-if asmjs:
+if option.preexecute:
+	tests = pre_executer_tests
+elif asmjs:
 	tests = common_tests + asmjs_tests
 else:
 	tests = common_tests + genericjs_tests
+
+def preExecuteTest(compiler, testName, outFile, testReport, testErrs ):
+	testReport.write('<testcase classname="preexecution" name="%s">' % testName)
+	p=subprocess.Popen([compiler, "-O"+str(optlevel), "-target", "cheerp",
+		"-frtti", "-Iunit", "-cheerp-preexecute", "-mllvm","-cheerp-preexecute-main",
+		"-DPRE_EXECUTE_TEST",
+		"-cheerp-mode="+ ("asmjs" if asmjs else "genericjs"),
+		testName, "-o", outFile],stderr=subprocess.PIPE);
+	_, errs = p.communicate()
+	try:
+		testErrs.write(errs.decode("utf-8"))
+	except Exception as e:
+		print(e)
+	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
+		testReport.write('<failure type="PreExecution error">');
+		testErrs.seek(0);
+		testReport.write(testErrs.read());
+		testReport.write('</failure>');
+	testReport.write('</testcase>')
 
 def compileTest(compiler, testName, outFile, testReport, testErrs ):
 	testReport.write('<testcase classname="compilation" name="%s">' % testName)
@@ -129,11 +152,13 @@ def do_test(test):
 	else:
 		outFile = os.path.join(head, name + ".js")
 
-	stderrLog = open("%s_testerr" % test,"w+");
-	stdoutLog = open("%s_testout" % test,"w+");
-	stdrepLog = open("%s_testreport" % test,"w+");
+	stderrLog = open("%s_testerr" % test,"w+")
+	stdoutLog = open("%s_testout" % test,"w+")
+	stdrepLog = open("%s_testreport" % test,"w+")
 
-	compileTest(clang, test, outFile, stdrepLog, stderrLog);
+	if option.preexecute: 
+		preExecuteTest(clang, test, outFile, stdrepLog, stderrLog)
+	compileTest(clang, test, outFile, stdrepLog, stderrLog)
 	runTest(jsEngine, test, outFile, stdrepLog, stderrLog, stdoutLog)
 
 	stderrLog.close()
