@@ -10,7 +10,7 @@ public:
 	int a;
 	A():a(42)
 	{
-		cheerp::console_log("Static initialiation of class instances 1/3",": SUCCESS");
+		assertEqual(true, true, "Static initialiation of class instances 1/3");
 	}
 };
 

@@ -8,12 +8,12 @@
 #include <cheerp/types.h>
 #include <cheerp/client.h>
 
-void assertEqual(double value, double expected, double epsilon, const char* msg)
+extern "C" void assertEqualImpl(bool success, const char* msg)
 #ifdef PRE_EXECUTE_TEST
 ;
 #else
 {
-	if (value >= expected - epsilon && value <= expected + epsilon) {
+	if (success) {
 		cheerp::console_log(msg, ": SUCCESS");
 	} else {
 		cheerp::console_log(msg, ": FAILURE");
@@ -21,38 +21,20 @@ void assertEqual(double value, double expected, double epsilon, const char* msg)
 }
 #endif
 
-void assertEqual(const char *value, const char *expected, const char* msg)
-#ifdef PRE_EXECUTE_TEST
-;
-#else
+void assertEqual(double value, double expected, double epsilon, const char* msg)
 {
-	if (strcmp(value, expected) == 0) {
-		cheerp::console_log(msg, ": SUCCESS");
-	} else {
-		cheerp::console_log(msg, ": FAILURE");
-	}
+	assertEqualImpl(value >= expected - epsilon && value <= expected + epsilon, msg);
 }
-#endif
+
+void assertEqual(const char *value, const char *expected, const char* msg)
+{
+	assertEqualImpl(strcmp(value, expected) == 0, msg);
+}
 
 template<class T>
 void assertEqual(const T& value, const T& expected, const char* msg)
-#ifdef PRE_EXECUTE_TEST
-;
-#else
 {
-	cheerp::console_log(msg,(value==expected)?": SUCCESS":": FAILURE");
+	assertEqualImpl(value==expected, msg);
 }
-#endif
-
-#ifdef PRE_EXECUTE_TEST
-void webMain();
-class ExecuteTestWebMain {
-public:
-    ExecuteTestWebMain() {
-        webMain();
-    }
-}
-static ExecuteTestWebMain;
-#endif
 
 #endif
