@@ -168,6 +168,11 @@ void testMultipleInheritance()
 
 	D* tmp = dynamic_cast<D*>(a);
 	assertEqual(!tmp, true, "Multiple inheritance support 3/N");
+
+	// sidecast
+	volatile C* c = dynamic_cast<volatile C*>(d);
+	volatile A* va = dynamic_cast<volatile A*>(c);
+	assertEqual(!va, false, "Multiple inheritance support 4/N");
 }
 
 void webMain()
