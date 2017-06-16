@@ -6,12 +6,14 @@
 
 // Test 64-bit integer arithmetics
 
+#ifndef PRE_EXECUTE_TEST
 template <typename T>
 static void dump(T t) {
 	long h = (long)((t & (0xffffffffll << 32)) >> 32);
 	long l = (long)(t & 0xffffffff);
 	cheerp::console_log("highint h:", h, "l:", l);
 }
+#endif
 
 void testRepresentation() {
 	assertEqual((long long) 0, 0x0000000000000000LL, "int64_t representation 1/N");
@@ -249,7 +251,6 @@ static void testArithmeticCompoundAssignmentOps() {
 	assertEqual(t, (T)0xffffffffffffffff, "int64_t div assign support 4/N");
 
 	t = b; t <<= 0;
-	dump(t);
 	assertEqual(t, (T)0x0000000000000001, "int64_t shl assign support 1/N");
 	t = c; t <<= 16;
 	assertEqual(t, (T)0x0001000000000000, "int64_t shl assign support 2/N");
@@ -257,7 +258,6 @@ static void testArithmeticCompoundAssignmentOps() {
 	assertEqual(t, (T)0xffffffff00000000, "int64_t shl assign support 3/N");
 
 	t = b; t >>= 0;
-	dump(t);
 	assertEqual(t, (T)0x0000000000000001, "int64_t shr assign support 1/N");
 	t = c; t >>= 16;
 	assertEqual(t, (T)0x0000000000010000, "int64_t shr assign support 2/N");
@@ -532,15 +532,19 @@ static void testSwitch()
 	assertEqual(result, true, "int64_t in switch statements");
 }
 
+#ifndef PRE_EXECUTE_TEST
 static void testDump() {
 	long long t = 0xff;
 	cheerp::console_log("test dump(0xff):");
 	dump(t);
 }
+#endif
 
 void webMain() {
 	testRepresentation();
+#ifndef PRE_EXECUTE_TEST
 	testDump();
+#endif
 	testShiftOps<long long>();
 	testShiftOps<unsigned long long>();
 	testBitwiseOps<long long>();
