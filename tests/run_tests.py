@@ -12,9 +12,16 @@ parser = OptionParser()
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
 parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
-parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asm.js mode", action="store_true", default=False)
+parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", action="store_true", default=False)
+parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
+parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/preexecute]", action="store_true", default=False)
 (option, args) = parser.parse_args()
+
+if option.all:
+	option.genericjs = True
+	option.asmjs = True
+	option.preexecute = True
 
 if len(args)!=2:
 	print("Usage: %s <compiler> <js engine>\n" % sys.argv[0]);
@@ -26,7 +33,6 @@ optlevel = option.optlevel
 prefix = option.prefix
 jobs = option.jobs
 progress = 0
-asmjs = option.asmjs
 
 pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
@@ -64,7 +70,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp',
 		]
-genericjs_tests = [
+genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
 		'unit/dom/test8.cpp','unit/dom/noconstructor.cpp',
@@ -74,29 +80,27 @@ genericjs_tests = [
 		'unit/codegen/test20.cpp',
 		'unit/codegen/escapes.cpp',
 	 ]
-asmjs_tests = [
+asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
 		]
 
+tests = set()
 if option.preexecute:
-	tests = pre_executer_tests
-elif asmjs:
-	tests = common_tests + asmjs_tests
-else:
-	tests = common_tests + genericjs_tests
+	tests |= set(pre_executer_tests)
+if option.asmjs:
+	tests |= set(asmjs_tests)
+if option.genericjs:
+	tests |= set(genericjs_tests)
 
-def preExecuteTest(compiler, testName, outFile, testReport, testErrs ):
-	testReport.write('<testcase classname="preexecution" name="%s">' % testName)
+def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
+	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
 	p=subprocess.Popen([compiler, "-O"+str(optlevel), "-target", "cheerp",
 		"-frtti", "-Iunit", "-cheerp-preexecute", "-mllvm","-cheerp-preexecute-main",
 		"-DPRE_EXECUTE_TEST",
-		"-cheerp-mode="+ ("asmjs" if asmjs else "genericjs"),
+		"-cheerp-mode="+ mode,
 		testName, "-o", outFile],stderr=subprocess.PIPE);
 	_, errs = p.communicate()
-	try:
-		testErrs.write(errs.decode("utf-8"))
-	except Exception as e:
-		print(e)
+	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
 		testReport.write('<failure type="PreExecution error">');
 		testErrs.seek(0);
@@ -104,11 +108,11 @@ def preExecuteTest(compiler, testName, outFile, testReport, testErrs ):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
-def compileTest(compiler, testName, outFile, testReport, testErrs ):
-	testReport.write('<testcase classname="compilation" name="%s">' % testName)
+def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
+	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
 	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp",
 		"-frtti", "-Iunit", "-cheerp-no-math-imul", "-cheerp-no-math-fround",
-		"-cheerp-mode="+ ("asmjs" if asmjs else "genericjs"),
+		"-cheerp-mode="+mode,
 		testName, "-o", outFile],stderr=testErrs);
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
@@ -117,13 +121,13 @@ def compileTest(compiler, testName, outFile, testReport, testErrs ):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
-def runTest(engine, testName, outFile, testReport, testErrs, testOut):
+def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
 
 	ret=subprocess.call([engine, outFile],stderr=testErrs,stdout=testOut);
 	testErrs.seek(0);
 	testOut.seek(0);
 
-	testReport.write('<testcase classname="run" name="%s">' % testName)
+	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
 	if ret != 0:
 		testReport.write('<failure type="Runtime error">');
 		testReport.write(testErrs.read());
@@ -156,10 +160,14 @@ def do_test(test):
 	stdoutLog = open("%s_testout" % test,"w+")
 	stdrepLog = open("%s_testreport" % test,"w+")
 
-	if option.preexecute: 
-		preExecuteTest(clang, test, outFile, stdrepLog, stderrLog)
-	compileTest(clang, test, outFile, stdrepLog, stderrLog)
-	runTest(jsEngine, test, outFile, stdrepLog, stderrLog, stdoutLog)
+	if option.preexecute and test in pre_executer_tests:
+		preExecuteTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
+	if option.asmjs and test in asmjs_tests:
+		compileTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
+		runTest(jsEngine, "asmjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
+	if option.genericjs and test in genericjs_tests:
+		compileTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
+		runTest(jsEngine, "genericjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
 
 	stderrLog.close()
 	stdoutLog.close()
