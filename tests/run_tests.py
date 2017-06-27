@@ -15,7 +15,9 @@ parser.add_option("--prefix",dest="prefix", help="Keep the generated output for 
 parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", action="store_true", default=False)
 parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
+parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/preexecute]", action="store_true", default=False)
+parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -82,10 +84,11 @@ genericjs_tests = common_tests + [
 	 ]
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
+        'unit/std/malloc.cpp'
 		]
 
 tests = set()
-if option.preexecute:
+if option.preexecute or option.preexecute_asmjs:
 	tests |= set(pre_executer_tests)
 if option.asmjs:
 	tests |= set(asmjs_tests)
@@ -93,12 +96,13 @@ if option.genericjs:
 	tests |= set(genericjs_tests)
 
 def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
+	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
 	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
 	p=subprocess.Popen([compiler, "-O"+str(optlevel), "-target", "cheerp",
 		"-frtti", "-Iunit", "-cheerp-preexecute", "-mllvm","-cheerp-preexecute-main",
 		"-DPRE_EXECUTE_TEST",
 		"-cheerp-mode="+ mode,
-		testName, "-o", outFile],stderr=subprocess.PIPE);
+		testName, "-o", outFile] + maybe_pretty ,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
 	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
@@ -109,11 +113,12 @@ def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
 	testReport.write('</testcase>')
 
 def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
+	maybe_pretty = ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals'] if option.pretty_code else []
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
 	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp",
 		"-frtti", "-Iunit", "-cheerp-no-math-imul", "-cheerp-no-math-fround",
 		"-cheerp-mode="+mode,
-		testName, "-o", outFile],stderr=testErrs);
+		testName, "-o", outFile] + maybe_pretty, stderr=testErrs);
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
 		testErrs.seek(0);
@@ -162,6 +167,8 @@ def do_test(test):
 
 	if option.preexecute and test in pre_executer_tests:
 		preExecuteTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
+	if option.preexecute_asmjs and test in pre_executer_tests:
+		preExecuteTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
 	if option.asmjs and test in asmjs_tests:
 		compileTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
 		runTest(jsEngine, "asmjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
