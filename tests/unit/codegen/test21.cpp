@@ -438,6 +438,7 @@ static void increment(T& a) {
 template <typename T>
 static void testPointerArithmetic() {
 	T *a = new T[20];
+	memset(a, 0, sizeof(T)*20);
 	bool valid = true;
 	for (int i = 0; i < 20; i++)
 		valid &= (a[i] == 0);
