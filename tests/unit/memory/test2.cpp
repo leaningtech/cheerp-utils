@@ -23,7 +23,6 @@ void webMain()
 	int* volatile a=(int*)malloc(2*sizeof(int));
 	a[1] = 42;
 	assertEqual(a[1], 42, "Access malloc allocated memory");
-	free(a);
 
 	//Test legacy C memory calloc
 	int* volatile d=(int*)calloc(2,sizeof(int));
@@ -47,6 +46,7 @@ void webMain()
 	int* volatile f=(int*)realloc(e, 3*sizeof(int));
 	f[1] = 47;
 	assertEqual(f[1], 47, "Access realloc-ed memory 2/6");
+	free(f);
 	A* volatile objA= (A*)malloc(2*sizeof(A));
 	objA[0].a = 42;
 	A* volatile objB = (A*)realloc(objA, 1*sizeof(A));
