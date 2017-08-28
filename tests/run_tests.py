@@ -14,6 +14,8 @@ parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
 parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", action="store_true", default=False)
 parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
+parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
+	action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/preexecute]", action="store_true", default=False)
@@ -21,8 +23,9 @@ parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp
 (option, args) = parser.parse_args()
 
 if option.all:
-	option.genericjs = True
 	option.asmjs = True
+	option.genericjs = True
+	option.wasm = True
 	option.preexecute = True
 
 if len(args)!=2:
@@ -35,6 +38,8 @@ optlevel = option.optlevel
 prefix = option.prefix
 jobs = option.jobs
 progress = 0
+asmjs = option.asmjs
+wasm = option.wasm
 
 pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
@@ -87,12 +92,15 @@ asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
         'unit/std/malloc.cpp'
 		]
+wasm_tests = asmjs_tests
 
 tests = set()
 if option.preexecute or option.preexecute_asmjs:
 	tests |= set(pre_executer_tests)
 if option.asmjs:
 	tests |= set(asmjs_tests)
+if option.wasm:
+	tests |= set(wasm_tests)
 if option.genericjs:
 	tests |= set(genericjs_tests)
 
@@ -114,12 +122,32 @@ def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
 	testReport.write('</testcase>')
 
 def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
-	maybe_pretty = ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals'] if option.pretty_code else []
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
-	ret=subprocess.call([compiler, "-O"+str(optlevel), "-target", "cheerp",
-		"-frtti", "-Iunit", "-cheerp-no-math-imul", "-cheerp-no-math-fround",
-		"-cheerp-mode="+mode,
-		testName, "-o", outFile] + maybe_pretty, stderr=testErrs);
+	flags = [
+		"-O"+str(optlevel),
+		"-target", "cheerp",
+		"-frtti",
+		"-Iunit",
+		"-cheerp-no-math-imul",
+		"-cheerp-no-math-fround",
+		"-o", outFile
+	]
+
+	if option.pretty_code:
+		flags += ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals']
+
+	if wasm:
+		assert testName[-4:] == ".cpp"
+		flags += ["-cheerp-mode=wasm"]
+		flags += ["-cheerp-wast-loader={}.js".format(testName[:-4])]
+		flags += ["-cheerp-pretty-code"]
+	elif asmjs:
+		flags += ["-cheerp-mode=asmjs"]
+	else:
+		flags += ["-cheerp-mode=genericjs"]
+
+	ret=subprocess.call([compiler] + flags + [testName], stderr=testErrs);
+
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
 		testErrs.seek(0);
@@ -127,9 +155,17 @@ def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
-def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
 
-	ret=subprocess.call([engine, outFile],stderr=testErrs,stdout=testOut);
+def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
+	testFile = outFile
+	if wasm:
+		assert outFile[-5:] == ".wasm"
+		testFile = outFile[:-5] + '.js'
+
+	failure = False
+
+	ret=subprocess.call([engine, testFile],stderr=testErrs,stdout=testOut);
+
 	testErrs.seek(0);
 	testOut.seek(0);
 
@@ -154,13 +190,18 @@ def do_test(test):
 	global progress
 	print("[%d%%] Compiling and executing test: %s" % (( progress * 100 / len(tests) ), test) )
 
-	head,tail = os.path.split(test)
-	name,ext = os.path.splitext(tail)
+	head, tail = os.path.split(test)
+	name, _ = os.path.splitext(tail)
+
+	if wasm:
+		ext = 'wasm'
+	else:
+		ext = 'js'
 
 	if prefix:
-		outFile = os.path.join(head, prefix + "_" + name + ".js")
+		outFile = os.path.join(head, prefix + "_" + name + "." + ext)
 	else:
-		outFile = os.path.join(head, name + ".js")
+		outFile = os.path.join(head, name + "." + ext)
 
 	stderrLog = open("%s_testerr" % test,"w+")
 	stdoutLog = open("%s_testout" % test,"w+")
@@ -173,6 +214,9 @@ def do_test(test):
 	if option.asmjs and test in asmjs_tests:
 		compileTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
 		runTest(jsEngine, "asmjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
+	if option.wasm and test in wasm_tests:
+		compileTest(clang, "wasm", test, outFile, stdrepLog, stderrLog)
+		runTest(jsEngine, "wasm", test, outFile, stdrepLog, stderrLog, stdoutLog)
 	if option.genericjs and test in genericjs_tests:
 		compileTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
 		runTest(jsEngine, "genericjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
