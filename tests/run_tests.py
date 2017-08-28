@@ -11,6 +11,8 @@ from xml.sax.saxutils import escape
 parser = OptionParser()
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
 parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
+parser.add_option("--keep", dest="keep_logs", help="Don't delete log files for individual tests",
+	action="store_true", default=False)
 parser.add_option("--prefix",dest="prefix", help="Keep the generated output for each test, with the name prefix_testname.js", action="store")
 parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", action="store_true", default=False)
 parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
@@ -281,8 +283,9 @@ for t in selected_tests:
 	to.close()
 	tr.close()
 
-	os.remove("%s_testreport" %t)
-	os.remove("%s.log" %t)
+	if not option.keep_logs:
+	    os.remove("%s_testreport" %t)
+	    os.remove("%s.log" %t)
 	
 testReport.write('</testsuite>');
 
