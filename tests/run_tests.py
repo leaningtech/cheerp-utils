@@ -174,21 +174,29 @@ def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
 		testReport.write('<failure type="Runtime error">');
 		testReport.write(testErrs.read());
 		testReport.write('</failure>');
+		failure = True
 	testReport.write('</testcase>')
 
 	if ret == 0:
 		for testLine in testOut:
-			m=re.match("^(.*) : (.*)",testLine)
-			checkName = m.group(1)
-			result = m.group(2)
-			testReport.write('<testcase classname="check" name="%s">' % escape(checkName))
-			if result!="SUCCESS":
-				testReport.write('<failure type="Self check error">%s</failure>' % testLine);
-			testReport.write('</testcase>')
+			match = re.match("^(.*) : (.*)",testLine)
+			if match:
+				checkName = match.group(1)
+				result = match.group(2)
+				testReport.write('<testcase classname="check" name="%s">' % escape(checkName))
+				if result!="SUCCESS":
+					testReport.write('<failure type="Self check error">%s</failure>' % testLine);
+					failure = True
+				testReport.write('</testcase>')
+
+			match = re.search("error|fail", testLine, re.IGNORECASE)
+			failure |= bool(match)
+
+	return failure
 
 def do_test(test):
 	global progress
-	print("[%d%%] Compiling and executing test: %s" % (( progress * 100 / len(tests) ), test) )
+	status = "pass"
 
 	head, tail = os.path.split(test)
 	name, _ = os.path.splitext(tail)
@@ -207,30 +215,43 @@ def do_test(test):
 	stdoutLog = open("%s_testout" % test,"w+")
 	stdrepLog = open("%s_testreport" % test,"w+")
 
-	if option.preexecute and test in pre_executer_tests:
-		preExecuteTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
-	if option.preexecute_asmjs and test in pre_executer_tests:
-		preExecuteTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
-	if option.asmjs and test in asmjs_tests:
-		compileTest(clang, "asmjs", test, outFile, stdrepLog, stderrLog)
-		runTest(jsEngine, "asmjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
-	if option.wasm and test in wasm_tests:
-		compileTest(clang, "wasm", test, outFile, stdrepLog, stderrLog)
-		runTest(jsEngine, "wasm", test, outFile, stdrepLog, stderrLog, stdoutLog)
-	if option.genericjs and test in genericjs_tests:
-		compileTest(clang, "genericjs", test, outFile, stdrepLog, stderrLog)
-		runTest(jsEngine, "genericjs", test, outFile, stdrepLog, stderrLog, stdoutLog)
+	test_runs = [
+		(option.preexecute, "genericjs", test not in pre_executer_tests,
+			preExecuteTest, None),
+		(option.preexecute_asmjs, "asmjs", test not in pre_executer_tests,
+			preExecuteTest, None),
+		(option.asmjs, "asmjs", test not in asmjs_tests, compileTest,
+			runTest),
+		(option.wasm, "wasm", test not in wasm_tests, compileTest,
+			runTest),
+		(option.genericjs, "genericjs", test not in genericjs_tests,
+			compileTest, runTest),
+	]
+
+	for flag, mode, skip, compile, run in test_runs:
+		if skip:
+			continue
+		if compile(clang, mode, test, outFile, stdrepLog, stderrLog):
+			status = "error"
+		if run and run(jsEngine, mode, test, outFile, stdrepLog, stderrLog, stdoutLog):
+			status = "assertion"
 
 	stderrLog.close()
 	stdoutLog.close()
 	stdrepLog.close()
 
 	progress = progress + 1
+	done = progress * 100 / len(tests)
+	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
 
 
 executor = concurrent.futures.ThreadPoolExecutor(jobs)
 futures = [executor.submit(do_test, test) for test in tests]
 concurrent.futures.wait(futures)
+
+# Re-raise any error that is thrown while running the tests.
+for future in futures:
+    future.result()
 
 # Build back the testReport, testErrs and testOut files
 testReport = open("testReport.test","w")
