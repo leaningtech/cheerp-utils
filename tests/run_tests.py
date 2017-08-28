@@ -28,7 +28,7 @@ if option.all:
 	option.wasm = True
 	option.preexecute = True
 
-if len(args)!=2:
+if len(args) < 2:
 	print("Usage: %s <compiler> <js engine>\n" % sys.argv[0]);
 	exit(1);
 
@@ -94,15 +94,22 @@ asmjs_tests = common_tests + [
 		]
 wasm_tests = asmjs_tests
 
-tests = set()
-if option.preexecute or option.preexecute_asmjs:
-	tests |= set(pre_executer_tests)
-if option.asmjs:
-	tests |= set(asmjs_tests)
-if option.wasm:
-	tests |= set(wasm_tests)
-if option.genericjs:
-	tests |= set(genericjs_tests)
+selected_tests = set()
+
+# Determine if we want to run a select number of test, or all tests.
+if args[2:]:
+	selected_tests = args[2:]
+else:
+	if option.preexecute or option.preexecute_asmjs:
+		selected_tests |= set(pre_executer_tests)
+	if option.asmjs:
+		selected_tests |= set(asmjs_tests)
+	if option.wasm:
+		selected_tests |= set(wasm_tests)
+	if option.genericjs:
+		selected_tests |= set(genericjs_tests)
+
+	selected_tests = sorted(list(selected_tests))
 
 def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
 	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
@@ -245,12 +252,12 @@ def do_test(test):
 	stdrepLog.close()
 
 	progress = progress + 1
-	done = progress * 100 / len(tests)
+	done = progress * 100 / len(selected_tests)
 	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
 
 
 executor = concurrent.futures.ThreadPoolExecutor(jobs)
-futures = [executor.submit(do_test, test) for test in tests]
+futures = [executor.submit(do_test, test) for test in selected_tests]
 concurrent.futures.wait(futures)
 
 # Re-raise any error that is thrown while running the tests.
@@ -264,7 +271,7 @@ testOut = open("testOut.out","w+");
 
 testReport.write('<testsuite>');
 
-for t in tests:
+for t in selected_tests:
 	tr = open("%s_testreport" % t,"r")
 	te = open("%s_testerr" % t,"r")
 	to = open("%s_testout" % t,"r")
