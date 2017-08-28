@@ -18,7 +18,7 @@ parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
 	action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
-parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/preexecute]", action="store_true", default=False)
+parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/wasm/preexecute]", action="store_true", default=False)
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
@@ -228,8 +228,8 @@ def do_test(test):
 			compileTest, runTest),
 	]
 
-	for flag, mode, skip, compile, run in test_runs:
-		if skip:
+	for enabled, mode, skip, compile, run in test_runs:
+		if not enabled or skip:
 			continue
 		if compile(clang, mode, test, outFile, stdrepLog, stderrLog):
 			status = "error"
@@ -237,7 +237,7 @@ def do_test(test):
 			status = "assertion"
 
 	# Remove the generated wasm file.
-	if option.wasm:
+	if option.wasm and os.path.isfile(outFile):
 		os.remove(outFile)
 
 	stderrLog.close()
