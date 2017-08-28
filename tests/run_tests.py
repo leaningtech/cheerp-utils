@@ -128,7 +128,7 @@ def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
-def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
+def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
 	flags = [
 		"-O"+str(optlevel),
@@ -153,17 +153,18 @@ def compileTest(compiler, mode, testName, outFile, testReport, testErrs ):
 	else:
 		flags += ["-cheerp-mode=genericjs"]
 
-	ret=subprocess.call([compiler] + flags + [testName], stderr=testErrs);
+	ret=subprocess.call([compiler] + flags + [testName],
+		stderr=subprocess.STDOUT, stdout=testOut);
 
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
-		testErrs.seek(0);
-		testReport.write(testErrs.read());
+		testOut.seek(0);
+		testReport.write(testOut.read());
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
 
-def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
+def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testFile = outFile
 	if wasm:
 		assert outFile[-5:] == ".wasm"
@@ -171,15 +172,15 @@ def runTest(engine, mode, testName, outFile, testReport, testErrs, testOut):
 
 	failure = False
 
-	ret=subprocess.call([engine, testFile],stderr=testErrs,stdout=testOut);
+	ret=subprocess.call([engine, testFile], stderr=subprocess.STDOUT,
+		stdout=testOut);
 
-	testErrs.seek(0);
 	testOut.seek(0);
 
 	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
 	if ret != 0:
 		testReport.write('<failure type="Runtime error">');
-		testReport.write(testErrs.read());
+		testReport.write(testOut.read());
 		testReport.write('</failure>');
 		failure = True
 	testReport.write('</testcase>')
@@ -218,8 +219,7 @@ def do_test(test):
 	else:
 		outFile = os.path.join(head, name + "." + ext)
 
-	stderrLog = open("%s_testerr" % test,"w+")
-	stdoutLog = open("%s_testout" % test,"w+")
+	stdoutLog = open("%s.log" % test,"w+")
 	stdrepLog = open("%s_testreport" % test,"w+")
 
 	test_runs = [
@@ -238,16 +238,15 @@ def do_test(test):
 	for enabled, mode, skip, compile, run in test_runs:
 		if not enabled or skip:
 			continue
-		if compile(clang, mode, test, outFile, stdrepLog, stderrLog):
+		if compile(clang, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
-		if run and run(jsEngine, mode, test, outFile, stdrepLog, stderrLog, stdoutLog):
+		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
 	# Remove the generated wasm file.
 	if option.wasm and os.path.isfile(outFile):
 		os.remove(outFile)
 
-	stderrLog.close()
 	stdoutLog.close()
 	stdrepLog.close()
 
@@ -266,30 +265,24 @@ for future in futures:
 
 # Build back the testReport, testErrs and testOut files
 testReport = open("testReport.test","w")
-testErrs = open("testErrs.out","w+");
 testOut = open("testOut.out","w+");
 
 testReport.write('<testsuite>');
 
 for t in selected_tests:
 	tr = open("%s_testreport" % t,"r")
-	te = open("%s_testerr" % t,"r")
-	to = open("%s_testout" % t,"r")
+	to = open("%s.log" % t,"r")
 
 	for line in tr:
 		testReport.write(line)
-	for line in te:
-		testErrs.write(line)
 	for line in to:
 		testOut.write(line)
 
 	to.close()
-	te.close()
 	tr.close()
 
 	os.remove("%s_testreport" %t)
-	os.remove("%s_testerr" %t)
-	os.remove("%s_testout" %t)
+	os.remove("%s.log" %t)
 	
 testReport.write('</testsuite>');
 
