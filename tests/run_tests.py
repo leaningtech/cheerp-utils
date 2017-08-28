@@ -29,6 +29,7 @@ if option.all:
 	option.genericjs = True
 	option.wasm = True
 	option.preexecute = True
+	option.preexecute_asmjs = True
 
 if len(args) < 2:
 	print("Usage: %s <compiler> <js engine>\n" % sys.argv[0]);
@@ -145,14 +146,15 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 	if option.pretty_code:
 		flags += ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals']
 
-	if wasm:
+	if mode == "wasm":
 		assert testName[-4:] == ".cpp"
 		flags += ["-cheerp-mode=wasm"]
 		flags += ["-cheerp-wast-loader={}.js".format(testName[:-4])]
 		flags += ["-cheerp-pretty-code"]
-	elif asmjs:
+	elif mode == "asmjs":
 		flags += ["-cheerp-mode=asmjs"]
 	else:
+		assert mode == "genericjs"
 		flags += ["-cheerp-mode=genericjs"]
 
 	ret=subprocess.call([compiler] + flags + [testName],
@@ -168,7 +170,7 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 
 def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testFile = outFile
-	if wasm:
+	if mode == "wasm":
 		assert outFile[-5:] == ".wasm"
 		testFile = outFile[:-5] + '.js'
 
@@ -211,16 +213,6 @@ def do_test(test):
 	head, tail = os.path.split(test)
 	name, _ = os.path.splitext(tail)
 
-	if wasm:
-		ext = 'wasm'
-	else:
-		ext = 'js'
-
-	if prefix:
-		outFile = os.path.join(head, prefix + "_" + name + "." + ext)
-	else:
-		outFile = os.path.join(head, name + "." + ext)
-
 	stdoutLog = open("%s.log" % test,"w+")
 	stdrepLog = open("%s_testreport" % test,"w+")
 
@@ -240,14 +232,25 @@ def do_test(test):
 	for enabled, mode, skip, compile, run in test_runs:
 		if not enabled or skip:
 			continue
+
+		if mode == "wasm":
+			ext = 'wasm'
+		else:
+			ext = 'js'
+
+		if prefix:
+			outFile = os.path.join(head, prefix + "_" + name + "." + ext)
+		else:
+			outFile = os.path.join(head, name + "." + ext)
+
 		if compile(clang, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
-	# Remove the generated wasm file.
-	if option.wasm and os.path.isfile(outFile):
-		os.remove(outFile)
+		# Remove the generated wasm file.
+		if mode == "wasm" and os.path.isfile(outFile):
+			os.remove(outFile)
 
 	stdoutLog.close()
 	stdrepLog.close()
