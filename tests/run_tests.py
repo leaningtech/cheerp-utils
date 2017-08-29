@@ -22,6 +22,7 @@ parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside P
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/wasm/preexecute]", action="store_true", default=False)
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
+parser.add_option("--no-lto",dest="no_lto", help="Compile with -cheerp-no-lto", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -144,6 +145,9 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 
 	if option.pretty_code:
 		flags += ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals']
+
+	if option.no_lto:
+		flags += ['-cheerp-no-lto']
 
 	if mode == "wasm":
 		assert testName[-4:] == ".cpp"
