@@ -40,7 +40,6 @@ jsEngine = args[1]
 optlevel = option.optlevel
 prefix = option.prefix
 jobs = option.jobs
-progress = 0
 asmjs = option.asmjs
 wasm = option.wasm
 
@@ -207,7 +206,6 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	return failure
 
 def do_test(test):
-	global progress
 	status = "pass"
 
 	head, tail = os.path.split(test)
@@ -255,18 +253,20 @@ def do_test(test):
 	stdoutLog.close()
 	stdrepLog.close()
 
-	progress = progress + 1
-	done = progress * 100 / len(selected_tests)
-	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
+	return status
 
 
 executor = concurrent.futures.ThreadPoolExecutor(jobs)
 futures = [executor.submit(do_test, test) for test in selected_tests]
-concurrent.futures.wait(futures)
 
-# Re-raise any error that is thrown while running the tests.
-for future in futures:
-    future.result()
+progress = 0
+for test, future in zip(selected_tests, futures):
+	# Re-raise any error that is thrown while running the tests.
+	status = future.result()
+
+	progress += 1
+	done = progress * 100 / len(selected_tests)
+	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
 
 # Build back the testReport, testErrs and testOut files
 testReport = open("testReport.test","w")
