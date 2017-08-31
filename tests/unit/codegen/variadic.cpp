@@ -6,19 +6,38 @@
 #include <stdlib.h>
 #include <tests.h>
 
+int variadicSumImpl(va_list args)
+{
+	int ret = 0;
+	while(char* i = va_arg(args, char*))
+	{
+		ret += *i;
+	}
+	return ret;
+}
+
 int variadicSum(int a, ...)
 {
 	int ret = 0;
 	va_list args;
 	va_start(args,a);
-	while(char* p = va_arg(args, char*))
-	{
-		ret += *p;
-	}
+	ret = variadicSumImpl(args);
 	va_end(args);
 	return ret;
 }
-
+int variadicSumTwice(int a, ...)
+{
+	int ret = 0;
+	va_list args;
+	va_start(args,a);
+	va_list copy;
+	va_copy(copy,args);
+	ret = variadicSumImpl(args);
+	va_end(args);
+	ret  += variadicSumImpl(copy);
+	va_end(copy);
+	return ret;
+}
 void webMain()
 {
 	int i = NULL;
@@ -31,4 +50,6 @@ void webMain()
 	assertEqual(r1, 10, "Passing NULL to variadic call 1/2");
 	int r2 = variadicSum(NULL,NULL);
 	assertEqual(r2, 0, "Passing NULL to variadic call 2/2");
+	int r3 = variadicSumTwice(NULL, &a,&b,&c,&d, NULL);
+	assertEqual(r3, 20, "Using va_copy in variadic call");
 }
