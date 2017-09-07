@@ -182,15 +182,9 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	ret=subprocess.call([engine, testFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
+	# Reset the read position to the beginning of the output. Otherwise
+	# it's not possible to check if there are errors in the output lines.
 	testOut.seek(0);
-
-	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
-	if ret != 0:
-		testReport.write('<failure type="Runtime error">');
-		testReport.write(testOut.read());
-		testReport.write('</failure>');
-		failure = True
-	testReport.write('</testcase>')
 
 	if ret == 0:
 		for testLine in testOut:
@@ -206,6 +200,15 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 
 			match = re.search("error|fail", testLine, re.IGNORECASE)
 			failure |= bool(match)
+	else:
+		failure = True
+
+	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
+	if failure:
+		testReport.write('<failure type="Runtime error">');
+		testReport.write(testOut.read());
+		testReport.write('</failure>');
+	testReport.write('</testcase>')
 
 	return failure
 
