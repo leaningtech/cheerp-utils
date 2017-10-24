@@ -1,5 +1,18 @@
 Cheerp: C++ for the Web
 
+Version 2.0 RC1:
+
+	* Add a WebAssembly backend that produces binary and textual wasm
+	* Add flag -cheerp-asmjs-mem-file to output a file holding asm.js module initialized memory
+	* Add flag -cheerp-wasm-loader to output a file that initialises the WebAssembly file
+	* Add flag -cheerp-linear-heap-size that sets heap size in megabytes for asmjs and wasm
+	* Add flag -cheerp-no-math-fround that disables the usage of Math.fround()
+	* Add `[[cheerp::asmjs]]` attribute for setting globals in the asmjs section manually
+	* Add `[[cheerp::genericjs]]` attribute for setting globals in the generic section
+	* Enabling asmjs mode will define `__ASMJS__` in the preprocessor
+	* Enabling wasm mode will define `__WASM__` in the preprocessor
+	* Overhaul of priority system to remove useless parenthesis and type coercions
+
 Version 1.3:
 
 	* Improve support for unions
