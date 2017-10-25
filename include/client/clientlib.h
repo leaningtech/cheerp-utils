@@ -843,6 +843,8 @@ namespace [[cheerp::genericjs]] client
 		ArrayBuffer* get_prototype();
 		void set_prototype(ArrayBuffer*);
 		ArrayBuffer(double byteLength);
+		ArrayBuffer* slice();
+		ArrayBuffer* slice(int start);
 	};
 
 	class ArrayBufferView: public Object{
@@ -4370,6 +4372,7 @@ namespace [[cheerp::genericjs]] client
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
 		Window* get_prototype();
 		void set_prototype(Window*);
+		void eval(const String&);
 		Window();
 	};
 

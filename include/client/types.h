@@ -80,6 +80,7 @@ public:
 	int indexOf(const String&, int);
 	TArray<String>* split(const String&) const;
 	static String* fromCharCode(int c) [[cheerp::static]];
+	bool endsWith(const String&);
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
@@ -112,6 +113,7 @@ public:
 	int get_length() const;
 	template<typename... Args>
 	Array* splice(int start, int deleteCount, Args... args);
+	Object* shift();
 };
 
 template<class T>
@@ -134,6 +136,9 @@ public:
 
 class Number: public Object
 {
+public:
+	Number(double);
+	client::String* toString(int base = 10);
 };
 
 typedef unsigned int UnsignedShort;
