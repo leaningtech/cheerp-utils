@@ -99,27 +99,38 @@ public:
 		while (*in != 0 && len > 0)
 		{
 			unsigned char ch = static_cast<unsigned char>(*in);
+			// ASCII range
 			if (ch <= 0x7f)
 				codepoint = ch;
+			// Continuation bytes
 			else if (ch <= 0xbf)
 				codepoint = (codepoint << 6) | (ch & 0x3f);
+			// Start of 2-bytes sequence
 			else if (ch <= 0xdf)
 				codepoint = ch & 0x1f;
+			// Start of 3-bytes sequence
 			else if (ch <= 0xef)
 				codepoint = ch & 0x0f;
+			// Start of 4-bytes sequence
 			else
 				codepoint = ch & 0x07;
 			++in;
 			--len;
-			if (((*in & 0xc0) != 0x80) && (codepoint <= 0x10ffff))
+			// NOTE: we are assuming that invalid codepoints will be handled
+			// in a sensible way by javascript strings
+			if (len == 0 || ((*in & 0xc0) != 0x80))
 			{
-				if (codepoint > 0xffff)
-				{
-					out = out->concat(client::String::fromCharCode(0xd800 + (codepoint >> 10)));
-					out = out->concat(client::String::fromCharCode(0xdc00 + (codepoint & 0x03ff)));
-				}
-				else if (codepoint < 0xd800 || codepoint >= 0xe000)
+				if (codepoint <= 0xffff)
 					out = out->concat(client::String::fromCharCode(codepoint));
+				else
+				{
+					// surrogate pair
+					codepoint -= 0x10000;
+					unsigned int highSurrogate = (codepoint >> 10) + 0xd800;
+					unsigned int lowSurrogate = (codepoint & 0x3ff) + 0xdc00;
+					out = out->concat(client::String::fromCharCode(highSurrogate));
+					out = out->concat(client::String::fromCharCode(lowSurrogate));
+				}
 			}
 		}
 		return out;
