@@ -580,9 +580,9 @@ namespace [[cheerp::genericjs]] client
 		double exp(double x);
 		double floor(double x);
 		double log(double x);
-		template<typename... Args> double max(Args&&... values) { return max(static_cast<double>(std::forward<Args>(values))...); }
+		template<typename... Args> double max(Args&&... values) { return max(static_cast<double>(static_cast<Args&&>(values))...); }
 		double max();
-		template<typename... Args> double min(Args&&... values) { return min(static_cast<double>(std::forward<Args>(values))...); }
+		template<typename... Args> double min(Args&&... values) { return min(static_cast<double>(static_cast<Args&&>(values))...); }
 		double min();
 		double pow(double x, double y);
 		double random();
@@ -690,12 +690,12 @@ namespace [[cheerp::genericjs]] client
 		void set_input(const String&);
 		String* toString();
 		String* toLocaleString();
-		template<typename... Args> Array* concat(Args&&... items) { return concat(static_cast<Array*>(std::forward<Args>(items))...); }
+		template<typename... Args> Array* concat(Args&&... items) { return concat(static_cast<Array*>(static_cast<Args&&>(items))...); }
 		Array* concat();
 		String* join();
 		String* join(const String& separator);
 		String* pop();
-		template<typename... Args> double push(Args&&... items) { return push(static_cast<const String&>(std::forward<Args>(items))...); }
+		template<typename... Args> double push(Args&&... items) { return push(static_cast<const String&>(static_cast<Args&&>(items))...); }
 		double push();
 		Array* reverse();
 		String* shift();
@@ -705,9 +705,9 @@ namespace [[cheerp::genericjs]] client
 		Array* sort();
 		Array* sort(EventListener* compareFn);
 		Array* splice(double start);
-		template<typename... Args> Array* splice(double start, double deleteCount, Args&&... items) { return splice(start, deleteCount, static_cast<const String&>(std::forward<Args>(items))...); }
+		template<typename... Args> Array* splice(double start, double deleteCount, Args&&... items) { return splice(start, deleteCount, static_cast<const String&>(static_cast<Args&&>(items))...); }
 		Array* splice(double start, double deleteCount);
-		template<typename... Args> double unshift(Args&&... items) { return unshift(static_cast<const String&>(std::forward<Args>(items))...); }
+		template<typename... Args> double unshift(Args&&... items) { return unshift(static_cast<const String&>(static_cast<Args&&>(items))...); }
 		double unshift();
 		double indexOf(const String& searchElement);
 		double indexOf(const String& searchElement, double fromIndex);
@@ -1974,10 +1974,10 @@ namespace [[cheerp::genericjs]] client
 	class WindowTimers: public Object{
 	public:
 		void clearTimeout(double handle);
-		template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setTimeout(EventListener* handler, double timeout);
 		void clearInterval(double handle);
-		template<typename... Args> double setInterval(EventListener* handler, double timeout, Args&&... args) { return setInterval(handler, timeout, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> double setInterval(EventListener* handler, double timeout, Args&&... args) { return setInterval(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setInterval(EventListener* handler, double timeout);
 	private:
 		template<typename... Args> double setTimeout(EventListener* handler, double timeout, Object*, Args&&... args);
@@ -4919,12 +4919,12 @@ namespace [[cheerp::genericjs]] client
 		Element* elementFromPoint(double x, double y);
 		CDATASection* createCDATASection(const String& data);
 		String* queryCommandText(const String& commandId);
-		template<typename... Args> void write(Args&&... content) { return write(static_cast<const String&>(std::forward<Args>(content))...); }
+		template<typename... Args> void write(Args&&... content) { return write(static_cast<const String&>(static_cast<Args&&>(content))...); }
 		void write();
 		void updateSettings();
 		HTMLElement* createElement(const String& tagName);
 		void releaseCapture();
-		template<typename... Args> void writeln(Args&&... content) { return writeln(static_cast<const String&>(std::forward<Args>(content))...); }
+		template<typename... Args> void writeln(Args&&... content) { return writeln(static_cast<const String&>(static_cast<Args&&>(content))...); }
 		void writeln();
 		Element* createElementNS(const String& namespaceURI, const String& qualifiedName);
 		Object* open();
@@ -6693,9 +6693,9 @@ namespace [[cheerp::genericjs]] client
 		double get_height();
 		void set_height(double);
 		String* toDataURL();
-		template<typename... Args> String* toDataURL(const String& type, Args&&... args) { return toDataURL(type, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> String* toDataURL(const String& type, Args&&... args) { return toDataURL(type, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		String* toDataURL(const String& type);
-		template<typename... Args> RenderingContext* getContext(const String& contextId, Args&&... args) { return getContext(contextId, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> RenderingContext* getContext(const String& contextId, Args&&... args) { return getContext(contextId, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		RenderingContext* getContext(const String& contextId);
 		Blob* msToBlob();
 		HTMLCanvasElement* get_prototype();
@@ -8988,11 +8988,11 @@ namespace [[cheerp::genericjs]] client
 
 	class WindowTimersExtension: public Object{
 	public:
-		template<typename... Args> double msSetImmediate(Object* expression, Args&&... args) { return msSetImmediate(expression, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> double msSetImmediate(Object* expression, Args&&... args) { return msSetImmediate(expression, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double msSetImmediate(Object* expression);
 		void clearImmediate(double handle);
 		void msClearImmediate(double handle);
-		template<typename... Args> double setImmediate(Object* expression, Args&&... args) { return setImmediate(expression, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> double setImmediate(Object* expression, Args&&... args) { return setImmediate(expression, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setImmediate(Object* expression);
 	private:
 		template<typename... Args> double msSetImmediate(Object* expression, Object*, Args&&... args);
@@ -9214,27 +9214,27 @@ namespace [[cheerp::genericjs]] client
 	class Console: public Object{
 	public:
 		void info();
-		template<typename... Args> void info(const String& message, Args&&... optionalParams) { return info(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void info(const String& message, Args&&... optionalParams) { return info(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void info(const String& message);
 		void profile();
 		void profile(const String& reportName);
 		void _assert();
 		void _assert(bool test);
-		template<typename... Args> void _assert(bool test, const String& message, Args&&... optionalParams) { return _assert(test, message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void _assert(bool test, const String& message, Args&&... optionalParams) { return _assert(test, message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void _assert(bool test, const String& message);
 		bool msIsIndependentlyComposed(Element* element);
 		void clear();
 		void dir();
-		template<typename... Args> void dir(const String& value, Args&&... optionalParams) { return dir(value, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void dir(const String& value, Args&&... optionalParams) { return dir(value, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void dir(const String& value);
 		void warn();
-		template<typename... Args> void warn(const String& message, Args&&... optionalParams) { return warn(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void warn(const String& message, Args&&... optionalParams) { return warn(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void warn(const String& message);
 		void error();
-		template<typename... Args> void error(const String& message, Args&&... optionalParams) { return error(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void error(const String& message, Args&&... optionalParams) { return error(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void error(const String& message);
 		void log();
-		template<typename... Args> void log(const String& message, Args&&... optionalParams) { return log(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void log(const String& message, Args&&... optionalParams) { return log(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void log(const String& message);
 		void profileEnd();
 		void count();
@@ -9249,7 +9249,7 @@ namespace [[cheerp::genericjs]] client
 		void group(const String& groupTitle);
 		void dirxml(Object* value);
 		void debug();
-		template<typename... Args> void debug(const String& message, Args&&... optionalParams) { return debug(message, static_cast<const String&>(std::forward<Args>(optionalParams))...); }
+		template<typename... Args> void debug(const String& message, Args&&... optionalParams) { return debug(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void debug(const String& message);
 		void groupCollapsed();
 		void groupCollapsed(const String& groupTitle);
@@ -9705,10 +9705,10 @@ namespace [[cheerp::genericjs]] client
 		Object* createDataPackageFromSelection();
 		MSAppView* getViewOpener();
 		void suppressSubdownloadCredentialPrompts(bool suppress);
-		template<typename... Args> void execAsyncAtPriority(MSExecAtPriorityFunctionCallback* asynchronousCallback, const String& priority, Args&&... args) { return execAsyncAtPriority(asynchronousCallback, priority, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> void execAsyncAtPriority(MSExecAtPriorityFunctionCallback* asynchronousCallback, const String& priority, Args&&... args) { return execAsyncAtPriority(asynchronousCallback, priority, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		void execAsyncAtPriority(MSExecAtPriorityFunctionCallback* asynchronousCallback, const String& priority);
 		bool isTaskScheduledAtPriorityOrHigher(const String& priority);
-		template<typename... Args> Object* execAtPriority(MSExecAtPriorityFunctionCallback* synchronousCallback, const String& priority, Args&&... args) { return execAtPriority(synchronousCallback, priority, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> Object* execAtPriority(MSExecAtPriorityFunctionCallback* synchronousCallback, const String& priority, Args&&... args) { return execAtPriority(synchronousCallback, priority, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		Object* execAtPriority(MSExecAtPriorityFunctionCallback* synchronousCallback, const String& priority);
 		MSAppView* createNewView(const String& uri);
 		String* getCurrentPriority();
@@ -10155,7 +10155,7 @@ namespace [[cheerp::genericjs]] client
 		void refresh();
 		void goForward();
 		void navigateToLocalStreamUri(const String& source, Object* streamResolver);
-		template<typename... Args> MSWebViewAsyncOperation* invokeScriptAsync(const String& scriptName, Args&&... args) { return invokeScriptAsync(scriptName, static_cast<Object*>(std::forward<Args>(args))...); }
+		template<typename... Args> MSWebViewAsyncOperation* invokeScriptAsync(const String& scriptName, Args&&... args) { return invokeScriptAsync(scriptName, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		MSWebViewAsyncOperation* invokeScriptAsync(const String& scriptName);
 		String* buildLocalStreamUri(const String& contentIdentifier, const String& relativePath);
 	private:
@@ -10779,10 +10779,10 @@ namespace [[cheerp::genericjs]] client
 	void showHelp(const String& url, Object* helpArg, const String& features);
 	extern Storage sessionStorage;
 	void clearTimeout(double handle);
-	template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(std::forward<Args>(args))...); }
+	template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 	double setTimeout(EventListener* handler, double timeout);
 	void clearInterval(double handle);
-	template<typename... Args> double setInterval(EventListener* handler, double timeout, Args&&... args) { return setInterval(handler, timeout, static_cast<Object*>(std::forward<Args>(args))...); }
+	template<typename... Args> double setInterval(EventListener* handler, double timeout, Args&&... args) { return setInterval(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 	double setInterval(EventListener* handler, double timeout);
 	extern URL URL;
 	extern MSApp MSApp;
@@ -10835,7 +10835,7 @@ namespace [[cheerp::genericjs]] client
 	extern EventListener* onpointerleave;
 	void addEventListener(const String& type, EventListener* listener);
 	void addEventListener(const String& type, EventListener* listener, bool useCapture);
-	template<typename... Args> void importScripts(Args&&... urls) { return importScripts(static_cast<const String&>(std::forward<Args>(urls))...); }
+	template<typename... Args> void importScripts(Args&&... urls) { return importScripts(static_cast<const String&>(static_cast<Args&&>(urls))...); }
 	void importScripts();
 }
 #endif

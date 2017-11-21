@@ -36,7 +36,7 @@ namespace [[cheerp::genericjs]] cheerp
 template<typename... Args>
 void console_log(const char* message, Args&&... optionalParams)
 { 
-	client::console.log(message, std::forward<Args>(optionalParams)...);
+	client::console.log(message, static_cast<Args&&>(optionalParams)...);
 }
 
 static double date_now()
@@ -55,7 +55,7 @@ struct CallbackHelperBase<false, R, Args...>
 	static R invoke(std::function<R(Args...)>* func, Args... args)
 	{
 		std::unique_ptr<std::function<R(Args...)>> funcDeleter(func);
-		return (*func)(std::forward<Args>(args)...);
+		return (*func)(static_cast<Args&&>(args)...);
 	}
 	template<class T>
 	static client::EventListener* make_callback(const T& func)
@@ -525,7 +525,7 @@ struct clientStubImpl
 	}
 	static Ret run(const char* funcName, Args&&... args)
 	{
-		client::String* data=serializeArgs(std::forward<Args>(args)...);
+		client::String* data=serializeArgs(static_cast<Args&&>(args)...);
 		client::XMLHttpRequest* r=new client::XMLHttpRequest();
 		client::String* url=new client::String("/cheerp_call?f=");
 		url=url->concat(funcName,"&a=[",*encodeURIComponent(*data),"]");
@@ -541,7 +541,7 @@ struct clientStubImpl
 template<typename Ret, typename ...Args>
 Ret clientStub(const char* funcName, Args... args) [[cheerp::client]]
 {
-	return cheerp::clientStubImpl<Ret, Args...>::run(funcName, std::forward<Args>(args)...);
+	return cheerp::clientStubImpl<Ret, Args...>::run(funcName, static_cast<Args&&>(args)...);
 }
 
 #endif

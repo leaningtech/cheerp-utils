@@ -68,7 +68,7 @@ public:
 	template<typename... Args>
 	String* concat(Args&&... args)
 	{
-		return concat(static_cast<const String&>(std::forward<Args>(args))...);
+		return concat(static_cast<const String&>(static_cast<Args&&>(args))...);
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
