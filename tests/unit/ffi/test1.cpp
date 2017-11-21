@@ -3,35 +3,29 @@
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
-#include <cstdlib>
+#include <vector>
 
-
-void process(int* v, int n) {
+void process(std::vector<int>& v) {
 	int k = 0;
-	for(int i = 0; i < n; i++) {
+	for(int i = 0; i < v.size(); i++) {
 		v[i] += k;
 		k = v[i];
 	}
 }
 
 template<typename T>
-T* typed_malloc(size_t n) {
-	return (T*)malloc(n*sizeof(T));
+void push_back_wrapper(std::vector<T>& v, T i)
+{
+	v.push_back(i);
 }
-template<typename T>
-void typed_free(T* p) {
-	free(p);
-}
-
 [[cheerp::genericjs]]
 int generic() {
-	int* v = typed_malloc<int>(5);
+	std::vector<int> v;
 	for(int i = 0; i < 5; i++) {
-		v[i]=i;
+		push_back_wrapper(v, i);
 	}
-	process(v,5);
+	process(v);
 	int ret = v[4];
-	typed_free(v);
 	return ret;
 }
 void webMain()

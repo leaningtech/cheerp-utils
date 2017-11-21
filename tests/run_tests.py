@@ -93,6 +93,7 @@ genericjs_tests = common_tests + [
 	 ]
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
+		'unit/ffi/test2.cpp',
         'unit/std/malloc.cpp'
 		]
 wasm_tests = asmjs_tests
