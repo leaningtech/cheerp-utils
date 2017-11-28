@@ -159,6 +159,7 @@ public:
 	template<typename... Args>
 	Array* splice(int start, int deleteCount, Args... args);
 	Object* shift();
+	void unshift(client::Object*);
 	Object* pop();
 };
 
