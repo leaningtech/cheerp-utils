@@ -919,6 +919,37 @@ namespace [[cheerp::genericjs]] client
 		}
 	};
 
+	class Uint8ClampedArray: public ArrayBufferView {
+	public:
+		double get_length();
+		void set_length(double);
+		double get(double index);
+		void set(double index, double value);
+		void set(Uint8ClampedArray* array);
+		void set(Uint8ClampedArray* array, double offset);
+		void set(Array* array);
+		void set(Array* array, double offset);
+		Uint8ClampedArray* subarray(double begin);
+		Uint8ClampedArray* subarray(double begin, double end);
+		Uint8ClampedArray* get_prototype();
+		void set_prototype(Uint8ClampedArray*);
+		Uint8ClampedArray(double length);
+		Uint8ClampedArray(Uint8ClampedArray* array);
+		Uint8ClampedArray(Array* array);
+		Uint8ClampedArray(ArrayBuffer* buffer);
+		Uint8ClampedArray(ArrayBuffer* buffer, double byteOffset);
+		Uint8ClampedArray(ArrayBuffer* buffer, double byteOffset, double length);
+		double get_BYTES_PER_ELEMENT();
+		unsigned char& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<unsigned char>(this, 0)[index];
+		}
+		unsigned char operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<unsigned char>(this, 0)[index];
+		}
+	};
+
 	class Int16Array: public ArrayBufferView {
 	public:
 		double get_length();
@@ -7427,13 +7458,14 @@ namespace [[cheerp::genericjs]] client
 	public:
 		double get_width();
 		void set_width(double);
-		Uint8Array* get_data();
+		Uint8ClampedArray* get_data();
 		void set_data(Uint8Array*);
 		double get_height();
 		void set_height(double);
 		ImageData* get_prototype();
 		void set_prototype(ImageData*);
 		ImageData();
+		ImageData(Uint8ClampedArray*, int, int);
 	};
 
 	class HTMLTableColElement: public HTMLElement , public HTMLTableAlignment {
