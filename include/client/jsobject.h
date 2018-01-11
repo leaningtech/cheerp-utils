@@ -21,6 +21,8 @@
 #ifndef _CHEERP_JSOBJECT_H_65a8f9e1
 #define _CHEERP_JSOBJECT_H_65a8f9e1
 
+#include <type_traits>
+
 namespace [[cheerp::genericjs]] client
 {
 
@@ -45,6 +47,8 @@ public:
 	// operator[] for arbitrary assignment can't be expressed as we can't have a pointer to an arbitrary member of an object
 	// We provide the following function instead
 	void set_(const client::String& name, Object* v);
+	template<typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type>
+	void set_(const client::String& name, T v);
 	bool hasOwnProperty(const client::String& name);
 	static Array* keys(Object*) [[cheerp::static]];
 	static Array* values(Object*) [[cheerp::static]];
