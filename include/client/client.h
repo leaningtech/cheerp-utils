@@ -467,7 +467,7 @@ struct voidUtils<void>
 };
 
 template<class T>
-struct promiseUtils: public std::false_type
+struct promiseUtils
 {
 	static void* addCallbackIfNeeded(client::XMLHttpRequest* r)
 	{
@@ -479,12 +479,12 @@ struct promiseUtils: public std::false_type
 	}
 	static bool is_promise()
 	{
-		return value;
+		return false;
 	}
 };
 
 template<class T>
-struct promiseUtils<cheerp::Promise<T>*>: public std::true_type
+struct promiseUtils<cheerp::Promise<T>*>
 {
 	// addCallback create the onload callback for the asynchronous case
 	// and returns a pointer to the promise. The synchronous implementation
@@ -506,7 +506,7 @@ struct promiseUtils<cheerp::Promise<T>*>: public std::true_type
 	}
 	static bool is_promise()
 	{
-		return value;
+		return true;
 	}
 };
 
