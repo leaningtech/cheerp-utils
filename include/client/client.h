@@ -39,6 +39,16 @@ void console_log(const char* message, Args&&... optionalParams)
 	client::console.log(message, static_cast<Args&&>(optionalParams)...);
 }
 
+static void console_log(int message)
+{
+	client::console.log(message);
+}
+
+static void console_log(double message)
+{
+	client::console.log(message);
+}
+
 static double date_now()
 {
 	return client::Date::now();
