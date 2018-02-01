@@ -1414,7 +1414,7 @@ namespace [[cheerp::genericjs]] client
 		String* componentFromPoint(double x, double y);
 	};
 
-	class MSEventAttachmentTarget: public Object{
+	class MSEventAttachmentTarget{
 	public:
 		bool attachEvent(const String& event, EventListener* listener);
 		void detachEvent(const String& event, EventListener* listener);
@@ -2002,7 +2002,7 @@ namespace [[cheerp::genericjs]] client
 		CompositionEvent();
 	};
 
-	class WindowTimers: public Object{
+	class WindowTimers{
 	public:
 		void clearTimeout(double handle);
 		template<typename... Args> double setTimeout(EventListener* handler, double timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
@@ -3951,7 +3951,7 @@ namespace [[cheerp::genericjs]] client
 		MSNamespaceInfo();
 	};
 
-	class WindowSessionStorage: public Object{
+	class WindowSessionStorage{
 	public:
 		Storage* get_sessionStorage();
 		void set_sessionStorage(Storage*);
@@ -4058,13 +4058,13 @@ namespace [[cheerp::genericjs]] client
 		SVGAnimatedLengthList();
 	};
 
-	class WindowLocalStorage: public Object{
+	class WindowLocalStorage{
 	public:
 		Storage* get_localStorage();
 		void set_localStorage(Storage*);
 	};
 
-	class MSWindowExtensions: public Object{
+	class MSWindowExtensions{
 	public:
 		String* get_status();
 		void set_status(const String&);
