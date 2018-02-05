@@ -818,7 +818,7 @@ public:
     //void texImage2D(int, int, int, int, int, ImageData*);
     void texImage2D(int, int, int, int, int, HTMLImageElement*);
     void texImage2D(int, int, int, int, int, HTMLCanvasElement*);
-    //void texImage2D(int, int, int, int, int, HTMLVideoElement*);
+    void texImage2D(int, int, int, int, int, HTMLVideoElement*);
     void texParameterf(double, double, double);
     void texParameteri(double, double, double);
     void texSubImage2D(double, double, double, double, double, double, double, double, ArrayBufferView*);
