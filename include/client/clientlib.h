@@ -1199,10 +1199,21 @@ namespace [[cheerp::genericjs]] client
 		void set_vendor(const String&);
 	};
 
+	class EventOptions: public Object{
+	public:
+		bool get_capture();
+		void set_capture(bool);
+		bool get_once();
+		void set_once(bool);
+		bool get_passive();
+		void set_passive(bool);
+	};
+
 	class EventTarget: public Object{
 	public:
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool useCapture);
+		void addEventListener(const String& type, EventListener* listener, EventOptions* options);
 		void removeEventListener(const String& type, EventListener* listener);
 		void removeEventListener(const String& type, EventListener* listener, bool useCapture);
 		bool dispatchEvent(Event* evt);
