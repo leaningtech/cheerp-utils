@@ -780,12 +780,12 @@ public:
     double getError();
     Object* getFramebufferAttachmentParameter(double, double, double);
     Object* getProgramParameter(WebGLProgram*, double);
-    //string getProgramInfoLog(WebGLProgram*);
+    String* getProgramInfoLog(WebGLProgram*);
     Object* getRenderbufferParameter(double, double);
     Object* getShaderParameter(WebGLShader*, double);
     WebGLShaderPrecisionFormat* getShaderPrecisionFormat(double, double);
     String* getShaderInfoLog(WebGLShader*);
-    //string getShaderSource(WebGLShader*);
+    String* getShaderSource(WebGLShader*);
     Object* getTexParameter(double, double);
     Object* getUniform(WebGLProgram*, WebGLUniformLocation*);
     WebGLUniformLocation* getUniformLocation(WebGLProgram*, const String&);
