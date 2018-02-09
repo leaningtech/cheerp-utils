@@ -554,4 +554,6 @@ Ret clientStub(const char* funcName, Args... args) [[cheerp::client]]
 	return cheerp::clientStubImpl<Ret, Args...>::run(funcName, static_cast<Args&&>(args)...);
 }
 
+#define CHEERP_SAFE_INLINE(r, p, x, ...) ({ struct [[cheerp::genericjs]] CheerpTmp { static r Run p { x; } }; CheerpTmp::Run(__VA_ARGS__); })
+
 #endif
