@@ -33,6 +33,9 @@ namespace [[cheerp::genericjs]] client
 template<class T>
 class TArray;
 
+class EventListener;
+class RegExp;
+
 class String: public Object
 {
 private:
@@ -75,13 +78,34 @@ public:
 	String* substring(int start) const;
 	String* substring(int start, int end) const;
 	String* replace(const String&, const String&);
+	String* replace(const String&, EventListener*);
+	String* replace(RegExp*, const String&);
+	String* replace(RegExp*, EventListener*);
 	int charCodeAt(int index) const;
+	String* charAt(int index) const;
 	int get_length() const;
 	int indexOf(const String&);
 	int indexOf(const String&, int);
+	int lastIndexOf(const String&);
+	int lastIndexOf(const String&, int);
 	TArray<String>* split(const String&) const;
+	TArray<String>* split(const String&, int limit) const;
+	TArray<String>* split(RegExp*) const;
+	TArray<String>* split(RegExp*, int limit) const;
 	static String* fromCharCode(int c) [[cheerp::static]];
-	bool endsWith(const String&);
+	bool endsWith(const String&) const;
+	int localeCompare(const String&) const;
+	TArray<String>* match(const String&) const;
+	TArray<String>* match(RegExp*) const;
+	int search(const String&) const;
+	int search(RegExp*) const;
+	String* slice(int start);
+	String* slice(int start, int end);
+	String* toLowerCase() const;
+	String* toLocaleLowerCase() const;
+	String* toUpperCase() const;
+	String* toLocaleUpperCase() const;
+	String* trim() const;
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
