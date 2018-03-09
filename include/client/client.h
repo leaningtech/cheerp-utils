@@ -546,6 +546,41 @@ struct clientStubImpl
 		return promiseUtils<Ret>::getReturn(promiseRet, r);
 	}
 };
+
+// Helper class to access the [] operator on JS array-like objects
+template<class T>
+class ArrayRef
+{
+private:
+	T* obj;
+public:
+	ArrayRef(T* o):obj(o)
+	{
+	}
+	T* operator->()
+	{
+		return obj;
+	}
+	const T* operator->() const
+	{
+		return obj;
+	}
+	decltype((*obj)[0]) operator[](int index)
+	{
+		return (*obj)[index];
+	}
+	decltype((*static_cast<const T*>(obj))[0]) operator[](int index) const
+	{
+		return (*obj)[index];
+	}
+};
+
+template<class T>
+ArrayRef<T> makeArrayRef(T* obj)
+{
+	return ArrayRef<T>(obj);
+}
+
 } //End of namespace cheerp
 
 template<typename Ret, typename ...Args>
