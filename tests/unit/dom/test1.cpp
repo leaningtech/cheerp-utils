@@ -33,4 +33,5 @@ void webMain()
 	ref3[2] = 126;
 	assertEqual(ref2[2], char(126), "Array ref 5/6");
 	assertEqual(ref3[2], char(126), "Array ref 6/6");
+	assertEqual(int(ref3->get_length()), 3, "Array ref operator->");
 }
