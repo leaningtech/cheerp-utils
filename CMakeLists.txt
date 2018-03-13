@@ -40,13 +40,8 @@ install (FILES tests/dom/dom1.cpp tests/dom/test1.html
 install (FILES tests/webgl/webgl.cpp tests/webgl/webgl.html
 	DESTINATION share/cheerp/examples/webgl )
 
-install (FILES tests/cheerp_server_stub.cpp tests/cheerp_pion_main.cpp tests/deserializer.cpp
-	DESTINATION share/cheerp/ )
-
 # include
 install (DIRECTORY include/client/
 	DESTINATION include/client/cheerp )
-install (DIRECTORY include/server/
-	DESTINATION include/server/cheerp )
 install (DIRECTORY include/common/
 	DESTINATION include/common/cheerp )
