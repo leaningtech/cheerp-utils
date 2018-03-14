@@ -87,7 +87,7 @@ WebGLUniformLocation* mvMatrixUniform;
 float mvMatrix[16];
 double lastTime;
 
-void drawCallback() [[cheerp::client]]
+void drawCallback()
 {
 	requestAnimationFrame(cheerp::Callback(drawCallback));
 
@@ -107,7 +107,7 @@ void drawCallback() [[cheerp::client]]
 	gl->uniformMatrix4fv(mvMatrixUniform, false, cheerp::MakeTypedArray(mvMatrix));
 }
 
-void loadCallback() [[cheerp::client]]
+void loadCallback()
 {
 	auto canvas=static_cast<HTMLCanvasElement*>(document.getElementById("glcanvas"));
 	gl=static_cast<WebGLRenderingContext*>(canvas->getContext("experimental-webgl"));
@@ -175,7 +175,7 @@ void loadCallback() [[cheerp::client]]
 	drawCallback();
 }
 
-int webMain() [[cheerp::client]]
+int webMain()
 {
 	document.addEventListener("DOMContentLoaded",cheerp::Callback(loadCallback));
 	return 0;
