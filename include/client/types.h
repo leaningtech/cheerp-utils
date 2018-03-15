@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2012-2016 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2012-2018 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -175,16 +175,41 @@ public:
 	{
 		return __builtin_cheerp_make_regular<Object*>(this, 0)[index];
 	}
-	int indexOf(Object* searchElement);
-	int indexOf(Object* searchElement, int fromIndex);
+	int indexOf(Object* searchElement) const;
+	int indexOf(Object* searchElement, int fromIndex) const;
+	int indexOf(double searchElement) const;
+	int indexOf(double searchElement, int fromIndex) const;
+	int lastIndexOf(Object* searchElement) const;
+	int lastIndexOf(Object* searchElement, int fromIndex) const;
+	int lastIndexOf(double searchElement) const;
+	int lastIndexOf(double searchElement, int fromIndex) const;
 	template<typename... Args>
 	int push(Args... args);
 	int get_length() const;
+	Array* splice(int start);
 	template<typename... Args>
 	Array* splice(int start, int deleteCount, Args... args);
+	Array* slice() const;
+	Array* slice(int start) const;
+	Array* slice(int start, int end) const;
 	Object* shift();
 	void unshift(client::Object*);
 	Object* pop();
+	String* toString() const;
+	String* toLocaleString() const;
+	template<typename... Args>
+	Array* concat(Args&&... args) const;
+	String* join(const String&) const;
+	Array* reverse();
+	Array* sort(EventListener* callback);
+	bool every(EventListener* callback);
+	bool some(EventListener* callback);
+	void forEach(EventListener* callback);
+	Array* map(EventListener* callback);
+	Array* filter(EventListener* callback);
+	Object* reduce(EventListener* callback);
+	Object* reduceRight(EventListener* callback);
+	static bool isArray(Object*) [[cheerp::static]];
 };
 
 template<class T>

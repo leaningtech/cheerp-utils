@@ -13,6 +13,18 @@ void webMain()
 	assertEqual((int)*(*ar)[0], 1, "JS Array 1/2");
 	assertEqual((int)*(*ar)[1], 2, "JS Array 2/2");
 
+	assertEqual(ar->indexOf(1), 0, "JS Array::indexOf 1/4");
+	assertEqual(ar->indexOf(4), -1, "JS Array::indexOf 3/4");
+	// Number object are compared for identity, so we won't find it
+	assertEqual(ar->indexOf(new client::Number(1)), -1, "JS Array::indexOf 3/4");
+	assertEqual(ar->indexOf(new client::Number(4)), -1, "JS Array::indexOf 4/4");
+
+	assertEqual(ar->join(","), new client::String("1,2,3"), "JS Array::join");
+
+	assertEqual(client::Array::isArray(ar), true, "JS Array::isArray 1/2");
+	assertEqual(client::Array::isArray(nullptr), false, "JS Array::isArray 2/2");
+	assertEqual((int)*ar->reduce(cheerp::Callback([](int val, int current) { return val+current; })), 6, "JS Array::reduce");
+
 	// Test typed array
 	client::Int8Array* ar8 = new client::Int8Array(3);
 	(*ar8)[0] = 0x7fffffff;
