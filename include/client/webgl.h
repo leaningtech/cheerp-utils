@@ -773,7 +773,7 @@ public:
     void generateMipmap(double);
     WebGLActiveInfo* getActiveAttrib(WebGLProgram*, double);
     WebGLActiveInfo* getActiveUniform(WebGLProgram*, double);
-    //WebGLShader[]* getAttachedShaders(WebGLProgram*);
+    TArray<WebGLShader>* getAttachedShaders(WebGLProgram*);
     double getAttribLocation(WebGLProgram*, const String&);
     Object* getBufferParameter(double, double);
     Object* getParameter(double);
