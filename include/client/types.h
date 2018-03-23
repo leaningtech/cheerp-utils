@@ -120,7 +120,7 @@ public:
 	{
 		client::String* out = new client::String();
 		unsigned int codepoint;
-		while (*in != 0 && len > 0)
+		while (len > 0 && *in != 0)
 		{
 			unsigned char ch = static_cast<unsigned char>(*in);
 			// ASCII range
