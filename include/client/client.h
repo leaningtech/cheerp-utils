@@ -23,7 +23,6 @@
 
 #include "cheerp/types.h"
 #include "cheerp/clientlib.h"
-#include <cheerp/promise.h>
 #include <cheerpintrin.h>
 
 #include <utility>
