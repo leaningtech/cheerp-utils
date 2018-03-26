@@ -43,5 +43,3 @@ install (FILES tests/webgl/webgl.cpp tests/webgl/webgl.html
 # include
 install (DIRECTORY include/client/
 	DESTINATION include/client/cheerp )
-install (DIRECTORY include/common/
-	DESTINATION include/common/cheerp )
