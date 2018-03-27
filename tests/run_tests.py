@@ -142,7 +142,6 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 		"-frtti",
 		"-Iunit",
 		"-cheerp-no-math-imul",
-		"-cheerp-no-math-fround",
 		"-o", outFile
 	]
 
