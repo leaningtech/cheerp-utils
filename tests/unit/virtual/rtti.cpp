@@ -146,7 +146,7 @@ void testDynamicCast()
 	assertEqual(B_bar_called, 1, "B::bar is called");
 
 	void *v = dynamic_cast<void *>(a);
-	assertEqual(!v, false, "Cast to void support 1/N");
+	assertEqual(v == a, true, "Cast to void support 1/N");
 
 	F* f = new F();
 	I* volatile i = f;
