@@ -58,7 +58,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/std/test1.cpp','unit/std/test2.cpp','unit/std/test3.cpp',
 		'unit/std/test4.cpp','unit/std/test5.cpp','unit/std/test6.cpp',
 		'unit/std/test7.cpp','unit/std/test8.cpp','unit/std/test9.cpp',
-		'unit/std/stringassign.cpp', 'unit/std/sscanf.cpp',
+		'unit/std/stringassign.cpp', 'unit/std/sscanf.cpp', 'unit/std/locale.cpp',
 		'unit/std/stdmemfuncs.cpp','unit/std/sort.cpp','unit/std/mapdestruction.cpp',
 	 'unit/bitfield/test1.cpp','unit/bitfield/test2.cpp','unit/bitfield/test3.cpp',
 		 'unit/bitfield/test4.cpp','unit/bitfield/test5.cpp',
@@ -81,7 +81,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp',
          'unit/codegen/variadic.cpp', 'unit/codegen/dynalloca.cpp', 'unit/static/test1.cpp']
 common_tests = pre_executer_tests + [
-		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/std/locale.cpp',
+		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
