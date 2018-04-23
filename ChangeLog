@@ -1,5 +1,15 @@
 Cheerp: C++ for the Web
 
+Version 2.0 RC2:
+
+	* Much improved interoperability between WebAssembly and JavaScript code
+	* Much improved compile time errors when using interoperability features
+	* Support variable length stack arrays in WebAssembly and JavaScript mode
+	* Optimize WebAssembly code generation to reduce code size
+	* Support virtual bases in WebAssembly and JavaScript mode
+	* Support runtime bounds checking in WebAssembly and JavaScript mode
+	* Introduce Identical Code Folding to remove duplicated code in WebAssembly and Asmj.js mode
+
 Version 2.0 RC1:
 
 	* Add a WebAssembly backend that produces binary and textual wasm
