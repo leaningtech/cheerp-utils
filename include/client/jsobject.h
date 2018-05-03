@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright (C) 2016 Alessandro Pignotti <alessandro@leaningtech.com>
+ * Copyright (C) 2016-2018 Alessandro Pignotti <alessandro@leaningtech.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -48,6 +48,24 @@ public:
 	bool hasOwnProperty(const client::String& name);
 	static Array* values(Object*) [[cheerp::static]];
 };
+
+}
+
+namespace cheerp
+{
+
+template<class T>
+inline int memcmp(const T* s1, const T* s2, size_t n)
+{
+	if (n == 0)
+		return 0;
+	for (size_t i=0; i<n/sizeof(T); i++)
+	{
+		if (s1[i] != s2[i])
+			return s1[i] < s2[i] ? -1 : 1;
+	}
+	return 0;
+}
 
 }
 
