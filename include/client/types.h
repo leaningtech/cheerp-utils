@@ -112,8 +112,9 @@ public:
 		//TODO: Try wstring or similar
 		std::string ret;
 		ret.resize(get_length());
+		char* ptr = &ret[0];
 		for(int i=0;i<get_length();i++)
-			ret[i] = charCodeAt(i);
+			ptr[i] = charCodeAt(i);
 		return ret;
 	}
 	static client::String* fromUtf8(const char * in, size_t len = std::numeric_limits<size_t>::max())
