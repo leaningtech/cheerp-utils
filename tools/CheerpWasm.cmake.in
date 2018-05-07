@@ -1,0 +1,8 @@
+include(Platform/CheerpCommon)
+
+SET(CMAKE_C_FLAGS_INIT "-target cheerp -cheerp-mode=wasm")
+SET(CMAKE_CXX_FLAGS_INIT "-target cheerp -cheerp-mode=wasm")
+
+set(CMAKE_EXECUTABLE_SUFFIX ".wasm")
+set(CMAKE_CXX_LINK_EXECUTABLE "<CMAKE_CXX_COMPILER> <FLAGS> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES> -cheerp-wasm-loader=<TARGET_NAME>.js")
+set(CMAKE_C_LINK_EXECUTABLE "<CMAKE_C_COMPILER> <FLAGS> <CMAKE_C_LINK_FLAGS> <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES> -cheerp-wasm-loader=<TARGET_NAME>.js")

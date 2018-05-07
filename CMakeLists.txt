@@ -19,19 +19,34 @@ install (PROGRAMS
 	DESTINATION libexec )
 	
 # tools
-configure_file (
-	"tools/Cheerp.cmake.in"
-	"${PROJECT_BINARY_DIR}/Cheerp.cmake"
-	)
-configure_file (
+SET(toolchain_files
+	"tools/CheerpToolchainCommon.cmake.in"
 	"tools/CheerpToolchain.cmake.in"
-	"${PROJECT_BINARY_DIR}/CheerpToolchain.cmake"
+	"tools/CheerpWasmToolchain.cmake.in"
 	)
-
-install (FILES "${PROJECT_BINARY_DIR}/Cheerp.cmake"
-		DESTINATION share/cmake/Modules/Platform )
-install (FILES "${PROJECT_BINARY_DIR}/CheerpToolchain.cmake"
-		DESTINATION share/cmake/Modules )
+foreach(toolchain_file ${toolchain_files})
+	get_filename_component(base ${toolchain_file} NAME_WE)
+	configure_file (
+		${toolchain_file}
+		"${PROJECT_BINARY_DIR}/${base}.cmake"
+		)
+	install (FILES "${PROJECT_BINARY_DIR}/${base}.cmake"
+			DESTINATION share/cmake/Modules/)
+endforeach()
+SET(platform_files
+	"tools/CheerpCommon.cmake.in"
+	"tools/Cheerp.cmake.in"
+	"tools/CheerpWasm.cmake.in"
+	)
+foreach(platform_file ${platform_files})
+	get_filename_component(base ${platform_file} NAME_WE)
+	configure_file (
+		${platform_file}
+		"${PROJECT_BINARY_DIR}/${base}.cmake"
+		)
+	install (FILES "${PROJECT_BINARY_DIR}/${base}.cmake"
+			DESTINATION share/cmake/Modules/Platform)
+endforeach()
 
 # tests
 install (FILES tests/dom/dom1.cpp tests/dom/test1.html
