@@ -95,6 +95,7 @@ genericjs_tests = common_tests + [
 		'unit/types/test7.cpp',
 		'unit/codegen/test20.cpp',
 		'unit/codegen/escapes.cpp',
+		'unit/codegen/advancedasm.cpp',
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
 	 ]
 asmjs_tests = common_tests + [
