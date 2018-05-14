@@ -826,14 +826,14 @@ namespace [[cheerp::genericjs]] client
 
 	class JSON: public Object{
 	public:
-		Object* parse(const String& text);
-		Object* parse(const String& text, EventListener* reviver);
-		String* stringify(Object* value);
-		String* stringify(double value);
-		String* stringify(Object* value, EventListener* replacer);
-		String* stringify(Object* value, Array* replacer);
-		String* stringify(Object* value, EventListener* replacer, Object* space);
-		String* stringify(Object* value, Array* replacer, Object* space);
+		static Object* parse(const String& text) [[cheerp::static]];
+		static Object* parse(const String& text, EventListener* reviver) [[cheerp::static]];
+		static String* stringify(Object* value) [[cheerp::static]];
+		static String* stringify(double value) [[cheerp::static]];
+		static String* stringify(Object* value, EventListener* replacer) [[cheerp::static]];
+		static String* stringify(Object* value, Array* replacer) [[cheerp::static]];
+		static String* stringify(Object* value, EventListener* replacer, Object* space) [[cheerp::static]];
+		static String* stringify(Object* value, Array* replacer, Object* space) [[cheerp::static]];
 	};
 
 	class ArrayBuffer: public Object{
