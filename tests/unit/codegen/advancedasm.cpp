@@ -17,4 +17,6 @@ void webMain()
 	client::String* s2;
 	__asm__("%0" : "=r"(s2) : "r"(s));
 	assertEqual(s2, s, "Advanced inline asm 3/3");
+	// Test clobbering
+	__asm__("var f=%0" : : "r"(3) : "f","g");
 }
