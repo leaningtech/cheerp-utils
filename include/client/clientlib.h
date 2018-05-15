@@ -8956,8 +8956,8 @@ namespace [[cheerp::genericjs]] client
 	class URL: public Object{
 	public:
 		void revokeObjectURL(const String& url);
-		static String* createObjectURL(Object* object) [[cheerp::static]];
-		static String* createObjectURL(Object* object, ObjectURLOptions* options) [[cheerp::static]];
+		String* createObjectURL(Object* object);
+		String* createObjectURL(Object* object, ObjectURLOptions* options);
 	};
 
 	class IDBCursorWithValue: public IDBCursor {
