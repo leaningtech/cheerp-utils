@@ -246,4 +246,73 @@ ArrayRef<T> makeArrayRef(T* obj)
 
 #define CHEERP_SAFE_INLINE(r, p, x, ...) ({ struct [[cheerp::genericjs]] CheerpTmp { static r Run p { x; } }; CheerpTmp::Run(__VA_ARGS__); })
 
+// Begin CHEERP_OBJECT macro
+// Make a FOREACH macro
+#define _CHEERP_ITER_0(WHAT, X)
+#define _CHEERP_ITER_1(WHAT, X) WHAT(X)
+#define _CHEERP_ITER_2(WHAT, X, ...) WHAT(X), _CHEERP_ITER_1(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_3(WHAT, X, ...) WHAT(X), _CHEERP_ITER_2(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_4(WHAT, X, ...) WHAT(X), _CHEERP_ITER_3(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_5(WHAT, X, ...) WHAT(X), _CHEERP_ITER_4(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_6(WHAT, X, ...) WHAT(X), _CHEERP_ITER_5(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_7(WHAT, X, ...) WHAT(X), _CHEERP_ITER_6(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_8(WHAT, X, ...) WHAT(X), _CHEERP_ITER_7(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_9(WHAT, X, ...) WHAT(X), _CHEERP_ITER_8(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_10(WHAT, X, ...) WHAT(X), _CHEERP_ITER_9(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_11(WHAT, X, ...) WHAT(X), _CHEERP_ITER_10(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_12(WHAT, X, ...) WHAT(X), _CHEERP_ITER_11(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_13(WHAT, X, ...) WHAT(X), _CHEERP_ITER_12(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_14(WHAT, X, ...) WHAT(X), _CHEERP_ITER_13(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_15(WHAT, X, ...) WHAT(X), _CHEERP_ITER_14(WHAT, __VA_ARGS__)
+#define _CHEERP_ITER_16(WHAT, X, ...) WHAT(X), _CHEERP_ITER_15(WHAT, __VA_ARGS__)
+//... repeat as needed
+
+#define _CHEERP_GET_MACRO(_0 \
+	,_1  \
+	,_2  \
+	,_3  \
+	,_4  \
+	,_5  \
+	,_6  \
+	,_7  \
+	,_8  \
+	,_9  \
+	,_10 \
+	,_11 \
+	,_12 \
+	,_13 \
+	,_14 \
+	,_15 \
+	,_16 \
+	,NAME,...) NAME
+#define _CHEERP_FOR_EACH(action,...) \
+	_CHEERP_GET_MACRO(_0, ##__VA_ARGS__ \
+		,_CHEERP_ITER_16 \
+		,_CHEERP_ITER_15 \
+		,_CHEERP_ITER_14 \
+		,_CHEERP_ITER_13 \
+		,_CHEERP_ITER_12 \
+		,_CHEERP_ITER_11 \
+		,_CHEERP_ITER_10 \
+		,_CHEERP_ITER_9  \
+		,_CHEERP_ITER_8  \
+		,_CHEERP_ITER_7  \
+		,_CHEERP_ITER_6  \
+		,_CHEERP_ITER_5  \
+		,_CHEERP_ITER_4  \
+		,_CHEERP_ITER_3  \
+		,_CHEERP_ITER_2  \
+		,_CHEERP_ITER_1  \
+		,_CHEERP_ITER_0  \
+	)(action,__VA_ARGS__)
+
+
+#define _CHEERP_STRING_VALUE(...) _CHEERP_STRING_VALUE__(__VA_ARGS__)
+#define _CHEERP_STRING_VALUE__(...) #__VA_ARGS__
+
+#define _CHEERP_FIELD(x) x :%[_## x ##_]
+#define _CHEERP_REG(x) [_## x ##_]"r"(x)
+#define CHEERP_OBJECT(...) ({client::Object* r;__asm__("{" _CHEERP_STRING_VALUE(_CHEERP_FOR_EACH(_CHEERP_FIELD, __VA_ARGS__)) "}" : "=r"(r) : _CHEERP_FOR_EACH(_CHEERP_REG, __VA_ARGS__));r;})
+// End CHEERP_OBJECT macro
+
 #endif
