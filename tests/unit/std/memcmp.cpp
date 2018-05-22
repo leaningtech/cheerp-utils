@@ -4,6 +4,7 @@
 
 #include <tests.h>
 #include <string.h>
+#include <cheerp/memory.h>
 
 void webMain()
 {
