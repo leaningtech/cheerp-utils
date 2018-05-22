@@ -193,7 +193,10 @@ T* MakeTypedArray(const void* ptr, size_t size=0)
 	if(size==0)
 		return new T(buf->get_buffer(), offset*elementSize);
 	else
-		return new T(buf->get_buffer(), offset*elementSize, size/elementSize);
+	{
+		size_t newElementSize = sizeof((*((T*)nullptr))[0]);
+		return new T(buf->get_buffer(), offset*elementSize, size/newElementSize);
+	}
 }
 
 inline client::ArrayBufferView* MakeArrayBufferView(const void* ptr, size_t size=0)
