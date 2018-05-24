@@ -29,8 +29,13 @@ namespace [[cheerp::genericjs]] client
 	class PropertyDescriptor;
 	class PropertyDescriptorMap;
 	class IArguments;
+	template<class T>
+	class ReadonlyArray;
+	class TemplateStringsArray;
+	class ImportMeta;
 	class Math;
 	class Date;
+	class RegExpMatchArray;
 	class RegExpExecArray;
 	class RegExp;
 	class Error;
@@ -42,8 +47,6 @@ namespace [[cheerp::genericjs]] client
 	class URIError;
 	class JSON;
 	template<class T>
-	class ReadonlyArray;
-	template<class T>
 	class ConcatArray;
 	template<class T>
 	class TypedPropertyDescriptor;
@@ -52,6 +55,7 @@ namespace [[cheerp::genericjs]] client
 	template<class T>
 	class ThisType;
 	class ArrayBuffer;
+	class ArrayBufferTypes;
 	class ArrayBufferView;
 	class DataView;
 	class Int8Array;
@@ -71,43 +75,124 @@ namespace [[cheerp::genericjs]] client
 	class AesCtrParams;
 	class AesDerivedKeyParams;
 	class AesGcmParams;
+	class KeyAlgorithm;
+	class AesKeyAlgorithm;
 	class AesKeyGenParams;
+	class AudioNodeOptions;
+	class AnalyserOptions;
 	class EventInit;
 	class AnimationEventInit;
 	class AssertionOptions;
+	class AudioBufferOptions;
+	class AudioBufferSourceOptions;
+	class AudioContextInfo;
+	class AudioContextOptions;
+	class AudioParamDescriptor;
+	class AudioProcessingEventInit;
+	class AudioTimestamp;
+	class BiquadFilterOptions;
+	class ByteLengthChunk;
 	class CacheQueryOptions;
+	class ChannelMergerOptions;
+	class ChannelSplitterOptions;
+	class ClientData;
+	class ClientQueryOptions;
 	class CloseEventInit;
 	class UIEventInit;
 	class CompositionEventInit;
 	class ExceptionInformation;
 	class ConfirmSiteSpecificExceptionsInformation;
+	class ConstantSourceOptions;
+	class ConstrainBooleanParameters;
+	class ConstrainDOMStringParameters;
+	class DoubleRange;
+	class ConstrainDoubleRange;
+	class LongRange;
+	class ConstrainLongRange;
+	class ConstrainVideoFacingModeParameters;
+	class ConvolverOptions;
 	template<class T>
 	class CustomEventInit;
+	class DOMRectInit;
+	class DelayOptions;
 	class DeviceAccelerationDict;
+	class DeviceLightEventInit;
 	class DeviceMotionEventInit;
 	class DeviceOrientationEventInit;
 	class DeviceRotationRateDict;
+	class DynamicsCompressorOptions;
+	class EcKeyAlgorithm;
 	class EcKeyGenParams;
 	class EcKeyImportParams;
 	class EcdhKeyDeriveParams;
 	class EcdsaParams;
 	class ErrorEventInit;
 	class EventModifierInit;
+	class ExtendableEventInit;
+	class ExtendableMessageEventInit;
+	class FetchEventInit;
 	class FocusEventInit;
+	class FocusNavigationEventInit;
+	class FocusNavigationOrigin;
+	class GainOptions;
+	class GamepadEventInit;
 	class GetNotificationOptions;
+	class HashChangeEventInit;
 	class HkdfParams;
 	class HmacImportParams;
+	class HmacKeyAlgorithm;
 	class HmacKeyGenParams;
 	class IDBIndexParameters;
 	class IDBObjectStoreParameters;
+	class IIRFilterOptions;
+	class IntersectionObserverEntryInit;
+	class IntersectionObserverInit;
 	class JsonWebKey;
-	class KeyAlgorithm;
 	class KeyboardEventInit;
 	class MSAccountInfo;
+	class RTCStats;
+	class MSLocalClientEventBase;
+	class MSAudioLocalClientEvent;
+	class MSPayloadBase;
+	class MSAudioRecvPayload;
+	class MSAudioRecvSignal;
+	class MSAudioSendPayload;
+	class MSAudioSendSignal;
+	class MSConnectivity;
 	class MSCredentialFilter;
+	class MSCredentialParameters;
+	class MSCredentialSpec;
+	class MSDCCEventInit;
+	class MSDSHEventInit;
+	class MSDelay;
+	class MSDescription;
+	class MSFIDOCredentialParameters;
+	class MSIPAddressInfo;
+	class MSIceWarningFlags;
+	class MSJitter;
+	class MSNetwork;
+	class MSNetworkConnectivityInfo;
+	class MSNetworkInterfaceType;
+	class MSOutboundNetwork;
+	class MSPacketLoss;
+	class MSPortRange;
+	class MSRelayAddress;
 	class MSSignatureParameters;
+	class MSTransportDiagnosticsStats;
+	class MSUtilization;
+	class MSVideoPayload;
+	class MSVideoRecvPayload;
+	class MSVideoResolutionDistribution;
+	class MSVideoSendPayload;
+	class MediaElementAudioSourceOptions;
+	class MediaEncryptedEventInit;
+	class MediaKeyMessageEventInit;
 	class MediaKeySystemConfiguration;
+	class MediaKeySystemMediaCapability;
 	class MediaStreamConstraints;
+	class MediaStreamErrorEventInit;
+	class MediaStreamEventInit;
+	class MediaStreamTrackEventInit;
 	class MediaTrackCapabilities;
 	class MediaTrackConstraintSet;
 	class MediaTrackConstraints;
@@ -117,54 +202,152 @@ namespace [[cheerp::genericjs]] client
 	class MouseEventInit;
 	class MsZoomToOptions;
 	class MutationObserverInit;
+	class NotificationEventInit;
 	class NotificationOptions;
 	class ObjectURLOptions;
+	class OfflineAudioCompletionEventInit;
+	class OscillatorOptions;
+	class PannerOptions;
+	class PaymentCurrencyAmount;
+	class PaymentDetailsBase;
+	class PaymentDetailsInit;
+	class PaymentDetailsModifier;
+	class PaymentDetailsUpdate;
+	class PaymentItem;
+	class PaymentMethodData;
+	class PaymentOptions;
+	class PaymentRequestUpdateEventInit;
+	class PaymentShippingOption;
 	class Pbkdf2Params;
+	class PeriodicWaveConstraints;
+	class PeriodicWaveOptions;
 	class PointerEventInit;
 	class PopStateEventInit;
 	class PositionOptions;
 	class ProgressEventInit;
+	class PushEventInit;
+	class PushSubscriptionChangeInit;
 	class PushSubscriptionOptionsInit;
+	class QueuingStrategy;
+	class RTCConfiguration;
+	class RTCDTMFToneChangeEventInit;
+	class RTCDtlsFingerprint;
+	class RTCDtlsParameters;
+	class RTCIceCandidateAttributes;
+	class RTCIceCandidateComplete;
+	class RTCIceCandidateDictionary;
+	class RTCIceCandidateInit;
+	class RTCIceCandidatePair;
+	class RTCIceCandidatePairStats;
+	class RTCIceGatherOptions;
+	class RTCIceParameters;
+	class RTCIceServer;
+	class RTCRTPStreamStats;
+	class RTCInboundRTPStreamStats;
+	class RTCMediaStreamTrackStats;
+	class RTCOfferOptions;
+	class RTCOutboundRTPStreamStats;
+	class RTCPeerConnectionIceEventInit;
+	class RTCRtcpFeedback;
+	class RTCRtcpParameters;
+	class RTCRtpCapabilities;
+	class RTCRtpCodecCapability;
+	class RTCRtpCodecParameters;
+	class RTCRtpContributingSource;
+	class RTCRtpEncodingParameters;
+	class RTCRtpFecParameters;
+	class RTCRtpHeaderExtension;
+	class RTCRtpHeaderExtensionParameters;
+	class RTCRtpParameters;
+	class RTCRtpRtxParameters;
+	class RTCRtpUnhandled;
+	class RTCSessionDescriptionInit;
+	class RTCSrtpKeyParam;
+	class RTCSrtpSdesParameters;
+	class RTCSsrcRange;
+	class RTCStatsReport;
+	class RTCTransportStats;
 	class RegistrationOptions;
 	class RequestInit;
 	class ResponseInit;
 	class RsaHashedImportParams;
+	class RsaKeyAlgorithm;
+	class RsaHashedKeyAlgorithm;
 	class RsaKeyGenParams;
 	class RsaHashedKeyGenParams;
 	class RsaOaepParams;
+	class RsaOtherPrimesInfo;
 	class RsaPssParams;
+	class ScopedCredentialDescriptor;
 	class ScopedCredentialOptions;
+	class ScopedCredentialParameters;
+	class SecurityPolicyViolationEventInit;
+	class ServiceWorkerMessageEventInit;
+	class SpeechSynthesisEventInit;
+	class StereoPannerOptions;
 	class StoreExceptionsInformation;
 	class StoreSiteSpecificExceptionsInformation;
+	class SyncEventInit;
+	class TextDecodeOptions;
+	class TextDecoderOptions;
 	class TrackEventInit;
 	class TransitionEventInit;
+	class UnderlyingSink;
+	class VRDisplayEventInit;
+	class VRLayer;
 	class VRStageParameters;
+	class WaveShaperOptions;
 	class WebAuthnExtensions;
 	class WheelEventInit;
 	class EventListener;
+	class ANGLE_instanced_arrays;
+	class AbortController;
+	class AbortSignalEventMap;
 	class EventTarget;
 	class AbortSignal;
+	class AbstractWorkerEventMap;
 	class AbstractWorker;
 	class AesCfbParams;
 	class AesCmacParams;
+	class AudioNode;
+	class AnalyserNode;
 	class Animation;
 	class AnimationEffectReadOnly;
 	class Event;
 	class AnimationEvent;
 	class AnimationKeyFrame;
 	class AnimationOptions;
+	class AnimationPlaybackEvent;
+	class AnimationPlaybackEventInit;
 	class AnimationTimeline;
+	class ApplicationCacheEventMap;
 	class ApplicationCache;
 	class AssignedNodesOptions;
 	class Node;
 	class Attr;
+	class AudioBuffer;
+	class AudioBufferSourceNodeEventMap;
+	class AudioBufferSourceNode;
+	class AudioContextEventMap;
+	class AudioContextBase;
+	class AudioContext;
+	class AudioDestinationNode;
+	class AudioListener;
+	class AudioParam;
+	class AudioProcessingEvent;
 	class AudioTrack;
+	class AudioTrackListEventMap;
 	class AudioTrackList;
 	class BarProp;
 	class BeforeUnloadEvent;
+	class BhxBrowser;
+	class BiquadFilterNode;
 	class Blob;
 	class BlobPropertyBag;
 	class Body;
+	class BroadcastChannel;
+	class BroadcastChannelEventMap;
+	class ByteLengthQueuingStrategy;
 	class ChildNode;
 	class CharacterData;
 	class Text;
@@ -185,14 +368,20 @@ namespace [[cheerp::genericjs]] client
 	class CSSStyleRule;
 	class StyleSheet;
 	class CSSStyleSheet;
+	class CSSSupportsRule;
 	class Cache;
 	class CacheStorage;
+	class Canvas2DContextAttributes;
 	class CanvasGradient;
 	class CanvasPathMethods;
 	class CanvasPattern;
 	class CanvasRenderingContext2D;
+	class ChannelMergerNode;
+	class ChannelSplitterNode;
 	class ClientRect;
 	class ClientRectList;
+	class ClipboardEvent;
+	class ClipboardEventInit;
 	class CloseEvent;
 	class Comment;
 	class UIEvent;
@@ -200,7 +389,10 @@ namespace [[cheerp::genericjs]] client
 	class ComputedTimingProperties;
 	class ConcatParams;
 	class Console;
+	class ContentScriptGlobalScope;
+	class ConvolverNode;
 	class Coordinates;
+	class CountQueuingStrategy;
 	class Crypto;
 	class CryptoKey;
 	class CryptoKeyPair;
@@ -213,20 +405,31 @@ namespace [[cheerp::genericjs]] client
 	class DOML2DeprecatedColorProperty;
 	class DOML2DeprecatedSizeProperty;
 	class DOMParser;
+	class DOMRectReadOnly;
+	class DOMRect;
+	class DOMRectList;
 	class DOMTokenList;
 	class DOMSettableTokenList;
 	class DOMStringList;
 	class DOMStringMap;
+	class TextTrackCue;
+	class DataCue;
 	class DataTransfer;
 	class DataTransferItem;
 	class DataTransferItemList;
+	class DeferredPermissionRequest;
+	class DelayNode;
 	class DeviceAcceleration;
+	class DeviceLightEvent;
 	class DeviceMotionEvent;
 	class DeviceOrientationEvent;
 	class DeviceRotationRate;
 	class DhImportKeyParams;
+	class DhKeyAlgorithm;
 	class DhKeyDeriveParams;
 	class DhKeyGenParams;
+	class GlobalEventHandlersEventMap;
+	class DocumentEventMap;
 	class GlobalEventHandlers;
 	class ParentNode;
 	class DocumentEvent;
@@ -236,7 +439,13 @@ namespace [[cheerp::genericjs]] client
 	class DocumentType;
 	class MouseEvent;
 	class DragEvent;
+	class DynamicsCompressorNode;
+	class EXT_blend_minmax;
+	class EXT_frag_depth;
+	class EXT_sRGB;
+	class EXT_shader_texture_lod;
 	class EXT_texture_filter_anisotropic;
+	class ElementEventMap;
 	class ElementTraversal;
 	class Element;
 	class ElementCSSInlineStyle;
@@ -244,14 +453,26 @@ namespace [[cheerp::genericjs]] client
 	class ElementDefinitionOptions;
 	class ErrorEvent;
 	class EventListenerObject;
+	class EventSource;
+	class EventSourceInit;
 	class ExtensionScriptApis;
 	class External;
 	class File;
 	class FileList;
 	class FilePropertyBag;
+	class FileReaderEventMap;
 	class FileReader;
+	class ProgressEvent;
+	class FileReaderProgressEvent;
 	class FocusEvent;
+	class FocusNavigationEvent;
 	class FormData;
+	class GainNode;
+	class Gamepad;
+	class GamepadButton;
+	class GamepadEvent;
+	class GamepadHapticActuator;
+	class GamepadPose;
 	class Geolocation;
 	class GetSVGDocument;
 	class GlobalFetch;
@@ -268,6 +489,9 @@ namespace [[cheerp::genericjs]] client
 	class HTMLBRElement;
 	class HTMLBaseElement;
 	class HTMLBaseFontElement;
+	class HTMLElementEventMap;
+	class WindowEventHandlersEventMap;
+	class HTMLBodyElementEventMap;
 	class WindowEventHandlers;
 	class HTMLBodyElement;
 	class HTMLButtonElement;
@@ -276,7 +500,10 @@ namespace [[cheerp::genericjs]] client
 	template<class T>
 	class HTMLCollectionOf;
 	class HTMLDListElement;
+	class HTMLDataElement;
 	class HTMLDataListElement;
+	class HTMLDetailsElement;
+	class HTMLDialogElement;
 	class HTMLDirectoryElement;
 	class HTMLDivElement;
 	class HTMLDocument;
@@ -285,12 +512,15 @@ namespace [[cheerp::genericjs]] client
 	class HTMLFontElement;
 	class HTMLFormControlsCollection;
 	class HTMLFormElement;
+	class HTMLFrameElementEventMap;
 	class HTMLFrameElement;
+	class HTMLFrameSetElementEventMap;
 	class HTMLFrameSetElement;
 	class HTMLHRElement;
 	class HTMLHeadElement;
 	class HTMLHeadingElement;
 	class HTMLHtmlElement;
+	class HTMLIFrameElementEventMap;
 	class HTMLIFrameElement;
 	class HTMLImageElement;
 	class HTMLInputElement;
@@ -299,18 +529,24 @@ namespace [[cheerp::genericjs]] client
 	class HTMLLegendElement;
 	class LinkStyle;
 	class HTMLLinkElement;
+	class HTMLMainElement;
 	class HTMLMapElement;
+	class HTMLMarqueeElementEventMap;
 	class HTMLMarqueeElement;
+	class HTMLMediaElementEventMap;
 	class HTMLMenuElement;
 	class HTMLMetaElement;
+	class HTMLMeterElement;
 	class HTMLModElement;
 	class HTMLOListElement;
 	class HTMLObjectElement;
 	class HTMLOptGroupElement;
 	class HTMLOptionElement;
 	class HTMLOptionsCollection;
+	class HTMLOutputElement;
 	class HTMLParagraphElement;
 	class HTMLParamElement;
+	class HTMLPictureElement;
 	class HTMLPreElement;
 	class HTMLProgressElement;
 	class HTMLQuoteElement;
@@ -320,6 +556,7 @@ namespace [[cheerp::genericjs]] client
 	class HTMLSourceElement;
 	class HTMLSpanElement;
 	class HTMLStyleElement;
+	class HTMLSummaryElement;
 	class HTMLTableCaptionElement;
 	class HTMLTableCellElement;
 	class HTMLTableColElement;
@@ -328,40 +565,59 @@ namespace [[cheerp::genericjs]] client
 	class HTMLTableHeaderCellElement;
 	class HTMLTableRowElement;
 	class HTMLTableSectionElement;
+	class HTMLTemplateElement;
 	class HTMLTextAreaElement;
+	class HTMLTimeElement;
 	class HTMLTitleElement;
 	class HTMLTrackElement;
 	class HTMLUListElement;
 	class HTMLUnknownElement;
+	class HTMLVideoElementEventMap;
 	class HTMLVideoElement;
+	class HTMLegendElement;
+	class HashChangeEvent;
 	class Headers;
 	class History;
 	class HkdfCtrParams;
 	class IDBArrayKey;
 	class IDBCursor;
 	class IDBCursorWithValue;
+	class IDBDatabaseEventMap;
 	class IDBDatabase;
 	class IDBEnvironment;
 	class IDBFactory;
 	class IDBIndex;
 	class IDBKeyRange;
 	class IDBObjectStore;
+	class IDBRequestEventMap;
+	class IDBOpenDBRequestEventMap;
 	class IDBRequest;
 	class IDBOpenDBRequest;
+	class IDBTransactionEventMap;
 	class IDBTransaction;
 	class IDBVersionChangeEvent;
+	class IIRFilterNode;
 	class ImageBitmap;
 	class ImageBitmapOptions;
 	class ImageData;
+	class IntersectionObserver;
+	class IntersectionObserverEntry;
 	class KeyboardEvent;
+	class ListeningStateChangedEvent;
 	class Location;
 	class MSAssertion;
 	class MSBlobBuilder;
 	class MSCredentials;
+	class MSDCCEvent;
+	class MSDSHEvent;
+	class MSFIDOCredentialAssertion;
+	class MSFIDOSignature;
+	class MSFIDOSignatureAssertion;
 	class MSFileSaver;
 	class MSGesture;
 	class MSGestureEvent;
 	class MSGraphicsTrust;
+	class MSInputMethodContextEventMap;
 	class MSInputMethodContext;
 	class MSMediaKeyError;
 	class MSMediaKeyMessageEvent;
@@ -371,9 +627,15 @@ namespace [[cheerp::genericjs]] client
 	class MSNavigatorDoNotTrack;
 	class MSPointerEvent;
 	class MSStream;
+	class MSStreamReaderEventMap;
 	class MSStreamReader;
+	class MediaDeviceInfo;
+	class MediaDevicesEventMap;
 	class MediaDevices;
+	class MediaElementAudioSourceNode;
+	class MediaEncryptedEvent;
 	class MediaError;
+	class MediaKeyMessageEvent;
 	class MediaKeySession;
 	class MediaKeyStatusMap;
 	class MediaKeySystemAccess;
@@ -381,10 +643,18 @@ namespace [[cheerp::genericjs]] client
 	class MediaList;
 	class MediaQueryList;
 	class MediaSource;
+	class MediaStreamEventMap;
 	class MediaStream;
+	class MediaStreamAudioSourceNode;
+	class MediaStreamError;
+	class MediaStreamErrorEvent;
+	class MediaStreamEvent;
+	class MediaStreamTrackEventMap;
 	class MediaStreamTrack;
+	class MediaStreamTrackEvent;
 	class MessageChannel;
 	class MessageEvent;
+	class MessagePortEventMap;
 	class MessagePort;
 	class MimeType;
 	class MimeTypeArray;
@@ -407,11 +677,22 @@ namespace [[cheerp::genericjs]] client
 	template<class TNode>
 	class NodeListOf;
 	class NodeSelector;
-	class OES_standard_derivatives;
-	class OES_texture_float;
-	class OES_texture_float_linear;
+	class NotificationEventMap;
+	class Notification;
+	class OfflineAudioCompletionEvent;
+	class OfflineAudioContextEventMap;
+	class OfflineAudioContext;
+	class OscillatorNodeEventMap;
+	class OscillatorNode;
+	class OverflowEvent;
 	class PageTransitionEvent;
+	class PannerNode;
 	class Path2D;
+	class PaymentAddress;
+	class PaymentRequestEventMap;
+	class PaymentRequest;
+	class PaymentRequestUpdateEvent;
+	class PaymentResponse;
 	class PerfWidgetExternal;
 	class Performance;
 	class PerformanceEntry;
@@ -421,6 +702,9 @@ namespace [[cheerp::genericjs]] client
 	class PerformanceNavigationTiming;
 	class PerformanceResourceTiming;
 	class PerformanceTiming;
+	class PeriodicWave;
+	class PermissionRequest;
+	class PermissionRequestedEvent;
 	class Plugin;
 	class PluginArray;
 	class PointerEvent;
@@ -428,10 +712,37 @@ namespace [[cheerp::genericjs]] client
 	class Position;
 	class PositionError;
 	class ProcessingInstruction;
-	class ProgressEvent;
+	class PromiseRejectionEvent;
+	class PromiseRejectionEventInit;
 	class PushManager;
 	class PushSubscription;
 	class PushSubscriptionOptions;
+	class RTCDTMFToneChangeEvent;
+	class RTCDtlsTransportEventMap;
+	class RTCStatsProvider;
+	class RTCDtlsTransport;
+	class RTCDtlsTransportStateChangedEvent;
+	class RTCDtmfSenderEventMap;
+	class RTCDtmfSender;
+	class RTCIceCandidate;
+	class RTCIceCandidatePairChangedEvent;
+	class RTCIceGathererEventMap;
+	class RTCIceGatherer;
+	class RTCIceGathererEvent;
+	class RTCIceTransportEventMap;
+	class RTCIceTransport;
+	class RTCIceTransportStateChangedEvent;
+	class RTCPeerConnectionEventMap;
+	class RTCPeerConnection;
+	class RTCPeerConnectionIceEvent;
+	class RTCRtpReceiverEventMap;
+	class RTCRtpReceiver;
+	class RTCRtpSenderEventMap;
+	class RTCRtpSender;
+	class RTCSessionDescription;
+	class RTCSrtpSdesTransportEventMap;
+	class RTCSrtpSdesTransport;
+	class RTCSsrcConflictEvent;
 	class RandomSource;
 	class Range;
 	class ReadableStream;
@@ -463,6 +774,7 @@ namespace [[cheerp::genericjs]] client
 	class SVGComponentTransferFunctionElement;
 	class SVGDefsElement;
 	class SVGDescElement;
+	class SVGElementEventMap;
 	class SVGElementInstance;
 	class SVGElementInstanceList;
 	class SVGEllipseElement;
@@ -493,6 +805,7 @@ namespace [[cheerp::genericjs]] client
 	class SVGFETurbulenceElement;
 	class SVGFilterElement;
 	class SVGFitToViewBox;
+	class SVGForeignObjectElement;
 	class SVGGElement;
 	class SVGGradientElement;
 	class SVGImageElement;
@@ -537,6 +850,7 @@ namespace [[cheerp::genericjs]] client
 	class SVGRadialGradientElement;
 	class SVGRect;
 	class SVGRectElement;
+	class SVGSVGElementEventMap;
 	class SVGZoomAndPan;
 	class SVGSVGElement;
 	class SVGScriptElement;
@@ -559,22 +873,34 @@ namespace [[cheerp::genericjs]] client
 	class SVGZoomEvent;
 	class ScopedCredential;
 	class ScopedCredentialInfo;
+	class ScreenEventMap;
 	class Screen;
+	class ScriptProcessorNodeEventMap;
+	class ScriptProcessorNode;
 	class ScrollOptions;
 	class ScrollIntoViewOptions;
 	class ScrollToOptions;
+	class SecurityPolicyViolationEvent;
 	class Selection;
 	class ServiceUIFrameContext;
+	class ServiceWorkerEventMap;
 	class ServiceWorker;
+	class ServiceWorkerContainerEventMap;
 	class ServiceWorkerContainer;
+	class ServiceWorkerMessageEvent;
+	class ServiceWorkerRegistrationEventMap;
 	class ServiceWorkerRegistration;
 	class ShadowRoot;
 	class ShadowRootInit;
 	class SourceBuffer;
 	class SourceBufferList;
+	class SpeechSynthesisEventMap;
 	class SpeechSynthesis;
+	class SpeechSynthesisEvent;
+	class SpeechSynthesisUtteranceEventMap;
 	class SpeechSynthesisUtterance;
 	class SpeechSynthesisVoice;
+	class StereoPannerNode;
 	class Storage;
 	class StorageEvent;
 	class StorageEventInit;
@@ -582,11 +908,15 @@ namespace [[cheerp::genericjs]] client
 	class StyleSheetList;
 	class SubtleCrypto;
 	class SyncManager;
+	class TextDecoder;
+	class TextEncoder;
 	class TextEvent;
 	class TextMetrics;
+	class TextTrackEventMap;
 	class TextTrack;
-	class TextTrackCue;
+	class TextTrackCueEventMap;
 	class TextTrackCueList;
+	class TextTrackListEventMap;
 	class TextTrackList;
 	class TimeRanges;
 	class Touch;
@@ -600,6 +930,7 @@ namespace [[cheerp::genericjs]] client
 	class URLSearchParams;
 	class VRDisplay;
 	class VRDisplayCapabilities;
+	class VRDisplayEvent;
 	class VREyeParameters;
 	class VRFieldOfView;
 	class VRFrameData;
@@ -607,13 +938,22 @@ namespace [[cheerp::genericjs]] client
 	class ValidityState;
 	class VideoPlaybackQuality;
 	class VideoTrack;
+	class VideoTrackListEventMap;
 	class VideoTrackList;
-	class WEBGL_compressed_texture_s3tc;
+	class WaveShaperNode;
 	class WebAuthentication;
 	class WebAuthnAssertion;
+	class WebKitCSSMatrix;
+	class WebKitEntry;
+	class WebKitDirectoryEntry;
+	class WebKitDirectoryReader;
+	class WebKitFileEntry;
+	class WebKitFileSystem;
 	class WebKitPoint;
+	class WebSocketEventMap;
 	class WebSocket;
 	class WheelEvent;
+	class WindowEventMap;
 	class WindowTimersExtension;
 	class WindowTimers;
 	class WindowSessionStorage;
@@ -621,23 +961,55 @@ namespace [[cheerp::genericjs]] client
 	class WindowConsole;
 	class WindowBase64;
 	class Window;
+	class WorkerEventMap;
 	class Worker;
+	class WritableStream;
+	class WritableStreamDefaultController;
+	class WritableStreamDefaultWriter;
 	class XMLDocument;
+	class XMLHttpRequestEventTargetEventMap;
+	class XMLHttpRequestEventMap;
 	class XMLHttpRequestEventTarget;
 	class XMLHttpRequest;
 	class XMLHttpRequestUpload;
 	class XMLSerializer;
+	class XPathEvaluator;
 	class XPathExpression;
 	class XPathNSResolver;
 	class XPathResult;
+	class XSLTProcessor;
+	class webkitRTCPeerConnection;
+	class DecodeErrorCallback;
+	class DecodeSuccessCallback;
 	class ErrorEventHandler;
+	class EventHandlerNonNull;
+	class ForEachCallback;
 	class FrameRequestCallback;
+	class FunctionStringCallback;
+	class IntersectionObserverCallback;
 	class MSLaunchUriCallback;
 	class MediaQueryListListener;
 	class MutationCallback;
+	class NavigatorUserMediaErrorCallback;
+	class NavigatorUserMediaSuccessCallback;
+	class NotificationPermissionCallback;
 	class PositionCallback;
 	class PositionErrorCallback;
+	class RTCPeerConnectionErrorCallback;
+	class RTCSessionDescriptionCallback;
+	class RTCStatsCallback;
+	class VoidFunction;
+	class WritableStreamChunkCallback;
+	class WritableStreamDefaultControllerCallback;
+	class WritableStreamErrorCallback;
+	class HTMLElementTagNameMap;
+	class SVGElementTagNameMap;
+	class ElementTagNameMap;
 	class ActiveXObject;
+	class ITextWriter;
+	class TextStreamBase;
+	class TextStreamWriter;
+	class TextStreamReader;
 	class PropertyDescriptor: public Object{
 	public:
 		bool get_configurable();
@@ -678,6 +1050,60 @@ namespace [[cheerp::genericjs]] client
 		void set_length(double);
 		Function* get_callee();
 		void set_callee(Function*);
+	};
+
+	template<class T>
+	class ReadonlyArray: public Object{
+	public:
+		double get_length();
+		String* toString();
+		String* toLocaleString();
+		template<typename... Args> Array* concat(Args&&... items) { return concat(static_cast<Object*>(static_cast<Args&&>(items))...); }
+		Array* concat();
+		String* join();
+		String* join(const String& separator);
+		Array* slice();
+		Array* slice(double start);
+		Array* slice(double start, double end);
+		double indexOf(T* searchElement);
+		double indexOf(T* searchElement, double fromIndex);
+		double lastIndexOf(T* searchElement);
+		double lastIndexOf(T* searchElement, double fromIndex);
+		bool every(EventListener* callbackfn);
+		bool every(EventListener* callbackfn, Object* thisArg);
+		bool some(EventListener* callbackfn);
+		bool some(EventListener* callbackfn, Object* thisArg);
+		void forEach(EventListener* callbackfn);
+		void forEach(EventListener* callbackfn, Object* thisArg);
+		template<class U> Array* map(EventListener* callbackfn);
+		template<class U> Array* map(EventListener* callbackfn, Object* thisArg);
+		Array* filter(EventListener* callbackfn);
+		Array* filter(EventListener* callbackfn, Object* thisArg);
+		T* reduce(EventListener* callbackfn);
+		T* reduce(EventListener* callbackfn, T* initialValue);
+		template<class U> U* reduce(EventListener* callbackfn, U* initialValue);
+		T* reduceRight(EventListener* callbackfn);
+		T* reduceRight(EventListener* callbackfn, T* initialValue);
+		template<class U> U* reduceRight(EventListener* callbackfn, U* initialValue);
+		T*& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<T*>(this, 0)[index];
+		}
+		T* operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<T*>(this, 0)[index];
+		}
+	private:
+		template<typename... Args> Array* concat(Object*, Args&&... items);
+	};
+
+	class TemplateStringsArray: public ReadonlyArray<String> {
+	public:
+		ReadonlyArray<String>* get_raw();
+	};
+
+	class ImportMeta: public Object{
+	public:
 	};
 
 	class Math: public Object{
@@ -801,6 +1227,14 @@ namespace [[cheerp::genericjs]] client
 		static double now() [[cheerp::static]];
 	};
 
+	class RegExpMatchArray: public Array {
+	public:
+		double get_index();
+		void set_index(double);
+		String* get_input();
+		void set_input(const String&);
+	};
+
 	class RegExpExecArray: public Array {
 	public:
 		double get_index();
@@ -906,51 +1340,6 @@ namespace [[cheerp::genericjs]] client
 	};
 
 	template<class T>
-	class ReadonlyArray: public Object{
-	public:
-		double get_length();
-		String* toString();
-		String* toLocaleString();
-		template<typename... Args> Array* concat(Args&&... items) { return concat(static_cast<Object*>(static_cast<Args&&>(items))...); }
-		Array* concat();
-		String* join();
-		String* join(const String& separator);
-		Array* slice();
-		Array* slice(double start);
-		Array* slice(double start, double end);
-		double indexOf(T* searchElement);
-		double indexOf(T* searchElement, double fromIndex);
-		double lastIndexOf(T* searchElement);
-		double lastIndexOf(T* searchElement, double fromIndex);
-		bool every(EventListener* callbackfn);
-		bool every(EventListener* callbackfn, Object* thisArg);
-		bool some(EventListener* callbackfn);
-		bool some(EventListener* callbackfn, Object* thisArg);
-		void forEach(EventListener* callbackfn);
-		void forEach(EventListener* callbackfn, Object* thisArg);
-		template<class U> Array* map(EventListener* callbackfn);
-		template<class U> Array* map(EventListener* callbackfn, Object* thisArg);
-		Array* filter(EventListener* callbackfn);
-		Array* filter(EventListener* callbackfn, Object* thisArg);
-		T* reduce(EventListener* callbackfn);
-		T* reduce(EventListener* callbackfn, T* initialValue);
-		template<class U> U* reduce(EventListener* callbackfn, U* initialValue);
-		T* reduceRight(EventListener* callbackfn);
-		T* reduceRight(EventListener* callbackfn, T* initialValue);
-		template<class U> U* reduceRight(EventListener* callbackfn, U* initialValue);
-		T*& operator[](int index)
-		{
-			return __builtin_cheerp_make_regular<T*>(this, 0)[index];
-		}
-		T* operator[](int index) const
-		{
-			return __builtin_cheerp_make_regular<T*>(this, 0)[index];
-		}
-	private:
-		template<typename... Args> Array* concat(Object*, Args&&... items);
-	};
-
-	template<class T>
 	class ConcatArray: public Object{
 	public:
 		double get_length();
@@ -989,11 +1378,11 @@ namespace [[cheerp::genericjs]] client
 	template<class T>
 	class Promise: public Object{
 	public:
-		template<class TResult1, class TResult2> Promise<Object*>* then();
-		template<class TResult1, class TResult2> Promise<Object*>* then(EventListener* onfulfilled);
-		template<class TResult1, class TResult2> Promise<Object*>* then(EventListener* onfulfilled, EventListener* onrejected);
-		template<class TResult> Promise<Object*>* _catch();
-		template<class TResult> Promise<Object*>* _catch(EventListener* onrejected);
+		template<class TResult1, class TResult2> Promise<Object>* then();
+		template<class TResult1, class TResult2> Promise<Object>* then(EventListener* onfulfilled);
+		template<class TResult1, class TResult2> Promise<Object>* then(EventListener* onfulfilled, EventListener* onrejected);
+		template<class TResult> Promise<Object>* _catch();
+		template<class TResult> Promise<Object>* _catch(EventListener* onrejected);
 	};
 
 	template<class T>
@@ -1009,6 +1398,12 @@ namespace [[cheerp::genericjs]] client
 		ArrayBuffer* get_prototype();
 		ArrayBuffer(double byteLength);
 		static bool isView(Object* arg) [[cheerp::static]];
+	};
+
+	class ArrayBufferTypes: public Object{
+	public:
+		ArrayBuffer* get_ArrayBuffer();
+		void set_ArrayBuffer(ArrayBuffer*);
 	};
 
 	class ArrayBufferView: public Object{
@@ -1726,10 +2121,44 @@ namespace [[cheerp::genericjs]] client
 		void set_tagLength(double);
 	};
 
+	class KeyAlgorithm: public Object{
+	public:
+		String* get_name();
+		void set_name(const String&);
+	};
+
+	class AesKeyAlgorithm: public KeyAlgorithm {
+	public:
+		double get_length();
+		void set_length(double);
+	};
+
 	class AesKeyGenParams: public Algorithm {
 	public:
 		double get_length();
 		void set_length(double);
+	};
+
+	class AudioNodeOptions: public Object{
+	public:
+		double get_channelCount();
+		void set_channelCount(double);
+		String* get_channelCountMode();
+		void set_channelCountMode(const String&);
+		String* get_channelInterpretation();
+		void set_channelInterpretation(const String&);
+	};
+
+	class AnalyserOptions: public AudioNodeOptions {
+	public:
+		double get_fftSize();
+		void set_fftSize(double);
+		double get_maxDecibels();
+		void set_maxDecibels(double);
+		double get_minDecibels();
+		void set_minDecibels(double);
+		double get_smoothingTimeConstant();
+		void set_smoothingTimeConstant(double);
 	};
 
 	class EventInit: public Object{
@@ -1762,6 +2191,97 @@ namespace [[cheerp::genericjs]] client
 		void set_timeoutSeconds(double);
 	};
 
+	class AudioBufferOptions: public Object{
+	public:
+		double get_length();
+		void set_length(double);
+		double get_numberOfChannels();
+		void set_numberOfChannels(double);
+		double get_sampleRate();
+		void set_sampleRate(double);
+	};
+
+	class AudioBufferSourceOptions: public Object{
+	public:
+		AudioBuffer* get_buffer();
+		void set_buffer(AudioBuffer*);
+		double get_detune();
+		void set_detune(double);
+		bool get_loop();
+		void set_loop(bool);
+		double get_loopEnd();
+		void set_loopEnd(double);
+		double get_loopStart();
+		void set_loopStart(double);
+		double get_playbackRate();
+		void set_playbackRate(double);
+	};
+
+	class AudioContextInfo: public Object{
+	public:
+		double get_currentTime();
+		void set_currentTime(double);
+		double get_sampleRate();
+		void set_sampleRate(double);
+	};
+
+	class AudioContextOptions: public Object{
+	public:
+		String* get_latencyHint();
+		void set_latencyHint(const String&);
+		double get_sampleRate();
+		void set_sampleRate(double);
+	};
+
+	class AudioParamDescriptor: public Object{
+	public:
+		double get_defaultValue();
+		void set_defaultValue(double);
+		double get_maxValue();
+		void set_maxValue(double);
+		double get_minValue();
+		void set_minValue(double);
+		String* get_name();
+		void set_name(const String&);
+	};
+
+	class AudioProcessingEventInit: public EventInit {
+	public:
+		AudioBuffer* get_inputBuffer();
+		void set_inputBuffer(AudioBuffer*);
+		AudioBuffer* get_outputBuffer();
+		void set_outputBuffer(AudioBuffer*);
+		double get_playbackTime();
+		void set_playbackTime(double);
+	};
+
+	class AudioTimestamp: public Object{
+	public:
+		double get_contextTime();
+		void set_contextTime(double);
+		double get_performanceTime();
+		void set_performanceTime(double);
+	};
+
+	class BiquadFilterOptions: public AudioNodeOptions {
+	public:
+		double get_Q();
+		double get_detune();
+		void set_detune(double);
+		double get_frequency();
+		void set_frequency(double);
+		double get_gain();
+		void set_gain(double);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class ByteLengthChunk: public Object{
+	public:
+		double get_byteLength();
+		void set_byteLength(double);
+	};
+
 	class CacheQueryOptions: public Object{
 	public:
 		String* get_cacheName();
@@ -1772,6 +2292,44 @@ namespace [[cheerp::genericjs]] client
 		void set_ignoreSearch(bool);
 		bool get_ignoreVary();
 		void set_ignoreVary(bool);
+	};
+
+	class ChannelMergerOptions: public AudioNodeOptions {
+	public:
+		double get_numberOfInputs();
+		void set_numberOfInputs(double);
+	};
+
+	class ChannelSplitterOptions: public AudioNodeOptions {
+	public:
+		double get_numberOfOutputs();
+		void set_numberOfOutputs(double);
+	};
+
+	class ClientData: public Object{
+	public:
+		String* get_challenge();
+		void set_challenge(const String&);
+		WebAuthnExtensions* get_extensions();
+		void set_extensions(WebAuthnExtensions*);
+		String* get_hashAlg();
+		void set_hashAlg(const String&);
+		String* get_origin();
+		void set_origin(const String&);
+		String* get_rpId();
+		void set_rpId(const String&);
+		String* get_tokenBinding();
+		void set_tokenBinding(const String&);
+	};
+
+	class ClientQueryOptions: public Object{
+	public:
+		bool get_includeReserved();
+		void set_includeReserved(bool);
+		bool get_includeUncontrolled();
+		void set_includeUncontrolled(bool);
+		String* get_type();
+		void set_type(const String&);
 	};
 
 	class CloseEventInit: public EventInit {
@@ -1810,11 +2368,101 @@ namespace [[cheerp::genericjs]] client
 		void set_arrayOfDomainStrings(Array*);
 	};
 
+	class ConstantSourceOptions: public Object{
+	public:
+		double get_offset();
+		void set_offset(double);
+	};
+
+	class ConstrainBooleanParameters: public Object{
+	public:
+		bool get_exact();
+		void set_exact(bool);
+		bool get_ideal();
+		void set_ideal(bool);
+	};
+
+	class ConstrainDOMStringParameters: public Object{
+	public:
+		String* get_exact();
+		void set_exact(const String&);
+		String* get_ideal();
+		void set_ideal(const String&);
+	};
+
+	class DoubleRange: public Object{
+	public:
+		double get_max();
+		void set_max(double);
+		double get_min();
+		void set_min(double);
+	};
+
+	class ConstrainDoubleRange: public DoubleRange {
+	public:
+		double get_exact();
+		void set_exact(double);
+		double get_ideal();
+		void set_ideal(double);
+	};
+
+	class LongRange: public Object{
+	public:
+		double get_max();
+		void set_max(double);
+		double get_min();
+		void set_min(double);
+	};
+
+	class ConstrainLongRange: public LongRange {
+	public:
+		double get_exact();
+		void set_exact(double);
+		double get_ideal();
+		void set_ideal(double);
+	};
+
+	class ConstrainVideoFacingModeParameters: public Object{
+	public:
+		Object* get_exact();
+		void set_exact(Object*);
+		Object* get_ideal();
+		void set_ideal(Object*);
+	};
+
+	class ConvolverOptions: public AudioNodeOptions {
+	public:
+		AudioBuffer* get_buffer();
+		void set_buffer(AudioBuffer*);
+		bool get_disableNormalization();
+		void set_disableNormalization(bool);
+	};
+
 	template<class T>
 	class CustomEventInit: public EventInit {
 	public:
 		T* get_detail();
 		void set_detail(T*);
+	};
+
+	class DOMRectInit: public Object{
+	public:
+		double get_height();
+		void set_height(double);
+		double get_width();
+		void set_width(double);
+		double get_x();
+		void set_x(double);
+		double get_y();
+		void set_y(double);
+	};
+
+	class DelayOptions: public AudioNodeOptions {
+	public:
+		double get_delayTime();
+		void set_delayTime(double);
+		double get_maxDelayTime();
+		void set_maxDelayTime(double);
 	};
 
 	class DeviceAccelerationDict: public Object{
@@ -1825,6 +2473,12 @@ namespace [[cheerp::genericjs]] client
 		void set_y(double);
 		double get_z();
 		void set_z(double);
+	};
+
+	class DeviceLightEventInit: public EventInit {
+	public:
+		double get_value();
+		void set_value(double);
 	};
 
 	class DeviceMotionEventInit: public EventInit {
@@ -1859,6 +2513,26 @@ namespace [[cheerp::genericjs]] client
 		void set_beta(double);
 		double get_gamma();
 		void set_gamma(double);
+	};
+
+	class DynamicsCompressorOptions: public AudioNodeOptions {
+	public:
+		double get_attack();
+		void set_attack(double);
+		double get_knee();
+		void set_knee(double);
+		double get_ratio();
+		void set_ratio(double);
+		double get_release();
+		void set_release(double);
+		double get_threshold();
+		void set_threshold(double);
+	};
+
+	class EcKeyAlgorithm: public KeyAlgorithm {
+	public:
+		String* get_namedCurve();
+		void set_namedCurve(const String&);
 	};
 
 	class EcKeyGenParams: public Algorithm {
@@ -1933,16 +2607,92 @@ namespace [[cheerp::genericjs]] client
 		void set_shiftKey(bool);
 	};
 
+	class ExtendableEventInit: public EventInit {
+	public:
+	};
+
+	class ExtendableMessageEventInit: public ExtendableEventInit {
+	public:
+		Object* get_data();
+		void set_data(Object*);
+		String* get_lastEventId();
+		void set_lastEventId(const String&);
+		String* get_origin();
+		void set_origin(const String&);
+		Array* get_ports();
+		void set_ports(Array*);
+		Object* get_source();
+		void set_source(Object*);
+	};
+
+	class FetchEventInit: public ExtendableEventInit {
+	public:
+		String* get_clientId();
+		void set_clientId(const String&);
+		Request* get_request();
+		void set_request(Request*);
+		String* get_reservedClientId();
+		void set_reservedClientId(const String&);
+		String* get_targetClientId();
+		void set_targetClientId(const String&);
+	};
+
 	class FocusEventInit: public UIEventInit {
 	public:
 		EventTarget* get_relatedTarget();
 		void set_relatedTarget(EventTarget*);
 	};
 
+	class FocusNavigationEventInit: public EventInit {
+	public:
+		String* get_navigationReason();
+		void set_navigationReason(const String&);
+		double get_originHeight();
+		void set_originHeight(double);
+		double get_originLeft();
+		void set_originLeft(double);
+		double get_originTop();
+		void set_originTop(double);
+		double get_originWidth();
+		void set_originWidth(double);
+	};
+
+	class FocusNavigationOrigin: public Object{
+	public:
+		double get_originHeight();
+		void set_originHeight(double);
+		double get_originLeft();
+		void set_originLeft(double);
+		double get_originTop();
+		void set_originTop(double);
+		double get_originWidth();
+		void set_originWidth(double);
+	};
+
+	class GainOptions: public AudioNodeOptions {
+	public:
+		double get_gain();
+		void set_gain(double);
+	};
+
+	class GamepadEventInit: public EventInit {
+	public:
+		Gamepad* get_gamepad();
+		void set_gamepad(Gamepad*);
+	};
+
 	class GetNotificationOptions: public Object{
 	public:
 		String* get_tag();
 		void set_tag(const String&);
+	};
+
+	class HashChangeEventInit: public EventInit {
+	public:
+		String* get_newURL();
+		void set_newURL(const String&);
+		String* get_oldURL();
+		void set_oldURL(const String&);
 	};
 
 	class HkdfParams: public Algorithm {
@@ -1959,6 +2709,14 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_hash();
 		void set_hash(const String&);
+		double get_length();
+		void set_length(double);
+	};
+
+	class HmacKeyAlgorithm: public KeyAlgorithm {
+	public:
+		KeyAlgorithm* get_hash();
+		void set_hash(KeyAlgorithm*);
 		double get_length();
 		void set_length(double);
 	};
@@ -1985,6 +2743,40 @@ namespace [[cheerp::genericjs]] client
 		void set_autoIncrement(bool);
 		String* get_keyPath();
 		void set_keyPath(const String&);
+	};
+
+	class IIRFilterOptions: public AudioNodeOptions {
+	public:
+		Array* get_feedback();
+		void set_feedback(Array*);
+		Array* get_feedforward();
+		void set_feedforward(Array*);
+	};
+
+	class IntersectionObserverEntryInit: public Object{
+	public:
+		DOMRectInit* get_boundingClientRect();
+		void set_boundingClientRect(DOMRectInit*);
+		DOMRectInit* get_intersectionRect();
+		void set_intersectionRect(DOMRectInit*);
+		bool get_isIntersecting();
+		void set_isIntersecting(bool);
+		DOMRectInit* get_rootBounds();
+		void set_rootBounds(DOMRectInit*);
+		Element* get_target();
+		void set_target(Element*);
+		double get_time();
+		void set_time(double);
+	};
+
+	class IntersectionObserverInit: public Object{
+	public:
+		Element* get_root();
+		void set_root(Element*);
+		String* get_rootMargin();
+		void set_rootMargin(const String&);
+		double get_threshold();
+		void set_threshold(double);
 	};
 
 	class JsonWebKey: public Object{
@@ -2027,12 +2819,6 @@ namespace [[cheerp::genericjs]] client
 		void set_y(const String&);
 	};
 
-	class KeyAlgorithm: public Object{
-	public:
-		String* get_name();
-		void set_name(const String&);
-	};
-
 	class KeyboardEventInit: public EventModifierInit {
 	public:
 		String* get_code();
@@ -2059,16 +2845,560 @@ namespace [[cheerp::genericjs]] client
 		void set_userId(const String&);
 	};
 
+	class RTCStats: public Object{
+	public:
+		String* get_id();
+		void set_id(const String&);
+		String* get_msType();
+		void set_msType(const String&);
+		double get_timestamp();
+		void set_timestamp(double);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class MSLocalClientEventBase: public RTCStats {
+	public:
+		double get_networkBandwidthLowEventRatio();
+		void set_networkBandwidthLowEventRatio(double);
+		double get_networkReceiveQualityEventRatio();
+		void set_networkReceiveQualityEventRatio(double);
+	};
+
+	class MSAudioLocalClientEvent: public MSLocalClientEventBase {
+	public:
+		double get_cpuInsufficientEventRatio();
+		void set_cpuInsufficientEventRatio(double);
+		double get_deviceCaptureNotFunctioningEventRatio();
+		void set_deviceCaptureNotFunctioningEventRatio(double);
+		double get_deviceClippingEventRatio();
+		void set_deviceClippingEventRatio(double);
+		double get_deviceEchoEventRatio();
+		void set_deviceEchoEventRatio(double);
+		double get_deviceGlitchesEventRatio();
+		void set_deviceGlitchesEventRatio(double);
+		double get_deviceHalfDuplexAECEventRatio();
+		void set_deviceHalfDuplexAECEventRatio(double);
+		double get_deviceHowlingEventCount();
+		void set_deviceHowlingEventCount(double);
+		double get_deviceLowSNREventRatio();
+		void set_deviceLowSNREventRatio(double);
+		double get_deviceLowSpeechLevelEventRatio();
+		void set_deviceLowSpeechLevelEventRatio(double);
+		double get_deviceMultipleEndpointsEventCount();
+		void set_deviceMultipleEndpointsEventCount(double);
+		double get_deviceNearEndToEchoRatioEventRatio();
+		void set_deviceNearEndToEchoRatioEventRatio(double);
+		double get_deviceRenderMuteEventRatio();
+		void set_deviceRenderMuteEventRatio(double);
+		double get_deviceRenderNotFunctioningEventRatio();
+		void set_deviceRenderNotFunctioningEventRatio(double);
+		double get_deviceRenderZeroVolumeEventRatio();
+		void set_deviceRenderZeroVolumeEventRatio(double);
+		double get_networkDelayEventRatio();
+		void set_networkDelayEventRatio(double);
+		double get_networkSendQualityEventRatio();
+		void set_networkSendQualityEventRatio(double);
+	};
+
+	class MSPayloadBase: public RTCStats {
+	public:
+		String* get_payloadDescription();
+		void set_payloadDescription(const String&);
+	};
+
+	class MSAudioRecvPayload: public MSPayloadBase {
+	public:
+		double get_burstLossLength1();
+		void set_burstLossLength1(double);
+		double get_burstLossLength2();
+		void set_burstLossLength2(double);
+		double get_burstLossLength3();
+		void set_burstLossLength3(double);
+		double get_burstLossLength4();
+		void set_burstLossLength4(double);
+		double get_burstLossLength5();
+		void set_burstLossLength5(double);
+		double get_burstLossLength6();
+		void set_burstLossLength6(double);
+		double get_burstLossLength7();
+		void set_burstLossLength7(double);
+		double get_burstLossLength8OrHigher();
+		void set_burstLossLength8OrHigher(double);
+		double get_fecRecvDistance1();
+		void set_fecRecvDistance1(double);
+		double get_fecRecvDistance2();
+		void set_fecRecvDistance2(double);
+		double get_fecRecvDistance3();
+		void set_fecRecvDistance3(double);
+		double get_packetReorderDepthAvg();
+		void set_packetReorderDepthAvg(double);
+		double get_packetReorderDepthMax();
+		void set_packetReorderDepthMax(double);
+		double get_packetReorderRatio();
+		void set_packetReorderRatio(double);
+		double get_ratioCompressedSamplesAvg();
+		void set_ratioCompressedSamplesAvg(double);
+		double get_ratioConcealedSamplesAvg();
+		void set_ratioConcealedSamplesAvg(double);
+		double get_ratioStretchedSamplesAvg();
+		void set_ratioStretchedSamplesAvg(double);
+		double get_samplingRate();
+		void set_samplingRate(double);
+		MSAudioRecvSignal* get_signal();
+		void set_signal(MSAudioRecvSignal*);
+	};
+
+	class MSAudioRecvSignal: public Object{
+	public:
+		double get_initialSignalLevelRMS();
+		void set_initialSignalLevelRMS(double);
+		double get_recvNoiseLevelCh1();
+		void set_recvNoiseLevelCh1(double);
+		double get_recvSignalLevelCh1();
+		void set_recvSignalLevelCh1(double);
+		double get_renderLoopbackSignalLevel();
+		void set_renderLoopbackSignalLevel(double);
+		double get_renderNoiseLevel();
+		void set_renderNoiseLevel(double);
+		double get_renderSignalLevel();
+		void set_renderSignalLevel(double);
+	};
+
+	class MSAudioSendPayload: public MSPayloadBase {
+	public:
+		bool get_audioFECUsed();
+		void set_audioFECUsed(bool);
+		double get_samplingRate();
+		void set_samplingRate(double);
+		double get_sendMutePercent();
+		void set_sendMutePercent(double);
+		MSAudioSendSignal* get_signal();
+		void set_signal(MSAudioSendSignal*);
+	};
+
+	class MSAudioSendSignal: public Object{
+	public:
+		double get_noiseLevel();
+		void set_noiseLevel(double);
+		double get_sendNoiseLevelCh1();
+		void set_sendNoiseLevelCh1(double);
+		double get_sendSignalLevelCh1();
+		void set_sendSignalLevelCh1(double);
+	};
+
+	class MSConnectivity: public Object{
+	public:
+		String* get_iceType();
+		void set_iceType(const String&);
+		MSIceWarningFlags* get_iceWarningFlags();
+		void set_iceWarningFlags(MSIceWarningFlags*);
+		MSRelayAddress* get_relayAddress();
+		void set_relayAddress(MSRelayAddress*);
+	};
+
 	class MSCredentialFilter: public Object{
 	public:
 		Array* get_accept();
 		void set_accept(Array*);
 	};
 
+	class MSCredentialParameters: public Object{
+	public:
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class MSCredentialSpec: public Object{
+	public:
+		String* get_id();
+		void set_id(const String&);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class MSDCCEventInit: public EventInit {
+	public:
+		double get_maxFr();
+		void set_maxFr(double);
+		double get_maxFs();
+		void set_maxFs(double);
+	};
+
+	class MSDSHEventInit: public EventInit {
+	public:
+		Array* get_sources();
+		void set_sources(Array*);
+		double get_timestamp();
+		void set_timestamp(double);
+	};
+
+	class MSDelay: public Object{
+	public:
+		double get_roundTrip();
+		void set_roundTrip(double);
+		double get_roundTripMax();
+		void set_roundTripMax(double);
+	};
+
+	class MSDescription: public RTCStats {
+	public:
+		MSConnectivity* get_connectivity();
+		void set_connectivity(MSConnectivity*);
+		String* get_deviceDevName();
+		void set_deviceDevName(const String&);
+		MSIPAddressInfo* get_localAddr();
+		void set_localAddr(MSIPAddressInfo*);
+		MSNetworkConnectivityInfo* get_networkconnectivity();
+		void set_networkconnectivity(MSNetworkConnectivityInfo*);
+		MSIPAddressInfo* get_reflexiveLocalIPAddr();
+		void set_reflexiveLocalIPAddr(MSIPAddressInfo*);
+		MSIPAddressInfo* get_remoteAddr();
+		void set_remoteAddr(MSIPAddressInfo*);
+		String* get_transport();
+		void set_transport(const String&);
+	};
+
+	class MSFIDOCredentialParameters: public MSCredentialParameters {
+	public:
+		String* get_algorithm();
+		void set_algorithm(const String&);
+		Array* get_authenticators();
+		void set_authenticators(Array*);
+	};
+
+	class MSIPAddressInfo: public Object{
+	public:
+		String* get_ipAddr();
+		void set_ipAddr(const String&);
+		String* get_manufacturerMacAddrMask();
+		void set_manufacturerMacAddrMask(const String&);
+		double get_port();
+		void set_port(double);
+	};
+
+	class MSIceWarningFlags: public Object{
+	public:
+		bool get_allocationMessageIntegrityFailed();
+		void set_allocationMessageIntegrityFailed(bool);
+		bool get_alternateServerReceived();
+		void set_alternateServerReceived(bool);
+		bool get_connCheckMessageIntegrityFailed();
+		void set_connCheckMessageIntegrityFailed(bool);
+		bool get_connCheckOtherError();
+		void set_connCheckOtherError(bool);
+		bool get_fipsAllocationFailure();
+		void set_fipsAllocationFailure(bool);
+		bool get_multipleRelayServersAttempted();
+		void set_multipleRelayServersAttempted(bool);
+		bool get_noRelayServersConfigured();
+		void set_noRelayServersConfigured(bool);
+		bool get_portRangeExhausted();
+		void set_portRangeExhausted(bool);
+		bool get_pseudoTLSFailure();
+		void set_pseudoTLSFailure(bool);
+		bool get_tcpNatConnectivityFailed();
+		void set_tcpNatConnectivityFailed(bool);
+		bool get_tcpRelayConnectivityFailed();
+		void set_tcpRelayConnectivityFailed(bool);
+		bool get_turnAuthUnknownUsernameError();
+		void set_turnAuthUnknownUsernameError(bool);
+		bool get_turnTcpAllocateFailed();
+		void set_turnTcpAllocateFailed(bool);
+		bool get_turnTcpSendFailed();
+		void set_turnTcpSendFailed(bool);
+		bool get_turnTcpTimedOut();
+		void set_turnTcpTimedOut(bool);
+		bool get_turnTurnTcpConnectivityFailed();
+		void set_turnTurnTcpConnectivityFailed(bool);
+		bool get_turnUdpAllocateFailed();
+		void set_turnUdpAllocateFailed(bool);
+		bool get_turnUdpSendFailed();
+		void set_turnUdpSendFailed(bool);
+		bool get_udpLocalConnectivityFailed();
+		void set_udpLocalConnectivityFailed(bool);
+		bool get_udpNatConnectivityFailed();
+		void set_udpNatConnectivityFailed(bool);
+		bool get_udpRelayConnectivityFailed();
+		void set_udpRelayConnectivityFailed(bool);
+		bool get_useCandidateChecksFailed();
+		void set_useCandidateChecksFailed(bool);
+	};
+
+	class MSJitter: public Object{
+	public:
+		double get_interArrival();
+		void set_interArrival(double);
+		double get_interArrivalMax();
+		void set_interArrivalMax(double);
+		double get_interArrivalSD();
+		void set_interArrivalSD(double);
+	};
+
+	class MSNetwork: public RTCStats {
+	public:
+		MSDelay* get_delay();
+		void set_delay(MSDelay*);
+		MSJitter* get_jitter();
+		void set_jitter(MSJitter*);
+		MSPacketLoss* get_packetLoss();
+		void set_packetLoss(MSPacketLoss*);
+		MSUtilization* get_utilization();
+		void set_utilization(MSUtilization*);
+	};
+
+	class MSNetworkConnectivityInfo: public Object{
+	public:
+		double get_linkspeed();
+		void set_linkspeed(double);
+		String* get_networkConnectionDetails();
+		void set_networkConnectionDetails(const String&);
+		bool get_vpn();
+		void set_vpn(bool);
+	};
+
+	class MSNetworkInterfaceType: public Object{
+	public:
+		bool get_interfaceTypeEthernet();
+		void set_interfaceTypeEthernet(bool);
+		bool get_interfaceTypePPP();
+		void set_interfaceTypePPP(bool);
+		bool get_interfaceTypeTunnel();
+		void set_interfaceTypeTunnel(bool);
+		bool get_interfaceTypeWWAN();
+		void set_interfaceTypeWWAN(bool);
+		bool get_interfaceTypeWireless();
+		void set_interfaceTypeWireless(bool);
+	};
+
+	class MSOutboundNetwork: public MSNetwork {
+	public:
+		double get_appliedBandwidthLimit();
+		void set_appliedBandwidthLimit(double);
+	};
+
+	class MSPacketLoss: public Object{
+	public:
+		double get_lossRate();
+		void set_lossRate(double);
+		double get_lossRateMax();
+		void set_lossRateMax(double);
+	};
+
+	class MSPortRange: public Object{
+	public:
+		double get_max();
+		void set_max(double);
+		double get_min();
+		void set_min(double);
+	};
+
+	class MSRelayAddress: public Object{
+	public:
+		double get_port();
+		void set_port(double);
+		String* get_relayAddress();
+		void set_relayAddress(const String&);
+	};
+
 	class MSSignatureParameters: public Object{
 	public:
 		String* get_userPrompt();
 		void set_userPrompt(const String&);
+	};
+
+	class MSTransportDiagnosticsStats: public RTCStats {
+	public:
+		double get_allocationTimeInMs();
+		void set_allocationTimeInMs(double);
+		String* get_baseAddress();
+		void set_baseAddress(const String&);
+		MSNetworkInterfaceType* get_baseInterface();
+		void set_baseInterface(MSNetworkInterfaceType*);
+		String* get_iceRole();
+		void set_iceRole(const String&);
+		MSIceWarningFlags* get_iceWarningFlags();
+		void set_iceWarningFlags(MSIceWarningFlags*);
+		MSNetworkInterfaceType* get_interfaces();
+		void set_interfaces(MSNetworkInterfaceType*);
+		String* get_localAddrType();
+		void set_localAddrType(const String&);
+		String* get_localAddress();
+		void set_localAddress(const String&);
+		MSNetworkInterfaceType* get_localInterface();
+		void set_localInterface(MSNetworkInterfaceType*);
+		String* get_localMR();
+		void set_localMR(const String&);
+		double get_localMRTCPPort();
+		void set_localMRTCPPort(double);
+		String* get_localSite();
+		void set_localSite(const String&);
+		String* get_msRtcEngineVersion();
+		void set_msRtcEngineVersion(const String&);
+		String* get_networkName();
+		void set_networkName(const String&);
+		double get_numConsentReqReceived();
+		void set_numConsentReqReceived(double);
+		double get_numConsentReqSent();
+		void set_numConsentReqSent(double);
+		double get_numConsentRespReceived();
+		void set_numConsentRespReceived(double);
+		double get_numConsentRespSent();
+		void set_numConsentRespSent(double);
+		double get_portRangeMax();
+		void set_portRangeMax(double);
+		double get_portRangeMin();
+		void set_portRangeMin(double);
+		String* get_protocol();
+		void set_protocol(const String&);
+		String* get_remoteAddrType();
+		void set_remoteAddrType(const String&);
+		String* get_remoteAddress();
+		void set_remoteAddress(const String&);
+		String* get_remoteMR();
+		void set_remoteMR(const String&);
+		double get_remoteMRTCPPort();
+		void set_remoteMRTCPPort(double);
+		String* get_remoteSite();
+		void set_remoteSite(const String&);
+		bool get_rtpRtcpMux();
+		void set_rtpRtcpMux(bool);
+		double get_stunVer();
+		void set_stunVer(double);
+	};
+
+	class MSUtilization: public Object{
+	public:
+		double get_bandwidthEstimation();
+		void set_bandwidthEstimation(double);
+		double get_bandwidthEstimationAvg();
+		void set_bandwidthEstimationAvg(double);
+		double get_bandwidthEstimationMax();
+		void set_bandwidthEstimationMax(double);
+		double get_bandwidthEstimationMin();
+		void set_bandwidthEstimationMin(double);
+		double get_bandwidthEstimationStdDev();
+		void set_bandwidthEstimationStdDev(double);
+		double get_packets();
+		void set_packets(double);
+	};
+
+	class MSVideoPayload: public MSPayloadBase {
+	public:
+		double get_durationSeconds();
+		void set_durationSeconds(double);
+		String* get_resolution();
+		void set_resolution(const String&);
+		double get_videoBitRateAvg();
+		void set_videoBitRateAvg(double);
+		double get_videoBitRateMax();
+		void set_videoBitRateMax(double);
+		double get_videoFrameRateAvg();
+		void set_videoFrameRateAvg(double);
+		double get_videoPacketLossRate();
+		void set_videoPacketLossRate(double);
+	};
+
+	class MSVideoRecvPayload: public MSVideoPayload {
+	public:
+		double get_lowBitRateCallPercent();
+		void set_lowBitRateCallPercent(double);
+		double get_lowFrameRateCallPercent();
+		void set_lowFrameRateCallPercent(double);
+		double get_recvBitRateAverage();
+		void set_recvBitRateAverage(double);
+		double get_recvBitRateMaximum();
+		void set_recvBitRateMaximum(double);
+		String* get_recvCodecType();
+		void set_recvCodecType(const String&);
+		double get_recvFpsHarmonicAverage();
+		void set_recvFpsHarmonicAverage(double);
+		double get_recvFrameRateAverage();
+		void set_recvFrameRateAverage(double);
+		double get_recvNumResSwitches();
+		void set_recvNumResSwitches(double);
+		double get_recvReorderBufferMaxSuccessfullyOrderedExtent();
+		void set_recvReorderBufferMaxSuccessfullyOrderedExtent(double);
+		double get_recvReorderBufferMaxSuccessfullyOrderedLateTime();
+		void set_recvReorderBufferMaxSuccessfullyOrderedLateTime(double);
+		double get_recvReorderBufferPacketsDroppedDueToBufferExhaustion();
+		void set_recvReorderBufferPacketsDroppedDueToBufferExhaustion(double);
+		double get_recvReorderBufferPacketsDroppedDueToTimeout();
+		void set_recvReorderBufferPacketsDroppedDueToTimeout(double);
+		double get_recvReorderBufferReorderedPackets();
+		void set_recvReorderBufferReorderedPackets(double);
+		double get_recvResolutionHeight();
+		void set_recvResolutionHeight(double);
+		double get_recvResolutionWidth();
+		void set_recvResolutionWidth(double);
+		double get_recvVideoStreamsMax();
+		void set_recvVideoStreamsMax(double);
+		double get_recvVideoStreamsMin();
+		void set_recvVideoStreamsMin(double);
+		double get_recvVideoStreamsMode();
+		void set_recvVideoStreamsMode(double);
+		double get_reorderBufferTotalPackets();
+		void set_reorderBufferTotalPackets(double);
+		double get_videoFrameLossRate();
+		void set_videoFrameLossRate(double);
+		double get_videoPostFECPLR();
+		void set_videoPostFECPLR(double);
+		MSVideoResolutionDistribution* get_videoResolutions();
+		void set_videoResolutions(MSVideoResolutionDistribution*);
+	};
+
+	class MSVideoResolutionDistribution: public Object{
+	public:
+		double get_cifQuality();
+		void set_cifQuality(double);
+		double get_h1080Quality();
+		void set_h1080Quality(double);
+		double get_h1440Quality();
+		void set_h1440Quality(double);
+		double get_h2160Quality();
+		void set_h2160Quality(double);
+		double get_h720Quality();
+		void set_h720Quality(double);
+		double get_vgaQuality();
+		void set_vgaQuality(double);
+	};
+
+	class MSVideoSendPayload: public MSVideoPayload {
+	public:
+		double get_sendBitRateAverage();
+		void set_sendBitRateAverage(double);
+		double get_sendBitRateMaximum();
+		void set_sendBitRateMaximum(double);
+		double get_sendFrameRateAverage();
+		void set_sendFrameRateAverage(double);
+		double get_sendResolutionHeight();
+		void set_sendResolutionHeight(double);
+		double get_sendResolutionWidth();
+		void set_sendResolutionWidth(double);
+		double get_sendVideoStreamsMax();
+		void set_sendVideoStreamsMax(double);
+	};
+
+	class MediaElementAudioSourceOptions: public Object{
+	public:
+		HTMLMediaElement* get_mediaElement();
+		void set_mediaElement(HTMLMediaElement*);
+	};
+
+	class MediaEncryptedEventInit: public EventInit {
+	public:
+		ArrayBuffer* get_initData();
+		void set_initData(ArrayBuffer*);
+		String* get_initDataType();
+		void set_initDataType(const String&);
+	};
+
+	class MediaKeyMessageEventInit: public EventInit {
+	public:
+		ArrayBuffer* get_message();
+		void set_message(ArrayBuffer*);
+		String* get_messageType();
+		void set_messageType(const String&);
 	};
 
 	class MediaKeySystemConfiguration: public Object{
@@ -2085,12 +3415,38 @@ namespace [[cheerp::genericjs]] client
 		void set_videoCapabilities(Array*);
 	};
 
+	class MediaKeySystemMediaCapability: public Object{
+	public:
+		String* get_contentType();
+		void set_contentType(const String&);
+		String* get_robustness();
+		void set_robustness(const String&);
+	};
+
 	class MediaStreamConstraints: public Object{
 	public:
 		bool get_audio();
 		void set_audio(bool);
 		bool get_video();
 		void set_video(bool);
+	};
+
+	class MediaStreamErrorEventInit: public EventInit {
+	public:
+		MediaStreamError* get_error();
+		void set_error(MediaStreamError*);
+	};
+
+	class MediaStreamEventInit: public EventInit {
+	public:
+		MediaStream* get_stream();
+		void set_stream(MediaStream*);
+	};
+
+	class MediaStreamTrackEventInit: public EventInit {
+	public:
+		MediaStreamTrack* get_track();
+		void set_track(MediaStreamTrack*);
 	};
 
 	class MediaTrackCapabilities: public Object{
@@ -2279,6 +3635,14 @@ namespace [[cheerp::genericjs]] client
 		void set_subtree(bool);
 	};
 
+	class NotificationEventInit: public ExtendableEventInit {
+	public:
+		String* get_action();
+		void set_action(const String&);
+		Notification* get_notification();
+		void set_notification(Notification*);
+	};
+
 	class NotificationOptions: public Object{
 	public:
 		String* get_body();
@@ -2301,6 +3665,152 @@ namespace [[cheerp::genericjs]] client
 		void set_oneTimeOnly(bool);
 	};
 
+	class OfflineAudioCompletionEventInit: public EventInit {
+	public:
+		AudioBuffer* get_renderedBuffer();
+		void set_renderedBuffer(AudioBuffer*);
+	};
+
+	class OscillatorOptions: public AudioNodeOptions {
+	public:
+		double get_detune();
+		void set_detune(double);
+		double get_frequency();
+		void set_frequency(double);
+		PeriodicWave* get_periodicWave();
+		void set_periodicWave(PeriodicWave*);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class PannerOptions: public AudioNodeOptions {
+	public:
+		double get_coneInnerAngle();
+		void set_coneInnerAngle(double);
+		double get_coneOuterAngle();
+		void set_coneOuterAngle(double);
+		double get_coneOuterGain();
+		void set_coneOuterGain(double);
+		String* get_distanceModel();
+		void set_distanceModel(const String&);
+		double get_maxDistance();
+		void set_maxDistance(double);
+		double get_orientationX();
+		void set_orientationX(double);
+		double get_orientationY();
+		void set_orientationY(double);
+		double get_orientationZ();
+		void set_orientationZ(double);
+		String* get_panningModel();
+		void set_panningModel(const String&);
+		double get_positionX();
+		void set_positionX(double);
+		double get_positionY();
+		void set_positionY(double);
+		double get_positionZ();
+		void set_positionZ(double);
+		double get_refDistance();
+		void set_refDistance(double);
+		double get_rolloffFactor();
+		void set_rolloffFactor(double);
+	};
+
+	class PaymentCurrencyAmount: public Object{
+	public:
+		String* get_currency();
+		void set_currency(const String&);
+		String* get_currencySystem();
+		void set_currencySystem(const String&);
+		String* get_value();
+		void set_value(const String&);
+	};
+
+	class PaymentDetailsBase: public Object{
+	public:
+		Array* get_displayItems();
+		void set_displayItems(Array*);
+		Array* get_modifiers();
+		void set_modifiers(Array*);
+		Array* get_shippingOptions();
+		void set_shippingOptions(Array*);
+	};
+
+	class PaymentDetailsInit: public PaymentDetailsBase {
+	public:
+		String* get_id();
+		void set_id(const String&);
+		PaymentItem* get_total();
+		void set_total(PaymentItem*);
+	};
+
+	class PaymentDetailsModifier: public Object{
+	public:
+		Array* get_additionalDisplayItems();
+		void set_additionalDisplayItems(Array*);
+		Object* get_data();
+		void set_data(Object*);
+		String* get_supportedMethods();
+		void set_supportedMethods(const String&);
+		PaymentItem* get_total();
+		void set_total(PaymentItem*);
+	};
+
+	class PaymentDetailsUpdate: public PaymentDetailsBase {
+	public:
+		String* get_error();
+		void set_error(const String&);
+		PaymentItem* get_total();
+		void set_total(PaymentItem*);
+	};
+
+	class PaymentItem: public Object{
+	public:
+		PaymentCurrencyAmount* get_amount();
+		void set_amount(PaymentCurrencyAmount*);
+		String* get_label();
+		void set_label(const String&);
+		bool get_pending();
+		void set_pending(bool);
+	};
+
+	class PaymentMethodData: public Object{
+	public:
+		Object* get_data();
+		void set_data(Object*);
+		String* get_supportedMethods();
+		void set_supportedMethods(const String&);
+	};
+
+	class PaymentOptions: public Object{
+	public:
+		bool get_requestPayerEmail();
+		void set_requestPayerEmail(bool);
+		bool get_requestPayerName();
+		void set_requestPayerName(bool);
+		bool get_requestPayerPhone();
+		void set_requestPayerPhone(bool);
+		bool get_requestShipping();
+		void set_requestShipping(bool);
+		String* get_shippingType();
+		void set_shippingType(const String&);
+	};
+
+	class PaymentRequestUpdateEventInit: public EventInit {
+	public:
+	};
+
+	class PaymentShippingOption: public Object{
+	public:
+		PaymentCurrencyAmount* get_amount();
+		void set_amount(PaymentCurrencyAmount*);
+		String* get_id();
+		void set_id(const String&);
+		String* get_label();
+		void set_label(const String&);
+		bool get_selected();
+		void set_selected(bool);
+	};
+
 	class Pbkdf2Params: public Algorithm {
 	public:
 		String* get_hash();
@@ -2309,6 +3819,20 @@ namespace [[cheerp::genericjs]] client
 		void set_iterations(double);
 		Int8Array* get_salt();
 		void set_salt(Int8Array*);
+	};
+
+	class PeriodicWaveConstraints: public Object{
+	public:
+		bool get_disableNormalization();
+		void set_disableNormalization(bool);
+	};
+
+	class PeriodicWaveOptions: public PeriodicWaveConstraints {
+	public:
+		Array* get_imag();
+		void set_imag(Array*);
+		Array* get_real();
+		void set_real(Array*);
 	};
 
 	class PointerEventInit: public MouseEventInit {
@@ -2357,12 +3881,540 @@ namespace [[cheerp::genericjs]] client
 		void set_total(double);
 	};
 
+	class PushEventInit: public ExtendableEventInit {
+	public:
+		Int8Array* get_data();
+		void set_data(Int8Array*);
+	};
+
+	class PushSubscriptionChangeInit: public ExtendableEventInit {
+	public:
+		PushSubscription* get_newSubscription();
+		void set_newSubscription(PushSubscription*);
+		PushSubscription* get_oldSubscription();
+		void set_oldSubscription(PushSubscription*);
+	};
+
 	class PushSubscriptionOptionsInit: public Object{
 	public:
 		Int8Array* get_applicationServerKey();
 		void set_applicationServerKey(Int8Array*);
 		bool get_userVisibleOnly();
 		void set_userVisibleOnly(bool);
+	};
+
+	class QueuingStrategy: public Object{
+	public:
+		double get_highWaterMark();
+		void set_highWaterMark(double);
+		EventListener* get_size();
+		void set_size(EventListener*);
+	};
+
+	class RTCConfiguration: public Object{
+	public:
+		String* get_bundlePolicy();
+		void set_bundlePolicy(const String&);
+		Array* get_iceServers();
+		void set_iceServers(Array*);
+		String* get_iceTransportPolicy();
+		void set_iceTransportPolicy(const String&);
+		String* get_peerIdentity();
+		void set_peerIdentity(const String&);
+	};
+
+	class RTCDTMFToneChangeEventInit: public EventInit {
+	public:
+		String* get_tone();
+		void set_tone(const String&);
+	};
+
+	class RTCDtlsFingerprint: public Object{
+	public:
+		String* get_algorithm();
+		void set_algorithm(const String&);
+		String* get_value();
+		void set_value(const String&);
+	};
+
+	class RTCDtlsParameters: public Object{
+	public:
+		Array* get_fingerprints();
+		void set_fingerprints(Array*);
+		String* get_role();
+		void set_role(const String&);
+	};
+
+	class RTCIceCandidateAttributes: public RTCStats {
+	public:
+		String* get_addressSourceUrl();
+		void set_addressSourceUrl(const String&);
+		String* get_candidateType();
+		void set_candidateType(const String&);
+		String* get_ipAddress();
+		void set_ipAddress(const String&);
+		double get_portNumber();
+		void set_portNumber(double);
+		double get_priority();
+		void set_priority(double);
+		String* get_transport();
+		void set_transport(const String&);
+	};
+
+	class RTCIceCandidateComplete: public Object{
+	public:
+	};
+
+	class RTCIceCandidateDictionary: public Object{
+	public:
+		String* get_foundation();
+		void set_foundation(const String&);
+		String* get_ip();
+		void set_ip(const String&);
+		String* get_msMTurnSessionId();
+		void set_msMTurnSessionId(const String&);
+		double get_port();
+		void set_port(double);
+		double get_priority();
+		void set_priority(double);
+		String* get_protocol();
+		void set_protocol(const String&);
+		String* get_relatedAddress();
+		void set_relatedAddress(const String&);
+		double get_relatedPort();
+		void set_relatedPort(double);
+		String* get_tcpType();
+		void set_tcpType(const String&);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class RTCIceCandidateInit: public Object{
+	public:
+		String* get_candidate();
+		void set_candidate(const String&);
+		double get_sdpMLineIndex();
+		void set_sdpMLineIndex(double);
+		String* get_sdpMid();
+		void set_sdpMid(const String&);
+	};
+
+	class RTCIceCandidatePair: public Object{
+	public:
+		RTCIceCandidateDictionary* get_local();
+		void set_local(RTCIceCandidateDictionary*);
+		RTCIceCandidateDictionary* get_remote();
+		void set_remote(RTCIceCandidateDictionary*);
+	};
+
+	class RTCIceCandidatePairStats: public RTCStats {
+	public:
+		double get_availableIncomingBitrate();
+		void set_availableIncomingBitrate(double);
+		double get_availableOutgoingBitrate();
+		void set_availableOutgoingBitrate(double);
+		double get_bytesReceived();
+		void set_bytesReceived(double);
+		double get_bytesSent();
+		void set_bytesSent(double);
+		String* get_localCandidateId();
+		void set_localCandidateId(const String&);
+		bool get_nominated();
+		void set_nominated(bool);
+		double get_priority();
+		void set_priority(double);
+		bool get_readable();
+		void set_readable(bool);
+		String* get_remoteCandidateId();
+		void set_remoteCandidateId(const String&);
+		double get_roundTripTime();
+		void set_roundTripTime(double);
+		String* get_state();
+		void set_state(const String&);
+		String* get_transportId();
+		void set_transportId(const String&);
+		bool get_writable();
+		void set_writable(bool);
+	};
+
+	class RTCIceGatherOptions: public Object{
+	public:
+		String* get_gatherPolicy();
+		void set_gatherPolicy(const String&);
+		Array* get_iceservers();
+		void set_iceservers(Array*);
+		MSPortRange* get_portRange();
+		void set_portRange(MSPortRange*);
+	};
+
+	class RTCIceParameters: public Object{
+	public:
+		bool get_iceLite();
+		void set_iceLite(bool);
+		String* get_password();
+		void set_password(const String&);
+		String* get_usernameFragment();
+		void set_usernameFragment(const String&);
+	};
+
+	class RTCIceServer: public Object{
+	public:
+		String* get_credential();
+		void set_credential(const String&);
+		Object* get_urls();
+		void set_urls(Object*);
+		String* get_username();
+		void set_username(const String&);
+	};
+
+	class RTCRTPStreamStats: public RTCStats {
+	public:
+		String* get_associateStatsId();
+		void set_associateStatsId(const String&);
+		String* get_codecId();
+		void set_codecId(const String&);
+		double get_firCount();
+		void set_firCount(double);
+		bool get_isRemote();
+		void set_isRemote(bool);
+		String* get_mediaTrackId();
+		void set_mediaTrackId(const String&);
+		String* get_mediaType();
+		void set_mediaType(const String&);
+		double get_nackCount();
+		void set_nackCount(double);
+		double get_pliCount();
+		void set_pliCount(double);
+		double get_sliCount();
+		void set_sliCount(double);
+		String* get_ssrc();
+		void set_ssrc(const String&);
+		String* get_transportId();
+		void set_transportId(const String&);
+	};
+
+	class RTCInboundRTPStreamStats: public RTCRTPStreamStats {
+	public:
+		double get_bytesReceived();
+		void set_bytesReceived(double);
+		double get_fractionLost();
+		void set_fractionLost(double);
+		double get_jitter();
+		void set_jitter(double);
+		double get_packetsLost();
+		void set_packetsLost(double);
+		double get_packetsReceived();
+		void set_packetsReceived(double);
+	};
+
+	class RTCMediaStreamTrackStats: public RTCStats {
+	public:
+		double get_audioLevel();
+		void set_audioLevel(double);
+		double get_echoReturnLoss();
+		void set_echoReturnLoss(double);
+		double get_echoReturnLossEnhancement();
+		void set_echoReturnLossEnhancement(double);
+		double get_frameHeight();
+		void set_frameHeight(double);
+		double get_frameWidth();
+		void set_frameWidth(double);
+		double get_framesCorrupted();
+		void set_framesCorrupted(double);
+		double get_framesDecoded();
+		void set_framesDecoded(double);
+		double get_framesDropped();
+		void set_framesDropped(double);
+		double get_framesPerSecond();
+		void set_framesPerSecond(double);
+		double get_framesReceived();
+		void set_framesReceived(double);
+		double get_framesSent();
+		void set_framesSent(double);
+		bool get_remoteSource();
+		void set_remoteSource(bool);
+		Array* get_ssrcIds();
+		void set_ssrcIds(Array*);
+		String* get_trackIdentifier();
+		void set_trackIdentifier(const String&);
+	};
+
+	class RTCOfferOptions: public Object{
+	public:
+		bool get_iceRestart();
+		void set_iceRestart(bool);
+		double get_offerToReceiveAudio();
+		void set_offerToReceiveAudio(double);
+		double get_offerToReceiveVideo();
+		void set_offerToReceiveVideo(double);
+		bool get_voiceActivityDetection();
+		void set_voiceActivityDetection(bool);
+	};
+
+	class RTCOutboundRTPStreamStats: public RTCRTPStreamStats {
+	public:
+		double get_bytesSent();
+		void set_bytesSent(double);
+		double get_packetsSent();
+		void set_packetsSent(double);
+		double get_roundTripTime();
+		void set_roundTripTime(double);
+		double get_targetBitrate();
+		void set_targetBitrate(double);
+	};
+
+	class RTCPeerConnectionIceEventInit: public EventInit {
+	public:
+		RTCIceCandidate* get_candidate();
+		void set_candidate(RTCIceCandidate*);
+	};
+
+	class RTCRtcpFeedback: public Object{
+	public:
+		String* get_parameter();
+		void set_parameter(const String&);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class RTCRtcpParameters: public Object{
+	public:
+		String* get_cname();
+		void set_cname(const String&);
+		bool get_mux();
+		void set_mux(bool);
+		bool get_reducedSize();
+		void set_reducedSize(bool);
+		double get_ssrc();
+		void set_ssrc(double);
+	};
+
+	class RTCRtpCapabilities: public Object{
+	public:
+		Array* get_codecs();
+		void set_codecs(Array*);
+		Array* get_fecMechanisms();
+		void set_fecMechanisms(Array*);
+		Array* get_headerExtensions();
+		void set_headerExtensions(Array*);
+	};
+
+	class RTCRtpCodecCapability: public Object{
+	public:
+		double get_clockRate();
+		void set_clockRate(double);
+		String* get_kind();
+		void set_kind(const String&);
+		double get_maxSpatialLayers();
+		void set_maxSpatialLayers(double);
+		double get_maxTemporalLayers();
+		void set_maxTemporalLayers(double);
+		double get_maxptime();
+		void set_maxptime(double);
+		String* get_name();
+		void set_name(const String&);
+		double get_numChannels();
+		void set_numChannels(double);
+		Object* get_options();
+		void set_options(Object*);
+		Object* get_parameters();
+		void set_parameters(Object*);
+		double get_preferredPayloadType();
+		void set_preferredPayloadType(double);
+		double get_ptime();
+		void set_ptime(double);
+		Array* get_rtcpFeedback();
+		void set_rtcpFeedback(Array*);
+		bool get_svcMultiStreamSupport();
+		void set_svcMultiStreamSupport(bool);
+	};
+
+	class RTCRtpCodecParameters: public Object{
+	public:
+		double get_clockRate();
+		void set_clockRate(double);
+		double get_maxptime();
+		void set_maxptime(double);
+		String* get_name();
+		void set_name(const String&);
+		double get_numChannels();
+		void set_numChannels(double);
+		Object* get_parameters();
+		void set_parameters(Object*);
+		double get_payloadType();
+		void set_payloadType(double);
+		double get_ptime();
+		void set_ptime(double);
+		Array* get_rtcpFeedback();
+		void set_rtcpFeedback(Array*);
+	};
+
+	class RTCRtpContributingSource: public Object{
+	public:
+		double get_audioLevel();
+		void set_audioLevel(double);
+		double get_csrc();
+		void set_csrc(double);
+		double get_timestamp();
+		void set_timestamp(double);
+	};
+
+	class RTCRtpEncodingParameters: public Object{
+	public:
+		bool get_active();
+		void set_active(bool);
+		double get_codecPayloadType();
+		void set_codecPayloadType(double);
+		Array* get_dependencyEncodingIds();
+		void set_dependencyEncodingIds(Array*);
+		String* get_encodingId();
+		void set_encodingId(const String&);
+		RTCRtpFecParameters* get_fec();
+		void set_fec(RTCRtpFecParameters*);
+		double get_framerateScale();
+		void set_framerateScale(double);
+		double get_maxBitrate();
+		void set_maxBitrate(double);
+		double get_maxFramerate();
+		void set_maxFramerate(double);
+		double get_minQuality();
+		void set_minQuality(double);
+		double get_priority();
+		void set_priority(double);
+		double get_resolutionScale();
+		void set_resolutionScale(double);
+		RTCRtpRtxParameters* get_rtx();
+		void set_rtx(RTCRtpRtxParameters*);
+		double get_ssrc();
+		void set_ssrc(double);
+		RTCSsrcRange* get_ssrcRange();
+		void set_ssrcRange(RTCSsrcRange*);
+	};
+
+	class RTCRtpFecParameters: public Object{
+	public:
+		String* get_mechanism();
+		void set_mechanism(const String&);
+		double get_ssrc();
+		void set_ssrc(double);
+	};
+
+	class RTCRtpHeaderExtension: public Object{
+	public:
+		String* get_kind();
+		void set_kind(const String&);
+		bool get_preferredEncrypt();
+		void set_preferredEncrypt(bool);
+		double get_preferredId();
+		void set_preferredId(double);
+		String* get_uri();
+		void set_uri(const String&);
+	};
+
+	class RTCRtpHeaderExtensionParameters: public Object{
+	public:
+		bool get_encrypt();
+		void set_encrypt(bool);
+		double get_id();
+		void set_id(double);
+		String* get_uri();
+		void set_uri(const String&);
+	};
+
+	class RTCRtpParameters: public Object{
+	public:
+		Array* get_codecs();
+		void set_codecs(Array*);
+		String* get_degradationPreference();
+		void set_degradationPreference(const String&);
+		Array* get_encodings();
+		void set_encodings(Array*);
+		Array* get_headerExtensions();
+		void set_headerExtensions(Array*);
+		String* get_muxId();
+		void set_muxId(const String&);
+		RTCRtcpParameters* get_rtcp();
+		void set_rtcp(RTCRtcpParameters*);
+	};
+
+	class RTCRtpRtxParameters: public Object{
+	public:
+		double get_ssrc();
+		void set_ssrc(double);
+	};
+
+	class RTCRtpUnhandled: public Object{
+	public:
+		String* get_muxId();
+		void set_muxId(const String&);
+		double get_payloadType();
+		void set_payloadType(double);
+		double get_ssrc();
+		void set_ssrc(double);
+	};
+
+	class RTCSessionDescriptionInit: public Object{
+	public:
+		String* get_sdp();
+		void set_sdp(const String&);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class RTCSrtpKeyParam: public Object{
+	public:
+		String* get_keyMethod();
+		void set_keyMethod(const String&);
+		String* get_keySalt();
+		void set_keySalt(const String&);
+		String* get_lifetime();
+		void set_lifetime(const String&);
+		double get_mkiLength();
+		void set_mkiLength(double);
+		double get_mkiValue();
+		void set_mkiValue(double);
+	};
+
+	class RTCSrtpSdesParameters: public Object{
+	public:
+		String* get_cryptoSuite();
+		void set_cryptoSuite(const String&);
+		Array* get_keyParams();
+		void set_keyParams(Array*);
+		Array* get_sessionParams();
+		void set_sessionParams(Array*);
+		double get_tag();
+		void set_tag(double);
+	};
+
+	class RTCSsrcRange: public Object{
+	public:
+		double get_max();
+		void set_max(double);
+		double get_min();
+		void set_min(double);
+	};
+
+	class RTCStatsReport: public Object{
+	public:
+	};
+
+	class RTCTransportStats: public RTCStats {
+	public:
+		bool get_activeConnection();
+		void set_activeConnection(bool);
+		double get_bytesReceived();
+		void set_bytesReceived(double);
+		double get_bytesSent();
+		void set_bytesSent(double);
+		String* get_localCertificateId();
+		void set_localCertificateId(const String&);
+		String* get_remoteCertificateId();
+		void set_remoteCertificateId(const String&);
+		String* get_rtcpTransportStatsId();
+		void set_rtcpTransportStatsId(const String&);
+		String* get_selectedCandidatePairId();
+		void set_selectedCandidatePairId(const String&);
 	};
 
 	class RegistrationOptions: public Object{
@@ -2417,6 +4469,20 @@ namespace [[cheerp::genericjs]] client
 		void set_hash(const String&);
 	};
 
+	class RsaKeyAlgorithm: public KeyAlgorithm {
+	public:
+		double get_modulusLength();
+		void set_modulusLength(double);
+		Uint8Array* get_publicExponent();
+		void set_publicExponent(Uint8Array*);
+	};
+
+	class RsaHashedKeyAlgorithm: public RsaKeyAlgorithm {
+	public:
+		KeyAlgorithm* get_hash();
+		void set_hash(KeyAlgorithm*);
+	};
+
 	class RsaKeyGenParams: public Algorithm {
 	public:
 		double get_modulusLength();
@@ -2437,10 +4503,30 @@ namespace [[cheerp::genericjs]] client
 		void set_label(Int8Array*);
 	};
 
+	class RsaOtherPrimesInfo: public Object{
+	public:
+		String* get_d();
+		void set_d(const String&);
+		String* get_r();
+		void set_r(const String&);
+		String* get_t();
+		void set_t(const String&);
+	};
+
 	class RsaPssParams: public Algorithm {
 	public:
 		double get_saltLength();
 		void set_saltLength(double);
+	};
+
+	class ScopedCredentialDescriptor: public Object{
+	public:
+		Int8Array* get_id();
+		void set_id(Int8Array*);
+		Array* get_transports();
+		void set_transports(Array*);
+		String* get_type();
+		void set_type(const String&);
 	};
 
 	class ScopedCredentialOptions: public Object{
@@ -2453,6 +4539,72 @@ namespace [[cheerp::genericjs]] client
 		void set_rpId(const String&);
 		double get_timeoutSeconds();
 		void set_timeoutSeconds(double);
+	};
+
+	class ScopedCredentialParameters: public Object{
+	public:
+		String* get_algorithm();
+		void set_algorithm(const String&);
+		String* get_type();
+		void set_type(const String&);
+	};
+
+	class SecurityPolicyViolationEventInit: public EventInit {
+	public:
+		String* get_blockedURI();
+		void set_blockedURI(const String&);
+		double get_columnNumber();
+		void set_columnNumber(double);
+		String* get_documentURI();
+		void set_documentURI(const String&);
+		String* get_effectiveDirective();
+		void set_effectiveDirective(const String&);
+		double get_lineNumber();
+		void set_lineNumber(double);
+		String* get_originalPolicy();
+		void set_originalPolicy(const String&);
+		String* get_referrer();
+		void set_referrer(const String&);
+		String* get_sourceFile();
+		void set_sourceFile(const String&);
+		double get_statusCode();
+		void set_statusCode(double);
+		String* get_violatedDirective();
+		void set_violatedDirective(const String&);
+	};
+
+	class ServiceWorkerMessageEventInit: public EventInit {
+	public:
+		Object* get_data();
+		void set_data(Object*);
+		String* get_lastEventId();
+		void set_lastEventId(const String&);
+		String* get_origin();
+		void set_origin(const String&);
+		Array* get_ports();
+		void set_ports(Array*);
+		ServiceWorker* get_source();
+		void set_source(ServiceWorker*);
+	};
+
+	class SpeechSynthesisEventInit: public EventInit {
+	public:
+		double get_charIndex();
+		void set_charIndex(double);
+		double get_charLength();
+		void set_charLength(double);
+		double get_elapsedTime();
+		void set_elapsedTime(double);
+		String* get_name();
+		void set_name(const String&);
+		SpeechSynthesisUtterance* get_utterance();
+		void set_utterance(SpeechSynthesisUtterance*);
+	};
+
+	class StereoPannerOptions: public AudioNodeOptions {
+	public:
+		double get_pan();
+		void set_pan(double);
 	};
 
 	class StoreExceptionsInformation: public ExceptionInformation {
@@ -2471,6 +4623,28 @@ namespace [[cheerp::genericjs]] client
 		void set_arrayOfDomainStrings(Array*);
 	};
 
+	class SyncEventInit: public ExtendableEventInit {
+	public:
+		bool get_lastChance();
+		void set_lastChance(bool);
+		String* get_tag();
+		void set_tag(const String&);
+	};
+
+	class TextDecodeOptions: public Object{
+	public:
+		bool get_stream();
+		void set_stream(bool);
+	};
+
+	class TextDecoderOptions: public Object{
+	public:
+		bool get_fatal();
+		void set_fatal(bool);
+		bool get_ignoreBOM();
+		void set_ignoreBOM(bool);
+	};
+
 	class TrackEventInit: public EventInit {
 	public:
 		VideoTrack* get_track();
@@ -2485,6 +4659,36 @@ namespace [[cheerp::genericjs]] client
 		void set_propertyName(const String&);
 	};
 
+	class UnderlyingSink: public Object{
+	public:
+		EventListener* get_abort();
+		void set_abort(EventListener*);
+		EventListener* get_close();
+		void set_close(EventListener*);
+		EventListener* get_start();
+		void set_start(EventListener*);
+		EventListener* get_write();
+		void set_write(EventListener*);
+	};
+
+	class VRDisplayEventInit: public EventInit {
+	public:
+		VRDisplay* get_display();
+		void set_display(VRDisplay*);
+		String* get_reason();
+		void set_reason(const String&);
+	};
+
+	class VRLayer: public Object{
+	public:
+		Array* get_leftBounds();
+		void set_leftBounds(Array*);
+		Array* get_rightBounds();
+		void set_rightBounds(Array*);
+		HTMLCanvasElement* get_source();
+		void set_source(HTMLCanvasElement*);
+	};
+
 	class VRStageParameters: public Object{
 	public:
 		Float32Array* get_sittingToStandingTransform();
@@ -2493,6 +4697,14 @@ namespace [[cheerp::genericjs]] client
 		void set_sizeX(double);
 		double get_sizeY();
 		void set_sizeY(double);
+	};
+
+	class WaveShaperOptions: public AudioNodeOptions {
+	public:
+		Array* get_curve();
+		void set_curve(Array*);
+		String* get_oversample();
+		void set_oversample(const String&);
 	};
 
 	class WebAuthnExtensions: public Object{
@@ -2513,6 +4725,32 @@ namespace [[cheerp::genericjs]] client
 
 	class EventListener: public Object{
 	public:
+	};
+
+	class ANGLE_instanced_arrays: public Object{
+	public:
+		void drawArraysInstancedANGLE(double mode, double first, double count, double primcount);
+		void drawElementsInstancedANGLE(double mode, double count, double type, double offset, double primcount);
+		void vertexAttribDivisorANGLE(double index, double divisor);
+		ANGLE_instanced_arrays* get_prototype();
+		void set_prototype(ANGLE_instanced_arrays*);
+		ANGLE_instanced_arrays();
+		double get_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE();
+	};
+
+	class AbortController: public Object{
+	public:
+		AbortSignal* get_signal();
+		void abort();
+		AbortController* get_prototype();
+		void set_prototype(AbortController*);
+		AbortController();
+	};
+
+	class AbortSignalEventMap: public Object{
+	public:
+		ProgressEvent* get_abort();
+		void set_abort(ProgressEvent*);
 	};
 
 	class EventTarget: public Object{
@@ -2554,6 +4792,12 @@ namespace [[cheerp::genericjs]] client
 		AbortSignal();
 	};
 
+	class AbstractWorkerEventMap: public Object{
+	public:
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+	};
+
 	class AbstractWorker{
 	public:
 		EventListener* get_onerror();
@@ -2580,6 +4824,54 @@ namespace [[cheerp::genericjs]] client
 	public:
 		double get_length();
 		void set_length(double);
+	};
+
+	class AudioNode: public EventTarget {
+	public:
+		double get_channelCount();
+		void set_channelCount(double);
+		String* get_channelCountMode();
+		void set_channelCountMode(const String&);
+		String* get_channelInterpretation();
+		void set_channelInterpretation(const String&);
+		AudioContext* get_context();
+		double get_numberOfInputs();
+		double get_numberOfOutputs();
+		AudioNode* connect(AudioNode* destination);
+		AudioNode* connect(AudioNode* destination, double output);
+		AudioNode* connect(AudioNode* destination, double output, double input);
+		void connect(AudioParam* destination);
+		void connect(AudioParam* destination, double output);
+		void disconnect();
+		void disconnect(double output);
+		void disconnect(AudioNode* destination);
+		void disconnect(AudioNode* destination, double output);
+		void disconnect(AudioNode* destination, double output, double input);
+		void disconnect(AudioParam* destination);
+		void disconnect(AudioParam* destination, double output);
+		AudioNode* get_prototype();
+		void set_prototype(AudioNode*);
+		AudioNode();
+	};
+
+	class AnalyserNode: public AudioNode {
+	public:
+		double get_fftSize();
+		void set_fftSize(double);
+		double get_frequencyBinCount();
+		double get_maxDecibels();
+		void set_maxDecibels(double);
+		double get_minDecibels();
+		void set_minDecibels(double);
+		double get_smoothingTimeConstant();
+		void set_smoothingTimeConstant(double);
+		void getByteFrequencyData(Uint8Array* array);
+		void getByteTimeDomainData(Uint8Array* array);
+		void getFloatFrequencyData(Float32Array* array);
+		void getFloatTimeDomainData(Float32Array* array);
+		AnalyserNode* get_prototype();
+		void set_prototype(AnalyserNode*);
+		AnalyserNode();
 	};
 
 	class Animation: public Object{
@@ -2704,9 +4996,47 @@ namespace [[cheerp::genericjs]] client
 		void set_iterations(double);
 	};
 
+	class AnimationPlaybackEvent: public Event {
+	public:
+		double get_currentTime();
+		double get_timelineTime();
+		AnimationPlaybackEvent* get_prototype();
+		void set_prototype(AnimationPlaybackEvent*);
+		AnimationPlaybackEvent(const String& type);
+		AnimationPlaybackEvent(const String& type, AnimationPlaybackEventInit* eventInitDict);
+	};
+
+	class AnimationPlaybackEventInit: public EventInit {
+	public:
+		double get_currentTime();
+		void set_currentTime(double);
+		double get_timelineTime();
+		void set_timelineTime(double);
+	};
+
 	class AnimationTimeline: public Object{
 	public:
 		double get_currentTime();
+	};
+
+	class ApplicationCacheEventMap: public Object{
+	public:
+		Event* get_cached();
+		void set_cached(Event*);
+		Event* get_checking();
+		void set_checking(Event*);
+		Event* get_downloading();
+		void set_downloading(Event*);
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_noupdate();
+		void set_noupdate(Event*);
+		Event* get_obsolete();
+		void set_obsolete(Event*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+		Event* get_updateready();
+		void set_updateready(Event*);
 	};
 
 	class ApplicationCache: public EventTarget {
@@ -2829,6 +5159,177 @@ namespace [[cheerp::genericjs]] client
 		Attr();
 	};
 
+	class AudioBuffer: public Object{
+	public:
+		double get_duration();
+		double get_length();
+		double get_numberOfChannels();
+		double get_sampleRate();
+		void copyFromChannel(Float32Array* destination, double channelNumber);
+		void copyFromChannel(Float32Array* destination, double channelNumber, double startInChannel);
+		void copyToChannel(Float32Array* source, double channelNumber);
+		void copyToChannel(Float32Array* source, double channelNumber, double startInChannel);
+		Float32Array* getChannelData(double channel);
+		AudioBuffer* get_prototype();
+		void set_prototype(AudioBuffer*);
+		AudioBuffer();
+	};
+
+	class AudioBufferSourceNodeEventMap: public Object{
+	public:
+		Event* get_ended();
+		void set_ended(Event*);
+	};
+
+	class AudioBufferSourceNode: public AudioNode {
+	public:
+		AudioBuffer* get_buffer();
+		void set_buffer(AudioBuffer*);
+		AudioParam* get_detune();
+		bool get_loop();
+		void set_loop(bool);
+		double get_loopEnd();
+		void set_loopEnd(double);
+		double get_loopStart();
+		void set_loopStart(double);
+		EventListener* get_onended();
+		void set_onended(EventListener*);
+		AudioParam* get_playbackRate();
+		void start();
+		void start(double when);
+		void start(double when, double offset);
+		void start(double when, double offset, double duration);
+		void stop();
+		void stop(double when);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		AudioBufferSourceNode* get_prototype();
+		void set_prototype(AudioBufferSourceNode*);
+		AudioBufferSourceNode();
+	};
+
+	class AudioContextEventMap: public Object{
+	public:
+		Event* get_statechange();
+		void set_statechange(Event*);
+	};
+
+	class AudioContextBase: public EventTarget {
+	public:
+		double get_currentTime();
+		AudioDestinationNode* get_destination();
+		AudioListener* get_listener();
+		EventListener* get_onstatechange();
+		void set_onstatechange(EventListener*);
+		double get_sampleRate();
+		String* get_state();
+		Promise<void>* close();
+		AnalyserNode* createAnalyser();
+		BiquadFilterNode* createBiquadFilter();
+		AudioBuffer* createBuffer(double numberOfChannels, double length, double sampleRate);
+		AudioBufferSourceNode* createBufferSource();
+		ChannelMergerNode* createChannelMerger();
+		ChannelMergerNode* createChannelMerger(double numberOfInputs);
+		ChannelSplitterNode* createChannelSplitter();
+		ChannelSplitterNode* createChannelSplitter(double numberOfOutputs);
+		ConvolverNode* createConvolver();
+		DelayNode* createDelay();
+		DelayNode* createDelay(double maxDelayTime);
+		DynamicsCompressorNode* createDynamicsCompressor();
+		GainNode* createGain();
+		IIRFilterNode* createIIRFilter(Array* feedforward, Array* feedback);
+		MediaElementAudioSourceNode* createMediaElementSource(HTMLMediaElement* mediaElement);
+		MediaStreamAudioSourceNode* createMediaStreamSource(MediaStream* mediaStream);
+		OscillatorNode* createOscillator();
+		PannerNode* createPanner();
+		PeriodicWave* createPeriodicWave(Float32Array* real, Float32Array* imag);
+		PeriodicWave* createPeriodicWave(Float32Array* real, Float32Array* imag, PeriodicWaveConstraints* constraints);
+		ScriptProcessorNode* createScriptProcessor();
+		ScriptProcessorNode* createScriptProcessor(double bufferSize);
+		ScriptProcessorNode* createScriptProcessor(double bufferSize, double numberOfInputChannels);
+		ScriptProcessorNode* createScriptProcessor(double bufferSize, double numberOfInputChannels, double numberOfOutputChannels);
+		StereoPannerNode* createStereoPanner();
+		WaveShaperNode* createWaveShaper();
+		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData);
+		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback);
+		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback, EventListener* errorCallback);
+		Promise<void>* resume();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+	};
+
+	class AudioContext: public AudioContextBase {
+	public:
+		Promise<void>* suspend();
+		AudioContext* get_prototype();
+		void set_prototype(AudioContext*);
+		AudioContext();
+	};
+
+	class AudioDestinationNode: public AudioNode {
+	public:
+		double get_maxChannelCount();
+		AudioDestinationNode* get_prototype();
+		void set_prototype(AudioDestinationNode*);
+		AudioDestinationNode();
+	};
+
+	class AudioListener: public Object{
+	public:
+		double get_dopplerFactor();
+		void set_dopplerFactor(double);
+		double get_speedOfSound();
+		void set_speedOfSound(double);
+		void setOrientation(double x, double y, double z, double xUp, double yUp, double zUp);
+		void setPosition(double x, double y, double z);
+		void setVelocity(double x, double y, double z);
+		AudioListener* get_prototype();
+		void set_prototype(AudioListener*);
+		AudioListener();
+	};
+
+	class AudioParam: public Object{
+	public:
+		double get_defaultValue();
+		double get_value();
+		void set_value(double);
+		AudioParam* cancelScheduledValues(double cancelTime);
+		AudioParam* exponentialRampToValueAtTime(double value, double endTime);
+		AudioParam* linearRampToValueAtTime(double value, double endTime);
+		AudioParam* setTargetAtTime(double target, double startTime, double timeConstant);
+		AudioParam* setValueAtTime(double value, double startTime);
+		AudioParam* setValueCurveAtTime(Array* values, double startTime, double duration);
+		AudioParam* get_prototype();
+		void set_prototype(AudioParam*);
+		AudioParam();
+	};
+
+	class AudioProcessingEvent: public Event {
+	public:
+		AudioBuffer* get_inputBuffer();
+		AudioBuffer* get_outputBuffer();
+		double get_playbackTime();
+		AudioProcessingEvent* get_prototype();
+		void set_prototype(AudioProcessingEvent*);
+		AudioProcessingEvent();
+	};
+
 	class AudioTrack: public Object{
 	public:
 		bool get_enabled();
@@ -2843,6 +5344,16 @@ namespace [[cheerp::genericjs]] client
 		AudioTrack* get_prototype();
 		void set_prototype(AudioTrack*);
 		AudioTrack();
+	};
+
+	class AudioTrackListEventMap: public Object{
+	public:
+		TrackEvent* get_addtrack();
+		void set_addtrack(TrackEvent*);
+		Event* get_change();
+		void set_change(Event*);
+		TrackEvent* get_removetrack();
+		void set_removetrack(TrackEvent*);
 	};
 
 	class AudioTrackList: public EventTarget {
@@ -2896,6 +5407,45 @@ namespace [[cheerp::genericjs]] client
 		BeforeUnloadEvent();
 	};
 
+	class BhxBrowser: public Object{
+	public:
+		DOMException* get_lastError();
+		bool checkMatchesGlobExpression(const String& pattern, const String& value);
+		bool checkMatchesUriExpression(const String& pattern, const String& value);
+		void clearLastError();
+		double currentWindowId();
+		void fireExtensionApiTelemetry(const String& functionName, bool isSucceeded, bool isSupported, const String& errorString);
+		void genericFunction(double functionId, Object* destination);
+		void genericFunction(double functionId, Object* destination, const String& parameters);
+		void genericFunction(double functionId, Object* destination, const String& parameters, double callbackId);
+		String* genericSynchronousFunction(double functionId);
+		String* genericSynchronousFunction(double functionId, const String& parameters);
+		String* getExtensionId();
+		Object* getThisAddress();
+		void registerGenericFunctionCallbackHandler(Function* callbackHandler);
+		void registerGenericListenerHandler(Function* eventHandler);
+		void setLastError(const String& parameters);
+		void webPlatformGenericFunction(Object* destination);
+		void webPlatformGenericFunction(Object* destination, const String& parameters);
+		void webPlatformGenericFunction(Object* destination, const String& parameters, double callbackId);
+		BhxBrowser* get_prototype();
+		void set_prototype(BhxBrowser*);
+		BhxBrowser();
+	};
+
+	class BiquadFilterNode: public AudioNode {
+	public:
+		AudioParam* get_detune();
+		AudioParam* get_frequency();
+		AudioParam* get_gain();
+		String* get_type();
+		void set_type(const String&);
+		void getFrequencyResponse(Float32Array* frequencyHz, Float32Array* magResponse, Float32Array* phaseResponse);
+		BiquadFilterNode* get_prototype();
+		void set_prototype(BiquadFilterNode*);
+		BiquadFilterNode();
+	};
+
 	class Blob: public Object{
 	public:
 		double get_size();
@@ -2927,8 +5477,51 @@ namespace [[cheerp::genericjs]] client
 		Promise<ArrayBuffer>* arrayBuffer();
 		Promise<Blob>* blob();
 		Promise<FormData>* formData();
-		Promise<Object*>* json();
-		Promise<const String&>* text();
+		Promise<Object>* json();
+		Promise<String>* text();
+	};
+
+	class BroadcastChannel: public EventTarget {
+	public:
+		String* get_name();
+		EventListener* get_onmessage();
+		void set_onmessage(EventListener*);
+		EventListener* get_onmessageerror();
+		void set_onmessageerror(EventListener*);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void close();
+		void postMessage(Object* message);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		BroadcastChannel* get_prototype();
+		void set_prototype(BroadcastChannel*);
+		BroadcastChannel(const String& name);
+	};
+
+	class BroadcastChannelEventMap: public Object{
+	public:
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
+		MessageEvent* get_messageerror();
+		void set_messageerror(MessageEvent*);
+	};
+
+	class ByteLengthQueuingStrategy: public Object{
+	public:
+		double get_highWaterMark();
+		void set_highWaterMark(double);
+		double size();
+		double size(Object* chunk);
+		ByteLengthQueuingStrategy* get_prototype();
+		void set_prototype(ByteLengthQueuingStrategy*);
+		ByteLengthQueuingStrategy(QueuingStrategy* strategy);
 	};
 
 	class ChildNode{
@@ -3930,6 +6523,13 @@ namespace [[cheerp::genericjs]] client
 		CSSStyleSheet();
 	};
 
+	class CSSSupportsRule: public CSSConditionRule {
+	public:
+		CSSSupportsRule* get_prototype();
+		void set_prototype(CSSSupportsRule*);
+		CSSSupportsRule();
+	};
+
 	class Cache: public Object{
 	public:
 		Promise<void>* add(Request* request);
@@ -3965,14 +6565,32 @@ namespace [[cheerp::genericjs]] client
 		Promise<bool>* _delete(const String& cacheName);
 		Promise<bool>* has(const String& cacheName);
 		Promise<Array>* keys();
-		Promise<Object*>* match(Request* request);
-		Promise<Object*>* match(Request* request, CacheQueryOptions* options);
-		Promise<Object*>* match(const String& request);
-		Promise<Object*>* match(const String& request, CacheQueryOptions* options);
+		Promise<Object>* match(Request* request);
+		Promise<Object>* match(Request* request, CacheQueryOptions* options);
+		Promise<Object>* match(const String& request);
+		Promise<Object>* match(const String& request, CacheQueryOptions* options);
 		Promise<Cache>* open(const String& cacheName);
 		CacheStorage* get_prototype();
 		void set_prototype(CacheStorage*);
 		CacheStorage();
+	};
+
+	class Canvas2DContextAttributes: public Object{
+	public:
+		bool get_alpha();
+		void set_alpha(bool);
+		bool get_storage();
+		void set_storage(bool);
+		bool get_willReadFrequently();
+		void set_willReadFrequently(bool);
+		Object*& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<Object*>(this, 0)[index];
+		}
+		Object* operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<Object*>(this, 0)[index];
+		}
 	};
 
 	class CanvasGradient: public Object{
@@ -4114,6 +6732,20 @@ namespace [[cheerp::genericjs]] client
 		CanvasRenderingContext2D();
 	};
 
+	class ChannelMergerNode: public AudioNode {
+	public:
+		ChannelMergerNode* get_prototype();
+		void set_prototype(ChannelMergerNode*);
+		ChannelMergerNode();
+	};
+
+	class ChannelSplitterNode: public AudioNode {
+	public:
+		ChannelSplitterNode* get_prototype();
+		void set_prototype(ChannelSplitterNode*);
+		ChannelSplitterNode();
+	};
+
 	class ClientRect: public Object{
 	public:
 		double get_bottom();
@@ -4146,6 +6778,23 @@ namespace [[cheerp::genericjs]] client
 		ClientRectList* get_prototype();
 		void set_prototype(ClientRectList*);
 		ClientRectList();
+	};
+
+	class ClipboardEvent: public Event {
+	public:
+		DataTransfer* get_clipboardData();
+		ClipboardEvent* get_prototype();
+		void set_prototype(ClipboardEvent*);
+		ClipboardEvent(const String& type);
+		ClipboardEvent(const String& type, ClipboardEventInit* eventInitDict);
+	};
+
+	class ClipboardEventInit: public EventInit {
+	public:
+		String* get_data();
+		void set_data(const String&);
+		String* get_dataType();
+		void set_dataType(const String&);
 	};
 
 	class CloseEvent: public Event {
@@ -4298,6 +6947,26 @@ namespace [[cheerp::genericjs]] client
 		template<typename... Args> void warn(const String& message, const String&, Args&&... optionalParams);
 	};
 
+	class ContentScriptGlobalScope: public EventTarget {
+	public:
+		ExtensionScriptApis* get_msContentScript();
+		Window* get_window();
+		ContentScriptGlobalScope* get_prototype();
+		void set_prototype(ContentScriptGlobalScope*);
+		ContentScriptGlobalScope();
+	};
+
+	class ConvolverNode: public AudioNode {
+	public:
+		AudioBuffer* get_buffer();
+		void set_buffer(AudioBuffer*);
+		bool get_normalize();
+		void set_normalize(bool);
+		ConvolverNode* get_prototype();
+		void set_prototype(ConvolverNode*);
+		ConvolverNode();
+	};
+
 	class Coordinates: public Object{
 	public:
 		double get_accuracy();
@@ -4310,6 +6979,16 @@ namespace [[cheerp::genericjs]] client
 		Coordinates* get_prototype();
 		void set_prototype(Coordinates*);
 		Coordinates();
+	};
+
+	class CountQueuingStrategy: public Object{
+	public:
+		double get_highWaterMark();
+		void set_highWaterMark(double);
+		double size();
+		CountQueuingStrategy* get_prototype();
+		void set_prototype(CountQueuingStrategy*);
+		CountQueuingStrategy(QueuingStrategy* strategy);
 	};
 
 	class Crypto: public Object{
@@ -4452,6 +7131,62 @@ namespace [[cheerp::genericjs]] client
 		DOMParser();
 	};
 
+	class DOMRectReadOnly: public Object{
+	public:
+		double get_bottom();
+		double get_height();
+		double get_left();
+		double get_right();
+		double get_top();
+		double get_width();
+		double get_x();
+		double get_y();
+		DOMRectReadOnly* get_prototype();
+		void set_prototype(DOMRectReadOnly*);
+		DOMRectReadOnly();
+		DOMRectReadOnly(double x);
+		DOMRectReadOnly(double x, double y);
+		DOMRectReadOnly(double x, double y, double width);
+		DOMRectReadOnly(double x, double y, double width, double height);
+		static DOMRectReadOnly* fromRect() [[cheerp::static]];
+		static DOMRectReadOnly* fromRect(DOMRectInit* rectangle) [[cheerp::static]];
+	};
+
+	class DOMRect: public DOMRectReadOnly {
+	public:
+		double get_height();
+		void set_height(double);
+		double get_width();
+		void set_width(double);
+		double get_x();
+		void set_x(double);
+		double get_y();
+		void set_y(double);
+		DOMRect* get_prototype();
+		void set_prototype(DOMRect*);
+		DOMRect();
+		DOMRect(double x);
+		DOMRect(double x, double y);
+		DOMRect(double x, double y, double width);
+		DOMRect(double x, double y, double width, double height);
+		static DOMRect* fromRect() [[cheerp::static]];
+		static DOMRect* fromRect(DOMRectInit* rectangle) [[cheerp::static]];
+	};
+
+	class DOMRectList: public Object{
+	public:
+		double get_length();
+		DOMRect* item(double index);
+		DOMRect*& operator[](int index)
+		{
+			return __builtin_cheerp_make_regular<DOMRect*>(this, 0)[index];
+		}
+		DOMRect* operator[](int index) const
+		{
+			return __builtin_cheerp_make_regular<DOMRect*>(this, 0)[index];
+		}
+	};
+
 	class DOMTokenList: public Object{
 	public:
 		double get_length();
@@ -4523,6 +7258,58 @@ namespace [[cheerp::genericjs]] client
 		DOMStringMap();
 	};
 
+	class TextTrackCue: public EventTarget {
+	public:
+		double get_endTime();
+		void set_endTime(double);
+		String* get_id();
+		void set_id(const String&);
+		EventListener* get_onenter();
+		void set_onenter(EventListener*);
+		EventListener* get_onexit();
+		void set_onexit(EventListener*);
+		bool get_pauseOnExit();
+		void set_pauseOnExit(bool);
+		double get_startTime();
+		void set_startTime(double);
+		String* get_text();
+		void set_text(const String&);
+		TextTrack* get_track();
+		DocumentFragment* getCueAsHTML();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		TextTrackCue* get_prototype();
+		void set_prototype(TextTrackCue*);
+		TextTrackCue(double startTime, double endTime, const String& text);
+	};
+
+	class DataCue: public TextTrackCue {
+	public:
+		ArrayBuffer* get_data();
+		void set_data(ArrayBuffer*);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		DataCue* get_prototype();
+		void set_prototype(DataCue*);
+		DataCue();
+	};
+
 	class DataTransfer: public Object{
 	public:
 		String* get_dropEffect();
@@ -4575,6 +7362,26 @@ namespace [[cheerp::genericjs]] client
 		DataTransferItemList();
 	};
 
+	class DeferredPermissionRequest: public Object{
+	public:
+		double get_id();
+		String* get_type();
+		String* get_uri();
+		void allow();
+		void deny();
+		DeferredPermissionRequest* get_prototype();
+		void set_prototype(DeferredPermissionRequest*);
+		DeferredPermissionRequest();
+	};
+
+	class DelayNode: public AudioNode {
+	public:
+		AudioParam* get_delayTime();
+		DelayNode* get_prototype();
+		void set_prototype(DelayNode*);
+		DelayNode();
+	};
+
 	class DeviceAcceleration: public Object{
 	public:
 		double get_x();
@@ -4583,6 +7390,15 @@ namespace [[cheerp::genericjs]] client
 		DeviceAcceleration* get_prototype();
 		void set_prototype(DeviceAcceleration*);
 		DeviceAcceleration();
+	};
+
+	class DeviceLightEvent: public Event {
+	public:
+		double get_value();
+		DeviceLightEvent* get_prototype();
+		void set_prototype(DeviceLightEvent*);
+		DeviceLightEvent(const String& typeArg);
+		DeviceLightEvent(const String& typeArg, DeviceLightEventInit* eventInitDict);
 	};
 
 	class DeviceMotionEvent: public Event {
@@ -4629,6 +7445,14 @@ namespace [[cheerp::genericjs]] client
 		void set_prime(Uint8Array*);
 	};
 
+	class DhKeyAlgorithm: public KeyAlgorithm {
+	public:
+		Uint8Array* get_generator();
+		void set_generator(Uint8Array*);
+		Uint8Array* get_prime();
+		void set_prime(Uint8Array*);
+	};
+
 	class DhKeyDeriveParams: public Algorithm {
 	public:
 		CryptoKey* get_public();
@@ -4641,6 +7465,208 @@ namespace [[cheerp::genericjs]] client
 		void set_generator(Uint8Array*);
 		Uint8Array* get_prime();
 		void set_prime(Uint8Array*);
+	};
+
+	class GlobalEventHandlersEventMap: public Object{
+	public:
+		PointerEvent* get_pointercancel();
+		void set_pointercancel(PointerEvent*);
+		PointerEvent* get_pointerdown();
+		void set_pointerdown(PointerEvent*);
+		PointerEvent* get_pointerenter();
+		void set_pointerenter(PointerEvent*);
+		PointerEvent* get_pointerleave();
+		void set_pointerleave(PointerEvent*);
+		PointerEvent* get_pointermove();
+		void set_pointermove(PointerEvent*);
+		PointerEvent* get_pointerout();
+		void set_pointerout(PointerEvent*);
+		PointerEvent* get_pointerover();
+		void set_pointerover(PointerEvent*);
+		PointerEvent* get_pointerup();
+		void set_pointerup(PointerEvent*);
+		WheelEvent* get_wheel();
+		void set_wheel(WheelEvent*);
+	};
+
+	class DocumentEventMap: public GlobalEventHandlersEventMap {
+	public:
+		UIEvent* get_abort();
+		void set_abort(UIEvent*);
+		Event* get_activate();
+		void set_activate(Event*);
+		Event* get_beforeactivate();
+		void set_beforeactivate(Event*);
+		Event* get_beforedeactivate();
+		void set_beforedeactivate(Event*);
+		FocusEvent* get_blur();
+		void set_blur(FocusEvent*);
+		Event* get_canplay();
+		void set_canplay(Event*);
+		Event* get_canplaythrough();
+		void set_canplaythrough(Event*);
+		Event* get_change();
+		void set_change(Event*);
+		MouseEvent* get_click();
+		void set_click(MouseEvent*);
+		PointerEvent* get_contextmenu();
+		void set_contextmenu(PointerEvent*);
+		MouseEvent* get_dblclick();
+		void set_dblclick(MouseEvent*);
+		Event* get_deactivate();
+		void set_deactivate(Event*);
+		DragEvent* get_drag();
+		void set_drag(DragEvent*);
+		DragEvent* get_dragend();
+		void set_dragend(DragEvent*);
+		DragEvent* get_dragenter();
+		void set_dragenter(DragEvent*);
+		DragEvent* get_dragleave();
+		void set_dragleave(DragEvent*);
+		DragEvent* get_dragover();
+		void set_dragover(DragEvent*);
+		DragEvent* get_dragstart();
+		void set_dragstart(DragEvent*);
+		DragEvent* get_drop();
+		void set_drop(DragEvent*);
+		Event* get_durationchange();
+		void set_durationchange(Event*);
+		Event* get_emptied();
+		void set_emptied(Event*);
+		Event* get_ended();
+		void set_ended(Event*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		FocusEvent* get_focus();
+		void set_focus(FocusEvent*);
+		Event* get_fullscreenchange();
+		void set_fullscreenchange(Event*);
+		Event* get_fullscreenerror();
+		void set_fullscreenerror(Event*);
+		Event* get_input();
+		void set_input(Event*);
+		Event* get_invalid();
+		void set_invalid(Event*);
+		KeyboardEvent* get_keydown();
+		void set_keydown(KeyboardEvent*);
+		KeyboardEvent* get_keypress();
+		void set_keypress(KeyboardEvent*);
+		KeyboardEvent* get_keyup();
+		void set_keyup(KeyboardEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		Event* get_loadeddata();
+		void set_loadeddata(Event*);
+		Event* get_loadedmetadata();
+		void set_loadedmetadata(Event*);
+		Event* get_loadstart();
+		void set_loadstart(Event*);
+		MouseEvent* get_mousedown();
+		void set_mousedown(MouseEvent*);
+		MouseEvent* get_mousemove();
+		void set_mousemove(MouseEvent*);
+		MouseEvent* get_mouseout();
+		void set_mouseout(MouseEvent*);
+		MouseEvent* get_mouseover();
+		void set_mouseover(MouseEvent*);
+		MouseEvent* get_mouseup();
+		void set_mouseup(MouseEvent*);
+		WheelEvent* get_mousewheel();
+		void set_mousewheel(WheelEvent*);
+		Event* get_MSContentZoom();
+		void set_MSContentZoom(Event*);
+		Event* get_MSGestureChange();
+		void set_MSGestureChange(Event*);
+		Event* get_MSGestureDoubleTap();
+		void set_MSGestureDoubleTap(Event*);
+		Event* get_MSGestureEnd();
+		void set_MSGestureEnd(Event*);
+		Event* get_MSGestureHold();
+		void set_MSGestureHold(Event*);
+		Event* get_MSGestureStart();
+		void set_MSGestureStart(Event*);
+		Event* get_MSGestureTap();
+		void set_MSGestureTap(Event*);
+		Event* get_MSInertiaStart();
+		void set_MSInertiaStart(Event*);
+		Event* get_MSManipulationStateChanged();
+		void set_MSManipulationStateChanged(Event*);
+		Event* get_MSPointerCancel();
+		void set_MSPointerCancel(Event*);
+		Event* get_MSPointerDown();
+		void set_MSPointerDown(Event*);
+		Event* get_MSPointerEnter();
+		void set_MSPointerEnter(Event*);
+		Event* get_MSPointerLeave();
+		void set_MSPointerLeave(Event*);
+		Event* get_MSPointerMove();
+		void set_MSPointerMove(Event*);
+		Event* get_MSPointerOut();
+		void set_MSPointerOut(Event*);
+		Event* get_MSPointerOver();
+		void set_MSPointerOver(Event*);
+		Event* get_MSPointerUp();
+		void set_MSPointerUp(Event*);
+		Event* get_mssitemodejumplistitemremoved();
+		void set_mssitemodejumplistitemremoved(Event*);
+		Event* get_msthumbnailclick();
+		void set_msthumbnailclick(Event*);
+		Event* get_pause();
+		void set_pause(Event*);
+		Event* get_play();
+		void set_play(Event*);
+		Event* get_playing();
+		void set_playing(Event*);
+		Event* get_pointerlockchange();
+		void set_pointerlockchange(Event*);
+		Event* get_pointerlockerror();
+		void set_pointerlockerror(Event*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+		Event* get_ratechange();
+		void set_ratechange(Event*);
+		Event* get_readystatechange();
+		void set_readystatechange(Event*);
+		Event* get_reset();
+		void set_reset(Event*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
+		Event* get_seeked();
+		void set_seeked(Event*);
+		Event* get_seeking();
+		void set_seeking(Event*);
+		UIEvent* get_select();
+		void set_select(UIEvent*);
+		Event* get_selectionchange();
+		void set_selectionchange(Event*);
+		Event* get_selectstart();
+		void set_selectstart(Event*);
+		Event* get_stalled();
+		void set_stalled(Event*);
+		Event* get_stop();
+		void set_stop(Event*);
+		Event* get_submit();
+		void set_submit(Event*);
+		Event* get_suspend();
+		void set_suspend(Event*);
+		Event* get_timeupdate();
+		void set_timeupdate(Event*);
+		TouchEvent* get_touchcancel();
+		void set_touchcancel(TouchEvent*);
+		TouchEvent* get_touchend();
+		void set_touchend(TouchEvent*);
+		TouchEvent* get_touchmove();
+		void set_touchmove(TouchEvent*);
+		TouchEvent* get_touchstart();
+		void set_touchstart(TouchEvent*);
+		Event* get_volumechange();
+		void set_volumechange(Event*);
+		Event* get_waiting();
+		void set_waiting(Event*);
+		Event* get_webkitfullscreenchange();
+		void set_webkitfullscreenchange(Event*);
+		Event* get_webkitfullscreenerror();
+		void set_webkitfullscreenerror(Event*);
 	};
 
 	class GlobalEventHandlers{
@@ -4733,7 +7759,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_lastModified();
 		String* get_linkColor();
 		void set_linkColor(const String&);
-		HTMLCollectionOf<Object*>* get_links();
+		HTMLCollectionOf<Object>* get_links();
 		Location* get_location();
 		void set_location(Location*);
 		bool get_msCSSOMElementFloatMetrics();
@@ -5101,6 +8127,41 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(DragEvent*);
 	};
 
+	class DynamicsCompressorNode: public AudioNode {
+	public:
+		AudioParam* get_attack();
+		AudioParam* get_knee();
+		AudioParam* get_ratio();
+		double get_reduction();
+		AudioParam* get_release();
+		AudioParam* get_threshold();
+		DynamicsCompressorNode* get_prototype();
+		void set_prototype(DynamicsCompressorNode*);
+		DynamicsCompressorNode();
+	};
+
+	class EXT_blend_minmax: public Object{
+	public:
+		double get_MAX_EXT();
+		double get_MIN_EXT();
+	};
+
+	class EXT_frag_depth: public Object{
+	public:
+	};
+
+	class EXT_sRGB: public Object{
+	public:
+		double get_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT();
+		double get_SRGB8_ALPHA8_EXT();
+		double get_SRGB_ALPHA_EXT();
+		double get_SRGB_EXT();
+	};
+
+	class EXT_shader_texture_lod: public Object{
+	public:
+	};
+
 	class EXT_texture_filter_anisotropic: public Object{
 	public:
 		EXT_texture_filter_anisotropic* get_prototype();
@@ -5108,6 +8169,64 @@ namespace [[cheerp::genericjs]] client
 		EXT_texture_filter_anisotropic();
 		double get_MAX_TEXTURE_MAX_ANISOTROPY_EXT();
 		double get_TEXTURE_MAX_ANISOTROPY_EXT();
+	};
+
+	class ElementEventMap: public GlobalEventHandlersEventMap {
+	public:
+		Event* get_ariarequest();
+		void set_ariarequest(Event*);
+		Event* get_command();
+		void set_command(Event*);
+		PointerEvent* get_gotpointercapture();
+		void set_gotpointercapture(PointerEvent*);
+		PointerEvent* get_lostpointercapture();
+		void set_lostpointercapture(PointerEvent*);
+		Event* get_MSGestureChange();
+		void set_MSGestureChange(Event*);
+		Event* get_MSGestureDoubleTap();
+		void set_MSGestureDoubleTap(Event*);
+		Event* get_MSGestureEnd();
+		void set_MSGestureEnd(Event*);
+		Event* get_MSGestureHold();
+		void set_MSGestureHold(Event*);
+		Event* get_MSGestureStart();
+		void set_MSGestureStart(Event*);
+		Event* get_MSGestureTap();
+		void set_MSGestureTap(Event*);
+		Event* get_MSGotPointerCapture();
+		void set_MSGotPointerCapture(Event*);
+		Event* get_MSInertiaStart();
+		void set_MSInertiaStart(Event*);
+		Event* get_MSLostPointerCapture();
+		void set_MSLostPointerCapture(Event*);
+		Event* get_MSPointerCancel();
+		void set_MSPointerCancel(Event*);
+		Event* get_MSPointerDown();
+		void set_MSPointerDown(Event*);
+		Event* get_MSPointerEnter();
+		void set_MSPointerEnter(Event*);
+		Event* get_MSPointerLeave();
+		void set_MSPointerLeave(Event*);
+		Event* get_MSPointerMove();
+		void set_MSPointerMove(Event*);
+		Event* get_MSPointerOut();
+		void set_MSPointerOut(Event*);
+		Event* get_MSPointerOver();
+		void set_MSPointerOver(Event*);
+		Event* get_MSPointerUp();
+		void set_MSPointerUp(Event*);
+		TouchEvent* get_touchcancel();
+		void set_touchcancel(TouchEvent*);
+		TouchEvent* get_touchend();
+		void set_touchend(TouchEvent*);
+		TouchEvent* get_touchmove();
+		void set_touchmove(TouchEvent*);
+		TouchEvent* get_touchstart();
+		void set_touchstart(TouchEvent*);
+		Event* get_webkitfullscreenchange();
+		void set_webkitfullscreenchange(Event*);
+		Event* get_webkitfullscreenerror();
+		void set_webkitfullscreenerror(Event*);
 	};
 
 	class ElementTraversal{
@@ -5299,6 +8418,29 @@ namespace [[cheerp::genericjs]] client
 		void handleEvent(Event* evt);
 	};
 
+	class EventSource: public EventTarget {
+	public:
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		EventListener* get_onmessage();
+		void set_onmessage(EventListener*);
+		EventListener* get_onopen();
+		void set_onopen(EventListener*);
+		double get_readyState();
+		String* get_url();
+		bool get_withCredentials();
+		void close();
+		EventSource* get_prototype();
+		void set_prototype(EventSource*);
+		EventSource(const String& url);
+		EventSource(const String& url, EventSourceInit* eventSourceInitDict);
+	};
+
+	class EventSourceInit: public Object{
+	public:
+		bool get_withCredentials();
+	};
+
 	class ExtensionScriptApis: public Object{
 	public:
 		double extensionIdToShortId(const String& extensionId);
@@ -5360,6 +8502,22 @@ namespace [[cheerp::genericjs]] client
 		void set_lastModified(double);
 	};
 
+	class FileReaderEventMap: public Object{
+	public:
+		ProgressEvent* get_abort();
+		void set_abort(ProgressEvent*);
+		ProgressEvent* get_error();
+		void set_error(ProgressEvent*);
+		ProgressEvent* get_load();
+		void set_load(ProgressEvent*);
+		ProgressEvent* get_loadend();
+		void set_loadend(ProgressEvent*);
+		ProgressEvent* get_loadstart();
+		void set_loadstart(ProgressEvent*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+	};
+
 	class FileReader: public EventTarget {
 	public:
 		DOMException* get_error();
@@ -5401,6 +8559,23 @@ namespace [[cheerp::genericjs]] client
 		double get_LOADING();
 	};
 
+	class ProgressEvent: public Event {
+	public:
+		bool get_lengthComputable();
+		double get_loaded();
+		double get_total();
+		void initProgressEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, bool lengthComputableArg, double loadedArg, double totalArg);
+		ProgressEvent* get_prototype();
+		void set_prototype(ProgressEvent*);
+		ProgressEvent(const String& typeArg);
+		ProgressEvent(const String& typeArg, ProgressEventInit* eventInitDict);
+	};
+
+	class FileReaderProgressEvent: public ProgressEvent {
+	public:
+		FileReader* get_target();
+	};
+
 	class FocusEvent: public UIEvent {
 	public:
 		EventTarget* get_relatedTarget();
@@ -5409,6 +8584,20 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(FocusEvent*);
 		FocusEvent(const String& typeArg);
 		FocusEvent(const String& typeArg, FocusEventInit* eventInitDict);
+	};
+
+	class FocusNavigationEvent: public Event {
+	public:
+		String* get_navigationReason();
+		double get_originHeight();
+		double get_originLeft();
+		double get_originTop();
+		double get_originWidth();
+		void requestFocus();
+		FocusNavigationEvent* get_prototype();
+		void set_prototype(FocusNavigationEvent*);
+		FocusNavigationEvent(const String& type);
+		FocusNavigationEvent(const String& type, FocusNavigationEventInit* eventInitDict);
 	};
 
 	class FormData: public Object{
@@ -5429,6 +8618,75 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(FormData*);
 		FormData();
 		FormData(HTMLFormElement* form);
+	};
+
+	class GainNode: public AudioNode {
+	public:
+		AudioParam* get_gain();
+		GainNode* get_prototype();
+		void set_prototype(GainNode*);
+		GainNode();
+	};
+
+	class Gamepad: public Object{
+	public:
+		Array* get_axes();
+		Array* get_buttons();
+		bool get_connected();
+		double get_displayId();
+		String* get_hand();
+		Array* get_hapticActuators();
+		String* get_id();
+		double get_index();
+		String* get_mapping();
+		GamepadPose* get_pose();
+		double get_timestamp();
+		Gamepad* get_prototype();
+		void set_prototype(Gamepad*);
+		Gamepad();
+	};
+
+	class GamepadButton: public Object{
+	public:
+		bool get_pressed();
+		bool get_touched();
+		double get_value();
+		GamepadButton* get_prototype();
+		void set_prototype(GamepadButton*);
+		GamepadButton();
+	};
+
+	class GamepadEvent: public Event {
+	public:
+		Gamepad* get_gamepad();
+		GamepadEvent* get_prototype();
+		void set_prototype(GamepadEvent*);
+		GamepadEvent(const String& typeArg);
+		GamepadEvent(const String& typeArg, GamepadEventInit* eventInitDict);
+	};
+
+	class GamepadHapticActuator: public Object{
+	public:
+		String* get_type();
+		Promise<bool>* pulse(double value, double duration);
+		GamepadHapticActuator* get_prototype();
+		void set_prototype(GamepadHapticActuator*);
+		GamepadHapticActuator();
+	};
+
+	class GamepadPose: public Object{
+	public:
+		Float32Array* get_angularAcceleration();
+		Float32Array* get_angularVelocity();
+		bool get_hasOrientation();
+		bool get_hasPosition();
+		Float32Array* get_linearAcceleration();
+		Float32Array* get_linearVelocity();
+		Float32Array* get_orientation();
+		Float32Array* get_position();
+		GamepadPose* get_prototype();
+		void set_prototype(GamepadPose*);
+		GamepadPose();
 	};
 
 	class Geolocation: public Object{
@@ -6005,6 +9263,190 @@ namespace [[cheerp::genericjs]] client
 		HTMLBaseFontElement();
 	};
 
+	class HTMLElementEventMap: public ElementEventMap {
+	public:
+		UIEvent* get_abort();
+		void set_abort(UIEvent*);
+		Event* get_activate();
+		void set_activate(Event*);
+		Event* get_beforeactivate();
+		void set_beforeactivate(Event*);
+		Event* get_beforecopy();
+		void set_beforecopy(Event*);
+		Event* get_beforecut();
+		void set_beforecut(Event*);
+		Event* get_beforedeactivate();
+		void set_beforedeactivate(Event*);
+		Event* get_beforepaste();
+		void set_beforepaste(Event*);
+		FocusEvent* get_blur();
+		void set_blur(FocusEvent*);
+		Event* get_canplay();
+		void set_canplay(Event*);
+		Event* get_canplaythrough();
+		void set_canplaythrough(Event*);
+		Event* get_change();
+		void set_change(Event*);
+		MouseEvent* get_click();
+		void set_click(MouseEvent*);
+		PointerEvent* get_contextmenu();
+		void set_contextmenu(PointerEvent*);
+		ClipboardEvent* get_copy();
+		void set_copy(ClipboardEvent*);
+		Event* get_cuechange();
+		void set_cuechange(Event*);
+		ClipboardEvent* get_cut();
+		void set_cut(ClipboardEvent*);
+		MouseEvent* get_dblclick();
+		void set_dblclick(MouseEvent*);
+		Event* get_deactivate();
+		void set_deactivate(Event*);
+		DragEvent* get_drag();
+		void set_drag(DragEvent*);
+		DragEvent* get_dragend();
+		void set_dragend(DragEvent*);
+		DragEvent* get_dragenter();
+		void set_dragenter(DragEvent*);
+		DragEvent* get_dragleave();
+		void set_dragleave(DragEvent*);
+		DragEvent* get_dragover();
+		void set_dragover(DragEvent*);
+		DragEvent* get_dragstart();
+		void set_dragstart(DragEvent*);
+		DragEvent* get_drop();
+		void set_drop(DragEvent*);
+		Event* get_durationchange();
+		void set_durationchange(Event*);
+		Event* get_emptied();
+		void set_emptied(Event*);
+		Event* get_ended();
+		void set_ended(Event*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		FocusEvent* get_focus();
+		void set_focus(FocusEvent*);
+		Event* get_input();
+		void set_input(Event*);
+		Event* get_invalid();
+		void set_invalid(Event*);
+		KeyboardEvent* get_keydown();
+		void set_keydown(KeyboardEvent*);
+		KeyboardEvent* get_keypress();
+		void set_keypress(KeyboardEvent*);
+		KeyboardEvent* get_keyup();
+		void set_keyup(KeyboardEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		Event* get_loadeddata();
+		void set_loadeddata(Event*);
+		Event* get_loadedmetadata();
+		void set_loadedmetadata(Event*);
+		Event* get_loadstart();
+		void set_loadstart(Event*);
+		MouseEvent* get_mousedown();
+		void set_mousedown(MouseEvent*);
+		MouseEvent* get_mouseenter();
+		void set_mouseenter(MouseEvent*);
+		MouseEvent* get_mouseleave();
+		void set_mouseleave(MouseEvent*);
+		MouseEvent* get_mousemove();
+		void set_mousemove(MouseEvent*);
+		MouseEvent* get_mouseout();
+		void set_mouseout(MouseEvent*);
+		MouseEvent* get_mouseover();
+		void set_mouseover(MouseEvent*);
+		MouseEvent* get_mouseup();
+		void set_mouseup(MouseEvent*);
+		WheelEvent* get_mousewheel();
+		void set_mousewheel(WheelEvent*);
+		Event* get_MSContentZoom();
+		void set_MSContentZoom(Event*);
+		Event* get_MSManipulationStateChanged();
+		void set_MSManipulationStateChanged(Event*);
+		ClipboardEvent* get_paste();
+		void set_paste(ClipboardEvent*);
+		Event* get_pause();
+		void set_pause(Event*);
+		Event* get_play();
+		void set_play(Event*);
+		Event* get_playing();
+		void set_playing(Event*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+		Event* get_ratechange();
+		void set_ratechange(Event*);
+		Event* get_reset();
+		void set_reset(Event*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
+		Event* get_seeked();
+		void set_seeked(Event*);
+		Event* get_seeking();
+		void set_seeking(Event*);
+		UIEvent* get_select();
+		void set_select(UIEvent*);
+		Event* get_selectstart();
+		void set_selectstart(Event*);
+		Event* get_stalled();
+		void set_stalled(Event*);
+		Event* get_submit();
+		void set_submit(Event*);
+		Event* get_suspend();
+		void set_suspend(Event*);
+		Event* get_timeupdate();
+		void set_timeupdate(Event*);
+		Event* get_volumechange();
+		void set_volumechange(Event*);
+		Event* get_waiting();
+		void set_waiting(Event*);
+	};
+
+	class WindowEventHandlersEventMap{
+	public:
+		Event* get_afterprint();
+		void set_afterprint(Event*);
+		Event* get_beforeprint();
+		void set_beforeprint(Event*);
+		BeforeUnloadEvent* get_beforeunload();
+		void set_beforeunload(BeforeUnloadEvent*);
+		HashChangeEvent* get_hashchange();
+		void set_hashchange(HashChangeEvent*);
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
+		Event* get_offline();
+		void set_offline(Event*);
+		Event* get_online();
+		void set_online(Event*);
+		PageTransitionEvent* get_pagehide();
+		void set_pagehide(PageTransitionEvent*);
+		PageTransitionEvent* get_pageshow();
+		void set_pageshow(PageTransitionEvent*);
+		PopStateEvent* get_popstate();
+		void set_popstate(PopStateEvent*);
+		StorageEvent* get_storage();
+		void set_storage(StorageEvent*);
+		Event* get_unload();
+		void set_unload(Event*);
+	};
+
+	class HTMLBodyElementEventMap: public HTMLElementEventMap , public WindowEventHandlersEventMap {
+	public:
+		FocusEvent* get_blur();
+		void set_blur(FocusEvent*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		FocusEvent* get_focus();
+		void set_focus(FocusEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		Event* get_orientationchange();
+		void set_orientationchange(Event*);
+		UIEvent* get_resize();
+		void set_resize(UIEvent*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
+	};
+
 	class WindowEventHandlers{
 	public:
 		EventListener* get_onafterprint();
@@ -6200,6 +9642,25 @@ namespace [[cheerp::genericjs]] client
 		HTMLDListElement();
 	};
 
+	class HTMLDataElement: public HTMLElement {
+	public:
+		String* get_value();
+		void set_value(const String&);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLDataElement* get_prototype();
+		void set_prototype(HTMLDataElement*);
+		HTMLDataElement();
+	};
+
 	class HTMLDataListElement: public HTMLElement {
 	public:
 		HTMLCollectionOf<HTMLOptionElement>* get_options();
@@ -6216,6 +9677,50 @@ namespace [[cheerp::genericjs]] client
 		HTMLDataListElement* get_prototype();
 		void set_prototype(HTMLDataListElement*);
 		HTMLDataListElement();
+	};
+
+	class HTMLDetailsElement: public HTMLElement {
+	public:
+		bool get_open();
+		void set_open(bool);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLDetailsElement* get_prototype();
+		void set_prototype(HTMLDetailsElement*);
+		HTMLDetailsElement();
+	};
+
+	class HTMLDialogElement: public HTMLElement {
+	public:
+		bool get_open();
+		void set_open(bool);
+		String* get_returnValue();
+		void set_returnValue(const String&);
+		void close();
+		void close(const String& returnValue);
+		void show();
+		void showModal();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLDialogElement* get_prototype();
+		void set_prototype(HTMLDialogElement*);
+		HTMLDialogElement();
 	};
 
 	class HTMLDirectoryElement: public HTMLElement {
@@ -6423,6 +9928,12 @@ namespace [[cheerp::genericjs]] client
 		HTMLFormElement();
 	};
 
+	class HTMLFrameElementEventMap: public HTMLElementEventMap {
+	public:
+		Event* get_load();
+		void set_load(Event*);
+	};
+
 	class HTMLFrameElement: public HTMLElement , public GetSVGDocument {
 	public:
 		String* get_border();
@@ -6466,6 +9977,24 @@ namespace [[cheerp::genericjs]] client
 		HTMLFrameElement* get_prototype();
 		void set_prototype(HTMLFrameElement*);
 		HTMLFrameElement();
+	};
+
+	class HTMLFrameSetElementEventMap: public HTMLElementEventMap , public WindowEventHandlersEventMap {
+	public:
+		FocusEvent* get_blur();
+		void set_blur(FocusEvent*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		FocusEvent* get_focus();
+		void set_focus(FocusEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		Event* get_orientationchange();
+		void set_orientationchange(Event*);
+		UIEvent* get_resize();
+		void set_resize(UIEvent*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
 	};
 
 	class HTMLFrameSetElement: public HTMLElement , public WindowEventHandlers {
@@ -6573,6 +10102,12 @@ namespace [[cheerp::genericjs]] client
 		HTMLHtmlElement* get_prototype();
 		void set_prototype(HTMLHtmlElement*);
 		HTMLHtmlElement();
+	};
+
+	class HTMLIFrameElementEventMap: public HTMLElementEventMap {
+	public:
+		Event* get_load();
+		void set_load(Event*);
 	};
 
 	class HTMLIFrameElement: public HTMLElement , public GetSVGDocument {
@@ -6904,6 +10439,23 @@ namespace [[cheerp::genericjs]] client
 		HTMLLinkElement();
 	};
 
+	class HTMLMainElement: public HTMLElement {
+	public:
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLMainElement* get_prototype();
+		void set_prototype(HTMLMainElement*);
+		HTMLMainElement();
+	};
+
 	class HTMLMapElement: public HTMLElement {
 	public:
 		HTMLAreasCollection* get_areas();
@@ -6922,6 +10474,16 @@ namespace [[cheerp::genericjs]] client
 		HTMLMapElement* get_prototype();
 		void set_prototype(HTMLMapElement*);
 		HTMLMapElement();
+	};
+
+	class HTMLMarqueeElementEventMap: public HTMLElementEventMap {
+	public:
+		Event* get_bounce();
+		void set_bounce(Event*);
+		Event* get_finish();
+		void set_finish(Event*);
+		Event* get_start();
+		void set_start(Event*);
 	};
 
 	class HTMLMarqueeElement: public HTMLElement {
@@ -6969,6 +10531,14 @@ namespace [[cheerp::genericjs]] client
 		HTMLMarqueeElement* get_prototype();
 		void set_prototype(HTMLMarqueeElement*);
 		HTMLMarqueeElement();
+	};
+
+	class HTMLMediaElementEventMap: public HTMLElementEventMap {
+	public:
+		MediaEncryptedEvent* get_encrypted();
+		void set_encrypted(MediaEncryptedEvent*);
+		Event* get_msneedkey();
+		void set_msneedkey(Event*);
 	};
 
 	class HTMLMenuElement: public HTMLElement {
@@ -7019,6 +10589,35 @@ namespace [[cheerp::genericjs]] client
 		HTMLMetaElement* get_prototype();
 		void set_prototype(HTMLMetaElement*);
 		HTMLMetaElement();
+	};
+
+	class HTMLMeterElement: public HTMLElement {
+	public:
+		double get_high();
+		void set_high(double);
+		double get_low();
+		void set_low(double);
+		double get_max();
+		void set_max(double);
+		double get_min();
+		void set_min(double);
+		double get_optimum();
+		void set_optimum(double);
+		double get_value();
+		void set_value(double);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLMeterElement* get_prototype();
+		void set_prototype(HTMLMeterElement*);
+		HTMLMeterElement();
 	};
 
 	class HTMLModElement: public HTMLElement {
@@ -7200,6 +10799,38 @@ namespace [[cheerp::genericjs]] client
 		HTMLOptionsCollection();
 	};
 
+	class HTMLOutputElement: public HTMLElement {
+	public:
+		String* get_defaultValue();
+		void set_defaultValue(const String&);
+		HTMLFormElement* get_form();
+		DOMTokenList* get_htmlFor();
+		String* get_name();
+		void set_name(const String&);
+		String* get_type();
+		String* get_validationMessage();
+		ValidityState* get_validity();
+		String* get_value();
+		void set_value(const String&);
+		bool get_willValidate();
+		bool checkValidity();
+		bool reportValidity();
+		void setCustomValidity(const String& error);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLOutputElement* get_prototype();
+		void set_prototype(HTMLOutputElement*);
+		HTMLOutputElement();
+	};
+
 	class HTMLParagraphElement: public HTMLElement {
 	public:
 		String* get_align();
@@ -7244,6 +10875,23 @@ namespace [[cheerp::genericjs]] client
 		HTMLParamElement* get_prototype();
 		void set_prototype(HTMLParamElement*);
 		HTMLParamElement();
+	};
+
+	class HTMLPictureElement: public HTMLElement {
+	public:
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLPictureElement* get_prototype();
+		void set_prototype(HTMLPictureElement*);
+		HTMLPictureElement();
 	};
 
 	class HTMLPreElement: public HTMLElement {
@@ -7494,6 +11142,23 @@ namespace [[cheerp::genericjs]] client
 		HTMLStyleElement();
 	};
 
+	class HTMLSummaryElement: public HTMLElement {
+	public:
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLSummaryElement* get_prototype();
+		void set_prototype(HTMLSummaryElement*);
+		HTMLSummaryElement();
+	};
+
 	class HTMLTableCaptionElement: public HTMLElement {
 	public:
 		String* get_align();
@@ -7684,7 +11349,7 @@ namespace [[cheerp::genericjs]] client
 		void set_align(const String&);
 		String* get_bgColor();
 		void set_bgColor(const String&);
-		HTMLCollectionOf<Object*>* get_cells();
+		HTMLCollectionOf<Object>* get_cells();
 		String* get_ch();
 		void set_ch(const String&);
 		String* get_chOff();
@@ -7742,6 +11407,24 @@ namespace [[cheerp::genericjs]] client
 		HTMLTableSectionElement();
 	};
 
+	class HTMLTemplateElement: public HTMLElement {
+	public:
+		DocumentFragment* get_content();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLTemplateElement* get_prototype();
+		void set_prototype(HTMLTemplateElement*);
+		HTMLTemplateElement();
+	};
+
 	class HTMLTextAreaElement: public HTMLElement {
 	public:
 		bool get_autofocus();
@@ -7796,6 +11479,25 @@ namespace [[cheerp::genericjs]] client
 		HTMLTextAreaElement* get_prototype();
 		void set_prototype(HTMLTextAreaElement*);
 		HTMLTextAreaElement();
+	};
+
+	class HTMLTimeElement: public HTMLElement {
+	public:
+		String* get_dateTime();
+		void set_dateTime(const String&);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		HTMLTimeElement* get_prototype();
+		void set_prototype(HTMLTimeElement*);
+		HTMLTimeElement();
 	};
 
 	class HTMLTitleElement: public HTMLElement {
@@ -7888,6 +11590,16 @@ namespace [[cheerp::genericjs]] client
 		HTMLUnknownElement();
 	};
 
+	class HTMLVideoElementEventMap: public HTMLMediaElementEventMap {
+	public:
+		Event* get_MSVideoFormatChanged();
+		void set_MSVideoFormatChanged(Event*);
+		Event* get_MSVideoFrameStepCompleted();
+		void set_MSVideoFrameStepCompleted(Event*);
+		Event* get_MSVideoOptimalLayoutChanged();
+		void set_MSVideoOptimalLayoutChanged(Event*);
+	};
+
 	class HTMLVideoElement: public HTMLMediaElement {
 	public:
 		double get_height();
@@ -7938,6 +11650,24 @@ namespace [[cheerp::genericjs]] client
 		HTMLVideoElement* get_prototype();
 		void set_prototype(HTMLVideoElement*);
 		HTMLVideoElement();
+	};
+
+	class HTMLegendElement: public Object{
+	public:
+		HTMLFormElement* get_form();
+		HTMLegendElement* get_prototype();
+		void set_prototype(HTMLegendElement*);
+		HTMLegendElement();
+	};
+
+	class HashChangeEvent: public Event {
+	public:
+		String* get_newURL();
+		String* get_oldURL();
+		HashChangeEvent* get_prototype();
+		void set_prototype(HashChangeEvent*);
+		HashChangeEvent(const String& type);
+		HashChangeEvent(const String& type, HashChangeEventInit* eventInitDict);
 	};
 
 	class Headers: public Object{
@@ -8023,6 +11753,14 @@ namespace [[cheerp::genericjs]] client
 		IDBCursorWithValue* get_prototype();
 		void set_prototype(IDBCursorWithValue*);
 		IDBCursorWithValue();
+	};
+
+	class IDBDatabaseEventMap: public Object{
+	public:
+		Event* get_abort();
+		void set_abort(Event*);
+		Event* get_error();
+		void set_error(Event*);
 	};
 
 	class IDBDatabase: public EventTarget {
@@ -8170,6 +11908,22 @@ namespace [[cheerp::genericjs]] client
 		IDBObjectStore();
 	};
 
+	class IDBRequestEventMap: public Object{
+	public:
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_success();
+		void set_success(Event*);
+	};
+
+	class IDBOpenDBRequestEventMap: public IDBRequestEventMap {
+	public:
+		Event* get_blocked();
+		void set_blocked(Event*);
+		IDBVersionChangeEvent* get_upgradeneeded();
+		void set_upgradeneeded(IDBVersionChangeEvent*);
+	};
+
 	class IDBRequest: public EventTarget {
 	public:
 		DOMException* get_error();
@@ -8217,6 +11971,16 @@ namespace [[cheerp::genericjs]] client
 		IDBOpenDBRequest();
 	};
 
+	class IDBTransactionEventMap: public Object{
+	public:
+		Event* get_abort();
+		void set_abort(Event*);
+		Event* get_complete();
+		void set_complete(Event*);
+		Event* get_error();
+		void set_error(Event*);
+	};
+
 	class IDBTransaction: public EventTarget {
 	public:
 		IDBDatabase* get_db();
@@ -8257,6 +12021,14 @@ namespace [[cheerp::genericjs]] client
 		IDBVersionChangeEvent();
 	};
 
+	class IIRFilterNode: public AudioNode {
+	public:
+		void getFrequencyResponse(Float32Array* frequencyHz, Float32Array* magResponse, Float32Array* phaseResponse);
+		IIRFilterNode* get_prototype();
+		void set_prototype(IIRFilterNode*);
+		IIRFilterNode();
+	};
+
 	class ImageBitmap: public Object{
 	public:
 		double get_height();
@@ -8291,6 +12063,35 @@ namespace [[cheerp::genericjs]] client
 		ImageData(Uint8ClampedArray* array, double width, double height);
 	};
 
+	class IntersectionObserver: public Object{
+	public:
+		Element* get_root();
+		String* get_rootMargin();
+		Array* get_thresholds();
+		void disconnect();
+		void observe(Element* target);
+		Array* takeRecords();
+		void unobserve(Element* target);
+		IntersectionObserver* get_prototype();
+		void set_prototype(IntersectionObserver*);
+		IntersectionObserver(EventListener* callback);
+		IntersectionObserver(EventListener* callback, IntersectionObserverInit* options);
+	};
+
+	class IntersectionObserverEntry: public Object{
+	public:
+		ClientRect* get_boundingClientRect();
+		double get_intersectionRatio();
+		ClientRect* get_intersectionRect();
+		bool get_isIntersecting();
+		ClientRect* get_rootBounds();
+		Element* get_target();
+		double get_time();
+		IntersectionObserverEntry* get_prototype();
+		void set_prototype(IntersectionObserverEntry*);
+		IntersectionObserverEntry(IntersectionObserverEntryInit* intersectionObserverEntryInit);
+	};
+
 	class KeyboardEvent: public UIEvent {
 	public:
 		bool get_altKey();
@@ -8318,6 +12119,15 @@ namespace [[cheerp::genericjs]] client
 		double get_DOM_KEY_LOCATION_NUMPAD();
 		double get_DOM_KEY_LOCATION_RIGHT();
 		double get_DOM_KEY_LOCATION_STANDARD();
+	};
+
+	class ListeningStateChangedEvent: public Event {
+	public:
+		String* get_label();
+		String* get_state();
+		ListeningStateChangedEvent* get_prototype();
+		void set_prototype(ListeningStateChangedEvent*);
+		ListeningStateChangedEvent();
 	};
 
 	class Location: public Object{
@@ -8381,6 +12191,53 @@ namespace [[cheerp::genericjs]] client
 		MSCredentials();
 	};
 
+	class MSDCCEvent: public Event {
+	public:
+		double get_maxFr();
+		double get_maxFs();
+		MSDCCEvent* get_prototype();
+		void set_prototype(MSDCCEvent*);
+		MSDCCEvent(const String& type, MSDCCEventInit* eventInitDict);
+	};
+
+	class MSDSHEvent: public Event {
+	public:
+		Array* get_sources();
+		double get_timestamp();
+		MSDSHEvent* get_prototype();
+		void set_prototype(MSDSHEvent*);
+		MSDSHEvent(const String& type, MSDSHEventInit* eventInitDict);
+	};
+
+	class MSFIDOCredentialAssertion: public MSAssertion {
+	public:
+		String* get_algorithm();
+		Object* get_attestation();
+		String* get_publicKey();
+		Array* get_transportHints();
+		MSFIDOCredentialAssertion* get_prototype();
+		void set_prototype(MSFIDOCredentialAssertion*);
+		MSFIDOCredentialAssertion();
+	};
+
+	class MSFIDOSignature: public Object{
+	public:
+		String* get_authnrData();
+		String* get_clientData();
+		String* get_signature();
+		MSFIDOSignature* get_prototype();
+		void set_prototype(MSFIDOSignature*);
+		MSFIDOSignature();
+	};
+
+	class MSFIDOSignatureAssertion: public MSAssertion {
+	public:
+		MSFIDOSignature* get_signature();
+		MSFIDOSignatureAssertion* get_prototype();
+		void set_prototype(MSFIDOSignatureAssertion*);
+		MSFIDOSignatureAssertion();
+	};
+
 	class MSFileSaver{
 	public:
 		bool msSaveBlob(Object* blob);
@@ -8437,6 +12294,16 @@ namespace [[cheerp::genericjs]] client
 		MSGraphicsTrust* get_prototype();
 		void set_prototype(MSGraphicsTrust*);
 		MSGraphicsTrust();
+	};
+
+	class MSInputMethodContextEventMap: public Object{
+	public:
+		Event* get_MSCandidateWindowHide();
+		void set_MSCandidateWindowHide(Event*);
+		Event* get_MSCandidateWindowShow();
+		void set_MSCandidateWindowShow(Event*);
+		Event* get_MSCandidateWindowUpdate();
+		void set_MSCandidateWindowUpdate(Event*);
 	};
 
 	class MSInputMethodContext: public EventTarget {
@@ -8570,6 +12437,22 @@ namespace [[cheerp::genericjs]] client
 		MSStream();
 	};
 
+	class MSStreamReaderEventMap: public Object{
+	public:
+		UIEvent* get_abort();
+		void set_abort(UIEvent*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		ProgressEvent* get_loadend();
+		void set_loadend(ProgressEvent*);
+		Event* get_loadstart();
+		void set_loadstart(Event*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+	};
+
 	class MSStreamReader: public EventTarget {
 	public:
 		DOMError* get_error();
@@ -8617,6 +12500,23 @@ namespace [[cheerp::genericjs]] client
 		double get_LOADING();
 	};
 
+	class MediaDeviceInfo: public Object{
+	public:
+		String* get_deviceId();
+		String* get_groupId();
+		String* get_kind();
+		String* get_label();
+		MediaDeviceInfo* get_prototype();
+		void set_prototype(MediaDeviceInfo*);
+		MediaDeviceInfo();
+	};
+
+	class MediaDevicesEventMap: public Object{
+	public:
+		Event* get_devicechange();
+		void set_devicechange(Event*);
+	};
+
 	class MediaDevices: public EventTarget {
 	public:
 		EventListener* get_ondevicechange();
@@ -8639,6 +12539,23 @@ namespace [[cheerp::genericjs]] client
 		MediaDevices();
 	};
 
+	class MediaElementAudioSourceNode: public AudioNode {
+	public:
+		MediaElementAudioSourceNode* get_prototype();
+		void set_prototype(MediaElementAudioSourceNode*);
+		MediaElementAudioSourceNode();
+	};
+
+	class MediaEncryptedEvent: public Event {
+	public:
+		ArrayBuffer* get_initData();
+		String* get_initDataType();
+		MediaEncryptedEvent* get_prototype();
+		void set_prototype(MediaEncryptedEvent*);
+		MediaEncryptedEvent(const String& type);
+		MediaEncryptedEvent(const String& type, MediaEncryptedEventInit* eventInitDict);
+	};
+
 	class MediaError: public Object{
 	public:
 		double get_code();
@@ -8652,6 +12569,16 @@ namespace [[cheerp::genericjs]] client
 		double get_MEDIA_ERR_NETWORK();
 		double get_MEDIA_ERR_SRC_NOT_SUPPORTED();
 		double get_MS_MEDIA_ERR_ENCRYPTED();
+	};
+
+	class MediaKeyMessageEvent: public Event {
+	public:
+		ArrayBuffer* get_message();
+		String* get_messageType();
+		MediaKeyMessageEvent* get_prototype();
+		void set_prototype(MediaKeyMessageEvent*);
+		MediaKeyMessageEvent(const String& type);
+		MediaKeyMessageEvent(const String& type, MediaKeyMessageEventInit* eventInitDict);
 	};
 
 	class MediaKeySession: public EventTarget {
@@ -8801,6 +12728,18 @@ namespace [[cheerp::genericjs]] client
 		static bool isTypeSupported(const String& type) [[cheerp::static]];
 	};
 
+	class MediaStreamEventMap: public Object{
+	public:
+		Event* get_active();
+		void set_active(Event*);
+		MediaStreamTrackEvent* get_addtrack();
+		void set_addtrack(MediaStreamTrackEvent*);
+		Event* get_inactive();
+		void set_inactive(Event*);
+		MediaStreamTrackEvent* get_removetrack();
+		void set_removetrack(MediaStreamTrackEvent*);
+	};
+
 	class MediaStream: public EventTarget {
 	public:
 		bool get_active();
@@ -8836,6 +12775,52 @@ namespace [[cheerp::genericjs]] client
 		MediaStream();
 		MediaStream(MediaStream* stream);
 		MediaStream(Array* tracks);
+	};
+
+	class MediaStreamAudioSourceNode: public AudioNode {
+	public:
+		MediaStreamAudioSourceNode* get_prototype();
+		void set_prototype(MediaStreamAudioSourceNode*);
+		MediaStreamAudioSourceNode();
+	};
+
+	class MediaStreamError: public Object{
+	public:
+		String* get_constraintName();
+		String* get_message();
+		String* get_name();
+		MediaStreamError* get_prototype();
+		void set_prototype(MediaStreamError*);
+		MediaStreamError();
+	};
+
+	class MediaStreamErrorEvent: public Event {
+	public:
+		MediaStreamError* get_error();
+		MediaStreamErrorEvent* get_prototype();
+		void set_prototype(MediaStreamErrorEvent*);
+		MediaStreamErrorEvent(const String& typeArg);
+		MediaStreamErrorEvent(const String& typeArg, MediaStreamErrorEventInit* eventInitDict);
+	};
+
+	class MediaStreamEvent: public Event {
+	public:
+		MediaStream* get_stream();
+		MediaStreamEvent* get_prototype();
+		void set_prototype(MediaStreamEvent*);
+		MediaStreamEvent(const String& type, MediaStreamEventInit* eventInitDict);
+	};
+
+	class MediaStreamTrackEventMap: public Object{
+	public:
+		MediaStreamErrorEvent* get_ended();
+		void set_ended(MediaStreamErrorEvent*);
+		Event* get_mute();
+		void set_mute(Event*);
+		MediaStreamErrorEvent* get_overconstrained();
+		void set_overconstrained(MediaStreamErrorEvent*);
+		Event* get_unmute();
+		void set_unmute(Event*);
 	};
 
 	class MediaStreamTrack: public EventTarget {
@@ -8878,6 +12863,15 @@ namespace [[cheerp::genericjs]] client
 		MediaStreamTrack();
 	};
 
+	class MediaStreamTrackEvent: public Event {
+	public:
+		MediaStreamTrack* get_track();
+		MediaStreamTrackEvent* get_prototype();
+		void set_prototype(MediaStreamTrackEvent*);
+		MediaStreamTrackEvent(const String& typeArg);
+		MediaStreamTrackEvent(const String& typeArg, MediaStreamTrackEventInit* eventInitDict);
+	};
+
 	class MessageChannel: public Object{
 	public:
 		MessagePort* get_port1();
@@ -8898,6 +12892,12 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(MessageEvent*);
 		MessageEvent(const String& type);
 		MessageEvent(const String& type, MessageEventInit* eventInitDict);
+	};
+
+	class MessagePortEventMap: public Object{
+	public:
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
 	};
 
 	class MessagePort: public EventTarget {
@@ -9080,7 +13080,7 @@ namespace [[cheerp::genericjs]] client
 	class NavigatorLanguage{
 	public:
 		String* get_language();
-		ReadonlyArray<const String&>* get_languages();
+		ReadonlyArray<String>* get_languages();
 	};
 
 	class Navigator: public NavigatorID , public NavigatorOnLine , public NavigatorContentUtils , public NavigatorStorageUtils , public MSNavigatorDoNotTrack , public MSFileSaver , public NavigatorBeacon , public NavigatorConcurrentHardware , public NavigatorUserMedia , public NavigatorLanguage {
@@ -9189,26 +13189,136 @@ namespace [[cheerp::genericjs]] client
 		NodeListOf<Element>* querySelectorAll(const String& selectors);
 	};
 
-	class OES_standard_derivatives: public Object{
+	class NotificationEventMap: public Object{
 	public:
-		OES_standard_derivatives* get_prototype();
-		void set_prototype(OES_standard_derivatives*);
-		OES_standard_derivatives();
-		double get_FRAGMENT_SHADER_DERIVATIVE_HINT_OES();
+		Event* get_click();
+		void set_click(Event*);
+		Event* get_close();
+		void set_close(Event*);
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_show();
+		void set_show(Event*);
 	};
 
-	class OES_texture_float: public Object{
+	class Notification: public EventTarget {
 	public:
-		OES_texture_float* get_prototype();
-		void set_prototype(OES_texture_float*);
-		OES_texture_float();
+		String* get_body();
+		Object* get_data();
+		String* get_dir();
+		String* get_icon();
+		String* get_lang();
+		EventListener* get_onclick();
+		void set_onclick(EventListener*);
+		EventListener* get_onclose();
+		void set_onclose(EventListener*);
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		EventListener* get_onshow();
+		void set_onshow(EventListener*);
+		String* get_permission();
+		String* get_tag();
+		String* get_title();
+		void close();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		Notification* get_prototype();
+		void set_prototype(Notification*);
+		Notification(const String& title);
+		Notification(const String& title, NotificationOptions* options);
+		static Promise<String>* requestPermission() [[cheerp::static]];
+		static Promise<String>* requestPermission(EventListener* callback) [[cheerp::static]];
 	};
 
-	class OES_texture_float_linear: public Object{
+	class OfflineAudioCompletionEvent: public Event {
 	public:
-		OES_texture_float_linear* get_prototype();
-		void set_prototype(OES_texture_float_linear*);
-		OES_texture_float_linear();
+		AudioBuffer* get_renderedBuffer();
+		OfflineAudioCompletionEvent* get_prototype();
+		void set_prototype(OfflineAudioCompletionEvent*);
+		OfflineAudioCompletionEvent();
+	};
+
+	class OfflineAudioContextEventMap: public AudioContextEventMap {
+	public:
+		OfflineAudioCompletionEvent* get_complete();
+		void set_complete(OfflineAudioCompletionEvent*);
+	};
+
+	class OfflineAudioContext: public AudioContextBase {
+	public:
+		double get_length();
+		EventListener* get_oncomplete();
+		void set_oncomplete(EventListener*);
+		Promise<AudioBuffer>* startRendering();
+		Promise<void>* suspend(double suspendTime);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		OfflineAudioContext* get_prototype();
+		void set_prototype(OfflineAudioContext*);
+		OfflineAudioContext(double numberOfChannels, double length, double sampleRate);
+	};
+
+	class OscillatorNodeEventMap: public Object{
+	public:
+		Event* get_ended();
+		void set_ended(Event*);
+	};
+
+	class OscillatorNode: public AudioNode {
+	public:
+		AudioParam* get_detune();
+		AudioParam* get_frequency();
+		EventListener* get_onended();
+		void set_onended(EventListener*);
+		String* get_type();
+		void set_type(const String&);
+		void setPeriodicWave(PeriodicWave* periodicWave);
+		void start();
+		void start(double when);
+		void stop();
+		void stop(double when);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		OscillatorNode* get_prototype();
+		void set_prototype(OscillatorNode*);
+		OscillatorNode();
+	};
+
+	class OverflowEvent: public UIEvent {
+	public:
+		bool get_horizontalOverflow();
+		double get_orient();
+		bool get_verticalOverflow();
+		OverflowEvent* get_prototype();
+		void set_prototype(OverflowEvent*);
+		OverflowEvent();
+		double get_BOTH();
+		double get_HORIZONTAL();
+		double get_VERTICAL();
 	};
 
 	class PageTransitionEvent: public Event {
@@ -9219,6 +13329,32 @@ namespace [[cheerp::genericjs]] client
 		PageTransitionEvent();
 	};
 
+	class PannerNode: public AudioNode {
+	public:
+		double get_coneInnerAngle();
+		void set_coneInnerAngle(double);
+		double get_coneOuterAngle();
+		void set_coneOuterAngle(double);
+		double get_coneOuterGain();
+		void set_coneOuterGain(double);
+		String* get_distanceModel();
+		void set_distanceModel(const String&);
+		double get_maxDistance();
+		void set_maxDistance(double);
+		String* get_panningModel();
+		void set_panningModel(const String&);
+		double get_refDistance();
+		void set_refDistance(double);
+		double get_rolloffFactor();
+		void set_rolloffFactor(double);
+		void setOrientation(double x, double y, double z);
+		void setPosition(double x, double y, double z);
+		void setVelocity(double x, double y, double z);
+		PannerNode* get_prototype();
+		void set_prototype(PannerNode*);
+		PannerNode();
+	};
+
 	class Path2D: public CanvasPathMethods {
 	public:
 		Path2D* get_prototype();
@@ -9226,6 +13362,88 @@ namespace [[cheerp::genericjs]] client
 		Path2D();
 		Path2D(Path2D* d);
 		Path2D(const String& d);
+	};
+
+	class PaymentAddress: public Object{
+	public:
+		Array* get_addressLine();
+		String* get_city();
+		String* get_country();
+		String* get_dependentLocality();
+		String* get_languageCode();
+		String* get_organization();
+		String* get_phone();
+		String* get_postalCode();
+		String* get_recipient();
+		String* get_region();
+		String* get_sortingCode();
+		Object* toJSON();
+		PaymentAddress* get_prototype();
+		void set_prototype(PaymentAddress*);
+		PaymentAddress();
+	};
+
+	class PaymentRequestEventMap: public Object{
+	public:
+		Event* get_shippingaddresschange();
+		void set_shippingaddresschange(Event*);
+		Event* get_shippingoptionchange();
+		void set_shippingoptionchange(Event*);
+	};
+
+	class PaymentRequest: public EventTarget {
+	public:
+		String* get_id();
+		EventListener* get_onshippingaddresschange();
+		void set_onshippingaddresschange(EventListener*);
+		EventListener* get_onshippingoptionchange();
+		void set_onshippingoptionchange(EventListener*);
+		PaymentAddress* get_shippingAddress();
+		String* get_shippingOption();
+		String* get_shippingType();
+		Promise<void>* abort();
+		Promise<bool>* canMakePayment();
+		Promise<PaymentResponse>* show();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		PaymentRequest* get_prototype();
+		void set_prototype(PaymentRequest*);
+		PaymentRequest(Array* methodData, PaymentDetailsInit* details);
+		PaymentRequest(Array* methodData, PaymentDetailsInit* details, PaymentOptions* options);
+	};
+
+	class PaymentRequestUpdateEvent: public Event {
+	public:
+		void updateWith(Promise<PaymentDetailsUpdate>* detailsPromise);
+		PaymentRequestUpdateEvent* get_prototype();
+		void set_prototype(PaymentRequestUpdateEvent*);
+		PaymentRequestUpdateEvent(const String& type);
+		PaymentRequestUpdateEvent(const String& type, PaymentRequestUpdateEventInit* eventInitDict);
+	};
+
+	class PaymentResponse: public Object{
+	public:
+		Object* get_details();
+		String* get_methodName();
+		String* get_payerEmail();
+		String* get_payerName();
+		String* get_payerPhone();
+		String* get_requestId();
+		PaymentAddress* get_shippingAddress();
+		String* get_shippingOption();
+		Promise<void>* complete();
+		Object* toJSON();
+		PaymentResponse* get_prototype();
+		void set_prototype(PaymentResponse*);
+		PaymentResponse();
 	};
 
 	class PerfWidgetExternal: public Object{
@@ -9405,6 +13623,30 @@ namespace [[cheerp::genericjs]] client
 		PerformanceTiming();
 	};
 
+	class PeriodicWave: public Object{
+	public:
+		PeriodicWave* get_prototype();
+		void set_prototype(PeriodicWave*);
+		PeriodicWave();
+	};
+
+	class PermissionRequest: public DeferredPermissionRequest {
+	public:
+		String* get_state();
+		void defer();
+		PermissionRequest* get_prototype();
+		void set_prototype(PermissionRequest*);
+		PermissionRequest();
+	};
+
+	class PermissionRequestedEvent: public Event {
+	public:
+		PermissionRequest* get_permissionRequest();
+		PermissionRequestedEvent* get_prototype();
+		void set_prototype(PermissionRequestedEvent*);
+		PermissionRequestedEvent();
+	};
+
 	class Plugin: public Object{
 	public:
 		String* get_description();
@@ -9509,22 +13751,24 @@ namespace [[cheerp::genericjs]] client
 		ProcessingInstruction();
 	};
 
-	class ProgressEvent: public Event {
+	class PromiseRejectionEvent: public Event {
 	public:
-		bool get_lengthComputable();
-		double get_loaded();
-		double get_total();
-		void initProgressEvent(const String& typeArg, bool canBubbleArg, bool cancelableArg, bool lengthComputableArg, double loadedArg, double totalArg);
-		ProgressEvent* get_prototype();
-		void set_prototype(ProgressEvent*);
-		ProgressEvent(const String& typeArg);
-		ProgressEvent(const String& typeArg, ProgressEventInit* eventInitDict);
+		Promise<Object>* get_promise();
+		Object* get_reason();
+	};
+
+	class PromiseRejectionEventInit: public EventInit {
+	public:
+		Promise<Object>* get_promise();
+		void set_promise(Promise<Object>*);
+		Object* get_reason();
+		void set_reason(Object*);
 	};
 
 	class PushManager: public Object{
 	public:
-		ReadonlyArray<const String&>* get_supportedContentEncodings();
-		Promise<Object*>* getSubscription();
+		ReadonlyArray<String>* get_supportedContentEncodings();
+		Promise<Object>* getSubscription();
 		Promise<String>* permissionState();
 		Promise<String>* permissionState(PushSubscriptionOptionsInit* options);
 		Promise<PushSubscription>* subscribe();
@@ -9553,6 +13797,436 @@ namespace [[cheerp::genericjs]] client
 		PushSubscriptionOptions* get_prototype();
 		void set_prototype(PushSubscriptionOptions*);
 		PushSubscriptionOptions();
+	};
+
+	class RTCDTMFToneChangeEvent: public Event {
+	public:
+		String* get_tone();
+		RTCDTMFToneChangeEvent* get_prototype();
+		void set_prototype(RTCDTMFToneChangeEvent*);
+		RTCDTMFToneChangeEvent(const String& typeArg, RTCDTMFToneChangeEventInit* eventInitDict);
+	};
+
+	class RTCDtlsTransportEventMap: public Object{
+	public:
+		RTCDtlsTransportStateChangedEvent* get_dtlsstatechange();
+		void set_dtlsstatechange(RTCDtlsTransportStateChangedEvent*);
+		Event* get_error();
+		void set_error(Event*);
+	};
+
+	class RTCStatsProvider: public EventTarget {
+	public:
+		Promise<RTCStatsReport>* getStats();
+		Promise<RTCStatsReport>* msGetStats();
+		RTCStatsProvider* get_prototype();
+		void set_prototype(RTCStatsProvider*);
+		RTCStatsProvider();
+	};
+
+	class RTCDtlsTransport: public RTCStatsProvider {
+	public:
+		EventListener* get_ondtlsstatechange();
+		void set_ondtlsstatechange(EventListener*);
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		String* get_state();
+		RTCIceTransport* get_transport();
+		RTCDtlsParameters* getLocalParameters();
+		Array* getRemoteCertificates();
+		RTCDtlsParameters* getRemoteParameters();
+		void start(RTCDtlsParameters* remoteParameters);
+		void stop();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCDtlsTransport* get_prototype();
+		void set_prototype(RTCDtlsTransport*);
+		RTCDtlsTransport(RTCIceTransport* transport);
+	};
+
+	class RTCDtlsTransportStateChangedEvent: public Event {
+	public:
+		String* get_state();
+		RTCDtlsTransportStateChangedEvent* get_prototype();
+		void set_prototype(RTCDtlsTransportStateChangedEvent*);
+		RTCDtlsTransportStateChangedEvent();
+	};
+
+	class RTCDtmfSenderEventMap: public Object{
+	public:
+		RTCDTMFToneChangeEvent* get_tonechange();
+		void set_tonechange(RTCDTMFToneChangeEvent*);
+	};
+
+	class RTCDtmfSender: public EventTarget {
+	public:
+		bool get_canInsertDTMF();
+		double get_duration();
+		double get_interToneGap();
+		EventListener* get_ontonechange();
+		void set_ontonechange(EventListener*);
+		RTCRtpSender* get_sender();
+		String* get_toneBuffer();
+		void insertDTMF(const String& tones);
+		void insertDTMF(const String& tones, double duration);
+		void insertDTMF(const String& tones, double duration, double interToneGap);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCDtmfSender* get_prototype();
+		void set_prototype(RTCDtmfSender*);
+		RTCDtmfSender(RTCRtpSender* sender);
+	};
+
+	class RTCIceCandidate: public Object{
+	public:
+		String* get_candidate();
+		void set_candidate(const String&);
+		double get_sdpMLineIndex();
+		void set_sdpMLineIndex(double);
+		String* get_sdpMid();
+		void set_sdpMid(const String&);
+		Object* toJSON();
+		RTCIceCandidate* get_prototype();
+		void set_prototype(RTCIceCandidate*);
+		RTCIceCandidate();
+		RTCIceCandidate(RTCIceCandidateInit* candidateInitDict);
+	};
+
+	class RTCIceCandidatePairChangedEvent: public Event {
+	public:
+		RTCIceCandidatePair* get_pair();
+		RTCIceCandidatePairChangedEvent* get_prototype();
+		void set_prototype(RTCIceCandidatePairChangedEvent*);
+		RTCIceCandidatePairChangedEvent();
+	};
+
+	class RTCIceGathererEventMap: public Object{
+	public:
+		Event* get_error();
+		void set_error(Event*);
+		RTCIceGathererEvent* get_localcandidate();
+		void set_localcandidate(RTCIceGathererEvent*);
+	};
+
+	class RTCIceGatherer: public RTCStatsProvider {
+	public:
+		String* get_component();
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		EventListener* get_onlocalcandidate();
+		void set_onlocalcandidate(EventListener*);
+		RTCIceGatherer* createAssociatedGatherer();
+		Array* getLocalCandidates();
+		RTCIceParameters* getLocalParameters();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCIceGatherer* get_prototype();
+		void set_prototype(RTCIceGatherer*);
+		RTCIceGatherer(RTCIceGatherOptions* options);
+	};
+
+	class RTCIceGathererEvent: public Event {
+	public:
+		RTCIceCandidateDictionary* get_candidate();
+		RTCIceGathererEvent* get_prototype();
+		void set_prototype(RTCIceGathererEvent*);
+		RTCIceGathererEvent();
+	};
+
+	class RTCIceTransportEventMap: public Object{
+	public:
+		RTCIceCandidatePairChangedEvent* get_candidatepairchange();
+		void set_candidatepairchange(RTCIceCandidatePairChangedEvent*);
+		RTCIceTransportStateChangedEvent* get_icestatechange();
+		void set_icestatechange(RTCIceTransportStateChangedEvent*);
+	};
+
+	class RTCIceTransport: public RTCStatsProvider {
+	public:
+		String* get_component();
+		RTCIceGatherer* get_iceGatherer();
+		EventListener* get_oncandidatepairchange();
+		void set_oncandidatepairchange(EventListener*);
+		EventListener* get_onicestatechange();
+		void set_onicestatechange(EventListener*);
+		String* get_role();
+		String* get_state();
+		void addRemoteCandidate(RTCIceCandidateDictionary* remoteCandidate);
+		void addRemoteCandidate(RTCIceCandidateComplete* remoteCandidate);
+		RTCIceTransport* createAssociatedTransport();
+		RTCIceCandidatePair* getNominatedCandidatePair();
+		Array* getRemoteCandidates();
+		RTCIceParameters* getRemoteParameters();
+		void setRemoteCandidates(Array* remoteCandidates);
+		void start(RTCIceGatherer* gatherer, RTCIceParameters* remoteParameters);
+		void stop();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCIceTransport* get_prototype();
+		void set_prototype(RTCIceTransport*);
+		RTCIceTransport();
+	};
+
+	class RTCIceTransportStateChangedEvent: public Event {
+	public:
+		String* get_state();
+		RTCIceTransportStateChangedEvent* get_prototype();
+		void set_prototype(RTCIceTransportStateChangedEvent*);
+		RTCIceTransportStateChangedEvent();
+	};
+
+	class RTCPeerConnectionEventMap: public Object{
+	public:
+		MediaStreamEvent* get_addstream();
+		void set_addstream(MediaStreamEvent*);
+		RTCPeerConnectionIceEvent* get_icecandidate();
+		void set_icecandidate(RTCPeerConnectionIceEvent*);
+		Event* get_iceconnectionstatechange();
+		void set_iceconnectionstatechange(Event*);
+		Event* get_icegatheringstatechange();
+		void set_icegatheringstatechange(Event*);
+		Event* get_negotiationneeded();
+		void set_negotiationneeded(Event*);
+		MediaStreamEvent* get_removestream();
+		void set_removestream(MediaStreamEvent*);
+		Event* get_signalingstatechange();
+		void set_signalingstatechange(Event*);
+	};
+
+	class RTCPeerConnection: public EventTarget {
+	public:
+		bool get_canTrickleIceCandidates();
+		String* get_iceConnectionState();
+		String* get_iceGatheringState();
+		RTCSessionDescription* get_localDescription();
+		EventListener* get_onaddstream();
+		void set_onaddstream(EventListener*);
+		EventListener* get_onicecandidate();
+		void set_onicecandidate(EventListener*);
+		EventListener* get_oniceconnectionstatechange();
+		void set_oniceconnectionstatechange(EventListener*);
+		EventListener* get_onicegatheringstatechange();
+		void set_onicegatheringstatechange(EventListener*);
+		EventListener* get_onnegotiationneeded();
+		void set_onnegotiationneeded(EventListener*);
+		EventListener* get_onremovestream();
+		void set_onremovestream(EventListener*);
+		EventListener* get_onsignalingstatechange();
+		void set_onsignalingstatechange(EventListener*);
+		RTCSessionDescription* get_remoteDescription();
+		String* get_signalingState();
+		Promise<void>* addIceCandidate(RTCIceCandidateInit* candidate);
+		Promise<void>* addIceCandidate(RTCIceCandidate* candidate);
+		void addStream(MediaStream* stream);
+		void close();
+		Promise<RTCSessionDescriptionInit>* createAnswer();
+		Promise<RTCSessionDescriptionInit>* createAnswer(RTCOfferOptions* options);
+		Promise<RTCSessionDescriptionInit>* createOffer();
+		Promise<RTCSessionDescriptionInit>* createOffer(RTCOfferOptions* options);
+		RTCConfiguration* getConfiguration();
+		Array* getLocalStreams();
+		Array* getRemoteStreams();
+		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector);
+		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector, EventListener* successCallback);
+		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector, EventListener* successCallback, EventListener* failureCallback);
+		MediaStream* getStreamById(const String& streamId);
+		void removeStream(MediaStream* stream);
+		Promise<void>* setLocalDescription(RTCSessionDescriptionInit* description);
+		Promise<void>* setRemoteDescription(RTCSessionDescriptionInit* description);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCPeerConnection* get_prototype();
+		void set_prototype(RTCPeerConnection*);
+		RTCPeerConnection(RTCConfiguration* configuration);
+	};
+
+	class RTCPeerConnectionIceEvent: public Event {
+	public:
+		RTCIceCandidate* get_candidate();
+		RTCPeerConnectionIceEvent* get_prototype();
+		void set_prototype(RTCPeerConnectionIceEvent*);
+		RTCPeerConnectionIceEvent(const String& type, RTCPeerConnectionIceEventInit* eventInitDict);
+	};
+
+	class RTCRtpReceiverEventMap: public Object{
+	public:
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_msdecodercapacitychange();
+		void set_msdecodercapacitychange(Event*);
+		Event* get_msdsh();
+		void set_msdsh(Event*);
+	};
+
+	class RTCRtpReceiver: public RTCStatsProvider {
+	public:
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		EventListener* get_onmsdecodercapacitychange();
+		void set_onmsdecodercapacitychange(EventListener*);
+		EventListener* get_onmsdsh();
+		void set_onmsdsh(EventListener*);
+		RTCDtlsTransport* get_rtcpTransport();
+		MediaStreamTrack* get_track();
+		RTCDtlsTransport* get_transport();
+		Array* getContributingSources();
+		void receive(RTCRtpParameters* parameters);
+		void requestSendCSRC(double csrc);
+		void setTransport(RTCDtlsTransport* transport);
+		void setTransport(RTCDtlsTransport* transport, RTCDtlsTransport* rtcpTransport);
+		void setTransport(RTCSrtpSdesTransport* transport);
+		void setTransport(RTCSrtpSdesTransport* transport, RTCDtlsTransport* rtcpTransport);
+		void stop();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCRtpReceiver* get_prototype();
+		void set_prototype(RTCRtpReceiver*);
+		RTCRtpReceiver(RTCDtlsTransport* transport, const String& kind);
+		RTCRtpReceiver(RTCDtlsTransport* transport, const String& kind, RTCDtlsTransport* rtcpTransport);
+		RTCRtpReceiver(RTCSrtpSdesTransport* transport, const String& kind);
+		RTCRtpReceiver(RTCSrtpSdesTransport* transport, const String& kind, RTCDtlsTransport* rtcpTransport);
+		static RTCRtpCapabilities* getCapabilities() [[cheerp::static]];
+		static RTCRtpCapabilities* getCapabilities(const String& kind) [[cheerp::static]];
+	};
+
+	class RTCRtpSenderEventMap: public Object{
+	public:
+		Event* get_error();
+		void set_error(Event*);
+		RTCSsrcConflictEvent* get_ssrcconflict();
+		void set_ssrcconflict(RTCSsrcConflictEvent*);
+	};
+
+	class RTCRtpSender: public RTCStatsProvider {
+	public:
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		EventListener* get_onssrcconflict();
+		void set_onssrcconflict(EventListener*);
+		RTCDtlsTransport* get_rtcpTransport();
+		MediaStreamTrack* get_track();
+		RTCDtlsTransport* get_transport();
+		void send(RTCRtpParameters* parameters);
+		void setTrack(MediaStreamTrack* track);
+		void setTransport(RTCDtlsTransport* transport);
+		void setTransport(RTCDtlsTransport* transport, RTCDtlsTransport* rtcpTransport);
+		void setTransport(RTCSrtpSdesTransport* transport);
+		void setTransport(RTCSrtpSdesTransport* transport, RTCDtlsTransport* rtcpTransport);
+		void stop();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCRtpSender* get_prototype();
+		void set_prototype(RTCRtpSender*);
+		RTCRtpSender(MediaStreamTrack* track, RTCDtlsTransport* transport);
+		RTCRtpSender(MediaStreamTrack* track, RTCDtlsTransport* transport, RTCDtlsTransport* rtcpTransport);
+		RTCRtpSender(MediaStreamTrack* track, RTCSrtpSdesTransport* transport);
+		RTCRtpSender(MediaStreamTrack* track, RTCSrtpSdesTransport* transport, RTCDtlsTransport* rtcpTransport);
+		static RTCRtpCapabilities* getCapabilities() [[cheerp::static]];
+		static RTCRtpCapabilities* getCapabilities(const String& kind) [[cheerp::static]];
+	};
+
+	class RTCSessionDescription: public Object{
+	public:
+		String* get_sdp();
+		void set_sdp(const String&);
+		String* get_type();
+		void set_type(const String&);
+		Object* toJSON();
+		RTCSessionDescription* get_prototype();
+		void set_prototype(RTCSessionDescription*);
+		RTCSessionDescription();
+		RTCSessionDescription(RTCSessionDescriptionInit* descriptionInitDict);
+	};
+
+	class RTCSrtpSdesTransportEventMap: public Object{
+	public:
+		Event* get_error();
+		void set_error(Event*);
+	};
+
+	class RTCSrtpSdesTransport: public EventTarget {
+	public:
+		EventListener* get_onerror();
+		void set_onerror(EventListener*);
+		RTCIceTransport* get_transport();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		RTCSrtpSdesTransport* get_prototype();
+		void set_prototype(RTCSrtpSdesTransport*);
+		RTCSrtpSdesTransport(RTCIceTransport* transport, RTCSrtpSdesParameters* encryptParameters, RTCSrtpSdesParameters* decryptParameters);
+		static Array* getLocalParameters() [[cheerp::static]];
+	};
+
+	class RTCSsrcConflictEvent: public Event {
+	public:
+		double get_ssrc();
+		RTCSsrcConflictEvent* get_prototype();
+		void set_prototype(RTCSsrcConflictEvent*);
+		RTCSsrcConflictEvent();
 	};
 
 	class RandomSource: public Object{
@@ -9616,7 +14290,7 @@ namespace [[cheerp::genericjs]] client
 	class ReadableStreamReader: public Object{
 	public:
 		Promise<void>* cancel();
-		Promise<Object*>* read();
+		Promise<Object>* read();
 		void releaseLock();
 		ReadableStreamReader* get_prototype();
 		void set_prototype(ReadableStreamReader*);
@@ -10039,6 +14713,30 @@ namespace [[cheerp::genericjs]] client
 		SVGDescElement* get_prototype();
 		void set_prototype(SVGDescElement*);
 		SVGDescElement();
+	};
+
+	class SVGElementEventMap: public ElementEventMap {
+	public:
+		MouseEvent* get_click();
+		void set_click(MouseEvent*);
+		MouseEvent* get_dblclick();
+		void set_dblclick(MouseEvent*);
+		FocusEvent* get_focusin();
+		void set_focusin(FocusEvent*);
+		FocusEvent* get_focusout();
+		void set_focusout(FocusEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		MouseEvent* get_mousedown();
+		void set_mousedown(MouseEvent*);
+		MouseEvent* get_mousemove();
+		void set_mousemove(MouseEvent*);
+		MouseEvent* get_mouseout();
+		void set_mouseout(MouseEvent*);
+		MouseEvent* get_mouseover();
+		void set_mouseover(MouseEvent*);
+		MouseEvent* get_mouseup();
+		void set_mouseup(MouseEvent*);
 	};
 
 	class SVGElementInstance: public EventTarget {
@@ -10655,6 +15353,27 @@ namespace [[cheerp::genericjs]] client
 	public:
 		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
 		SVGAnimatedRect* get_viewBox();
+	};
+
+	class SVGForeignObjectElement: public SVGGraphicsElement {
+	public:
+		SVGAnimatedLength* get_height();
+		SVGAnimatedLength* get_width();
+		SVGAnimatedLength* get_x();
+		SVGAnimatedLength* get_y();
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		SVGForeignObjectElement* get_prototype();
+		void set_prototype(SVGForeignObjectElement*);
+		SVGForeignObjectElement();
 	};
 
 	class SVGGElement: public SVGGraphicsElement {
@@ -11433,6 +16152,22 @@ namespace [[cheerp::genericjs]] client
 		SVGRectElement();
 	};
 
+	class SVGSVGElementEventMap: public SVGElementEventMap {
+	public:
+		Event* get_SVGAbort();
+		void set_SVGAbort(Event*);
+		Event* get_SVGError();
+		void set_SVGError(Event*);
+		UIEvent* get_resize();
+		void set_resize(UIEvent*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
+		Event* get_SVGUnload();
+		void set_SVGUnload(Event*);
+		SVGZoomEvent* get_SVGZoom();
+		void set_SVGZoom(SVGZoomEvent*);
+	};
+
 	class SVGZoomAndPan: public Object{
 	public:
 		double get_zoomAndPan();
@@ -11487,8 +16222,8 @@ namespace [[cheerp::genericjs]] client
 		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
 		double getCurrentTime();
 		Element* getElementById(const String& elementId);
-		NodeListOf<Object*>* getEnclosureList(SVGRect* rect, SVGElement* referenceElement);
-		NodeListOf<Object*>* getIntersectionList(SVGRect* rect, SVGElement* referenceElement);
+		NodeListOf<Object>* getEnclosureList(SVGRect* rect, SVGElement* referenceElement);
+		NodeListOf<Object>* getIntersectionList(SVGRect* rect, SVGElement* referenceElement);
 		void pauseAnimations();
 		void setCurrentTime(double seconds);
 		double suspendRedraw(double maxWaitMilliseconds);
@@ -11871,6 +16606,12 @@ namespace [[cheerp::genericjs]] client
 		ScopedCredentialInfo();
 	};
 
+	class ScreenEventMap: public Object{
+	public:
+		Event* get_MSOrientationChange();
+		void set_MSOrientationChange(Event*);
+	};
+
 	class Screen: public EventTarget {
 	public:
 		double get_availHeight();
@@ -11911,6 +16652,32 @@ namespace [[cheerp::genericjs]] client
 		Screen();
 	};
 
+	class ScriptProcessorNodeEventMap: public Object{
+	public:
+		AudioProcessingEvent* get_audioprocess();
+		void set_audioprocess(AudioProcessingEvent*);
+	};
+
+	class ScriptProcessorNode: public AudioNode {
+	public:
+		double get_bufferSize();
+		EventListener* get_onaudioprocess();
+		void set_onaudioprocess(EventListener*);
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		ScriptProcessorNode* get_prototype();
+		void set_prototype(ScriptProcessorNode*);
+		ScriptProcessorNode();
+	};
+
 	class ScrollOptions: public Object{
 	public:
 		String* get_behavior();
@@ -11931,6 +16698,24 @@ namespace [[cheerp::genericjs]] client
 		void set_left(double);
 		double get_top();
 		void set_top(double);
+	};
+
+	class SecurityPolicyViolationEvent: public Event {
+	public:
+		String* get_blockedURI();
+		double get_columnNumber();
+		String* get_documentURI();
+		String* get_effectiveDirective();
+		double get_lineNumber();
+		String* get_originalPolicy();
+		String* get_referrer();
+		String* get_sourceFile();
+		double get_statusCode();
+		String* get_violatedDirective();
+		SecurityPolicyViolationEvent* get_prototype();
+		void set_prototype(SecurityPolicyViolationEvent*);
+		SecurityPolicyViolationEvent(const String& type);
+		SecurityPolicyViolationEvent(const String& type, SecurityPolicyViolationEventInit* eventInitDict);
 	};
 
 	class Selection: public Object{
@@ -11972,6 +16757,12 @@ namespace [[cheerp::genericjs]] client
 		void postFrameMessage(const String& key, const String& data);
 	};
 
+	class ServiceWorkerEventMap: public AbstractWorkerEventMap {
+	public:
+		Event* get_statechange();
+		void set_statechange(Event*);
+	};
+
 	class ServiceWorker: public EventTarget , public AbstractWorker {
 	public:
 		EventListener* get_onstatechange();
@@ -11997,6 +16788,16 @@ namespace [[cheerp::genericjs]] client
 		ServiceWorker();
 	};
 
+	class ServiceWorkerContainerEventMap: public Object{
+	public:
+		Event* get_controllerchange();
+		void set_controllerchange(Event*);
+		ServiceWorkerMessageEvent* get_message();
+		void set_message(ServiceWorkerMessageEvent*);
+		MessageEvent* get_messageerror();
+		void set_messageerror(MessageEvent*);
+	};
+
 	class ServiceWorkerContainer: public EventTarget {
 	public:
 		ServiceWorker* get_controller();
@@ -12007,8 +16808,8 @@ namespace [[cheerp::genericjs]] client
 		EventListener* get_onmessageerror();
 		void set_onmessageerror(EventListener*);
 		Promise<ServiceWorkerRegistration>* get_ready();
-		Promise<Object*>* getRegistration();
-		Promise<Object*>* getRegistration(const String& clientURL);
+		Promise<Object>* getRegistration();
+		Promise<Object>* getRegistration(const String& clientURL);
 		Promise<Array>* getRegistrations();
 		Promise<ServiceWorkerRegistration>* _register(const String& scriptURL);
 		Promise<ServiceWorkerRegistration>* _register(const String& scriptURL, RegistrationOptions* options);
@@ -12026,6 +16827,25 @@ namespace [[cheerp::genericjs]] client
 		ServiceWorkerContainer* get_prototype();
 		void set_prototype(ServiceWorkerContainer*);
 		ServiceWorkerContainer();
+	};
+
+	class ServiceWorkerMessageEvent: public Event {
+	public:
+		Object* get_data();
+		String* get_lastEventId();
+		String* get_origin();
+		ReadonlyArray<MessagePort>* get_ports();
+		ServiceWorker* get_source();
+		ServiceWorkerMessageEvent* get_prototype();
+		void set_prototype(ServiceWorkerMessageEvent*);
+		ServiceWorkerMessageEvent(const String& type);
+		ServiceWorkerMessageEvent(const String& type, ServiceWorkerMessageEventInit* eventInitDict);
+	};
+
+	class ServiceWorkerRegistrationEventMap: public Object{
+	public:
+		Event* get_updatefound();
+		void set_updatefound(Event*);
 	};
 
 	class ServiceWorkerRegistration: public EventTarget {
@@ -12126,6 +16946,12 @@ namespace [[cheerp::genericjs]] client
 		SourceBufferList();
 	};
 
+	class SpeechSynthesisEventMap: public Object{
+	public:
+		Event* get_voiceschanged();
+		void set_voiceschanged(Event*);
+	};
+
 	class SpeechSynthesis: public EventTarget {
 	public:
 		EventListener* get_onvoiceschanged();
@@ -12151,6 +16977,37 @@ namespace [[cheerp::genericjs]] client
 		SpeechSynthesis* get_prototype();
 		void set_prototype(SpeechSynthesis*);
 		SpeechSynthesis();
+	};
+
+	class SpeechSynthesisEvent: public Event {
+	public:
+		double get_charIndex();
+		double get_charLength();
+		double get_elapsedTime();
+		String* get_name();
+		SpeechSynthesisUtterance* get_utterance();
+		SpeechSynthesisEvent* get_prototype();
+		void set_prototype(SpeechSynthesisEvent*);
+		SpeechSynthesisEvent(const String& type);
+		SpeechSynthesisEvent(const String& type, SpeechSynthesisEventInit* eventInitDict);
+	};
+
+	class SpeechSynthesisUtteranceEventMap: public Object{
+	public:
+		Event* get_boundary();
+		void set_boundary(Event*);
+		Event* get_end();
+		void set_end(Event*);
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_mark();
+		void set_mark(Event*);
+		Event* get_pause();
+		void set_pause(Event*);
+		Event* get_resume();
+		void set_resume(Event*);
+		Event* get_start();
+		void set_start(Event*);
 	};
 
 	class SpeechSynthesisUtterance: public EventTarget {
@@ -12207,6 +17064,14 @@ namespace [[cheerp::genericjs]] client
 		SpeechSynthesisVoice* get_prototype();
 		void set_prototype(SpeechSynthesisVoice*);
 		SpeechSynthesisVoice();
+	};
+
+	class StereoPannerNode: public AudioNode {
+	public:
+		AudioParam* get_pan();
+		StereoPannerNode* get_prototype();
+		void set_prototype(StereoPannerNode*);
+		StereoPannerNode();
 	};
 
 	class Storage: public Object{
@@ -12348,8 +17213,8 @@ namespace [[cheerp::genericjs]] client
 		Promise<ArrayBuffer>* encrypt(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
 		Promise<ArrayBuffer>* encrypt(AesGcmParams* algorithm, CryptoKey* key, ArrayBuffer* data);
 		Promise<ArrayBuffer>* encrypt(AesCfbParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<Object*>* exportKey(const String& format, CryptoKey* key);
-		Promise<Object*>* generateKey(const String& algorithm, bool extractable, Array* keyUsages);
+		Promise<Object>* exportKey(const String& format, CryptoKey* key);
+		Promise<Object>* generateKey(const String& algorithm, bool extractable, Array* keyUsages);
 		Promise<CryptoKeyPair>* generateKey(RsaHashedKeyGenParams* algorithm, bool extractable, Array* keyUsages);
 		Promise<CryptoKeyPair>* generateKey(EcKeyGenParams* algorithm, bool extractable, Array* keyUsages);
 		Promise<CryptoKeyPair>* generateKey(DhKeyGenParams* algorithm, bool extractable, Array* keyUsages);
@@ -12439,6 +17304,51 @@ namespace [[cheerp::genericjs]] client
 		SyncManager();
 	};
 
+	class TextDecoder: public Object{
+	public:
+		String* get_encoding();
+		bool get_fatal();
+		bool get_ignoreBOM();
+		String* decode();
+		String* decode(Int8Array* input);
+		String* decode(Int8Array* input, TextDecodeOptions* options);
+		String* decode(Int16Array* input);
+		String* decode(Int16Array* input, TextDecodeOptions* options);
+		String* decode(Int32Array* input);
+		String* decode(Int32Array* input, TextDecodeOptions* options);
+		String* decode(Uint8Array* input);
+		String* decode(Uint8Array* input, TextDecodeOptions* options);
+		String* decode(Uint16Array* input);
+		String* decode(Uint16Array* input, TextDecodeOptions* options);
+		String* decode(Uint32Array* input);
+		String* decode(Uint32Array* input, TextDecodeOptions* options);
+		String* decode(Uint8ClampedArray* input);
+		String* decode(Uint8ClampedArray* input, TextDecodeOptions* options);
+		String* decode(Float32Array* input);
+		String* decode(Float32Array* input, TextDecodeOptions* options);
+		String* decode(Float64Array* input);
+		String* decode(Float64Array* input, TextDecodeOptions* options);
+		String* decode(DataView* input);
+		String* decode(DataView* input, TextDecodeOptions* options);
+		String* decode(ArrayBuffer* input);
+		String* decode(ArrayBuffer* input, TextDecodeOptions* options);
+		TextDecoder* get_prototype();
+		void set_prototype(TextDecoder*);
+		TextDecoder();
+		TextDecoder(const String& label);
+		TextDecoder(const String& label, TextDecoderOptions* options);
+	};
+
+	class TextEncoder: public Object{
+	public:
+		String* get_encoding();
+		Uint8Array* encode();
+		Uint8Array* encode(const String& input);
+		TextEncoder* get_prototype();
+		void set_prototype(TextEncoder*);
+		TextEncoder();
+	};
+
 	class TextEvent: public UIEvent {
 	public:
 		String* get_data();
@@ -12464,6 +17374,16 @@ namespace [[cheerp::genericjs]] client
 		TextMetrics* get_prototype();
 		void set_prototype(TextMetrics*);
 		TextMetrics();
+	};
+
+	class TextTrackEventMap: public Object{
+	public:
+		Event* get_cuechange();
+		void set_cuechange(Event*);
+		Event* get_error();
+		void set_error(Event*);
+		Event* get_load();
+		void set_load(Event*);
 	};
 
 	class TextTrack: public EventTarget {
@@ -12507,37 +17427,12 @@ namespace [[cheerp::genericjs]] client
 		double get_SHOWING();
 	};
 
-	class TextTrackCue: public EventTarget {
+	class TextTrackCueEventMap: public Object{
 	public:
-		double get_endTime();
-		void set_endTime(double);
-		String* get_id();
-		void set_id(const String&);
-		EventListener* get_onenter();
-		void set_onenter(EventListener*);
-		EventListener* get_onexit();
-		void set_onexit(EventListener*);
-		bool get_pauseOnExit();
-		void set_pauseOnExit(bool);
-		double get_startTime();
-		void set_startTime(double);
-		String* get_text();
-		void set_text(const String&);
-		TextTrack* get_track();
-		DocumentFragment* getCueAsHTML();
-		void addEventListener(const String& type, EventListener* listener);
-		void addEventListener(const String& type, EventListener* listener, bool options);
-		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
-		void addEventListener(const String& type, EventListenerObject* listener);
-		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
-		void removeEventListener(const String& type, EventListener* listener);
-		void removeEventListener(const String& type, EventListener* listener, bool options);
-		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
-		void removeEventListener(const String& type, EventListenerObject* listener);
-		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
-		TextTrackCue* get_prototype();
-		void set_prototype(TextTrackCue*);
-		TextTrackCue(double startTime, double endTime, const String& text);
+		Event* get_enter();
+		void set_enter(Event*);
+		Event* get_exit();
+		void set_exit(Event*);
 	};
 
 	class TextTrackCueList: public Object{
@@ -12556,6 +17451,12 @@ namespace [[cheerp::genericjs]] client
 		TextTrackCueList* get_prototype();
 		void set_prototype(TextTrackCueList*);
 		TextTrackCueList();
+	};
+
+	class TextTrackListEventMap: public Object{
+	public:
+		TrackEvent* get_addtrack();
+		void set_addtrack(TrackEvent*);
 	};
 
 	class TextTrackList: public EventTarget {
@@ -12787,6 +17688,15 @@ namespace [[cheerp::genericjs]] client
 		VRDisplayCapabilities();
 	};
 
+	class VRDisplayEvent: public Event {
+	public:
+		VRDisplay* get_display();
+		String* get_reason();
+		VRDisplayEvent* get_prototype();
+		void set_prototype(VRDisplayEvent*);
+		VRDisplayEvent(const String& type, VRDisplayEventInit* eventInitDict);
+	};
+
 	class VREyeParameters: public Object{
 	public:
 		VRFieldOfView* get_fieldOfView();
@@ -12882,6 +17792,16 @@ namespace [[cheerp::genericjs]] client
 		VideoTrack();
 	};
 
+	class VideoTrackListEventMap: public Object{
+	public:
+		TrackEvent* get_addtrack();
+		void set_addtrack(TrackEvent*);
+		Event* get_change();
+		void set_change(Event*);
+		TrackEvent* get_removetrack();
+		void set_removetrack(TrackEvent*);
+	};
+
 	class VideoTrackList: public EventTarget {
 	public:
 		double get_length();
@@ -12917,15 +17837,15 @@ namespace [[cheerp::genericjs]] client
 		VideoTrackList();
 	};
 
-	class WEBGL_compressed_texture_s3tc: public Object{
+	class WaveShaperNode: public AudioNode {
 	public:
-		WEBGL_compressed_texture_s3tc* get_prototype();
-		void set_prototype(WEBGL_compressed_texture_s3tc*);
-		WEBGL_compressed_texture_s3tc();
-		double get_COMPRESSED_RGBA_S3TC_DXT1_EXT();
-		double get_COMPRESSED_RGBA_S3TC_DXT3_EXT();
-		double get_COMPRESSED_RGBA_S3TC_DXT5_EXT();
-		double get_COMPRESSED_RGB_S3TC_DXT1_EXT();
+		Float32Array* get_curve();
+		void set_curve(Float32Array*);
+		String* get_oversample();
+		void set_oversample(const String&);
+		WaveShaperNode* get_prototype();
+		void set_prototype(WaveShaperNode*);
+		WaveShaperNode();
 	};
 
 	class WebAuthentication: public Object{
@@ -12990,6 +17910,120 @@ namespace [[cheerp::genericjs]] client
 		WebAuthnAssertion();
 	};
 
+	class WebKitCSSMatrix: public Object{
+	public:
+		double get_a();
+		void set_a(double);
+		double get_b();
+		void set_b(double);
+		double get_c();
+		void set_c(double);
+		double get_d();
+		void set_d(double);
+		double get_e();
+		void set_e(double);
+		double get_f();
+		void set_f(double);
+		double get_m11();
+		void set_m11(double);
+		double get_m12();
+		void set_m12(double);
+		double get_m13();
+		void set_m13(double);
+		double get_m14();
+		void set_m14(double);
+		double get_m21();
+		void set_m21(double);
+		double get_m22();
+		void set_m22(double);
+		double get_m23();
+		void set_m23(double);
+		double get_m24();
+		void set_m24(double);
+		double get_m31();
+		void set_m31(double);
+		double get_m32();
+		void set_m32(double);
+		double get_m33();
+		void set_m33(double);
+		double get_m34();
+		void set_m34(double);
+		double get_m41();
+		void set_m41(double);
+		double get_m42();
+		void set_m42(double);
+		double get_m43();
+		void set_m43(double);
+		double get_m44();
+		void set_m44(double);
+		WebKitCSSMatrix* inverse();
+		WebKitCSSMatrix* multiply(WebKitCSSMatrix* secondMatrix);
+		WebKitCSSMatrix* rotate(double angleX);
+		WebKitCSSMatrix* rotate(double angleX, double angleY);
+		WebKitCSSMatrix* rotate(double angleX, double angleY, double angleZ);
+		WebKitCSSMatrix* rotateAxisAngle(double x, double y, double z, double angle);
+		WebKitCSSMatrix* scale(double scaleX);
+		WebKitCSSMatrix* scale(double scaleX, double scaleY);
+		WebKitCSSMatrix* scale(double scaleX, double scaleY, double scaleZ);
+		void setMatrixValue(const String& value);
+		WebKitCSSMatrix* skewX(double angle);
+		WebKitCSSMatrix* skewY(double angle);
+		String* toString();
+		WebKitCSSMatrix* translate(double x, double y);
+		WebKitCSSMatrix* translate(double x, double y, double z);
+		WebKitCSSMatrix* get_prototype();
+		void set_prototype(WebKitCSSMatrix*);
+		WebKitCSSMatrix();
+		WebKitCSSMatrix(const String& text);
+	};
+
+	class WebKitEntry: public Object{
+	public:
+		WebKitFileSystem* get_filesystem();
+		String* get_fullPath();
+		bool get_isDirectory();
+		bool get_isFile();
+		String* get_name();
+		WebKitEntry* get_prototype();
+		void set_prototype(WebKitEntry*);
+		WebKitEntry();
+	};
+
+	class WebKitDirectoryEntry: public WebKitEntry {
+	public:
+		WebKitDirectoryReader* createReader();
+		WebKitDirectoryEntry* get_prototype();
+		void set_prototype(WebKitDirectoryEntry*);
+		WebKitDirectoryEntry();
+	};
+
+	class WebKitDirectoryReader: public Object{
+	public:
+		void readEntries(EventListener* successCallback);
+		void readEntries(EventListener* successCallback, EventListener* errorCallback);
+		WebKitDirectoryReader* get_prototype();
+		void set_prototype(WebKitDirectoryReader*);
+		WebKitDirectoryReader();
+	};
+
+	class WebKitFileEntry: public WebKitEntry {
+	public:
+		void file(EventListener* successCallback);
+		void file(EventListener* successCallback, EventListener* errorCallback);
+		WebKitFileEntry* get_prototype();
+		void set_prototype(WebKitFileEntry*);
+		WebKitFileEntry();
+	};
+
+	class WebKitFileSystem: public Object{
+	public:
+		String* get_name();
+		WebKitDirectoryEntry* get_root();
+		WebKitFileSystem* get_prototype();
+		void set_prototype(WebKitFileSystem*);
+		WebKitFileSystem();
+	};
+
 	class WebKitPoint: public Object{
 	public:
 		double get_x();
@@ -13001,6 +18035,18 @@ namespace [[cheerp::genericjs]] client
 		WebKitPoint();
 		WebKitPoint(double x);
 		WebKitPoint(double x, double y);
+	};
+
+	class WebSocketEventMap: public Object{
+	public:
+		CloseEvent* get_close();
+		void set_close(CloseEvent*);
+		Event* get_error();
+		void set_error(Event*);
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
+		Event* get_open();
+		void set_open(Event*);
 	};
 
 	class WebSocket: public EventTarget {
@@ -13066,6 +18112,210 @@ namespace [[cheerp::genericjs]] client
 		double get_DOM_DELTA_LINE();
 		double get_DOM_DELTA_PAGE();
 		double get_DOM_DELTA_PIXEL();
+	};
+
+	class WindowEventMap: public GlobalEventHandlersEventMap {
+	public:
+		UIEvent* get_abort();
+		void set_abort(UIEvent*);
+		Event* get_afterprint();
+		void set_afterprint(Event*);
+		Event* get_beforeprint();
+		void set_beforeprint(Event*);
+		BeforeUnloadEvent* get_beforeunload();
+		void set_beforeunload(BeforeUnloadEvent*);
+		FocusEvent* get_blur();
+		void set_blur(FocusEvent*);
+		Event* get_canplay();
+		void set_canplay(Event*);
+		Event* get_canplaythrough();
+		void set_canplaythrough(Event*);
+		Event* get_change();
+		void set_change(Event*);
+		MouseEvent* get_click();
+		void set_click(MouseEvent*);
+		Event* get_compassneedscalibration();
+		void set_compassneedscalibration(Event*);
+		PointerEvent* get_contextmenu();
+		void set_contextmenu(PointerEvent*);
+		MouseEvent* get_dblclick();
+		void set_dblclick(MouseEvent*);
+		DeviceLightEvent* get_devicelight();
+		void set_devicelight(DeviceLightEvent*);
+		DeviceMotionEvent* get_devicemotion();
+		void set_devicemotion(DeviceMotionEvent*);
+		DeviceOrientationEvent* get_deviceorientation();
+		void set_deviceorientation(DeviceOrientationEvent*);
+		DragEvent* get_drag();
+		void set_drag(DragEvent*);
+		DragEvent* get_dragend();
+		void set_dragend(DragEvent*);
+		DragEvent* get_dragenter();
+		void set_dragenter(DragEvent*);
+		DragEvent* get_dragleave();
+		void set_dragleave(DragEvent*);
+		DragEvent* get_dragover();
+		void set_dragover(DragEvent*);
+		DragEvent* get_dragstart();
+		void set_dragstart(DragEvent*);
+		DragEvent* get_drop();
+		void set_drop(DragEvent*);
+		Event* get_durationchange();
+		void set_durationchange(Event*);
+		Event* get_emptied();
+		void set_emptied(Event*);
+		Event* get_ended();
+		void set_ended(Event*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		FocusEvent* get_focus();
+		void set_focus(FocusEvent*);
+		HashChangeEvent* get_hashchange();
+		void set_hashchange(HashChangeEvent*);
+		Event* get_input();
+		void set_input(Event*);
+		Event* get_invalid();
+		void set_invalid(Event*);
+		KeyboardEvent* get_keydown();
+		void set_keydown(KeyboardEvent*);
+		KeyboardEvent* get_keypress();
+		void set_keypress(KeyboardEvent*);
+		KeyboardEvent* get_keyup();
+		void set_keyup(KeyboardEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		Event* get_loadeddata();
+		void set_loadeddata(Event*);
+		Event* get_loadedmetadata();
+		void set_loadedmetadata(Event*);
+		Event* get_loadstart();
+		void set_loadstart(Event*);
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
+		MouseEvent* get_mousedown();
+		void set_mousedown(MouseEvent*);
+		MouseEvent* get_mouseenter();
+		void set_mouseenter(MouseEvent*);
+		MouseEvent* get_mouseleave();
+		void set_mouseleave(MouseEvent*);
+		MouseEvent* get_mousemove();
+		void set_mousemove(MouseEvent*);
+		MouseEvent* get_mouseout();
+		void set_mouseout(MouseEvent*);
+		MouseEvent* get_mouseover();
+		void set_mouseover(MouseEvent*);
+		MouseEvent* get_mouseup();
+		void set_mouseup(MouseEvent*);
+		WheelEvent* get_mousewheel();
+		void set_mousewheel(WheelEvent*);
+		Event* get_MSGestureChange();
+		void set_MSGestureChange(Event*);
+		Event* get_MSGestureDoubleTap();
+		void set_MSGestureDoubleTap(Event*);
+		Event* get_MSGestureEnd();
+		void set_MSGestureEnd(Event*);
+		Event* get_MSGestureHold();
+		void set_MSGestureHold(Event*);
+		Event* get_MSGestureStart();
+		void set_MSGestureStart(Event*);
+		Event* get_MSGestureTap();
+		void set_MSGestureTap(Event*);
+		Event* get_MSInertiaStart();
+		void set_MSInertiaStart(Event*);
+		Event* get_MSPointerCancel();
+		void set_MSPointerCancel(Event*);
+		Event* get_MSPointerDown();
+		void set_MSPointerDown(Event*);
+		Event* get_MSPointerEnter();
+		void set_MSPointerEnter(Event*);
+		Event* get_MSPointerLeave();
+		void set_MSPointerLeave(Event*);
+		Event* get_MSPointerMove();
+		void set_MSPointerMove(Event*);
+		Event* get_MSPointerOut();
+		void set_MSPointerOut(Event*);
+		Event* get_MSPointerOver();
+		void set_MSPointerOver(Event*);
+		Event* get_MSPointerUp();
+		void set_MSPointerUp(Event*);
+		Event* get_offline();
+		void set_offline(Event*);
+		Event* get_online();
+		void set_online(Event*);
+		Event* get_orientationchange();
+		void set_orientationchange(Event*);
+		PageTransitionEvent* get_pagehide();
+		void set_pagehide(PageTransitionEvent*);
+		PageTransitionEvent* get_pageshow();
+		void set_pageshow(PageTransitionEvent*);
+		Event* get_pause();
+		void set_pause(Event*);
+		Event* get_play();
+		void set_play(Event*);
+		Event* get_playing();
+		void set_playing(Event*);
+		PopStateEvent* get_popstate();
+		void set_popstate(PopStateEvent*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+		Event* get_ratechange();
+		void set_ratechange(Event*);
+		ProgressEvent* get_readystatechange();
+		void set_readystatechange(ProgressEvent*);
+		Event* get_reset();
+		void set_reset(Event*);
+		UIEvent* get_resize();
+		void set_resize(UIEvent*);
+		UIEvent* get_scroll();
+		void set_scroll(UIEvent*);
+		Event* get_seeked();
+		void set_seeked(Event*);
+		Event* get_seeking();
+		void set_seeking(Event*);
+		UIEvent* get_select();
+		void set_select(UIEvent*);
+		Event* get_stalled();
+		void set_stalled(Event*);
+		StorageEvent* get_storage();
+		void set_storage(StorageEvent*);
+		Event* get_submit();
+		void set_submit(Event*);
+		Event* get_suspend();
+		void set_suspend(Event*);
+		Event* get_timeupdate();
+		void set_timeupdate(Event*);
+		TouchEvent* get_touchcancel();
+		void set_touchcancel(TouchEvent*);
+		TouchEvent* get_touchend();
+		void set_touchend(TouchEvent*);
+		TouchEvent* get_touchmove();
+		void set_touchmove(TouchEvent*);
+		TouchEvent* get_touchstart();
+		void set_touchstart(TouchEvent*);
+		Event* get_unload();
+		void set_unload(Event*);
+		Event* get_volumechange();
+		void set_volumechange(Event*);
+		Event* get_vrdisplayactivate();
+		void set_vrdisplayactivate(Event*);
+		Event* get_vrdisplayblur();
+		void set_vrdisplayblur(Event*);
+		Event* get_vrdisplayconnect();
+		void set_vrdisplayconnect(Event*);
+		Event* get_vrdisplaydeactivate();
+		void set_vrdisplaydeactivate(Event*);
+		Event* get_vrdisplaydisconnect();
+		void set_vrdisplaydisconnect(Event*);
+		Event* get_vrdisplayfocus();
+		void set_vrdisplayfocus(Event*);
+		Event* get_vrdisplaypointerrestricted();
+		void set_vrdisplaypointerrestricted(Event*);
+		Event* get_vrdisplaypointerunrestricted();
+		void set_vrdisplaypointerunrestricted(Event*);
+		Event* get_vrdisplaypresentchange();
+		void set_vrdisplaypresentchange(Event*);
+		Event* get_waiting();
+		void set_waiting(Event*);
 	};
 
 	class WindowTimersExtension{
@@ -13488,6 +18738,12 @@ namespace [[cheerp::genericjs]] client
 		Window();
 	};
 
+	class WorkerEventMap: public AbstractWorkerEventMap {
+	public:
+		MessageEvent* get_message();
+		void set_message(MessageEvent*);
+	};
+
 	class Worker: public EventTarget , public AbstractWorker {
 	public:
 		EventListener* get_onmessage();
@@ -13512,6 +18768,44 @@ namespace [[cheerp::genericjs]] client
 		Worker(const String& stringUrl);
 	};
 
+	class WritableStream: public Object{
+	public:
+		bool get_locked();
+		Promise<void>* abort();
+		Promise<void>* abort(Object* reason);
+		WritableStreamDefaultWriter* getWriter();
+		WritableStream* get_prototype();
+		void set_prototype(WritableStream*);
+		WritableStream();
+		WritableStream(UnderlyingSink* underlyingSink);
+		WritableStream(UnderlyingSink* underlyingSink, QueuingStrategy* strategy);
+	};
+
+	class WritableStreamDefaultController: public Object{
+	public:
+		void error();
+		void error(Object* error);
+		WritableStreamDefaultController* get_prototype();
+		void set_prototype(WritableStreamDefaultController*);
+		WritableStreamDefaultController();
+	};
+
+	class WritableStreamDefaultWriter: public Object{
+	public:
+		Promise<void>* get_closed();
+		double get_desiredSize();
+		Promise<void>* get_ready();
+		Promise<void>* abort();
+		Promise<void>* abort(Object* reason);
+		Promise<void>* close();
+		void releaseLock();
+		Promise<Object>* write();
+		Promise<Object>* write(Object* chunk);
+		WritableStreamDefaultWriter* get_prototype();
+		void set_prototype(WritableStreamDefaultWriter*);
+		WritableStreamDefaultWriter();
+	};
+
 	class XMLDocument: public Document {
 	public:
 		void addEventListener(const String& type, EventListener* listener);
@@ -13527,6 +18821,30 @@ namespace [[cheerp::genericjs]] client
 		XMLDocument* get_prototype();
 		void set_prototype(XMLDocument*);
 		XMLDocument();
+	};
+
+	class XMLHttpRequestEventTargetEventMap: public Object{
+	public:
+		Event* get_abort();
+		void set_abort(Event*);
+		ErrorEvent* get_error();
+		void set_error(ErrorEvent*);
+		Event* get_load();
+		void set_load(Event*);
+		ProgressEvent* get_loadend();
+		void set_loadend(ProgressEvent*);
+		Event* get_loadstart();
+		void set_loadstart(Event*);
+		ProgressEvent* get_progress();
+		void set_progress(ProgressEvent*);
+		ProgressEvent* get_timeout();
+		void set_timeout(ProgressEvent*);
+	};
+
+	class XMLHttpRequestEventMap: public XMLHttpRequestEventTargetEventMap {
+	public:
+		Event* get_readystatechange();
+		void set_readystatechange(Event*);
 	};
 
 	class XMLHttpRequestEventTarget{
@@ -13634,6 +18952,17 @@ namespace [[cheerp::genericjs]] client
 		XMLSerializer();
 	};
 
+	class XPathEvaluator: public Object{
+	public:
+		XPathExpression* createExpression(const String& expression, XPathNSResolver* resolver);
+		XPathNSResolver* createNSResolver();
+		XPathNSResolver* createNSResolver(Node* nodeResolver);
+		XPathResult* evaluate(const String& expression, Node* contextNode, XPathNSResolver* resolver, double type, XPathResult* result);
+		XPathEvaluator* get_prototype();
+		void set_prototype(XPathEvaluator*);
+		XPathEvaluator();
+	};
+
 	class XPathExpression: public Object{
 	public:
 		XPathResult* evaluate(Node* contextNode, double type, XPathResult* result);
@@ -13676,11 +19005,67 @@ namespace [[cheerp::genericjs]] client
 		double get_UNORDERED_NODE_SNAPSHOT_TYPE();
 	};
 
+	class XSLTProcessor: public Object{
+	public:
+		void clearParameters();
+		Object* getParameter(const String& namespaceURI, const String& localName);
+		void importStylesheet(Node* style);
+		void removeParameter(const String& namespaceURI, const String& localName);
+		void reset();
+		void setParameter(const String& namespaceURI, const String& localName, Object* value);
+		Document* transformToDocument(Node* source);
+		DocumentFragment* transformToFragment(Node* source, Document* document);
+		XSLTProcessor* get_prototype();
+		void set_prototype(XSLTProcessor*);
+		XSLTProcessor();
+	};
+
+	class webkitRTCPeerConnection: public RTCPeerConnection {
+	public:
+		void addEventListener(const String& type, EventListener* listener);
+		void addEventListener(const String& type, EventListener* listener, bool options);
+		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
+		void addEventListener(const String& type, EventListenerObject* listener);
+		void addEventListener(const String& type, EventListenerObject* listener, AddEventListenerOptions* options);
+		void removeEventListener(const String& type, EventListener* listener);
+		void removeEventListener(const String& type, EventListener* listener, bool options);
+		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
+		void removeEventListener(const String& type, EventListenerObject* listener);
+		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
+		webkitRTCPeerConnection* get_prototype();
+		void set_prototype(webkitRTCPeerConnection*);
+		webkitRTCPeerConnection(RTCConfiguration* configuration);
+	};
+
+	class DecodeErrorCallback: public Object{
+	public:
+	};
+
+	class DecodeSuccessCallback: public Object{
+	public:
+	};
+
 	class ErrorEventHandler: public Object{
 	public:
 	};
 
+	class EventHandlerNonNull: public Object{
+	public:
+	};
+
+	class ForEachCallback: public Object{
+	public:
+	};
+
 	class FrameRequestCallback: public Object{
+	public:
+	};
+
+	class FunctionStringCallback: public Object{
+	public:
+	};
+
+	class IntersectionObserverCallback: public Object{
 	public:
 	};
 
@@ -13696,6 +19081,18 @@ namespace [[cheerp::genericjs]] client
 	public:
 	};
 
+	class NavigatorUserMediaErrorCallback: public Object{
+	public:
+	};
+
+	class NavigatorUserMediaSuccessCallback: public Object{
+	public:
+	};
+
+	class NotificationPermissionCallback: public Object{
+	public:
+	};
+
 	class PositionCallback: public Object{
 	public:
 	};
@@ -13704,9 +19101,443 @@ namespace [[cheerp::genericjs]] client
 	public:
 	};
 
+	class RTCPeerConnectionErrorCallback: public Object{
+	public:
+	};
+
+	class RTCSessionDescriptionCallback: public Object{
+	public:
+	};
+
+	class RTCStatsCallback: public Object{
+	public:
+	};
+
+	class VoidFunction: public Object{
+	public:
+	};
+
+	class WritableStreamChunkCallback: public Object{
+	public:
+	};
+
+	class WritableStreamDefaultControllerCallback: public Object{
+	public:
+	};
+
+	class WritableStreamErrorCallback: public Object{
+	public:
+	};
+
+	class HTMLElementTagNameMap: public Object{
+	public:
+		HTMLAnchorElement* get_a();
+		void set_a(HTMLAnchorElement*);
+		HTMLElement* get_abbr();
+		void set_abbr(HTMLElement*);
+		HTMLElement* get_acronym();
+		void set_acronym(HTMLElement*);
+		HTMLElement* get_address();
+		void set_address(HTMLElement*);
+		HTMLAppletElement* get_applet();
+		void set_applet(HTMLAppletElement*);
+		HTMLAreaElement* get_area();
+		void set_area(HTMLAreaElement*);
+		HTMLElement* get_article();
+		void set_article(HTMLElement*);
+		HTMLElement* get_aside();
+		void set_aside(HTMLElement*);
+		HTMLAudioElement* get_audio();
+		void set_audio(HTMLAudioElement*);
+		HTMLElement* get_b();
+		void set_b(HTMLElement*);
+		HTMLBaseElement* get_base();
+		void set_base(HTMLBaseElement*);
+		HTMLBaseFontElement* get_basefont();
+		void set_basefont(HTMLBaseFontElement*);
+		HTMLElement* get_bdo();
+		void set_bdo(HTMLElement*);
+		HTMLElement* get_big();
+		void set_big(HTMLElement*);
+		HTMLQuoteElement* get_blockquote();
+		void set_blockquote(HTMLQuoteElement*);
+		HTMLBodyElement* get_body();
+		void set_body(HTMLBodyElement*);
+		HTMLBRElement* get_br();
+		void set_br(HTMLBRElement*);
+		HTMLButtonElement* get_button();
+		void set_button(HTMLButtonElement*);
+		HTMLCanvasElement* get_canvas();
+		void set_canvas(HTMLCanvasElement*);
+		HTMLTableCaptionElement* get_caption();
+		void set_caption(HTMLTableCaptionElement*);
+		HTMLElement* get_center();
+		void set_center(HTMLElement*);
+		HTMLElement* get_cite();
+		void set_cite(HTMLElement*);
+		HTMLElement* get_code();
+		void set_code(HTMLElement*);
+		HTMLTableColElement* get_col();
+		void set_col(HTMLTableColElement*);
+		HTMLTableColElement* get_colgroup();
+		void set_colgroup(HTMLTableColElement*);
+		HTMLDataElement* get_data();
+		void set_data(HTMLDataElement*);
+		HTMLDataListElement* get_datalist();
+		void set_datalist(HTMLDataListElement*);
+		HTMLElement* get_dd();
+		void set_dd(HTMLElement*);
+		HTMLModElement* get_del();
+		void set_del(HTMLModElement*);
+		HTMLElement* get_dfn();
+		void set_dfn(HTMLElement*);
+		HTMLDirectoryElement* get_dir();
+		void set_dir(HTMLDirectoryElement*);
+		HTMLDivElement* get_div();
+		void set_div(HTMLDivElement*);
+		HTMLDListElement* get_dl();
+		void set_dl(HTMLDListElement*);
+		HTMLElement* get_dt();
+		void set_dt(HTMLElement*);
+		HTMLElement* get_em();
+		void set_em(HTMLElement*);
+		HTMLEmbedElement* get_embed();
+		void set_embed(HTMLEmbedElement*);
+		HTMLFieldSetElement* get_fieldset();
+		void set_fieldset(HTMLFieldSetElement*);
+		HTMLElement* get_figcaption();
+		void set_figcaption(HTMLElement*);
+		HTMLElement* get_figure();
+		void set_figure(HTMLElement*);
+		HTMLFontElement* get_font();
+		void set_font(HTMLFontElement*);
+		HTMLElement* get_footer();
+		void set_footer(HTMLElement*);
+		HTMLFormElement* get_form();
+		void set_form(HTMLFormElement*);
+		HTMLFrameElement* get_frame();
+		void set_frame(HTMLFrameElement*);
+		HTMLFrameSetElement* get_frameset();
+		void set_frameset(HTMLFrameSetElement*);
+		HTMLHeadingElement* get_h1();
+		void set_h1(HTMLHeadingElement*);
+		HTMLHeadingElement* get_h2();
+		void set_h2(HTMLHeadingElement*);
+		HTMLHeadingElement* get_h3();
+		void set_h3(HTMLHeadingElement*);
+		HTMLHeadingElement* get_h4();
+		void set_h4(HTMLHeadingElement*);
+		HTMLHeadingElement* get_h5();
+		void set_h5(HTMLHeadingElement*);
+		HTMLHeadingElement* get_h6();
+		void set_h6(HTMLHeadingElement*);
+		HTMLHeadElement* get_head();
+		void set_head(HTMLHeadElement*);
+		HTMLElement* get_header();
+		void set_header(HTMLElement*);
+		HTMLElement* get_hgroup();
+		void set_hgroup(HTMLElement*);
+		HTMLHRElement* get_hr();
+		void set_hr(HTMLHRElement*);
+		HTMLHtmlElement* get_html();
+		void set_html(HTMLHtmlElement*);
+		HTMLElement* get_i();
+		void set_i(HTMLElement*);
+		HTMLIFrameElement* get_iframe();
+		void set_iframe(HTMLIFrameElement*);
+		HTMLImageElement* get_img();
+		void set_img(HTMLImageElement*);
+		HTMLInputElement* get_input();
+		void set_input(HTMLInputElement*);
+		HTMLModElement* get_ins();
+		void set_ins(HTMLModElement*);
+		HTMLUnknownElement* get_isindex();
+		void set_isindex(HTMLUnknownElement*);
+		HTMLElement* get_kbd();
+		void set_kbd(HTMLElement*);
+		HTMLElement* get_keygen();
+		void set_keygen(HTMLElement*);
+		HTMLLabelElement* get_label();
+		void set_label(HTMLLabelElement*);
+		HTMLLegendElement* get_legend();
+		void set_legend(HTMLLegendElement*);
+		HTMLLIElement* get_li();
+		void set_li(HTMLLIElement*);
+		HTMLLinkElement* get_link();
+		void set_link(HTMLLinkElement*);
+		HTMLPreElement* get_listing();
+		void set_listing(HTMLPreElement*);
+		HTMLMapElement* get_map();
+		void set_map(HTMLMapElement*);
+		HTMLElement* get_mark();
+		void set_mark(HTMLElement*);
+		HTMLMarqueeElement* get_marquee();
+		void set_marquee(HTMLMarqueeElement*);
+		HTMLMenuElement* get_menu();
+		void set_menu(HTMLMenuElement*);
+		HTMLMetaElement* get_meta();
+		void set_meta(HTMLMetaElement*);
+		HTMLMeterElement* get_meter();
+		void set_meter(HTMLMeterElement*);
+		HTMLElement* get_nav();
+		void set_nav(HTMLElement*);
+		HTMLUnknownElement* get_nextid();
+		void set_nextid(HTMLUnknownElement*);
+		HTMLElement* get_nobr();
+		void set_nobr(HTMLElement*);
+		HTMLElement* get_noframes();
+		void set_noframes(HTMLElement*);
+		HTMLElement* get_noscript();
+		void set_noscript(HTMLElement*);
+		HTMLObjectElement* get_object();
+		void set_object(HTMLObjectElement*);
+		HTMLOListElement* get_ol();
+		void set_ol(HTMLOListElement*);
+		HTMLOptGroupElement* get_optgroup();
+		void set_optgroup(HTMLOptGroupElement*);
+		HTMLOptionElement* get_option();
+		void set_option(HTMLOptionElement*);
+		HTMLOutputElement* get_output();
+		void set_output(HTMLOutputElement*);
+		HTMLParagraphElement* get_p();
+		void set_p(HTMLParagraphElement*);
+		HTMLParamElement* get_param();
+		void set_param(HTMLParamElement*);
+		HTMLPictureElement* get_picture();
+		void set_picture(HTMLPictureElement*);
+		HTMLElement* get_plaintext();
+		void set_plaintext(HTMLElement*);
+		HTMLPreElement* get_pre();
+		void set_pre(HTMLPreElement*);
+		HTMLProgressElement* get_progress();
+		void set_progress(HTMLProgressElement*);
+		HTMLQuoteElement* get_q();
+		void set_q(HTMLQuoteElement*);
+		HTMLElement* get_rt();
+		void set_rt(HTMLElement*);
+		HTMLElement* get_ruby();
+		void set_ruby(HTMLElement*);
+		HTMLElement* get_s();
+		void set_s(HTMLElement*);
+		HTMLElement* get_samp();
+		void set_samp(HTMLElement*);
+		HTMLScriptElement* get_script();
+		void set_script(HTMLScriptElement*);
+		HTMLElement* get_section();
+		void set_section(HTMLElement*);
+		HTMLSelectElement* get_select();
+		void set_select(HTMLSelectElement*);
+		HTMLSlotElement* get_slot();
+		void set_slot(HTMLSlotElement*);
+		HTMLElement* get_small();
+		void set_small(HTMLElement*);
+		HTMLSourceElement* get_source();
+		void set_source(HTMLSourceElement*);
+		HTMLSpanElement* get_span();
+		void set_span(HTMLSpanElement*);
+		HTMLElement* get_strike();
+		void set_strike(HTMLElement*);
+		HTMLElement* get_strong();
+		void set_strong(HTMLElement*);
+		HTMLStyleElement* get_style();
+		void set_style(HTMLStyleElement*);
+		HTMLElement* get_sub();
+		void set_sub(HTMLElement*);
+		HTMLElement* get_sup();
+		void set_sup(HTMLElement*);
+		HTMLTableElement* get_table();
+		void set_table(HTMLTableElement*);
+		HTMLTableSectionElement* get_tbody();
+		void set_tbody(HTMLTableSectionElement*);
+		HTMLTableDataCellElement* get_td();
+		void set_td(HTMLTableDataCellElement*);
+		HTMLTemplateElement* get_template();
+		void set_template(HTMLTemplateElement*);
+		HTMLTextAreaElement* get_textarea();
+		void set_textarea(HTMLTextAreaElement*);
+		HTMLTableSectionElement* get_tfoot();
+		void set_tfoot(HTMLTableSectionElement*);
+		HTMLTableHeaderCellElement* get_th();
+		void set_th(HTMLTableHeaderCellElement*);
+		HTMLTableSectionElement* get_thead();
+		void set_thead(HTMLTableSectionElement*);
+		HTMLTimeElement* get_time();
+		void set_time(HTMLTimeElement*);
+		HTMLTitleElement* get_title();
+		void set_title(HTMLTitleElement*);
+		HTMLTableRowElement* get_tr();
+		void set_tr(HTMLTableRowElement*);
+		HTMLTrackElement* get_track();
+		void set_track(HTMLTrackElement*);
+		HTMLElement* get_tt();
+		void set_tt(HTMLElement*);
+		HTMLElement* get_u();
+		void set_u(HTMLElement*);
+		HTMLUListElement* get_ul();
+		void set_ul(HTMLUListElement*);
+		HTMLElement* get_var();
+		void set_var(HTMLElement*);
+		HTMLVideoElement* get_video();
+		void set_video(HTMLVideoElement*);
+		HTMLElement* get_wbr();
+		void set_wbr(HTMLElement*);
+		HTMLPreElement* get_xmp();
+		void set_xmp(HTMLPreElement*);
+	};
+
+	class SVGElementTagNameMap{
+	public:
+		SVGCircleElement* get_circle();
+		void set_circle(SVGCircleElement*);
+		SVGClipPathElement* get_clippath();
+		void set_clippath(SVGClipPathElement*);
+		SVGDefsElement* get_defs();
+		void set_defs(SVGDefsElement*);
+		SVGDescElement* get_desc();
+		void set_desc(SVGDescElement*);
+		SVGEllipseElement* get_ellipse();
+		void set_ellipse(SVGEllipseElement*);
+		SVGFEBlendElement* get_feblend();
+		void set_feblend(SVGFEBlendElement*);
+		SVGFEColorMatrixElement* get_fecolormatrix();
+		void set_fecolormatrix(SVGFEColorMatrixElement*);
+		SVGFEComponentTransferElement* get_fecomponenttransfer();
+		void set_fecomponenttransfer(SVGFEComponentTransferElement*);
+		SVGFECompositeElement* get_fecomposite();
+		void set_fecomposite(SVGFECompositeElement*);
+		SVGFEConvolveMatrixElement* get_feconvolvematrix();
+		void set_feconvolvematrix(SVGFEConvolveMatrixElement*);
+		SVGFEDiffuseLightingElement* get_fediffuselighting();
+		void set_fediffuselighting(SVGFEDiffuseLightingElement*);
+		SVGFEDisplacementMapElement* get_fedisplacementmap();
+		void set_fedisplacementmap(SVGFEDisplacementMapElement*);
+		SVGFEDistantLightElement* get_fedistantlight();
+		void set_fedistantlight(SVGFEDistantLightElement*);
+		SVGFEFloodElement* get_feflood();
+		void set_feflood(SVGFEFloodElement*);
+		SVGFEFuncAElement* get_fefunca();
+		void set_fefunca(SVGFEFuncAElement*);
+		SVGFEFuncBElement* get_fefuncb();
+		void set_fefuncb(SVGFEFuncBElement*);
+		SVGFEFuncGElement* get_fefuncg();
+		void set_fefuncg(SVGFEFuncGElement*);
+		SVGFEFuncRElement* get_fefuncr();
+		void set_fefuncr(SVGFEFuncRElement*);
+		SVGFEGaussianBlurElement* get_fegaussianblur();
+		void set_fegaussianblur(SVGFEGaussianBlurElement*);
+		SVGFEImageElement* get_feimage();
+		void set_feimage(SVGFEImageElement*);
+		SVGFEMergeElement* get_femerge();
+		void set_femerge(SVGFEMergeElement*);
+		SVGFEMergeNodeElement* get_femergenode();
+		void set_femergenode(SVGFEMergeNodeElement*);
+		SVGFEMorphologyElement* get_femorphology();
+		void set_femorphology(SVGFEMorphologyElement*);
+		SVGFEOffsetElement* get_feoffset();
+		void set_feoffset(SVGFEOffsetElement*);
+		SVGFEPointLightElement* get_fepointlight();
+		void set_fepointlight(SVGFEPointLightElement*);
+		SVGFESpecularLightingElement* get_fespecularlighting();
+		void set_fespecularlighting(SVGFESpecularLightingElement*);
+		SVGFESpotLightElement* get_fespotlight();
+		void set_fespotlight(SVGFESpotLightElement*);
+		SVGFETileElement* get_fetile();
+		void set_fetile(SVGFETileElement*);
+		SVGFETurbulenceElement* get_feturbulence();
+		void set_feturbulence(SVGFETurbulenceElement*);
+		SVGFilterElement* get_filter();
+		void set_filter(SVGFilterElement*);
+		SVGForeignObjectElement* get_foreignobject();
+		void set_foreignobject(SVGForeignObjectElement*);
+		SVGGElement* get_g();
+		void set_g(SVGGElement*);
+		SVGImageElement* get_image();
+		void set_image(SVGImageElement*);
+		SVGLineElement* get_line();
+		void set_line(SVGLineElement*);
+		SVGLinearGradientElement* get_lineargradient();
+		void set_lineargradient(SVGLinearGradientElement*);
+		SVGMarkerElement* get_marker();
+		void set_marker(SVGMarkerElement*);
+		SVGMaskElement* get_mask();
+		void set_mask(SVGMaskElement*);
+		SVGMetadataElement* get_metadata();
+		void set_metadata(SVGMetadataElement*);
+		SVGPathElement* get_path();
+		void set_path(SVGPathElement*);
+		SVGPatternElement* get_pattern();
+		void set_pattern(SVGPatternElement*);
+		SVGPolygonElement* get_polygon();
+		void set_polygon(SVGPolygonElement*);
+		SVGPolylineElement* get_polyline();
+		void set_polyline(SVGPolylineElement*);
+		SVGRadialGradientElement* get_radialgradient();
+		void set_radialgradient(SVGRadialGradientElement*);
+		SVGRectElement* get_rect();
+		void set_rect(SVGRectElement*);
+		SVGStopElement* get_stop();
+		void set_stop(SVGStopElement*);
+		SVGSVGElement* get_svg();
+		void set_svg(SVGSVGElement*);
+		SVGSwitchElement* get_switch();
+		void set_switch(SVGSwitchElement*);
+		SVGSymbolElement* get_symbol();
+		void set_symbol(SVGSymbolElement*);
+		SVGTextElement* get_text();
+		void set_text(SVGTextElement*);
+		SVGTextPathElement* get_textpath();
+		void set_textpath(SVGTextPathElement*);
+		SVGTSpanElement* get_tspan();
+		void set_tspan(SVGTSpanElement*);
+		SVGUseElement* get_use();
+		void set_use(SVGUseElement*);
+		SVGViewElement* get_view();
+		void set_view(SVGViewElement*);
+	};
+
+	class ElementTagNameMap: public HTMLElementTagNameMap , public SVGElementTagNameMap {
+	public:
+	};
+
 	class ActiveXObject: public Object{
 	public:
 		ActiveXObject(const String& s);
+	};
+
+	class ITextWriter: public Object{
+	public:
+		void Write(const String& s);
+		void WriteLine(const String& s);
+		void Close();
+	};
+
+	class TextStreamBase: public Object{
+	public:
+		double get_Column();
+		void set_Column(double);
+		double get_Line();
+		void set_Line(double);
+		void Close();
+	};
+
+	class TextStreamWriter: public TextStreamBase {
+	public:
+		void Write(const String& s);
+		void WriteBlankLines(double intLines);
+		void WriteLine(const String& s);
+	};
+
+	class TextStreamReader: public TextStreamBase {
+	public:
+		String* Read(double characters);
+		String* ReadAll();
+		String* ReadLine();
+		void Skip(double characters);
+		void SkipLine();
+		bool get_AtEndOfLine();
+		void set_AtEndOfLine(bool);
+		bool get_AtEndOfStream();
+		void set_AtEndOfStream(bool);
 	};
 
 	extern double NaN;
