@@ -55,30 +55,46 @@ static double date_now()
 
 template<class, class> struct CallbackHelper; // undefined
 
-template<bool B, class R, class... Args> struct CallbackHelperBase;
+template<class T, bool B, class R, class... Args> struct CallbackHelperBase;
 
-template<class R, class... Args>
-struct CallbackHelperBase<false, R, Args...>
+template<class R>
+struct InvokeHelper
 {
-	typedef R (func_type)(Args...);
-	static R invoke(std::function<R(Args...)>* func, Args... args)
+	template<class T, class... Args>
+	static R invoke(T* func, Args... args)
 	{
-		std::unique_ptr<std::function<R(Args...)>> funcDeleter(func);
-		return (*func)(static_cast<Args&&>(args)...);
-	}
-	template<class T>
-	static client::EventListener* make_callback(const T& func)
-	{
-		return __builtin_cheerp_create_closure<client::EventListener>(&invoke,
-						new std::function<func_type>(func));
+		auto ret = (*func)(static_cast<Args&&>(args)...);
+		delete func;
+		return ret;
 	}
 };
 
-template<class R, class... Args>
-struct CallbackHelperBase<true, R, Args...>
+template<>
+struct InvokeHelper<void>
+{
+	template<class T, class... Args>
+	static void invoke(T* func, Args... args)
+	{
+		(*func)(static_cast<Args&&>(args)...);
+		delete func;
+	}
+};
+
+template<class T, class R, class... Args>
+struct CallbackHelperBase<T, false, R, Args...>
 {
 	typedef R (func_type)(Args...);
-	template<class T>
+	static client::EventListener* make_callback(const T& func)
+	{
+		return __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<T, Args...>,
+						new T(func));
+	}
+};
+
+template<class T, class R, class... Args>
+struct CallbackHelperBase<T, true, R, Args...>
+{
+	typedef R (func_type)(Args...);
 	static client::EventListener* make_callback(const T& func)
 	{
 		return __builtin_cheerp_make_complete_object<client::EventListener>((func_type*)func);
@@ -87,13 +103,13 @@ struct CallbackHelperBase<true, R, Args...>
 
 template<class T, class C, class R, class... Args>
 struct CallbackHelper<T, R(C::*)(Args...) const>:
-	public CallbackHelperBase<std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
+	public CallbackHelperBase<T, std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
 {
 };
 
 template<class T, class C, class R, class... Args>
 struct CallbackHelper<T, R(C::*)(Args...)>:
-	public CallbackHelperBase<std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
+	public CallbackHelperBase<T, std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
 {
 };
 

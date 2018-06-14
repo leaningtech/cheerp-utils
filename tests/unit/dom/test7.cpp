@@ -49,6 +49,6 @@ void webMain()
 	{
 		assertEqual(capturedInt, 43, "Calling back capturing lambdas 1/2");
 		assertEqual(callbackCount++, 3, "Calling back capturing lambdas 2/2");
-		assertEqual(Functor::destructorCalled, 3, "Calling back functors 3/3");
+		assertEqual(Functor::destructorCalled, 2, "Calling back functors 3/3");
 	}), 0);
 }
