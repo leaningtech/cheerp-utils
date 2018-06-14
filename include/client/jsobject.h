@@ -46,6 +46,7 @@ public:
 	// We provide the following function instead
 	void set_(const client::String& name, Object* v);
 	bool hasOwnProperty(const client::String& name);
+	static Array* keys(Object*) [[cheerp::static]];
 	static Array* values(Object*) [[cheerp::static]];
 };
 
