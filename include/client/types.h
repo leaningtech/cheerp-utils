@@ -238,6 +238,14 @@ public:
 	client::String* toString(int base = 10);
 };
 
+class Function: public Object
+{
+public:
+	template<typename... Args>
+	Function(Args... args);
+	String* get_name();
+};
+
 typedef unsigned int UnsignedShort;
 typedef unsigned int UnsignedLong;
 typedef signed int Long;
@@ -246,7 +254,6 @@ typedef void Void;
 typedef unsigned int Boolean;
 typedef double Double;
 typedef Object* Any;
-typedef void* (*Function)(void*);
 
 }
 
