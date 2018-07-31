@@ -50,7 +50,6 @@ namespace [[cheerp::genericjs]] client
 	class ConcatArray;
 	template<class T>
 	class TypedPropertyDescriptor;
-	template<class T>
 	class Promise;
 	template<class T>
 	class ThisType;
@@ -1375,14 +1374,13 @@ namespace [[cheerp::genericjs]] client
 		void set_set(EventListener*);
 	};
 
-	template<class T>
 	class Promise: public Object{
 	public:
-		template<class TResult1, class TResult2> Promise<Object>* then();
-		template<class TResult1, class TResult2> Promise<Object>* then(EventListener* onfulfilled);
-		template<class TResult1, class TResult2> Promise<Object>* then(EventListener* onfulfilled, EventListener* onrejected);
-		template<class TResult> Promise<Object>* _catch();
-		template<class TResult> Promise<Object>* _catch(EventListener* onrejected);
+		Promise* then();
+		Promise* then(EventListener* onfulfilled);
+		Promise* then(EventListener* onfulfilled, EventListener* onrejected);
+		Promise* _catch();
+		Promise* _catch(EventListener* onrejected);
 	};
 
 	template<class T>
@@ -4880,14 +4878,14 @@ namespace [[cheerp::genericjs]] client
 		void set_currentTime(double);
 		AnimationEffectReadOnly* get_effect();
 		void set_effect(AnimationEffectReadOnly*);
-		Promise<Animation>* get_finished();
+		Promise* get_finished();
 		String* get_id();
 		void set_id(const String&);
 		bool get_pending();
 		String* get_playState();
 		double get_playbackRate();
 		void set_playbackRate(double);
-		Promise<Animation>* get_ready();
+		Promise* get_ready();
 		double get_startTime();
 		void set_startTime(double);
 		AnimationTimeline* get_timeline();
@@ -5231,7 +5229,7 @@ namespace [[cheerp::genericjs]] client
 		void set_onstatechange(EventListener*);
 		double get_sampleRate();
 		String* get_state();
-		Promise<void>* close();
+		Promise* close();
 		AnalyserNode* createAnalyser();
 		BiquadFilterNode* createBiquadFilter();
 		AudioBuffer* createBuffer(double numberOfChannels, double length, double sampleRate);
@@ -5258,10 +5256,10 @@ namespace [[cheerp::genericjs]] client
 		ScriptProcessorNode* createScriptProcessor(double bufferSize, double numberOfInputChannels, double numberOfOutputChannels);
 		StereoPannerNode* createStereoPanner();
 		WaveShaperNode* createWaveShaper();
-		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData);
-		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback);
-		Promise<AudioBuffer>* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback, EventListener* errorCallback);
-		Promise<void>* resume();
+		Promise* decodeAudioData(ArrayBuffer* audioData);
+		Promise* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback);
+		Promise* decodeAudioData(ArrayBuffer* audioData, EventListener* successCallback, EventListener* errorCallback);
+		Promise* resume();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -5276,7 +5274,7 @@ namespace [[cheerp::genericjs]] client
 
 	class AudioContext: public AudioContextBase {
 	public:
-		Promise<void>* suspend();
+		Promise* suspend();
 		AudioContext* get_prototype();
 		void set_prototype(AudioContext*);
 		AudioContext();
@@ -5474,11 +5472,11 @@ namespace [[cheerp::genericjs]] client
 	class Body: public Object{
 	public:
 		bool get_bodyUsed();
-		Promise<ArrayBuffer>* arrayBuffer();
-		Promise<Blob>* blob();
-		Promise<FormData>* formData();
-		Promise<Object>* json();
-		Promise<String>* text();
+		Promise* arrayBuffer();
+		Promise* blob();
+		Promise* formData();
+		Promise* json();
+		Promise* text();
 	};
 
 	class BroadcastChannel: public EventTarget {
@@ -6532,29 +6530,29 @@ namespace [[cheerp::genericjs]] client
 
 	class Cache: public Object{
 	public:
-		Promise<void>* add(Request* request);
-		Promise<void>* add(const String& request);
-		Promise<void>* addAll(Array* requests);
-		Promise<bool>* _delete(Request* request);
-		Promise<bool>* _delete(Request* request, CacheQueryOptions* options);
-		Promise<bool>* _delete(const String& request);
-		Promise<bool>* _delete(const String& request, CacheQueryOptions* options);
-		Promise<Array>* keys();
-		Promise<Array>* keys(Request* request);
-		Promise<Array>* keys(Request* request, CacheQueryOptions* options);
-		Promise<Array>* keys(const String& request);
-		Promise<Array>* keys(const String& request, CacheQueryOptions* options);
-		Promise<Response>* match(Request* request);
-		Promise<Response>* match(Request* request, CacheQueryOptions* options);
-		Promise<Response>* match(const String& request);
-		Promise<Response>* match(const String& request, CacheQueryOptions* options);
-		Promise<Array>* matchAll();
-		Promise<Array>* matchAll(Request* request);
-		Promise<Array>* matchAll(Request* request, CacheQueryOptions* options);
-		Promise<Array>* matchAll(const String& request);
-		Promise<Array>* matchAll(const String& request, CacheQueryOptions* options);
-		Promise<void>* put(Request* request, Response* response);
-		Promise<void>* put(const String& request, Response* response);
+		Promise* add(Request* request);
+		Promise* add(const String& request);
+		Promise* addAll(Array* requests);
+		Promise* _delete(Request* request);
+		Promise* _delete(Request* request, CacheQueryOptions* options);
+		Promise* _delete(const String& request);
+		Promise* _delete(const String& request, CacheQueryOptions* options);
+		Promise* keys();
+		Promise* keys(Request* request);
+		Promise* keys(Request* request, CacheQueryOptions* options);
+		Promise* keys(const String& request);
+		Promise* keys(const String& request, CacheQueryOptions* options);
+		Promise* match(Request* request);
+		Promise* match(Request* request, CacheQueryOptions* options);
+		Promise* match(const String& request);
+		Promise* match(const String& request, CacheQueryOptions* options);
+		Promise* matchAll();
+		Promise* matchAll(Request* request);
+		Promise* matchAll(Request* request, CacheQueryOptions* options);
+		Promise* matchAll(const String& request);
+		Promise* matchAll(const String& request, CacheQueryOptions* options);
+		Promise* put(Request* request, Response* response);
+		Promise* put(const String& request, Response* response);
 		Cache* get_prototype();
 		void set_prototype(Cache*);
 		Cache();
@@ -6562,14 +6560,14 @@ namespace [[cheerp::genericjs]] client
 
 	class CacheStorage: public Object{
 	public:
-		Promise<bool>* _delete(const String& cacheName);
-		Promise<bool>* has(const String& cacheName);
-		Promise<Array>* keys();
-		Promise<Object>* match(Request* request);
-		Promise<Object>* match(Request* request, CacheQueryOptions* options);
-		Promise<Object>* match(const String& request);
-		Promise<Object>* match(const String& request, CacheQueryOptions* options);
-		Promise<Cache>* open(const String& cacheName);
+		Promise* _delete(const String& cacheName);
+		Promise* has(const String& cacheName);
+		Promise* keys();
+		Promise* match(Request* request);
+		Promise* match(Request* request, CacheQueryOptions* options);
+		Promise* match(const String& request);
+		Promise* match(const String& request, CacheQueryOptions* options);
+		Promise* open(const String& cacheName);
 		CacheStorage* get_prototype();
 		void set_prototype(CacheStorage*);
 		CacheStorage();
@@ -7036,7 +7034,7 @@ namespace [[cheerp::genericjs]] client
 		void define(const String& name, Function* constructor);
 		void define(const String& name, Function* constructor, ElementDefinitionOptions* options);
 		Object* get(const String& name);
-		Promise<void>* whenDefined(const String& name);
+		Promise* whenDefined(const String& name);
 	};
 
 	template<class T>
@@ -8668,7 +8666,7 @@ namespace [[cheerp::genericjs]] client
 	class GamepadHapticActuator: public Object{
 	public:
 		String* get_type();
-		Promise<bool>* pulse(double value, double duration);
+		Promise* pulse(double value, double duration);
 		GamepadHapticActuator* get_prototype();
 		void set_prototype(GamepadHapticActuator*);
 		GamepadHapticActuator();
@@ -8710,11 +8708,11 @@ namespace [[cheerp::genericjs]] client
 
 	class GlobalFetch{
 	public:
-		Promise<Response>* fetch();
-		Promise<Response>* fetch(Request* input);
-		Promise<Response>* fetch(Request* input, RequestInit* init);
-		Promise<Response>* fetch(const String& input);
-		Promise<Response>* fetch(const String& input, RequestInit* init);
+		Promise* fetch();
+		Promise* fetch(Request* input);
+		Promise* fetch(Request* input, RequestInit* init);
+		Promise* fetch(const String& input);
+		Promise* fetch(const String& input, RequestInit* init);
 	};
 
 	class HTMLAllCollection: public Object{
@@ -9159,8 +9157,8 @@ namespace [[cheerp::genericjs]] client
 		void msSetMediaProtectionManager();
 		void msSetMediaProtectionManager(Object* mediaProtectionManager);
 		void pause();
-		Promise<void>* play();
-		Promise<void>* setMediaKeys(MediaKeys* mediaKeys);
+		Promise* play();
+		Promise* setMediaKeys(MediaKeys* mediaKeys);
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -12181,11 +12179,11 @@ namespace [[cheerp::genericjs]] client
 
 	class MSCredentials: public Object{
 	public:
-		Promise<MSAssertion>* getAssertion(const String& challenge);
-		Promise<MSAssertion>* getAssertion(const String& challenge, MSCredentialFilter* filter);
-		Promise<MSAssertion>* getAssertion(const String& challenge, MSCredentialFilter* filter, MSSignatureParameters* params);
-		Promise<MSAssertion>* makeCredential(MSAccountInfo* accountInfo, Array* params);
-		Promise<MSAssertion>* makeCredential(MSAccountInfo* accountInfo, Array* params, const String& challenge);
+		Promise* getAssertion(const String& challenge);
+		Promise* getAssertion(const String& challenge, MSCredentialFilter* filter);
+		Promise* getAssertion(const String& challenge, MSCredentialFilter* filter, MSSignatureParameters* params);
+		Promise* makeCredential(MSAccountInfo* accountInfo, Array* params);
+		Promise* makeCredential(MSAccountInfo* accountInfo, Array* params, const String& challenge);
 		MSCredentials* get_prototype();
 		void set_prototype(MSCredentials*);
 		MSCredentials();
@@ -12521,9 +12519,9 @@ namespace [[cheerp::genericjs]] client
 	public:
 		EventListener* get_ondevicechange();
 		void set_ondevicechange(EventListener*);
-		Promise<Array>* enumerateDevices();
+		Promise* enumerateDevices();
 		MediaTrackSupportedConstraints* getSupportedConstraints();
-		Promise<MediaStream>* getUserMedia(MediaStreamConstraints* constraints);
+		Promise* getUserMedia(MediaStreamConstraints* constraints);
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -12583,35 +12581,35 @@ namespace [[cheerp::genericjs]] client
 
 	class MediaKeySession: public EventTarget {
 	public:
-		Promise<void>* get_closed();
+		Promise* get_closed();
 		double get_expiration();
 		MediaKeyStatusMap* get_keyStatuses();
 		String* get_sessionId();
-		Promise<void>* close();
-		Promise<void>* generateRequest(const String& initDataType, Int8Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Int16Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Int32Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Uint8Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Uint16Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Uint32Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Uint8ClampedArray* initData);
-		Promise<void>* generateRequest(const String& initDataType, Float32Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, Float64Array* initData);
-		Promise<void>* generateRequest(const String& initDataType, DataView* initData);
-		Promise<void>* generateRequest(const String& initDataType, ArrayBuffer* initData);
-		Promise<bool>* load(const String& sessionId);
-		Promise<void>* remove();
-		Promise<void>* update(Int8Array* response);
-		Promise<void>* update(Int16Array* response);
-		Promise<void>* update(Int32Array* response);
-		Promise<void>* update(Uint8Array* response);
-		Promise<void>* update(Uint16Array* response);
-		Promise<void>* update(Uint32Array* response);
-		Promise<void>* update(Uint8ClampedArray* response);
-		Promise<void>* update(Float32Array* response);
-		Promise<void>* update(Float64Array* response);
-		Promise<void>* update(DataView* response);
-		Promise<void>* update(ArrayBuffer* response);
+		Promise* close();
+		Promise* generateRequest(const String& initDataType, Int8Array* initData);
+		Promise* generateRequest(const String& initDataType, Int16Array* initData);
+		Promise* generateRequest(const String& initDataType, Int32Array* initData);
+		Promise* generateRequest(const String& initDataType, Uint8Array* initData);
+		Promise* generateRequest(const String& initDataType, Uint16Array* initData);
+		Promise* generateRequest(const String& initDataType, Uint32Array* initData);
+		Promise* generateRequest(const String& initDataType, Uint8ClampedArray* initData);
+		Promise* generateRequest(const String& initDataType, Float32Array* initData);
+		Promise* generateRequest(const String& initDataType, Float64Array* initData);
+		Promise* generateRequest(const String& initDataType, DataView* initData);
+		Promise* generateRequest(const String& initDataType, ArrayBuffer* initData);
+		Promise* load(const String& sessionId);
+		Promise* remove();
+		Promise* update(Int8Array* response);
+		Promise* update(Int16Array* response);
+		Promise* update(Int32Array* response);
+		Promise* update(Uint8Array* response);
+		Promise* update(Uint16Array* response);
+		Promise* update(Uint32Array* response);
+		Promise* update(Uint8ClampedArray* response);
+		Promise* update(Float32Array* response);
+		Promise* update(Float64Array* response);
+		Promise* update(DataView* response);
+		Promise* update(ArrayBuffer* response);
 		MediaKeySession* get_prototype();
 		void set_prototype(MediaKeySession*);
 		MediaKeySession();
@@ -12652,7 +12650,7 @@ namespace [[cheerp::genericjs]] client
 	class MediaKeySystemAccess: public Object{
 	public:
 		String* get_keySystem();
-		Promise<MediaKeys>* createMediaKeys();
+		Promise* createMediaKeys();
 		MediaKeySystemConfiguration* getConfiguration();
 		MediaKeySystemAccess* get_prototype();
 		void set_prototype(MediaKeySystemAccess*);
@@ -12662,17 +12660,17 @@ namespace [[cheerp::genericjs]] client
 	class MediaKeys: public Object{
 	public:
 		MediaKeySession* createSession();
-		Promise<void>* setServerCertificate(Int8Array* serverCertificate);
-		Promise<void>* setServerCertificate(Int16Array* serverCertificate);
-		Promise<void>* setServerCertificate(Int32Array* serverCertificate);
-		Promise<void>* setServerCertificate(Uint8Array* serverCertificate);
-		Promise<void>* setServerCertificate(Uint16Array* serverCertificate);
-		Promise<void>* setServerCertificate(Uint32Array* serverCertificate);
-		Promise<void>* setServerCertificate(Uint8ClampedArray* serverCertificate);
-		Promise<void>* setServerCertificate(Float32Array* serverCertificate);
-		Promise<void>* setServerCertificate(Float64Array* serverCertificate);
-		Promise<void>* setServerCertificate(DataView* serverCertificate);
-		Promise<void>* setServerCertificate(ArrayBuffer* serverCertificate);
+		Promise* setServerCertificate(Int8Array* serverCertificate);
+		Promise* setServerCertificate(Int16Array* serverCertificate);
+		Promise* setServerCertificate(Int32Array* serverCertificate);
+		Promise* setServerCertificate(Uint8Array* serverCertificate);
+		Promise* setServerCertificate(Uint16Array* serverCertificate);
+		Promise* setServerCertificate(Uint32Array* serverCertificate);
+		Promise* setServerCertificate(Uint8ClampedArray* serverCertificate);
+		Promise* setServerCertificate(Float32Array* serverCertificate);
+		Promise* setServerCertificate(Float64Array* serverCertificate);
+		Promise* setServerCertificate(DataView* serverCertificate);
+		Promise* setServerCertificate(ArrayBuffer* serverCertificate);
 		MediaKeys* get_prototype();
 		void set_prototype(MediaKeys*);
 		MediaKeys();
@@ -12842,7 +12840,7 @@ namespace [[cheerp::genericjs]] client
 		bool get_readonly();
 		String* get_readyState();
 		bool get_remote();
-		Promise<void>* applyConstraints(MediaTrackConstraints* constraints);
+		Promise* applyConstraints(MediaTrackConstraints* constraints);
 		MediaStreamTrack* clone();
 		MediaTrackCapabilities* getCapabilities();
 		MediaTrackConstraints* getConstraints();
@@ -13073,7 +13071,7 @@ namespace [[cheerp::genericjs]] client
 	class NavigatorUserMedia{
 	public:
 		MediaDevices* get_mediaDevices();
-		Promise<MediaStream>* getDisplayMedia(MediaStreamConstraints* constraints);
+		Promise* getDisplayMedia(MediaStreamConstraints* constraints);
 		void getUserMedia(MediaStreamConstraints* constraints, EventListener* successCallback, EventListener* errorCallback);
 	};
 
@@ -13102,12 +13100,12 @@ namespace [[cheerp::genericjs]] client
 		ServiceWorkerContainer* get_serviceWorker();
 		bool get_webdriver();
 		Array* getGamepads();
-		Promise<Array>* getVRDisplays();
+		Promise* getVRDisplays();
 		bool javaEnabled();
 		void msLaunchUri(const String& uri);
 		void msLaunchUri(const String& uri, EventListener* successCallback);
 		void msLaunchUri(const String& uri, EventListener* successCallback, EventListener* noHandlerCallback);
-		Promise<MediaKeySystemAccess>* requestMediaKeySystemAccess(const String& keySystem, Array* supportedConfigurations);
+		Promise* requestMediaKeySystemAccess(const String& keySystem, Array* supportedConfigurations);
 		bool vibrate(double pattern);
 		bool vibrate(Array* pattern);
 		Navigator* get_prototype();
@@ -13234,8 +13232,8 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(Notification*);
 		Notification(const String& title);
 		Notification(const String& title, NotificationOptions* options);
-		static Promise<String>* requestPermission() [[cheerp::static]];
-		static Promise<String>* requestPermission(EventListener* callback) [[cheerp::static]];
+		static Promise* requestPermission() [[cheerp::static]];
+		static Promise* requestPermission(EventListener* callback) [[cheerp::static]];
 	};
 
 	class OfflineAudioCompletionEvent: public Event {
@@ -13257,8 +13255,8 @@ namespace [[cheerp::genericjs]] client
 		double get_length();
 		EventListener* get_oncomplete();
 		void set_oncomplete(EventListener*);
-		Promise<AudioBuffer>* startRendering();
-		Promise<void>* suspend(double suspendTime);
+		Promise* startRendering();
+		Promise* suspend(double suspendTime);
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -13401,9 +13399,9 @@ namespace [[cheerp::genericjs]] client
 		PaymentAddress* get_shippingAddress();
 		String* get_shippingOption();
 		String* get_shippingType();
-		Promise<void>* abort();
-		Promise<bool>* canMakePayment();
-		Promise<PaymentResponse>* show();
+		Promise* abort();
+		Promise* canMakePayment();
+		Promise* show();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -13422,7 +13420,7 @@ namespace [[cheerp::genericjs]] client
 
 	class PaymentRequestUpdateEvent: public Event {
 	public:
-		void updateWith(Promise<PaymentDetailsUpdate>* detailsPromise);
+		void updateWith(Promise* detailsPromise);
 		PaymentRequestUpdateEvent* get_prototype();
 		void set_prototype(PaymentRequestUpdateEvent*);
 		PaymentRequestUpdateEvent(const String& type);
@@ -13439,7 +13437,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_requestId();
 		PaymentAddress* get_shippingAddress();
 		String* get_shippingOption();
-		Promise<void>* complete();
+		Promise* complete();
 		Object* toJSON();
 		PaymentResponse* get_prototype();
 		void set_prototype(PaymentResponse*);
@@ -13753,14 +13751,14 @@ namespace [[cheerp::genericjs]] client
 
 	class PromiseRejectionEvent: public Event {
 	public:
-		Promise<Object>* get_promise();
+		Promise* get_promise();
 		Object* get_reason();
 	};
 
 	class PromiseRejectionEventInit: public EventInit {
 	public:
-		Promise<Object>* get_promise();
-		void set_promise(Promise<Object>*);
+		Promise* get_promise();
+		void set_promise(Promise*);
 		Object* get_reason();
 		void set_reason(Object*);
 	};
@@ -13768,11 +13766,11 @@ namespace [[cheerp::genericjs]] client
 	class PushManager: public Object{
 	public:
 		ReadonlyArray<String>* get_supportedContentEncodings();
-		Promise<Object>* getSubscription();
-		Promise<String>* permissionState();
-		Promise<String>* permissionState(PushSubscriptionOptionsInit* options);
-		Promise<PushSubscription>* subscribe();
-		Promise<PushSubscription>* subscribe(PushSubscriptionOptionsInit* options);
+		Promise* getSubscription();
+		Promise* permissionState();
+		Promise* permissionState(PushSubscriptionOptionsInit* options);
+		Promise* subscribe();
+		Promise* subscribe(PushSubscriptionOptionsInit* options);
 		PushManager* get_prototype();
 		void set_prototype(PushManager*);
 		PushManager();
@@ -13784,7 +13782,7 @@ namespace [[cheerp::genericjs]] client
 		double get_expirationTime();
 		PushSubscriptionOptions* get_options();
 		Object* toJSON();
-		Promise<bool>* unsubscribe();
+		Promise* unsubscribe();
 		PushSubscription* get_prototype();
 		void set_prototype(PushSubscription*);
 		PushSubscription();
@@ -13817,8 +13815,8 @@ namespace [[cheerp::genericjs]] client
 
 	class RTCStatsProvider: public EventTarget {
 	public:
-		Promise<RTCStatsReport>* getStats();
-		Promise<RTCStatsReport>* msGetStats();
+		Promise* getStats();
+		Promise* msGetStats();
 		RTCStatsProvider* get_prototype();
 		void set_prototype(RTCStatsProvider*);
 		RTCStatsProvider();
@@ -14047,24 +14045,24 @@ namespace [[cheerp::genericjs]] client
 		void set_onsignalingstatechange(EventListener*);
 		RTCSessionDescription* get_remoteDescription();
 		String* get_signalingState();
-		Promise<void>* addIceCandidate(RTCIceCandidateInit* candidate);
-		Promise<void>* addIceCandidate(RTCIceCandidate* candidate);
+		Promise* addIceCandidate(RTCIceCandidateInit* candidate);
+		Promise* addIceCandidate(RTCIceCandidate* candidate);
 		void addStream(MediaStream* stream);
 		void close();
-		Promise<RTCSessionDescriptionInit>* createAnswer();
-		Promise<RTCSessionDescriptionInit>* createAnswer(RTCOfferOptions* options);
-		Promise<RTCSessionDescriptionInit>* createOffer();
-		Promise<RTCSessionDescriptionInit>* createOffer(RTCOfferOptions* options);
+		Promise* createAnswer();
+		Promise* createAnswer(RTCOfferOptions* options);
+		Promise* createOffer();
+		Promise* createOffer(RTCOfferOptions* options);
 		RTCConfiguration* getConfiguration();
 		Array* getLocalStreams();
 		Array* getRemoteStreams();
-		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector);
-		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector, EventListener* successCallback);
-		Promise<RTCStatsReport>* getStats(MediaStreamTrack* selector, EventListener* successCallback, EventListener* failureCallback);
+		Promise* getStats(MediaStreamTrack* selector);
+		Promise* getStats(MediaStreamTrack* selector, EventListener* successCallback);
+		Promise* getStats(MediaStreamTrack* selector, EventListener* successCallback, EventListener* failureCallback);
 		MediaStream* getStreamById(const String& streamId);
 		void removeStream(MediaStream* stream);
-		Promise<void>* setLocalDescription(RTCSessionDescriptionInit* description);
-		Promise<void>* setRemoteDescription(RTCSessionDescriptionInit* description);
+		Promise* setLocalDescription(RTCSessionDescriptionInit* description);
+		Promise* setRemoteDescription(RTCSessionDescriptionInit* description);
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -14280,7 +14278,7 @@ namespace [[cheerp::genericjs]] client
 	class ReadableStream: public Object{
 	public:
 		bool get_locked();
-		Promise<void>* cancel();
+		Promise* cancel();
 		ReadableStreamReader* getReader();
 		ReadableStream* get_prototype();
 		void set_prototype(ReadableStream*);
@@ -14289,8 +14287,8 @@ namespace [[cheerp::genericjs]] client
 
 	class ReadableStreamReader: public Object{
 	public:
-		Promise<void>* cancel();
-		Promise<Object>* read();
+		Promise* cancel();
+		Promise* read();
 		void releaseLock();
 		ReadableStreamReader* get_prototype();
 		void set_prototype(ReadableStreamReader*);
@@ -16807,12 +16805,12 @@ namespace [[cheerp::genericjs]] client
 		void set_onmessage(EventListener*);
 		EventListener* get_onmessageerror();
 		void set_onmessageerror(EventListener*);
-		Promise<ServiceWorkerRegistration>* get_ready();
-		Promise<Object>* getRegistration();
-		Promise<Object>* getRegistration(const String& clientURL);
-		Promise<Array>* getRegistrations();
-		Promise<ServiceWorkerRegistration>* _register(const String& scriptURL);
-		Promise<ServiceWorkerRegistration>* _register(const String& scriptURL, RegistrationOptions* options);
+		Promise* get_ready();
+		Promise* getRegistration();
+		Promise* getRegistration(const String& clientURL);
+		Promise* getRegistrations();
+		Promise* _register(const String& scriptURL);
+		Promise* _register(const String& scriptURL, RegistrationOptions* options);
 		void startMessages();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
@@ -16858,12 +16856,12 @@ namespace [[cheerp::genericjs]] client
 		String* get_scope();
 		SyncManager* get_sync();
 		ServiceWorker* get_waiting();
-		Promise<Array>* getNotifications();
-		Promise<Array>* getNotifications(GetNotificationOptions* filter);
-		Promise<void>* showNotification(const String& title);
-		Promise<void>* showNotification(const String& title, NotificationOptions* options);
-		Promise<bool>* unregister();
-		Promise<void>* update();
+		Promise* getNotifications();
+		Promise* getNotifications(GetNotificationOptions* filter);
+		Promise* showNotification(const String& title);
+		Promise* showNotification(const String& title, NotificationOptions* options);
+		Promise* unregister();
+		Promise* update();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -17150,146 +17148,146 @@ namespace [[cheerp::genericjs]] client
 
 	class SubtleCrypto: public Object{
 	public:
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Int8Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Int16Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Int32Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Uint8Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Uint16Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Uint32Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Float32Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, Float64Array* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, DataView* data);
-		Promise<ArrayBuffer>* decrypt(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(RsaOaepParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(AesCtrParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(AesCbcParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(AesGcmParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* decrypt(AesCfbParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* deriveBits(const String& algorithm, CryptoKey* baseKey, double length);
-		Promise<ArrayBuffer>* deriveBits(EcdhKeyDeriveParams* algorithm, CryptoKey* baseKey, double length);
-		Promise<ArrayBuffer>* deriveBits(DhKeyDeriveParams* algorithm, CryptoKey* baseKey, double length);
-		Promise<ArrayBuffer>* deriveBits(ConcatParams* algorithm, CryptoKey* baseKey, double length);
-		Promise<ArrayBuffer>* deriveBits(HkdfCtrParams* algorithm, CryptoKey* baseKey, double length);
-		Promise<ArrayBuffer>* deriveBits(Pbkdf2Params* algorithm, CryptoKey* baseKey, double length);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, const String& derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, AesDerivedKeyParams* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, HmacImportParams* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, ConcatParams* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, HkdfCtrParams* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(const String& algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(EcdhKeyDeriveParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(DhKeyDeriveParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(ConcatParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(HkdfCtrParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* deriveKey(Pbkdf2Params* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Int8Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Int16Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Int32Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Uint8Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Uint16Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Uint32Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Uint8ClampedArray* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Float32Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, Float64Array* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, DataView* data);
-		Promise<ArrayBuffer>* digest(const String& algorithm, ArrayBuffer* data);
-		Promise<ArrayBuffer>* digest(Algorithm* algorithm, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Int8Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Int16Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Int32Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Uint8Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Uint16Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Uint32Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Float32Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, Float64Array* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, DataView* data);
-		Promise<ArrayBuffer>* encrypt(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(RsaOaepParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(AesCtrParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(AesCbcParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(AesGcmParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* encrypt(AesCfbParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<Object>* exportKey(const String& format, CryptoKey* key);
-		Promise<Object>* generateKey(const String& algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKeyPair>* generateKey(RsaHashedKeyGenParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKeyPair>* generateKey(EcKeyGenParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKeyPair>* generateKey(DhKeyGenParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* generateKey(AesKeyGenParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* generateKey(HmacKeyGenParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* generateKey(Pbkdf2Params* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, JsonWebKey* keyData, const String& algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, JsonWebKey* keyData, RsaHashedImportParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, JsonWebKey* keyData, EcKeyImportParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, JsonWebKey* keyData, HmacImportParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, JsonWebKey* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Int8Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Int16Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Int32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Uint8Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Uint16Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Uint32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Uint8ClampedArray* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Float32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, Float64Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, DataView* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* importKey(const String& format, ArrayBuffer* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Int8Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Int16Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Int32Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Uint8Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Uint16Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Uint32Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Float32Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, Float64Array* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, DataView* data);
-		Promise<ArrayBuffer>* sign(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* sign(RsaPssParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* sign(EcdsaParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<ArrayBuffer>* sign(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
-		Promise<CryptoKey>* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, const String& unwrapAlgorithm, const String& unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, const String& unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Int16Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Int32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Uint8Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Uint16Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Uint32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Uint8ClampedArray* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Float32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, Float64Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, DataView* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<CryptoKey>* unwrapKey(const String& format, ArrayBuffer* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int8Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int16Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int32Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint8Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint16Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint32Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint8ClampedArray* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Float32Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Float64Array* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, DataView* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int16Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Int32Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Uint8Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Uint16Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Uint32Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Uint8ClampedArray* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Float32Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, Float64Array* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, DataView* signature, ArrayBuffer* data);
-		Promise<bool>* verify(const String& algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
-		Promise<bool>* verify(RsaPssParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
-		Promise<bool>* verify(EcdsaParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
-		Promise<bool>* verify(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
-		Promise<ArrayBuffer>* wrapKey(const String& format, CryptoKey* key, CryptoKey* wrappingKey, const String& wrapAlgorithm);
-		Promise<ArrayBuffer>* wrapKey(const String& format, CryptoKey* key, CryptoKey* wrappingKey, Algorithm* wrapAlgorithm);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Int8Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Int16Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Int32Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Uint8Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Uint16Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Uint32Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Float32Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, Float64Array* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, DataView* data);
+		Promise* decrypt(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(RsaOaepParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(AesCtrParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(AesCbcParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(AesGcmParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* decrypt(AesCfbParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* deriveBits(const String& algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveBits(EcdhKeyDeriveParams* algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveBits(DhKeyDeriveParams* algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveBits(ConcatParams* algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveBits(HkdfCtrParams* algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveBits(Pbkdf2Params* algorithm, CryptoKey* baseKey, double length);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, const String& derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, AesDerivedKeyParams* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, HmacImportParams* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, ConcatParams* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, HkdfCtrParams* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(const String& algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(EcdhKeyDeriveParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(DhKeyDeriveParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(ConcatParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(HkdfCtrParams* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* deriveKey(Pbkdf2Params* algorithm, CryptoKey* baseKey, Pbkdf2Params* derivedKeyType, bool extractable, Array* keyUsages);
+		Promise* digest(const String& algorithm, Int8Array* data);
+		Promise* digest(const String& algorithm, Int16Array* data);
+		Promise* digest(const String& algorithm, Int32Array* data);
+		Promise* digest(const String& algorithm, Uint8Array* data);
+		Promise* digest(const String& algorithm, Uint16Array* data);
+		Promise* digest(const String& algorithm, Uint32Array* data);
+		Promise* digest(const String& algorithm, Uint8ClampedArray* data);
+		Promise* digest(const String& algorithm, Float32Array* data);
+		Promise* digest(const String& algorithm, Float64Array* data);
+		Promise* digest(const String& algorithm, DataView* data);
+		Promise* digest(const String& algorithm, ArrayBuffer* data);
+		Promise* digest(Algorithm* algorithm, ArrayBuffer* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Int8Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Int16Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Int32Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Uint8Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Uint16Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Uint32Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Float32Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, Float64Array* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, DataView* data);
+		Promise* encrypt(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(RsaOaepParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(AesCtrParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(AesCbcParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(AesGcmParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* encrypt(AesCfbParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* exportKey(const String& format, CryptoKey* key);
+		Promise* generateKey(const String& algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(RsaHashedKeyGenParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(EcKeyGenParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(DhKeyGenParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(AesKeyGenParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(HmacKeyGenParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* generateKey(Pbkdf2Params* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, JsonWebKey* keyData, const String& algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, JsonWebKey* keyData, RsaHashedImportParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, JsonWebKey* keyData, EcKeyImportParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, JsonWebKey* keyData, HmacImportParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, JsonWebKey* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Int8Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Int16Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Int32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Uint8Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Uint16Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Uint32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Uint8ClampedArray* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Float32Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, Float64Array* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, DataView* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* importKey(const String& format, ArrayBuffer* keyData, DhImportKeyParams* algorithm, bool extractable, Array* keyUsages);
+		Promise* sign(const String& algorithm, CryptoKey* key, Int8Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Int16Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Int32Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Uint8Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Uint16Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Uint32Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Uint8ClampedArray* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Float32Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, Float64Array* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, DataView* data);
+		Promise* sign(const String& algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* sign(RsaPssParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* sign(EcdsaParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* sign(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* data);
+		Promise* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, const String& unwrapAlgorithm, const String& unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, const String& unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Int8Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Int16Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Int32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Uint8Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Uint16Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Uint32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Uint8ClampedArray* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Float32Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, Float64Array* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, DataView* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* unwrapKey(const String& format, ArrayBuffer* wrappedKey, CryptoKey* unwrappingKey, Algorithm* unwrapAlgorithm, Algorithm* unwrappedKeyAlgorithm, bool extractable, Array* keyUsages);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int8Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int16Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Int32Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint8Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint16Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint32Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Uint8ClampedArray* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Float32Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, Float64Array* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, DataView* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int8Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int16Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Int32Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Uint8Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Uint16Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Uint32Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Uint8ClampedArray* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Float32Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, Float64Array* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, DataView* signature, ArrayBuffer* data);
+		Promise* verify(const String& algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
+		Promise* verify(RsaPssParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
+		Promise* verify(EcdsaParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
+		Promise* verify(AesCmacParams* algorithm, CryptoKey* key, ArrayBuffer* signature, ArrayBuffer* data);
+		Promise* wrapKey(const String& format, CryptoKey* key, CryptoKey* wrappingKey, const String& wrapAlgorithm);
+		Promise* wrapKey(const String& format, CryptoKey* key, CryptoKey* wrappingKey, Algorithm* wrapAlgorithm);
 		SubtleCrypto* get_prototype();
 		void set_prototype(SubtleCrypto*);
 		SubtleCrypto();
@@ -17297,8 +17295,8 @@ namespace [[cheerp::genericjs]] client
 
 	class SyncManager: public Object{
 	public:
-		Promise<Array>* getTags();
-		Promise<void>* _register(const String& tag);
+		Promise* getTags();
+		Promise* _register(const String& tag);
 		SyncManager* get_prototype();
 		void set_prototype(SyncManager*);
 		SyncManager();
@@ -17661,13 +17659,13 @@ namespace [[cheerp::genericjs]] client
 		bool get_isPresenting();
 		VRStageParameters* get_stageParameters();
 		void cancelAnimationFrame(double handle);
-		Promise<void>* exitPresent();
+		Promise* exitPresent();
 		VREyeParameters* getEyeParameters(const String& whichEye);
 		bool getFrameData(VRFrameData* frameData);
 		Array* getLayers();
 		VRPose* getPose();
 		double requestAnimationFrame(EventListener* callback);
-		Promise<void>* requestPresent(Array* layers);
+		Promise* requestPresent(Array* layers);
 		void resetPose();
 		void submitFrame();
 		void submitFrame(VRPose* pose);
@@ -17850,50 +17848,50 @@ namespace [[cheerp::genericjs]] client
 
 	class WebAuthentication: public Object{
 	public:
-		Promise<WebAuthnAssertion>* getAssertion(Int8Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Int8Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Int16Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Int16Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Int32Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Int32Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Uint8Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Uint8Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Uint16Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Uint16Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Uint32Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Uint32Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Uint8ClampedArray* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Uint8ClampedArray* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Float32Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Float32Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(Float64Array* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(Float64Array* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(DataView* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(DataView* assertionChallenge, AssertionOptions* options);
-		Promise<WebAuthnAssertion>* getAssertion(ArrayBuffer* assertionChallenge);
-		Promise<WebAuthnAssertion>* getAssertion(ArrayBuffer* assertionChallenge, AssertionOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int8Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int8Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int16Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int16Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int32Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Int32Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint16Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint16Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint32Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint32Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8ClampedArray* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8ClampedArray* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Float32Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Float32Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Float64Array* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, Float64Array* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, DataView* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, DataView* attestationChallenge, ScopedCredentialOptions* options);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, ArrayBuffer* attestationChallenge);
-		Promise<ScopedCredentialInfo>* makeCredential(Account* accountInformation, Array* cryptoParameters, ArrayBuffer* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* getAssertion(Int8Array* assertionChallenge);
+		Promise* getAssertion(Int8Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Int16Array* assertionChallenge);
+		Promise* getAssertion(Int16Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Int32Array* assertionChallenge);
+		Promise* getAssertion(Int32Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Uint8Array* assertionChallenge);
+		Promise* getAssertion(Uint8Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Uint16Array* assertionChallenge);
+		Promise* getAssertion(Uint16Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Uint32Array* assertionChallenge);
+		Promise* getAssertion(Uint32Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Uint8ClampedArray* assertionChallenge);
+		Promise* getAssertion(Uint8ClampedArray* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Float32Array* assertionChallenge);
+		Promise* getAssertion(Float32Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(Float64Array* assertionChallenge);
+		Promise* getAssertion(Float64Array* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(DataView* assertionChallenge);
+		Promise* getAssertion(DataView* assertionChallenge, AssertionOptions* options);
+		Promise* getAssertion(ArrayBuffer* assertionChallenge);
+		Promise* getAssertion(ArrayBuffer* assertionChallenge, AssertionOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int8Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int8Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int16Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int16Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int32Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Int32Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint16Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint16Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint32Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint32Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8ClampedArray* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Uint8ClampedArray* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Float32Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Float32Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Float64Array* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, Float64Array* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, DataView* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, DataView* attestationChallenge, ScopedCredentialOptions* options);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, ArrayBuffer* attestationChallenge);
+		Promise* makeCredential(Account* accountInformation, Array* cryptoParameters, ArrayBuffer* attestationChallenge, ScopedCredentialOptions* options);
 		WebAuthentication* get_prototype();
 		void set_prototype(WebAuthentication*);
 		WebAuthentication();
@@ -18636,40 +18634,41 @@ namespace [[cheerp::genericjs]] client
 		Window* get_window();
 		void alert();
 		void alert(Object* message);
+		void alert(const String& message);
 		void blur();
 		void cancelAnimationFrame(double handle);
 		void captureEvents();
 		void close();
 		bool confirm();
 		bool confirm(const String& message);
-		Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image);
-		Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image);
-		Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image);
-		Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image);
-		Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image);
-		Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(ImageData* image);
-		Promise<ImageBitmap>* createImageBitmap(ImageData* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(Blob* image);
-		Promise<ImageBitmap>* createImageBitmap(Blob* image, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-		Promise<ImageBitmap>* createImageBitmap(Blob* image, double sx, double sy, double sw, double sh);
-		Promise<ImageBitmap>* createImageBitmap(Blob* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLImageElement* image);
+		Promise* createImageBitmap(HTMLImageElement* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(SVGImageElement* image);
+		Promise* createImageBitmap(SVGImageElement* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLVideoElement* image);
+		Promise* createImageBitmap(HTMLVideoElement* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLCanvasElement* image);
+		Promise* createImageBitmap(HTMLCanvasElement* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(ImageBitmap* image);
+		Promise* createImageBitmap(ImageBitmap* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(ImageData* image);
+		Promise* createImageBitmap(ImageData* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(Blob* image);
+		Promise* createImageBitmap(Blob* image, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+		Promise* createImageBitmap(Blob* image, double sx, double sy, double sw, double sh);
+		Promise* createImageBitmap(Blob* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
 		void focus();
 		CSSStyleDeclaration* getComputedStyle(Element* elt);
 		CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
@@ -18771,8 +18770,8 @@ namespace [[cheerp::genericjs]] client
 	class WritableStream: public Object{
 	public:
 		bool get_locked();
-		Promise<void>* abort();
-		Promise<void>* abort(Object* reason);
+		Promise* abort();
+		Promise* abort(Object* reason);
 		WritableStreamDefaultWriter* getWriter();
 		WritableStream* get_prototype();
 		void set_prototype(WritableStream*);
@@ -18792,15 +18791,15 @@ namespace [[cheerp::genericjs]] client
 
 	class WritableStreamDefaultWriter: public Object{
 	public:
-		Promise<void>* get_closed();
+		Promise* get_closed();
 		double get_desiredSize();
-		Promise<void>* get_ready();
-		Promise<void>* abort();
-		Promise<void>* abort(Object* reason);
-		Promise<void>* close();
+		Promise* get_ready();
+		Promise* abort();
+		Promise* abort(Object* reason);
+		Promise* close();
 		void releaseLock();
-		Promise<Object>* write();
-		Promise<Object>* write(Object* chunk);
+		Promise* write();
+		Promise* write(Object* chunk);
 		WritableStreamDefaultWriter* get_prototype();
 		void set_prototype(WritableStreamDefaultWriter*);
 		WritableStreamDefaultWriter();
@@ -19720,30 +19719,30 @@ namespace [[cheerp::genericjs]] client
 	void close();
 	bool confirm();
 	bool confirm(const String& message);
-	Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image);
-	Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image);
-	Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image);
-	Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image);
-	Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image);
-	Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(ImageData* image);
-	Promise<ImageBitmap>* createImageBitmap(ImageData* image, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
-	Promise<ImageBitmap>* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh);
-	Promise<ImageBitmap>* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLImageElement* image);
+	Promise* createImageBitmap(HTMLImageElement* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(SVGImageElement* image);
+	Promise* createImageBitmap(SVGImageElement* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLVideoElement* image);
+	Promise* createImageBitmap(HTMLVideoElement* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLCanvasElement* image);
+	Promise* createImageBitmap(HTMLCanvasElement* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(ImageBitmap* image);
+	Promise* createImageBitmap(ImageBitmap* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(ImageData* image);
+	Promise* createImageBitmap(ImageData* image, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(HTMLImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(SVGImageElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(HTMLVideoElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(HTMLCanvasElement* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(ImageBitmap* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
+	Promise* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh);
+	Promise* createImageBitmap(ImageData* image, double sx, double sy, double sw, double sh, ImageBitmapOptions* options);
 	void focus();
 	CSSStyleDeclaration* getComputedStyle(Element* elt);
 	CSSStyleDeclaration* getComputedStyle(Element* elt, const String& pseudoElt);
@@ -19763,8 +19762,10 @@ namespace [[cheerp::genericjs]] client
 	Window* open(const String& url, const String& target);
 	Window* open(const String& url, const String& target, const String& features);
 	Window* open(const String& url, const String& target, const String& features, bool replace);
+	void postMessage(Object* message);
 	void postMessage(Object* message, const String& targetOrigin);
 	void postMessage(Object* message, const String& targetOrigin, Array* transfer);
+	void postMessage(const String& message);
 	void postMessage(const String& message, const String& targetOrigin);
 	void postMessage(const String& message, const String& targetOrigin, Array* transfer);
 	void print();
@@ -19829,11 +19830,11 @@ namespace [[cheerp::genericjs]] client
 	extern IDBFactory indexedDB;
 	String* atob(const String& encodedString);
 	String* btoa(const String& rawString);
-	Promise<Response>* fetch();
-	Promise<Response>* fetch(Request* input);
-	Promise<Response>* fetch(Request* input, RequestInit* init);
-	Promise<Response>* fetch(const String& input);
-	Promise<Response>* fetch(const String& input, RequestInit* init);
+	Promise* fetch();
+	Promise* fetch(Request* input);
+	Promise* fetch(Request* input, RequestInit* init);
+	Promise* fetch(const String& input);
+	Promise* fetch(const String& input, RequestInit* init);
 	void addEventListener(const String& type, EventListener* listener);
 	void addEventListener(const String& type, EventListener* listener, bool options);
 	void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
