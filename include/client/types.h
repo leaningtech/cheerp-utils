@@ -69,7 +69,7 @@ public:
 	{
 	}
 	template<typename... Args>
-	String* concat(Args&&... args)
+	__attribute__((always_inline)) String* concat(Args&&... args)
 	{
 		return concat(static_cast<const String&>(static_cast<Args&&>(args))...);
 	}
