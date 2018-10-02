@@ -36,5 +36,9 @@ void assertEqual(const T& value, const T& expected, const char* msg)
 {
 	assertEqualImpl(value==expected, msg);
 }
+void assertEqual(int value, int expected, const char* msg)
+{
+	assertEqualImpl(value==expected, msg);
+}
 
 #endif
