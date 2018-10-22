@@ -533,6 +533,15 @@ static void testSwitch()
 	assertEqual(result, true, "int64_t in switch statements");
 }
 
+template <typename T>
+static void testNew()
+{
+	volatile T a = 10;
+	// This should not crash while compiling
+	int* buf = new int[a];
+	delete[] buf;
+}
+
 #ifndef PRE_EXECUTE_TEST
 static void testDump() {
 	long long t = 0xff;
@@ -575,6 +584,8 @@ void webMain() {
 	testPointersAndReferences<long long>();
 	testPointersAndReferences<unsigned long long>();
 	testBitfields();
+	testNew<long long>();
+	testNew<unsigned long long>();
 	//switch with 64-bit values is not supported
 	//testSwitch<long long>();
 	//testSwitch<unsigned long long>();
