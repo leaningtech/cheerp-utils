@@ -80,7 +80,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/test17.cpp','unit/codegen/test18.cpp', 'unit/codegen/test19.cpp',
 		 'unit/codegen/test21.cpp','unit/codegen/test22.cpp',
 		 'unit/codegen/test23.cpp','unit/codegen/test24.cpp','unit/codegen/bswap.cpp',
-		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp',
+		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp','unit/codegen/floattoint.cpp',
          'unit/codegen/variadic.cpp', 'unit/codegen/dynalloca.cpp', 'unit/static/test1.cpp']
 common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp',
