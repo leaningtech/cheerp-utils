@@ -19763,6 +19763,7 @@ namespace [[cheerp::genericjs]] client
 	Window* open(const String& url, const String& target, const String& features);
 	Window* open(const String& url, const String& target, const String& features, bool replace);
 	void postMessage(Object* message);
+	void postMessage(Object* message, Array* transfer);
 	void postMessage(Object* message, const String& targetOrigin);
 	void postMessage(Object* message, const String& targetOrigin, Array* transfer);
 	void postMessage(const String& message);
