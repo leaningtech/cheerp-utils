@@ -93,6 +93,7 @@ public:
 	TArray<String>* split(RegExp*) const;
 	TArray<String>* split(RegExp*, int limit) const;
 	static String* fromCharCode(int c) [[cheerp::static]];
+	bool startsWith(const String&) const;
 	bool endsWith(const String&) const;
 	int localeCompare(const String&) const;
 	TArray<String>* match(const String&) const;
@@ -106,6 +107,10 @@ public:
 	String* toUpperCase() const;
 	String* toLocaleUpperCase() const;
 	String* trim() const;
+	String* padEnd(int) const;
+	String* padEnd(int, const String&) const;
+	String* padStart(int) const;
+	String* padStart(int, const String&) const;
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
@@ -228,6 +233,60 @@ public:
 	T* operator[](int index) const
 	{
 		return (T*)Array::operator[](index);
+	}
+};
+
+class Map: public Object {
+public:
+	Map();
+	int get_size();
+	void clear();
+	template<typename K, typename V, typename std::enable_if<
+		(std::is_arithmetic<K>::value || std::is_pointer<K>::value) &&
+		(std::is_arithmetic<V>::value || std::is_pointer<V>::value), int>::type = 0>
+	void set(K k, V v);
+	template<typename K, typename V, typename std::enable_if<
+		(std::is_arithmetic<K>::value || std::is_pointer<K>::value) &&
+		(std::is_arithmetic<V>::value || std::is_pointer<V>::value), int>::type = 0>
+	V get(K k);
+	template<typename K, typename std::enable_if<
+		(std::is_arithmetic<K>::value || std::is_pointer<K>::value), int>::type = 0>
+	bool has(K k);
+	template<typename K, typename std::enable_if<
+		(std::is_arithmetic<K>::value || std::is_pointer<K>::value), int>::type = 0>
+	bool delete_(K k)
+	{
+		bool res;
+		__asm__("%1.delete(%2)" : "=r"(res) : "r"(this), "r"(k));
+		return res;
+	}
+	void forEach(EventListener* callback);
+	//TODO: declare methods entries, keys and values
+};
+
+template<typename K, typename V>
+class TMap: public Map {
+	static_assert(std::is_arithmetic<V>::value || std::is_pointer<V>::value, "Value has to be pointer or arithmetic");
+	static_assert(std::is_arithmetic<K>::value || std::is_pointer<K>::value, "Key has to be pointer or arithmetic");
+	public:
+	TMap(): Map()
+	{
+	}
+	void set(K k, V v)
+	{
+		Map::set<K,V>(k,v);
+	}
+	V get(K k)
+	{
+		return Map::get<K,V>(k);
+	}
+	bool has(K k)
+	{
+		return Map::has<K>(k);
+	}
+	bool delete_(K k) 
+	{
+		return Map::delete_<K>(k);
 	}
 };
 
