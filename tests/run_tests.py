@@ -88,7 +88,7 @@ common_tests = pre_executer_tests + [
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
-		'unit/dom/test8.cpp','unit/dom/noconstructor.cpp', 'unit/dom/utf8.cpp',
+		'unit/dom/test8.cpp','unit/dom/test9.cpp','unit/dom/noconstructor.cpp', 'unit/dom/utf8.cpp',
 		'unit/dom/objapi.cpp',
 		'unit/memory/typedarrays_operator.cpp', 'unit/memory/kinds.cpp',
 		'unit/std/stringhashing.cpp',
