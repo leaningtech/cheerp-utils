@@ -146,7 +146,6 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 		"-target", "cheerp",
 		"-frtti",
 		"-Iunit",
-		"-cheerp-no-math-imul",
 		"-cheerp-bounds-check",
 		"-o", outFile
 	]
