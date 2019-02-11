@@ -2,12 +2,6 @@
 
 # Compatibility wrapper between ar and llvm-link
 
-
-if [ $1 != "cru" ]
-then
-	exit 1
-fi
-
 OUTFILE=$2
 
 shift 2
