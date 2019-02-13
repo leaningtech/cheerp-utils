@@ -1,5 +1,18 @@
 Cheerp: C++ for the Web
 
+Version 2.0:
+
+	* Introduce CFGStackifier (successor to Relooper)
+	* Support commonjs modules with -cheerp-make-module
+	* Support static methods in [[cheerp::jsexport]] classes
+	* Support inlining of simple functions across the genericjs/asmjs/wasm boundary
+	* Improved sourcemaps support
+	* Improved support for __asm__ syntax
+	* Reduced output size (both wasm and js)
+	* Faster memcpy/memset/memmove in linear memory mode
+	* Various performance improvements
+	* Various robustness improvements
+
 Version 2.0 RC2:
 
 	* Much improved interoperability between WebAssembly and JavaScript code
