@@ -1057,7 +1057,7 @@ namespace [[cheerp::genericjs]] client
 		double get_length();
 		String* toString();
 		String* toLocaleString();
-		template<typename... Args> Array* concat(Args&&... items) { return concat(static_cast<Object*>(static_cast<Args&&>(items))...); }
+		template<typename... Args> Array* concat(Args&&... items) { return static_cast<const ReadonlyArray*>(this)->concat(static_cast<Object*>(static_cast<Args&&>(items))...); }
 		Array* concat();
 		String* join();
 		String* join(const String& separator);
@@ -1093,7 +1093,7 @@ namespace [[cheerp::genericjs]] client
 			return __builtin_cheerp_make_regular<T*>(this, 0)[index];
 		}
 	private:
-		template<typename... Args> Array* concat(Object*, Args&&... items);
+		template<typename... Args> Array* concat(Args... items) const;
 	};
 
 	class TemplateStringsArray: public ReadonlyArray<String> {
@@ -1125,9 +1125,9 @@ namespace [[cheerp::genericjs]] client
 		double exp(double x);
 		double floor(double x);
 		double log(double x);
-		template<typename... Args> double max(Args&&... values) { return max(static_cast<double>(static_cast<Args&&>(values))...); }
+		template<typename... Args> double max(Args&&... values) { return static_cast<const Math*>(this)->max(static_cast<double>(static_cast<Args&&>(values))...); }
 		double max();
-		template<typename... Args> double min(Args&&... values) { return min(static_cast<double>(static_cast<Args&&>(values))...); }
+		template<typename... Args> double min(Args&&... values) { return static_cast<const Math*>(this)->min(static_cast<double>(static_cast<Args&&>(values))...); }
 		double min();
 		double pow(double x, double y);
 		double random();
@@ -1136,8 +1136,8 @@ namespace [[cheerp::genericjs]] client
 		double sqrt(double x);
 		double tan(double x);
 	private:
-		template<typename... Args> double max(double, Args&&... values);
-		template<typename... Args> double min(double, Args&&... values);
+		template<typename... Args> double max(Args... values) const;
+		template<typename... Args> double min(Args... values) const;
 	};
 
 	class Date: public Object{
@@ -6875,36 +6875,36 @@ namespace [[cheerp::genericjs]] client
 		void set_memory(Object*);
 		void _assert();
 		void _assert(bool condition);
-		template<typename... Args> void _assert(bool condition, const String& message, Args&&... data) { return _assert(condition, message, static_cast<Object*>(static_cast<Args&&>(data))...); }
+		template<typename... Args> void _assert(bool condition, const String& message, Args&&... data) { return static_cast<const Console*>(this)->_assert(condition, message, static_cast<Object*>(static_cast<Args&&>(data))...); }
 		void _assert(bool condition, const String& message);
 		void clear();
 		void count();
 		void count(const String& label);
 		void debug();
-		template<typename... Args> void debug(const String& message, Args&&... optionalParams) { return debug(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void debug(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->debug(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void debug(const String& message);
 		void dir();
-		template<typename... Args> void dir(Object* value, Args&&... optionalParams) { return dir(value, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void dir(Object* value, Args&&... optionalParams) { return static_cast<const Console*>(this)->dir(value, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
 		void dir(Object* value);
 		void dirxml(Object* value);
 		void error();
-		template<typename... Args> void error(const String& message, Args&&... optionalParams) { return error(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void error(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->error(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void error(const String& message);
 		void exception();
-		template<typename... Args> void exception(const String& message, Args&&... optionalParams) { return exception(message, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void exception(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->exception(message, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
 		void exception(const String& message);
 		void group();
-		template<typename... Args> void group(const String& groupTitle, Args&&... optionalParams) { return group(groupTitle, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void group(const String& groupTitle, Args&&... optionalParams) { return static_cast<const Console*>(this)->group(groupTitle, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
 		void group(const String& groupTitle);
 		void groupCollapsed();
-		template<typename... Args> void groupCollapsed(const String& groupTitle, Args&&... optionalParams) { return groupCollapsed(groupTitle, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void groupCollapsed(const String& groupTitle, Args&&... optionalParams) { return static_cast<const Console*>(this)->groupCollapsed(groupTitle, static_cast<Object*>(static_cast<Args&&>(optionalParams))...); }
 		void groupCollapsed(const String& groupTitle);
 		void groupEnd();
 		void info();
-		template<typename... Args> void info(const String& message, Args&&... optionalParams) { return info(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void info(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->info(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void info(const String& message);
 		void log();
-		template<typename... Args> void log(const String& message, Args&&... optionalParams) { return log(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void log(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->log(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void log(const String& message);
 		void markTimeline();
 		void markTimeline(const String& label);
@@ -6913,7 +6913,7 @@ namespace [[cheerp::genericjs]] client
 		void profile(const String& reportName);
 		void profileEnd();
 		void select(Element* element);
-		template<typename... Args> void table(Args&&... tabularData) { return table(static_cast<Object*>(static_cast<Args&&>(tabularData))...); }
+		template<typename... Args> void table(Args&&... tabularData) { return static_cast<const Console*>(this)->table(static_cast<Object*>(static_cast<Args&&>(tabularData))...); }
 		void table();
 		void time();
 		void time(const String& label);
@@ -6926,23 +6926,23 @@ namespace [[cheerp::genericjs]] client
 		void timelineEnd();
 		void timelineEnd(const String& label);
 		void warn();
-		template<typename... Args> void warn(const String& message, Args&&... optionalParams) { return warn(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
+		template<typename... Args> void warn(const String& message, Args&&... optionalParams) { return static_cast<const Console*>(this)->warn(message, static_cast<const String&>(static_cast<Args&&>(optionalParams))...); }
 		void warn(const String& message);
 		Console* get_prototype();
 		void set_prototype(Console*);
 		Console();
 	private:
-		template<typename... Args> void _assert(bool condition, const String& message, Object*, Args&&... data);
-		template<typename... Args> void debug(const String& message, const String&, Args&&... optionalParams);
-		template<typename... Args> void dir(Object* value, Object*, Args&&... optionalParams);
-		template<typename... Args> void error(const String& message, const String&, Args&&... optionalParams);
-		template<typename... Args> void exception(const String& message, Object*, Args&&... optionalParams);
-		template<typename... Args> void group(const String& groupTitle, Object*, Args&&... optionalParams);
-		template<typename... Args> void groupCollapsed(const String& groupTitle, Object*, Args&&... optionalParams);
-		template<typename... Args> void info(const String& message, const String&, Args&&... optionalParams);
-		template<typename... Args> void log(const String& message, const String&, Args&&... optionalParams);
-		template<typename... Args> void table(Object*, Args&&... tabularData);
-		template<typename... Args> void warn(const String& message, const String&, Args&&... optionalParams);
+		template<typename... Args> void _assert(bool condition, const String& message, Args... data) const;
+		template<typename... Args> void debug(const String& message, Args&&... optionalParams) const;
+		template<typename... Args> void dir(Object* value, Args... optionalParams) const;
+		template<typename... Args> void error(const String& message, Args&&... optionalParams) const;
+		template<typename... Args> void exception(const String& message, Args... optionalParams) const;
+		template<typename... Args> void group(const String& groupTitle, Args... optionalParams) const;
+		template<typename... Args> void groupCollapsed(const String& groupTitle, Args... optionalParams) const;
+		template<typename... Args> void info(const String& message, Args&&... optionalParams) const;
+		template<typename... Args> void log(const String& message, Args&&... optionalParams) const;
+		template<typename... Args> void table(Args... tabularData) const;
+		template<typename... Args> void warn(const String& message, Args&&... optionalParams) const;
 	};
 
 	class ContentScriptGlobalScope: public EventTarget {
@@ -7188,11 +7188,11 @@ namespace [[cheerp::genericjs]] client
 	class DOMTokenList: public Object{
 	public:
 		double get_length();
-		template<typename... Args> void add(Args&&... tokens) { return add(static_cast<const String&>(static_cast<Args&&>(tokens))...); }
+		template<typename... Args> void add(Args&&... tokens) { return static_cast<const DOMTokenList*>(this)->add(static_cast<const String&>(static_cast<Args&&>(tokens))...); }
 		void add();
 		bool contains(const String& token);
 		String* item(double index);
-		template<typename... Args> void remove(Args&&... tokens) { return remove(static_cast<const String&>(static_cast<Args&&>(tokens))...); }
+		template<typename... Args> void remove(Args&&... tokens) { return static_cast<const DOMTokenList*>(this)->remove(static_cast<const String&>(static_cast<Args&&>(tokens))...); }
 		void remove();
 		void replace(const String& oldToken, const String& newToken);
 		String* toString();
@@ -7210,8 +7210,8 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(DOMTokenList*);
 		DOMTokenList();
 	private:
-		template<typename... Args> void add(const String&, Args&&... tokens);
-		template<typename... Args> void remove(const String&, Args&&... tokens);
+		template<typename... Args> void add(Args&&... tokens) const;
+		template<typename... Args> void remove(Args&&... tokens) const;
 	};
 
 	class DOMSettableTokenList: public DOMTokenList {
@@ -7987,7 +7987,7 @@ namespace [[cheerp::genericjs]] client
 		Range* createRange();
 		Text* createTextNode(const String& data);
 		Touch* createTouch(Window* view, EventTarget* target, double identifier, double pageX, double pageY, double screenX, double screenY);
-		template<typename... Args> TouchList* createTouchList(Args&&... touches) { return createTouchList(static_cast<Touch*>(static_cast<Args&&>(touches))...); }
+		template<typename... Args> TouchList* createTouchList(Args&&... touches) { return static_cast<const Document*>(this)->createTouchList(static_cast<Touch*>(static_cast<Args&&>(touches))...); }
 		TouchList* createTouchList();
 		TreeWalker* createTreeWalker(Node* root);
 		TreeWalker* createTreeWalker(Node* root, double whatToShow);
@@ -8028,9 +8028,9 @@ namespace [[cheerp::genericjs]] client
 		void updateSettings();
 		void webkitCancelFullScreen();
 		void webkitExitFullscreen();
-		template<typename... Args> void write(Args&&... content) { return write(static_cast<const String&>(static_cast<Args&&>(content))...); }
+		template<typename... Args> void write(Args&&... content) { return static_cast<const Document*>(this)->write(static_cast<const String&>(static_cast<Args&&>(content))...); }
 		void write();
-		template<typename... Args> void writeln(Args&&... content) { return writeln(static_cast<const String&>(static_cast<Args&&>(content))...); }
+		template<typename... Args> void writeln(Args&&... content) { return static_cast<const Document*>(this)->writeln(static_cast<const String&>(static_cast<Args&&>(content))...); }
 		void writeln();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
@@ -8046,9 +8046,9 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(Document*);
 		Document();
 	private:
-		template<typename... Args> TouchList* createTouchList(Touch*, Args&&... touches);
-		template<typename... Args> void write(const String&, Args&&... content);
-		template<typename... Args> void writeln(const String&, Args&&... content);
+		template<typename... Args> TouchList* createTouchList(Args&&... touches) const;
+		template<typename... Args> void write(Args&&... content) const;
+		template<typename... Args> void writeln(Args&&... content) const;
 	};
 
 	class DocumentFragment: public Node , public ParentNode {
@@ -9575,10 +9575,10 @@ namespace [[cheerp::genericjs]] client
 		Object* getContext(const String& contextId, Object* contextAttributes);
 		Blob* msToBlob();
 		void toBlob(EventListener* callback);
-		template<typename... Args> void toBlob(EventListener* callback, const String& type, Args&&... arguments) { return toBlob(callback, type, static_cast<Object*>(static_cast<Args&&>(arguments))...); }
+		template<typename... Args> void toBlob(EventListener* callback, const String& type, Args&&... arguments) { return static_cast<const HTMLCanvasElement*>(this)->toBlob(callback, type, static_cast<Object*>(static_cast<Args&&>(arguments))...); }
 		void toBlob(EventListener* callback, const String& type);
 		String* toDataURL();
-		template<typename... Args> String* toDataURL(const String& type, Args&&... args) { return toDataURL(type, static_cast<Object*>(static_cast<Args&&>(args))...); }
+		template<typename... Args> String* toDataURL(const String& type, Args&&... args) { return static_cast<const HTMLCanvasElement*>(this)->toDataURL(type, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		String* toDataURL(const String& type);
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
@@ -9594,8 +9594,8 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(HTMLCanvasElement*);
 		HTMLCanvasElement();
 	private:
-		template<typename... Args> void toBlob(EventListener* callback, const String& type, Object*, Args&&... arguments);
-		template<typename... Args> String* toDataURL(const String& type, Object*, Args&&... args);
+		template<typename... Args> void toBlob(EventListener* callback, const String& type, Args... arguments) const;
+		template<typename... Args> String* toDataURL(const String& type, Args... args) const;
 	};
 
 	class HTMLCollection: public HTMLCollectionBase {
@@ -18320,10 +18320,10 @@ namespace [[cheerp::genericjs]] client
 	public:
 		void clearImmediate(double handle);
 		double setImmediate(EventListener* handler);
-		template<typename... Args> double setImmediate(Object* handler, Args&&... args) { return setImmediate(handler, static_cast<Object*>(static_cast<Args&&>(args))...); }
+		template<typename... Args> double setImmediate(Object* handler, Args&&... args) { return static_cast<const WindowTimersExtension*>(this)->setImmediate(handler, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setImmediate(Object* handler);
 	private:
-		template<typename... Args> double setImmediate(Object* handler, Object*, Args&&... args);
+		template<typename... Args> double setImmediate(Object* handler, Args... args) const;
 	};
 
 	class WindowTimers: public WindowTimersExtension {
@@ -18334,15 +18334,15 @@ namespace [[cheerp::genericjs]] client
 		void clearTimeout(double handle);
 		double setInterval(EventListener* handler, double timeout);
 		double setInterval(Object* handler);
-		template<typename... Args> double setInterval(Object* handler, Object* timeout, Args&&... args) { return setInterval(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
+		template<typename... Args> double setInterval(Object* handler, Object* timeout, Args&&... args) { return static_cast<const WindowTimers*>(this)->setInterval(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setInterval(Object* handler, Object* timeout);
 		double setTimeout(EventListener* handler, double timeout);
 		double setTimeout(Object* handler);
-		template<typename... Args> double setTimeout(Object* handler, Object* timeout, Args&&... args) { return setTimeout(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
+		template<typename... Args> double setTimeout(Object* handler, Object* timeout, Args&&... args) { return static_cast<const WindowTimers*>(this)->setTimeout(handler, timeout, static_cast<Object*>(static_cast<Args&&>(args))...); }
 		double setTimeout(Object* handler, Object* timeout);
 	private:
-		template<typename... Args> double setInterval(Object* handler, Object* timeout, Object*, Args&&... args);
-		template<typename... Args> double setTimeout(Object* handler, Object* timeout, Object*, Args&&... args);
+		template<typename... Args> double setInterval(Object* handler, Object* timeout, Args... args) const;
+		template<typename... Args> double setTimeout(Object* handler, Object* timeout, Args... args) const;
 	};
 
 	class WindowSessionStorage{
@@ -19767,6 +19767,7 @@ namespace [[cheerp::genericjs]] client
 	void postMessage(Object* message, const String& targetOrigin);
 	void postMessage(Object* message, const String& targetOrigin, Array* transfer);
 	void postMessage(const String& message);
+	void postMessage(const String& message, Array* transfer);
 	void postMessage(const String& message, const String& targetOrigin);
 	void postMessage(const String& message, const String& targetOrigin, Array* transfer);
 	void print();
