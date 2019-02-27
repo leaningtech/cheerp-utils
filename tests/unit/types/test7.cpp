@@ -39,13 +39,22 @@ public:
 		if(b == 43)
 			testSuccessful2 = true;
 	}
+	float testptr(float* f)
+	{
+		return f[1];
+	}
 };
 
 void webMain()
 {
 	//Test JS-layout struct
 	__asm__("var a=new JsStruct(3.0,42); a.test()");
-	assertEqual(testSuccessful, true, "JS interoperability using [[cheerp::jsexport]]/__asm__ 1/2");
+	assertEqual(testSuccessful, true, "JS interoperability using [[cheerp::jsexport]]/__asm__ 1/3");
 	__asm__("var a=new JsStruct2(); a.set_b(43); a.test()");
-	assertEqual(testSuccessful2, true, "JS interoperability using [[cheerp::jsexport]]/__asm__ 2/2");
+	assertEqual(testSuccessful2, true, "JS interoperability using [[cheerp::jsexport]]/__asm__ 2/3");
+	client::Object* tmp;
+	__asm__("new JsStruct2()" : "=r"(tmp));
+	float ret;
+	__asm__("%1.testptr(new Float32Array([0,0,42.5]), 1)" : "=r"(ret) : "r"(tmp));
+	assertEqual(ret, 42.5f, "JS interoperability using [[cheerp::jsexport]]/__asm__ 3/3");
 }
