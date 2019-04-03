@@ -1,5 +1,9 @@
 Cheerp: C++ for the Web
 
+Version 2.1:
+
+	* Use by default "-target cheerp"
+
 Version 2.0:
 
 	* Introduce CFGStackifier (successor to Relooper)
