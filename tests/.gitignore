@@ -2,3 +2,4 @@ testErrs.out
 testOut.out
 testReport.test
 unit/**/*.js
+unit/**/*.wasm

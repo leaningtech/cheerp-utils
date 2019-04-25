@@ -266,10 +266,6 @@ def do_test(test):
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
-		# Remove the generated wasm file.
-		if mode == "wasm" and os.path.isfile(outFile):
-			os.remove(outFile)
-
 	stdoutLog.close()
 	stdrepLog.close()
 
