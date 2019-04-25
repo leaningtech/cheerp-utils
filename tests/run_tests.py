@@ -68,7 +68,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		'unit/types/test8.cpp','unit/types/test9.cpp','unit/types/test10.cpp',
 		'unit/types/test11.cpp','unit/types/test12.cpp','unit/types/test13.cpp',
 		'unit/types/test14.cpp','unit/types/test16.cpp','unit/types/cinheritance.cpp',
-		'unit/types/memberfunctions.cpp', 'unit/types/union64.cpp',
+		'unit/types/memberfunctions.cpp', 'unit/types/union64.cpp', 'unit/types/funccasts.cpp',
 	 'unit/globals/test1.cpp','unit/globals/test2.cpp','unit/globals/test3.cpp','unit/globals/test4.cpp',
 		'unit/globals/test5.cpp','unit/globals/test6.cpp','unit/globals/test7.cpp',
 		'unit/globals/betterconst.cpp',
@@ -150,6 +150,7 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 		"-frtti",
 		"-Iunit",
 		"-cheerp-bounds-check",
+		"-cheerp-fix-wrong-func-casts",
 		"-o", outFile
 	]
 
