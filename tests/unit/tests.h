@@ -41,6 +41,13 @@ void assertEqual(int value, int expected, const char* msg)
 	assertEqualImpl(value==expected, msg);
 }
 
+#ifdef PRE_EXECUTE_TEST
+[[clang::optnone]]
+int unitBlackBox(int v)
+{
+	return v;
+}
+#else
 [[cheerp::genericjs]]
 int unitBlackBox(int v)
 {
@@ -48,5 +55,6 @@ int unitBlackBox(int v)
 	asm("%1" : "=r"(ret) : "r"(v));
 	return ret;
 }
+#endif
 
 #endif
