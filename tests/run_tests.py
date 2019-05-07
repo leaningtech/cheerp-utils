@@ -86,6 +86,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/randomcfg/size5times20.cpp', 'unit/randomcfg/size10times10.cpp',
 		 'unit/randomcfg/size20times10.cpp', 'unit/randomcfg/size50times2.cpp',
 		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
+		 'unit/randomcfg/swapOnPointers.cpp', 'unit/randomcfg/combOnDouble.cpp',
 		 'unit/randomcfg/comb10by10.cpp', 'unit/randomcfg/swap25by25.cpp']
 common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
