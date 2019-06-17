@@ -20,6 +20,7 @@ parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", ac
 parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
 parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
 	action="store_true", default=False)
+parser.add_option("--valgrind", dest="valgrind", help="Run with valgrind activated", action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 parser.add_option("--determinism",dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
 parser.add_option("--determinism-probability",dest="determinism_probability", help="Select the chance a given test is tested for determinism", action="store", type="float", default=0.1)
@@ -395,21 +396,30 @@ def do_test(test):
 
 		command = (compile == compileTest and compileCommand) or (compile == preExecuteTest and compileCommandPreExecuter) or None
 		assert command
-		actual_command = command(clang, mode, test)
+		possible_commands = list()
+		possible_commands.append(command(clang, mode, test))
+
+		if option.valgrind:
+			possible_commands.append(["valgrind", "-q"] + possible_commands[0])
 
 		signature = test + "_" + mode
 		if (compile == preExecuteTest):
 			signature += "_preexecuted"
 
-		if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
+		def get_next_command():
+			#Rotate the list of commands, and return the first
+			possible_commands.insert(0, possible_commands.pop())
+			return possible_commands[0]
+
+		if compile(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		if shouldTestDeterminism():
-			if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
+			if compile(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
 			seed = random.randrange(100000000)
 			if (option.determinism != 1):
 				for i in range(3):
-					if determinismTest(actual_command, signature, outFile, stdrepLog, stdoutLog, seed):
+					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, seed):
 						status = "determinism_error"
 						break
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
