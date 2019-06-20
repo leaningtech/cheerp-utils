@@ -264,30 +264,25 @@ def produceReport(command, seed):
 			tot += str(line) + "\n"
 	return tot
 
-def determinismTest(command, string, outFile, testReport, testOut, seed):
+def determinismTest(command, string, outFile, testReport, testOut, reportFileA, reportFileB, seed):
 	assert option.determinism != 0
 
-	command += ["-o", outFile]
+	command_with_file = command + ["-o", outFile]
 
-	report = produceReport(command, seed)
-	A = computeHash(str(report))
-	if (determinismTest.dictionary.addValue(string, A) == False):
+	report = produceReport(command_with_file, seed)
+	current_hash = computeHash(str(report))
+	if (determinismTest.dictionary.addValue(string, current_hash) == False):
 		sys.stdout.write("%s\t\tDeterminsm failure on print after\n" % string)
-		for i in range(20):
-			report2 = produceReport(command, seed)
-			if report != report2:
-				reportA = open("%s%s.reportA" % (string,seed),"w+")
-				reportB = open("%s%s.reportB" % (string,seed),"w+")
-				reportA.write(report)
-				reportB.write(report2)
-				reportA.close()
-				reportB.close()
-				break
+		reportFileA.write(determinismTest.dictionaryReport[string])
+		reportFileB.write(report)
 		return True
 
+	determinismTest.dictionaryReport.addValue(string, report)
 	testReport.write('</testcase>')
+	return False
 
 determinismTest.dictionary = determinismDictionary()
+determinismTest.dictionaryReport = determinismDictionary()
 
 def compileTest(command, mode, testName, outFile, testReport, testOut):
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
@@ -366,6 +361,8 @@ def do_test(test):
 
 	stdoutLog = open("%s.log" % test,"w+")
 	stdrepLog = open("%s_testreport" % test,"w+")
+	reportA = open("%s.reportA" % test,"w+")
+	reportB = open("%s.reportB" % test,"w+")
 
 	test_runs = [
 		(option.preexecute, "genericjs", test not in pre_executer_tests,
@@ -419,14 +416,16 @@ def do_test(test):
 			seed = random.randrange(100000000)
 			if (option.determinism != 1):
 				for i in range(3):
-					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, seed):
+					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
 						status = "determinism_error"
 						break
-		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
+		if status == "pass" and run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
 	stdoutLog.close()
 	stdrepLog.close()
+	reportA.close()
+	reportB.close()
 
 	return status
 
@@ -444,27 +443,29 @@ for test, future in zip(selected_tests, futures):
 	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
 
 # Build back the testReport, testErrs and testOut files
-testReport = open("testReport.test","w")
-testOut = open("testOut.out","w+");
+testReport = open("testReport.test", "w")
+testOut = open("testOut.out", "w+")
+reportA = open("testDeterminism.A", "w")
+reportB = open("testDeterminism.B", "w")
 
 testReport.write('<testsuite>');
 
-for t in selected_tests:
-	tr = open("%s_testreport" % t,"r")
-	to = open("%s.log" % t,"r")
-
-	for line in tr:
-		testReport.write(line)
-	for line in to:
-		testOut.write(line)
-
-	to.close()
-	tr.close()
-
+def writeLinesAndRemove(destination, source):
+	lines = open(source, "r")
+	for line in lines:
+		destination.write(line)
+	lines.close()
 	if not option.keep_logs:
-	    os.remove("%s_testreport" %t)
-	    os.remove("%s.log" %t)
-	
-testReport.write('</testsuite>');
+		os.remove(source)
+
+for t in selected_tests:
+	writeLinesAndRemove(testReport, "%s_testreport" % t)
+	writeLinesAndRemove(testOut, "%s.log" % t)
+	writeLinesAndRemove(reportA, "%s.reportA" % t)
+	writeLinesAndRemove(reportB, "%s.reportB" % t)
+
+testReport.write('</testsuite>')
 
 testReport.close()
+reportA.close()
+reportB.close()
