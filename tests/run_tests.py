@@ -167,7 +167,6 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 		assert testName[-4:] == ".cpp"
 		flags += ["-cheerp-mode=wasm"]
 		flags += ["-cheerp-wast-loader={}.js".format(testName[:-4])]
-		flags += ["-cheerp-pretty-code"]
 	elif mode == "asmjs":
 		flags += ["-cheerp-mode=asmjs"]
 	else:
