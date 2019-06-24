@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import subprocess
+import hashlib
+import random
 import sys
 import os
 import re
@@ -19,6 +21,7 @@ parser.add_option("--genericjs",dest="genericjs", help="Run the tests in generic
 parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
 	action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
+parser.add_option("--determinism",dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/wasm/preexecute]", action="store_true", default=False)
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
@@ -128,6 +131,20 @@ else:
 
 	selected_tests = sorted(list(selected_tests))
 
+def computeHash(code):
+	return hashlib.md5(code.encode()).hexdigest()
+
+class determinismDictionary:
+	def __init__(self):
+		self.dictionary = {}
+
+	def addValue(self, testCase, computedHash):
+		if (testCase in self.dictionary):
+			if (self.dictionary[testCase] != computedHash):
+				return False
+		self.dictionary[testCase] = computedHash
+		return True
+
 def compileCommandPreExecuter(compiler, mode, testName):
 	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
 	return [compiler, "-O"+str(optlevel), "-target", "cheerp",
@@ -140,6 +157,12 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 	p=subprocess.Popen(command + ["-o", outFile]
 			,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
+	if (option.determinism):
+		A = computeHash(outFile)
+		B = "" + mode + "_" + testName
+		if (preExecuteTest.dictionary.addValue(B, A) == False):
+			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (mode, testName))
+
 	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
 		testReport.write('<failure type="PreExecution error">');
@@ -147,6 +170,8 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 		testReport.write(testErrs.read());
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
+
+preExecuteTest.dictionary=determinismDictionary()
 
 def compileCommand(compiler, mode, testName):
 	flags = [
@@ -182,6 +207,12 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 	ret=subprocess.call(command + ["-o", outFile],
 		stderr=subprocess.STDOUT, stdout=testOut);
 
+	if (option.determinism):
+		A = computeHash(outFile)
+		B = "" + mode + "_" + testName
+		if (compileTest.dictionary.addValue(B, A) == False):
+			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (mode, testName))
+
 	if ret != 0:
 		testReport.write('<failure type="Compilation error">');
 		testOut.seek(0);
@@ -189,6 +220,7 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
+compileTest.dictionary = determinismDictionary()
 
 def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testFile = outFile
@@ -230,6 +262,11 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testReport.write('</testcase>')
 
 	return failure
+
+def shouldTestDeterminism():
+	if random.random() < 0.25 * option.determinism:
+		return True
+	return False
 
 def do_test(test):
 	status = "pass"
@@ -277,6 +314,9 @@ def do_test(test):
 
 		if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
+		if shouldTestDeterminism():
+			if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
+				status = "error"
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
