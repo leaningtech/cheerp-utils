@@ -22,6 +22,7 @@ parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
 	action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 parser.add_option("--determinism",dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
+parser.add_option("--determinism-probability",dest="determinism_probability", help="Select the chance a given test is tested for determinism", action="store", type="float", default=0.1)
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/wasm/preexecute]", action="store_true", default=False)
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
@@ -46,6 +47,7 @@ prefix = option.prefix
 jobs = option.jobs
 asmjs = option.asmjs
 wasm = option.wasm
+probability_determinism = max(0.0, min(1.0, option.determinism_probability))
 
 pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
@@ -201,13 +203,98 @@ def compileCommand(compiler, mode, testName):
 
 	return [compiler] + [testName] + flags
 
+def selectRandomPasses(passes, seed):
+	assert(option.determinism != 0)
+	#Collect the passes to select
+	if (option.determinism == -1):
+		#-1 is a special value that means: test all passes
+		return " -print-after-all"
+
+	#Select them. Note that the choice should be deterministic, so we use this sort-of-working solution, otherwise different passes would be chosen for different runs
+	num = option.determinism - 1
+	res = ""
+	for i in range(num):
+		res += " -print-after=" + passes[(seed+i)%len(passes)]
+	return res
+
+def addPrintAfter(command, seed):
+	cheerp_passes = ["StructMemFuncLowering", "FreeAndDeleteRemoval", "GlobalDepsAnalyzer", "FixIrreducibleControlFlow", "IdenticalCodeFolding",
+		"GEPOptimizer", "Registerize", "PointerAnalyzer", "DelayInsts", "AllocaMerging", "AllocaArrays", "AllocaStoresExtractor",
+		"TypeOptimizer", "ReplaceNopCastsAndByteSwaps", "PreExecute", "ExpandStructRegs", "CheerpLowerSwitch"]
+	passes = selectRandomPasses(cheerp_passes, seed)
+	return command + passes
+
+def produceReport(command, seed):
+	p2=subprocess.Popen(command + ['-###'],
+		stderr=subprocess.PIPE);
+	_, errs = p2.communicate()
+	lines = str(errs).split("\\n")
+	lines_to_execute = list()
+
+	#The output of -### gives back a series of lines with informations, the last of which is InstalledDir, followed by the actual commands
+	last_lines = False
+	for line in lines:
+		if last_lines and len(line) > 1:
+			lines_to_execute.append(line)
+		if "InstalledDir" in line[:14]:
+			last_lines = True
+
+	ret = 0
+	output = list()
+	for i in range(len(lines_to_execute)):
+		line = lines_to_execute[i]
+		if i >= 2:
+			#The first two lines invoke clang++ and llvm-link
+			line = addPrintAfter(line, seed)
+			lines_to_execute[i] = line
+		p=subprocess.Popen(line, shell=True,
+			stderr=subprocess.PIPE);
+		_, errs = p.communicate()
+		ret += p.returncode
+		if str("Cannot find") in str(errs):
+			print(errs)
+			assert False
+		for l in errs.splitlines(True):
+			output.append(str(l))
+
+	tot = ""
+	for line in output:
+		if not "ModuleID" in str(line):
+			tot += str(line) + "\n"
+	return tot
+
+def determinismTest(command, string, outFile, testReport, testOut, seed):
+	assert option.determinism != 0
+
+	command += ["-o", outFile]
+
+	report = produceReport(command, seed)
+	A = computeHash(str(report))
+	if (determinismTest.dictionary.addValue(string, A) == False):
+		sys.stdout.write("%s\t\tDeterminsm failure on print after\n" % string)
+		for i in range(20):
+			report2 = produceReport(command, seed)
+			if report != report2:
+				reportA = open("%s%s.reportA" % (string,seed),"w+")
+				reportB = open("%s%s.reportB" % (string,seed),"w+")
+				reportA.write(report)
+				reportB.write(report2)
+				reportA.close()
+				reportB.close()
+				break
+		return True
+
+	testReport.write('</testcase>')
+
+determinismTest.dictionary = determinismDictionary()
+
 def compileTest(command, mode, testName, outFile, testReport, testOut):
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
 
 	ret=subprocess.call(command + ["-o", outFile],
 		stderr=subprocess.STDOUT, stdout=testOut);
 
-	if (option.determinism):
+	if (option.determinism != 0):
 		A = computeHash(outFile)
 		B = "" + mode + "_" + testName
 		if (compileTest.dictionary.addValue(B, A) == False):
@@ -264,7 +351,9 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	return failure
 
 def shouldTestDeterminism():
-	if random.random() < 0.25 * option.determinism:
+	if option.determinism == 0:
+		return False
+	if random.random() < probability_determinism:
 		return True
 	return False
 
@@ -317,6 +406,12 @@ def do_test(test):
 		if shouldTestDeterminism():
 			if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
+			seed = random.randrange(100000000)
+			if (option.determinism != 1):
+				for i in range(3):
+					if determinismTest(actual_command, signature, outFile, stdrepLog, stdoutLog, seed):
+						status = "determinism_error"
+						break
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
