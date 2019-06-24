@@ -128,14 +128,17 @@ else:
 
 	selected_tests = sorted(list(selected_tests))
 
-def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
+def compileCommandPreExecuter(compiler, mode, testName):
 	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
-	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
-	p=subprocess.Popen([compiler, "-O"+str(optlevel), "-target", "cheerp",
+	return [compiler, "-O"+str(optlevel), "-target", "cheerp",
 		"-frtti", "-Iunit", "-cheerp-preexecute", "-mllvm","-cheerp-preexecute-main",
 		"-DPRE_EXECUTE_TEST",
-		"-cheerp-mode="+ mode,
-		testName, "-o", outFile] + maybe_pretty ,stderr=subprocess.PIPE);
+		"-cheerp-mode="+ mode, testName] + maybe_pretty
+
+def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
+	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
+	p=subprocess.Popen(command + ["-o", outFile]
+			,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
 	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
@@ -145,16 +148,14 @@ def preExecuteTest(compiler, mode, testName, outFile, testReport, testErrs ):
 		testReport.write('</failure>');
 	testReport.write('</testcase>')
 
-def compileTest(compiler, mode, testName, outFile, testReport, testOut):
-	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
+def compileCommand(compiler, mode, testName):
 	flags = [
 		"-O"+str(optlevel),
 		"-target", "cheerp",
 		"-frtti",
 		"-Iunit",
 		"-cheerp-bounds-check",
-		"-cheerp-fix-wrong-func-casts",
-		"-o", outFile
+		"-cheerp-fix-wrong-func-casts"
 	]
 
 	if option.pretty_code:
@@ -173,7 +174,12 @@ def compileTest(compiler, mode, testName, outFile, testReport, testOut):
 		assert mode == "genericjs"
 		flags += ["-cheerp-mode=genericjs"]
 
-	ret=subprocess.call([compiler] + flags + [testName],
+	return [compiler] + [testName] + flags
+
+def compileTest(command, mode, testName, outFile, testReport, testOut):
+	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
+
+	ret=subprocess.call(command + ["-o", outFile],
 		stderr=subprocess.STDOUT, stdout=testOut);
 
 	if ret != 0:
@@ -261,7 +267,15 @@ def do_test(test):
 		else:
 			outFile = os.path.join(head, name + "." + ext)
 
-		if compile(clang, mode, test, outFile, stdrepLog, stdoutLog):
+		command = (compile == compileTest and compileCommand) or (compile == preExecuteTest and compileCommandPreExecuter) or None
+		assert command
+		actual_command = command(clang, mode, test)
+
+		signature = test + "_" + mode
+		if (compile == preExecuteTest):
+			signature += "_preexecuted"
+
+		if compile(actual_command, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		if run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
