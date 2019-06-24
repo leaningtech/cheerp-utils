@@ -22,8 +22,8 @@ parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
 	action="store_true", default=False)
 parser.add_option("--valgrind", dest="valgrind", help="Run with valgrind activated", action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
-parser.add_option("--determinism",dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
-parser.add_option("--determinism-probability",dest="determinism_probability", help="Select the chance a given test is tested for determinism", action="store", type="float", default=0.1)
+parser.add_option("--determinism", dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
+parser.add_option("--determinism-probability", dest="determinism_probability", help="Select the chance a given test is tested for determinism", action="store", type="float", default=0.1)
 parser.add_option("--preexecute-asmjs",dest="preexecute_asmjs", help="Run the tests inside PreExecuter in asmjs mode", action="store_true", default=False)
 parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/asmjs/wasm/preexecute]", action="store_true", default=False)
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
@@ -142,11 +142,14 @@ class determinismDictionary:
 		self.dictionary = {}
 
 	def addValue(self, testCase, computedHash):
-		if (testCase in self.dictionary):
-			if (self.dictionary[testCase] != computedHash):
+		if testCase in self.dictionary:
+			if self.dictionary[testCase] != computedHash:
 				return False
 		self.dictionary[testCase] = computedHash
 		return True
+	def at(self, testCase):
+		assert (testCase in self.dictionary)
+		return self.dictionary[testCase]
 
 def compileCommandPreExecuter(compiler, mode, testName):
 	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
@@ -160,10 +163,10 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 	p=subprocess.Popen(command + ["-o", outFile]
 			,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
-	if (option.determinism):
+	if option.determinism:
 		A = computeHash(outFile)
 		B = "" + mode + "_" + testName
-		if (preExecuteTest.dictionary.addValue(B, A) == False):
+		if not preExecuteTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (mode, testName))
 
 	testErrs.write(errs.decode("utf-8"))
@@ -207,7 +210,7 @@ def compileCommand(compiler, mode, testName):
 def selectRandomPasses(passes, seed):
 	assert(option.determinism != 0)
 	#Collect the passes to select
-	if (option.determinism == -1):
+	if option.determinism == -1:
 		#-1 is a special value that means: test all passes
 		return " -print-after-all"
 
@@ -260,7 +263,7 @@ def produceReport(command, seed):
 
 	tot = ""
 	for line in output:
-		if not "ModuleID" in str(line):
+		if "ModuleID" not in str(line):
 			tot += str(line) + "\n"
 	return tot
 
@@ -271,9 +274,9 @@ def determinismTest(command, string, outFile, testReport, testOut, reportFileA, 
 
 	report = produceReport(command_with_file, seed)
 	current_hash = computeHash(str(report))
-	if (determinismTest.dictionary.addValue(string, current_hash) == False):
+	if not determinismTest.dictionary.addValue(string, current_hash):
 		sys.stdout.write("%s\t\tDeterminsm failure on print after\n" % string)
-		reportFileA.write(determinismTest.dictionaryReport[string])
+		reportFileA.write(determinismTest.dictionaryReport.at(string))
 		reportFileB.write(report)
 		return True
 
@@ -296,14 +299,14 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 	ret=subprocess.call(command + ["-o", outFile],
 		stderr=subprocess.STDOUT, stdout=testOut);
 
-	if (option.determinism != 0):
+	if option.determinism != 0:
 		A = computeHash(outFile)
 		wasmLoader = getFileToExecute(mode, outFile)
-		if (wasmLoader != outFile):
+		if wasmLoader != outFile:
 			#If the file to execute is different from the original, it's a wasm loader, and we can test also his determinism
 			A += computeHash(wasmLoader)
 		B = "" + mode + "_" + testName
-		if (compileTest.dictionary.addValue(B, A) == False):
+		if not compileTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (mode, testName))
 
 	if ret != 0:
@@ -381,10 +384,10 @@ def do_test(test):
 		(option.wasm, "wasm", test not in wasm_tests, compileTest,
 			runTest),
 		(option.genericjs, "genericjs", test not in genericjs_tests,
-			compileTest, runTest),
+			compileTest, runTest)
 	]
 
-	for enabled, mode, skip, compile, run in test_runs:
+	for enabled, mode, skip, compile_mode, run in test_runs:
 		if not enabled or skip:
 			continue
 
@@ -398,7 +401,7 @@ def do_test(test):
 		else:
 			outFile = os.path.join(head, name + "." + ext)
 
-		command = (compile == compileTest and compileCommand) or (compile == preExecuteTest and compileCommandPreExecuter) or None
+		command = (compile_mode is compileTest and compileCommand) or (compile_mode is preExecuteTest and compileCommandPreExecuter) or None
 		assert command
 		possible_commands = list()
 		possible_commands.append(command(clang, mode, test))
@@ -407,23 +410,23 @@ def do_test(test):
 			possible_commands.append(["valgrind", "-q"] + possible_commands[0])
 
 		signature = test + "_" + mode
-		if (compile == preExecuteTest):
+		if compile_mode is preExecuteTest:
 			signature += "_preexecuted"
 
-		def get_next_command():
+		def get_next_command(commands):
 			#Rotate the list of commands, and return the first
-			possible_commands.insert(0, possible_commands.pop())
-			return possible_commands[0]
+			commands.insert(0, commands.pop())
+			return commands[0]
 
-		if compile(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
+		if compile_mode(get_next_command(possible_commands), mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		if shouldTestDeterminism():
-			if compile(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
+			if compile_mode(get_next_command(possible_commands), mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
 			seed = random.randrange(100000000)
-			if (option.determinism != 1):
-				for i in range(3):
-					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
+			if option.determinism != 1:
+				for _ in range(3):
+					if determinismTest(get_next_command(possible_commands), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
 						status = "determinism_error"
 						break
 		if status == "pass" and run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
