@@ -284,6 +284,12 @@ def determinismTest(command, string, outFile, testReport, testOut, reportFileA, 
 determinismTest.dictionary = determinismDictionary()
 determinismTest.dictionaryReport = determinismDictionary()
 
+def getFileToExecute(mode, outFile):
+	if mode == "wasm":
+		assert outFile[-5:] == ".wasm"
+		return outFile[:-5] + '.js'
+	return outFile
+
 def compileTest(command, mode, testName, outFile, testReport, testOut):
 	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
 
@@ -292,6 +298,10 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 
 	if (option.determinism != 0):
 		A = computeHash(outFile)
+		wasmLoader = getFileToExecute(mode, outFile)
+		if (wasmLoader != outFile):
+			#If the file to execute is different from the original, it's a wasm loader, and we can test also his determinism
+			A += computeHash(wasmLoader)
 		B = "" + mode + "_" + testName
 		if (compileTest.dictionary.addValue(B, A) == False):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (mode, testName))
@@ -306,10 +316,7 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 compileTest.dictionary = determinismDictionary()
 
 def runTest(engine, mode, testName, outFile, testReport, testOut):
-	testFile = outFile
-	if mode == "wasm":
-		assert outFile[-5:] == ".wasm"
-		testFile = outFile[:-5] + '.js'
+	testFile = getFileToExecute(mode, outFile)
 
 	failure = False
 
