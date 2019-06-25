@@ -322,7 +322,6 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testFile = getFileToExecute(mode, outFile)
 
 	failure = False
-
 	ret=subprocess.call([engine, testFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
@@ -401,7 +400,14 @@ def do_test(test):
 		else:
 			outFile = os.path.join(head, name + "." + ext)
 
-		command = (compile_mode is compileTest and compileCommand) or (compile_mode is preExecuteTest and compileCommandPreExecuter) or None
+
+		if (compile_mode is compileTest):
+			command = compileCommand
+		elif (compile_mode is preExecuteTest):
+			command = compileCommandPreExecuter
+		else:
+			command = None
+
 		assert command
 		possible_commands = list()
 		possible_commands.append(command(clang, mode, test))
@@ -413,20 +419,20 @@ def do_test(test):
 		if compile_mode is preExecuteTest:
 			signature += "_preexecuted"
 
-		def get_next_command(commands):
+		def get_next_command(commands = possible_commands):
 			#Rotate the list of commands, and return the first
 			commands.insert(0, commands.pop())
 			return commands[0]
 
-		if compile_mode(get_next_command(possible_commands), mode, test, outFile, stdrepLog, stdoutLog):
+		if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		if shouldTestDeterminism():
-			if compile_mode(get_next_command(possible_commands), mode, test, outFile, stdrepLog, stdoutLog):
+			if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
 			seed = random.randrange(100000000)
 			if option.determinism != 1:
 				for _ in range(3):
-					if determinismTest(get_next_command(possible_commands), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
+					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
 						status = "determinism_error"
 						break
 		if status == "pass" and run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
