@@ -216,26 +216,27 @@ def selectRandomPasses(passes, seed):
 
 	#Select them. Note that the choice should be deterministic, so we use this sort-of-working solution, otherwise different passes would be chosen for different runs
 	num = option.determinism - 1
+	assert(num > 0)
 	res = ""
 	for i in range(num):
 		res += " -print-after=" + passes[(seed+i)%len(passes)]
 	return res
 
-def addPrintAfter(command, seed):
+def printAfter(seed):
 	cheerp_passes = ["StructMemFuncLowering", "FreeAndDeleteRemoval", "GlobalDepsAnalyzer", "FixIrreducibleControlFlow", "IdenticalCodeFolding",
 		"GEPOptimizer", "Registerize", "PointerAnalyzer", "DelayInsts", "AllocaMerging", "AllocaArrays", "AllocaStoresExtractor",
 		"TypeOptimizer", "ReplaceNopCastsAndByteSwaps", "PreExecute", "ExpandStructRegs", "CheerpLowerSwitch"]
-	passes = selectRandomPasses(cheerp_passes, seed)
-	return command + passes
+	return selectRandomPasses(cheerp_passes, seed)
 
-def produceReport(command, seed):
+def produceReport(command, printAfterCommand):
+	#Here we obtain the separate compilation commands
 	p2=subprocess.Popen(command + ['-###'],
 		stderr=subprocess.PIPE);
 	_, errs = p2.communicate()
 	lines = str(errs).split("\\n")
 	lines_to_execute = list()
 
-	#The output of -### gives back a series of lines with informations, the last of which is InstalledDir, followed by the actual commands
+	#Here we filter out some additional informations (version/folders) given back by -###
 	last_lines = False
 	for line in lines:
 		if last_lines and len(line) > 1:
@@ -243,14 +244,14 @@ def produceReport(command, seed):
 		if "InstalledDir" in line[:14]:
 			last_lines = True
 
+	#Here we execute the commands one at a time, adding the print-after commands when needed (opt & llc)
 	ret = 0
 	output = list()
 	for i in range(len(lines_to_execute)):
 		line = lines_to_execute[i]
 		if i >= 2:
 			#The first two lines invoke clang++ and llvm-link
-			line = addPrintAfter(line, seed)
-			lines_to_execute[i] = line
+			line += printAfterCommand
 		p=subprocess.Popen(line, shell=True,
 			stderr=subprocess.PIPE);
 		_, errs = p.communicate()
@@ -263,16 +264,17 @@ def produceReport(command, seed):
 
 	tot = ""
 	for line in output:
+		#"ModuleID" is followed by the temporary file used, that could change between compilations, so has to be stripped out
 		if "ModuleID" not in str(line):
 			tot += str(line) + "\n"
 	return tot
 
-def determinismTest(command, string, outFile, testReport, testOut, reportFileA, reportFileB, seed):
+def determinismTest(command, printAfter, string, outFile, testReport, testOut, reportFileA, reportFileB):
 	assert option.determinism != 0
 
 	command_with_file = command + ["-o", outFile]
 
-	report = produceReport(command_with_file, seed)
+	report = produceReport(command_with_file, printAfter)
 	current_hash = computeHash(str(report))
 	if not determinismTest.dictionary.addValue(string, current_hash):
 		sys.stdout.write("%s\t\tDeterminsm failure on print after\n" % string)
@@ -429,10 +431,12 @@ def do_test(test):
 		if shouldTestDeterminism():
 			if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
-			seed = random.randrange(100000000)
 			if option.determinism != 1:
+				#Compute the seed for a given outFile, and use it to select some passes to call -print-after-all on
+				seed = int(computeHash(str(outFile)), 16)
+				addPrintAfter = printAfter(seed)
 				for _ in range(3):
-					if determinismTest(get_next_command(), signature, outFile, stdrepLog, stdoutLog, reportA, reportB, seed):
+					if determinismTest(get_next_command(), str(addPrintAfter), signature, outFile, stdrepLog, stdoutLog, reportA, reportB):
 						status = "determinism_error"
 						break
 		if status == "pass" and run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
