@@ -265,8 +265,8 @@ def produceReport(command, printAfterCommand):
 	tot = ""
 	for line in output:
 		#"ModuleID" is followed by the temporary file used, that could change between compilations, so has to be stripped out
-		if "ModuleID" not in str(line):
-			tot += str(line) + "\n"
+		indexModuleID = line.find("ModuleID")
+		tot += line[0:indexModuleID] + "\n"
 	return tot
 
 def determinismTest(command, printAfter, string, outFile, testReport, testOut, reportFileA, reportFileB):
