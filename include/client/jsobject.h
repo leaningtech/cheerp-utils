@@ -43,6 +43,10 @@ public:
 	{
 		return const_cast<Object*>(this)->valueOf<double>();
 	}
+	explicit operator int() const
+	{
+		return const_cast<Object*>(this)->valueOf<int>();
+	}
 	Object* operator[](const client::String& name) const;
 	// operator[] for arbitrary assignment can't be expressed as we can't have a pointer to an arbitrary member of an object
 	// We provide the following function instead
