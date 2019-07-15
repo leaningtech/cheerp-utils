@@ -39,7 +39,7 @@ public:
 	// valueOf may return different types, the users should specify which one is expected
 	template<typename T>
 	T valueOf();
-	operator double() const
+	explicit operator double() const
 	{
 		return const_cast<Object*>(this)->valueOf<double>();
 	}
