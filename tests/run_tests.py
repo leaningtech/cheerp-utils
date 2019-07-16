@@ -230,7 +230,7 @@ def printAfter(seed):
 
 def produceReport(command, printAfterCommand):
 	#Here we obtain the separate compilation commands
-	p2=subprocess.Popen(command + ['-###'],
+	p2=subprocess.Popen(command + ['-save-temps=obj', '-###'],
 		stderr=subprocess.PIPE);
 	_, errs = p2.communicate()
 	lines = str(errs).split("\\n")
@@ -249,8 +249,8 @@ def produceReport(command, printAfterCommand):
 	output = list()
 	for i in range(len(lines_to_execute)):
 		line = lines_to_execute[i]
-		if i >= 2:
-			#The first two lines invoke clang++ and llvm-link
+		if i >= 4:
+			#The first four lines invoke clang++ and llvm-link
 			line += printAfterCommand
 		p=subprocess.Popen(line, shell=True,
 			stderr=subprocess.PIPE);
@@ -284,6 +284,14 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 
 	determinismTest.dictionaryReport.addValue(string, report)
 	testReport.write('</testcase>')
+
+	if outFile[-3:] == ".js":
+		fileToRemove=outFile[:-3]
+	else:
+		fileToRemove=outFile[:-5]
+	os.remove(fileToRemove + ".bc")
+	os.remove(fileToRemove + ".ii")
+
 	return False
 
 determinismTest.dictionary = determinismDictionary()
