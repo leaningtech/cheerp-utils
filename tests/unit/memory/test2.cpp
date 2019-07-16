@@ -62,6 +62,17 @@ void webMain()
 	objBLC[2].b = 2.4;
 	assertEqual(objBLC[2].a, 1075419546, "Access realloc-ed memory 6/6");
 
+	//realloc should work with NULL pointer and behave like malloc
+	e=(int*)realloc((int*)NULL, 1*sizeof(int));
+	e[0] = 46;
+	assertEqual(e[0], 46, "Access realloc-ed from NULL memory 1/1");
+	objB = (A*)realloc((A*)NULL, 1*sizeof(A));
+	objB[0].a = 42;
+	assertEqual(objB[0].a, 42, "Access realloc-ed from NULL memory 2/2");
+	objBLB = (BL*)realloc((BL*)NULL, 1*sizeof(BL));
+	objBLB[0].b = 2.3;
+	assertEqual(objBLB[0].a, 1075000115, "Access realloc-ed from NULL memory 3/3");
+
 	//Test C++ memory allocation
 	int* volatile b=new int[2];
 	b[1]=43;
