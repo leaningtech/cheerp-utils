@@ -283,7 +283,6 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 		return True
 
 	determinismTest.dictionaryReport.addValue(string, report)
-	testReport.write('</testcase>')
 
 	if outFile[-3:] == ".js":
 		fileToRemove=outFile[:-3]
