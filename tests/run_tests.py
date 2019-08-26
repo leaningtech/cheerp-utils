@@ -158,6 +158,15 @@ def compileCommandPreExecuter(compiler, mode, testName):
 		"-DPRE_EXECUTE_TEST",
 		"-cheerp-mode="+ mode, testName] + maybe_pretty
 
+def emitError(testReport, kind, log):
+	testReport.write('<failure type="');
+	testReport.write(kind);
+	testReport.write('">');
+	log.seek(0);
+	testReport.write(log.read());
+	testReport.write('</failure>');
+
+
 def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
 	p=subprocess.Popen(command + ["-o", outFile]
@@ -168,13 +177,11 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 		B = "" + mode + "_" + testName
 		if not preExecuteTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (mode, testName))
+			emitError(testReport, "Determinism failure on PreExecution", testErrs);
 
 	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
-		testReport.write('<failure type="PreExecution error">');
-		testErrs.seek(0);
-		testReport.write(testErrs.read());
-		testReport.write('</failure>');
+		emitError(testReport, "PreExecution error", testErrs);
 	testReport.write('</testcase>')
 
 preExecuteTest.dictionary=determinismDictionary()
@@ -317,12 +324,10 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 		B = "" + mode + "_" + testName
 		if not compileTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (mode, testName))
+			emitError(testReport, "Determinism detected on compileTest", testOut);
 
 	if ret != 0:
-		testReport.write('<failure type="Compilation error">');
-		testOut.seek(0);
-		testReport.write(testOut.read());
-		testReport.write('</failure>');
+		emitError(testReport, "Compilation error", testOut);
 	testReport.write('</testcase>')
 
 compileTest.dictionary = determinismDictionary()
@@ -357,9 +362,7 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 
 	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
 	if failure:
-		testReport.write('<failure type="Runtime error">');
-		testReport.write(testOut.read());
-		testReport.write('</failure>');
+		emitError(testReport, "Runtime error", testOut);
 	testReport.write('</testcase>')
 
 	return failure
