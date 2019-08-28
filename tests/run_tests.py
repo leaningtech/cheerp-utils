@@ -172,17 +172,21 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 	p=subprocess.Popen(command + ["-o", outFile]
 			,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
+	error = False
 	if option.determinism:
 		A = computeHash(outFile)
 		B = "" + mode + "_" + testName
 		if not preExecuteTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (mode, testName))
 			emitError(testReport, "Determinism failure on PreExecution", testErrs);
+			error = True
 
 	testErrs.write(errs.decode("utf-8"))
 	if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
 		emitError(testReport, "PreExecution error", testErrs);
+		error = True
 	testReport.write('</testcase>')
+	return error
 
 preExecuteTest.dictionary=determinismDictionary()
 
@@ -329,6 +333,7 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 	if ret != 0:
 		emitError(testReport, "Compilation error", testOut);
 	testReport.write('</testcase>')
+	return ret
 
 compileTest.dictionary = determinismDictionary()
 
@@ -438,10 +443,10 @@ def do_test(test):
 
 		if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 			status = "error"
-		if shouldTestDeterminism():
+		elif shouldTestDeterminism():
 			if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
 				status = "error"
-			if option.determinism != 1:
+			elif option.determinism != 1:
 				#Compute the seed for a given outFile, and use it to select some passes to call -print-after-all on
 				seed = int(computeHash(str(outFile)), 16)
 				addPrintAfter = printAfter(seed)
