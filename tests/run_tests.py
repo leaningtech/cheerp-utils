@@ -280,6 +280,10 @@ def produceReport(command, printAfterCommand):
 		tot += line[0:indexModuleID] + "\n"
 	return tot
 
+def removeIfPresent(fileToRemove):
+	if os.path.exists(fileToRemove):
+		os.remove(fileToRemove)
+
 def determinismTest(command, printAfter, string, outFile, testReport, testOut, reportFileA, reportFileB):
 	assert option.determinism != 0
 
@@ -299,7 +303,9 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 		fileToRemove=outFile[:-3]
 	else:
 		fileToRemove=outFile[:-5]
-	os.remove(fileToRemove + ".bc")
+
+	#.bc file may be already deleted by llc, so we need to check for his existence
+	removeIfPresent(fileToRemove + ".bc")
 	os.remove(fileToRemove + ".ii")
 
 	return False
