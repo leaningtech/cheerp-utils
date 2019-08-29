@@ -82,10 +82,11 @@ template<class T, class R, class... Args>
 struct CallbackHelperBase<T, false, R, Args...>
 {
 	typedef R (func_type)(Args...);
-	static client::EventListener* make_callback(const T& func)
+	static client::EventListener* make_callback(T&& func)
 	{
-		return __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<T, Args...>,
-						new T(func));
+		using TT = typename std::remove_reference<T>::type;
+		return __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<TT, Args...>,
+						new TT(std::forward<T>(func)));
 	}
 };
 
@@ -93,9 +94,9 @@ template<class T, class R, class... Args>
 struct CallbackHelperBase<T, true, R, Args...>
 {
 	typedef R (func_type)(Args...);
-	static client::EventListener* make_callback(const T& func)
+	static client::EventListener* make_callback(T&& func)
 	{
-		return __builtin_cheerp_make_complete_object<client::EventListener>((func_type*)func);
+		return __builtin_cheerp_make_complete_object<client::EventListener>((func_type*)std::forward<T>(func));
 	}
 };
 
@@ -117,13 +118,12 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
  * For functors and capturing lambdas an std::function object and a JavaScript closure are created.
  */
 template<class T>
-client::EventListener* Callback(const T& func)
+client::EventListener* Callback(T&& func)
 {
-	typedef decltype(&T::operator()) lambda_type;
+	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
 	typedef CallbackHelper<T, lambda_type> callback_helper;
-	return callback_helper::make_callback(func);
+	return callback_helper::make_callback(std::forward<T>(func));
 }
-
 /**
  * Adapter from C++ funtions to code callable from JavaScript and the browser
  * The implementation directly forward the C++ function to JavaScript with zero overhead.
