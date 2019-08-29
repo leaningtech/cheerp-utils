@@ -64,7 +64,6 @@ struct InvokeHelper
 	static R invoke(T* func, Args... args)
 	{
 		auto ret = (*func)(static_cast<Args&&>(args)...);
-		delete func;
 		return ret;
 	}
 };
@@ -76,7 +75,6 @@ struct InvokeHelper<void>
 	static void invoke(T* func, Args... args)
 	{
 		(*func)(static_cast<Args&&>(args)...);
-		delete func;
 	}
 };
 
