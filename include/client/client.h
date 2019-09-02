@@ -53,9 +53,6 @@ static double date_now()
 	return client::Date::now();
 }
 
-template<class, class> struct CallbackHelper; // undefined
-
-template<class T, bool B, class R, class... Args> struct CallbackHelperBase;
 template<typename T>
 typename std::remove_reference<T>::type&& move(T&& t) noexcept
 {
@@ -93,39 +90,181 @@ struct InvokeHelper<void>
 	}
 };
 
-template<class T, class R, class... Args>
-struct CallbackHelperBase<T, false, R, Args...>
+template<class R>
+struct EscapedResourcesList
 {
-	typedef R (func_type)(Args...);
-	static client::EventListener* make_callback(T&& func)
+	using deleter_t =  void(R*);
+	static client::Map* resources;
+	static void add(R* r, client::Object* d)
 	{
-		using TT = typename std::remove_reference<T>::type;
-		return __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<TT, Args...>,
-						new TT(std::forward<T>(func)));
+		if (resources == nullptr)
+			resources = new client::Map;
+		resources->set(r, d);
+	}
+	static void free(R* r)
+	{
+		if (resources == nullptr)
+			return;
+		client::Object* o = resources->get<R*, client::Object*>(r);
+		asm("%1===undefined?null:%2" : "=r"(o) : "r"(o),"r"(o));
+		if (o == nullptr)
+			return;
+		resources->delete_(r);
+		reinterpret_cast<deleter_t*>(o)(r);
+	}
+};
+template<class R>
+client::Map* EscapedResourcesList<R>::resources = nullptr;
+
+using EscapedListeners = EscapedResourcesList<client::EventListener>;
+
+inline void freeCallback(client::EventListener* e)
+{
+	EscapedListeners::free(e);
+}
+
+template<class>
+class Closure;
+template<class R, class... Args>
+class Closure<R(Args...)>
+{
+	client::EventListener* inner;
+	void(*deleter)(void*);
+	void* obj;
+
+	typedef R(func_t)(Args...);
+
+	template<typename _Tp>
+	using _Convertible = typename std::enable_if<std::is_convertible<_Tp, func_t*>::value>::type;
+
+	template<typename _Tp>
+	using _NConvertible = typename std::enable_if<!std::is_convertible<_Tp, func_t*>::value>::type;
+
+	template<class T>
+	static void do_delete(void* o)
+	{
+		T* t = reinterpret_cast<T*>(o);
+		delete t;
+	}
+	struct DeleterHelper
+	{
+		void(*deleter)(void*);
+		void* obj;
+	};
+	static void deleter_helper(DeleterHelper* h)
+	{
+		h->deleter(h->obj);
+	}
+public:
+	Closure():inner(nullptr), deleter(nullptr), obj(nullptr)
+	{
+	}
+	template<class F>
+	Closure(F&& f, _NConvertible<F>* = 0)
+	{
+		using FF = typename std::remove_reference<F>::type;
+		FF* newf = new FF(forward<F>(f));
+		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
+		deleter = &do_delete<FF>;
+		obj = newf;
+	}
+	template<class F>
+	Closure(F f, _Convertible<F>* = 0)
+	{
+		inner = __builtin_cheerp_make_complete_object<client::EventListener>((func_t*)f);
+		deleter = nullptr;
+		obj = nullptr;
+	}
+	Closure(R(*f)(Args...))
+	{
+		inner = __builtin_cheerp_make_complete_object<client::EventListener>(f);
+		deleter = nullptr;
+		obj = nullptr;
+	}
+	Closure(const Closure&) = delete;
+	Closure& operator=(const Closure&) = delete;
+	Closure(Closure&& c)
+	{
+		inner = c.inner;
+		deleter = c.deleter;
+		obj = c.obj;
+		c.inner = nullptr;
+		c.deleter = nullptr;
+		c.obj = nullptr;
+	}
+	Closure& operator=(Closure&& c)
+	{
+		if (this == &c)
+			return *this;
+		if (deleter)
+		{
+			deleter(obj);
+		}
+		inner = c.inner;
+		deleter = c.deleter;
+		obj = c.obj;
+		c.inner = nullptr;
+		c.deleter = nullptr;
+		c.obj = nullptr;
+		return *this;
+	}
+	R operator()(Args&&... args)
+	{
+		return reinterpret_cast<func_t*>(inner)(forward<Args>(args)...);
+	}
+	operator bool()
+	{
+		return inner != nullptr;
+	}
+	operator client::EventListener*()
+	{
+		if (deleter)
+		{
+			DeleterHelper* h = new DeleterHelper{deleter, obj};
+			auto* d = __builtin_cheerp_create_closure<client::Object>(&deleter_helper, h);
+			EscapedListeners::add(inner, d);
+			deleter = nullptr;
+		}
+		return inner;
+	}
+	~Closure()
+	{
+		if (deleter)
+		{
+			deleter(obj);
+		}
 	}
 };
 
-template<class T, class R, class... Args>
-struct CallbackHelperBase<T, true, R, Args...>
+template<class, class> struct ClosureHelper; // undefined
+template<class T, bool B, class R, class... Args> struct ClosureHelperBase;
+
+template<class T, class C, class R, class... Args>
+struct ClosureHelper<T, R(C::*)(Args...) const>
 {
 	typedef R (func_type)(Args...);
-	static client::EventListener* make_callback(T&& func)
+	static Closure<func_type> make_closure(T&& func)
 	{
-		return __builtin_cheerp_make_complete_object<client::EventListener>((func_type*)std::forward<T>(func));
+		return Closure<func_type>(forward<T>(func));
+	}
+};
+template<class T, class C, class R, class... Args>
+struct ClosureHelper<T, R(C::*)(Args...)>
+{
+	typedef R (func_type)(Args...);
+	static Closure<func_type> make_closure(T&& func)
+	{
+		return Closure<func_type>(forward<T>(func));
 	}
 };
 
-template<class T, class C, class R, class... Args>
-struct CallbackHelper<T, R(C::*)(Args...) const>:
-	public CallbackHelperBase<T, std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
+template<class T>
+auto make_closure(T&& func) -> decltype(ClosureHelper<typename std::remove_reference<T>::type, decltype(&std::remove_reference<T>::type::operator())>::make_closure(forward<T>(func)))
 {
-};
-
-template<class T, class C, class R, class... Args>
-struct CallbackHelper<T, R(C::*)(Args...)>:
-	public CallbackHelperBase<T, std::is_convertible<T, R(*)(Args...)>::value, R, Args...>
-{
-};
+	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
+	typedef ClosureHelper<T, lambda_type> closure_helper;
+	return closure_helper::make_closure(forward<T>(func));
+}
 
 /**
  * Adapter from C++ functors and lambdas to code callable from JavaScript and the browser
@@ -135,9 +274,7 @@ struct CallbackHelper<T, R(C::*)(Args...)>:
 template<class T>
 client::EventListener* Callback(T&& func)
 {
-	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
-	typedef CallbackHelper<T, lambda_type> callback_helper;
-	return callback_helper::make_callback(std::forward<T>(func));
+	return make_closure(forward<T>(func));
 }
 /**
  * Adapter from C++ funtions to code callable from JavaScript and the browser
@@ -146,7 +283,7 @@ client::EventListener* Callback(T&& func)
 template<class R, class... Args>
 client::EventListener* Callback(R (*func)(Args...))
 {
-	return __builtin_cheerp_make_complete_object<client::EventListener>(func);
+	return Closure<R(Args...)>(func);
 }
 
 template<typename T>
