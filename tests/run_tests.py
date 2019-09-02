@@ -93,7 +93,8 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/randomcfg/size20times10.cpp', 'unit/randomcfg/size50times2.cpp',
 		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
 		 'unit/randomcfg/swapOnPointers.cpp', 'unit/randomcfg/combOnDouble.cpp',
-		 'unit/randomcfg/comb10by10.cpp', 'unit/randomcfg/swap25by25.cpp']
+		 'unit/randomcfg/comb10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
+	]
 common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
 		]
@@ -109,6 +110,7 @@ genericjs_tests = common_tests + [
 		'unit/codegen/escapes.cpp',
 		'unit/codegen/advancedasm.cpp',
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
+		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
 	 ]
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
