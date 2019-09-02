@@ -56,6 +56,21 @@ static double date_now()
 template<class, class> struct CallbackHelper; // undefined
 
 template<class T, bool B, class R, class... Args> struct CallbackHelperBase;
+template<typename T>
+typename std::remove_reference<T>::type&& move(T&& t) noexcept
+{
+	return static_cast<typename std::remove_reference<T>::type&&>(t);
+}
+template<typename T>
+T&& forward(typename std::remove_reference<T>::type&& t) noexcept
+{
+	return static_cast<T&&>(t);
+}
+template<typename T>
+T&& forward(typename std::remove_reference<T>::type& t) noexcept
+{
+	return static_cast<T&&>(t);
+}
 
 template<class R>
 struct InvokeHelper
