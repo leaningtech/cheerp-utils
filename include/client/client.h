@@ -281,7 +281,7 @@ struct ClosureHelper<T, R(C::*)(Args...)>
 };
 
 template<class T>
-auto make_closure(T&& func) -> decltype(ClosureHelper<typename std::remove_reference<T>::type, decltype(&std::remove_reference<T>::type::operator())>::make_closure(::cheerp::forward<T>(func)))
+auto make_closure(T&& func) -> decltype(ClosureHelper<T, decltype(&std::remove_reference<T>::type::operator())>::make_closure(::cheerp::forward<T>(func)))
 {
 	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
 	typedef ClosureHelper<T, lambda_type> closure_helper;
