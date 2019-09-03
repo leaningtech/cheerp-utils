@@ -176,7 +176,7 @@ public:
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if<_must_destroy<F>>* = 0)
 	{
 		using FF = typename std::remove_reference<F>::type;
-		FF* newf = new FF(forward<F>(f));
+		FF* newf = new FF(::cheerp::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = &do_delete<FF>;
 		obj = newf;
@@ -185,7 +185,7 @@ public:
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if_not<_must_destroy<F>>* = 0)
 	{
 		using FF = typename std::remove_reference<F>::type;
-		FF* newf = new FF(forward<F>(f));
+		FF* newf = new FF(::cheerp::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = nullptr;
 		obj = newf;
@@ -232,7 +232,7 @@ public:
 	}
 	R operator()(Args&&... args)
 	{
-		return reinterpret_cast<func_t*>(inner)(forward<Args>(args)...);
+		return reinterpret_cast<func_t*>(inner)(::cheerp::forward<Args>(args)...);
 	}
 	operator bool()
 	{
@@ -267,7 +267,7 @@ struct ClosureHelper<T, R(C::*)(Args...) const>
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
 	{
-		return Closure<func_type>(forward<T>(func));
+		return Closure<func_type>(::cheerp::forward<T>(func));
 	}
 };
 template<class T, class C, class R, class... Args>
@@ -276,16 +276,16 @@ struct ClosureHelper<T, R(C::*)(Args...)>
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
 	{
-		return Closure<func_type>(forward<T>(func));
+		return Closure<func_type>(::cheerp::forward<T>(func));
 	}
 };
 
 template<class T>
-auto make_closure(T&& func) -> decltype(ClosureHelper<typename std::remove_reference<T>::type, decltype(&std::remove_reference<T>::type::operator())>::make_closure(forward<T>(func)))
+auto make_closure(T&& func) -> decltype(ClosureHelper<typename std::remove_reference<T>::type, decltype(&std::remove_reference<T>::type::operator())>::make_closure(::cheerp::forward<T>(func)))
 {
 	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
 	typedef ClosureHelper<T, lambda_type> closure_helper;
-	return closure_helper::make_closure(forward<T>(func));
+	return closure_helper::make_closure(::cheerp::forward<T>(func));
 }
 
 /**
@@ -296,7 +296,7 @@ auto make_closure(T&& func) -> decltype(ClosureHelper<typename std::remove_refer
 template<class T>
 client::EventListener* Callback(T&& func)
 {
-	return make_closure(forward<T>(func));
+	return make_closure(::cheerp::forward<T>(func));
 }
 /**
  * Adapter from C++ funtions to code callable from JavaScript and the browser
