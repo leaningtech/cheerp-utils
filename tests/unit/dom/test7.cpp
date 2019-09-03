@@ -17,9 +17,10 @@ class Functor
 {
 private:
 	int data;
+	client::EventListener** e;
 public:
 	static int destructorCalled;
-	Functor():data(42)
+	Functor(client::EventListener** e):data(42), e(e)
 	{
 	}
 	~Functor()
@@ -30,6 +31,7 @@ public:
 	{
 		assertEqual(data, 42, "Calling back functors 1/3");
 		assertEqual(callbackCount++, 1, "Calling back functors 2/3");
+		cheerp::freeCallback(*e);
 	}
 };
 
@@ -39,7 +41,9 @@ void webMain()
 {
 	// Test various ways of passing callbacks to JavaScript code
 	setTimeout(cheerp::Callback(plainFunction), 0);
-	setTimeout(cheerp::Callback(Functor()), 0);
+	client::EventListener** c = new client::EventListener*[1];
+	*c = cheerp::Callback(Functor(c));
+	setTimeout(*c, 0);
 	setTimeout(cheerp::Callback([]()
 	{
 		assertEqual(callbackCount++, 2, "Calling back non-capturing lambdas");
