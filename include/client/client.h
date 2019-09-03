@@ -140,6 +140,19 @@ class Closure<R(Args...)>
 	template<typename _Tp>
 	using _NConvertible = typename std::enable_if<!std::is_convertible<_Tp, func_t*>::value>::type;
 
+      template<typename _Cond>
+	using _en_if = typename std::enable_if<_Cond::value>::type;
+      template<typename _Cond>
+	using _en_if_not = typename std::enable_if<!_Cond::value>::type;
+
+	template <bool V>
+	struct _bool_const
+	{
+		static constexpr bool value = V;
+	};
+	template <class _Tp> struct _must_destroy
+	    : public _bool_const<!__has_trivial_destructor(typename std::remove_reference<_Tp>::type)> {};
+
 	template<class T>
 	static void do_delete(void* o)
 	{
@@ -160,12 +173,21 @@ public:
 	{
 	}
 	template<class F>
-	Closure(F&& f, _NConvertible<F>* = 0)
+	Closure(F&& f, _NConvertible<F>* = 0, _en_if<_must_destroy<F>>* = 0)
 	{
 		using FF = typename std::remove_reference<F>::type;
 		FF* newf = new FF(forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = &do_delete<FF>;
+		obj = newf;
+	}
+	template<class F>
+	Closure(F&& f, _NConvertible<F>* = 0, _en_if_not<_must_destroy<F>>* = 0)
+	{
+		using FF = typename std::remove_reference<F>::type;
+		FF* newf = new FF(forward<F>(f));
+		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
+		deleter = nullptr;
 		obj = newf;
 	}
 	template<class F>
