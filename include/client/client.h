@@ -33,9 +33,9 @@ namespace [[cheerp::genericjs]] cheerp
 {
 
 template<typename... Args>
-void console_log(const char* message, Args&&... optionalParams)
+void console_log(const char* message, Args... optionalParams)
 { 
-	client::console.log(message, static_cast<Args&&>(optionalParams)...);
+	client::console.log(message, optionalParams...);
 }
 
 static void console_log(int message)
