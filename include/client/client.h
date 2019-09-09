@@ -175,7 +175,7 @@ public:
 	template<class F>
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if<_must_destroy<F>>* = 0)
 	{
-		using FF = typename std::remove_reference<F>::type;
+		using FF = typename std::remove_cv<typename std::remove_reference<F>::type>::type;
 		FF* newf = new FF(::cheerp::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = &do_delete<FF>;
