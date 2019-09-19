@@ -1015,11 +1015,11 @@ namespace [[cheerp::genericjs]] client
 		void set_configurable(bool);
 		bool get_enumerable();
 		void set_enumerable(bool);
-		Object* get_value();
+		template<class ReturnType = Object*> ReturnType get_value();
 		void set_value(Object*);
 		bool get_writable();
 		void set_writable(bool);
-		Object* get();
+		template<class ReturnType = Object*> ReturnType get();
 		void set(Object* v);
 	};
 
@@ -1252,7 +1252,7 @@ namespace [[cheerp::genericjs]] client
 		bool get_multiline();
 		double get_lastIndex();
 		void set_lastIndex(double);
-		Object* compile();
+		template<class ReturnType = Object*> ReturnType compile();
 		RegExp(RegExp* pattern);
 		RegExp(const String& pattern);
 		RegExp(const String& pattern, const String& flags);
@@ -1327,8 +1327,8 @@ namespace [[cheerp::genericjs]] client
 
 	class JSON: public Object{
 	public:
-		Object* parse(const String& text);
-		Object* parse(const String& text, EventListener* reviver);
+		template<class ReturnType = Object*> ReturnType parse(const String& text);
+		template<class ReturnType = Object*> ReturnType parse(const String& text, EventListener* reviver);
 		String* stringify(Object* value);
 		String* stringify(Object* value, EventListener* replacer);
 		String* stringify(Object* value, EventListener* replacer, const String& space);
@@ -1454,13 +1454,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Int8Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Int8Array* filter(EventListener* callbackfn);
 		Int8Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1492,8 +1492,8 @@ namespace [[cheerp::genericjs]] client
 		Int8Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Int8Array* subarray(double begin);
 		Int8Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1521,13 +1521,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Uint8Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Uint8Array* filter(EventListener* callbackfn);
 		Uint8Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1559,8 +1559,8 @@ namespace [[cheerp::genericjs]] client
 		Uint8Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Uint8Array* subarray(double begin);
 		Uint8Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1588,13 +1588,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Uint8ClampedArray: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Uint8ClampedArray* filter(EventListener* callbackfn);
 		Uint8ClampedArray* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1626,8 +1626,8 @@ namespace [[cheerp::genericjs]] client
 		Uint8ClampedArray* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Uint8ClampedArray* subarray(double begin);
 		Uint8ClampedArray* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1655,13 +1655,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Int16Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Int16Array* filter(EventListener* callbackfn);
 		Int16Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1693,8 +1693,8 @@ namespace [[cheerp::genericjs]] client
 		Int16Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Int16Array* subarray(double begin);
 		Int16Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1722,13 +1722,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Uint16Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Uint16Array* filter(EventListener* callbackfn);
 		Uint16Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1760,8 +1760,8 @@ namespace [[cheerp::genericjs]] client
 		Uint16Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Uint16Array* subarray(double begin);
 		Uint16Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1789,13 +1789,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Int32Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Int32Array* filter(EventListener* callbackfn);
 		Int32Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1827,8 +1827,8 @@ namespace [[cheerp::genericjs]] client
 		Int32Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Int32Array* subarray(double begin);
 		Int32Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1856,13 +1856,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Uint32Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Uint32Array* filter(EventListener* callbackfn);
 		Uint32Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1894,8 +1894,8 @@ namespace [[cheerp::genericjs]] client
 		Uint32Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Uint32Array* subarray(double begin);
 		Uint32Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1923,13 +1923,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Float32Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Float32Array* filter(EventListener* callbackfn);
 		Float32Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -1961,8 +1961,8 @@ namespace [[cheerp::genericjs]] client
 		Float32Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Float32Array* subarray(double begin);
 		Float32Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -1990,13 +1990,13 @@ namespace [[cheerp::genericjs]] client
 
 	class Float64Array: public ArrayBufferView {
 	public:
-		Object* copyWithin(double target, double start);
-		Object* copyWithin(double target, double start, double end);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start);
+		template<class ReturnType = Object*> ReturnType copyWithin(double target, double start, double end);
 		bool every(EventListener* callbackfn);
 		bool every(EventListener* callbackfn, Object* thisArg);
-		Object* fill(double value);
-		Object* fill(double value, double start);
-		Object* fill(double value, double start, double end);
+		template<class ReturnType = Object*> ReturnType fill(double value);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start);
+		template<class ReturnType = Object*> ReturnType fill(double value, double start, double end);
 		Float64Array* filter(EventListener* callbackfn);
 		Float64Array* filter(EventListener* callbackfn, Object* thisArg);
 		double find(EventListener* predicate);
@@ -2028,8 +2028,8 @@ namespace [[cheerp::genericjs]] client
 		Float64Array* slice(double start, double end);
 		bool some(EventListener* callbackfn);
 		bool some(EventListener* callbackfn, Object* thisArg);
-		Object* sort();
-		Object* sort(EventListener* compareFn);
+		template<class ReturnType = Object*> ReturnType sort();
+		template<class ReturnType = Object*> ReturnType sort(EventListener* compareFn);
 		Float64Array* subarray(double begin);
 		Float64Array* subarray(double begin, double end);
 		String* toLocaleString();
@@ -2422,9 +2422,9 @@ namespace [[cheerp::genericjs]] client
 
 	class ConstrainVideoFacingModeParameters: public Object{
 	public:
-		Object* get_exact();
+		template<class ReturnType = Object*> ReturnType get_exact();
 		void set_exact(Object*);
-		Object* get_ideal();
+		template<class ReturnType = Object*> ReturnType get_ideal();
 		void set_ideal(Object*);
 	};
 
@@ -2561,7 +2561,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		double get_colno();
 		void set_colno(double);
-		Object* get_error();
+		template<class ReturnType = Object*> ReturnType get_error();
 		void set_error(Object*);
 		String* get_filename();
 		void set_filename(const String&);
@@ -2611,7 +2611,7 @@ namespace [[cheerp::genericjs]] client
 
 	class ExtendableMessageEventInit: public ExtendableEventInit {
 	public:
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_lastEventId();
 		void set_lastEventId(const String&);
@@ -2619,7 +2619,7 @@ namespace [[cheerp::genericjs]] client
 		void set_origin(const String&);
 		Array* get_ports();
 		void set_ports(Array*);
-		Object* get_source();
+		template<class ReturnType = Object*> ReturnType get_source();
 		void set_source(Object*);
 	};
 
@@ -3569,7 +3569,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_channel();
 		void set_channel(const String&);
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_lastEventId();
 		void set_lastEventId(const String&);
@@ -3645,7 +3645,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_body();
 		void set_body(const String&);
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_dir();
 		void set_dir(const String&);
@@ -3745,7 +3745,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		Array* get_additionalDisplayItems();
 		void set_additionalDisplayItems(Array*);
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_supportedMethods();
 		void set_supportedMethods(const String&);
@@ -3773,7 +3773,7 @@ namespace [[cheerp::genericjs]] client
 
 	class PaymentMethodData: public Object{
 	public:
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_supportedMethods();
 		void set_supportedMethods(const String&);
@@ -3855,7 +3855,7 @@ namespace [[cheerp::genericjs]] client
 
 	class PopStateEventInit: public EventInit {
 	public:
-		Object* get_state();
+		template<class ReturnType = Object*> ReturnType get_state();
 		void set_state(Object*);
 	};
 
@@ -4059,7 +4059,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_credential();
 		void set_credential(const String&);
-		Object* get_urls();
+		template<class ReturnType = Object*> ReturnType get_urls();
 		void set_urls(Object*);
 		String* get_username();
 		void set_username(const String&);
@@ -4213,9 +4213,9 @@ namespace [[cheerp::genericjs]] client
 		void set_name(const String&);
 		double get_numChannels();
 		void set_numChannels(double);
-		Object* get_options();
+		template<class ReturnType = Object*> ReturnType get_options();
 		void set_options(Object*);
-		Object* get_parameters();
+		template<class ReturnType = Object*> ReturnType get_parameters();
 		void set_parameters(Object*);
 		double get_preferredPayloadType();
 		void set_preferredPayloadType(double);
@@ -4237,7 +4237,7 @@ namespace [[cheerp::genericjs]] client
 		void set_name(const String&);
 		double get_numChannels();
 		void set_numChannels(double);
-		Object* get_parameters();
+		template<class ReturnType = Object*> ReturnType get_parameters();
 		void set_parameters(Object*);
 		double get_payloadType();
 		void set_payloadType(double);
@@ -4447,7 +4447,7 @@ namespace [[cheerp::genericjs]] client
 		void set_referrerPolicy(const String&);
 		AbortSignal* get_signal();
 		void set_signal(AbortSignal*);
-		Object* get_window();
+		template<class ReturnType = Object*> ReturnType get_window();
 		void set_window(Object*);
 	};
 
@@ -4573,7 +4573,7 @@ namespace [[cheerp::genericjs]] client
 
 	class ServiceWorkerMessageEventInit: public EventInit {
 	public:
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		void set_data(Object*);
 		String* get_lastEventId();
 		void set_lastEventId(const String&);
@@ -5398,7 +5398,7 @@ namespace [[cheerp::genericjs]] client
 
 	class BeforeUnloadEvent: public Event {
 	public:
-		Object* get_returnValue();
+		template<class ReturnType = Object*> ReturnType get_returnValue();
 		void set_returnValue(Object*);
 		BeforeUnloadEvent* get_prototype();
 		void set_prototype(BeforeUnloadEvent*);
@@ -5419,7 +5419,7 @@ namespace [[cheerp::genericjs]] client
 		String* genericSynchronousFunction(double functionId);
 		String* genericSynchronousFunction(double functionId, const String& parameters);
 		String* getExtensionId();
-		Object* getThisAddress();
+		template<class ReturnType = Object*> ReturnType getThisAddress();
 		void registerGenericFunctionCallbackHandler(Function* callbackHandler);
 		void registerGenericListenerHandler(Function* eventHandler);
 		void setLastError(const String& parameters);
@@ -5449,7 +5449,7 @@ namespace [[cheerp::genericjs]] client
 		double get_size();
 		String* get_type();
 		void msClose();
-		Object* msDetachStream();
+		template<class ReturnType = Object*> ReturnType msDetachStream();
 		Blob* slice();
 		Blob* slice(double start);
 		Blob* slice(double start, double end);
@@ -5843,23 +5843,23 @@ namespace [[cheerp::genericjs]] client
 		void set_color(const String&);
 		String* get_colorInterpolationFilters();
 		void set_colorInterpolationFilters(const String&);
-		Object* get_columnCount();
+		template<class ReturnType = Object*> ReturnType get_columnCount();
 		void set_columnCount(Object*);
 		String* get_columnFill();
 		void set_columnFill(const String&);
-		Object* get_columnGap();
+		template<class ReturnType = Object*> ReturnType get_columnGap();
 		void set_columnGap(Object*);
 		String* get_columnRule();
 		void set_columnRule(const String&);
-		Object* get_columnRuleColor();
+		template<class ReturnType = Object*> ReturnType get_columnRuleColor();
 		void set_columnRuleColor(Object*);
 		String* get_columnRuleStyle();
 		void set_columnRuleStyle(const String&);
-		Object* get_columnRuleWidth();
+		template<class ReturnType = Object*> ReturnType get_columnRuleWidth();
 		void set_columnRuleWidth(Object*);
 		String* get_columnSpan();
 		void set_columnSpan(const String&);
-		Object* get_columnWidth();
+		template<class ReturnType = Object*> ReturnType get_columnWidth();
 		void set_columnWidth(Object*);
 		String* get_columns();
 		void set_columns(const String&);
@@ -6046,9 +6046,9 @@ namespace [[cheerp::genericjs]] client
 		void set_msContentZoomChaining(const String&);
 		String* get_msContentZoomLimit();
 		void set_msContentZoomLimit(const String&);
-		Object* get_msContentZoomLimitMax();
+		template<class ReturnType = Object*> ReturnType get_msContentZoomLimitMax();
 		void set_msContentZoomLimitMax(Object*);
-		Object* get_msContentZoomLimitMin();
+		template<class ReturnType = Object*> ReturnType get_msContentZoomLimitMin();
 		void set_msContentZoomLimitMin(Object*);
 		String* get_msContentZoomSnap();
 		void set_msContentZoomSnap(const String&);
@@ -6064,19 +6064,19 @@ namespace [[cheerp::genericjs]] client
 		void set_msFlowInto(const String&);
 		String* get_msFontFeatureSettings();
 		void set_msFontFeatureSettings(const String&);
-		Object* get_msGridColumn();
+		template<class ReturnType = Object*> ReturnType get_msGridColumn();
 		void set_msGridColumn(Object*);
 		String* get_msGridColumnAlign();
 		void set_msGridColumnAlign(const String&);
-		Object* get_msGridColumnSpan();
+		template<class ReturnType = Object*> ReturnType get_msGridColumnSpan();
 		void set_msGridColumnSpan(Object*);
 		String* get_msGridColumns();
 		void set_msGridColumns(const String&);
-		Object* get_msGridRow();
+		template<class ReturnType = Object*> ReturnType get_msGridRow();
 		void set_msGridRow(Object*);
 		String* get_msGridRowAlign();
 		void set_msGridRowAlign(const String&);
-		Object* get_msGridRowSpan();
+		template<class ReturnType = Object*> ReturnType get_msGridRowSpan();
 		void set_msGridRowSpan(Object*);
 		String* get_msGridRows();
 		void set_msGridRows(const String&);
@@ -6084,9 +6084,9 @@ namespace [[cheerp::genericjs]] client
 		void set_msHighContrastAdjust(const String&);
 		String* get_msHyphenateLimitChars();
 		void set_msHyphenateLimitChars(const String&);
-		Object* get_msHyphenateLimitLines();
+		template<class ReturnType = Object*> ReturnType get_msHyphenateLimitLines();
 		void set_msHyphenateLimitLines(Object*);
-		Object* get_msHyphenateLimitZone();
+		template<class ReturnType = Object*> ReturnType get_msHyphenateLimitZone();
 		void set_msHyphenateLimitZone(Object*);
 		String* get_msHyphens();
 		void set_msHyphens(const String&);
@@ -6098,13 +6098,13 @@ namespace [[cheerp::genericjs]] client
 		void set_msScrollChaining(const String&);
 		String* get_msScrollLimit();
 		void set_msScrollLimit(const String&);
-		Object* get_msScrollLimitXMax();
+		template<class ReturnType = Object*> ReturnType get_msScrollLimitXMax();
 		void set_msScrollLimitXMax(Object*);
-		Object* get_msScrollLimitXMin();
+		template<class ReturnType = Object*> ReturnType get_msScrollLimitXMin();
 		void set_msScrollLimitXMin(Object*);
-		Object* get_msScrollLimitYMax();
+		template<class ReturnType = Object*> ReturnType get_msScrollLimitYMax();
 		void set_msScrollLimitYMax(Object*);
-		Object* get_msScrollLimitYMin();
+		template<class ReturnType = Object*> ReturnType get_msScrollLimitYMin();
 		void set_msScrollLimitYMin(Object*);
 		String* get_msScrollRails();
 		void set_msScrollRails(const String&);
@@ -6122,7 +6122,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msScrollTranslation(const String&);
 		String* get_msTextCombineHorizontal();
 		void set_msTextCombineHorizontal(const String&);
-		Object* get_msTextSizeAdjust();
+		template<class ReturnType = Object*> ReturnType get_msTextSizeAdjust();
 		void set_msTextSizeAdjust(Object*);
 		String* get_msTouchAction();
 		void set_msTouchAction(const String&);
@@ -6132,7 +6132,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msUserSelect(const String&);
 		String* get_msWrapFlow();
 		void set_msWrapFlow(const String&);
-		Object* get_msWrapMargin();
+		template<class ReturnType = Object*> ReturnType get_msWrapMargin();
 		void set_msWrapMargin(Object*);
 		String* get_msWrapThrough();
 		void set_msWrapThrough(const String&);
@@ -6351,21 +6351,21 @@ namespace [[cheerp::genericjs]] client
 		void set_webkitColumnBreakBefore(const String&);
 		String* get_webkitColumnBreakInside();
 		void set_webkitColumnBreakInside(const String&);
-		Object* get_webkitColumnCount();
+		template<class ReturnType = Object*> ReturnType get_webkitColumnCount();
 		void set_webkitColumnCount(Object*);
-		Object* get_webkitColumnGap();
+		template<class ReturnType = Object*> ReturnType get_webkitColumnGap();
 		void set_webkitColumnGap(Object*);
 		String* get_webkitColumnRule();
 		void set_webkitColumnRule(const String&);
-		Object* get_webkitColumnRuleColor();
+		template<class ReturnType = Object*> ReturnType get_webkitColumnRuleColor();
 		void set_webkitColumnRuleColor(Object*);
 		String* get_webkitColumnRuleStyle();
 		void set_webkitColumnRuleStyle(const String&);
-		Object* get_webkitColumnRuleWidth();
+		template<class ReturnType = Object*> ReturnType get_webkitColumnRuleWidth();
 		void set_webkitColumnRuleWidth(Object*);
 		String* get_webkitColumnSpan();
 		void set_webkitColumnSpan(const String&);
-		Object* get_webkitColumnWidth();
+		template<class ReturnType = Object*> ReturnType get_webkitColumnWidth();
 		void set_webkitColumnWidth(Object*);
 		String* get_webkitColumns();
 		void set_webkitColumns(const String&);
@@ -6397,7 +6397,7 @@ namespace [[cheerp::genericjs]] client
 		void set_webkitTapHighlightColor(const String&);
 		String* get_webkitTextFillColor();
 		void set_webkitTextFillColor(const String&);
-		Object* get_webkitTextSizeAdjust();
+		template<class ReturnType = Object*> ReturnType get_webkitTextSizeAdjust();
 		void set_webkitTextSizeAdjust(Object*);
 		String* get_webkitTextStroke();
 		void set_webkitTextStroke(const String&);
@@ -6500,7 +6500,7 @@ namespace [[cheerp::genericjs]] client
 		bool get_isPrefAlternate();
 		CSSRule* get_ownerRule();
 		Element* get_owningElement();
-		Object* get_pages();
+		template<class ReturnType = Object*> ReturnType get_pages();
 		bool get_readOnly();
 		CSSRuleList* get_rules();
 		double addImport(const String& bstrURL);
@@ -6871,7 +6871,7 @@ namespace [[cheerp::genericjs]] client
 
 	class Console: public Object{
 	public:
-		Object* get_memory();
+		template<class ReturnType = Object*> ReturnType get_memory();
 		void set_memory(Object*);
 		void _assert();
 		void _assert(bool condition);
@@ -7033,7 +7033,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		void define(const String& name, Function* constructor);
 		void define(const String& name, Function* constructor, ElementDefinitionOptions* options);
-		Object* get(const String& name);
+		template<class ReturnType = Object*> ReturnType get(const String& name);
 		Promise* whenDefined(const String& name);
 	};
 
@@ -7333,7 +7333,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_type();
 		File* getAsFile();
 		void getAsString(EventListener* _callback);
-		Object* webkitGetAsEntry();
+		template<class ReturnType = Object*> ReturnType webkitGetAsEntry();
 		DataTransferItem* get_prototype();
 		void set_prototype(DataTransferItem*);
 		DataTransferItem();
@@ -8336,7 +8336,7 @@ namespace [[cheerp::genericjs]] client
 		bool hasAttributeNS(const String& namespaceURI, const String& localName);
 		bool hasAttributes();
 		bool matches(const String& selectors);
-		Object* msGetRegionContent();
+		template<class ReturnType = Object*> ReturnType msGetRegionContent();
 		ClientRect* msGetUntransformedBounds();
 		bool msMatchesSelector(const String& selectors);
 		void msReleasePointerCapture(double pointerId);
@@ -8400,7 +8400,7 @@ namespace [[cheerp::genericjs]] client
 	class ErrorEvent: public Event {
 	public:
 		double get_colno();
-		Object* get_error();
+		template<class ReturnType = Object*> ReturnType get_error();
 		String* get_filename();
 		double get_lineno();
 		String* get_message();
@@ -8452,7 +8452,7 @@ namespace [[cheerp::genericjs]] client
 		String* getExtensionId();
 		void registerGenericFunctionCallbackHandler(Function* callbackHandler);
 		void registerGenericPersistentCallbackHandler(Function* callbackHandler);
-		Object* registerWebRuntimeCallbackHandler(Function* handler);
+		template<class ReturnType = Object*> ReturnType registerWebRuntimeCallbackHandler(Function* handler);
 		ExtensionScriptApis* get_prototype();
 		void set_prototype(ExtensionScriptApis*);
 		ExtensionScriptApis();
@@ -8532,7 +8532,7 @@ namespace [[cheerp::genericjs]] client
 		EventListener* get_onprogress();
 		void set_onprogress(EventListener*);
 		double get_readyState();
-		Object* get_result();
+		template<class ReturnType = Object*> ReturnType get_result();
 		void abort();
 		void readAsArrayBuffer(Blob* blob);
 		void readAsBinaryString(Blob* blob);
@@ -9120,7 +9120,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msPlayToPreferredSourceUri(const String&);
 		bool get_msPlayToPrimary();
 		void set_msPlayToPrimary(bool);
-		Object* get_msPlayToSource();
+		template<class ReturnType = Object*> ReturnType get_msPlayToSource();
 		bool get_msRealTime();
 		void set_msRealTime(bool);
 		bool get_muted();
@@ -9150,7 +9150,7 @@ namespace [[cheerp::genericjs]] client
 		String* canPlayType(const String& type);
 		void load();
 		void msClearEffects();
-		Object* msGetAsCastingSource();
+		template<class ReturnType = Object*> ReturnType msGetAsCastingSource();
 		void msInsertAudioEffect(const String& activatableClassId, bool effectRequired);
 		void msInsertAudioEffect(const String& activatableClassId, bool effectRequired, Object* config);
 		void msSetMediaKeys(MSMediaKeys* mediaKeys);
@@ -9539,7 +9539,7 @@ namespace [[cheerp::genericjs]] client
 		void set_formTarget(const String&);
 		String* get_name();
 		void set_name(const String&);
-		Object* get_status();
+		template<class ReturnType = Object*> ReturnType get_status();
 		void set_status(Object*);
 		String* get_type();
 		void set_type(const String&);
@@ -9571,8 +9571,8 @@ namespace [[cheerp::genericjs]] client
 		void set_height(double);
 		double get_width();
 		void set_width(double);
-		Object* getContext(const String& contextId);
-		Object* getContext(const String& contextId, Object* contextAttributes);
+		template<class ReturnType = Object*> ReturnType getContext(const String& contextId);
+		template<class ReturnType = Object*> ReturnType getContext(const String& contextId, Object* contextAttributes);
 		Blob* msToBlob();
 		void toBlob(EventListener* callback);
 		template<typename... Args> void toBlob(EventListener* callback, const String& type, Args&&... arguments) { return static_cast<const HTMLCanvasElement*>(this)->toBlob(callback, type, static_cast<Object*>(static_cast<Args&&>(arguments))...); }
@@ -9782,7 +9782,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_height();
 		void set_height(const String&);
-		Object* get_hidden();
+		template<class ReturnType = Object*> ReturnType get_hidden();
 		void set_hidden(Object*);
 		bool get_msPlayToDisabled();
 		void set_msPlayToDisabled(bool);
@@ -9790,7 +9790,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msPlayToPreferredSourceUri(const String&);
 		bool get_msPlayToPrimary();
 		void set_msPlayToPrimary(bool);
-		Object* get_msPlayToSource();
+		template<class ReturnType = Object*> ReturnType get_msPlayToSource();
 		String* get_name();
 		void set_name(const String&);
 		String* get_palette();
@@ -9896,10 +9896,10 @@ namespace [[cheerp::genericjs]] client
 		String* get_target();
 		void set_target(const String&);
 		bool checkValidity();
-		Object* item();
-		Object* item(Object* name);
-		Object* item(Object* name, Object* index);
-		Object* namedItem(const String& name);
+		template<class ReturnType = Object*> ReturnType item();
+		template<class ReturnType = Object*> ReturnType item(Object* name);
+		template<class ReturnType = Object*> ReturnType item(Object* name, Object* index);
+		template<class ReturnType = Object*> ReturnType namedItem(const String& name);
 		bool reportValidity();
 		void reset();
 		void submit();
@@ -9936,13 +9936,13 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_border();
 		void set_border(const String&);
-		Object* get_borderColor();
+		template<class ReturnType = Object*> ReturnType get_borderColor();
 		void set_borderColor(Object*);
 		Document* get_contentDocument();
 		Window* get_contentWindow();
 		String* get_frameBorder();
 		void set_frameBorder(const String&);
-		Object* get_frameSpacing();
+		template<class ReturnType = Object*> ReturnType get_frameSpacing();
 		void set_frameSpacing(Object*);
 		String* get_height();
 		void set_height(const String&);
@@ -10184,7 +10184,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msPlayToPreferredSourceUri(const String&);
 		bool get_msPlayToPrimary();
 		void set_msPlayToPrimary(bool);
-		Object* get_msPlayToSource();
+		template<class ReturnType = Object*> ReturnType get_msPlayToSource();
 		String* get_name();
 		void set_name(const String&);
 		double get_naturalHeight();
@@ -10203,7 +10203,7 @@ namespace [[cheerp::genericjs]] client
 		void set_width(double);
 		double get_x();
 		double get_y();
-		Object* msGetAsCastingSource();
+		template<class ReturnType = Object*> ReturnType msGetAsCastingSource();
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
 		void addEventListener(const String& type, EventListener* listener, AddEventListenerOptions* options);
@@ -10297,7 +10297,7 @@ namespace [[cheerp::genericjs]] client
 		ValidityState* get_validity();
 		String* get_value();
 		void set_value(const String&);
-		Object* get_valueAsDate();
+		template<class ReturnType = Object*> ReturnType get_valueAsDate();
 		void set_valueAsDate(Object*);
 		double get_valueAsNumber();
 		void set_valueAsNumber(double);
@@ -10693,7 +10693,7 @@ namespace [[cheerp::genericjs]] client
 		void set_msPlayToPreferredSourceUri(const String&);
 		bool get_msPlayToPrimary();
 		void set_msPlayToPrimary(bool);
-		Object* get_msPlayToSource();
+		template<class ReturnType = Object*> ReturnType get_msPlayToSource();
 		String* get_name();
 		void set_name(const String&);
 		double get_readyState();
@@ -11026,7 +11026,7 @@ namespace [[cheerp::genericjs]] client
 		Element* item();
 		Element* item(Object* name);
 		Element* item(Object* name, Object* index);
-		Object* namedItem(const String& name);
+		template<class ReturnType = Object*> ReturnType namedItem(const String& name);
 		void remove();
 		void remove(double index);
 		void setCustomValidity(const String& error);
@@ -11689,7 +11689,7 @@ namespace [[cheerp::genericjs]] client
 		double get_length();
 		String* get_scrollRestoration();
 		void set_scrollRestoration(const String&);
-		Object* get_state();
+		template<class ReturnType = Object*> ReturnType get_state();
 		void back();
 		void back(Object* distance);
 		void forward();
@@ -11725,7 +11725,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_direction();
 		IDBKeyRange* get_key();
-		Object* get_primaryKey();
+		template<class ReturnType = Object*> ReturnType get_primaryKey();
 		IDBObjectStore* get_source();
 		void advance(double count);
 		void _continue();
@@ -11747,7 +11747,7 @@ namespace [[cheerp::genericjs]] client
 
 	class IDBCursorWithValue: public IDBCursor {
 	public:
-		Object* get_value();
+		template<class ReturnType = Object*> ReturnType get_value();
 		IDBCursorWithValue* get_prototype();
 		void set_prototype(IDBCursorWithValue*);
 		IDBCursorWithValue();
@@ -11843,9 +11843,9 @@ namespace [[cheerp::genericjs]] client
 
 	class IDBKeyRange: public Object{
 	public:
-		Object* get_lower();
+		template<class ReturnType = Object*> ReturnType get_lower();
 		bool get_lowerOpen();
-		Object* get_upper();
+		template<class ReturnType = Object*> ReturnType get_upper();
 		bool get_upperOpen();
 		IDBKeyRange* get_prototype();
 		void set_prototype(IDBKeyRange*);
@@ -11930,7 +11930,7 @@ namespace [[cheerp::genericjs]] client
 		EventListener* get_onsuccess();
 		void set_onsuccess(EventListener*);
 		String* get_readyState();
-		Object* get_result();
+		template<class ReturnType = Object*> ReturnType get_result();
 		IDBObjectStore* get_source();
 		IDBTransaction* get_transaction();
 		void addEventListener(const String& type, EventListener* listener);
@@ -12210,7 +12210,7 @@ namespace [[cheerp::genericjs]] client
 	class MSFIDOCredentialAssertion: public MSAssertion {
 	public:
 		String* get_algorithm();
-		Object* get_attestation();
+		template<class ReturnType = Object*> ReturnType get_attestation();
 		String* get_publicKey();
 		Array* get_transportHints();
 		MSFIDOCredentialAssertion* get_prototype();
@@ -12260,7 +12260,7 @@ namespace [[cheerp::genericjs]] client
 		double get_clientX();
 		double get_clientY();
 		double get_expansion();
-		Object* get_gestureObject();
+		template<class ReturnType = Object*> ReturnType get_gestureObject();
 		double get_hwTimestamp();
 		double get_offsetX();
 		double get_offsetY();
@@ -12404,13 +12404,13 @@ namespace [[cheerp::genericjs]] client
 
 	class MSPointerEvent: public MouseEvent {
 	public:
-		Object* get_currentPoint();
+		template<class ReturnType = Object*> ReturnType get_currentPoint();
 		double get_height();
 		double get_hwTimestamp();
-		Object* get_intermediatePoints();
+		template<class ReturnType = Object*> ReturnType get_intermediatePoints();
 		bool get_isPrimary();
 		double get_pointerId();
-		Object* get_pointerType();
+		template<class ReturnType = Object*> ReturnType get_pointerType();
 		double get_pressure();
 		double get_rotation();
 		double get_tiltX();
@@ -12429,7 +12429,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		String* get_type();
 		void msClose();
-		Object* msDetachStream();
+		template<class ReturnType = Object*> ReturnType msDetachStream();
 		MSStream* get_prototype();
 		void set_prototype(MSStream*);
 		MSStream();
@@ -12467,7 +12467,7 @@ namespace [[cheerp::genericjs]] client
 		EventListener* get_onprogress();
 		void set_onprogress(EventListener*);
 		double get_readyState();
-		Object* get_result();
+		template<class ReturnType = Object*> ReturnType get_result();
 		void abort();
 		void readAsArrayBuffer(MSStream* stream);
 		void readAsArrayBuffer(MSStream* stream, double size);
@@ -12881,7 +12881,7 @@ namespace [[cheerp::genericjs]] client
 
 	class MessageEvent: public Event {
 	public:
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		String* get_origin();
 		ReadonlyArray<MessagePort>* get_ports();
 		Window* get_source();
@@ -13202,7 +13202,7 @@ namespace [[cheerp::genericjs]] client
 	class Notification: public EventTarget {
 	public:
 		String* get_body();
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		String* get_dir();
 		String* get_icon();
 		String* get_lang();
@@ -13375,7 +13375,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_recipient();
 		String* get_region();
 		String* get_sortingCode();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		PaymentAddress* get_prototype();
 		void set_prototype(PaymentAddress*);
 		PaymentAddress();
@@ -13429,7 +13429,7 @@ namespace [[cheerp::genericjs]] client
 
 	class PaymentResponse: public Object{
 	public:
-		Object* get_details();
+		template<class ReturnType = Object*> ReturnType get_details();
 		String* get_methodName();
 		String* get_payerEmail();
 		String* get_payerName();
@@ -13438,7 +13438,7 @@ namespace [[cheerp::genericjs]] client
 		PaymentAddress* get_shippingAddress();
 		String* get_shippingOption();
 		Promise* complete();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		PaymentResponse* get_prototype();
 		void set_prototype(PaymentResponse*);
 		PaymentResponse();
@@ -13460,10 +13460,10 @@ namespace [[cheerp::genericjs]] client
 		void addEventListener(const String& eventType, Function* callback);
 		double getMemoryUsage();
 		double getProcessCpuUsage();
-		Object* getRecentCpuUsage(double last);
-		Object* getRecentFrames(double last);
-		Object* getRecentMemoryUsage(double last);
-		Object* getRecentPaintRequests(double last);
+		template<class ReturnType = Object*> ReturnType getRecentCpuUsage(double last);
+		template<class ReturnType = Object*> ReturnType getRecentFrames(double last);
+		template<class ReturnType = Object*> ReturnType getRecentMemoryUsage(double last);
+		template<class ReturnType = Object*> ReturnType getRecentPaintRequests(double last);
 		void removeEventListener(const String& eventType, Function* callback);
 		void repositionWindow(double x, double y);
 		void resizeWindow(double width, double height);
@@ -13482,21 +13482,21 @@ namespace [[cheerp::genericjs]] client
 		void clearMeasures();
 		void clearMeasures(const String& measureName);
 		void clearResourceTimings();
-		Object* getEntries();
-		Object* getEntriesByName(const String& name);
-		Object* getEntriesByName(const String& name, const String& type);
-		Object* getEntriesByType(const String& type);
-		Object* getMarks();
-		Object* getMarks(const String& markName);
-		Object* getMeasures();
-		Object* getMeasures(const String& measureName);
+		template<class ReturnType = Object*> ReturnType getEntries();
+		template<class ReturnType = Object*> ReturnType getEntriesByName(const String& name);
+		template<class ReturnType = Object*> ReturnType getEntriesByName(const String& name, const String& type);
+		template<class ReturnType = Object*> ReturnType getEntriesByType(const String& type);
+		template<class ReturnType = Object*> ReturnType getMarks();
+		template<class ReturnType = Object*> ReturnType getMarks(const String& markName);
+		template<class ReturnType = Object*> ReturnType getMeasures();
+		template<class ReturnType = Object*> ReturnType getMeasures(const String& measureName);
 		void mark(const String& markName);
 		void measure(const String& measureName);
 		void measure(const String& measureName, const String& startMarkName);
 		void measure(const String& measureName, const String& startMarkName, const String& endMarkName);
 		double now();
 		void setResourceTimingBufferSize(double maxSize);
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		Performance* get_prototype();
 		void set_prototype(Performance*);
 		Performance();
@@ -13508,7 +13508,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_entryType();
 		String* get_name();
 		double get_startTime();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		PerformanceEntry* get_prototype();
 		void set_prototype(PerformanceEntry*);
 		PerformanceEntry();
@@ -13532,7 +13532,7 @@ namespace [[cheerp::genericjs]] client
 	public:
 		double get_redirectCount();
 		double get_type();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		PerformanceNavigation* get_prototype();
 		void set_prototype(PerformanceNavigation*);
 		PerformanceNavigation();
@@ -13615,7 +13615,7 @@ namespace [[cheerp::genericjs]] client
 		double get_secureConnectionStart();
 		double get_unloadEventEnd();
 		double get_unloadEventStart();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		PerformanceTiming* get_prototype();
 		void set_prototype(PerformanceTiming*);
 		PerformanceTiming();
@@ -13689,13 +13689,13 @@ namespace [[cheerp::genericjs]] client
 
 	class PointerEvent: public MouseEvent {
 	public:
-		Object* get_currentPoint();
+		template<class ReturnType = Object*> ReturnType get_currentPoint();
 		double get_height();
 		double get_hwTimestamp();
-		Object* get_intermediatePoints();
+		template<class ReturnType = Object*> ReturnType get_intermediatePoints();
 		bool get_isPrimary();
 		double get_pointerId();
-		Object* get_pointerType();
+		template<class ReturnType = Object*> ReturnType get_pointerType();
 		double get_pressure();
 		double get_rotation();
 		double get_tiltX();
@@ -13712,7 +13712,7 @@ namespace [[cheerp::genericjs]] client
 
 	class PopStateEvent: public Event {
 	public:
-		Object* get_state();
+		template<class ReturnType = Object*> ReturnType get_state();
 		PopStateEvent* get_prototype();
 		void set_prototype(PopStateEvent*);
 		PopStateEvent(const String& type);
@@ -13752,14 +13752,14 @@ namespace [[cheerp::genericjs]] client
 	class PromiseRejectionEvent: public Event {
 	public:
 		Promise* get_promise();
-		Object* get_reason();
+		template<class ReturnType = Object*> ReturnType get_reason();
 	};
 
 	class PromiseRejectionEventInit: public EventInit {
 	public:
 		Promise* get_promise();
 		void set_promise(Promise*);
-		Object* get_reason();
+		template<class ReturnType = Object*> ReturnType get_reason();
 		void set_reason(Object*);
 	};
 
@@ -13781,7 +13781,7 @@ namespace [[cheerp::genericjs]] client
 		String* get_endpoint();
 		double get_expirationTime();
 		PushSubscriptionOptions* get_options();
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		Promise* unsubscribe();
 		PushSubscription* get_prototype();
 		void set_prototype(PushSubscription*);
@@ -13899,7 +13899,7 @@ namespace [[cheerp::genericjs]] client
 		void set_sdpMLineIndex(double);
 		String* get_sdpMid();
 		void set_sdpMid(const String&);
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		RTCIceCandidate* get_prototype();
 		void set_prototype(RTCIceCandidate*);
 		RTCIceCandidate();
@@ -14185,7 +14185,7 @@ namespace [[cheerp::genericjs]] client
 		void set_sdp(const String&);
 		String* get_type();
 		void set_type(const String&);
-		Object* toJSON();
+		template<class ReturnType = Object*> ReturnType toJSON();
 		RTCSessionDescription* get_prototype();
 		void set_prototype(RTCSessionDescription*);
 		RTCSessionDescription();
@@ -14369,7 +14369,7 @@ namespace [[cheerp::genericjs]] client
 
 	class SVGElement: public Element , public ElementCSSInlineStyle {
 	public:
-		Object* get_className();
+		template<class ReturnType = Object*> ReturnType get_className();
 		EventListener* get_onclick();
 		void set_onclick(EventListener*);
 		EventListener* get_ondblclick();
@@ -16297,7 +16297,7 @@ namespace [[cheerp::genericjs]] client
 
 	class SVGStylable: public Object{
 	public:
-		Object* get_className();
+		template<class ReturnType = Object*> ReturnType get_className();
 		void set_className(Object*);
 		SVGStylable* get_prototype();
 		void set_prototype(SVGStylable*);
@@ -16829,7 +16829,7 @@ namespace [[cheerp::genericjs]] client
 
 	class ServiceWorkerMessageEvent: public Event {
 	public:
-		Object* get_data();
+		template<class ReturnType = Object*> ReturnType get_data();
 		String* get_lastEventId();
 		String* get_origin();
 		ReadonlyArray<MessagePort>* get_ports();
@@ -18605,7 +18605,7 @@ namespace [[cheerp::genericjs]] client
 		void set_onvrdisplaypresentchange(EventListener*);
 		EventListener* get_onwaiting();
 		void set_onwaiting(EventListener*);
-		Object* get_opener();
+		template<class ReturnType = Object*> ReturnType get_opener();
 		void set_opener(Object*);
 		String* get_orientation();
 		double get_outerHeight();
@@ -18731,7 +18731,7 @@ namespace [[cheerp::genericjs]] client
 		void removeEventListener(const String& type, EventListener* listener, EventListenerOptions* options);
 		void removeEventListener(const String& type, EventListenerObject* listener);
 		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
-		Object* eval(const String& x);
+		template<class ReturnType = Object*> ReturnType eval(const String& x);
 		Window* get_prototype();
 		void set_prototype(Window*);
 		Window();
@@ -18881,7 +18881,7 @@ namespace [[cheerp::genericjs]] client
 		EventListener* get_onreadystatechange();
 		void set_onreadystatechange(EventListener*);
 		double get_readyState();
-		Object* get_response();
+		template<class ReturnType = Object*> ReturnType get_response();
 		String* get_responseText();
 		String* get_responseType();
 		void set_responseType(const String&);
@@ -19007,7 +19007,7 @@ namespace [[cheerp::genericjs]] client
 	class XSLTProcessor: public Object{
 	public:
 		void clearParameters();
-		Object* getParameter(const String& namespaceURI, const String& localName);
+		template<class ReturnType = Object*> ReturnType getParameter(const String& namespaceURI, const String& localName);
 		void importStylesheet(Node* style);
 		void removeParameter(const String& namespaceURI, const String& localName);
 		void reset();
@@ -19541,7 +19541,7 @@ namespace [[cheerp::genericjs]] client
 
 	extern double NaN;
 	extern double Infinity;
-	Object* eval(const String& x);
+	template<class ReturnType = Object*> ReturnType eval(const String& x);
 	double parseInt(const String& s);
 	double parseInt(const String& s, double radix);
 	double parseFloat(const String& string);
