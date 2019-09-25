@@ -29,7 +29,7 @@ namespace [[cheerp::genericjs]] client
 class String;
 class Array;
 
-class Object
+class [[cheerp::client_layout]] Object
 {
 private:
 	// Make it impossible to blindly copy a browser object
