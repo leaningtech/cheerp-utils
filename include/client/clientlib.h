@@ -4751,7 +4751,7 @@ namespace [[cheerp::genericjs]] client
 		void set_abort(ProgressEvent*);
 	};
 
-	class EventTarget: public Object{
+	class [[cheerp::client_layout]] EventTarget: public Object{
 	public:
 		void addEventListener(const String& type, EventListener* listener);
 		void addEventListener(const String& type, EventListener* listener, bool options);
@@ -4796,7 +4796,7 @@ namespace [[cheerp::genericjs]] client
 		void set_error(ErrorEvent*);
 	};
 
-	class AbstractWorker{
+	class [[cheerp::client_layout]] AbstractWorker{
 	public:
 		EventListener* get_onerror();
 		void set_onerror(EventListener*);
@@ -5086,7 +5086,7 @@ namespace [[cheerp::genericjs]] client
 		void set_flatten(bool);
 	};
 
-	class Node: public EventTarget {
+	class [[cheerp::client_layout]] Node: public EventTarget {
 	public:
 		String* get_baseURI();
 		NodeListOf<Node>* get_childNodes();
@@ -5522,7 +5522,7 @@ namespace [[cheerp::genericjs]] client
 		ByteLengthQueuingStrategy(QueuingStrategy* strategy);
 	};
 
-	class ChildNode{
+	class [[cheerp::client_layout]] ChildNode{
 	public:
 		void remove();
 	};
@@ -7109,13 +7109,13 @@ namespace [[cheerp::genericjs]] client
 		DOMImplementation();
 	};
 
-	class DOML2DeprecatedColorProperty{
+	class [[cheerp::client_layout]] DOML2DeprecatedColorProperty{
 	public:
 		String* get_color();
 		void set_color(const String&);
 	};
 
-	class DOML2DeprecatedSizeProperty{
+	class [[cheerp::client_layout]] DOML2DeprecatedSizeProperty{
 	public:
 		double get_size();
 		void set_size(double);
@@ -7667,7 +7667,7 @@ namespace [[cheerp::genericjs]] client
 		void set_webkitfullscreenerror(Event*);
 	};
 
-	class GlobalEventHandlers{
+	class [[cheerp::client_layout]] GlobalEventHandlers{
 	public:
 		EventListener* get_onpointercancel();
 		void set_onpointercancel(EventListener*);
@@ -7699,7 +7699,7 @@ namespace [[cheerp::genericjs]] client
 		void removeEventListener(const String& type, EventListenerObject* listener, EventListenerOptions* options);
 	};
 
-	class ParentNode{
+	class [[cheerp::client_layout]] ParentNode{
 	public:
 		double get_childElementCount();
 		Element* get_firstElementChild();
@@ -7709,7 +7709,7 @@ namespace [[cheerp::genericjs]] client
 		NodeListOf<Element>* querySelectorAll(const String& selectors);
 	};
 
-	class DocumentEvent{
+	class [[cheerp::client_layout]] DocumentEvent{
 	public:
 		Event* createEvent(const String& eventInterface);
 	};
@@ -8051,7 +8051,7 @@ namespace [[cheerp::genericjs]] client
 		template<typename... Args> void writeln(Args&&... content) const;
 	};
 
-	class DocumentFragment: public Node , public ParentNode {
+	class [[cheerp::client_layout]] DocumentFragment: public Node , public ParentNode {
 	public:
 		HTMLElement* getElementById(const String& elementId);
 		DocumentFragment* get_prototype();
@@ -8227,7 +8227,7 @@ namespace [[cheerp::genericjs]] client
 		void set_webkitfullscreenerror(Event*);
 	};
 
-	class ElementTraversal{
+	class [[cheerp::client_layout]] ElementTraversal{
 	public:
 		double get_childElementCount();
 		Element* get_firstElementChild();
@@ -8380,7 +8380,7 @@ namespace [[cheerp::genericjs]] client
 		Element();
 	};
 
-	class ElementCSSInlineStyle{
+	class [[cheerp::client_layout]] ElementCSSInlineStyle{
 	public:
 		CSSStyleDeclaration* get_style();
 	};
@@ -8701,12 +8701,12 @@ namespace [[cheerp::genericjs]] client
 		Geolocation();
 	};
 
-	class GetSVGDocument{
+	class [[cheerp::client_layout]] GetSVGDocument{
 	public:
 		Document* getSVGDocument();
 	};
 
-	class GlobalFetch{
+	class [[cheerp::client_layout]] GlobalFetch{
 	public:
 		Promise* fetch();
 		Promise* fetch(Request* input);
@@ -8924,7 +8924,7 @@ namespace [[cheerp::genericjs]] client
 		HTMLElement();
 	};
 
-	class HTMLHyperlinkElementUtils{
+	class [[cheerp::client_layout]] HTMLHyperlinkElementUtils{
 	public:
 		String* get_hash();
 		void set_hash(const String&);
@@ -9399,7 +9399,7 @@ namespace [[cheerp::genericjs]] client
 		void set_waiting(Event*);
 	};
 
-	class WindowEventHandlersEventMap{
+	class [[cheerp::client_layout]] WindowEventHandlersEventMap{
 	public:
 		Event* get_afterprint();
 		void set_afterprint(Event*);
@@ -9445,7 +9445,7 @@ namespace [[cheerp::genericjs]] client
 		void set_scroll(UIEvent*);
 	};
 
-	class WindowEventHandlers{
+	class [[cheerp::client_layout]] WindowEventHandlers{
 	public:
 		EventListener* get_onafterprint();
 		void set_onafterprint(EventListener*);
@@ -10391,7 +10391,7 @@ namespace [[cheerp::genericjs]] client
 		HTMLLegendElement();
 	};
 
-	class LinkStyle{
+	class [[cheerp::client_layout]] LinkStyle{
 	public:
 		StyleSheet* get_sheet();
 	};
@@ -11792,7 +11792,7 @@ namespace [[cheerp::genericjs]] client
 		IDBDatabase();
 	};
 
-	class IDBEnvironment{
+	class [[cheerp::client_layout]] IDBEnvironment{
 	public:
 		IDBFactory* get_indexedDB();
 	};
@@ -12236,7 +12236,7 @@ namespace [[cheerp::genericjs]] client
 		MSFIDOSignatureAssertion();
 	};
 
-	class MSFileSaver{
+	class [[cheerp::client_layout]] MSFileSaver{
 	public:
 		bool msSaveBlob(Object* blob);
 		bool msSaveBlob(Object* blob, const String& defaultName);
@@ -12392,7 +12392,7 @@ namespace [[cheerp::genericjs]] client
 		static String* isTypeSupportedWithFeatures(const String& keySystem, const String& type) [[cheerp::static]];
 	};
 
-	class MSNavigatorDoNotTrack{
+	class [[cheerp::client_layout]] MSNavigatorDoNotTrack{
 	public:
 		bool confirmSiteSpecificTrackingException(ConfirmSiteSpecificExceptionsInformation* args);
 		bool confirmWebWideTrackingException(ExceptionInformation* args);
@@ -13031,20 +13031,20 @@ namespace [[cheerp::genericjs]] client
 		String* get_vendorSub();
 	};
 
-	class NavigatorOnLine{
+	class [[cheerp::client_layout]] NavigatorOnLine{
 	public:
 		bool get_onLine();
 	};
 
-	class NavigatorContentUtils{
+	class [[cheerp::client_layout]] NavigatorContentUtils{
 	public:
 	};
 
-	class NavigatorStorageUtils{
+	class [[cheerp::client_layout]] NavigatorStorageUtils{
 	public:
 	};
 
-	class NavigatorBeacon{
+	class [[cheerp::client_layout]] NavigatorBeacon{
 	public:
 		bool sendBeacon(const String& url);
 		bool sendBeacon(const String& url, Blob* data);
@@ -13063,19 +13063,19 @@ namespace [[cheerp::genericjs]] client
 		bool sendBeacon(const String& url, const String& data);
 	};
 
-	class NavigatorConcurrentHardware{
+	class [[cheerp::client_layout]] NavigatorConcurrentHardware{
 	public:
 		double get_hardwareConcurrency();
 	};
 
-	class NavigatorUserMedia{
+	class [[cheerp::client_layout]] NavigatorUserMedia{
 	public:
 		MediaDevices* get_mediaDevices();
 		Promise* getDisplayMedia(MediaStreamConstraints* constraints);
 		void getUserMedia(MediaStreamConstraints* constraints, EventListener* successCallback, EventListener* errorCallback);
 	};
 
-	class NavigatorLanguage{
+	class [[cheerp::client_layout]] NavigatorLanguage{
 	public:
 		String* get_language();
 		ReadonlyArray<String>* get_languages();
@@ -14409,7 +14409,7 @@ namespace [[cheerp::genericjs]] client
 		SVGElement();
 	};
 
-	class SVGTests{
+	class [[cheerp::client_layout]] SVGTests{
 	public:
 		SVGStringList* get_requiredExtensions();
 		SVGStringList* get_requiredFeatures();
@@ -14441,7 +14441,7 @@ namespace [[cheerp::genericjs]] client
 		SVGGraphicsElement();
 	};
 
-	class SVGURIReference{
+	class [[cheerp::client_layout]] SVGURIReference{
 	public:
 		SVGAnimatedString* get_href();
 	};
@@ -14561,7 +14561,7 @@ namespace [[cheerp::genericjs]] client
 		SVGAnimatedNumberList();
 	};
 
-	class SVGAnimatedPoints{
+	class [[cheerp::client_layout]] SVGAnimatedPoints{
 	public:
 		SVGPointList* get_animatedPoints();
 		SVGPointList* get_points();
@@ -14624,7 +14624,7 @@ namespace [[cheerp::genericjs]] client
 		SVGCircleElement();
 	};
 
-	class SVGUnitTypes{
+	class [[cheerp::client_layout]] SVGUnitTypes{
 	public:
 		double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
 		double get_SVG_UNIT_TYPE_UNKNOWN();
@@ -14782,7 +14782,7 @@ namespace [[cheerp::genericjs]] client
 		SVGEllipseElement();
 	};
 
-	class SVGFilterPrimitiveStandardAttributes{
+	class [[cheerp::client_layout]] SVGFilterPrimitiveStandardAttributes{
 	public:
 		SVGAnimatedLength* get_height();
 		SVGAnimatedString* get_result();
@@ -15347,7 +15347,7 @@ namespace [[cheerp::genericjs]] client
 		SVGFilterElement();
 	};
 
-	class SVGFitToViewBox{
+	class [[cheerp::client_layout]] SVGFitToViewBox{
 	public:
 		SVGAnimatedPreserveAspectRatio* get_preserveAspectRatio();
 		SVGAnimatedRect* get_viewBox();
@@ -16166,7 +16166,7 @@ namespace [[cheerp::genericjs]] client
 		void set_SVGZoom(SVGZoomEvent*);
 	};
 
-	class SVGZoomAndPan: public Object{
+	class [[cheerp::client_layout]] SVGZoomAndPan: public Object{
 	public:
 		double get_zoomAndPan();
 		double get_SVG_ZOOMANDPAN_DISABLE();
@@ -18316,7 +18316,7 @@ namespace [[cheerp::genericjs]] client
 		void set_waiting(Event*);
 	};
 
-	class WindowTimersExtension{
+	class [[cheerp::client_layout]] WindowTimersExtension{
 	public:
 		void clearImmediate(double handle);
 		double setImmediate(EventListener* handler);
@@ -18326,7 +18326,7 @@ namespace [[cheerp::genericjs]] client
 		template<typename... Args> double setImmediate(Object* handler, Args... args) const;
 	};
 
-	class WindowTimers: public WindowTimersExtension {
+	class [[cheerp::client_layout]] WindowTimers: public WindowTimersExtension {
 	public:
 		void clearInterval();
 		void clearInterval(double handle);
@@ -18345,22 +18345,22 @@ namespace [[cheerp::genericjs]] client
 		template<typename... Args> double setTimeout(Object* handler, Object* timeout, Args... args) const;
 	};
 
-	class WindowSessionStorage{
+	class [[cheerp::client_layout]] WindowSessionStorage{
 	public:
 		Storage* get_sessionStorage();
 	};
 
-	class WindowLocalStorage{
+	class [[cheerp::client_layout]] WindowLocalStorage{
 	public:
 		Storage* get_localStorage();
 	};
 
-	class WindowConsole{
+	class [[cheerp::client_layout]] WindowConsole{
 	public:
 		Console* get_console();
 	};
 
-	class WindowBase64{
+	class [[cheerp::client_layout]] WindowBase64{
 	public:
 		String* atob(const String& encodedString);
 		String* btoa(const String& rawString);
@@ -18846,7 +18846,7 @@ namespace [[cheerp::genericjs]] client
 		void set_readystatechange(Event*);
 	};
 
-	class XMLHttpRequestEventTarget{
+	class [[cheerp::client_layout]] XMLHttpRequestEventTarget{
 	public:
 		EventListener* get_onabort();
 		void set_onabort(EventListener*);
@@ -19384,7 +19384,7 @@ namespace [[cheerp::genericjs]] client
 		void set_xmp(HTMLPreElement*);
 	};
 
-	class SVGElementTagNameMap{
+	class [[cheerp::client_layout]] SVGElementTagNameMap{
 	public:
 		SVGCircleElement* get_circle();
 		void set_circle(SVGCircleElement*);
