@@ -84,7 +84,7 @@ public:
     String* get_name();
 };
 
-class WebGLShaderPrecisionFormat
+class WebGLShaderPrecisionFormat : public Object
 {
 public: 
     double get_rangeMin();
