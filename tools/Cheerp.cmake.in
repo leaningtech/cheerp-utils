@@ -1,6 +1,0 @@
-include(Platform/CheerpCommon)
-
-SET(CMAKE_C_FLAGS_INIT "-target cheerp")
-SET(CMAKE_CXX_FLAGS_INIT "-target cheerp")
-
-set(CMAKE_EXECUTABLE_SUFFIX ".js")

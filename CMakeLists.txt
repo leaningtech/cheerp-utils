@@ -20,7 +20,7 @@ install (PROGRAMS
 	
 # tools
 SET(toolchain_files
-	"tools/CheerpToolchainCommon.cmake.in"
+	"tools/CheerpCommon.cmake.in"
 	"tools/CheerpToolchain.cmake.in"
 	"tools/CheerpWasmToolchain.cmake.in"
 	)
@@ -33,20 +33,8 @@ foreach(toolchain_file ${toolchain_files})
 	install (FILES "${PROJECT_BINARY_DIR}/${base}.cmake"
 			DESTINATION share/cmake/Modules/)
 endforeach()
-SET(platform_files
-	"tools/CheerpCommon.cmake.in"
-	"tools/Cheerp.cmake.in"
-	"tools/CheerpWasm.cmake.in"
-	)
-foreach(platform_file ${platform_files})
-	get_filename_component(base ${platform_file} NAME_WE)
-	configure_file (
-		${platform_file}
-		"${PROJECT_BINARY_DIR}/${base}.cmake"
-		)
-	install (FILES "${PROJECT_BINARY_DIR}/${base}.cmake"
-			DESTINATION share/cmake/Modules/Platform)
-endforeach()
+install (FILES "tools/Cheerp.cmake"
+		DESTINATION share/cmake/Modules/Platform)
 
 # tests
 install (FILES tests/dom/dom1.cpp tests/dom/test1.html

@@ -1,9 +1,20 @@
-set_property(GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS FALSE)
+# specify the cross compiler
+SET(CMAKE_C_COMPILER @CHEERP_PREFIX@/bin/clang)
+SET(CMAKE_CXX_COMPILER @CHEERP_PREFIX@/bin/clang++)
+SET(CMAKE_LINKER @CHEERP_PREFIX@/bin/llvm-link)
 
-set(CHEERP 1)
+# where is the target environment 
+SET(CMAKE_FIND_ROOT_PATH @CHEERP_PREFIX@)
 
-set(CMAKE_STATIC_LIBRARY_SUFFIX ".bc")
-set(CMAKE_CXX_CREATE_STATIC_LIBRARY "@CHEERP_PREFIX@/bin/llvm-link <OBJECTS> -o <TARGET>")
-set(CMAKE_C_CREATE_STATIC_LIBRARY "@CHEERP_PREFIX@/bin/llvm-link <OBJECTS> -o <TARGET>")
+# search for programs in the build host directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+# for libraries and headers in the target directories
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 SET(CMAKE_SYSTEM_INCLUDE_PATH "/include")
+
+# this one is important
+SET(CMAKE_SYSTEM_NAME Cheerp)
+#this one not so much
+SET(CMAKE_SYSTEM_VERSION 1)

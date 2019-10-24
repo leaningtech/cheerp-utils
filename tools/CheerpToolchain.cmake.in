@@ -1,8 +1,7 @@
 list(APPEND CMAKE_MODULE_PATH "@CHEERP_PREFIX@/share/cmake/Modules")
 
-include(CheerpToolchainCommon)
+SET(CMAKE_CXX_COMPILER_TARGET cheerp)
+SET(CMAKE_C_COMPILER_TARGET cheerp)
+set(CHEERP_LINEAR_OUTPUT "asmjs" CACHE STRING "Output format for the linear memory part of the program [wasm/wast/asmjs]")
 
-# this one is important
-SET(CMAKE_SYSTEM_NAME Cheerp)
-#this one not so much
-SET(CMAKE_SYSTEM_VERSION 1)
+include(CheerpCommon)
