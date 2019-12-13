@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project (Cheerp_Utils)
+project (Cheerp_Utils LANGUAGES)
 
 set (CHEERP_PREFIX ${CMAKE_INSTALL_PREFIX} CACHE FILEPATH "set cheerp installation prefix")
 
