@@ -5,7 +5,7 @@ Summary: A C++ compiler for the Web, includes and tools
 
 License:  GPLv2
 URL: https://leaningtech.com/cheerp
-Source0: %{NAME}-%{VERSION}.tar.gz
+Source0: %{NAME}_%{VERSION}.orig.tar.gz
 
 BuildRequires: cmake make cheerp-llvm-clang = %{VERSION}
 Requires: cheerp-llvm-clang = %{VERSION}
