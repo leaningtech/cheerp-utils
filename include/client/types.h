@@ -49,13 +49,13 @@ private:
 		}
 		return ret;
 	}
-	template<typename... Args>
-	String* concat(const String&, Args&&... args);
-	String* concat();
+	template<typename Private, typename... Args>
+	String* concat(Args&&... args);
 public:
 	String() throw();
 	//Utility constructor to use an existing String
 	String(const String*) throw();
+	String(const String&) throw();
 	String(long a) throw();
 	String(unsigned long a) throw();
 	String(int a) throw();
@@ -69,9 +69,9 @@ public:
 	{
 	}
 	template<typename... Args>
-	__attribute__((always_inline)) String* concat(Args&&... args)
+	__attribute__((always_inline)) String* concat(Args... args)
 	{
-		return concat(static_cast<const String&>(static_cast<Args&&>(args))...);
+		return concat<void>(static_cast<const String&>(args)...);
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
