@@ -42,7 +42,7 @@ if len(args) < 2:
 	exit(1);
 
 clang = args[0]
-jsEngine = args[1]
+jsEngine = args[1].split()
 optlevel = option.optlevel
 prefix = option.prefix
 jobs = option.jobs
@@ -351,7 +351,7 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	testFile = getFileToExecute(mode, outFile)
 
 	failure = False
-	ret=subprocess.call([engine, testFile], stderr=subprocess.STDOUT,
+	ret=subprocess.call(engine + [testFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
 	# Reset the read position to the beginning of the output. Otherwise
