@@ -98,7 +98,8 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 	]
 common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
-		'unit/closures/test4.cpp','unit/codegen/empty.cpp'
+		'unit/closures/test4.cpp','unit/codegen/empty.cpp',
+                'unit/anyref/args.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -201,7 +202,8 @@ def compileCommand(compiler, mode, testName):
 		"-frtti",
 		"-Iunit",
 		"-cheerp-bounds-check",
-		"-cheerp-fix-wrong-func-casts"
+		"-cheerp-fix-wrong-func-casts",
+                "-cheerp-wasm-enable=anyref",
 	]
 
 	if option.pretty_code:
