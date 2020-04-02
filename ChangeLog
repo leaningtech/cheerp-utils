@@ -1,8 +1,24 @@
 Cheerp: C++ for the Web
 
-Version 2.1:
+Version 2.5:
 
-	* Use by default "-target cheerp"
+	* Target WebAssembly by default
+	* Full rework of CFGStackifier
+	* Full rework of Registerize (locals allocator)
+	* Large improvements to JavaScript/WebAssembly interoperability
+	* Rebase on top of LLVM/Clang 6.0
+	* Support -cheerp-strict-linking= to report missing symbols at link time
+	* Reduced output size (both JavaScript/WebAssembly)
+	* Use compount operators (+=, -=, etc) in JavaScript code
+	* Reduce code generation time
+	* Support RPM packages
+	* Support devirtualization of indirect calls in some cases
+	* Support removal of indirectly used functions in some cases
+	* Support removing unobservable globals in some cases
+	* Fixed build determinism
+	* Initial support for anyref
+	* Various performance improvements
+	* Various robustness improvements
 
 Version 2.0:
 
