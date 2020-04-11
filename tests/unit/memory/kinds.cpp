@@ -28,5 +28,8 @@ void webMain()
 	
 	int a[] = {1,2,3,4,5,6,7,8};
 
-	assertEqual(__builtin_cheerp_pointer_kind(a+2), /*SPLIT_REGULAR*/1u, "Pointer kind on array");
+	int* ap = a+2;
+
+	assertEqual(__builtin_cheerp_pointer_kind(ap), /*SPLIT_REGULAR*/1u, "Pointer kind on array");
+	assertEqual(*ap, 3, "Force array loads");
 }
