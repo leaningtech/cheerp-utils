@@ -19,6 +19,7 @@ Version 2.5:
 	* Initial support for anyref
 	* Various performance improvements
 	* Various robustness improvements
+	* Experimental support for anyref
 
 Version 2.0:
 
