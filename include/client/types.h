@@ -50,7 +50,7 @@ private:
 		return ret;
 	}
 	template<typename Private, typename... Args>
-	String* concat(Args&&... args);
+	String* concat(Args&&... args) const;
 public:
 	String() throw();
 	//Utility constructor to use an existing String
@@ -69,7 +69,7 @@ public:
 	{
 	}
 	template<typename... Args>
-	__attribute__((always_inline)) String* concat(Args... args)
+	__attribute__((always_inline)) String* concat(Args... args) const
 	{
 		return concat<void>(static_cast<const String&>(args)...);
 	}
