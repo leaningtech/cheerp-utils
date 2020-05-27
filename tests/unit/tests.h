@@ -42,18 +42,18 @@ void assertEqual(int value, int expected, const char* msg)
 }
 
 #ifdef PRE_EXECUTE_TEST
+template <typename T>
 [[clang::optnone]]
-int unitBlackBox(int v)
+T unitBlackBox(T v)
 {
 	return v;
 }
 #else
-[[cheerp::genericjs]]
-int unitBlackBox(int v)
+template <typename T>
+[[clang::optnone]]
+T unitBlackBox(T v)
 {
-	int ret;
-	asm("%1" : "=r"(ret) : "r"(v));
-	return ret;
+	return v;
 }
 #endif
 

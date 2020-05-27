@@ -8,8 +8,8 @@
 
 #ifndef PRE_EXECUTE_TEST
 template <typename T>
-static void dump(T t) {
-	long h = (long)((t & (0xffffffffll << 32)) >> 32);
+static void dump(const T& t) {
+	long h = (long)(t >> 32);
 	long l = (long)(t & 0xffffffff);
 	cheerp::console_log("highint h:", h, "l:", l);
 }
@@ -24,11 +24,11 @@ void testRepresentation() {
 
 template <typename T>
 static void testShiftOps() {
-	T a = 0x10000;
-	T b = 0x100000000;
-	T c = 0x1000000000000;
-	T d = 0x7fffffffLL;
-	T e = 0x7fffffff00000000LL;
+	T a = unitBlackBox(0x10000);
+	T b = unitBlackBox(0x100000000);
+	T c = unitBlackBox(0x1000000000000);
+	T d = unitBlackBox(0x7fffffffLL);
+	T e = unitBlackBox(0x7fffffff00000000LL);
 
 	assertEqual(a <<  0, a, "int64_t shl support 1/N");
 	assertEqual(a <<  8, (T)0x01000000, "int64_t shl support 2/N");
@@ -43,22 +43,22 @@ static void testShiftOps() {
 	assertEqual(e >> 32, d, "int64_t shr support 5/N");
 
 	if (std::is_unsigned<T>::value) {
-		T f = 0xffffffff;
-		T g = 0xffffffff00000000;
+		T f = unitBlackBox(0xffffffff);
+		T g = unitBlackBox(0xffffffff00000000);
 		assertEqual(g >> 32, f, "int64_t shr support 6a/N");
 	} else {
-		T f = 0xffffffffffffffff;
-		T g = 0xffffffff00000000;
+		T f = unitBlackBox(0xffffffffffffffff);
+		T g = unitBlackBox(0xffffffff00000000);
 		assertEqual(g >> 32, f, "int64_t shr support 6b/N");
 	}
 }
 
 template <typename T>
 static void testBitwiseOps() {
-	T a = 0xffffffffffffffffLL;
-	T b = 0x0000000000000000LL;
-	T l = 0x00000000ffffffffLL;
-	T u = 0xffffffff00000000LL;
+	T a = unitBlackBox(0xffffffffffffffffLL);
+	T b = unitBlackBox(0x0000000000000000LL);
+	T l = unitBlackBox(0x00000000ffffffffLL);
+	T u = unitBlackBox(0xffffffff00000000LL);
 
 	assertEqual(a & l, l, "int64_t and support 1/N");
 	assertEqual(a & u, u, "int64_t and support 2/N");
@@ -79,11 +79,11 @@ static void testBitwiseOps() {
 
 template <typename T>
 static void testAddSubOps() {
-	T a = 0x0deadbeaf;
-	T b = 0x100000000;
-	T c = 0x0ffffffff;
-	T d = 0xffffffffffffffff;
-	T e = 0xfffffffffffffffe;
+	T a = unitBlackBox(0x0deadbeaf);
+	T b = unitBlackBox(0x100000000);
+	T c = unitBlackBox(0x0ffffffff);
+	T d = unitBlackBox(0xffffffffffffffff);
+	T e = unitBlackBox(0xfffffffffffffffe);
 
 	assertEqual(a + b, (T)0x1deadbeaf, "int64_t add support 1/N");
 	assertEqual(c + 1, (T)0x100000000, "int64_t add support 2/N");
@@ -101,20 +101,20 @@ static void testAddSubOps() {
 
 template <typename T>
 static void testMulDivModOps() {
-	T a = 0x00018001;
+	T a = unitBlackBox(0x00018001);
 	assertEqual(a * 2, (T)0x00030002, "int64_t mul support 1/N");
 
-	T b = 0x0000000088888888;
+	T b = unitBlackBox(0x0000000088888888);
 	assertEqual(b * 2, (T)0x0000000111111110, "int64_t mul support 2/N");
 
-	T c = 0x8888888800000000;
+	T c = unitBlackBox(0x8888888800000000);
 	assertEqual(c * 2, (T)0x1111111000000000, "int64_t mul support 3/N");
 
-	T d = 0x1122334455667788;
-	T e = 0x1111111111111111;
+	T d = unitBlackBox(0x1122334455667788);
+	T e = unitBlackBox(0x1111111111111111);
 	assertEqual(d * e, (T)0xcba862fb71c5f808, "int64_t mul support 4/N");
 
-	T f = 0xffffffff;
+	T f = unitBlackBox(0xffffffff);
 	assertEqual(f * f, (T)0xfffffffe00000001, "int64_t mul support 5/N");
 
 	assertEqual(f / f, (T)1, "int64_t div support 1/N");
@@ -134,11 +134,11 @@ static void testMulDivModOps() {
 
 template <typename T>
 static void testUnaryOps() {
-	T a = 0x0;
-	T b = 0x1;
-	T c = 0x0000000100000000;
-	T d = 0xffffffffffffffff;
-	T e = 0x1122334455667788;
+	T a = unitBlackBox(0x0);
+	T b = unitBlackBox(0x1);
+	T c = unitBlackBox(0x0000000100000000);
+	T d = unitBlackBox(0xffffffffffffffff);
+	T e = unitBlackBox(0x1122334455667788);
 
 	assertEqual(-a, (T)0, "int64_t neg support 1/N");
 	assertEqual(-b, (T)0xffffffffffffffff, "int64_t neg support 2/N");
@@ -155,10 +155,10 @@ static void testUnaryOps() {
 
 template <typename T>
 static void testBitwiseCompoundAssignmentOps() {
-	T a = 0x0;
-	T b = 0x1;
-	T c = 0x0000000100000000;
-	T d = 0xffffffffffffffff;
+	T a = unitBlackBox(0x0);
+	T b = unitBlackBox(0x1);
+	T c = unitBlackBox(0x0000000100000000);
+	T d = unitBlackBox(0xffffffffffffffff);
 	T t;
 
 	t = a; t &= b;
@@ -191,10 +191,10 @@ static void testBitwiseCompoundAssignmentOps() {
 
 template <typename T>
 static void testArithmeticCompoundAssignmentOps() {
-	T a = 0x0;
-	T b = 0x1;
-	T c = 0x0000000100000000;
-	T d = 0xffffffffffffffff;
+	T a = unitBlackBox(0x0);
+	T b = unitBlackBox(0x1);
+	T c = unitBlackBox(0x0000000100000000);
+	T d = unitBlackBox(0xffffffffffffffff);
 	T t;
 
 	t = a; t += b;
@@ -278,12 +278,12 @@ static void testArithmeticCompoundAssignmentOps() {
 
 template <typename T>
 static void testComparisonOps() {
-	T a = 0x0;
-	T b = 0x1;
-	T c = 0x0000000100000000;
-	T e = 0xffffffffffffffff;
-	T t = a;
-	T h = 0xf000000000000000;
+	T a = unitBlackBox(0x0);
+	T b = unitBlackBox(0x1);
+	T c = unitBlackBox(0x0000000100000000);
+	T e = unitBlackBox(0xffffffffffffffff);
+	T t = unitBlackBox(a);
+	T h = unitBlackBox(0xf000000000000000);
 
 	assertEqual(a < b, true, "int64_t lt support 1/N");
 	assertEqual(a < c, true, "int64_t lt support 2/N");
@@ -329,10 +329,10 @@ static void testComparisonOps() {
 
 template <typename T>
 static void testCastToFloat() {
-	T a = 0x0;
-	T b = 0x1;
-	T c = 0x0000000100000000;
-	T e = 0xffffffffffffffff;
+	T a = unitBlackBox(0x0);
+	T b = unitBlackBox(0x1);
+	T c = unitBlackBox(0x0000000100000000);
+	T e = unitBlackBox(0xffffffffffffffff);
 
 	assertEqual((float) a, 0.f, 1e-6, "int64_t cast to float support 1/N");
 	assertEqual((float) b, 1.f, 1e-6, "int64_t cast to float support 2/N");
@@ -354,11 +354,11 @@ static void testCastToFloat() {
 
 template <typename T>
 static void testCastFromFloat() {
-	float a = 0;
-	float b = 1;
-	float c = 1337.;
-	float d = 3.142;
-	float e = -1.;
+	float a = unitBlackBox(0);
+	float b = unitBlackBox(1);
+	float c = unitBlackBox(1337.);
+	float d = unitBlackBox(3.142);
+	float e = unitBlackBox(-1.);
 
 	assertEqual((T) a, (T)0, "int64_t cast from float support 1/N");
 	assertEqual((T) b, (T)1, "int64_t cast from float support 2/N");
@@ -368,46 +368,46 @@ static void testCastFromFloat() {
 	if (std::is_signed<T>::value) {
 		assertEqual((T) e, (T)-1, "int64_t cast from float support 5a/N");
 
-		float f = -3.2e3;
+		float f = unitBlackBox(-3.2e3);
 		assertEqual((T) f, (T)-3200, "int64_t cast from float support 6/N");
 
-		float g = -3.2e9;
+		float g = unitBlackBox(-3.2e9);
 		assertEqual((T) g, (T)-3200000000, "int64_t cast from float support 7/N");
 
-		T h = 0x7ffffffffffff000;
-		double i = 9223372036854771712.;
+		T h = unitBlackBox(0x7ffffffffffff000);
+		double i = unitBlackBox(9223372036854771712.);
 		assertEqual((T) i, h, "int64_t cast from float support 8/N");
 	}
 }
 
 template <typename T>
 static void testIncrement() {
-	T a = 0;
+	T a = unitBlackBox(0);
 	a++;
 	assertEqual(a, (T)1, "int64_t post increment support 1/N");
-	a = 0x00000000ffffffff;
-	assertEqual(a++, (T)0x0000000100000000, "int64_t post increment support 2/N");
+	a = unitBlackBox(0x00000000ffffffff);
+	assertEqual(a++, (T)0x00000000ffffffff, "int64_t post increment support 2/N");
 	assertEqual(a, (T)0x0000000100000000, "int64_t post increment support 3/N");
 
-	T b = 0;
+	T b = unitBlackBox(0);
 	++b;
 	assertEqual(b, (T)1, "int64_t pre increment support 1/N");
-	b = 0x00000000ffffffff;
+	b = unitBlackBox(0x00000000ffffffff);
 	assertEqual(++b, (T)0x0000000100000000, "int64_t pre increment support 2/N");
 	assertEqual(b, (T)0x0000000100000000, "int64_t pre increment support 3/N");
 
-	a = 0;
+	a = unitBlackBox(0);
 	a--;
 	assertEqual(a, (T)0xffffffffffffffff, "int64_t post decrement support 1/N");
 
-	a = 0xffffffffffffffff;
-	assertEqual(a--, (T)0xfffffffffffffffe, "int64_t post decrement support 2/N");
+	a = unitBlackBox(0xffffffffffffffff);
+	assertEqual(a--, (T)0xffffffffffffffff, "int64_t post decrement support 2/N");
 	assertEqual(a, (T)0xfffffffffffffffe, "int64_t post decrement support 3/N");
 
-	b = 0;
+	b = unitBlackBox(0);
 	--b;
 	assertEqual(b, (T)0xffffffffffffffff, "int64_t pre decrement support 1/N");
-	b = 0xffffffffffffffff;
+	b = unitBlackBox(0xffffffffffffffff);
 	assertEqual(--b, (T)0xfffffffffffffffe, "int64_t pre decrement support 2/N");
 	assertEqual(b, (T)0xfffffffffffffffe, "int64_t pre decrement support 3/N");
 }
@@ -421,9 +421,9 @@ static void testStructs() {
 	} s;
 
 	s foo;
-	foo.a = 42;
-	foo.b = 0x7fffffffffffffff;
-	foo.c = 1;
+	foo.a = unitBlackBox(42);
+	foo.b = unitBlackBox(0x7fffffffffffffff);
+	foo.c = unitBlackBox(1);
 
 	assertEqual(foo.a < foo.b, true, "int64_t struct support 1/N");
 	assertEqual(foo.a > foo.c, true, "int64_t struct support 2/N");
@@ -432,13 +432,13 @@ static void testStructs() {
 
 template <typename T>
 static void increment(T& a) {
-	a += 1;
+	a += unitBlackBox(1);
 }
 
 template <typename T>
 static void testPointerArithmetic() {
 	T *a = new T[20];
-	memset(a, 0, sizeof(T)*20);
+	memset(a, unitBlackBox(0), sizeof(T)*20);
 	bool valid = true;
 	for (int i = 0; i < 20; i++)
 		valid &= (a[i] == 0);
@@ -456,7 +456,7 @@ static void testPointerArithmetic() {
 
 template <typename T>
 static void testPointersAndReferences() {
-	T a = 42;
+	T a = unitBlackBox(42);
 	increment<T>(a);
 	assertEqual(a, (T)43, "int64_t reference support 1/N");
 }
@@ -467,8 +467,8 @@ static void testBitfields() {
 		unsigned long long b : 3;
 	};
 	struct A foo;
-	foo.a = 7;
-	foo.b = 4;
+	foo.a = unitBlackBox(7);
+	foo.b = unitBlackBox(4);
 	assertEqual(foo.a, 7ULL, "int64_t bit fields support 1/N");
 	assertEqual(foo.b, 4ULL, "int64_t bit fields support 2/N");
 
@@ -481,10 +481,10 @@ static void testBitfields() {
 		unsigned long long b2 : 3;
 	};
 	struct B bar;
-	bar.a1 = 7;
-	bar.a2 = 4;
-	bar.b1 = 7;
-	bar.b2 = 4;
+	bar.a1 = unitBlackBox(7);
+	bar.a2 = unitBlackBox(4);
+	bar.b1 = unitBlackBox(7);
+	bar.b2 = unitBlackBox(4);
 	assertEqual(bar.a1, 7ULL, "int64_t bit fields support 3/N");
 	assertEqual(bar.a2, 4ULL, "int64_t bit fields support 4/N");
 	assertEqual(bar.b1, 7ULL, "int64_t bit fields support 5/N");
@@ -496,8 +496,8 @@ static void testBitfields() {
 		unsigned long long b : 30;
 	};
 	struct C baz;
-	baz.a = 7;
-	baz.b = 4;
+	baz.a = unitBlackBox(7);
+	baz.b = unitBlackBox(4);
 	assertEqual(baz.a, 7ULL, "int64_t bit fields support 7/N");
 	assertEqual(baz.b, 4ULL, "int64_t bit fields support 8/N");
 
@@ -507,8 +507,8 @@ static void testBitfields() {
 		long long b : 30;
 	};
 	struct D quux;
-	quux.a = 7;
-	quux.b = -1;
+	quux.a = unitBlackBox(7);
+	quux.b = unitBlackBox(-1);
 	assertEqual(quux.a, 7LL, "int64_t bit fields support 9/N");
 	assertEqual(quux.b, -1LL, "int64_t bit fields support 10/N");
 }
@@ -516,7 +516,7 @@ static void testBitfields() {
 template <typename T>
 static void testSwitch()
 {
-	volatile T a = 11;
+	volatile T a = unitBlackBox(11);
 	bool result = false;
 	switch(a)
 	{
@@ -536,7 +536,7 @@ static void testSwitch()
 template <typename T>
 static void testNew()
 {
-	volatile T a = 10;
+	volatile T a = unitBlackBox(10);
 	// This should not crash while compiling
 	int* buf = new int[a];
 	delete[] buf;
@@ -544,8 +544,8 @@ static void testNew()
 
 #ifndef PRE_EXECUTE_TEST
 static void testDump() {
-	long long t = 0xff;
-	cheerp::console_log("test dump(0xff):");
+	long long t = unitBlackBox(0xff000000ff000000);
+	cheerp::console_log("test dump(0xff000000ff000000):");
 	dump(t);
 }
 #endif
