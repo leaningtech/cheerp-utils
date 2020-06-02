@@ -37,7 +37,7 @@ static void testShiftOps() {
 	assertEqual(d << 32, e, "int64_t shl support 5/N");
 
 	assertEqual(a >>  0, a, "int64_t shr support 1/N");
-	assertEqual(a >>  8, (T)0x00000100, "int64_t shl support 2/N");
+	assertEqual(a >>  8, (T)0x00000100, "int64_t shr support 2/N");
 	assertEqual(b >> 16, a, "int64_t shr support 3/N");
 	assertEqual(c >> 32, a, "int64_t shr support 4/N");
 	assertEqual(e >> 32, d, "int64_t shr support 5/N");
@@ -513,25 +513,25 @@ static void testBitfields() {
 	assertEqual(quux.b, -1LL, "int64_t bit fields support 10/N");
 }
 
-template <typename T>
-static void testSwitch()
-{
-	volatile T a = unitBlackBox(11);
-	bool result = false;
-	switch(a)
-	{
-		case 11:
-			result = true;
-			break;
-		case 10:
-			result = false;
-			break;
-		default:
-			result = false;
-			break;
-	}
-	assertEqual(result, true, "int64_t in switch statements");
-}
+//template <typename T>
+//static void testSwitch()
+//{
+//	volatile T a = unitBlackBox(11);
+//	bool result = false;
+//	switch(a)
+//	{
+//		case 11:
+//			result = true;
+//			break;
+//		case 10:
+//			result = false;
+//			break;
+//		default:
+//			result = false;
+//			break;
+//	}
+//	assertEqual(result, true, "int64_t in switch statements");
+//}
 
 template <typename T>
 static void testNew()
