@@ -542,6 +542,27 @@ static void testNew()
 	delete[] buf;
 }
 
+template <typename T>
+T testVaargImpl(int n, ...)
+{
+	T ret = 0;
+	va_list vl;
+	va_start(vl,n);
+	for (int i=0;i<n;i++)
+	{
+		ret+=va_arg(vl,T);
+	}
+	va_end(vl);
+	return ret;
+}
+
+template <typename T>
+static void testVaarg()
+{
+	T sum = testVaargImpl<T>(unitBlackBox(2), unitBlackBox((T)0x100000000ll), unitBlackBox((T)0xdeadbeefll));
+	assertEqual(sum, (T)0x1deadbeef, "int64_t vaarg support 1/1");
+}
+
 #ifndef PRE_EXECUTE_TEST
 static void testDump() {
 	long long t = unitBlackBox(0xff000000ff000000);
@@ -586,6 +607,8 @@ void webMain() {
 	testBitfields();
 	testNew<long long>();
 	testNew<unsigned long long>();
+	testVaarg<long long>();
+	testVaarg<unsigned long long>();
 	//switch with 64-bit values is not supported
 	//testSwitch<long long>();
 	//testSwitch<unsigned long long>();
