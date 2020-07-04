@@ -39,8 +39,9 @@ public:
 		if(b == 43)
 			testSuccessful2 = true;
 	}
-	float testptr(float* f)
+	float testptr(client::Float32Array* b, int o)
 	{
+		float* f = __builtin_cheerp_make_regular<float>(b, o);
 		return f[1];
 	}
 };
