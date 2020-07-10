@@ -101,6 +101,10 @@ common_tests = pre_executer_tests + [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
 		'unit/closures/test4.cpp','unit/codegen/empty.cpp',
                 'unit/anyref/args.cpp',
+		'unit/jsexport/cheerp_pimpl.cpp',
+		'unit/jsexport/factory.cpp',
+		'unit/jsexport/invoke_functions.cpp',
+		'unit/jsexport/paramethers_builtin.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -116,6 +120,7 @@ genericjs_tests = common_tests + [
 		'unit/codegen/indirectfree.cpp',
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
 		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
+		'unit/jsexport/paramethers_client.cpp',
 	 ]
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
