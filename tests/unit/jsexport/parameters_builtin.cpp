@@ -42,6 +42,12 @@ float sumFloat(float a, float b)
 	return a+b;
 }
 
+[[cheerp::jsexport]]
+bool areEqualChar(char a, char b)
+{
+	return a==b;
+}
+
 int global_variable{0};
 
 [[cheerp::jsexport]]
@@ -57,7 +63,6 @@ void setToFortyTwoGenericJS()
 	assertEqual(global_variable, 23, "JSExport free function void(void) 1/2");
 	global_variable = 42;
 }
-
 
 [[cheerp::genericjs]]
 void webMain()
@@ -76,6 +81,9 @@ void webMain()
 
 	__asm__("sumUChar(-128,127)" : "=r"(result) :);
 	assertEqual(result, 255, "JSExport free function unsigned char");
+
+	__asm__("areEqualChar(12,13)" : "=r"(result) :);
+	assertEqual(result, 0, "JSExport free function returns bool");
 
 	global_variable = 23;
 	setToFortyTwo();

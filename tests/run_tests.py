@@ -104,7 +104,7 @@ common_tests = pre_executer_tests + [
 		'unit/jsexport/cheerp_pimpl.cpp',
 		'unit/jsexport/factory.cpp',
 		'unit/jsexport/invoke_functions.cpp',
-		'unit/jsexport/paramethers_builtin.cpp',
+		'unit/jsexport/parameters_builtin.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -120,7 +120,7 @@ genericjs_tests = common_tests + [
 		'unit/codegen/indirectfree.cpp',
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
 		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
-		'unit/jsexport/paramethers_client.cpp',
+		'unit/jsexport/parameters_client.cpp',
 	 ]
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
