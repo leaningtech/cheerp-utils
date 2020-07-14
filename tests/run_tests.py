@@ -222,7 +222,7 @@ def compileCommand(compiler, mode, testName):
 	if mode == "wasm":
 		assert testName[-4:] == ".cpp"
 		flags += ["-cheerp-mode=wasm"]
-		flags += ["-cheerp-wast-loader={}.js".format(testName[:-4])]
+		flags += ["-cheerp-wasm-loader={}.js".format(testName[:-4])]
 	elif mode == "asmjs":
 		flags += ["-cheerp-mode=asmjs"]
 	else:
