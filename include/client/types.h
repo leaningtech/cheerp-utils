@@ -228,11 +228,11 @@ public:
 	}
 	T*& operator[](int index)
 	{
-		return (T*&)Array::operator[](index);
+		return static_cast<T*&>(Array::operator[](index));
 	}
 	T* operator[](int index) const
 	{
-		return (T*)Array::operator[](index);
+		return static_cast<T*>(Array::operator[](index));
 	}
 };
 
