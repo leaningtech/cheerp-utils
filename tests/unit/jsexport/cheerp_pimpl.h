@@ -62,6 +62,14 @@ public:
         {
                 return *m;
         }
+        const T* operator->() const
+        {
+                return m;
+        }
+        const T& operator*() const
+        {
+                return *m;
+        }
 };
 }       //end namespace cheerp_pimpl
 

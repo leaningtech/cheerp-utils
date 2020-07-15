@@ -59,13 +59,26 @@ public:
         }
         void insert(int N)
         {
-                m->insert(N);
+                getInner().insert(N);
         }
+	int totalInserted() const
+	{
+		return getInner().totalInserted();
+	}
 //      ~JSExportedWrapperWithDeleter()  //We can't have the destructor... for now we are forced to declare a deleter
         void deleter()
         {
                 m.deleter();
         }
+private:
+	ArbitraryClass& getInner()
+	{
+		return *m;
+	}
+	const ArbitraryClass& getInner() const
+	{
+		return *m;
+	}
 };
 
 
@@ -88,6 +101,7 @@ void invokeJavaScript()
                 instance.insert(45);\
                 instance.insert(2134);\
                 instance.deleter();\
+		var X = instance.totalInserted(); \
                 ");
                 //In JS we MUST call the deleter
 }
