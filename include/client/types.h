@@ -226,13 +226,16 @@ public:
 	TArray(Args... args):Array(args...)
 	{
 	}
+	// TArray can only be used with client types
 	T*& operator[](int index)
 	{
-		return static_cast<T*&>(Array::operator[](index));
+		T* typeCheck = static_cast<T*>((client::Object*)nullptr);
+		return (T*&)Array::operator[](index);
 	}
 	T* operator[](int index) const
 	{
-		return static_cast<T*>(Array::operator[](index));
+		T* typeCheck = static_cast<T*>((client::Object*)nullptr);
+		return (T*)Array::operator[](index);
 	}
 };
 
