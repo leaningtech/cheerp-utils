@@ -104,6 +104,7 @@ common_tests = pre_executer_tests + [
 		'unit/jsexport/cheerp_pimpl.cpp',
 		'unit/jsexport/factory.cpp',
 		'unit/jsexport/invoke_functions.cpp',
+		'unit/jsexport/namespaces.cpp',
 		'unit/jsexport/parameters_builtin.cpp',
 		]
 genericjs_tests = common_tests + [
