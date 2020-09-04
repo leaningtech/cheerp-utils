@@ -41,20 +41,15 @@ void assertEqual(int value, int expected, const char* msg)
 	assertEqualImpl(value==expected, msg);
 }
 
-#ifdef PRE_EXECUTE_TEST
 template <typename T>
 [[clang::optnone]]
 T unitBlackBox(T v)
 {
+	static T a[1];
+	volatile T* volatile p = &a[0];
+	a[0] = v;
+	v = *p;
 	return v;
 }
-#else
-template <typename T>
-[[clang::optnone]]
-T unitBlackBox(T v)
-{
-	return v;
-}
-#endif
 
 #endif
