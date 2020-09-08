@@ -27,7 +27,6 @@
 
 #include <utility>
 #include <functional>
-#include <vector>
 
 namespace [[cheerp::genericjs]] cheerp
 {
