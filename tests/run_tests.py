@@ -126,9 +126,15 @@ genericjs_tests = common_tests + [
 asmjs_tests = common_tests + [
 		'unit/ffi/test1.cpp',
 		'unit/ffi/test2.cpp',
-        'unit/std/malloc.cpp'
+		'unit/ffi/i64.cpp',
+		'unit/std/malloc.cpp'
 		]
 wasm_tests = asmjs_tests
+
+extra_flags_tests = {
+		'unit/codegen/test21.cpp' : ['-cheerp-use-bigints'],
+		'unit/ffi/i64.cpp' : ['-cheerp-use-bigints'],
+}
 
 selected_tests = set()
 
@@ -203,7 +209,7 @@ def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
 
 preExecuteTest.dictionary=determinismDictionary()
 
-def compileCommand(compiler, mode, testName):
+def compileCommand(compiler, mode, testName, extraFlags):
 	flags = [
 		"-O"+str(optlevel),
 		"-target", "cheerp",
@@ -212,7 +218,7 @@ def compileCommand(compiler, mode, testName):
 		"-cheerp-bounds-check",
 		"-cheerp-fix-wrong-func-casts",
                 "-cheerp-wasm-enable=anyref",
-	]
+	] + extraFlags
 
 	if option.pretty_code:
 		flags += ['-cheerp-pretty-code','-cheerp-asmjs-symbolic-globals']
@@ -412,18 +418,22 @@ def do_test(test):
 
 	test_runs = [
 		(option.preexecute, "genericjs", test not in pre_executer_tests,
-			preExecuteTest, None),
+			preExecuteTest, None, []),
 		(option.preexecute_asmjs, "asmjs", test not in pre_executer_tests,
-			preExecuteTest, None),
+			preExecuteTest, None, []),
 		(option.asmjs, "asmjs", test not in asmjs_tests, compileTest,
-			runTest),
+			runTest, []),
 		(option.wasm, "wasm", test not in wasm_tests, compileTest,
-			runTest),
+			runTest, []),
 		(option.genericjs, "genericjs", test not in genericjs_tests,
-			compileTest, runTest)
+			compileTest, runTest, []),
+		(test in extra_flags_tests, "genericjs", test not in genericjs_tests,
+			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else []),
+		(test in extra_flags_tests, "wasm", test not in wasm_tests,
+			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else [])
 	]
 
-	for enabled, mode, skip, compile_mode, run in test_runs:
+	for enabled, mode, skip, compile_mode, run, extraFlags in test_runs:
 		if not enabled or skip:
 			continue
 
@@ -447,7 +457,7 @@ def do_test(test):
 
 		assert command
 		possible_commands = list()
-		possible_commands.append(command(clang, mode, test))
+		possible_commands.append(command(clang, mode, test, extraFlags))
 
 		if option.valgrind:
 			possible_commands.append(["valgrind", "-q"] + possible_commands[0])
@@ -461,10 +471,14 @@ def do_test(test):
 			commands.insert(0, commands.pop())
 			return commands[0]
 
-		if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
+		# TODO: put the "extra" in the classname, not the name of the test
+		test_id = test
+		if extraFlags:
+			test_id += ".extra"
+		if compile_mode(get_next_command(), mode, test_id, outFile, stdrepLog, stdoutLog):
 			status = "error"
 		elif shouldTestDeterminism():
-			if compile_mode(get_next_command(), mode, test, outFile, stdrepLog, stdoutLog):
+			if compile_mode(get_next_command(), mode, test_id, outFile, stdrepLog, stdoutLog):
 				status = "error"
 			elif option.determinism != 1:
 				#Compute the seed for a given outFile, and use it to select some passes to call -print-after-all on
@@ -474,7 +488,7 @@ def do_test(test):
 					if determinismTest(get_next_command(), str(addPrintAfter), signature, outFile, stdrepLog, stdoutLog, reportA, reportB):
 						status = "determinism_error"
 						break
-		if status == "pass" and run and run(jsEngine, mode, test, outFile, stdrepLog, stdoutLog):
+		if status == "pass" and run and run(jsEngine, mode, test_id, outFile, stdrepLog, stdoutLog):
 			status = "assertion"
 
 	stdoutLog.close()

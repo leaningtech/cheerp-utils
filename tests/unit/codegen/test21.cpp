@@ -115,7 +115,7 @@ static void testMulDivModOps() {
 	assertEqual(d * e, (T)0xcba862fb71c5f808, "int64_t mul support 4/N");
 
 	T f = unitBlackBox(0xffffffff);
-	assertEqual(f * f, (T)0xfffffffe00000001, "int64_t mul support 5/N");
+	assertEqual(f * f, unitBlackBox((T)0xfffffffe00000001), "int64_t mul support 5/N");
 
 	assertEqual(f / f, (T)1, "int64_t div support 1/N");
 	assertEqual(d / d, (T)1, "int64_t div support 2/N");
