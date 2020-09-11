@@ -8,7 +8,7 @@ using u64 = unsigned long long;
 
 [[cheerp::wasm]]
 u64 process_wasm(u64 a, u64 b) {
-	return a/b;
+	return a+b;
 }
 [[cheerp::genericjs]]
 u64 wrapper_genericjs(u64 a, u64 b) {
@@ -16,7 +16,7 @@ u64 wrapper_genericjs(u64 a, u64 b) {
 }
 [[cheerp::genericjs]]
 u64 process_genericjs(u64 a, u64 b) {
-	return a/b;
+	return a+b;
 }
 [[cheerp::wasm]]
 u64 wrapper_wasm(u64 a, u64 b) {
@@ -25,8 +25,8 @@ u64 wrapper_wasm(u64 a, u64 b) {
 
 void webMain()
 {
-	u64 a = unitBlackBox(0xffffffffffffll);
-	u64 b = unitBlackBox(0xff00000000ll);
-	assertEqual(wrapper_wasm(a,b), unitBlackBox(257ll), "ffi pointer interoperation 1/2");
-	assertEqual(wrapper_genericjs(a,b), unitBlackBox(257ll), "ffi pointer interoperation 2/2");
+	u64 a = unitBlackBox<u64>(0x0f0f0f0f0f0f0f0f);
+	u64 b = unitBlackBox<u64>(0xf0f0f0f0f0f0f0f0);
+	assertEqual(wrapper_wasm(a,b), unitBlackBox<u64>(0xffffffffffffffff), "ffi pointer interoperation 1/2");
+	assertEqual(wrapper_genericjs(a,b), unitBlackBox<u64>(0xffffffffffffffff), "ffi pointer interoperation 2/2");
 }
