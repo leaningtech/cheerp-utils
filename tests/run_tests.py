@@ -427,9 +427,9 @@ def do_test(test):
 			runTest, []),
 		(option.genericjs, "genericjs", test not in genericjs_tests,
 			compileTest, runTest, []),
-		(test in extra_flags_tests, "genericjs", test not in genericjs_tests,
+		(option.genericjs and test in extra_flags_tests, "genericjs", test not in genericjs_tests,
 			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else []),
-		(test in extra_flags_tests, "wasm", test not in wasm_tests,
+		(option.wasm and test in extra_flags_tests, "wasm", test not in wasm_tests,
 			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else [])
 	]
 
