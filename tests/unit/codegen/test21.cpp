@@ -513,25 +513,28 @@ static void testBitfields() {
 	assertEqual(quux.b, -1LL, "int64_t bit fields support 10/N");
 }
 
-//template <typename T>
-//static void testSwitch()
-//{
-//	volatile T a = unitBlackBox(11);
-//	bool result = false;
-//	switch(a)
-//	{
-//		case 11:
-//			result = true;
-//			break;
-//		case 10:
-//			result = false;
-//			break;
-//		default:
-//			result = false;
-//			break;
-//	}
-//	assertEqual(result, true, "int64_t in switch statements");
-//}
+template <typename T>
+static void testSwitch()
+{
+	volatile T a = unitBlackBox<T>(0x00000001ff000000);
+	bool result = false;
+	switch(a)
+	{
+		case static_cast<T>(0x00000000ff000000):
+			result = false;
+			break;
+		case static_cast<T>(0x00000001ff000000):
+			result = true;
+			break;
+		case static_cast<T>(0x0000000100000000):
+			result = false;
+			break;
+		default:
+			result = false;
+			break;
+	}
+	assertEqual(result, true, "int64_t in switch statements");
+}
 
 template <typename T>
 static void testNew()
@@ -609,9 +612,8 @@ void webMain() {
 	testNew<unsigned long long>();
 	testVaarg<long long>();
 	testVaarg<unsigned long long>();
-	//switch with 64-bit values is not supported
-	//testSwitch<long long>();
-	//testSwitch<unsigned long long>();
+	testSwitch<long long>();
+	testSwitch<unsigned long long>();
 }
 
 // vim: noexpandtab
