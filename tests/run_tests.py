@@ -93,7 +93,8 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/fptoi.cpp', 'unit/codegen/64bitrewrite.cpp',
 		 'unit/randomcfg/size5times20.cpp', 'unit/randomcfg/size10times10.cpp',
 		 'unit/randomcfg/size20times10.cpp', 'unit/randomcfg/size50times2.cpp',
-		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
+		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp',
+		 'unit/randomcfg/swap25by25.cpp', 'unit/randomcfg/operationsOnInt64.cpp',
 		 'unit/randomcfg/swapOnPointers.cpp', 'unit/randomcfg/combOnDouble.cpp',
 		 'unit/randomcfg/comb10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
 	]
@@ -134,6 +135,7 @@ wasm_tests = asmjs_tests
 extra_flags_tests = {
 		'unit/codegen/test21.cpp' : ['-cheerp-use-bigints'],
 		'unit/ffi/i64.cpp' : ['-cheerp-use-bigints'],
+		'unit/randomcfg/operationsOnInt64.cpp' : ['-cheerp-use-bigints'],
 }
 
 selected_tests = set()
