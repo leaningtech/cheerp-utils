@@ -1,5 +1,17 @@
 Cheerp: C++ for the Web
 
+Version 2.6 RC1:
+
+	* Improved handling of WebAssembly instantiation errors
+	* Rebase on top of LLVM/Clang 9.0
+	* Full rework of 64-bit integer support
+	* Full rework of [[cheerp::jsexport]] support
+	* Full rework of LLVM ConstantExpr support
+	* Improved codegen for memcpy/memset/memmove
+	* Support non-void block types in WebAssembly code
+	* Improvements to devirtualization support
+	* Improved lowering of SwitchInst
+
 Version 2.5:
 
 	* Target WebAssembly by default
