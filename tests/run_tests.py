@@ -219,7 +219,7 @@ def compileCommand(compiler, mode, testName, extraFlags):
 		"-Iunit",
 		"-cheerp-bounds-check",
 		"-cheerp-fix-wrong-func-casts",
-                "-cheerp-wasm-enable=anyref",
+                "-cheerp-wasm-enable=externref",
 	] + extraFlags
 
 	if option.pretty_code:
