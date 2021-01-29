@@ -107,6 +107,7 @@ common_tests = pre_executer_tests + [
 		'unit/jsexport/invoke_functions.cpp',
 		'unit/jsexport/namespaces.cpp',
 		'unit/jsexport/parameters_builtin.cpp',
+		'unit/client/class.cpp',
 		'unit/client/nested-namespaces.cpp',
 		'unit/client/setter-getter.cpp',
 		'unit/client/static-methods.cpp',
