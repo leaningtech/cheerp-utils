@@ -107,6 +107,7 @@ common_tests = pre_executer_tests + [
 		'unit/jsexport/invoke_functions.cpp',
 		'unit/jsexport/namespaces.cpp',
 		'unit/jsexport/parameters_builtin.cpp',
+		'unit/client/nested-namespaces.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
