@@ -272,7 +272,7 @@ def produceReport(command, printAfterCommand):
 	#Here we filter out some additional informations (version/folders) given back by -###
 	last_lines = False
 	for line in lines:
-		if last_lines and len(line) > 1:
+		if last_lines and len(line) > 1 and line != " (in-process)":
 			lines_to_execute.append(line)
 		if "InstalledDir" in line[:14]:
 			last_lines = True
