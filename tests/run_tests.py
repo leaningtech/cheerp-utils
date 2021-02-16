@@ -258,7 +258,7 @@ def selectRandomPasses(passes, seed):
 def printAfter(seed):
 	cheerp_passes = ["StructMemFuncLowering", "FreeAndDeleteRemoval", "GlobalDepsAnalyzer", "FixIrreducibleControlFlow", "IdenticalCodeFolding",
 		"GEPOptimizer", "Registerize", "PointerAnalyzer", "DelayInsts", "AllocaMerging", "AllocaArrays", "AllocaStoresExtractor",
-		"TypeOptimizer", "ReplaceNopCastsAndByteSwaps", "PreExecute", "ExpandStructRegs", "CheerpLowerSwitch"]
+		"TypeOptimizer", "PreExecute", "ExpandStructRegs", "CheerpLowerSwitch"]
 	return selectRandomPasses(cheerp_passes, seed)
 
 def produceReport(command, printAfterCommand):
