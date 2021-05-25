@@ -111,6 +111,7 @@ common_tests = pre_executer_tests + [
 		'unit/client/nested-namespaces.cpp',
 		'unit/client/setter-getter.cpp',
 		'unit/client/static-methods.cpp',
+		'unit/codegen/nested_lambda.cpp',
 		]
 genericjs_tests = common_tests + [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
