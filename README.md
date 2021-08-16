@@ -1,8 +1,8 @@
 Cheerp: A C++ compiler for the Web
 ==================================
 
-Please report bugs on launchpad:
-https://bugs.launchpad.net/cheerp
+Please report bugs on GitHub:
+https://github.com/leaningtech/cheerp-meta/issues
 
 Cheerp Utilities installation
 ---------------------------
