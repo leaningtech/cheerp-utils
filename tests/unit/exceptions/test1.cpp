@@ -118,7 +118,11 @@ struct Z: public X, public Y
 	static int countC;
 	static int countD;
 	char c;
-	Z(char c): X(c), Y(c), C(c)
+	Z(char c): X(c), Y(c), C(3), c(c)
+	{
+		countC++;
+	}
+	Z(const Z& o): X(o.c), Y(o.c), C(o.C::s), c(o.c)
 	{
 		countC++;
 	}
@@ -284,11 +288,79 @@ void testObjectPtrBase()
 	} catch(X* b) {
 		r = -1;
 	}
-	delete x;
 	assertEqual(r, (int)x->c, "Throw object type ptr and catch by base type 1/4");
+	delete x;
 	assertEqual(r, 10, "Throw object type ptr and catch by base type 2/4");
-	assertEqual(x->countC, 1, "Throw object type ptr and catch by base type 3/4");
-	assertEqual(x->countD, 1, "Throw object type ptr and catch by base type 4/4");
+	assertEqual(X::countC, 1, "Throw object type ptr and catch by base type 3/4");
+	assertEqual(X::countD, 1, "Throw object type ptr and catch by base type 4/4");
+}
+
+void testObjectRefVBase()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	Z z(i);
+	int r = 0;
+
+	try {
+		throwIf<Z, 10>(z, z.c);
+		r = 1;
+	} catch(C& c) {
+		r = c.s;
+	} catch(X& x) {
+		r = -1;
+	}
+	assertEqual(r, (int)z.C::s, "Throw object type ptr and catch by virtual base type 1/4");
+	assertEqual(r, 3, "Throw object type ptr and catch by virtual base type 2/4");
+	assertEqual(z.countC, 3, "Throw object type ptr and catch by virtual base type 3/4");
+	assertEqual(z.countD, 2, "Throw object type ptr and catch by virtual base type 4/4");
+}
+
+void testObjectPtrVBase()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	Z* z = new Z(i);
+	int r = 0;
+
+	try {
+		throwIf<Z*, 10>(z, z->c);
+		r = 1;
+	} catch(C* c) {
+		r = c->s;
+	} catch(X* x) {
+		r = -1;
+	}
+	assertEqual(r, (int)z->C::s, "Throw object type ptr and catch by virtual base type 1/4");
+	delete z;
+	assertEqual(r, 3, "Throw object type ptr and catch by virtual base type 2/4");
+	assertEqual(Z::countC, 1, "Throw object type ptr and catch by virtual base type 3/4");
+	assertEqual(Z::countD, 1, "Throw object type ptr and catch by virtual base type 4/4");
+}
+
+template<typename From, typename To>
+[[clang::optnone]]
+To* getOrCreate(From* f, int cond)
+{
+	if(cond==10)
+		return dynamic_cast<To*>(f);
+	else 
+		return new To(cond);
+}
+void testDynCast()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	Z z(i);
+	int r = 0;
+
+	B* b = getOrCreate<Z, B>(&z, i);
+	C* c = getOrCreate<B, C>(b, i);
+	assertEqual(c->s, z.C::s, "Throw object type ptr and catch by virtual base type 1/4");
+	assertEqual((int)z.C::s, 3, "Throw object type ptr and catch by virtual base type 2/4");
 }
 
 void webMain()
@@ -300,4 +372,8 @@ void webMain()
 	testObjectPtr();
 	testObjectRefBase();
 	testObjectPtrBase();
+	testObjectRefVBase();
+	testObjectPtrVBase();
+
+	testDynCast();
 }
