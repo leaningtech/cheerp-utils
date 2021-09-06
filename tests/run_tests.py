@@ -193,17 +193,17 @@ def emitError(testReport, kind, log):
 	testReport.write('</failure>');
 
 
-def preExecuteTest(command, mode, testName, outFile, testReport, testErrs ):
-	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (mode, testName))
-	p=subprocess.Popen(command + ["-o", outFile]
+def preExecuteTest(command, testOptions, testName, testReport, testErrs ):
+	testReport.write('<testcase classname="preexecution-%s" name="%s">' % (testOptions.mode, testName))
+	p=subprocess.Popen(command + ["-o", testOptions.primaryFile]
 			,stderr=subprocess.PIPE);
 	_, errs = p.communicate()
 	error = False
 	if option.determinism:
-		A = computeHash(outFile)
-		B = "" + mode + "_" + testName
+		A = computeHash(testOptions.primaryFile)
+		B = "" + testOptions.mode + "_" + testName
 		if not preExecuteTest.dictionary.addValue(B, A):
-			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (mode, testName))
+			sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (testOptions.mode, testName))
 			emitError(testReport, "Determinism failure on PreExecution", testErrs);
 			error = True
 
@@ -219,12 +219,11 @@ preExecuteTest.dictionary=determinismDictionary()
 def compileCommand(compiler, mode, testName, extraFlags):
 	flags = [
 		"-O"+str(optlevel),
-		"-target", "cheerp",
 		"-frtti",
 		"-Iunit",
 		"-cheerp-bounds-check",
 		"-cheerp-fix-wrong-func-casts",
-                "-cheerp-wasm-enable=externref",
+		 "-cheerp-wasm-enable=externref",
 	] + extraFlags
 
 	if option.pretty_code:
@@ -234,14 +233,13 @@ def compileCommand(compiler, mode, testName, extraFlags):
 		flags += ['-cheerp-no-lto']
 
 	if mode == "wasm":
-		assert testName[-4:] == ".cpp"
-		flags += ["-cheerp-mode=wasm"]
-		flags += ["-cheerp-wasm-loader={}.js".format(testName[:-4])]
+		flags += ["-target","cheerp-wasm"]
 	elif mode == "asmjs":
-		flags += ["-cheerp-mode=asmjs"]
+		flags += ["-target","cheerp-wasm"]
+		flags += ["-cheerp-linear-output=asmjs"]
 	else:
 		assert mode == "genericjs"
-		flags += ["-cheerp-mode=genericjs"]
+		flags += ["-target","cheerp"]
 
 	return [compiler] + [testName] + flags
 
@@ -340,27 +338,20 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 determinismTest.dictionary = determinismDictionary()
 determinismTest.dictionaryReport = determinismDictionary()
 
-def getFileToExecute(mode, outFile):
-	if mode == "wasm":
-		assert outFile[-5:] == ".wasm"
-		return outFile[:-5] + '.js'
-	return outFile
+def compileTest(command, testOptions, testName, testReport, testOut):
+	testReport.write('<testcase classname="compilation-%s" name="%s">' % (testOptions.mode, testName))
 
-def compileTest(command, mode, testName, outFile, testReport, testOut):
-	testReport.write('<testcase classname="compilation-%s" name="%s">' % (mode, testName))
-
-	ret=subprocess.call(command + ["-o", outFile],
-		stderr=subprocess.STDOUT, stdout=testOut);
+	ret=subprocess.call(command + ["-o", testOptions.primaryFile],
+	    stderr=subprocess.STDOUT, stdout=testOut);
 
 	if option.determinism != 0:
-		A = computeHash(outFile)
-		wasmLoader = getFileToExecute(mode, outFile)
-		if wasmLoader != outFile:
+		A = computeHash(testOptions.primaryFile)
+		if testOptions.mode == "wasm":
 			#If the file to execute is different from the original, it's a wasm loader, and we can test also his determinism
-			A += computeHash(wasmLoader)
-		B = "" + mode + "_" + testName
+			A += computeHash(testOptions.secondaryFile)
+		B = "" + testOptions.mode + "_" + testName
 		if not compileTest.dictionary.addValue(B, A):
-			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (mode, testName))
+			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (testOptions.mode, testName))
 			emitError(testReport, "Determinism detected on compileTest", testOut);
 
 	if ret != 0:
@@ -370,11 +361,9 @@ def compileTest(command, mode, testName, outFile, testReport, testOut):
 
 compileTest.dictionary = determinismDictionary()
 
-def runTest(engine, mode, testName, outFile, testReport, testOut):
-	testFile = getFileToExecute(mode, outFile)
-
+def runTest(engine, testOptions, testName, testReport, testOut):
 	failure = False
-	ret=subprocess.call(engine + [testFile], stderr=subprocess.STDOUT,
+	ret=subprocess.call(engine + [testOptions.primaryFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
 	# Reset the read position to the beginning of the output. Otherwise
@@ -398,7 +387,7 @@ def runTest(engine, mode, testName, outFile, testReport, testOut):
 	else:
 		failure = True
 
-	testReport.write('<testcase classname="run-%s" name="%s">' % (mode,testName))
+	testReport.write('<testcase classname="run-%s" name="%s">' % (testOptions.mode,testName))
 	if failure:
 		emitError(testReport, "Runtime error", testOut);
 	testReport.write('</testcase>')
@@ -411,6 +400,14 @@ def shouldTestDeterminism():
 	if random.random() < probability_determinism:
 		return True
 	return False
+
+class TestOptions:
+    def __init__(self, mode, basePath):
+        self.mode = mode
+        self.primaryFile = basePath + ".js"
+        if (mode == "wasm"):
+            self.secondaryFile = basePath + ".wasm"
+        self.basePath = basePath
 
 def do_test(test):
 	status = "pass"
@@ -444,16 +441,12 @@ def do_test(test):
 		if not enabled or skip:
 			continue
 
-		if mode == "wasm":
-			ext = 'wasm'
-		else:
-			ext = 'js'
-
 		if prefix:
-			outFile = os.path.join(head, prefix + "_" + name + "." + ext)
+			basePath = os.path.join(head, prefix + "_" + name)
 		else:
-			outFile = os.path.join(head, name + "." + ext)
+			basePath = os.path.join(head, name)
 
+		testOptions = TestOptions(mode,  basePath)
 
 		if (compile_mode is compileTest):
 			command = compileCommand
@@ -482,20 +475,20 @@ def do_test(test):
 		test_id = test
 		if extraFlags:
 			test_id += ".extra"
-		if compile_mode(get_next_command(), mode, test_id, outFile, stdrepLog, stdoutLog):
+		if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
 			status = "error"
 		elif shouldTestDeterminism():
-			if compile_mode(get_next_command(), mode, test_id, outFile, stdrepLog, stdoutLog):
+			if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
 				status = "error"
 			elif option.determinism != 1:
 				#Compute the seed for a given outFile, and use it to select some passes to call -print-after-all on
-				seed = int(computeHash(str(outFile)), 16)
+				seed = int(computeHash(str(testOptions.primaryFile)), 16)
 				addPrintAfter = printAfter(seed)
 				for _ in range(3):
-					if determinismTest(get_next_command(), str(addPrintAfter), signature, outFile, stdrepLog, stdoutLog, reportA, reportB):
+					if determinismTest(get_next_command(), str(addPrintAfter), signature, testOptions, stdrepLog, stdoutLog, reportA, reportB):
 						status = "determinism_error"
 						break
-		if status == "pass" and run and run(jsEngine, mode, test_id, outFile, stdrepLog, stdoutLog):
+		if status == "pass" and run and run(jsEngine, testOptions, test_id, stdrepLog, stdoutLog):
 			status = "assertion"
 
 	stdoutLog.close()
