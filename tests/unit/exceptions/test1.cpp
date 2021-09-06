@@ -340,27 +340,40 @@ void testObjectPtrVBase()
 	assertEqual(Z::countD, 1, "Throw object type ptr and catch by virtual base type 4/4");
 }
 
-template<typename From, typename To>
-[[clang::optnone]]
-To* getOrCreate(From* f, int cond)
-{
-	if(cond==10)
-		return dynamic_cast<To*>(f);
-	else 
-		return new To(cond);
-}
-void testDynCast()
+void testNullptr()
 {
 	zeroCounters();
 
 	int i = unitBlackBox(10);
-	Z z(i);
 	int r = 0;
 
-	B* b = getOrCreate<Z, B>(&z, i);
-	C* c = getOrCreate<B, C>(b, i);
-	assertEqual(c->s, z.C::s, "Throw object type ptr and catch by virtual base type 1/4");
-	assertEqual((int)z.C::s, 3, "Throw object type ptr and catch by virtual base type 2/4");
+	try {
+		throwIf<C*, 10>(nullptr, i);
+		r = 1;
+	} catch(A* a) {
+		r = -1;
+	} catch(C* c) {
+		r = 2;
+	}
+	assertEqual(r, 2, "Throw a null pointer and catch it 1/1");
+}
+
+void testNullptr_t()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	int r = 0;
+
+	try {
+		throwIf<std::nullptr_t, 10>(nullptr, i);
+		r = 1;
+	} catch(std::nullptr_t n) {
+		r = -1;
+	} catch(C* c) {
+		r = c->s;
+	}
+	assertEqual(r, -1, "Throw nullptr_t type and catch it 1/1");
 }
 
 void webMain()
@@ -374,6 +387,6 @@ void webMain()
 	testObjectPtrBase();
 	testObjectRefVBase();
 	testObjectPtrVBase();
-
-	testDynCast();
+	testNullptr();
+	testNullptr_t();
 }
