@@ -147,18 +147,21 @@ selected_tests = set()
 
 # Determine if we want to run a select number of test, or all tests.
 if args[2:]:
-	selected_tests = args[2:]
+	selected_tests = set(args[2:])
 else:
-	if option.preexecute or option.preexecute_asmjs:
-		selected_tests |= set(pre_executer_tests)
-	if option.asmjs:
-		selected_tests |= set(asmjs_tests)
-	if option.wasm:
-		selected_tests |= set(wasm_tests)
-	if option.genericjs:
-		selected_tests |= set(genericjs_tests)
+	selected_tests = set(wasm_tests)
 
-	selected_tests = sorted(list(selected_tests))
+filter_tests = set()
+if option.preexecute or option.preexecute_asmjs:
+    filter_tests |= set(pre_executer_tests)
+if option.asmjs:
+    filter_tests |= set(asmjs_tests)
+if option.wasm:
+    filter_tests |= set(wasm_tests)
+if option.genericjs:
+    filter_tests |= set(genericjs_tests)
+
+selected_tests = sorted(list(selected_tests.intersection(filter_tests)))
 
 def computeHash(code):
 	return hashlib.md5(code.encode()).hexdigest()
