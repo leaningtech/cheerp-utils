@@ -50,6 +50,32 @@ asmjs = option.asmjs
 wasm = option.wasm
 probability_determinism = max(0.0, min(1.0, option.determinism_probability))
 
+class Test:
+    def __init__(self, name, genericjs, linear, preexecutable, flags, options):
+        self.name = name
+        self.genericjs = genericjs
+        self.asmjs = linear
+        self.wasm = linear
+        self.preexecutable = preexecutable
+        self.flags = flags
+        self.options = options
+
+    @classmethod
+    def preexecutable(this, name, flags = [], options = {}):
+        return this(name, True, True, True, flags, options)
+
+    @classmethod
+    def common(this, name, flags = [], options = {}):
+        return this(name, True, True, False, flags, options)
+
+    @classmethod
+    def genericjsOnly(this, name, flags = [], options = {}):
+        return this(name, True, False, False, flags, options)
+
+    @classmethod
+    def linearOnly(this, name, flags = [], options = {}):
+        return this(name, False, True, False, flags, options)
+
 pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
 		'unit/virtual/test2.cpp',
@@ -85,7 +111,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/test11.cpp','unit/codegen/test13.cpp',
 		 'unit/codegen/test14.cpp','unit/codegen/test15.cpp','unit/codegen/test16.cpp',
 		 'unit/codegen/test17.cpp','unit/codegen/test18.cpp', 'unit/codegen/test19.cpp',
-		 'unit/codegen/test21.cpp','unit/codegen/test22.cpp',
+		 'unit/codegen/test22.cpp',
 		 'unit/codegen/test23.cpp','unit/codegen/test24.cpp','unit/codegen/bswap.cpp',
 		 'unit/codegen/64bitenum.cpp','unit/codegen/64bitpointerarith.cpp','unit/codegen/floattoint.cpp',
 		 'unit/codegen/variadic.cpp', 'unit/codegen/dynalloca.cpp', 'unit/static/test1.cpp',
@@ -94,11 +120,11 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/randomcfg/size5times20.cpp', 'unit/randomcfg/size10times10.cpp',
 		 'unit/randomcfg/size20times10.cpp', 'unit/randomcfg/size50times2.cpp',
 		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp',
-		 'unit/randomcfg/swap25by25.cpp', 'unit/randomcfg/operationsOnInt64.cpp',
+		 'unit/randomcfg/swap25by25.cpp',
 		 'unit/randomcfg/swapOnPointers.cpp', 'unit/randomcfg/combOnDouble.cpp',
 		 'unit/randomcfg/comb10by10.cpp', 'unit/randomcfg/swap25by25.cpp',
 	]
-common_tests = pre_executer_tests + [
+common_tests = [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
 		'unit/closures/test4.cpp','unit/codegen/empty.cpp',
                 'unit/anyref/args.cpp',
@@ -113,7 +139,7 @@ common_tests = pre_executer_tests + [
 		'unit/client/static-methods.cpp',
 		'unit/codegen/nested_lambda.cpp',
 		]
-genericjs_tests = common_tests + [
+genericjs_only_tests = [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
 		'unit/dom/test5.cpp','unit/dom/test6.cpp','unit/dom/test7.cpp',
 		'unit/dom/test8.cpp','unit/dom/test9.cpp','unit/dom/noconstructor.cpp', 'unit/dom/utf8.cpp',
@@ -129,19 +155,26 @@ genericjs_tests = common_tests + [
 		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
 		'unit/jsexport/parameters_client.cpp',
 	 ]
-asmjs_tests = common_tests + [
+asmjs_only_tests = [
 		'unit/ffi/test1.cpp',
 		'unit/ffi/test2.cpp',
-		'unit/ffi/i64.cpp',
 		'unit/std/malloc.cpp'
 		]
-wasm_tests = asmjs_tests
 
-extra_flags_tests = {
-		'unit/codegen/test21.cpp' : ['-cheerp-use-bigints'],
-		'unit/ffi/i64.cpp' : ['-cheerp-use-bigints'],
-		'unit/randomcfg/operationsOnInt64.cpp' : ['-cheerp-use-bigints'],
-}
+test_list = []
+
+for name in pre_executer_tests:
+    test_list += [Test.preexecutable(name)]
+for name in common_tests:
+    test_list += [Test.common(name)]
+for name in genericjs_only_tests:
+    test_list += [Test.genericjsOnly(name)]
+for name in asmjs_only_tests:
+    test_list += [Test.linearOnly(name)]
+
+test_list += [Test.preexecutable('unit/codegen/test21.cpp', ['-cheerp-use-bigints'], {})]
+test_list += [Test.linearOnly('unit/ffi/i64.cpp', ['-cheerp-use-bigints'], {})]
+test_list += [Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', ['-cheerp-use-bigints'], {})]
 
 selected_tests = set()
 
@@ -152,14 +185,19 @@ else:
 	selected_tests = set(wasm_tests)
 
 filter_tests = set()
-if option.preexecute or option.preexecute_asmjs:
-    filter_tests |= set(pre_executer_tests)
-if option.asmjs:
-    filter_tests |= set(asmjs_tests)
-if option.wasm:
-    filter_tests |= set(wasm_tests)
-if option.genericjs:
-    filter_tests |= set(genericjs_tests)
+for test in test_list:
+    if option.preexecute or option.preexecute_asmjs:
+        if test.preexecutable:
+            filter_tests.insert(test)
+    if option.asmjs:
+        if test.asmjs:
+            filter_tests.insert(test)
+    if option.wasm:
+        if test.wasm:
+            filter_tests.insert(test)
+    if option.genericjs:
+        if test.genericjs:
+            filter_tests.insert(test)
 
 selected_tests = sorted(list(selected_tests.intersection(filter_tests)))
 
