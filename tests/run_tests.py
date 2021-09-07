@@ -60,20 +60,23 @@ class Test:
         self.flags = flags
         self.options = options
 
+    def __lt__(self, other):
+         return self.name < other.name
+
     @classmethod
-    def preexecutable(this, name, flags = [], options = {}):
+    def preexecutable(this, name, flags = [[]], options = {}):
         return this(name, True, True, True, flags, options)
 
     @classmethod
-    def common(this, name, flags = [], options = {}):
+    def common(this, name, flags = [[]], options = {}):
         return this(name, True, True, False, flags, options)
 
     @classmethod
-    def genericjsOnly(this, name, flags = [], options = {}):
+    def genericjsOnly(this, name, flags = [[]], options = {}):
         return this(name, True, False, False, flags, options)
 
     @classmethod
-    def linearOnly(this, name, flags = [], options = {}):
+    def linearOnly(this, name, flags = [[]], options = {}):
         return this(name, False, True, False, flags, options)
 
 pre_executer_tests = ['unit/downcast/test1.cpp',
@@ -163,43 +166,34 @@ asmjs_only_tests = [
 
 test_list = []
 
-for name in pre_executer_tests:
-    test_list += [Test.preexecutable(name)]
-for name in common_tests:
-    test_list += [Test.common(name)]
-for name in genericjs_only_tests:
-    test_list += [Test.genericjsOnly(name)]
-for name in asmjs_only_tests:
-    test_list += [Test.linearOnly(name)]
-
-test_list += [Test.preexecutable('unit/codegen/test21.cpp', ['-cheerp-use-bigints'], {})]
-test_list += [Test.linearOnly('unit/ffi/i64.cpp', ['-cheerp-use-bigints'], {})]
-test_list += [Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', ['-cheerp-use-bigints'], {})]
-
 selected_tests = set()
+select_all = True
 
 # Determine if we want to run a select number of test, or all tests.
 if args[2:]:
-	selected_tests = set(args[2:])
-else:
-	selected_tests = set(wasm_tests)
+    selected_tests = set(args[2:])
+    select_all = False
 
-filter_tests = set()
-for test in test_list:
-    if option.preexecute or option.preexecute_asmjs:
-        if test.preexecutable:
-            filter_tests.insert(test)
-    if option.asmjs:
-        if test.asmjs:
-            filter_tests.insert(test)
-    if option.wasm:
-        if test.wasm:
-            filter_tests.insert(test)
-    if option.genericjs:
-        if test.genericjs:
-            filter_tests.insert(test)
 
-selected_tests = sorted(list(selected_tests.intersection(filter_tests)))
+def addToTestListIfMatch(someTest):
+    if select_all or (someTest.name in selected_tests):
+        test_list.append(someTest)
+
+for name in pre_executer_tests:
+    addToTestListIfMatch(Test.preexecutable(name))
+for name in common_tests:
+    addToTestListIfMatch(Test.common(name))
+for name in genericjs_only_tests:
+    addToTestListIfMatch(Test.genericjsOnly(name))
+for name in asmjs_only_tests:
+    addToTestListIfMatch(Test.linearOnly(name))
+
+
+addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
+addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
+addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
+
+selected_tests = sorted(list(test_list))
 
 def computeHash(code):
 	return hashlib.md5(code.encode()).hexdigest()
@@ -453,30 +447,27 @@ class TestOptions:
 def do_test(test):
 	status = "pass"
 
-	head, tail = os.path.split(test)
+	head, tail = os.path.split(test.name)
 	name, _ = os.path.splitext(tail)
 
-	stdoutLog = open("%s.log" % test,"w+")
-	stdrepLog = open("%s_testreport" % test,"w+")
-	reportA = open("%s.reportA" % test,"w+")
-	reportB = open("%s.reportB" % test,"w+")
+	stdoutLog = open("%s.log" % test.name,"w+")
+	stdrepLog = open("%s_testreport" % test.name,"w+")
+	reportA = open("%s.reportA" % test.name,"w+")
+	reportB = open("%s.reportB" % test.name,"w+")
 
 	test_runs = [
-		(option.preexecute, "genericjs", test not in pre_executer_tests,
+		(option.preexecute, "genericjs", not test.preexecutable,
 			preExecuteTest, None, []),
-		(option.preexecute_asmjs, "asmjs", test not in pre_executer_tests,
+		(option.preexecute_asmjs, "asmjs", not test.preexecutable,
 			preExecuteTest, None, []),
-		(option.asmjs, "asmjs", test not in asmjs_tests, compileTest,
-			runTest, []),
-		(option.wasm, "wasm", test not in wasm_tests, compileTest,
-			runTest, []),
-		(option.genericjs, "genericjs", test not in genericjs_tests,
-			compileTest, runTest, []),
-		(option.genericjs and test in extra_flags_tests, "genericjs", test not in genericjs_tests,
-			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else []),
-		(option.wasm and test in extra_flags_tests, "wasm", test not in wasm_tests,
-			compileTest, runTest, extra_flags_tests[test] if test in extra_flags_tests else [])
 	]
+	for flags in test.flags:
+		test_runs += [(option.genericjs, "genericjs", not test.genericjs,
+                compileTest, runTest, flags)]
+		test_runs += [(option.asmjs, "asmjs", not test.asmjs,
+                compileTest, runTest, flags)]
+		test_runs += [(option.wasm, "wasm", not test.wasm,
+                compileTest, runTest, flags)]
 
 	for enabled, mode, skip, compile_mode, run, extraFlags in test_runs:
 		if not enabled or skip:
@@ -498,12 +489,12 @@ def do_test(test):
 
 		assert command
 		possible_commands = list()
-		possible_commands.append(command(clang, mode, test, extraFlags))
+		possible_commands.append(command(clang, mode, test.name, extraFlags))
 
 		if option.valgrind:
 			possible_commands.append(["valgrind", "-q"] + possible_commands[0])
 
-		signature = test + "_" + mode
+		signature = test.name + "_" + mode
 		if compile_mode is preExecuteTest:
 			signature += "_preexecuted"
 
@@ -513,8 +504,8 @@ def do_test(test):
 			return commands[0]
 
 		# TODO: put the "extra" in the classname, not the name of the test
-		test_id = test
-		if extraFlags:
+		test_id = test.name
+		if len(extraFlags) > 0:
 			test_id += ".extra"
 		if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
 			status = "error"
@@ -550,7 +541,7 @@ for test, future in zip(selected_tests, futures):
 
 	progress += 1
 	done = progress * 100 / len(selected_tests)
-	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test, status))
+	sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test.name, status))
 
 # Build back the testReport, testErrs and testOut files
 testReport = open("testReport.test", "w")
@@ -569,10 +560,10 @@ def writeLinesAndRemove(destination, source):
 		os.remove(source)
 
 for t in selected_tests:
-	writeLinesAndRemove(testReport, "%s_testreport" % t)
-	writeLinesAndRemove(testOut, "%s.log" % t)
-	writeLinesAndRemove(reportA, "%s.reportA" % t)
-	writeLinesAndRemove(reportB, "%s.reportB" % t)
+	writeLinesAndRemove(testReport, "%s_testreport" % t.name)
+	writeLinesAndRemove(testOut, "%s.log" % t.name)
+	writeLinesAndRemove(reportA, "%s.reportA" % t.name)
+	writeLinesAndRemove(reportB, "%s.reportB" % t.name)
 
 testReport.write('</testsuite>')
 
