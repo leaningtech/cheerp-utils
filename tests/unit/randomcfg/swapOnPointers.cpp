@@ -28,7 +28,7 @@ public:
 
 int function()
 {
-	int res = 3044167877;
+	int res = 3044167877u;
 	int INDEX = 0;
 	volatile int x;
 	volatile int y;

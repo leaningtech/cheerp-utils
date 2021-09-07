@@ -28,7 +28,7 @@ public:
 
 int function()
 {
-	int res = 2225070699;
+	int res = 2225070699u;
 int INDEX = 0;
 	int a=0;
 	int b=1;

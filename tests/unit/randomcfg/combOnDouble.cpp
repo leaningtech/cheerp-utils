@@ -29,7 +29,7 @@ private:
 
 int function()
 {
-	int res = 3044167877;
+	int res = 3044167877u;
 	double a=0;
 	double b=0.123152;
 	double c=0.246305;
