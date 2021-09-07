@@ -36,7 +36,23 @@ void assertEqual(const T& value, const T& expected, const char* msg)
 {
 	assertEqualImpl(value==expected, msg);
 }
+void assertEqual(int64_t value, int64_t expected, const char* msg)
+{
+	assertEqualImpl(value==expected, msg);
+}
 void assertEqual(int value, int expected, const char* msg)
+{
+	assertEqualImpl(value==expected, msg);
+}
+void assertEqual(double value, double expected, const char* msg)
+{
+	assertEqualImpl(value==expected, msg);
+}
+void assertEqual(float value, float expected, const char* msg)
+{
+	assertEqualImpl(value==expected, msg);
+}
+void assertEqual(char value, char expected, const char* msg)
 {
 	assertEqualImpl(value==expected, msg);
 }
