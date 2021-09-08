@@ -192,7 +192,7 @@ addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheer
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
-addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -401,6 +401,8 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 	driverFile = testOptions.primaryFile
 	if testOptions.module == 'es6':
 		driverFile += '.es6driver.mjs'
+	if testOptions.module == 'commonjs':
+		driverFile += '.commonjsdriver.js'
 	ret=subprocess.call(engine + [driverFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
@@ -448,6 +450,8 @@ class TestOptions:
         for f in extraFlags:
             if f == '-cheerp-make-module=es6':
                 self.module = 'es6'
+            if f == '-cheerp-make-module=commonjs':
+                self.module = 'commonjs'
         self.primaryFile = basePath + ".js"
         if (self.module == 'es6'):
             self.primaryFile = basePath + ".mjs"
