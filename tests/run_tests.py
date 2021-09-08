@@ -178,13 +178,13 @@ def addToTestListIfMatch(someTest):
     if select_all or (someTest.name in selected_tests):
         test_list.append(someTest)
 
-for name in pre_executer_tests:
+for name in set(pre_executer_tests):
     addToTestListIfMatch(Test.preexecutable(name))
-for name in common_tests:
+for name in set(common_tests):
     addToTestListIfMatch(Test.common(name))
-for name in genericjs_only_tests:
+for name in set(genericjs_only_tests):
     addToTestListIfMatch(Test.genericjsOnly(name))
-for name in asmjs_only_tests:
+for name in set(asmjs_only_tests):
     addToTestListIfMatch(Test.linearOnly(name))
 
 
