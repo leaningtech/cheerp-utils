@@ -192,6 +192,7 @@ addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheer
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
+addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=es6']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -397,7 +398,10 @@ compileTest.dictionary = determinismDictionary()
 
 def runTest(engine, testOptions, testName, testReport, testOut):
 	failure = False
-	ret=subprocess.call(engine + [testOptions.primaryFile], stderr=subprocess.STDOUT,
+	driverFile = testOptions.primaryFile
+	if testOptions.module == 'es6':
+		driverFile += '.es6driver.mjs'
+	ret=subprocess.call(engine + [driverFile], stderr=subprocess.STDOUT,
 		stdout=testOut);
 
 	# Reset the read position to the beginning of the output. Otherwise
@@ -436,11 +440,17 @@ def shouldTestDeterminism():
 	return False
 
 class TestOptions:
-    def __init__(self, mode, basePath):
+    def __init__(self, mode, basePath, extraFlags):
         self.mode = mode
-        self.primaryFile = basePath + ".js"
         if (mode == "wasm"):
             self.secondaryFile = basePath + ".wasm"
+        self.module = 'none'
+        for f in extraFlags:
+            if f == '-cheerp-make-module=es6':
+                self.module = 'es6'
+        self.primaryFile = basePath + ".js"
+        if (self.module == 'es6'):
+            self.primaryFile = basePath + ".mjs"
         self.basePath = basePath
 
 def do_test(test):
@@ -477,7 +487,7 @@ def do_test(test):
 		else:
 			basePath = os.path.join(head, name)
 
-		testOptions = TestOptions(mode,  basePath)
+		testOptions = TestOptions(mode,  basePath, extraFlags)
 
 		if (compile_mode is compileTest):
 			command = compileCommand
