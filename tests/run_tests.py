@@ -51,11 +51,11 @@ wasm = option.wasm
 probability_determinism = max(0.0, min(1.0, option.determinism_probability))
 
 class Test:
-    def __init__(self, name, genericjs, linear, preexecutable, flags, options):
+    def __init__(self, name, genericjs, asmjs, wasm, preexecutable, flags, options):
         self.name = name
         self.genericjs = genericjs
-        self.asmjs = linear
-        self.wasm = linear
+        self.asmjs = asmjs
+        self.wasm = wasm
         self.preexecutable = preexecutable
         self.flags = flags
         self.options = options
@@ -65,19 +65,23 @@ class Test:
 
     @classmethod
     def preexecutable(this, name, flags = [[]], options = {}):
-        return this(name, True, True, True, flags, options)
+        return this(name, True, True, True, True, flags, options)
 
     @classmethod
     def common(this, name, flags = [[]], options = {}):
-        return this(name, True, True, False, flags, options)
+        return this(name, True, True, True, False, flags, options)
 
     @classmethod
     def genericjsOnly(this, name, flags = [[]], options = {}):
-        return this(name, True, False, False, flags, options)
+        return this(name, True, False, False, False, flags, options)
 
     @classmethod
     def linearOnly(this, name, flags = [[]], options = {}):
-        return this(name, False, True, False, flags, options)
+        return this(name, False, True, True, False, flags, options)
+
+    @classmethod
+    def wasmOnly(this, name, flags = [[]], options = {}):
+        return this(name, False, False, True, False, flags, options)
 
 pre_executer_tests = ['unit/downcast/test1.cpp',
 	 'unit/virtual/test1.cpp',
@@ -140,6 +144,9 @@ common_tests = [
 		'unit/client/setter-getter.cpp',
 		'unit/client/static-methods.cpp',
 		'unit/codegen/nested_lambda.cpp',
+        'unit/types/padding1.cpp',
+        'unit/types/padding2.cpp',
+        'unit/types/padding3.cpp',
 		]
 genericjs_only_tests = [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -162,7 +169,12 @@ asmjs_only_tests = [
 		'unit/ffi/test2.cpp',
 		'unit/std/malloc.cpp'
 		]
-
+packed_tests = [
+        'unit/types/packed.cpp',
+        'unit/types/padding4.cpp',
+        'unit/types/padding5.cpp',
+        'unit/types/padding6.cpp',
+        ]
 test_list = []
 
 selected_tests = set()
@@ -172,7 +184,6 @@ select_all = True
 if args[2:]:
     selected_tests = set(args[2:])
     select_all = False
-
 
 def addToTestListIfMatch(someTest):
     if select_all or (someTest.name in selected_tests):
@@ -186,6 +197,8 @@ for name in set(genericjs_only_tests):
     addToTestListIfMatch(Test.genericjsOnly(name))
 for name in set(asmjs_only_tests):
     addToTestListIfMatch(Test.linearOnly(name))
+for name in set(packed_tests):
+    addToTestListIfMatch(Test.wasmOnly(name))
 
 
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
