@@ -130,7 +130,6 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 common_tests = [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
 		'unit/closures/test4.cpp','unit/codegen/empty.cpp',
-                'unit/anyref/args.cpp',
 		'unit/jsexport/cheerp_pimpl.cpp',
 		'unit/jsexport/factory.cpp',
 		'unit/jsexport/invoke_functions.cpp',
@@ -192,6 +191,7 @@ for name in asmjs_only_tests:
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
+addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -258,7 +258,6 @@ def compileCommand(compiler, mode, testName, extraFlags):
 		"-Iunit",
 		"-cheerp-bounds-check",
 		"-cheerp-fix-wrong-func-casts",
-		 "-cheerp-wasm-enable=externref",
 	] + extraFlags
 
 	if option.pretty_code:
