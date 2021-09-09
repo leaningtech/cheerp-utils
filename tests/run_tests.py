@@ -129,7 +129,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 	]
 common_tests = [
 		'unit/std/gettimeofday.cpp','unit/std/chrono.cpp', 'unit/ffi/test3.cpp',
-		'unit/closures/test4.cpp','unit/codegen/empty.cpp',
+		'unit/closures/test4.cpp',
 		'unit/jsexport/cheerp_pimpl.cpp',
 		'unit/jsexport/factory.cpp',
 		'unit/jsexport/invoke_functions.cpp',
@@ -187,7 +187,7 @@ for name in set(genericjs_only_tests):
 for name in set(asmjs_only_tests):
     addToTestListIfMatch(Test.linearOnly(name))
 
-
+addToTestListIfMatch(Test.common('unit/codegen/empty.cpp', [[], ['-cheerp-make-module=commonjs'], ['-cheerp-make-module=closure'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
