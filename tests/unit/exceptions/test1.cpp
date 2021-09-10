@@ -3,7 +3,21 @@
 //===----------------------------------------------------------------------===//
 
 #include <tests.h>
+#include <cheerpintrin.h>
 
+namespace [[cheerp::genericjs]] cheerp {
+	class JSException {
+		client::Object* inner;
+		public:
+			JSException(client::Object* e): inner(e)
+			{
+			}
+			client::Object* get()
+			{
+				return inner;
+			}
+	};
+}
 struct Never
 {
 };
@@ -376,6 +390,188 @@ void testNullptr_t()
 	assertEqual(r, -1, "Throw nullptr_t type and catch it 1/1");
 }
 
+void testJsObject()
+{
+	int i = unitBlackBox(10);
+	client::Object* o = new client::Object();
+	o->set_("data", i); 
+	int r = 0;
+
+	try {
+		__builtin_cheerp_throw(o);
+		r = 1;
+	} catch(cheerp::JSException& e) {
+		r = int(*(*e.get())["data"]);
+	} catch(X* x) {
+		r = -1;
+	}
+	assertEqual(r, i, "Throw a client::Object* and catch it 1/1");
+}
+
+void testRethrow()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	A a(i);
+	int r = 0;
+
+	auto inner = [](A& a, int& r)
+	{
+		try {
+			throwIf<A, 10>(a, a.i);
+			r = 1;
+		} catch(A& a) {
+			r = a.i;
+			throw;
+		}
+	};
+	try {
+		inner(a, r);
+	} catch(A& a) {
+		r+= a.i;
+	}
+	assertEqual(r, 2*a.i, "Throw object type ref 1/4");
+	assertEqual(r, 2*10, "Throw object type ref 2/4");
+	assertEqual(a.countC, 3, "Throw object type ref 3/4");
+	assertEqual(a.countD, 2, "Throw object type ref 4/4");
+}
+
+void testRethrowForeign()
+{
+	int i = unitBlackBox(10);
+	client::Object* o = new client::Object();
+	o->set_("data", i); 
+	int r = 0;
+
+	auto inner = [](client::Object* o, int& r)
+	{
+		try {
+			__builtin_cheerp_throw(o);
+			r = 1;
+		} catch(cheerp::JSException& e) {
+			r = int(*(*e.get())["data"]);
+			throw;
+		} catch(X* x) {
+			r = -1;
+		}
+	};
+
+	try {
+		inner(o, r);
+	} catch(cheerp::JSException& e) {
+		r += int(*(*e.get())["data"]);
+	}
+	assertEqual(r, 2*i, "Throw a client::Object* and rethrow it 1/1");
+}
+
+void testResume()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	A a(i);
+	int r = 0;
+
+	auto inner = [](A& a, int& r)
+	{
+		try {
+			throwIf<A, 10>(a, a.i);
+			r = 1;
+		} catch(B& b) {
+			r = b.c;
+		}
+		r = 2;
+	};
+	try {
+		inner(a, r);
+	} catch(A& a) {
+		r+= a.i;
+	}
+	assertEqual(r, a.i, "Test resume unwinding 1/4");
+	assertEqual(r, 10, "Test resume unwinding 2/4");
+	assertEqual(a.countC, 3, "Test resume unwinding 3/4");
+	assertEqual(a.countD, 2, "Test resume unwinding 4/4");
+}
+
+void testGetCurrentException()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	A a(i);
+	int r = 0;
+
+	auto inner = [](A& a, int& r)
+	{
+		std::exception_ptr ex;
+		try {
+			throwIf<A, 10>(a, a.i);
+			r = 1;
+		} catch(A& a) {
+			ex = std::current_exception();
+			r = a.i;
+		}
+		return ex;
+	};
+	try {
+		auto ex = inner(a, r);
+		std::rethrow_exception(ex);
+	} catch(A& a) {
+		r+= a.i;
+	}
+	assertEqual(r, 2*a.i, "Capture and rethrow current exception 1/4");
+	assertEqual(r, 2*10, "Capture and rethrow current exception 2/4");
+	assertEqual(a.countC, 3, "Capture and rethrow current exception 3/4");
+	assertEqual(a.countD, 2, "Capture and rethrow current exception 4/4");
+}
+
+struct T
+{
+	static int count;
+	int i;
+	T(int i): i(i)
+	{
+	}
+	~T()
+	{
+		A a(i);
+		try {
+			throwIf<A, 10>(a, a.i);
+		} catch (A& a) {
+			count = std::uncaught_exceptions();
+		}
+	}
+};
+int T::count = 0;
+
+void testNestedUnwind()
+{
+	zeroCounters();
+
+	int i = unitBlackBox(10);
+	try {
+		T t(i);
+		throwIf<int, 10>(i, i);
+		T::count = -1;
+	} catch(int i) {
+	}
+	assertEqual(T::count, 1, "Throw exception during another exception cleanup 1/1");
+}
+
+void testCatchAll()
+{
+	int i = unitBlackBox(10);
+	int r = 0;
+	try {
+		throwIf<int, 10>(i, i);
+		r = -1;
+	} catch(...) {
+		r = 1;
+	}
+	assertEqual(r, 1, "Catchall clause 1/1");
+}
+
 void webMain()
 {
 	testBasic();
@@ -389,4 +585,11 @@ void webMain()
 	testObjectPtrVBase();
 	testNullptr();
 	testNullptr_t();
+	testJsObject();
+	testRethrow();
+	testRethrowForeign();
+	testResume();
+	testGetCurrentException();
+	testNestedUnwind();
+	testCatchAll();
 }
