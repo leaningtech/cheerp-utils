@@ -543,7 +543,7 @@ def do_test(test):
 				seed = int(computeHash(str(testOptions.primaryFile)), 16)
 				addPrintAfter = printAfter(seed)
 				for _ in range(3):
-					if determinismTest(get_next_command(), str(addPrintAfter), signature, testOptions, stdrepLog, stdoutLog, reportA, reportB):
+					if determinismTest(get_next_command(), str(addPrintAfter), signature, testOptions.primaryFile, stdrepLog, stdoutLog, reportA, reportB):
 						status = "determinism_error"
 						break
 		if status == "pass" and run and run(jsEngine, testOptions, test_id, stdrepLog, stdoutLog):
