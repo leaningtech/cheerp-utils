@@ -227,11 +227,20 @@ class determinismDictionary:
 		return self.dictionary[testCase]
 
 def compileCommandPreExecuter(compiler, mode, testName, extraFlags):
-	maybe_pretty = ['-cheerp-pretty-code'] if option.pretty_code else []
-	return [compiler, "-O"+str(optlevel), "-target", "cheerp",
+	flags = ['-cheerp-pretty-code'] if option.pretty_code else []
+	if mode == "wasm":
+		flags += ["-target","cheerp-wasm"]
+	elif mode == "asmjs":
+		flags += ["-target","cheerp-wasm"]
+		flags += ["-cheerp-linear-output=asmjs"]
+	else:
+		assert mode == "genericjs"
+		flags += ["-target","cheerp"]
+
+	return [compiler, "-O"+str(optlevel),
 		"-frtti", "-Iunit", "-cheerp-preexecute", "-mllvm","-cheerp-preexecute-main",
 		"-DPRE_EXECUTE_TEST",
-		"-cheerp-mode="+ mode, testName] + maybe_pretty + extraFlags
+		testName] + flags + extraFlags
 
 def emitError(testReport, kind, log):
 	testReport.write('<failure type="');
