@@ -22,7 +22,9 @@
 #define _CHEERP_TYPES_H_2043d438
 
 #include <utility>
+#ifndef LEAN_CXX_LIB
 #include <string>
+#endif
 #include <limits>
 #include <cheerpintrin.h>
 #include "jsobject.h"
@@ -111,6 +113,7 @@ public:
 	String* padEnd(int, const String&) const;
 	String* padStart(int) const;
 	String* padStart(int, const String&) const;
+#ifndef LEAN_CXX_LIB
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
@@ -122,6 +125,7 @@ public:
 			ptr[i] = charCodeAt(i);
 		return ret;
 	}
+#endif
 	static client::String* fromUtf8(const char * in, size_t len = std::numeric_limits<size_t>::max())
 	{
 		client::String* out = new client::String();

@@ -26,7 +26,6 @@
 #include <cheerpintrin.h>
 
 #include <utility>
-#include <functional>
 
 namespace [[cheerp::genericjs]] cheerp
 {
