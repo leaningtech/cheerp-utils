@@ -163,7 +163,7 @@ genericjs_only_tests = [
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
 		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
 		'unit/jsexport/parameters_client.cpp',
-		'unit/exceptions/test1.cpp', 'unit/exceptions/test2.cpp'
+		'unit/exceptions/test1.cpp', 'unit/exceptions/test2.cpp',
 	 ]
 asmjs_only_tests = [
 		'unit/ffi/test1.cpp',
