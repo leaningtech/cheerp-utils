@@ -25,7 +25,9 @@
 #include "cheerp/clientlib.h"
 #include <cheerpintrin.h>
 
+#ifndef LEAN_CXX_LIB
 #include <utility>
+#endif
 
 namespace [[cheerp::genericjs]] cheerp
 {
@@ -51,6 +53,7 @@ static double date_now()
 	return client::Date::now();
 }
 
+#ifndef LEAN_CXX_LIB
 template<typename T>
 typename std::remove_reference<T>::type&& move(T&& t) noexcept
 {
@@ -430,6 +433,8 @@ ArrayRef<T> makeArrayRef(T* obj)
 {
 	return ArrayRef<T>(obj);
 }
+
+#endif
 
 } //End of namespace cheerp
 

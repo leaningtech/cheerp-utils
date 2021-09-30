@@ -24,7 +24,8 @@
 #ifndef LEAN_CXX_LIB
 #include <string>
 #endif
-#include <limits>
+#include <stddef.h>
+#include <stdint.h>
 #include <cheerpintrin.h>
 #include "jsobject.h"
 
@@ -125,7 +126,7 @@ public:
 		return ret;
 	}
 #endif
-	static client::String* fromUtf8(const char * in, size_t len = std::numeric_limits<size_t>::max())
+	static client::String* fromUtf8(const char * in, size_t len = SIZE_MAX)
 	{
 		client::String* out = new client::String();
 		unsigned int codepoint;
@@ -247,6 +248,7 @@ public:
 	Map();
 	int get_size();
 	void clear();
+#ifndef LEAN_CXX_LIB
 	template<typename K, typename V, typename std::enable_if<
 		(std::is_arithmetic<K>::value || std::is_pointer<K>::value) &&
 		(std::is_arithmetic<V>::value || std::is_pointer<V>::value), int>::type = 0>
@@ -266,10 +268,12 @@ public:
 		__asm__("%1.delete(%2)" : "=r"(res) : "r"(this), "r"(k));
 		return res;
 	}
+#endif
 	void forEach(EventListener* callback);
 	//TODO: declare methods entries, keys and values
 };
 
+#ifndef LEAN_CXX_LIB
 template<typename K, typename V>
 class TMap: public Map {
 	static_assert(std::is_arithmetic<V>::value || std::is_pointer<V>::value, "Value has to be pointer or arithmetic");
@@ -295,6 +299,7 @@ class TMap: public Map {
 		return Map::delete_<K>(k);
 	}
 };
+#endif
 
 class Number: public Object
 {

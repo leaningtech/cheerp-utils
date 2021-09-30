@@ -22,7 +22,8 @@
 #define _CHEERP_CLIENTLIB_acc90e6e
 #include "types.h"
 
-#include <utility>
+#include <stddef.h>
+#include <cheerpintrin.h>
 
 namespace [[cheerp::genericjs]] client
 {
