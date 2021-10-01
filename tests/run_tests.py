@@ -384,7 +384,7 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 	if outFile[-3:] == ".js":
 		fileToRemove=outFile[:-3]
 	else:
-		fileToRemove=outFile[:-5]
+		fileToRemove=outFile[:-4]
 
 	#.bc file may be already deleted by llc, so we need to check for his existence
 	removeIfPresent(fileToRemove + ".bc")
@@ -406,7 +406,7 @@ def compileTest(command, testOptions, testName, testReport, testOut):
 		if testOptions.mode == "wasm":
 			#If the file to execute is different from the original, it's a wasm loader, and we can test also his determinism
 			A += computeHash(testOptions.secondaryFile)
-		B = "" + testOptions.mode + "_" + testName
+		B = getSignature(testName, testOptions)
 		if not compileTest.dictionary.addValue(B, A):
 			sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (testOptions.mode, testName))
 			emitError(testReport, "Determinism detected on compileTest", testOut);
@@ -472,12 +472,17 @@ class TestOptions:
         for f in extraFlags:
             if f == '-cheerp-make-module=es6':
                 self.module = 'es6'
+            if f == '-cheerp-make-module=closure':
+                self.module = 'closure'
             if f == '-cheerp-make-module=commonjs':
                 self.module = 'commonjs'
         self.primaryFile = basePath + ".js"
         if (self.module == 'es6'):
             self.primaryFile = basePath + ".mjs"
         self.basePath = basePath
+
+def getSignature(name, options):
+    return options.mode + "_" + options.module + "_" + name;
 
 def do_test(test):
 	status = "pass"
@@ -529,7 +534,7 @@ def do_test(test):
 		if option.valgrind:
 			possible_commands.append(["valgrind", "-q"] + possible_commands[0])
 
-		signature = test.name + "_" + mode
+		signature = getSignature(test.name, testOptions)
 		if compile_mode is preExecuteTest:
 			signature += "_preexecuted"
 
