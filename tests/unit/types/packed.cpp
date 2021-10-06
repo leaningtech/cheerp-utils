@@ -11,7 +11,7 @@ struct __attribute__((packed)) MyStruct{
 
 int main()
 {
-	assertEqual(sizeof(MyStruct), 5, "Sizeof support");
+	assertEqual(sizeof(MyStruct), 5u, "Sizeof support");
 	return 0;
 }
 

@@ -73,7 +73,7 @@ int testSize()
 
 int main()
 {
-	assertEqual(offsetof(B, otherChar), 240, "offsetof support");
+	assertEqual(offsetof(B, otherChar), 240u, "offsetof support");
 	int sum = 0;
 	sum += testSize<1>();
 	sum += testSize<2>();

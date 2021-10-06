@@ -8,7 +8,7 @@ void webMain()
 {
 	std::string buffer;
 	int val = 100;
-	int64_t d = 1;
+	uint64_t d = 1;
 	while (d <= val)
 	    d *= 10;
 
@@ -39,13 +39,13 @@ void webMain()
 	assertEqual(strcmp(charBuffer, "-1"), 0, "Converting 64-bit integers to string 6/6");
 
 	sscanf("100", "%llu", &d);
-	assertEqual(d, 100LL, "Converting string to 64-bit integers 1/");
+	assertEqual<uint64_t>(d, 100LL, "Converting string to 64-bit integers 1/");
 	sscanf("4294967295", "%llu", &d);
-	assertEqual(d, 4294967295LL, "Converting string to 64-bit integers 2/");
+	assertEqual<uint64_t>(d, 4294967295LL, "Converting string to 64-bit integers 2/");
 	sscanf("4294967295", "%lli", &d);
-	assertEqual(d, 4294967295LL, "Converting string to 64-bit integers 3/");
+	assertEqual<uint64_t>(d, 4294967295LL, "Converting string to 64-bit integers 3/");
 	sscanf("18446744073709551615", "%llu", &d);
-	assertEqual(d, 0xffffffffffffffffLL, "Converting string to 64-bit integers 4/");
+	assertEqual<uint64_t>(d, 0xffffffffffffffffLL, "Converting string to 64-bit integers 4/");
 	sscanf("-1", "%lli", &d);
-	assertEqual(d, 0xffffffffffffffffLL, "Converting string to 64-bit integers 5/");
+	assertEqual<uint64_t>(d, 0xffffffffffffffffLL, "Converting string to 64-bit integers 5/");
 }

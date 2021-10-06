@@ -60,7 +60,7 @@ template <unsigned int N>
 	{
 		hash += v[i].hash();
 	}
-	assertEqual(sizeof(B[N]), N, "Padding support");
+	assertEqual(sizeof(B[N]), N * sizeof(B), "Padding support");
 
 	return hash;
 }
