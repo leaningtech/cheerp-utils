@@ -848,17 +848,17 @@ public:
     void useProgram(WebGLProgram*);
     void validateProgram(WebGLProgram*);
     void vertexAttrib1f(double, double);
-    void vertexAttrib1fv(double, float*);
-    void vertexAttrib1fv(double, double*);
+    void vertexAttrib1fv(double, const Float32Array&);
+    void vertexAttrib1fv(double, const Float64Array&);
     void vertexAttrib2f(double, double, double);
-    void vertexAttrib2fv(double, float*);
-    void vertexAttrib2fv(double, double*);
+    void vertexAttrib2fv(double, const Float32Array&);
+    void vertexAttrib2fv(double, const Float64Array&);
     void vertexAttrib3f(double, double, double, double);
-    void vertexAttrib3fv(double, float*);
-    void vertexAttrib3fv(double, double*);
+    void vertexAttrib3fv(double, const Float32Array&);
+    void vertexAttrib3fv(double, const Float64Array&);
     void vertexAttrib4f(double, double, double, double, double);
-    void vertexAttrib4fv(double, float*);
-    void vertexAttrib4fv(double, double*);
+    void vertexAttrib4fv(double, const Float32Array&);
+    void vertexAttrib4fv(double, const Float64Array&);
     void vertexAttribPointer(double, double, double, bool, double, double);
     void viewport(double, double, double, double);
 
