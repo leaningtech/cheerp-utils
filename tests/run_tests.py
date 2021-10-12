@@ -201,6 +201,7 @@ for name in set(packed_tests):
     addToTestListIfMatch(Test.wasmOnly(name))
 
 addToTestListIfMatch(Test.common('unit/codegen/empty.cpp', [[], ['-cheerp-make-module=commonjs'], ['-cheerp-make-module=closure'], ['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/client/globals.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
