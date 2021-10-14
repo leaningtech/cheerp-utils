@@ -1,4 +1,4 @@
-import module from './extern.mjs'
+import module from './globals.mjs'
 global.externValue = 100;
 global.SomeClass = function(a)
 {
@@ -13,7 +13,6 @@ global.SomeClass.prototype.doTest=function (b){
 global.externPtr = new SomeClass(-41);
 
 module({}).then(_ => {
-	console.log(externValue);
 	if (externValue === 7)
 		console.log("Module export", "SUCCESS");
 	else

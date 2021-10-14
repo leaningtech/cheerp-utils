@@ -11,7 +11,7 @@ global.SomeClass.prototype.doTest=function (b){
 };
 global.externPtr = new SomeClass(-41);
 
-require('./extern.js').then(_ => {
+require('./globals.js').then(_ => {
 	if (externValue === 7)
 		console.log("Module export", "SUCCESS");
 	else
