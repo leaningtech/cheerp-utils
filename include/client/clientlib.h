@@ -1380,7 +1380,9 @@ namespace [[cheerp::genericjs]] client
 		Promise* then();
 		Promise* then(EventListener* onfulfilled);
 		Promise* then(EventListener* onfulfilled, EventListener* onrejected);
+		[[cheerp::interface_name(("catch"))]]
 		Promise* _catch();
+		[[cheerp::interface_name(("catch"))]]
 		Promise* _catch(EventListener* onrejected);
 	};
 
@@ -6534,9 +6536,13 @@ namespace [[cheerp::genericjs]] client
 		Promise* add(Request* request);
 		Promise* add(const String& request);
 		Promise* addAll(Array* requests);
+		[[cheerp::interface_name(("delete"))]]
 		Promise* _delete(Request* request);
+		[[cheerp::interface_name(("delete"))]]
 		Promise* _delete(Request* request, CacheQueryOptions* options);
+		[[cheerp::interface_name(("delete"))]]
 		Promise* _delete(const String& request);
+		[[cheerp::interface_name(("delete"))]]
 		Promise* _delete(const String& request, CacheQueryOptions* options);
 		Promise* keys();
 		Promise* keys(Request* request);
@@ -6561,6 +6567,7 @@ namespace [[cheerp::genericjs]] client
 
 	class CacheStorage: public Object{
 	public:
+		[[cheerp::interface_name(("delete"))]]
 		Promise* _delete(const String& cacheName);
 		Promise* has(const String& cacheName);
 		Promise* keys();
@@ -6874,9 +6881,14 @@ namespace [[cheerp::genericjs]] client
 	public:
 		template<class ReturnType = Object*> ReturnType get_memory();
 		void set_memory(Object*);
+		[[cheerp::interface_name(("assert"))]]
 		void _assert();
+		[[cheerp::interface_name(("assert"))]]
 		void _assert(bool condition);
-		template<typename... Args> void _assert(bool condition, const String& message, Args&&... data) { return static_cast<const Console*>(this)->_assert(condition, message, static_cast<Object*>(static_cast<Args&&>(data))...); }
+		template<typename... Args>
+		[[cheerp::interface_name(("assert"))]]
+		void _assert(bool condition, const String& message, Args&&... data) { return static_cast<const Console*>(this)->_assert(condition, message, static_cast<Object*>(static_cast<Args&&>(data))...); }
+		[[cheerp::interface_name(("assert"))]]
 		void _assert(bool condition, const String& message);
 		void clear();
 		void count();
@@ -6933,7 +6945,9 @@ namespace [[cheerp::genericjs]] client
 		void set_prototype(Console*);
 		Console();
 	private:
-		template<typename... Args> void _assert(bool condition, const String& message, Args... data) const;
+		template<typename... Args>
+		[[cheerp::interface_name(("assert"))]]
+		void _assert(bool condition, const String& message, Args... data) const;
 		template<typename... Args> void debug(const String& message, Args&&... optionalParams) const;
 		template<typename... Args> void dir(Object* value, Args... optionalParams) const;
 		template<typename... Args> void error(const String& message, Args&&... optionalParams) const;
@@ -8605,6 +8619,7 @@ namespace [[cheerp::genericjs]] client
 		void append(const String& name, const String& value, const String& fileName);
 		void append(const String& name, Blob* value);
 		void append(const String& name, Blob* value, const String& fileName);
+		[[cheerp::interface_name(("delete"))]]
 		void _delete(const String& name);
 		String* get(const String& name);
 		Array* getAll(const String& name);
@@ -11672,6 +11687,7 @@ namespace [[cheerp::genericjs]] client
 	class Headers: public Object{
 	public:
 		void append(const String& name, const String& value);
+		[[cheerp::interface_name(("delete"))]]
 		void _delete(const String& name);
 		void forEach(Function* callback);
 		void forEach(Function* callback, Object* thisArg);
@@ -11729,12 +11745,19 @@ namespace [[cheerp::genericjs]] client
 		template<class ReturnType = Object*> ReturnType get_primaryKey();
 		IDBObjectStore* get_source();
 		void advance(double count);
+		[[cheerp::interface_name(("continue"))]]
 		void _continue();
+		[[cheerp::interface_name(("continue"))]]
 		void _continue(IDBKeyRange* key);
+		[[cheerp::interface_name(("continue"))]]
 		void _continue(double key);
+		[[cheerp::interface_name(("continue"))]]
 		void _continue(const String& key);
+		[[cheerp::interface_name(("continue"))]]
 		void _continue(Date* key);
+		[[cheerp::interface_name(("continue"))]]
 		void _continue(IDBArrayKey* key);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete();
 		IDBRequest* update(Object* value);
 		IDBCursor* get_prototype();
@@ -11886,10 +11909,15 @@ namespace [[cheerp::genericjs]] client
 		IDBIndex* createIndex(const String& name, const String& keyPath, IDBIndexParameters* optionalParameters);
 		IDBIndex* createIndex(const String& name, Array* keyPath);
 		IDBIndex* createIndex(const String& name, Array* keyPath, IDBIndexParameters* optionalParameters);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete(IDBKeyRange* key);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete(double key);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete(const String& key);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete(Date* key);
+		[[cheerp::interface_name(("delete"))]]
 		IDBRequest* _delete(IDBArrayKey* key);
 		void deleteIndex(const String& indexName);
 		IDBRequest* get(Object* key);
@@ -16810,7 +16838,9 @@ namespace [[cheerp::genericjs]] client
 		Promise* getRegistration();
 		Promise* getRegistration(const String& clientURL);
 		Promise* getRegistrations();
+		[[cheerp::interface_name(("register"))]]
 		Promise* _register(const String& scriptURL);
+		[[cheerp::interface_name(("register"))]]
 		Promise* _register(const String& scriptURL, RegistrationOptions* options);
 		void startMessages();
 		void addEventListener(const String& type, EventListener* listener);
@@ -17297,6 +17327,7 @@ namespace [[cheerp::genericjs]] client
 	class SyncManager: public Object{
 	public:
 		Promise* getTags();
+		[[cheerp::interface_name(("register"))]]
 		Promise* _register(const String& tag);
 		SyncManager* get_prototype();
 		void set_prototype(SyncManager*);
@@ -17635,6 +17666,7 @@ namespace [[cheerp::genericjs]] client
 	class URLSearchParams: public Object{
 	public:
 		void append(const String& name, const String& value);
+		[[cheerp::interface_name(("delete"))]]
 		void _delete(const String& name);
 		String* get(const String& name);
 		Array* getAll(const String& name);
