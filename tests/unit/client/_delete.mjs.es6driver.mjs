@@ -15,6 +15,12 @@ global.ToBeDeleted.prototype.delete=function (){
 global.counterAlive=function(){
 	return counter;
 };
+global.assert=function(obj){
+	if (obj.catch() == obj.a)
+		console.log("Assert", "SUCCESS");
+	else
+		console.log("Assert", "FAILURE");
+};
 
 module({}).then(_ => {
 	if (counter === 0)
