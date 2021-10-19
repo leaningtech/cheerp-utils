@@ -5,7 +5,7 @@
 #include <tests.h>
 #include <vector>
 
-struct [[cheerp::genericjs]][[cheerp::bytelayout]] A
+struct [[cheerp::bytelayout]] A
 {
 public:
         A() {}
@@ -22,7 +22,7 @@ public:
 	}
 };
 
-struct [[cheerp::genericjs]][[cheerp::bytelayout]] B
+struct [[cheerp::bytelayout]] B
 {
 public:
 	B() {}
