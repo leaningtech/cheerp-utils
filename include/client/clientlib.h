@@ -6886,7 +6886,6 @@ namespace [[cheerp::genericjs]] client
 		[[cheerp::interface_name(("assert"))]]
 		void _assert(bool condition);
 		template<typename... Args>
-		[[cheerp::interface_name(("assert"))]]
 		void _assert(bool condition, const String& message, Args&&... data) { return static_cast<const Console*>(this)->_assert(condition, message, static_cast<Object*>(static_cast<Args&&>(data))...); }
 		[[cheerp::interface_name(("assert"))]]
 		void _assert(bool condition, const String& message);
