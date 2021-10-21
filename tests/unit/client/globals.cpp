@@ -13,6 +13,13 @@ namespace [[cheerp::genericjs]] client
 	};
 	extern SomeClass* externPtr;
 	SomeClass* internPtr = new SomeClass(14);
+	extern SomeClass externInstance;
+}
+
+[[cheerp::genericjs]]
+void someFunc(client::SomeClass& instance)
+{
+	instance.doTest(33);
 }
 
 [[cheerp::genericjs]]
@@ -30,6 +37,8 @@ int main()
 
 	client::internPtr->doTest(-42);
 	client::externPtr->doTest(123);
+
+	someFunc(client::externInstance);
 
 	return 1;
 }
