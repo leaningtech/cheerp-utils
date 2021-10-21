@@ -124,7 +124,6 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		 'unit/codegen/variadic.cpp', 'unit/codegen/dynalloca.cpp', 'unit/static/test1.cpp',
 		 'unit/codegen/dynstack.cpp', 'unit/codegen/byval.cpp',
 		 'unit/codegen/fptoi.cpp', 'unit/codegen/64bitrewrite.cpp',
-		 'unit/codegen/abs.cpp',
 		 'unit/randomcfg/size5times20.cpp', 'unit/randomcfg/size10times10.cpp',
 		 'unit/randomcfg/size20times10.cpp', 'unit/randomcfg/size50times2.cpp',
 		 'unit/randomcfg/swap5by5.cpp', 'unit/randomcfg/swap10by10.cpp',
@@ -204,6 +203,7 @@ for name in set(packed_tests):
 addToTestListIfMatch(Test.common('unit/codegen/empty.cpp', [[], ['-cheerp-make-module=commonjs'], ['-cheerp-make-module=closure'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/client/globals.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/client/_delete.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.preexecutable('unit/codegen/abs.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
