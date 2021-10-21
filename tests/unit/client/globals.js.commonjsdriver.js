@@ -10,6 +10,7 @@ global.SomeClass.prototype.doTest=function (b){
 		console.log("doTest", "FAILURE");
 };
 global.externPtr = new SomeClass(-41);
+global.externInstance = new SomeClass(-11);
 
 require('./globals.js').then(_ => {
 	if (externValue === 7)
