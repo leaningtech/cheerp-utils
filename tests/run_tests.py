@@ -163,7 +163,6 @@ genericjs_only_tests = [
 		'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
 		'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
 		'unit/jsexport/parameters_client.cpp',
-		'unit/exceptions/test1.cpp', 'unit/exceptions/test2.cpp',
 	 ]
 asmjs_only_tests = [
 		'unit/ffi/test1.cpp',
@@ -210,6 +209,8 @@ addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigi
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
+addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test2.cpp', [['-fexceptions']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -300,7 +301,7 @@ def compileCommand(compiler, mode, testName, extraFlags):
 		flags += ["-cheerp-linear-output=asmjs"]
 	else:
 		assert mode == "genericjs"
-		flags += ["-target","cheerp", "-fexceptions"]
+		flags += ["-target","cheerp"]
 
 	return [compiler] + [testName] + flags
 
