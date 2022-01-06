@@ -4,40 +4,49 @@
 
 #include <tests.h>
 
-[[cheerp::wasm]]
-bool wasmCatch = false;
-[[cheerp::wasm]]
-bool genericjsCatch = false;
+#ifdef __ASMJS__
+#define ABI_SECTION [[cheerp::wasm]]
+#define OTHER_SECTION [[cheerp::genericjs]]
+#else
+#define ABI_SECTION [[cheerp::genericjs]]
+#define OTHER_SECTION [[cheerp::wasm]]
+#endif
 
-[[cheerp::genericjs]]
+[[cheerp::wasm]]
+bool abiCatch = false;
+[[cheerp::wasm]]
+bool otherCatch = false;
+
+ABI_SECTION
 void doThrow()
 {
 	throw 1;
 }
 
-[[cheerp::wasm]]
+OTHER_SECTION
 void middle()
 {
 	try {
 		doThrow();
 	} catch(int i) {
-		wasmCatch = true;
+		otherCatch = true;
+		throw;
 	}
 }
 
-[[cheerp::genericjs]]
+ABI_SECTION
 void doCatch()
 {
 	try {
 		middle();
 	} catch(int i) {
-		genericjsCatch = true;
+		abiCatch = true;
 	}
 }
-[[cheerp::wasm]]
+ABI_SECTION
 void webMain()
 {
 	doCatch();
-	assertEqual(wasmCatch, false, "Wasm invoke/landingpads removed 1/1");
-	assertEqual(genericjsCatch, true, "Genericjs invoke/landingpads not removed 1/1");
+	assertEqual(otherCatch, true, "Non-ABI section can catch exceptions and rethrow 1/2");
+	assertEqual(abiCatch, true, "Non-ABI section can catch exceptions and rethrow 2/2");
 }
