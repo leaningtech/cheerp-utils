@@ -211,7 +211,7 @@ addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', 
 addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
-addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test2.cpp', [['-fexceptions']]))
+addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
 
 selected_tests = sorted(list(test_list))
 
