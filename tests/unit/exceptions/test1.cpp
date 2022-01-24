@@ -4,20 +4,8 @@
 
 #include <tests.h>
 #include <cheerpintrin.h>
+#include <cheerp/client.h>
 
-namespace [[cheerp::genericjs]] cheerp {
-	class JSException {
-		client::Object* inner;
-		public:
-			JSException(client::Object* e): inner(e)
-			{
-			}
-			client::Object* get()
-			{
-				return inner;
-			}
-	};
-}
 struct Never
 {
 };

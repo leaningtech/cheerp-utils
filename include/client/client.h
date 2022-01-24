@@ -434,6 +434,18 @@ ArrayRef<T> makeArrayRef(T* obj)
 	return ArrayRef<T>(obj);
 }
 
+class JSException {
+	client::Object* inner;
+	public:
+		JSException(client::Object* e): inner(e)
+		{
+		}
+		client::Object* get()
+		{
+			return inner;
+		}
+};
+
 #endif
 
 } //End of namespace cheerp
