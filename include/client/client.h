@@ -22,6 +22,7 @@
 #define _CHEERP_CLIENT_a335cd00
 
 #include "cheerp/types.h"
+#include "cheerp/jsexception.h"
 #include "cheerp/clientlib.h"
 #include <cheerpintrin.h>
 
@@ -433,18 +434,6 @@ ArrayRef<T> makeArrayRef(T* obj)
 {
 	return ArrayRef<T>(obj);
 }
-
-class JSException {
-	client::Object* inner;
-	public:
-		JSException(client::Object* e): inner(e)
-		{
-		}
-		client::Object* get()
-		{
-			return inner;
-		}
-};
 
 #endif
 

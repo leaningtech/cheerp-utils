@@ -4,7 +4,7 @@
 
 #include <tests.h>
 #include <cheerpintrin.h>
-#include <cheerp/client.h>
+#include <cheerp/jsexception.h>
 
 struct Never
 {
