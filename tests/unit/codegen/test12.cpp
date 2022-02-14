@@ -10,5 +10,5 @@ void webMain()
 {
 	const char* str="-0.832050323486328125";
 	double ret=strtod(str, NULL);
-	assertEqual(ret,-0.832050323486328125,"High precision strtod");
+	assertEqual<double>(ret,(double)-0.832050323486328125,"High precision strtod");
 }
