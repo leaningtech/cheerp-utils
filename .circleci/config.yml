@@ -1,0 +1,198 @@
+version: 2.1
+
+aliases:
+  - &ubuntu
+    image: ubuntu-2004:202111-02
+
+jobs:
+  build-libraries:
+    machine: *ubuntu
+    resource_class: medium
+    environment:
+      - NINJA_STATUS: "[%u/%r/%f]"
+    steps:
+      - run: sudo apt-get update && sudo apt-get install -y debhelper cmake python3-distutils ninja-build clang lld devscripts nodejs
+      - checkout:
+          path: cheerp-utils
+      - run: git clone https://github.com/leaningtech/cheerp-newlib.git
+      - run: git clone https://github.com/leaningtech/cheerp-libs.git
+      - run: git clone depth=1 --no-single-branch https://github.com/leaningtech/cheerp-compiler.git
+      - run: mkdir debs
+      - run:
+          name: Get cheerp compiler artifact
+          working_directory: ~/project/debs
+          command: |
+            curl -H "Circle-Token: $CIRCLE_TOKEN" \
+            https://circleci.com/api/v2/project/gh/$CIRCLE_PROJECT_USERNAME/cheerp-compiler/<< pipeline.parameters.build_num >>/artifacts \
+            | grep -o 'https://[^"]*' \
+            | wget --verbose --header "Circle-Token: $CIRCLE_TOKEN" --input-file -
+      - run:
+          name: Set up cheerp compiler
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-llvm-clang_latest.deb tmp
+            sudo mkdir /opt/cheerp/
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp
+            rm -rf tmp
+      - run:
+          name: Build utils
+          working_directory: ~/project/cheerp-utils
+          command: |
+            git checkout << pipeline.parameters.cheerp-utils-branch >>
+            dch -b -v 0-latest-1 "Internal build" -m
+            dpkg-buildpackage -d -b
+            mkdir tmp
+            dpkg -x ../cheerp-utils_*.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+
+            mv ../cheerp-utils_*.deb ../debs/cheerp-utils_latest.deb
+      - run:
+          name: Build newlib
+          working_directory: ~/project/cheerp-newlib
+          command: |
+            git checkout << pipeline.parameters.cheerp-newlib-branch >>
+            dch -b -v 0-latest-1 "Internal build" -m
+            cp -rv ../cheerp-compiler/libcxx/ libcxx/
+            dpkg-buildpackage -d -b
+            mkdir tmp
+            dpkg -x ../cheerp-newlib_*.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+
+            mv ../cheerp-newlib_*.deb ../debs/cheerp-newlib_latest.deb
+      - run:
+          name: Build libcxx
+          working_directory: ~/project/cheerp-compiler
+          command: |
+            git checkout << pipeline.parameters.cheerp-compiler-branch >>
+            rm -rf debian/
+            cp -rv libcxx/debian/ debian/
+            dch -b -v 0-latest-1 "Internal build" -m
+            dpkg-buildpackage -d -b
+            mkdir tmp
+            dpkg -x ../cheerp-libcxx_*.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf build_genericjs/
+            rm -rf build_asmjs/
+            rm -rf debian/
+            rm -rf tmp
+
+            mv ../cheerp-libcxx_*.deb ../debs/cheerp-libcxx_latest.deb
+      - run:
+          name: Build libcxxabi
+          working_directory: ~/project/cheerp-compiler
+          command: |
+            cp -rv libcxxabi/debian/ debian/
+            dch -b -v 0-latest-1 "Internal build" -m
+            dpkg-buildpackage -d -b
+            mkdir tmp
+            dpkg -x ../cheerp-libcxxabi_*.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+
+            mv ../cheerp-libcxxabi_*.deb ../debs/cheerp-libcxxabi_latest.deb
+      - run:
+          name: Build libs
+          working_directory: ~/project/cheerp-libs
+          command: |
+            git checkout << pipeline.parameters.cheerp-libs-branch >>
+            dch -b -v 0-latest-1 "Internal build" -m
+            dpkg-buildpackage -d -b
+            
+            mv ../cheerp-libs_*.deb ../debs/cheerp-libs_latest.deb
+      - persist_to_workspace:
+          root: debs
+          paths:
+            - cheerp-*.deb
+      - store_artifacts:
+          path: ~/project/debs
+  test:
+    machine: *ubuntu
+    resource_class: large
+    steps:
+      - run: sudo apt-get update && sudo apt-get install -y nodejs
+      - attach_workspace:
+          at: debs
+      - checkout:
+          path: cheerp-utils
+      - run:
+          name: Set up cheerp compiler
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-llvm-clang_latest.deb tmp
+            sudo mkdir /opt/cheerp/
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp
+            rm -rf tmp
+      - run:
+          name: Set up utils
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-utils_latest.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+      - run:
+          name: Set up newlib
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-newlib_latest.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+      - run:
+          name: Set up libcxxi
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-libcxx_latest.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+      - run:
+          name: Set up libcxxabi
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-libcxx_latest.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+      - run:
+          name: Set up libs
+          working_directory: ~/project/debs
+          command: |
+            mkdir tmp
+            dpkg -x cheerp-libs_latest.deb tmp
+            sudo cp -rv tmp/opt/cheerp/* /opt/cheerp/
+            rm -rf tmp
+      - run:
+          name: test
+          working_directory: ~/project/cheerp-utils/tests
+          command: ./run_tests.py --all --determinism=3 --determinism-probability=0.2 "/opt/cheerp/bin/clang++" "node --experimental-wasm-reftypes" -j4
+
+parameters:
+  build_num:
+    type: string
+    default: ""
+  cheerp-compiler-branch:
+    type: string
+    default: "master"
+  cheerp-utils-branch:
+    type: string
+    default: "master"
+  cheerp-newlib-branch:
+    type: string
+    default: "master"
+  cheerp-libs-branch:
+    type: string
+    default: "master"
+
+
+workflows:
+  finish-and-test-build:
+    unless:
+      equal: [ << pipeline.parameters.build_num >>, "" ]
+    jobs:
+      - build-libraries
+      - test:
+          requires:
+            - build-libraries
