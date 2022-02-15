@@ -16,7 +16,7 @@ jobs:
           path: cheerp-utils
       - run: git clone https://github.com/leaningtech/cheerp-newlib.git
       - run: git clone https://github.com/leaningtech/cheerp-libs.git
-      - run: git clone depth=1 --no-single-branch https://github.com/leaningtech/cheerp-compiler.git
+      - run: git clone --depth=1 --no-single-branch https://github.com/leaningtech/cheerp-compiler.git
       - run: mkdir debs
       - run:
           name: Get cheerp compiler artifact
