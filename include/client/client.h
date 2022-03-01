@@ -49,9 +49,14 @@ static void console_log(double message)
 	client::console.log(message);
 }
 
-static double date_now()
+static double date_now(bool localTime = false)
 {
-	return client::Date::now();
+	double res = client::Date::now();
+
+	if (localTime)
+		res -= (new client::Date())->getTimezoneOffset() * 60.0 * 1000.0;
+
+	return res;
 }
 
 #ifndef LEAN_CXX_LIB
