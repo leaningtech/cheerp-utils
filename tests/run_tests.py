@@ -232,6 +232,8 @@ class determinismDictionary:
 	def at(self, testCase):
 		assert (testCase in self.dictionary)
 		return self.dictionary[testCase]
+	def clear_me(self):
+		self.dictionary.clear()
 
 def compileCommandPreExecuter(compiler, mode, testName, extraFlags):
 	flags = ['-cheerp-pretty-code'] if option.pretty_code else []
@@ -373,7 +375,9 @@ def removeIfPresent(fileToRemove):
 	if os.path.exists(fileToRemove):
 		os.remove(fileToRemove)
 
-def determinismTest(command, printAfter, string, outFile, testReport, testOut, reportFileA, reportFileB):
+def determinismTest(command, printAfter, string, outFile, testReport, testOut, reportFileA, reportFileB, isFirst):
+	if isFirst:
+		determinismTest.dictionary.clear_me()
 	assert option.determinism != 0
 
 	command_with_file = command + ["-o", outFile]
@@ -395,7 +399,7 @@ def determinismTest(command, printAfter, string, outFile, testReport, testOut, r
 
 	#.bc file may be already deleted by llc, so we need to check for his existence
 	removeIfPresent(fileToRemove + ".bc")
-	os.remove(fileToRemove + ".ii")
+	removeIfPresent(fileToRemove + ".ii")
 
 	return False
 
@@ -557,14 +561,14 @@ def do_test(test):
 		if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
 			status = "error"
 		elif shouldTestDeterminism():
-			if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
-				status = "error"
-			elif option.determinism != 1:
+			if option.determinism != 1:
 				#Compute the seed for a given outFile, and use it to select some passes to call -print-after-all on
 				seed = int(computeHash(str(testOptions.primaryFile)), 16)
 				addPrintAfter = printAfter(seed)
-				for _ in range(3):
-					if determinismTest(get_next_command(), str(addPrintAfter), signature, testOptions.primaryFile, stdrepLog, stdoutLog, reportA, reportB):
+				compile_command = get_next_command()
+				determinismTest(compile_command, str(addPrintAfter), signature, testOptions.primaryFile, stdrepLog, stdoutLog, reportA, reportB, True)
+				for _ in range(2):
+					if determinismTest(compile_command, str(addPrintAfter), signature, testOptions.primaryFile, stdrepLog, stdoutLog, reportA, reportB, False):
 						status = "determinism_error"
 						break
 		if status == "pass" and run and run(jsEngine, testOptions, test_id, stdrepLog, stdoutLog):
