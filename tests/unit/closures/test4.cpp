@@ -1,4 +1,5 @@
 #include <cheerp/client.h>
+#include <functional>
 #include <tests.h>
 
 static int ConsCount = 0;
