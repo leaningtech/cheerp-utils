@@ -1,6 +1,7 @@
 #include <cheerp/client.h>
 #include <functional>
 #include <tests.h>
+#include <functional>
 
 static int ConsCount = 0;
 static int DestCount = 0;
