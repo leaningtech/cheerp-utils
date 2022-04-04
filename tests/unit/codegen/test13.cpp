@@ -4,9 +4,11 @@
 
 #include <tests.h>
 #include <wchar.h>
+#include <locale.h>
 
 void webMain()
 {
+    setlocale(LC_ALL, "C.UTF-8");
 	const char * h = "hello";
 	mbstate_t s;
 	size_t ret=mbsrtowcs(0, &h, 0, &s);

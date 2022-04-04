@@ -9,7 +9,7 @@
 void webMain()
 {
 	timeval tv;
-	timezone tz;
+	struct timezone tz;
 	int ret=gettimeofday(&tv, &tz);
 	assertEqual(ret, 0, "gettimeofday 1/3");
 	assertEqual(tv.tv_sec!=0, true, "gettimeofday 2/3");
