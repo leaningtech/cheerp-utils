@@ -209,7 +209,7 @@ addToTestListIfMatch(Test.preexecutable('unit/codegen/abs.cpp', [[], ['-cheerp-u
 addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
-addToTestListIfMatch(Test.common('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
+addToTestListIfMatch(Test.wasmOnly('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
@@ -455,7 +455,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 					failure = True
 				testReport.write('</testcase>')
 
-			match = re.search("error|fail", testLine, re.IGNORECASE)
+			match = re.search("error|fail|invalid", testLine, re.IGNORECASE)
 			failure |= bool(match)
 	else:
 		failure = True
