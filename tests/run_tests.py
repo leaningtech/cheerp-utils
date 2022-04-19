@@ -108,7 +108,7 @@ pre_executer_tests = ['unit/downcast/test1.cpp',
 		'unit/types/test11.cpp','unit/types/test12.cpp','unit/types/test13.cpp',
 		'unit/types/test14.cpp','unit/types/test16.cpp','unit/types/cinheritance.cpp',
 		'unit/types/memberfunctions.cpp', 'unit/types/memberfunctions2.cpp',
-		'unit/types/union64.cpp', 'unit/types/funccasts.cpp',
+		'unit/types/union64.cpp',
 	 'unit/globals/test1.cpp','unit/globals/test2.cpp','unit/globals/test3.cpp','unit/globals/test4.cpp',
 		'unit/globals/test5.cpp','unit/globals/test6.cpp','unit/globals/test7.cpp',
 		'unit/globals/betterconst.cpp',
@@ -213,6 +213,7 @@ addToTestListIfMatch(Test.wasmOnly('unit/anyref/args.cpp', [['-cheerp-wasm-enabl
 addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
+addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -436,13 +437,14 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 		driverFile += '.es6driver.mjs'
 	if testOptions.module == 'commonjs':
 		driverFile += '.commonjsdriver.js'
-	ret=subprocess.call(engine + [driverFile], stderr=subprocess.STDOUT,
+	ret=subprocess.call(engine + [driverFile], stderr=testReport,
 		stdout=testOut);
 
 	# Reset the read position to the beginning of the output. Otherwise
 	# it's not possible to check if there are errors in the output lines.
 	testOut.seek(0);
 
+	testReport.seek(0);
 	if ret == 0:
 		for testLine in testOut:
 			match = re.match("^(.*) : (.*)",testLine)
@@ -456,6 +458,9 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 				testReport.write('</testcase>')
 
 			match = re.search("error|fail|invalid", testLine, re.IGNORECASE)
+			failure |= bool(match)
+		for testLineErr in testReport:
+			match = re.search("error|fail|invalid", testLineErr, re.IGNORECASE)
 			failure |= bool(match)
 	else:
 		failure = True
