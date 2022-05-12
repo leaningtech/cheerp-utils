@@ -591,9 +591,12 @@ executor = concurrent.futures.ThreadPoolExecutor(jobs)
 futures = [executor.submit(do_test, test) for test in selected_tests]
 
 progress = 0
+exitValue = 0
 for test, future in zip(selected_tests, futures):
 	# Re-raise any error that is thrown while running the tests.
 	status = future.result()
+	if status != "pass":
+		exitValue = 1
 
 	progress += 1
 	done = progress * 100 / len(selected_tests)
@@ -626,3 +629,4 @@ testReport.write('</testsuite>')
 testReport.close()
 reportA.close()
 reportB.close()
+exit(exitValue)
