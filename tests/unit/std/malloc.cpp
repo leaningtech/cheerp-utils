@@ -224,9 +224,9 @@ test4(void)
 
 static
 void
-testRand(unsigned long seed)
+testRand(unsigned long seed, int bigAllocation = 6060, bool useRealloc = false)
 {
-	static const int sizes[8] = { 13, 17, 69, 176, 433, 871, 1150, 6060 };
+	static const int sizes[8] = { 13, 17, 69, 176, 433, 871, 1150, bigAllocation };
 	
 	void *ptrs[32];
 	int psizes[32];
@@ -245,15 +245,35 @@ testRand(unsigned long seed)
 		if (ptrs[n] == NULL) {
 			size = sizes[rand()%8];
 			ptrs[n] = malloc(size);
+			if (ptrs[n] == 0)
+			{
+				printf("Failed to malloc memory\n");
+				break;
+			}
 			psizes[n] = size;
 			markblock(ptrs[n], size, n);
 		}
 		else {
 			size = psizes[n];
 			ret &= checkblock(ptrs[n], size, n);
-			free(ptrs[n]);
-			ptrs[n] = NULL;
-			psizes[n] = 0;
+			if (useRealloc && rand()%2)
+			{
+				int new_size = sizes[rand()%8];
+				ptrs[n] = realloc(ptrs[n], new_size);
+				if (ptrs[n] == 0)
+				{
+					printf("Failed to realloc memory\n");
+					break;
+				}
+				psizes[n] = new_size;
+				markblock(ptrs[n], new_size, n);
+			}
+			else
+			{
+				free(ptrs[n]);
+				ptrs[n] = NULL;
+				psizes[n] = 0;
+			}
 		}
 	}
 	assertEqual(ret, true, "Checking malloc'd blocks");
@@ -270,6 +290,7 @@ void
 test5(void)
 {
 	testRand(0);
+	testRand(1, 0x1e5b9, /*useRealloc*/ true);
 }
 
 
