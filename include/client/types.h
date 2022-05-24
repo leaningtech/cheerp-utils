@@ -21,9 +21,11 @@
 #ifndef _CHEERP_TYPES_H_2043d438
 #define _CHEERP_TYPES_H_2043d438
 
-#include <utility>
+#ifndef LEAN_CXX_LIB
 #include <string>
-#include <limits>
+#endif
+#include <stddef.h>
+#include <stdint.h>
 #include <cheerpintrin.h>
 #include "jsobject.h"
 
@@ -49,13 +51,13 @@ private:
 		}
 		return ret;
 	}
-	template<typename... Args>
-	String* concat(const String&, Args&&... args);
-	String* concat();
+	template<typename Private, typename... Args>
+	String* concat(Args&&... args) const;
 public:
 	String() throw();
 	//Utility constructor to use an existing String
 	String(const String*) throw();
+	String(const String&) throw();
 	String(long a) throw();
 	String(unsigned long a) throw();
 	String(int a) throw();
@@ -69,9 +71,9 @@ public:
 	{
 	}
 	template<typename... Args>
-	__attribute__((always_inline)) String* concat(Args&&... args)
+	__attribute__((always_inline)) String* concat(Args... args) const
 	{
-		return concat(static_cast<const String&>(static_cast<Args&&>(args))...);
+		return concat<void>(static_cast<const String&>(args)...);
 	}
 	String* substr(int start) const;
 	String* substr(int start, int length) const;
@@ -111,6 +113,7 @@ public:
 	String* padEnd(int, const String&) const;
 	String* padStart(int) const;
 	String* padStart(int, const String&) const;
+#ifndef LEAN_CXX_LIB
 	explicit operator std::string() const
 	{
 		//This assume an ascii string
@@ -122,7 +125,8 @@ public:
 			ptr[i] = charCodeAt(i);
 		return ret;
 	}
-	static client::String* fromUtf8(const char * in, size_t len = std::numeric_limits<size_t>::max())
+#endif
+	static client::String* fromUtf8(const char * in, size_t len = SIZE_MAX)
 	{
 		client::String* out = new client::String();
 		unsigned int codepoint;
@@ -226,12 +230,15 @@ public:
 	TArray(Args... args):Array(args...)
 	{
 	}
+	// TArray can only be used with client types
 	T*& operator[](int index)
 	{
+		T* typeCheck = static_cast<T*>((client::Object*)nullptr);
 		return (T*&)Array::operator[](index);
 	}
 	T* operator[](int index) const
 	{
+		T* typeCheck = static_cast<T*>((client::Object*)nullptr);
 		return (T*)Array::operator[](index);
 	}
 };
@@ -241,6 +248,7 @@ public:
 	Map();
 	int get_size();
 	void clear();
+#ifndef LEAN_CXX_LIB
 	template<typename K, typename V, typename std::enable_if<
 		(std::is_arithmetic<K>::value || std::is_pointer<K>::value) &&
 		(std::is_arithmetic<V>::value || std::is_pointer<V>::value), int>::type = 0>
@@ -260,10 +268,12 @@ public:
 		__asm__("%1.delete(%2)" : "=r"(res) : "r"(this), "r"(k));
 		return res;
 	}
+#endif
 	void forEach(EventListener* callback);
 	//TODO: declare methods entries, keys and values
 };
 
+#ifndef LEAN_CXX_LIB
 template<typename K, typename V>
 class TMap: public Map {
 	static_assert(std::is_arithmetic<V>::value || std::is_pointer<V>::value, "Value has to be pointer or arithmetic");
@@ -289,6 +299,7 @@ class TMap: public Map {
 		return Map::delete_<K>(k);
 	}
 };
+#endif
 
 class Number: public Object
 {
