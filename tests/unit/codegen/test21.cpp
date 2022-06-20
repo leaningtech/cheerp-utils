@@ -3,6 +3,7 @@
 //===---------------------------------------------------------------------===//
 
 #include <tests.h>
+#include <stdarg.h>
 
 // Test 64-bit integer arithmetics
 
