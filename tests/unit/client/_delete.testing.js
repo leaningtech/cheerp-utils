@@ -21,9 +21,10 @@ global.assert=function(obj){
 		console.log("Assert", "FAILURE");
 };
 
-require('./_delete.js').then(_ => {
+function onInstantiation(_)
+{
 	if (counter === 0)
 		console.log("Module export", "SUCCESS");
 	else
 		console.log("Module export", "FAILURE");
-	})
+}

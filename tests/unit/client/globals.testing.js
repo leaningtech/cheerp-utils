@@ -1,4 +1,3 @@
-import module from './globals.mjs'
 global.externValue = 100;
 global.SomeClass = function(a)
 {
@@ -13,9 +12,9 @@ global.SomeClass.prototype.doTest=function (b){
 global.externPtr = new SomeClass(-41);
 global.externInstance = new SomeClass(-11);
 
-module({}).then(_ => {
+function onInstantiation(_) {
 	if (externValue === 7)
 		console.log("Module export", "SUCCESS");
 	else
 		console.log("Module export", "FAILURE");
-	})
+}

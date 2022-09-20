@@ -433,11 +433,25 @@ compileTest.dictionary = determinismDictionary()
 
 def runTest(engine, testOptions, testName, testReport, testOut):
 	failure = False
+	testingFile = testOptions.basePath + '.testing.js'
 	driverFile = testOptions.primaryFile
 	if testOptions.module == 'es6':
 		driverFile += '.es6driver.mjs'
+		file = open(driverFile, "w")
+		driverFileRead = open(testingFile, "r")
+		file.write("import module from './../../" + testOptions.primaryFile + "'\n" + driverFileRead.read() + "\nmodule({absPath:'" + vars(testOptions).get('secondaryFile', "") + "'}).then(_ => {onInstantiation(_);});")
+		file.close()
 	if testOptions.module == 'commonjs':
 		driverFile += '.commonjsdriver.js'
+		file = open(driverFile, "w")
+		driverFileRead = open(testingFile, "r")
+		file.write(driverFileRead.read() + "\nrequire('./../../" + testOptions.primaryFile + "').then(_ => {onInstantiation(_);});")
+		file.close()
+	if testOptions.module == 'closure':
+		file = open(driverFile, "a")
+		driverFileRead = open(testingFile, "r")
+		file.write(driverFileRead.read() + "\n{onInstantiation(global);\n}");
+		file.close()
 	ret=subprocess.call(engine + [driverFile], stderr=testReport,
 		stdout=testOut);
 
