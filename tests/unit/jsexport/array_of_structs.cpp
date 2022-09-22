@@ -31,6 +31,10 @@ OrderedStruct
 	{
 		return a*b*c;
 	}
+	static int valueOf()
+	{
+		return 53;
+	}
 };
 
 int OrderedStruct::global_id = 0;
