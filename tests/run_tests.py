@@ -141,6 +141,8 @@ common_tests = [
 		'unit/jsexport/invoke_functions.cpp',
 		'unit/jsexport/namespaces.cpp',
 		'unit/jsexport/parameters_builtin.cpp',
+		'unit/jsexport/unsafe_gnu.c',
+		'unit/jsexport/unsafe_clang.cpp',
 		'unit/client/class.cpp',
 		'unit/client/nested-namespaces.cpp',
 		'unit/client/setter-getter.cpp',
