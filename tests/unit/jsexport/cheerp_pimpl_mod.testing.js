@@ -9,4 +9,5 @@ function onInstantiation(_)
 	       console.log("JSExport deleter check 1/1", "SUCCESS");
 	else
 	       console.log("JSExport deleter check 1/1", "FAILURE");
+	instance.delete();
 }
