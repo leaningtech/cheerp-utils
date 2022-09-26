@@ -33,7 +33,7 @@ if(NOT CHEERP_SECONDARY_OUTPUT_PATH STREQUAL "")
   set(CHEERP_EXE_FLAGS "${CHEERP_EXE_FLAGS} -cheerp-secondary-output-path=${CHEERP_SECONDARY_OUTPUT_PATH}")
 endif()
 
-set(CHEERP_LINEAR_OUTPUT "" CACHE STRING "Output format for the linear memory part of the program [wasm/wast/asmjs]")
+set(CHEERP_LINEAR_OUTPUT "" CACHE STRING "Output format for the linear memory part of the program [wasm/asmjs]")
 if(NOT CHEERP_LINEAR_OUTPUT STREQUAL "")
   set(CHEERP_FLAGS "${CHEERP_FLAGS} -cheerp-linear-output=${CHEERP_LINEAR_OUTPUT}")
 endif()
