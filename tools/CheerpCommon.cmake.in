@@ -6,10 +6,12 @@ SET(CMAKE_LINKER @CHEERP_PREFIX@/bin/llvm-link CACHE FILEPATH "Linker")
 # CMake compiler autodetection does not work with .bc, .wasm or .js files,
 # so we ask him to trust us that the compiler works and it is Clang
 foreach(LANG in LISTS C CXX)
+  set(CMAKE_${LANG}_COMPILER_FRONTEND_VARIANT GNU)
+  set(CMAKE_${LANG}_STANDARD_COMPUTED_DEFAULT 11)
   set(CMAKE_${LANG}_COMPILER_ID_RUN TRUE)
   set(CMAKE_${LANG}_COMPILER_ID Clang)
-  set(CMAKE_${LANG}_COMPILER_VERSION "9.0.0")
-  set(CMAKE_${LANG}_COMPILER_FORCED TRUE)
+  set(CMAKE_${LANG}_COMPILER_VERSION "15.0.0")
+  set(CMAKE_${LANG}_COMPILER_FORCED FALSE)
 endforeach()
 
 # where is the target environment 
