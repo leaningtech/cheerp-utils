@@ -63,7 +63,7 @@ struct A
 
 A* ff()
 {
-	static A* K = new A;
+	static A* K = new A();
 	return K;
 }
 
