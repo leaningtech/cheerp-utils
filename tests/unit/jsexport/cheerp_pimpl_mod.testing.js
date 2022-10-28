@@ -11,3 +11,12 @@ function onInstantiation(_)
 	       console.log("JSExport deleter check 1/1", "FAILURE");
 	instance.delete();
 }
+function getPromise(_)
+{
+	return _.JSExportedWrapperWithDeleter.promise;
+}
+function getExports()
+{
+	return {JSExportedWrapperWithDeleter : JSExportedWrapperWithDeleter,
+		CounterAlive : CounterAlive};
+}

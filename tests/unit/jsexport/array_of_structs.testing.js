@@ -6,3 +6,12 @@ function onInstantiation(_)
 	console.log("Custom has no next 1/1", condition?"SUCCESS":"FAILURE");
 	instance.delete();
 }
+function getPromise(_)
+{
+	return _.OrderedStruct.promise;
+}
+function getExports()
+{
+	return {OrderedStruct : OrderedStruct,
+		getSmaller : getSmaller};
+}

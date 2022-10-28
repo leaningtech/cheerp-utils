@@ -212,9 +212,9 @@ addToTestListIfMatch(Test.preexecutable('unit/codegen/test21.cpp', [[], ['-cheer
 addToTestListIfMatch(Test.linearOnly('unit/ffi/i64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', [[], ['-cheerp-use-bigints']]))
 addToTestListIfMatch(Test.wasmOnly('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
-addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
-addToTestListIfMatch(Test.genericjsOnly('unit/jsexport/array_of_structs.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
-addToTestListIfMatch(Test.genericjsOnly('unit/jsexport/cat.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/array_of_structs.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/cat.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
@@ -438,23 +438,35 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 	failure = False
 	testingFile = testOptions.basePath + '.testing.js'
 	driverFile = testOptions.primaryFile
-	if testOptions.module == 'es6':
+	if os.path.exists(testingFile) == False:
+		driverFile += ''
+		# nothing to be done
+	elif testOptions.module == 'es6':
 		driverFile += '.es6driver.mjs'
 		file = open(driverFile, "w")
 		driverFileRead = open(testingFile, "r")
-		file.write("import module from './../../" + testOptions.primaryFile + "'\n" + driverFileRead.read() + "\nmodule({absPath:'" + vars(testOptions).get('secondaryFile', "") + "'}).then(_ => {onInstantiation(_);});")
+		file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\n" + driverFileRead.read() + "\nmodule({relativePath:'" + "'}).then(_ => {onInstantiation(_);});")
 		file.close()
-	if testOptions.module == 'commonjs':
+	elif testOptions.module == 'commonjs':
 		driverFile += '.commonjsdriver.js'
 		file = open(driverFile, "w")
 		driverFileRead = open(testingFile, "r")
-		file.write(driverFileRead.read() + "\nrequire('./../../" + testOptions.primaryFile + "').then(_ => {onInstantiation(_);});")
+		file.write(driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_);});")
 		file.close()
-	if testOptions.module == 'closure':
-		file = open(driverFile, "a")
+	elif testOptions.module == 'closure':
+		driverFile += '.closure.js'
+		file = open(driverFile, "w")
+		compiledFileRead = open(testOptions.primaryFile, "r")
 		driverFileRead = open(testingFile, "r")
-		file.write(driverFileRead.read() + "\n{onInstantiation(global);\n}");
+		file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global);});\n")
 		file.close()
+	else:
+		driverFile += '.vanilla.js'
+		file = open(driverFile, "w")
+		compiledFileRead = open(testOptions.primaryFile, "r")
+		driverFileRead = open(testingFile, "r")
+		file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\nvar EXPORTS = getExports();\ngetPromise(EXPORTS).then(_=>{onInstantiation(EXPORTS);});\n")
+
 	ret=subprocess.call(engine + [driverFile], stderr=testReport,
 		stdout=testOut);
 

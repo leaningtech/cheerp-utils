@@ -8,12 +8,15 @@
 
 class [[cheerp::jsexport]] Cat {
 public:
-    int age;
+	[[cheerp::genericjs]]
+	Cat(client::String* name) : age(name->operator int()) {}
+	int age;
 
-    Cat(int age) : age(age) {}
-
-    void i0() {
-	    client::console.log("RUN!!", age++);
-    }
-
+	[[cheerp::genericjs]]
+	~Cat() {
+		client::console.log("Print something to console");
+	}
+	int i0() {
+		return age * age;
+	}
 };
