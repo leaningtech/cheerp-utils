@@ -204,7 +204,6 @@ for name in set(asmjs_only_tests):
 for name in set(packed_tests):
     addToTestListIfMatch(Test.wasmOnly(name))
 
-addToTestListIfMatch(Test.common('unit/codegen/empty.cpp', [[], ['-cheerp-make-module=commonjs'], ['-cheerp-make-module=closure'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/client/globals.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/client/_delete.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/codegen/unsignedTrunc.cpp', [['-cheerp-make-module=es6']]))
