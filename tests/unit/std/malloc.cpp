@@ -53,13 +53,6 @@
 #define SMALLSIZE   72
 #define MEDIUMSIZE  896
 #define BIGSIZE	 16384
-#define HUGESIZE	(1024 * 1024 * 1024)
-
-/* Maximum amount of space per block we allow for indexing structures */
-#define OVERHEAD		 32
-
-/* Point past which we assume something else is going on */
-#define ABSURD_OVERHEAD  256
 
 ////////////////////////////////////////////////////////////
 
@@ -151,8 +144,8 @@ static
 void
 test4(void)
 {
-	void *x, *y, *z;
-	unsigned long lx, ly, lz, overhead, zsize;
+	void *x, *y;
+	unsigned long lx, ly;
 
 	x = malloc(SMALLSIZE);
 	y = malloc(MEDIUMSIZE);
@@ -180,34 +173,8 @@ test4(void)
 	assertEqual(lx < ly && lx + SMALLSIZE > ly, false, "Malloc'd blocks overlap 2/3");
 	assertEqual(ly < lx && ly + MEDIUMSIZE > lx, false, "Malloc'd blocks overlap 3/3");
 
-	/*
-	 * If y is lower than x, some memory scheme we don't
-	 * understand is in use, or else there's already stuff on the
-	 * free list.
-	 */
-	assertEqual(ly < lx, false, "Coalescing freelists 4/N");
-
-	/*
-	 * Compute the space used by index structures.
-	 */
-	overhead = ly - (lx + SMALLSIZE);
-
-	assertEqual(overhead > ABSURD_OVERHEAD, false, "Malloc index structures overhead 1/2");
-	assertEqual(overhead > OVERHEAD, false, "Malloc index structures overhead 1/2");
-
 	free(x);
 	free(y);
-
-	zsize = SMALLSIZE + MEDIUMSIZE + overhead;
-
-	// Now allocating zsize bytes... should reuse the space
-	z = malloc(zsize);
-
-	lz = (unsigned long) z;
-
-	assertEqual(lz, lx, "Coalescing freelists");
-
-	free(z);
 }
 
 ////////////////////////////////////////////////////////////
