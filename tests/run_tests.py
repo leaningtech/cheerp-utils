@@ -214,6 +214,7 @@ addToTestListIfMatch(Test.preexecutable('unit/randomcfg/operationsOnInt64.cpp', 
 addToTestListIfMatch(Test.wasmOnly('unit/anyref/args.cpp', [['-cheerp-wasm-enable=externref']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cheerp_pimpl_mod.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/array_of_structs.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/compare_pointers.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cat.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
