@@ -2,6 +2,7 @@ function onInstantiation(_)
 {
 	global.jsFunc = function(p)
 	{
+		console.log("Access jsexported object in js callback 1/1", p.getI()==1?"SUCCESS":"FAILURE");
 		return p;
 	};
 	var b = _.Bar.create();

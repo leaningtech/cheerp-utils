@@ -12,17 +12,21 @@
 struct [[cheerp::jsexport]] Bar;
 struct [[cheerp::jsexport]] Foo
 {
-	int i{0};
+	int i{1};
 	static Foo* create()
 	{
 		return new Foo();
+	}
+	int getI()
+	{
+		return i;
 	}
 	[[cheerp::genericjs]]
 	bool cmp(Bar* b);
 };
 struct [[cheerp::jsexport]] Bar
 {
-	int i{0};
+	int i{1};
 	Foo* f;
 	static Bar* create()
 	{
