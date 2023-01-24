@@ -17,6 +17,12 @@ function getPromise(_)
 }
 function getExports()
 {
-	return {JSExportedWrapperWithDeleter : JSExportedWrapperWithDeleter,
-		CounterAlive : CounterAlive};
+	return {
+		get JSExportedWrapperWithDeleter() {
+			return JSExportedWrapperWithDeleter;
+		},
+		get CounterAlive() {
+			return CounterAlive;
+		}
+	};
 }

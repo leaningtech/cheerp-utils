@@ -12,6 +12,12 @@ function getPromise(_)
 }
 function getExports()
 {
-	return {OrderedStruct : OrderedStruct,
-		getSmaller : getSmaller};
+	return {
+		get OrderedStruct() {
+			return OrderedStruct;
+		},
+		get getSmaller() {
+			return getSmaller;
+		}
+	};
 }
