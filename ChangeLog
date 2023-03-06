@@ -1,5 +1,18 @@
 Cheerp: C++ for the Web
 
+Version 3.0:
+
+	* Rebase on top of LLVM/Clang 16.0
+	* [[cheerp::jsexport]] support for classes compiled to WebAssembly
+	* WebAssembly SIMD support
+	* CFGStackifier improvements
+	* PartialExecuter improvements
+	* Various performance improvements
+	* Various robustness improvements
+	* Switch to new LLVM PassManager
+	* Use musl + dlmalloc as libc
+	* Progress towards opaque pointer support
+
 Version 2.7:
 
 	* Rebase on top of LLVM/Clang 14.0
