@@ -9,4 +9,4 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/cheerp-utils
-	cp COPYING README ChangeLog $(CURDIR)/debian/cheerp-utils/opt/cheerp
+	cp LICENSE.TXT README ChangeLog $(CURDIR)/debian/cheerp-utils/opt/cheerp
