@@ -217,6 +217,7 @@ addToTestListIfMatch(Test.common('unit/jsexport/array_of_structs.cpp', [[], ['-c
 addToTestListIfMatch(Test.common('unit/jsexport/compare_pointers.cpp', [[], ['-cheerp-make-module=closure'],['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/cat.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/exceptions/test1.cpp', [['-fexceptions']]))
+addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/test1.cpp', [['-std=c++20']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
 
