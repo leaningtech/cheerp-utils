@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec $CHEERP_PREFIX/bin/clang -target cheerp-wasi-wasm $@

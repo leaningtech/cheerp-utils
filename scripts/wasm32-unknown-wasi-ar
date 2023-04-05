@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Compatibility wrapper between ar and llvm-link
+
+OUTFILE=$2
+
+shift 2
+
+exec $CHEERP_PREFIX/bin/llvm-link -o $OUTFILE $@

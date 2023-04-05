@@ -21,6 +21,14 @@ install (PROGRAMS
 		scripts/cheerp-unknown-none-g++
 		scripts/cheerp-unknown-none-gcc
 		scripts/cheerp-unknown-none-ranlib
+		scripts/wasm32-unknown-none-ar
+		scripts/wasm32-unknown-none-g++
+		scripts/wasm32-unknown-none-gcc
+		scripts/wasm32-unknown-none-ranlib
+		scripts/wasm32-unknown-wasi-ar
+		scripts/wasm32-unknown-wasi-g++
+		scripts/wasm32-unknown-wasi-gcc
+		scripts/wasm32-unknown-wasi-ranlib
 	DESTINATION libexec )
 	
 # tools
