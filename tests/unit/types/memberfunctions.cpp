@@ -98,4 +98,7 @@ void webMain()
 
 	FP volatile fV = static_cast<FP>(&A::funcV);
 	assertEqual((C(3).*fV)(43), 66, "Virtual member function pointer");
+
+	FP volatile fP = unitBlackBox(1)? static_cast<FP>(&A::funcV) : getMemberPointer();
+	assertEqual((C(3).*fP)(43), 66, "Virtual member function pointer with PHI");
 }
