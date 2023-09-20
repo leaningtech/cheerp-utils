@@ -246,8 +246,8 @@ void testObjectPtr()
 	} catch(A* a) {
 		r = a->i;
 	}
-	delete a;
 	assertEqual(r, a->i, "Throw object type ptr 1/4");
+	delete a;
 	assertEqual(r, 10, "Throw object type ptr 2/4");
 	assertEqual(a->countC, 1, "Throw object type ptr 3/4");
 	assertEqual(a->countD, 1, "Throw object type ptr 4/4");
@@ -290,11 +290,11 @@ void testObjectPtrBase()
 	} catch(X* b) {
 		r = -1;
 	}
-	assertEqual(r, (int)x->c, "Throw object type ptr and catch by base type 1/4");
+	assertEqual(r, (int)x->c, "Throw object type ptr and catch by base type pointer 1/4");
 	delete x;
-	assertEqual(r, 10, "Throw object type ptr and catch by base type 2/4");
-	assertEqual(X::countC, 1, "Throw object type ptr and catch by base type 3/4");
-	assertEqual(X::countD, 1, "Throw object type ptr and catch by base type 4/4");
+	assertEqual(r, 10, "Throw object type ptr and catch by base type pointer 2/4");
+	assertEqual(X::countC, 1, "Throw object type ptr and catch by base type pointer 3/4");
+	assertEqual(X::countD, 1, "Throw object type ptr and catch by base type pointer 4/4");
 }
 
 void testObjectRefVBase()
@@ -335,11 +335,11 @@ void testObjectPtrVBase()
 	} catch(X* x) {
 		r = -1;
 	}
-	assertEqual(r, (int)z->C::s, "Throw object type ptr and catch by virtual base type 1/4");
+	assertEqual(r, (int)z->C::s, "Throw object type ptr and catch by virtual base type pointer 1/4");
 	delete z;
-	assertEqual(r, 3, "Throw object type ptr and catch by virtual base type 2/4");
-	assertEqual(Z::countC, 1, "Throw object type ptr and catch by virtual base type 3/4");
-	assertEqual(Z::countD, 1, "Throw object type ptr and catch by virtual base type 4/4");
+	assertEqual(r, 3, "Throw object type ptr and catch by virtual base type pointer 2/4");
+	assertEqual(Z::countC, 1, "Throw object type ptr and catch by virtual base type pointer 3/4");
+	assertEqual(Z::countD, 1, "Throw object type ptr and catch by virtual base type pointer 4/4");
 }
 
 void testNullptr()
@@ -378,6 +378,7 @@ void testNullptr_t()
 	assertEqual(r, -1, "Throw nullptr_t type and catch it 1/1");
 }
 
+#ifndef __ASMJS__
 void testJsObject()
 {
 	int i = unitBlackBox(10);
@@ -395,6 +396,7 @@ void testJsObject()
 	}
 	assertEqual(r, i, "Throw a client::Object* and catch it 1/1");
 }
+#endif
 
 void testRethrow()
 {
@@ -419,12 +421,13 @@ void testRethrow()
 	} catch(A& a) {
 		r+= a.i;
 	}
-	assertEqual(r, 2*a.i, "Throw object type ref 1/4");
-	assertEqual(r, 2*10, "Throw object type ref 2/4");
-	assertEqual(a.countC, 3, "Throw object type ref 3/4");
-	assertEqual(a.countD, 2, "Throw object type ref 4/4");
+	assertEqual(r, 2*a.i, "Throw object type rethrow 1/4");
+	assertEqual(r, 2*10, "Throw object type rethrow 2/4");
+	assertEqual(a.countC, 3, "Throw object type rethrow 3/4");
+	assertEqual(a.countD, 2, "Throw object type rethrow 4/4");
 }
 
+#ifndef __ASMJS__
 void testRethrowForeign()
 {
 	int i = unitBlackBox(10);
@@ -452,6 +455,7 @@ void testRethrowForeign()
 	}
 	assertEqual(r, 2*i, "Throw a client::Object* and rethrow it 1/1");
 }
+#endif
 
 void testResume()
 {
@@ -573,9 +577,13 @@ void webMain()
 	testObjectPtrVBase();
 	testNullptr();
 	testNullptr_t();
+#ifndef __ASMJS__
 	testJsObject();
+#endif
 	testRethrow();
+#ifndef __ASMJS__
 	testRethrowForeign();
+#endif
 	testResume();
 	testGetCurrentException();
 	testNestedUnwind();
