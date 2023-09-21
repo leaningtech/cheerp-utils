@@ -33,14 +33,14 @@ class String: public Object
 {
 private:
 	template<typename C>
-	static String* fromCharPtr(const C* s)
+	static const String& fromCharPtr(const C* s)
 	{
 		String* ret=new String();
 		for(;*s;s++)
 		{
 			ret=ret->concat(*String::fromCharCode(*s));
 		}
-		return ret;
+		return *ret;
 	}
 	template<typename Private, typename... Args>
 	String* concat(Args&&... args) const;
@@ -62,7 +62,7 @@ public:
 	{
 	}
 	template<typename... Args>
-	__attribute__((always_inline)) String* concat(Args... args) const
+	__attribute__((always_inline)) String* concat(const Args&... args) const
 	{
 		return concat<void>(static_cast<const String&>(args)...);
 	}
