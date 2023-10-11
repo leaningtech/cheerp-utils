@@ -100,8 +100,8 @@ void invokeJavaScript()
                 var instance = new JSExportedWrapperWithDeleter(21);\
                 instance.insert(45);\
                 instance.insert(2134);\
-                instance.deleter();\
 		var X = instance.totalInserted(); \
+                instance.deleter();\
                 ");
                 //In JS we MUST call the deleter
 }
