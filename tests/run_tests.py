@@ -467,7 +467,8 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 		file = open(driverFile, "w")
 		compiledFileRead = open(testOptions.primaryFile, "r")
 		driverFileRead = open(testingFile, "r")
-		file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\nvar EXPORTS = getExports();\ngetPromise(EXPORTS).then(_=>{onInstantiation(EXPORTS);});\n")
+		file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\nvar EXPORTS = getExports();\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports());});\n")
+		file.close()
 
 	ret=subprocess.call(engine + [driverFile], stderr=testReport,
 		stdout=testOut);
