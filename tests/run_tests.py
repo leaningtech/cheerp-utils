@@ -151,6 +151,7 @@ common_tests = [
         'unit/types/padding1.cpp',
         'unit/types/padding2.cpp',
         'unit/types/padding3.cpp',
+        'unit/globals/initializers.cpp',
 		]
 genericjs_only_tests = [
 		'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
