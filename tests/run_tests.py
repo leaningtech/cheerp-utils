@@ -30,6 +30,7 @@ parser.add_option("--all",dest="all", help="Run all the test kinds [genericjs/as
 parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp-pretty-code", action="store_true", default=False)
 parser.add_option("--no-lto",dest="no_lto", help="Compile with -cheerp-no-lto", action="store_true", default=False)
 parser.add_option("--print-cmd",dest="print_cmd", help="Print the commands as they're executed", action="store_true", default=False)
+parser.add_option("--asan",dest="test_asan", help="Test using AddressSanitizer (only asmjm/wasm)", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -247,11 +248,10 @@ class determinismDictionary:
 
 def compileCommandPreExecuter(compiler, mode, testName, extraFlags):
     flags = ['-cheerp-pretty-code'] if option.pretty_code else []
-    if mode == "wasm":
+    if mode in ["wasm", "asmjs"]:
         flags += ["-target","cheerp-wasm"]
-    elif mode == "asmjs":
-        flags += ["-target","cheerp-wasm"]
-        flags += ["-cheerp-linear-output=asmjs"]
+        if mode == "asmjs":
+            flags += ["-cheerp-linear-output=asmjs"]
     else:
         assert mode == "genericjs"
         flags += ["-target","cheerp"]
@@ -308,11 +308,12 @@ def compileCommand(compiler, mode, testName, extraFlags):
     if option.no_lto:
         flags += ['-cheerp-no-lto']
 
-    if mode == "wasm":
+    if mode in ["wasm", "asmjs"]:
         flags += ["-target","cheerp-wasm"]
-    elif mode == "asmjs":
-        flags += ["-target","cheerp-wasm"]
-        flags += ["-cheerp-linear-output=asmjs"]
+        if option.test_asan:
+            flags += ["-fsanitize=address"]
+        if mode == "asmjs":
+            flags += ["-cheerp-linear-output=asmjs"]
     else:
         assert mode == "genericjs"
         flags += ["-target","cheerp"]
