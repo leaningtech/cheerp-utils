@@ -10,7 +10,8 @@ import concurrent.futures
 from optparse import OptionParser
 from xml.sax.saxutils import escape
 
-parser = OptionParser()
+usage="usage: %prog [options] <compiler> <js engine> [test]"
+parser = OptionParser(usage=usage)
 parser.add_option("-O", dest="optlevel", help="Optimization level (default -O1)", action="store", type="int", default=1 )
 parser.add_option("-j", dest="jobs", help="Number of jobs (default 1)", action="store", type="int", default=1 )
 parser.add_option("--keep", dest="keep_logs", help="Don't delete log files for individual tests",
@@ -38,7 +39,7 @@ if option.all:
     option.preexecute_asmjs = True
 
 if len(args) < 2:
-    print("Usage: %s <compiler> <js engine>\n" % sys.argv[0])
+    parser.print_help()
     exit(1)
 
 clang = args[0]
