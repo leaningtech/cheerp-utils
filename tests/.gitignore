@@ -3,3 +3,11 @@ testOut.out
 testReport.test
 unit/**/*.js
 unit/**/*.wasm
+unit/**/*.mjs
+unit/**/*.reportA
+unit/**/*.reportB
+unit/**/*.bc
+unit/**/*.ii
+unit/**/*.log
+unit/**/*.c*_testreport
+testDeterminism.?
