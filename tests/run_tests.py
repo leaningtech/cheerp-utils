@@ -38,8 +38,8 @@ if option.all:
     option.preexecute_asmjs = True
 
 if len(args) < 2:
-    print("Usage: %s <compiler> <js engine>\n" % sys.argv[0]);
-    exit(1);
+    print("Usage: %s <compiler> <js engine>\n" % sys.argv[0])
+    exit(1)
 
 clang = args[0]
 jsEngine = args[1].split()
@@ -260,18 +260,18 @@ def compileCommandPreExecuter(compiler, mode, testName, extraFlags):
         testName] + flags + extraFlags
 
 def emitError(testReport, kind, log):
-    testReport.write('<failure type="');
-    testReport.write(kind);
-    testReport.write('">');
-    log.seek(0);
-    testReport.write(log.read());
-    testReport.write('</failure>');
+    testReport.write('<failure type="')
+    testReport.write(kind)
+    testReport.write('">')
+    log.seek(0)
+    testReport.write(log.read())
+    testReport.write('</failure>')
 
 
 def preExecuteTest(command, testOptions, testName, testReport, testErrs ):
     testReport.write('<testcase classname="preexecution-%s" name="%s">' % (testOptions.mode, testName))
     p=subprocess.Popen(command + ["-o", testOptions.primaryFile]
-            ,stderr=subprocess.PIPE);
+            ,stderr=subprocess.PIPE)
     _, errs = p.communicate()
     error = False
     if option.determinism:
@@ -279,12 +279,12 @@ def preExecuteTest(command, testOptions, testName, testReport, testErrs ):
         B = "" + testOptions.mode + "_" + testName
         if not preExecuteTest.dictionary.addValue(B, A):
             sys.stdout.write("%s\t%s\t\tDeterminsm failure on output preexecuter\n" % (testOptions.mode, testName))
-            emitError(testReport, "Determinism failure on PreExecution", testErrs);
+            emitError(testReport, "Determinism failure on PreExecution", testErrs)
             error = True
 
     testErrs.write(errs.decode("utf-8"))
     if p.returncode != 0 or b"Tried to execute an unknown external function" in errs:
-        emitError(testReport, "PreExecution error", testErrs);
+        emitError(testReport, "PreExecution error", testErrs)
         error = True
     testReport.write('</testcase>')
     return error
@@ -341,7 +341,7 @@ def printAfter(seed):
 def produceReport(command, printAfterCommand):
     #Here we obtain the separate compilation commands
     p2=subprocess.Popen(command + ['-save-temps=obj', '-###'],
-        stderr=subprocess.PIPE);
+        stderr=subprocess.PIPE)
     _, errs = p2.communicate()
     lines = str(errs).split("\\n")
     lines_to_execute = list()
@@ -363,7 +363,7 @@ def produceReport(command, printAfterCommand):
             #The first four lines invoke clang++ and llvm-link
             line += printAfterCommand
         p=subprocess.Popen(line, shell=True,
-            stderr=subprocess.PIPE);
+            stderr=subprocess.PIPE)
         _, errs = p.communicate()
         ret += p.returncode
         if str("Cannot find") in str(errs):
@@ -418,7 +418,7 @@ def compileTest(command, testOptions, testName, testReport, testOut):
     testReport.write('<testcase classname="compilation-%s" name="%s">' % (testOptions.mode, testName))
 
     ret=subprocess.call(command + ["-o", testOptions.primaryFile],
-        stderr=subprocess.STDOUT, stdout=testOut);
+        stderr=subprocess.STDOUT, stdout=testOut)
 
     if option.determinism != 0:
         A = computeHash(testOptions.primaryFile)
@@ -428,10 +428,10 @@ def compileTest(command, testOptions, testName, testReport, testOut):
         B = getSignature(testName, testOptions)
         if not compileTest.dictionary.addValue(B, A):
             sys.stdout.write("%s\t%s\t\tDeterminsm failure on compilation\n" % (testOptions.mode, testName))
-            emitError(testReport, "Determinism detected on compileTest", testOut);
+            emitError(testReport, "Determinism detected on compileTest", testOut)
 
     if ret != 0:
-        emitError(testReport, "Compilation error", testOut);
+        emitError(testReport, "Compilation error", testOut)
     testReport.write('</testcase>')
     return ret
 
@@ -448,37 +448,37 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         driverFile += '.es6driver.mjs'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\n" + driverFileRead.read() + "\nmodule({relativePath:'" + "'}).then(_ => {onInstantiation(_);});")
+        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\n" + driverFileRead.read() + "\nmodule({relativePath:'" + "'}).then(_ => {onInstantiation(_)})")
         file.close()
     elif testOptions.module == 'commonjs':
         driverFile += '.commonjsdriver.js'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write(driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_);});")
+        file.write(driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_)})")
         file.close()
     elif testOptions.module == 'closure':
         driverFile += '.closure.js'
         file = open(driverFile, "w")
         compiledFileRead = open(testOptions.primaryFile, "r")
         driverFileRead = open(testingFile, "r")
-        file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global);});\n")
+        file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global)})\n")
         file.close()
     else:
         driverFile += '.vanilla.js'
         file = open(driverFile, "w")
         compiledFileRead = open(testOptions.primaryFile, "r")
         driverFileRead = open(testingFile, "r")
-        file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\nvar EXPORTS = getExports();\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports());});\n")
+        file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\nvar EXPORTS = getExports()\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports())})\n")
         file.close()
 
     ret=subprocess.call(engine + [driverFile], stderr=testReport,
-        stdout=testOut);
+        stdout=testOut)
 
     # Reset the read position to the beginning of the output. Otherwise
     # it's not possible to check if there are errors in the output lines.
-    testOut.seek(0);
+    testOut.seek(0)
 
-    testReport.seek(0);
+    testReport.seek(0)
     if ret == 0:
         for testLine in testOut:
             match = re.match("^(.*) : (.*)",testLine)
@@ -487,7 +487,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
                 result = match.group(2)
                 testReport.write('<testcase classname="check" name="%s">' % escape(checkName))
                 if result!="SUCCESS":
-                    testReport.write('<failure type="Self check error">%s</failure>' % testLine);
+                    testReport.write('<failure type="Self check error">%s</failure>' % testLine)
                     failure = True
                 testReport.write('</testcase>')
 
@@ -501,7 +501,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
 
     testReport.write('<testcase classname="run-%s" name="%s">' % (testOptions.mode,testName))
     if failure:
-        emitError(testReport, "Runtime error", testOut);
+        emitError(testReport, "Runtime error", testOut)
     testReport.write('</testcase>')
 
     return failure
@@ -532,7 +532,7 @@ class TestOptions:
         self.basePath = basePath
 
 def getSignature(name, options):
-    return options.mode + "_" + options.module + "_" + name;
+    return options.mode + "_" + options.module + "_" + name
 
 def do_test(test):
     status = "pass"
@@ -642,7 +642,7 @@ testOut = open("testOut.out", "w+")
 reportA = open("testDeterminism.A", "w")
 reportB = open("testDeterminism.B", "w")
 
-testReport.write('<testsuite>');
+testReport.write('<testsuite>')
 
 def writeLinesAndRemove(destination, source):
     lines = open(source, "r")
