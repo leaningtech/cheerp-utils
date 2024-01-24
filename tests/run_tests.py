@@ -155,6 +155,7 @@ common_tests = [
         'unit/types/padding2.cpp',
         'unit/types/padding3.cpp',
         'unit/globals/initializers.cpp',
+        'unit/cli/compat.cpp',
         ]
 genericjs_only_tests = [
         'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -209,6 +210,8 @@ for name in set(packed_tests):
     addToTestListIfMatch(Test.wasmOnly(name))
 
 addToTestListIfMatch(Test.common('unit/client/globals.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/cli/env.cpp', [['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/cli/argv.cpp', [['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/client/_delete.cpp', [['-cheerp-make-module=commonjs'], ['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/codegen/unsignedTrunc.cpp', [['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.preexecutable('unit/codegen/abs.cpp', [[], ['-cheerp-use-bigints']]))
@@ -453,7 +456,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         driverFile += '.es6driver.mjs'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\n" + driverFileRead.read() + "\nmodule({relativePath:'" + "'}).then(_ => {onInstantiation(_)})")
+        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\n" + driverFileRead.read() + "\nmodule({relativePath:'" + "', argv: typeof argv == 'undefined' ? [] : argv, env: typeof env == 'undefined' ? [] : env}).then(_ => {onInstantiation(_)})")
         file.close()
     elif testOptions.module == 'commonjs':
         driverFile += '.commonjsdriver.js'
