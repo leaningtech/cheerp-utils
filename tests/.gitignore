@@ -2,6 +2,7 @@ testErrs.out
 testOut.out
 testReport.test
 unit/**/*.js
+!unit/**/*.testing.js
 unit/**/*.wasm
 unit/**/*.mjs
 unit/**/*.reportA
