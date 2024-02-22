@@ -227,6 +227,8 @@ addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/test1.cpp', [['-std=c++
 addToTestListIfMatch(Test.common('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
+addToTestListIfMatch(Test.common('unit/threading/atomic1.cpp', [['-pthread']]))
+addToTestListIfMatch(Test.linearOnly('unit/threading/atomic2.cpp', [['-pthread']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -503,6 +505,8 @@ def runTest(engine, testOptions, testName, testReport, testOut):
             failure |= bool(match)
         for testLineErr in testReport:
             match = re.search("error|fail|invalid", testLineErr, re.IGNORECASE)
+            if (testOptions.allowSABwarning and match):
+                match = not re.search("Linking failure in asm.js: Invalid heap type: SharedArrayBuffer", testLineErr)
             failure |= bool(match)
     else:
         failure = True
@@ -527,6 +531,7 @@ class TestOptions:
         if (mode == "wasm"):
             self.secondaryFile = basePath + ".wasm"
         self.module = 'none'
+        self.allowSABwarning = False
         for f in extraFlags:
             if f == '-cheerp-make-module=es6':
                 self.module = 'es6'
@@ -534,6 +539,8 @@ class TestOptions:
                 self.module = 'closure'
             if f == '-cheerp-make-module=commonjs':
                 self.module = 'commonjs'
+            if f == '-pthread':
+                self.allowSABwarning = True
         self.primaryFile = basePath + ".js"
         if (self.module == 'es6'):
             self.primaryFile = basePath + ".mjs"
