@@ -77,18 +77,18 @@ template<class R>
 struct EscapedResourcesList
 {
 	using deleter_t =  void(R*);
-	static client::Map* resources;
+	static client::Map<client::Object*, client::Object*>* resources;
 	static void add(R* r, client::Object* d)
 	{
 		if (resources == nullptr)
-			resources = new client::Map;
+			resources = new client::Map<client::Object*, client::Object*>;
 		resources->set(r, d);
 	}
 	static void free(R* r)
 	{
 		if (resources == nullptr)
 			return;
-		client::Object* o = resources->get<R*, client::Object*>(r);
+		client::Object* o = resources->get(r);
 		asm("%1===undefined?null:%2" : "=r"(o) : "r"(o),"r"(o));
 		if (o == nullptr)
 			return;
@@ -97,7 +97,7 @@ struct EscapedResourcesList
 	}
 };
 template<class R>
-client::Map* EscapedResourcesList<R>::resources = nullptr;
+client::Map<client::Object*, client::Object*>* EscapedResourcesList<R>::resources = nullptr;
 
 using EscapedListeners = EscapedResourcesList<client::EventListener>;
 
