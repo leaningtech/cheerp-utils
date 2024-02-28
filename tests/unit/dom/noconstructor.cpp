@@ -21,6 +21,6 @@ void webMain()
 	client::FakeClientObj* o = new client::FakeClientObj();
 	o->set_val(42);
 	assertEqual(o->get_val(), 42, "Creating client object that do not have a constructor");
-	client::TArray<client::String>* ta = new client::TArray<client::String>();
+	client::TArray<client::String*>* ta = new client::TArray<client::String*>();
 	assertEqual(ta->get_length(), 0, "Creating template array wrapper type");
 }
