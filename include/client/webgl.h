@@ -1,9 +1,5 @@
-#include "clientlib.h"
-
-namespace client [[cheerp::genericjs]] {
-	/// deprecated
-	using WebGLVertexArrayOES = WebGLVertexArrayObjectOES;
-
-	/// deprecated
-	using OESVertexArrayObject = OES_vertex_array_object;
-}
+#ifdef USE_OLD_CLIENTLIB
+#include "old/webgl.h"
+#else
+#include "new/webgl.h"
+#endif
