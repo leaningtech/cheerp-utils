@@ -11,14 +11,9 @@ template<class T, class... Args>
 struct std::coroutine_traits<client::Promise<T>*, Args...> {
 	struct [[cheerp::genericjs]] promise_type {
 		client::Promise<T>* get_return_object() {
-			auto* func = new client::_Function<void(
-				client::_Function<void(client::_Union<client::_Any*, client::PromiseLike<client::_Any*>*>*)>*,
-				client::_Function<void(client::_Any*)>*
-			)>([this](client::Function* resolve) {
+			return client::Promise<T>::template _New<client::_Any*>([this](client::Function* resolve) {
 				this->resolve = resolve;
 			});
-
-			return new client::Promise<T>(*func);
 		}
 
 		auto initial_suspend() const noexcept {
