@@ -11,4 +11,5 @@ unit/**/*.bc
 unit/**/*.ii
 unit/**/*.log
 unit/**/*.c*_testreport
+unit/**/*.d.ts
 testDeterminism.?

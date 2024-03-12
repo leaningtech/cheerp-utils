@@ -21,6 +21,7 @@ parser.add_option("--asmjs",dest="asmjs", help="Run the tests in asmjs mode", ac
 parser.add_option("--genericjs",dest="genericjs", help="Run the tests in genericjs mode", action="store_true", default=False)
 parser.add_option("--wasm", dest="wasm", help="Run the tests in wasm mode",
     action="store_true", default=False)
+parser.add_option("--typescript", dest="typescript", help="Also generate .d.ts files", action="store_true", default=False)
 parser.add_option("--valgrind", dest="valgrind", help="Run with valgrind activated", action="store_true", default=False)
 parser.add_option("--preexecute",dest="preexecute", help="Run the tests inside PreExecuter", action="store_true", default=False)
 parser.add_option("--determinism", dest="determinism", help="Select the level of testing devoted to uncover non-deterministic behaviour", action="store", type="int", default=0)
@@ -314,6 +315,9 @@ def compileCommand(compiler, mode, testName, extraFlags):
     if option.no_lto:
         flags += ['-cheerp-no-lto']
 
+    if option.typescript:
+        flags += ['-cheerp-make-dts']
+
     if mode in ["wasm", "asmjs"]:
         flags += ["-target","cheerp-wasm"]
         if option.test_asan:
@@ -431,6 +435,12 @@ def compileTest(command, testOptions, testName, testReport, testOut):
     ret=subprocess.call(command + ["-o", testOptions.primaryFile],
         stderr=subprocess.STDOUT, stdout=testOut)
 
+    if option.typescript:
+        proc = subprocess.run(["node", "check_dts", testOptions.dtsFile], stdout=subprocess.PIPE)
+
+        if int(proc.stdout) != 0:
+            emitError(testReport, "Typescript error", testOut)
+
     if option.determinism != 0:
         A = computeHash(testOptions.primaryFile)
         if testOptions.mode == "wasm":
@@ -545,6 +555,7 @@ class TestOptions:
         self.primaryFile = basePath + ".js"
         if (self.module == 'es6'):
             self.primaryFile = basePath + ".mjs"
+        self.dtsFile = basePath + ".d.ts"
         self.basePath = basePath
 
 def getSignature(name, options):
