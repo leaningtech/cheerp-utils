@@ -63,6 +63,14 @@ namespace [[cheerp::genericjs]] client {
 		static Object* fromEntries(Iterable<ReadonlyArray<_Any*>*>* entries);
 		Object();
 		Object(const _Any& value);
+		[[gnu::always_inline]]
+		static Object* _New() {
+			return new Object();
+		}
+		[[gnu::always_inline]]
+		static Object* _New(const _Any& value) {
+			return new Object(value);
+		}
 		static Object* prototype;
 		static Object* getPrototypeOf(const _Any& o);
 		static PropertyDescriptor* getOwnPropertyDescriptor(const _Any& o, const String& p);

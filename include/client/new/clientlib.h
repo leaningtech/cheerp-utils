@@ -221,7 +221,7 @@ namespace [[cheerp::genericjs]] client {
 		bool isFrozen(const _Any& o);
 		bool isExtensible(const _Any& o);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadonlyArray: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -360,6 +360,22 @@ namespace [[cheerp::genericjs]] client {
 		RegExp(RegExp* pattern);
 		RegExp(const String& pattern, const String& flags);
 		RegExp(RegExp* pattern, const String& flags);
+		[[gnu::always_inline]]
+		static RegExp* _New(const String& pattern) {
+			return new RegExp(pattern);
+		}
+		[[gnu::always_inline]]
+		static RegExp* _New(RegExp* pattern) {
+			return new RegExp(pattern);
+		}
+		[[gnu::always_inline]]
+		static RegExp* _New(const String& pattern, const String& flags) {
+			return new RegExp(pattern, flags);
+		}
+		[[gnu::always_inline]]
+		static RegExp* _New(RegExp* pattern, const String& flags) {
+			return new RegExp(pattern, flags);
+		}
 		static _Any* _91_Symbol_46_species_93_;
 		static RegExp* prototype;
 		static String* _36_1;
@@ -493,7 +509,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("get_[Symbol.species]"))]]
 		MapConstructor* get__91_Symbol_46_species_93_();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class ReadonlyMap: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -510,7 +526,7 @@ namespace [[cheerp::genericjs]] client {
 		IterableIterator<_T0>* keys();
 		IterableIterator<_T1>* values();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = _Any*>
 	class WeakMap: public Object {
 		static_assert(cheerp::CanCast<_T0, Object*>);
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
@@ -525,6 +541,18 @@ namespace [[cheerp::genericjs]] client {
 		WeakMap();
 		WeakMap(ReadonlyArray<Object*>* entries);
 		WeakMap(Iterable<Object*>* iterable);
+		[[gnu::always_inline]]
+		static WeakMap* _New() {
+			return new WeakMap();
+		}
+		[[gnu::always_inline]]
+		static WeakMap* _New(ReadonlyArray<Object*>* entries) {
+			return new WeakMap(entries);
+		}
+		[[gnu::always_inline]]
+		static WeakMap* _New(Iterable<Object*>* iterable) {
+			return new WeakMap(iterable);
+		}
 		static WeakMap<Object*, _Any*>* prototype;
 	};
 	class WeakMapConstructor: public Object {
@@ -532,7 +560,7 @@ namespace [[cheerp::genericjs]] client {
 		WeakMap<Object*, _Any*>* get_prototype();
 	};
 	class SetConstructor;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class Set: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -558,6 +586,20 @@ namespace [[cheerp::genericjs]] client {
 		Set(ReadonlyArray<_T1>* values);
 		template<class _T1>
 		Set(Iterable<_T1>* iterable);
+		[[gnu::always_inline]]
+		static Set* _New() {
+			return new Set();
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static Set* _New(ReadonlyArray<_T1>* values) {
+			return new Set(values);
+		}
+		template<class _T1>
+		[[gnu::always_inline]]
+		static Set* _New(Iterable<_T1>* iterable) {
+			return new Set(iterable);
+		}
 		static Set<_Any*>* prototype;
 		static SetConstructor* _91_Symbol_46_species_93_;
 	};
@@ -567,7 +609,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("get_[Symbol.species]"))]]
 		SetConstructor* get__91_Symbol_46_species_93_();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadonlySet: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -583,7 +625,7 @@ namespace [[cheerp::genericjs]] client {
 		IterableIterator<_T0>* keys();
 		IterableIterator<_T0>* values();
 	};
-	template<class _T0>
+	template<class _T0 = Object*>
 	class WeakSet: public Object {
 		static_assert(cheerp::CanCast<_T0, Object*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -599,6 +641,20 @@ namespace [[cheerp::genericjs]] client {
 		WeakSet(ReadonlyArray<_T1>* values);
 		template<class _T1 = Object*>
 		WeakSet(Iterable<_T1>* iterable);
+		[[gnu::always_inline]]
+		static WeakSet* _New() {
+			return new WeakSet();
+		}
+		template<class _T1 = Object*>
+		[[gnu::always_inline]]
+		static WeakSet* _New(ReadonlyArray<_T1>* values) {
+			return new WeakSet(values);
+		}
+		template<class _T1 = Object*>
+		[[gnu::always_inline]]
+		static WeakSet* _New(Iterable<_T1>* iterable) {
+			return new WeakSet(iterable);
+		}
 		static WeakSet<Object*>* prototype;
 	};
 	class WeakSetConstructor: public Object {
@@ -609,7 +665,7 @@ namespace [[cheerp::genericjs]] client {
 	class IteratorYieldResult;
 	template<class _T0>
 	class IteratorReturnResult;
-	template<class _T0, class _T1, class _T2>
+	template<class _T0 = _Any*, class _T1 = _Any*, class _T2 = _Any*>
 	class Iterator: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1, _T2>);
 	public:
@@ -632,7 +688,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("throw"))]]
 		_Union<IteratorYieldResult<_T0>*, IteratorReturnResult<_T1>*>* throw_(const _Any& e);
 	};
-	template<class _T0, class _T1, class _T2>
+	template<class _T0 = Object*, class _T1 = _Any*, class _T2 = Object*>
 	class Generator: public Iterator<_T0, _T1, _T2> {
 		static_assert(cheerp::CheckTemplate<_T0, _T1, _T2>);
 	public:
@@ -687,7 +743,7 @@ namespace [[cheerp::genericjs]] client {
 		Symbol* get_asyncIterator();
 		Symbol* get_matchAll();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class IteratorYieldResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -696,7 +752,7 @@ namespace [[cheerp::genericjs]] client {
 		_T0 get_value();
 		void set_value(_T0 value);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class IteratorReturnResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -706,14 +762,14 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(_T0 value);
 	};
 	using IteratorResult = _Any;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class Iterable: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
 		[[cheerp::interface_name(("[Symbol.iterator]"))]]
 		Iterator<_T0, _Any*, _Any*>* _91_Symbol_46_iterator_93_();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class IterableIterator: public Iterator<_T0, _Any*, _Any*> {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -741,7 +797,7 @@ namespace [[cheerp::genericjs]] client {
 	template<class _T0>
 	class PromiseLike;
 	class PromiseConstructor;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class Promise: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -776,6 +832,15 @@ namespace [[cheerp::genericjs]] client {
 		Promise(EventListener* executor);
 		template<class _T1>
 		Promise(const _Function<void(_Function<void(_Union<_T1, PromiseLike<_T1>*>*)>*, _Function<void(_Any*)>*)>& executor);
+		[[gnu::always_inline]]
+		static Promise* _New(EventListener* executor) {
+			return new Promise(executor);
+		}
+		template<class _T1>
+		[[gnu::always_inline]]
+		static Promise* _New(const _Function<void(_Function<void(_Union<_T1, PromiseLike<_T1>*>*)>*, _Function<void(_Any*)>*)>& executor) {
+			return new Promise(executor);
+		}
 		static Promise<_Any*>* reject();
 		static Promise<_Any*>* reject(const _Any& reason);
 		static Promise<_Any*>* resolve();
@@ -915,6 +980,30 @@ namespace [[cheerp::genericjs]] client {
 		Int8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Int8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Int8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Int8Array* _New(Iterable<double>* elements) {
+			return new Int8Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Int8Array* _New() {
+			return new Int8Array();
+		}
+		[[gnu::always_inline]]
+		static Int8Array* _New(double length) {
+			return new Int8Array(length);
+		}
+		[[gnu::always_inline]]
+		static Int8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Int8Array(array);
+		}
+		[[gnu::always_inline]]
+		static Int8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Int8Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Int8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Int8Array(buffer, byteOffset, length);
+		}
 		static Int8Array* from(Iterable<double>* arrayLike);
 		static Int8Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Int8Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1071,6 +1160,30 @@ namespace [[cheerp::genericjs]] client {
 		Uint8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Uint8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Uint8Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Uint8Array* _New(Iterable<double>* elements) {
+			return new Uint8Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Uint8Array* _New() {
+			return new Uint8Array();
+		}
+		[[gnu::always_inline]]
+		static Uint8Array* _New(double length) {
+			return new Uint8Array(length);
+		}
+		[[gnu::always_inline]]
+		static Uint8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Uint8Array(array);
+		}
+		[[gnu::always_inline]]
+		static Uint8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Uint8Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Uint8Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Uint8Array(buffer, byteOffset, length);
+		}
 		static Uint8Array* from(Iterable<double>* arrayLike);
 		static Uint8Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Uint8Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1227,6 +1340,30 @@ namespace [[cheerp::genericjs]] client {
 		Uint8ClampedArray(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Uint8ClampedArray(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Uint8ClampedArray(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New(Iterable<double>* elements) {
+			return new Uint8ClampedArray(elements);
+		}
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New() {
+			return new Uint8ClampedArray();
+		}
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New(double length) {
+			return new Uint8ClampedArray(length);
+		}
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Uint8ClampedArray(array);
+		}
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Uint8ClampedArray(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Uint8ClampedArray* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Uint8ClampedArray(buffer, byteOffset, length);
+		}
 		static Uint8ClampedArray* from(Iterable<double>* arrayLike);
 		static Uint8ClampedArray* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Uint8ClampedArray* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1383,6 +1520,30 @@ namespace [[cheerp::genericjs]] client {
 		Int16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Int16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Int16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Int16Array* _New(Iterable<double>* elements) {
+			return new Int16Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Int16Array* _New() {
+			return new Int16Array();
+		}
+		[[gnu::always_inline]]
+		static Int16Array* _New(double length) {
+			return new Int16Array(length);
+		}
+		[[gnu::always_inline]]
+		static Int16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Int16Array(array);
+		}
+		[[gnu::always_inline]]
+		static Int16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Int16Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Int16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Int16Array(buffer, byteOffset, length);
+		}
 		static Int16Array* from(Iterable<double>* arrayLike);
 		static Int16Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Int16Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1539,6 +1700,30 @@ namespace [[cheerp::genericjs]] client {
 		Uint16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Uint16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Uint16Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Uint16Array* _New(Iterable<double>* elements) {
+			return new Uint16Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Uint16Array* _New() {
+			return new Uint16Array();
+		}
+		[[gnu::always_inline]]
+		static Uint16Array* _New(double length) {
+			return new Uint16Array(length);
+		}
+		[[gnu::always_inline]]
+		static Uint16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Uint16Array(array);
+		}
+		[[gnu::always_inline]]
+		static Uint16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Uint16Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Uint16Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Uint16Array(buffer, byteOffset, length);
+		}
 		static Uint16Array* from(Iterable<double>* arrayLike);
 		static Uint16Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Uint16Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1695,6 +1880,30 @@ namespace [[cheerp::genericjs]] client {
 		Int32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Int32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Int32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Int32Array* _New(Iterable<double>* elements) {
+			return new Int32Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Int32Array* _New() {
+			return new Int32Array();
+		}
+		[[gnu::always_inline]]
+		static Int32Array* _New(double length) {
+			return new Int32Array(length);
+		}
+		[[gnu::always_inline]]
+		static Int32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Int32Array(array);
+		}
+		[[gnu::always_inline]]
+		static Int32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Int32Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Int32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Int32Array(buffer, byteOffset, length);
+		}
 		static Int32Array* from(Iterable<double>* arrayLike);
 		static Int32Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Int32Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -1851,6 +2060,30 @@ namespace [[cheerp::genericjs]] client {
 		Uint32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Uint32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Uint32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Uint32Array* _New(Iterable<double>* elements) {
+			return new Uint32Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Uint32Array* _New() {
+			return new Uint32Array();
+		}
+		[[gnu::always_inline]]
+		static Uint32Array* _New(double length) {
+			return new Uint32Array(length);
+		}
+		[[gnu::always_inline]]
+		static Uint32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Uint32Array(array);
+		}
+		[[gnu::always_inline]]
+		static Uint32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Uint32Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Uint32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Uint32Array(buffer, byteOffset, length);
+		}
 		static Uint32Array* from(Iterable<double>* arrayLike);
 		static Uint32Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Uint32Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -2007,6 +2240,30 @@ namespace [[cheerp::genericjs]] client {
 		Float32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Float32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Float32Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Float32Array* _New(Iterable<double>* elements) {
+			return new Float32Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Float32Array* _New() {
+			return new Float32Array();
+		}
+		[[gnu::always_inline]]
+		static Float32Array* _New(double length) {
+			return new Float32Array(length);
+		}
+		[[gnu::always_inline]]
+		static Float32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Float32Array(array);
+		}
+		[[gnu::always_inline]]
+		static Float32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Float32Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Float32Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Float32Array(buffer, byteOffset, length);
+		}
 		static Float32Array* from(Iterable<double>* arrayLike);
 		static Float32Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Float32Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -2163,6 +2420,30 @@ namespace [[cheerp::genericjs]] client {
 		Float64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array);
 		Float64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		Float64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static Float64Array* _New(Iterable<double>* elements) {
+			return new Float64Array(elements);
+		}
+		[[gnu::always_inline]]
+		static Float64Array* _New() {
+			return new Float64Array();
+		}
+		[[gnu::always_inline]]
+		static Float64Array* _New(double length) {
+			return new Float64Array(length);
+		}
+		[[gnu::always_inline]]
+		static Float64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*, ArrayLike<double>*>& array) {
+			return new Float64Array(array);
+		}
+		[[gnu::always_inline]]
+		static Float64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new Float64Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static Float64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new Float64Array(buffer, byteOffset, length);
+		}
 		static Float64Array* from(Iterable<double>* arrayLike);
 		static Float64Array* from(Iterable<double>* arrayLike, EventListener* mapfn);
 		static Float64Array* from(Iterable<double>* arrayLike, const _Function<double(double, double)>& mapfn);
@@ -2227,7 +2508,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("of"))]]
 		_Any* _of(_Args... data);
 	};
-	template<class _T0>
+	template<class _T0 = Object*>
 	class ProxyHandler: public Object {
 		static_assert(cheerp::CanCast<_T0, Object*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -2433,6 +2714,50 @@ namespace [[cheerp::genericjs]] client {
 		Date(double year, double monthIndex, double date, double hours, double minutes, double seconds);
 		Date(double year, double monthIndex, double date, double hours, double minutes, double seconds, double ms);
 		Date(VarDate* vd);
+		[[gnu::always_inline]]
+		static Date* _New(const String& value) {
+			return new Date(value);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(const _Union<double, Date*>& value) {
+			return new Date(value);
+		}
+		[[gnu::always_inline]]
+		static Date* _New() {
+			return new Date();
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double value) {
+			return new Date(value);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex) {
+			return new Date(year, monthIndex);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex, double date) {
+			return new Date(year, monthIndex, date);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex, double date, double hours) {
+			return new Date(year, monthIndex, date, hours);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex, double date, double hours, double minutes) {
+			return new Date(year, monthIndex, date, hours, minutes);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex, double date, double hours, double minutes, double seconds) {
+			return new Date(year, monthIndex, date, hours, minutes, seconds);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(double year, double monthIndex, double date, double hours, double minutes, double seconds, double ms) {
+			return new Date(year, monthIndex, date, hours, minutes, seconds, ms);
+		}
+		[[gnu::always_inline]]
+		static Date* _New(VarDate* vd) {
+			return new Date(vd);
+		}
 		static double UTC(double year);
 		static double UTC(double year, double monthIndex);
 		static double UTC(double year, double monthIndex, double date);
@@ -2475,6 +2800,10 @@ namespace [[cheerp::genericjs]] client {
 		static ArrayBufferConstructor* _91_Symbol_46_species_93_;
 		static ArrayBuffer* prototype;
 		ArrayBuffer(double byteLength);
+		[[gnu::always_inline]]
+		static ArrayBuffer* _New(double byteLength) {
+			return new ArrayBuffer(byteLength);
+		}
 		static bool isView(const _Any& arg);
 	};
 	class BigInt;
@@ -2525,6 +2854,18 @@ namespace [[cheerp::genericjs]] client {
 		DataView(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer);
 		DataView(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		DataView(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double byteLength);
+		[[gnu::always_inline]]
+		static DataView* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer) {
+			return new DataView(buffer);
+		}
+		[[gnu::always_inline]]
+		static DataView* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new DataView(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static DataView* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double byteLength) {
+			return new DataView(buffer, byteOffset, byteLength);
+		}
 	};
 	class ArrayBufferConstructor: public Object {
 	public:
@@ -2544,6 +2885,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get__91_Symbol_46_toStringTag_93_();
 		static SharedArrayBuffer* prototype;
 		SharedArrayBuffer(double byteLength);
+		[[gnu::always_inline]]
+		static SharedArrayBuffer* _New(double byteLength) {
+			return new SharedArrayBuffer(byteLength);
+		}
 	};
 	class SharedArrayBufferConstructor: public Object {
 	public:
@@ -2646,6 +2991,26 @@ namespace [[cheerp::genericjs]] client {
 			DateTimeFormat(TArray<String*>* locales);
 			DateTimeFormat(const String& locales, DateTimeFormatOptions* options);
 			DateTimeFormat(TArray<String*>* locales, DateTimeFormatOptions* options);
+			[[gnu::always_inline]]
+			static DateTimeFormat* _New() {
+				return new DateTimeFormat();
+			}
+			[[gnu::always_inline]]
+			static DateTimeFormat* _New(const String& locales) {
+				return new DateTimeFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static DateTimeFormat* _New(TArray<String*>* locales) {
+				return new DateTimeFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static DateTimeFormat* _New(const String& locales, DateTimeFormatOptions* options) {
+				return new DateTimeFormat(locales, options);
+			}
+			[[gnu::always_inline]]
+			static DateTimeFormat* _New(TArray<String*>* locales, DateTimeFormatOptions* options) {
+				return new DateTimeFormat(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(TArray<String*>* locales);
 			static TArray<String*>* supportedLocalesOf(const String& locales, DateTimeFormatOptions* options);
@@ -2699,6 +3064,26 @@ namespace [[cheerp::genericjs]] client {
 			PluralRules(TArray<String*>* locales);
 			PluralRules(const String& locales, PluralRulesOptions* options);
 			PluralRules(TArray<String*>* locales, PluralRulesOptions* options);
+			[[gnu::always_inline]]
+			static PluralRules* _New() {
+				return new PluralRules();
+			}
+			[[gnu::always_inline]]
+			static PluralRules* _New(const String& locales) {
+				return new PluralRules(locales);
+			}
+			[[gnu::always_inline]]
+			static PluralRules* _New(TArray<String*>* locales) {
+				return new PluralRules(locales);
+			}
+			[[gnu::always_inline]]
+			static PluralRules* _New(const String& locales, PluralRulesOptions* options) {
+				return new PluralRules(locales, options);
+			}
+			[[gnu::always_inline]]
+			static PluralRules* _New(TArray<String*>* locales, PluralRulesOptions* options) {
+				return new PluralRules(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(TArray<String*>* locales);
 			static TArray<String*>* supportedLocalesOf(const String& locales, Object* options);
@@ -2730,6 +3115,26 @@ namespace [[cheerp::genericjs]] client {
 			NumberFormat(TArray<String*>* locales);
 			NumberFormat(const String& locales, NumberFormatOptions* options);
 			NumberFormat(TArray<String*>* locales, NumberFormatOptions* options);
+			[[gnu::always_inline]]
+			static NumberFormat* _New() {
+				return new NumberFormat();
+			}
+			[[gnu::always_inline]]
+			static NumberFormat* _New(const String& locales) {
+				return new NumberFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static NumberFormat* _New(TArray<String*>* locales) {
+				return new NumberFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static NumberFormat* _New(const String& locales, NumberFormatOptions* options) {
+				return new NumberFormat(locales, options);
+			}
+			[[gnu::always_inline]]
+			static NumberFormat* _New(TArray<String*>* locales, NumberFormatOptions* options) {
+				return new NumberFormat(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(TArray<String*>* locales);
 			static TArray<String*>* supportedLocalesOf(const String& locales, NumberFormatOptions* options);
@@ -2775,6 +3180,26 @@ namespace [[cheerp::genericjs]] client {
 			RelativeTimeFormat(TArray<String*>* locales);
 			RelativeTimeFormat(const String& locales, RelativeTimeFormatOptions* options);
 			RelativeTimeFormat(TArray<String*>* locales, RelativeTimeFormatOptions* options);
+			[[gnu::always_inline]]
+			static RelativeTimeFormat* _New() {
+				return new RelativeTimeFormat();
+			}
+			[[gnu::always_inline]]
+			static RelativeTimeFormat* _New(const String& locales) {
+				return new RelativeTimeFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static RelativeTimeFormat* _New(TArray<String*>* locales) {
+				return new RelativeTimeFormat(locales);
+			}
+			[[gnu::always_inline]]
+			static RelativeTimeFormat* _New(const String& locales, RelativeTimeFormatOptions* options) {
+				return new RelativeTimeFormat(locales, options);
+			}
+			[[gnu::always_inline]]
+			static RelativeTimeFormat* _New(TArray<String*>* locales, RelativeTimeFormatOptions* options) {
+				return new RelativeTimeFormat(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf();
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(TArray<String*>* locales);
@@ -2932,6 +3357,22 @@ namespace [[cheerp::genericjs]] client {
 			Locale(Locale* tag);
 			Locale(const String& tag, LocaleOptions* options);
 			Locale(Locale* tag, LocaleOptions* options);
+			[[gnu::always_inline]]
+			static Locale* _New(const String& tag) {
+				return new Locale(tag);
+			}
+			[[gnu::always_inline]]
+			static Locale* _New(Locale* tag) {
+				return new Locale(tag);
+			}
+			[[gnu::always_inline]]
+			static Locale* _New(const String& tag, LocaleOptions* options) {
+				return new Locale(tag, options);
+			}
+			[[gnu::always_inline]]
+			static Locale* _New(Locale* tag, LocaleOptions* options) {
+				return new Locale(tag, options);
+			}
 		};
 		using DisplayNamesFallback = String;
 		using DisplayNamesType = String;
@@ -2969,6 +3410,14 @@ namespace [[cheerp::genericjs]] client {
 			static DisplayNames* prototype;
 			DisplayNames(const String& locales, DisplayNamesOptions* options);
 			DisplayNames(const _Union<Locale*, ReadonlyArray<_Any*>*>& locales, DisplayNamesOptions* options);
+			[[gnu::always_inline]]
+			static DisplayNames* _New(const String& locales, DisplayNamesOptions* options) {
+				return new DisplayNames(locales, options);
+			}
+			[[gnu::always_inline]]
+			static DisplayNames* _New(const _Union<Locale*, ReadonlyArray<_Any*>*>& locales, DisplayNamesOptions* options) {
+				return new DisplayNames(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf();
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(const _Union<Locale*, ReadonlyArray<_Any*>*>& locales);
@@ -3018,6 +3467,26 @@ namespace [[cheerp::genericjs]] client {
 			Collator(TArray<String*>* locales);
 			Collator(const String& locales, CollatorOptions* options);
 			Collator(TArray<String*>* locales, CollatorOptions* options);
+			[[gnu::always_inline]]
+			static Collator* _New() {
+				return new Collator();
+			}
+			[[gnu::always_inline]]
+			static Collator* _New(const String& locales) {
+				return new Collator(locales);
+			}
+			[[gnu::always_inline]]
+			static Collator* _New(TArray<String*>* locales) {
+				return new Collator(locales);
+			}
+			[[gnu::always_inline]]
+			static Collator* _New(const String& locales, CollatorOptions* options) {
+				return new Collator(locales, options);
+			}
+			[[gnu::always_inline]]
+			static Collator* _New(TArray<String*>* locales, CollatorOptions* options) {
+				return new Collator(locales, options);
+			}
 			static TArray<String*>* supportedLocalesOf(const String& locales);
 			static TArray<String*>* supportedLocalesOf(TArray<String*>* locales);
 			static TArray<String*>* supportedLocalesOf(const String& locales, CollatorOptions* options);
@@ -3060,7 +3529,7 @@ namespace [[cheerp::genericjs]] client {
 			void set_source(const String& source);
 		};
 	}
-	template<class _T0, class _T1, class _T2>
+	template<class _T0 = _Any*, class _T1 = _Any*, class _T2 = _Any*>
 	class AsyncIterator: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1, _T2>);
 	public:
@@ -3087,7 +3556,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("throw"))]]
 		Promise<_Any*>* throw_(const _Any& e);
 	};
-	template<class _T0, class _T1, class _T2>
+	template<class _T0 = Object*, class _T1 = _Any*, class _T2 = Object*>
 	class AsyncGenerator: public AsyncIterator<_T0, _T1, _T2> {
 		static_assert(cheerp::CheckTemplate<_T0, _T1, _T2>);
 	public:
@@ -3124,14 +3593,14 @@ namespace [[cheerp::genericjs]] client {
 		String* get_name();
 		_Function<AsyncGenerator<Object*, _Any*, Object*>*(TArray<_Any*>*)>* get_prototype();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class AsyncIterable: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
 		[[cheerp::interface_name(("[Symbol.asyncIterator]"))]]
 		AsyncIterator<_T0, _Any*, _Any*>* _91_Symbol_46_asyncIterator_93_();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class AsyncIterableIterator: public AsyncIterator<_T0, _Any*, _Any*> {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3302,6 +3771,30 @@ namespace [[cheerp::genericjs]] client {
 		BigInt64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer);
 		BigInt64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		BigInt64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static BigInt64Array* _New() {
+			return new BigInt64Array();
+		}
+		[[gnu::always_inline]]
+		static BigInt64Array* _New(double length) {
+			return new BigInt64Array(length);
+		}
+		[[gnu::always_inline]]
+		static BigInt64Array* _New(Iterable<BigInt*>* array) {
+			return new BigInt64Array(array);
+		}
+		[[gnu::always_inline]]
+		static BigInt64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer) {
+			return new BigInt64Array(buffer);
+		}
+		[[gnu::always_inline]]
+		static BigInt64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new BigInt64Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static BigInt64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new BigInt64Array(buffer, byteOffset, length);
+		}
 		static double BYTES_PER_ELEMENT;
 		template<class... _Args>
 		[[gnu::always_inline]]
@@ -3444,6 +3937,30 @@ namespace [[cheerp::genericjs]] client {
 		BigUint64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer);
 		BigUint64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset);
 		BigUint64Array(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length);
+		[[gnu::always_inline]]
+		static BigUint64Array* _New() {
+			return new BigUint64Array();
+		}
+		[[gnu::always_inline]]
+		static BigUint64Array* _New(double length) {
+			return new BigUint64Array(length);
+		}
+		[[gnu::always_inline]]
+		static BigUint64Array* _New(Iterable<BigInt*>* array) {
+			return new BigUint64Array(array);
+		}
+		[[gnu::always_inline]]
+		static BigUint64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer) {
+			return new BigUint64Array(buffer);
+		}
+		[[gnu::always_inline]]
+		static BigUint64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset) {
+			return new BigUint64Array(buffer, byteOffset);
+		}
+		[[gnu::always_inline]]
+		static BigUint64Array* _New(const _Union<ArrayBuffer*, SharedArrayBuffer*>& buffer, double byteOffset, double length) {
+			return new BigUint64Array(buffer, byteOffset, length);
+		}
 		static double BYTES_PER_ELEMENT;
 		template<class... _Args>
 		[[gnu::always_inline]]
@@ -3491,7 +4008,7 @@ namespace [[cheerp::genericjs]] client {
 		template<class _T0>
 		BigUint64Array* from(ArrayLike<_T0>* arrayLike, const _Function<BigInt*(_T0, double)>& mapfn, const _Any& thisArg);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class PromiseFulfilledResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3512,7 +4029,7 @@ namespace [[cheerp::genericjs]] client {
 	using DecoratorContext = _Any;
 	using DecoratorMetadataObject = Object;
 	using DecoratorMetadata = Object;
-	template<class _T0>
+	template<class _T0 = Object*>
 	class ClassDecoratorContext: public Object {
 		static_assert(cheerp::CanCast<_T0, Object*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -3523,7 +4040,7 @@ namespace [[cheerp::genericjs]] client {
 		void addInitializer(const _Function<void()>& initializer);
 		Object* get_metadata();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = _Function<_Any*(_Any*)>*>
 	class ClassMethodDecoratorContext: public Object {
 		static_assert(cheerp::CanCast<_T1, _Function<_Any*(_Any*)>*>);
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
@@ -3539,7 +4056,7 @@ namespace [[cheerp::genericjs]] client {
 		void addInitializer(const _Function<void()>& initializer);
 		Object* get_metadata();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = Object*>
 	class ClassGetterDecoratorContext: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -3554,7 +4071,7 @@ namespace [[cheerp::genericjs]] client {
 		void addInitializer(const _Function<void()>& initializer);
 		Object* get_metadata();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = Object*>
 	class ClassSetterDecoratorContext: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -3569,7 +4086,7 @@ namespace [[cheerp::genericjs]] client {
 		void addInitializer(const _Function<void()>& initializer);
 		Object* get_metadata();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = Object*>
 	class ClassAccessorDecoratorContext: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -3584,14 +4101,14 @@ namespace [[cheerp::genericjs]] client {
 		void addInitializer(const _Function<void()>& initializer);
 		Object* get_metadata();
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class ClassAccessorDecoratorTarget: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
 		_T1 get();
 		void set(_T1 value);
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class ClassAccessorDecoratorResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -3599,7 +4116,7 @@ namespace [[cheerp::genericjs]] client {
 		void set(_T1 value);
 		_T1 init(_T1 value);
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = Object*, class _T1 = Object*>
 	class ClassFieldDecoratorContext: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -3718,6 +4235,14 @@ namespace [[cheerp::genericjs]] client {
 		bool valueOf();
 		Boolean();
 		Boolean(const _Any& value);
+		[[gnu::always_inline]]
+		static Boolean* _New() {
+			return new Boolean();
+		}
+		[[gnu::always_inline]]
+		static Boolean* _New(const _Any& value) {
+			return new Boolean(value);
+		}
 		static Boolean* prototype;
 	};
 	class BooleanConstructor: public Object {
@@ -3757,6 +4282,14 @@ namespace [[cheerp::genericjs]] client {
 		void set_stack(const String& stack);
 		Error();
 		Error(const String& message);
+		[[gnu::always_inline]]
+		static Error* _New() {
+			return new Error();
+		}
+		[[gnu::always_inline]]
+		static Error* _New(const String& message) {
+			return new Error(message);
+		}
 		static Error* prototype;
 	};
 	class ErrorConstructor: public Object {
@@ -3767,6 +4300,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		EvalError();
 		EvalError(const String& message);
+		[[gnu::always_inline]]
+		static EvalError* _New() {
+			return new EvalError();
+		}
+		[[gnu::always_inline]]
+		static EvalError* _New(const String& message) {
+			return new EvalError(message);
+		}
 		static EvalError* prototype;
 	};
 	class EvalErrorConstructor: public _Function<Error*(String*)> {
@@ -3777,6 +4318,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		RangeError();
 		RangeError(const String& message);
+		[[gnu::always_inline]]
+		static RangeError* _New() {
+			return new RangeError();
+		}
+		[[gnu::always_inline]]
+		static RangeError* _New(const String& message) {
+			return new RangeError(message);
+		}
 		static RangeError* prototype;
 	};
 	class RangeErrorConstructor: public _Function<Error*(String*)> {
@@ -3787,6 +4336,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		ReferenceError();
 		ReferenceError(const String& message);
+		[[gnu::always_inline]]
+		static ReferenceError* _New() {
+			return new ReferenceError();
+		}
+		[[gnu::always_inline]]
+		static ReferenceError* _New(const String& message) {
+			return new ReferenceError(message);
+		}
 		static ReferenceError* prototype;
 	};
 	class ReferenceErrorConstructor: public _Function<Error*(String*)> {
@@ -3797,6 +4354,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		SyntaxError();
 		SyntaxError(const String& message);
+		[[gnu::always_inline]]
+		static SyntaxError* _New() {
+			return new SyntaxError();
+		}
+		[[gnu::always_inline]]
+		static SyntaxError* _New(const String& message) {
+			return new SyntaxError(message);
+		}
 		static SyntaxError* prototype;
 	};
 	class SyntaxErrorConstructor: public _Function<Error*(String*)> {
@@ -3807,6 +4372,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		TypeError();
 		TypeError(const String& message);
+		[[gnu::always_inline]]
+		static TypeError* _New() {
+			return new TypeError();
+		}
+		[[gnu::always_inline]]
+		static TypeError* _New(const String& message) {
+			return new TypeError(message);
+		}
 		static TypeError* prototype;
 	};
 	class TypeErrorConstructor: public _Function<Error*(String*)> {
@@ -3817,13 +4390,21 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		URIError();
 		URIError(const String& message);
+		[[gnu::always_inline]]
+		static URIError* _New() {
+			return new URIError();
+		}
+		[[gnu::always_inline]]
+		static URIError* _New(const String& message) {
+			return new URIError(message);
+		}
 		static URIError* prototype;
 	};
 	class URIErrorConstructor: public _Function<Error*(String*)> {
 	public:
 		URIError* get_prototype();
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ConcatArray: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3842,7 +4423,7 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		using client::Object::operator[];
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class TypedPropertyDescriptor: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3862,7 +4443,7 @@ namespace [[cheerp::genericjs]] client {
 		void set_set(const _Function<void(_T0)>& set);
 	};
 	using PromiseConstructorLike = Object;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class PromiseLike: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3879,7 +4460,7 @@ namespace [[cheerp::genericjs]] client {
 		PromiseLike<_Any*>* then(const _Function<_Union<_T1, PromiseLike<_T1>*>*(_T0)>& onfulfilled, const _Function<_Union<_T2, PromiseLike<_T2>*>*(_Any*)>& onrejected);
 	};
 	using Awaited = Object;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ArrayLike: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -3911,7 +4492,7 @@ namespace [[cheerp::genericjs]] client {
 	using Lowercase = _Any;
 	using Capitalize = _Any;
 	using Uncapitalize = _Any;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ThisType: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
@@ -4428,7 +5009,7 @@ namespace [[cheerp::genericjs]] client {
 		CryptoKey* get_publicKey();
 		void set_publicKey(CryptoKey* publicKey);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class CustomEventInit: public EventInit {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -5437,7 +6018,7 @@ namespace [[cheerp::genericjs]] client {
 	};
 	class MessagePort;
 	class ServiceWorker;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class MessageEventInit: public EventInit {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -5920,7 +6501,7 @@ namespace [[cheerp::genericjs]] client {
 		bool get_userVisibleOnly();
 		void set_userVisibleOnly(bool userVisibleOnly);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class QueuingStrategy: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -6455,7 +7036,7 @@ namespace [[cheerp::genericjs]] client {
 		String* get_mode();
 		void set_mode(const String& mode);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadableStreamReadDoneResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -6464,7 +7045,7 @@ namespace [[cheerp::genericjs]] client {
 		_T0 get_value();
 		void set_value(_T0 value);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadableStreamReadValueResult: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -6477,7 +7058,7 @@ namespace [[cheerp::genericjs]] client {
 	class ReadableStream;
 	template<class _T0>
 	class WritableStream;
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class ReadableWritablePair: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -6834,7 +7415,7 @@ namespace [[cheerp::genericjs]] client {
 	};
 	template<class _T0>
 	class TransformStreamDefaultController;
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class Transformer: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -6880,7 +7461,7 @@ namespace [[cheerp::genericjs]] client {
 	};
 	template<class _T0>
 	class ReadableStreamDefaultController;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingDefaultSource: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -6897,7 +7478,7 @@ namespace [[cheerp::genericjs]] client {
 		void set_type(const _Any& type);
 	};
 	class WritableStreamDefaultController;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingSink: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -6916,7 +7497,7 @@ namespace [[cheerp::genericjs]] client {
 		void set_write(EventListener* write);
 		void set_write(const _Function<_Union<void, PromiseLike<_Any*>*>*(_Any*, WritableStreamDefaultController*)>& write);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingSource: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -7354,6 +7935,10 @@ namespace [[cheerp::genericjs]] client {
 		void abort(const _Any& reason);
 		static AbortController* prototype;
 		AbortController();
+		[[gnu::always_inline]]
+		static AbortController* _New() {
+			return new AbortController();
+		}
 	};
 	class Event;
 	class AbortSignalEventMap: public Object {
@@ -7381,6 +7966,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* callback, const _Union<bool, EventListenerOptions*>& options);
 		static EventTarget* prototype;
 		EventTarget();
+		[[gnu::always_inline]]
+		static EventTarget* _New() {
+			return new EventTarget();
+		}
 	};
 	class AbortSignal: public EventTarget {
 	public:
@@ -7404,6 +7993,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static AbortSignal* prototype;
 		AbortSignal();
+		[[gnu::always_inline]]
+		static AbortSignal* _New() {
+			return new AbortSignal();
+		}
 		static AbortSignal* abort();
 		static AbortSignal* abort(const _Any& reason);
 		static AbortSignal* timeout(double milliseconds);
@@ -7417,6 +8010,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_startOffset();
 		static AbstractRange* prototype;
 		AbstractRange();
+		[[gnu::always_inline]]
+		static AbstractRange* _New() {
+			return new AbstractRange();
+		}
 	};
 	class ErrorEvent;
 	class AbstractWorkerEventMap: public Object {
@@ -7471,6 +8068,10 @@ namespace [[cheerp::genericjs]] client {
 		void disconnect(AudioParam* destinationParam, double output);
 		static AudioNode* prototype;
 		AudioNode();
+		[[gnu::always_inline]]
+		static AudioNode* _New() {
+			return new AudioNode();
+		}
 	};
 	class AnalyserNode: public AudioNode {
 	public:
@@ -7490,6 +8091,14 @@ namespace [[cheerp::genericjs]] client {
 		static AnalyserNode* prototype;
 		AnalyserNode(BaseAudioContext* context);
 		AnalyserNode(BaseAudioContext* context, AnalyserOptions* options);
+		[[gnu::always_inline]]
+		static AnalyserNode* _New(BaseAudioContext* context) {
+			return new AnalyserNode(context);
+		}
+		[[gnu::always_inline]]
+		static AnalyserNode* _New(BaseAudioContext* context, AnalyserOptions* options) {
+			return new AnalyserNode(context, options);
+		}
 	};
 	class Animation;
 	class Animatable: public virtual Object {
@@ -7568,6 +8177,18 @@ namespace [[cheerp::genericjs]] client {
 		Animation();
 		Animation(AnimationEffect* effect);
 		Animation(AnimationEffect* effect, AnimationTimeline* timeline);
+		[[gnu::always_inline]]
+		static Animation* _New() {
+			return new Animation();
+		}
+		[[gnu::always_inline]]
+		static Animation* _New(AnimationEffect* effect) {
+			return new Animation(effect);
+		}
+		[[gnu::always_inline]]
+		static Animation* _New(AnimationEffect* effect, AnimationTimeline* timeline) {
+			return new Animation(effect, timeline);
+		}
 	};
 	class AnimationEffect: public Object {
 	public:
@@ -7577,6 +8198,10 @@ namespace [[cheerp::genericjs]] client {
 		void updateTiming(OptionalEffectTiming* timing);
 		static AnimationEffect* prototype;
 		AnimationEffect();
+		[[gnu::always_inline]]
+		static AnimationEffect* _New() {
+			return new AnimationEffect();
+		}
 	};
 	class Event: public Object {
 	public:
@@ -7609,6 +8234,14 @@ namespace [[cheerp::genericjs]] client {
 		static Event* prototype;
 		Event(const String& type);
 		Event(const String& type, EventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static Event* _New(const String& type) {
+			return new Event(type);
+		}
+		[[gnu::always_inline]]
+		static Event* _New(const String& type, EventInit* eventInitDict) {
+			return new Event(type, eventInitDict);
+		}
 		static double NONE;
 		static double CAPTURING_PHASE;
 		static double AT_TARGET;
@@ -7622,6 +8255,14 @@ namespace [[cheerp::genericjs]] client {
 		static AnimationEvent* prototype;
 		AnimationEvent(const String& type);
 		AnimationEvent(const String& type, AnimationEventInit* animationEventInitDict);
+		[[gnu::always_inline]]
+		static AnimationEvent* _New(const String& type) {
+			return new AnimationEvent(type);
+		}
+		[[gnu::always_inline]]
+		static AnimationEvent* _New(const String& type, AnimationEventInit* animationEventInitDict) {
+			return new AnimationEvent(type, animationEventInitDict);
+		}
 	};
 	class AnimationFrameProvider: public virtual Object {
 	public:
@@ -7636,12 +8277,24 @@ namespace [[cheerp::genericjs]] client {
 		static AnimationPlaybackEvent* prototype;
 		AnimationPlaybackEvent(const String& type);
 		AnimationPlaybackEvent(const String& type, AnimationPlaybackEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static AnimationPlaybackEvent* _New(const String& type) {
+			return new AnimationPlaybackEvent(type);
+		}
+		[[gnu::always_inline]]
+		static AnimationPlaybackEvent* _New(const String& type, AnimationPlaybackEventInit* eventInitDict) {
+			return new AnimationPlaybackEvent(type, eventInitDict);
+		}
 	};
 	class AnimationTimeline: public Object {
 	public:
 		_Union<double, CSSNumericValue*>* get_currentTime();
 		static AnimationTimeline* prototype;
 		AnimationTimeline();
+		[[gnu::always_inline]]
+		static AnimationTimeline* _New() {
+			return new AnimationTimeline();
+		}
 	};
 	class ChildNode;
 	template<class _T0>
@@ -7706,6 +8359,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC();
 		static Node* prototype;
 		Node();
+		[[gnu::always_inline]]
+		static Node* _New() {
+			return new Node();
+		}
 		static double ELEMENT_NODE;
 		static double ATTRIBUTE_NODE;
 		static double TEXT_NODE;
@@ -7738,6 +8395,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(const String& value);
 		static Attr* prototype;
 		Attr();
+		[[gnu::always_inline]]
+		static Attr* _New() {
+			return new Attr();
+		}
 	};
 	class AudioBuffer: public Object {
 	public:
@@ -7752,6 +8413,10 @@ namespace [[cheerp::genericjs]] client {
 		Float32Array* getChannelData(double channel);
 		static AudioBuffer* prototype;
 		AudioBuffer(AudioBufferOptions* options);
+		[[gnu::always_inline]]
+		static AudioBuffer* _New(AudioBufferOptions* options) {
+			return new AudioBuffer(options);
+		}
 	};
 	class AudioScheduledSourceNode: public AudioNode {
 	public:
@@ -7776,6 +8441,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static AudioScheduledSourceNode* prototype;
 		AudioScheduledSourceNode();
+		[[gnu::always_inline]]
+		static AudioScheduledSourceNode* _New() {
+			return new AudioScheduledSourceNode();
+		}
 	};
 	class AudioBufferSourceNode: public AudioScheduledSourceNode {
 	public:
@@ -7808,6 +8477,14 @@ namespace [[cheerp::genericjs]] client {
 		static AudioBufferSourceNode* prototype;
 		AudioBufferSourceNode(BaseAudioContext* context);
 		AudioBufferSourceNode(BaseAudioContext* context, AudioBufferSourceOptions* options);
+		[[gnu::always_inline]]
+		static AudioBufferSourceNode* _New(BaseAudioContext* context) {
+			return new AudioBufferSourceNode(context);
+		}
+		[[gnu::always_inline]]
+		static AudioBufferSourceNode* _New(BaseAudioContext* context, AudioBufferSourceOptions* options) {
+			return new AudioBufferSourceNode(context, options);
+		}
 	};
 	class MediaElementAudioSourceNode;
 	class MediaStreamAudioDestinationNode;
@@ -7886,6 +8563,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static BaseAudioContext* prototype;
 		BaseAudioContext();
+		[[gnu::always_inline]]
+		static BaseAudioContext* _New() {
+			return new BaseAudioContext();
+		}
 	};
 	class AudioContext: public BaseAudioContext {
 	public:
@@ -7913,12 +8594,24 @@ namespace [[cheerp::genericjs]] client {
 		static AudioContext* prototype;
 		AudioContext();
 		AudioContext(AudioContextOptions* contextOptions);
+		[[gnu::always_inline]]
+		static AudioContext* _New() {
+			return new AudioContext();
+		}
+		[[gnu::always_inline]]
+		static AudioContext* _New(AudioContextOptions* contextOptions) {
+			return new AudioContext(contextOptions);
+		}
 	};
 	class AudioDestinationNode: public AudioNode {
 	public:
 		double get_maxChannelCount();
 		static AudioDestinationNode* prototype;
 		AudioDestinationNode();
+		[[gnu::always_inline]]
+		static AudioDestinationNode* _New() {
+			return new AudioDestinationNode();
+		}
 	};
 	class AudioListener: public Object {
 	public:
@@ -7935,6 +8628,10 @@ namespace [[cheerp::genericjs]] client {
 		void setPosition(double x, double y, double z);
 		static AudioListener* prototype;
 		AudioListener();
+		[[gnu::always_inline]]
+		static AudioListener* _New() {
+			return new AudioListener();
+		}
 	};
 	class AudioParam: public Object {
 	public:
@@ -7954,6 +8651,10 @@ namespace [[cheerp::genericjs]] client {
 		AudioParam* setValueCurveAtTime(const _Union<Float32Array*, TArray<double>*>& values, double startTime, double duration);
 		static AudioParam* prototype;
 		AudioParam();
+		[[gnu::always_inline]]
+		static AudioParam* _New() {
+			return new AudioParam();
+		}
 	};
 	class AudioParamMap: public Object {
 	public:
@@ -7963,6 +8664,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(AudioParam*, String*, AudioParamMap*)>& callbackfn, const _Any& thisArg);
 		static AudioParamMap* prototype;
 		AudioParamMap();
+		[[gnu::always_inline]]
+		static AudioParamMap* _New() {
+			return new AudioParamMap();
+		}
 	};
 	class AudioProcessingEvent: public Event {
 	public:
@@ -7971,6 +8676,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_playbackTime();
 		static AudioProcessingEvent* prototype;
 		AudioProcessingEvent(const String& type, AudioProcessingEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static AudioProcessingEvent* _New(const String& type, AudioProcessingEventInit* eventInitDict) {
+			return new AudioProcessingEvent(type, eventInitDict);
+		}
 	};
 	class AudioScheduledSourceNodeEventMap: public Object {
 	public:
@@ -7988,11 +8697,19 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* addModule(URL* moduleURL, WorkletOptions* options);
 		static Worklet* prototype;
 		Worklet();
+		[[gnu::always_inline]]
+		static Worklet* _New() {
+			return new Worklet();
+		}
 	};
 	class AudioWorklet: public Worklet {
 	public:
 		static AudioWorklet* prototype;
 		AudioWorklet();
+		[[gnu::always_inline]]
+		static AudioWorklet* _New() {
+			return new AudioWorklet();
+		}
 	};
 	class AudioWorkletNodeEventMap: public Object {
 	public:
@@ -8023,12 +8740,24 @@ namespace [[cheerp::genericjs]] client {
 		static AudioWorkletNode* prototype;
 		AudioWorkletNode(BaseAudioContext* context, const String& name);
 		AudioWorkletNode(BaseAudioContext* context, const String& name, AudioWorkletNodeOptions* options);
+		[[gnu::always_inline]]
+		static AudioWorkletNode* _New(BaseAudioContext* context, const String& name) {
+			return new AudioWorkletNode(context, name);
+		}
+		[[gnu::always_inline]]
+		static AudioWorkletNode* _New(BaseAudioContext* context, const String& name, AudioWorkletNodeOptions* options) {
+			return new AudioWorkletNode(context, name, options);
+		}
 	};
 	class AuthenticatorResponse: public Object {
 	public:
 		ArrayBuffer* get_clientDataJSON();
 		static AuthenticatorResponse* prototype;
 		AuthenticatorResponse();
+		[[gnu::always_inline]]
+		static AuthenticatorResponse* _New() {
+			return new AuthenticatorResponse();
+		}
 	};
 	class AuthenticatorAssertionResponse: public AuthenticatorResponse {
 	public:
@@ -8037,6 +8766,10 @@ namespace [[cheerp::genericjs]] client {
 		ArrayBuffer* get_userHandle();
 		static AuthenticatorAssertionResponse* prototype;
 		AuthenticatorAssertionResponse();
+		[[gnu::always_inline]]
+		static AuthenticatorAssertionResponse* _New() {
+			return new AuthenticatorAssertionResponse();
+		}
 	};
 	class AuthenticatorAttestationResponse: public AuthenticatorResponse {
 	public:
@@ -8047,12 +8780,20 @@ namespace [[cheerp::genericjs]] client {
 		TArray<String*>* getTransports();
 		static AuthenticatorAttestationResponse* prototype;
 		AuthenticatorAttestationResponse();
+		[[gnu::always_inline]]
+		static AuthenticatorAttestationResponse* _New() {
+			return new AuthenticatorAttestationResponse();
+		}
 	};
 	class BarProp: public Object {
 	public:
 		bool get_visible();
 		static BarProp* prototype;
 		BarProp();
+		[[gnu::always_inline]]
+		static BarProp* _New() {
+			return new BarProp();
+		}
 	};
 	class BaseAudioContextEventMap: public Object {
 	public:
@@ -8067,6 +8808,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_returnValue(const _Any& returnValue);
 		static BeforeUnloadEvent* prototype;
 		BeforeUnloadEvent();
+		[[gnu::always_inline]]
+		static BeforeUnloadEvent* _New() {
+			return new BeforeUnloadEvent();
+		}
 	};
 	class BiquadFilterNode: public AudioNode {
 	public:
@@ -8080,6 +8825,14 @@ namespace [[cheerp::genericjs]] client {
 		static BiquadFilterNode* prototype;
 		BiquadFilterNode(BaseAudioContext* context);
 		BiquadFilterNode(BaseAudioContext* context, BiquadFilterOptions* options);
+		[[gnu::always_inline]]
+		static BiquadFilterNode* _New(BaseAudioContext* context) {
+			return new BiquadFilterNode(context);
+		}
+		[[gnu::always_inline]]
+		static BiquadFilterNode* _New(BaseAudioContext* context, BiquadFilterOptions* options) {
+			return new BiquadFilterNode(context, options);
+		}
 	};
 	class Blob: public Object {
 	public:
@@ -8096,6 +8849,18 @@ namespace [[cheerp::genericjs]] client {
 		Blob();
 		Blob(Array* blobParts);
 		Blob(Array* blobParts, BlobPropertyBag* options);
+		[[gnu::always_inline]]
+		static Blob* _New() {
+			return new Blob();
+		}
+		[[gnu::always_inline]]
+		static Blob* _New(Array* blobParts) {
+			return new Blob(blobParts);
+		}
+		[[gnu::always_inline]]
+		static Blob* _New(Array* blobParts, BlobPropertyBag* options) {
+			return new Blob(blobParts, options);
+		}
 	};
 	class BlobEvent: public Event {
 	public:
@@ -8103,6 +8868,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_timecode();
 		static BlobEvent* prototype;
 		BlobEvent(const String& type, BlobEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static BlobEvent* _New(const String& type, BlobEventInit* eventInitDict) {
+			return new BlobEvent(type, eventInitDict);
+		}
 	};
 	class Body: public Object {
 	public:
@@ -8152,6 +8921,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static BroadcastChannel* prototype;
 		BroadcastChannel(const String& name);
+		[[gnu::always_inline]]
+		static BroadcastChannel* _New(const String& name) {
+			return new BroadcastChannel(name);
+		}
 	};
 	class ByteLengthQueuingStrategy: public QueuingStrategy<ArrayBufferView*> {
 	public:
@@ -8159,6 +8932,10 @@ namespace [[cheerp::genericjs]] client {
 		int get_size() const;
 		static ByteLengthQueuingStrategy* prototype;
 		ByteLengthQueuingStrategy(QueuingStrategyInit* init);
+		[[gnu::always_inline]]
+		static ByteLengthQueuingStrategy* _New(QueuingStrategyInit* init) {
+			return new ByteLengthQueuingStrategy(init);
+		}
 	};
 	class ChildNode: public virtual Node {
 	public:
@@ -8211,6 +8988,10 @@ namespace [[cheerp::genericjs]] client {
 		String* substringData(double offset, double count);
 		static CharacterData* prototype;
 		CharacterData();
+		[[gnu::always_inline]]
+		static CharacterData* _New() {
+			return new CharacterData();
+		}
 	};
 	class HTMLSlotElement;
 	class Slottable: public virtual Object {
@@ -8224,11 +9005,23 @@ namespace [[cheerp::genericjs]] client {
 		static Text* prototype;
 		Text();
 		Text(const String& data);
+		[[gnu::always_inline]]
+		static Text* _New() {
+			return new Text();
+		}
+		[[gnu::always_inline]]
+		static Text* _New(const String& data) {
+			return new Text(data);
+		}
 	};
 	class CDATASection: public Text {
 	public:
 		static CDATASection* prototype;
 		CDATASection();
+		[[gnu::always_inline]]
+		static CDATASection* _New() {
+			return new CDATASection();
+		}
 	};
 	class CSSAnimation: public Animation {
 	public:
@@ -8247,6 +9040,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static CSSAnimation* prototype;
 		CSSAnimation();
+		[[gnu::always_inline]]
+		static CSSAnimation* _New() {
+			return new CSSAnimation();
+		}
 	};
 	class CSSRuleList;
 	class CSSStyleSheet;
@@ -8269,6 +9066,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SUPPORTS_RULE();
 		static CSSRule* prototype;
 		CSSRule();
+		[[gnu::always_inline]]
+		static CSSRule* _New() {
+			return new CSSRule();
+		}
 		static double STYLE_RULE;
 		static double CHARSET_RULE;
 		static double IMPORT_RULE;
@@ -8288,12 +9089,20 @@ namespace [[cheerp::genericjs]] client {
 		double insertRule(const String& rule, double index);
 		static CSSGroupingRule* prototype;
 		CSSGroupingRule();
+		[[gnu::always_inline]]
+		static CSSGroupingRule* _New() {
+			return new CSSGroupingRule();
+		}
 	};
 	class CSSConditionRule: public CSSGroupingRule {
 	public:
 		String* get_conditionText();
 		static CSSConditionRule* prototype;
 		CSSConditionRule();
+		[[gnu::always_inline]]
+		static CSSConditionRule* _New() {
+			return new CSSConditionRule();
+		}
 	};
 	class CSSContainerRule: public CSSConditionRule {
 	public:
@@ -8301,6 +9110,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_containerQuery();
 		static CSSContainerRule* prototype;
 		CSSContainerRule();
+		[[gnu::always_inline]]
+		static CSSContainerRule* _New() {
+			return new CSSContainerRule();
+		}
 	};
 	class CSSCounterStyleRule: public CSSRule {
 	public:
@@ -8328,6 +9141,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_system(const String& system);
 		static CSSCounterStyleRule* prototype;
 		CSSCounterStyleRule();
+		[[gnu::always_inline]]
+		static CSSCounterStyleRule* _New() {
+			return new CSSCounterStyleRule();
+		}
 	};
 	class CSSStyleDeclaration;
 	class CSSFontFaceRule: public CSSRule {
@@ -8335,6 +9152,10 @@ namespace [[cheerp::genericjs]] client {
 		CSSStyleDeclaration* get_style();
 		static CSSFontFaceRule* prototype;
 		CSSFontFaceRule();
+		[[gnu::always_inline]]
+		static CSSFontFaceRule* _New() {
+			return new CSSFontFaceRule();
+		}
 	};
 	class CSSFontFeatureValuesRule: public CSSRule {
 	public:
@@ -8342,6 +9163,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_fontFamily(const String& fontFamily);
 		static CSSFontFeatureValuesRule* prototype;
 		CSSFontFeatureValuesRule();
+		[[gnu::always_inline]]
+		static CSSFontFeatureValuesRule* _New() {
+			return new CSSFontFeatureValuesRule();
+		}
 	};
 	class CSSFontPaletteValuesRule: public CSSRule {
 	public:
@@ -8351,17 +9176,29 @@ namespace [[cheerp::genericjs]] client {
 		String* get_overrideColors();
 		static CSSFontPaletteValuesRule* prototype;
 		CSSFontPaletteValuesRule();
+		[[gnu::always_inline]]
+		static CSSFontPaletteValuesRule* _New() {
+			return new CSSFontPaletteValuesRule();
+		}
 	};
 	class CSSStyleValue: public Object {
 	public:
 		String* toString();
 		static CSSStyleValue* prototype;
 		CSSStyleValue();
+		[[gnu::always_inline]]
+		static CSSStyleValue* _New() {
+			return new CSSStyleValue();
+		}
 	};
 	class CSSImageValue: public CSSStyleValue {
 	public:
 		static CSSImageValue* prototype;
 		CSSImageValue();
+		[[gnu::always_inline]]
+		static CSSImageValue* _New() {
+			return new CSSImageValue();
+		}
 	};
 	class CSSImportRule: public CSSRule {
 	public:
@@ -8371,6 +9208,10 @@ namespace [[cheerp::genericjs]] client {
 		CSSStyleSheet* get_styleSheet();
 		static CSSImportRule* prototype;
 		CSSImportRule();
+		[[gnu::always_inline]]
+		static CSSImportRule* _New() {
+			return new CSSImportRule();
+		}
 	};
 	class CSSKeyframeRule: public CSSRule {
 	public:
@@ -8379,6 +9220,10 @@ namespace [[cheerp::genericjs]] client {
 		CSSStyleDeclaration* get_style();
 		static CSSKeyframeRule* prototype;
 		CSSKeyframeRule();
+		[[gnu::always_inline]]
+		static CSSKeyframeRule* _New() {
+			return new CSSKeyframeRule();
+		}
 	};
 	class CSSKeyframesRule: public CSSRule {
 	public:
@@ -8397,6 +9242,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSKeyframesRule* prototype;
 		CSSKeyframesRule();
+		[[gnu::always_inline]]
+		static CSSKeyframesRule* _New() {
+			return new CSSKeyframesRule();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -8406,18 +9255,30 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(const String& value);
 		static CSSKeywordValue* prototype;
 		CSSKeywordValue(const String& value);
+		[[gnu::always_inline]]
+		static CSSKeywordValue* _New(const String& value) {
+			return new CSSKeywordValue(value);
+		}
 	};
 	class CSSLayerBlockRule: public CSSGroupingRule {
 	public:
 		String* get_name();
 		static CSSLayerBlockRule* prototype;
 		CSSLayerBlockRule();
+		[[gnu::always_inline]]
+		static CSSLayerBlockRule* _New() {
+			return new CSSLayerBlockRule();
+		}
 	};
 	class CSSLayerStatementRule: public CSSRule {
 	public:
 		ReadonlyArray<String*>* get_nameList();
 		static CSSLayerStatementRule* prototype;
 		CSSLayerStatementRule();
+		[[gnu::always_inline]]
+		static CSSLayerStatementRule* _New() {
+			return new CSSLayerStatementRule();
+		}
 	};
 	class CSSUnitValue;
 	class CSSMathSum;
@@ -8507,6 +9368,10 @@ namespace [[cheerp::genericjs]] client {
 		CSSNumericType* type();
 		static CSSNumericValue* prototype;
 		CSSNumericValue();
+		[[gnu::always_inline]]
+		static CSSNumericValue* _New() {
+			return new CSSNumericValue();
+		}
 	};
 	class CSSMathValue: public CSSNumericValue {
 	public:
@@ -8514,6 +9379,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_operator_();
 		static CSSMathValue* prototype;
 		CSSMathValue();
+		[[gnu::always_inline]]
+		static CSSMathValue* _New() {
+			return new CSSMathValue();
+		}
 	};
 	class CSSMathClamp: public CSSMathValue {
 	public:
@@ -8522,12 +9391,20 @@ namespace [[cheerp::genericjs]] client {
 		CSSNumericValue* get_value();
 		static CSSMathClamp* prototype;
 		CSSMathClamp(const _Union<double, CSSNumericValue*>& lower, const _Union<double, CSSNumericValue*>& value, const _Union<double, CSSNumericValue*>& upper);
+		[[gnu::always_inline]]
+		static CSSMathClamp* _New(const _Union<double, CSSNumericValue*>& lower, const _Union<double, CSSNumericValue*>& value, const _Union<double, CSSNumericValue*>& upper) {
+			return new CSSMathClamp(lower, value, upper);
+		}
 	};
 	class CSSMathInvert: public CSSMathValue {
 	public:
 		CSSNumericValue* get_value();
 		static CSSMathInvert* prototype;
 		CSSMathInvert(const _Union<double, CSSNumericValue*>& arg);
+		[[gnu::always_inline]]
+		static CSSMathInvert* _New(const _Union<double, CSSNumericValue*>& arg) {
+			return new CSSMathInvert(arg);
+		}
 	};
 	class CSSNumericArray;
 	class CSSMathMax: public CSSMathValue {
@@ -8536,6 +9413,11 @@ namespace [[cheerp::genericjs]] client {
 		static CSSMathMax* prototype;
 		template<class... _Args>
 		CSSMathMax(_Args... args);
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static CSSMathMax* _New(_Args... args) {
+			return new CSSMathMax(args...);
+		}
 	};
 	class CSSMathMin: public CSSMathValue {
 	public:
@@ -8543,12 +9425,21 @@ namespace [[cheerp::genericjs]] client {
 		static CSSMathMin* prototype;
 		template<class... _Args>
 		CSSMathMin(_Args... args);
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static CSSMathMin* _New(_Args... args) {
+			return new CSSMathMin(args...);
+		}
 	};
 	class CSSMathNegate: public CSSMathValue {
 	public:
 		CSSNumericValue* get_value();
 		static CSSMathNegate* prototype;
 		CSSMathNegate(const _Union<double, CSSNumericValue*>& arg);
+		[[gnu::always_inline]]
+		static CSSMathNegate* _New(const _Union<double, CSSNumericValue*>& arg) {
+			return new CSSMathNegate(arg);
+		}
 	};
 	class CSSMathProduct: public CSSMathValue {
 	public:
@@ -8556,6 +9447,11 @@ namespace [[cheerp::genericjs]] client {
 		static CSSMathProduct* prototype;
 		template<class... _Args>
 		CSSMathProduct(_Args... args);
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static CSSMathProduct* _New(_Args... args) {
+			return new CSSMathProduct(args...);
+		}
 	};
 	class CSSMathSum: public CSSMathValue {
 	public:
@@ -8563,6 +9459,11 @@ namespace [[cheerp::genericjs]] client {
 		static CSSMathSum* prototype;
 		template<class... _Args>
 		CSSMathSum(_Args... args);
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static CSSMathSum* _New(_Args... args) {
+			return new CSSMathSum(args...);
+		}
 	};
 	class DOMMatrix;
 	class DOMMatrixReadOnly;
@@ -8574,6 +9475,10 @@ namespace [[cheerp::genericjs]] client {
 		String* toString();
 		static CSSTransformComponent* prototype;
 		CSSTransformComponent();
+		[[gnu::always_inline]]
+		static CSSTransformComponent* _New() {
+			return new CSSTransformComponent();
+		}
 	};
 	class CSSMatrixComponent: public CSSTransformComponent {
 	public:
@@ -8582,12 +9487,24 @@ namespace [[cheerp::genericjs]] client {
 		static CSSMatrixComponent* prototype;
 		CSSMatrixComponent(DOMMatrixReadOnly* matrix);
 		CSSMatrixComponent(DOMMatrixReadOnly* matrix, CSSMatrixComponentOptions* options);
+		[[gnu::always_inline]]
+		static CSSMatrixComponent* _New(DOMMatrixReadOnly* matrix) {
+			return new CSSMatrixComponent(matrix);
+		}
+		[[gnu::always_inline]]
+		static CSSMatrixComponent* _New(DOMMatrixReadOnly* matrix, CSSMatrixComponentOptions* options) {
+			return new CSSMatrixComponent(matrix, options);
+		}
 	};
 	class CSSMediaRule: public CSSConditionRule {
 	public:
 		MediaList* get_media();
 		static CSSMediaRule* prototype;
 		CSSMediaRule();
+		[[gnu::always_inline]]
+		static CSSMediaRule* _New() {
+			return new CSSMediaRule();
+		}
 	};
 	class CSSNamespaceRule: public CSSRule {
 	public:
@@ -8595,6 +9512,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_prefix();
 		static CSSNamespaceRule* prototype;
 		CSSNamespaceRule();
+		[[gnu::always_inline]]
+		static CSSNamespaceRule* _New() {
+			return new CSSNamespaceRule();
+		}
 	};
 	class CSSNumericArray: public Object {
 	public:
@@ -8611,6 +9532,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSNumericArray* prototype;
 		CSSNumericArray();
+		[[gnu::always_inline]]
+		static CSSNumericArray* _New() {
+			return new CSSNumericArray();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -8621,6 +9546,10 @@ namespace [[cheerp::genericjs]] client {
 		CSSStyleDeclaration* get_style();
 		static CSSPageRule* prototype;
 		CSSPageRule();
+		[[gnu::always_inline]]
+		static CSSPageRule* _New() {
+			return new CSSPageRule();
+		}
 	};
 	class CSSPerspective: public CSSTransformComponent {
 	public:
@@ -8630,6 +9559,14 @@ namespace [[cheerp::genericjs]] client {
 		static CSSPerspective* prototype;
 		CSSPerspective(const String& length);
 		CSSPerspective(const _Union<CSSKeywordValue*, CSSNumericValue*>& length);
+		[[gnu::always_inline]]
+		static CSSPerspective* _New(const String& length) {
+			return new CSSPerspective(length);
+		}
+		[[gnu::always_inline]]
+		static CSSPerspective* _New(const _Union<CSSKeywordValue*, CSSNumericValue*>& length) {
+			return new CSSPerspective(length);
+		}
 	};
 	class CSSPropertyRule: public CSSRule {
 	public:
@@ -8639,6 +9576,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_syntax();
 		static CSSPropertyRule* prototype;
 		CSSPropertyRule();
+		[[gnu::always_inline]]
+		static CSSPropertyRule* _New() {
+			return new CSSPropertyRule();
+		}
 	};
 	class CSSRotate: public CSSTransformComponent {
 	public:
@@ -8653,6 +9594,14 @@ namespace [[cheerp::genericjs]] client {
 		static CSSRotate* prototype;
 		CSSRotate(CSSNumericValue* angle);
 		CSSRotate(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y, const _Union<double, CSSNumericValue*>& z, CSSNumericValue* angle);
+		[[gnu::always_inline]]
+		static CSSRotate* _New(CSSNumericValue* angle) {
+			return new CSSRotate(angle);
+		}
+		[[gnu::always_inline]]
+		static CSSRotate* _New(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y, const _Union<double, CSSNumericValue*>& z, CSSNumericValue* angle) {
+			return new CSSRotate(x, y, z, angle);
+		}
 	};
 	class CSSRuleList: public Object {
 	public:
@@ -8666,6 +9615,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSRuleList* prototype;
 		CSSRuleList();
+		[[gnu::always_inline]]
+		static CSSRuleList* _New() {
+			return new CSSRuleList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -8680,6 +9633,14 @@ namespace [[cheerp::genericjs]] client {
 		static CSSScale* prototype;
 		CSSScale(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y);
 		CSSScale(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y, const _Union<double, CSSNumericValue*>& z);
+		[[gnu::always_inline]]
+		static CSSScale* _New(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y) {
+			return new CSSScale(x, y);
+		}
+		[[gnu::always_inline]]
+		static CSSScale* _New(const _Union<double, CSSNumericValue*>& x, const _Union<double, CSSNumericValue*>& y, const _Union<double, CSSNumericValue*>& z) {
+			return new CSSScale(x, y, z);
+		}
 	};
 	class CSSSkew: public CSSTransformComponent {
 	public:
@@ -8689,6 +9650,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_ay(CSSNumericValue* ay);
 		static CSSSkew* prototype;
 		CSSSkew(CSSNumericValue* ax, CSSNumericValue* ay);
+		[[gnu::always_inline]]
+		static CSSSkew* _New(CSSNumericValue* ax, CSSNumericValue* ay) {
+			return new CSSSkew(ax, ay);
+		}
 	};
 	class CSSSkewX: public CSSTransformComponent {
 	public:
@@ -8696,6 +9661,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_ax(CSSNumericValue* ax);
 		static CSSSkewX* prototype;
 		CSSSkewX(CSSNumericValue* ax);
+		[[gnu::always_inline]]
+		static CSSSkewX* _New(CSSNumericValue* ax) {
+			return new CSSSkewX(ax);
+		}
 	};
 	class CSSSkewY: public CSSTransformComponent {
 	public:
@@ -8703,6 +9672,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_ay(CSSNumericValue* ay);
 		static CSSSkewY* prototype;
 		CSSSkewY(CSSNumericValue* ay);
+		[[gnu::always_inline]]
+		static CSSSkewY* _New(CSSNumericValue* ay) {
+			return new CSSSkewY(ay);
+		}
 	};
 	class CSSStyleDeclaration: public Object {
 	public:
@@ -9674,6 +10647,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSStyleDeclaration* prototype;
 		CSSStyleDeclaration();
+		[[gnu::always_inline]]
+		static CSSStyleDeclaration* _New() {
+			return new CSSStyleDeclaration();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -9690,6 +10667,10 @@ namespace [[cheerp::genericjs]] client {
 		double insertRule(const String& rule, double index);
 		static CSSStyleRule* prototype;
 		CSSStyleRule();
+		[[gnu::always_inline]]
+		static CSSStyleRule* _New() {
+			return new CSSStyleRule();
+		}
 	};
 	class ProcessingInstruction;
 	class StyleSheet: public Object {
@@ -9704,6 +10685,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_type();
 		static StyleSheet* prototype;
 		StyleSheet();
+		[[gnu::always_inline]]
+		static StyleSheet* _New() {
+			return new StyleSheet();
+		}
 	};
 	class CSSStyleSheet: public StyleSheet {
 	public:
@@ -9724,11 +10709,23 @@ namespace [[cheerp::genericjs]] client {
 		static CSSStyleSheet* prototype;
 		CSSStyleSheet();
 		CSSStyleSheet(CSSStyleSheetInit* options);
+		[[gnu::always_inline]]
+		static CSSStyleSheet* _New() {
+			return new CSSStyleSheet();
+		}
+		[[gnu::always_inline]]
+		static CSSStyleSheet* _New(CSSStyleSheetInit* options) {
+			return new CSSStyleSheet(options);
+		}
 	};
 	class CSSSupportsRule: public CSSConditionRule {
 	public:
 		static CSSSupportsRule* prototype;
 		CSSSupportsRule();
+		[[gnu::always_inline]]
+		static CSSSupportsRule* _New() {
+			return new CSSSupportsRule();
+		}
 	};
 	class CSSTransformValue: public CSSStyleValue {
 	public:
@@ -9747,6 +10744,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSTransformValue* prototype;
 		CSSTransformValue(TArray<CSSTransformComponent*>* transforms);
+		[[gnu::always_inline]]
+		static CSSTransformValue* _New(TArray<CSSTransformComponent*>* transforms) {
+			return new CSSTransformValue(transforms);
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -9767,6 +10768,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static CSSTransition* prototype;
 		CSSTransition();
+		[[gnu::always_inline]]
+		static CSSTransition* _New() {
+			return new CSSTransition();
+		}
 	};
 	class CSSTranslate: public CSSTransformComponent {
 	public:
@@ -9779,6 +10784,14 @@ namespace [[cheerp::genericjs]] client {
 		static CSSTranslate* prototype;
 		CSSTranslate(CSSNumericValue* x, CSSNumericValue* y);
 		CSSTranslate(CSSNumericValue* x, CSSNumericValue* y, CSSNumericValue* z);
+		[[gnu::always_inline]]
+		static CSSTranslate* _New(CSSNumericValue* x, CSSNumericValue* y) {
+			return new CSSTranslate(x, y);
+		}
+		[[gnu::always_inline]]
+		static CSSTranslate* _New(CSSNumericValue* x, CSSNumericValue* y, CSSNumericValue* z) {
+			return new CSSTranslate(x, y, z);
+		}
 	};
 	class CSSUnitValue: public CSSNumericValue {
 	public:
@@ -9787,6 +10800,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(double value);
 		static CSSUnitValue* prototype;
 		CSSUnitValue(double value, const String& unit);
+		[[gnu::always_inline]]
+		static CSSUnitValue* _New(double value, const String& unit) {
+			return new CSSUnitValue(value, unit);
+		}
 	};
 	class CSSVariableReferenceValue;
 	class CSSUnparsedValue: public CSSStyleValue {
@@ -9804,6 +10821,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static CSSUnparsedValue* prototype;
 		CSSUnparsedValue(Array* members);
+		[[gnu::always_inline]]
+		static CSSUnparsedValue* _New(Array* members) {
+			return new CSSUnparsedValue(members);
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -9815,6 +10836,14 @@ namespace [[cheerp::genericjs]] client {
 		static CSSVariableReferenceValue* prototype;
 		CSSVariableReferenceValue(const String& variable);
 		CSSVariableReferenceValue(const String& variable, CSSUnparsedValue* fallback);
+		[[gnu::always_inline]]
+		static CSSVariableReferenceValue* _New(const String& variable) {
+			return new CSSVariableReferenceValue(variable);
+		}
+		[[gnu::always_inline]]
+		static CSSVariableReferenceValue* _New(const String& variable, CSSUnparsedValue* fallback) {
+			return new CSSVariableReferenceValue(variable, fallback);
+		}
 	};
 	class Request;
 	class Response;
@@ -9849,6 +10878,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* put(const _Union<Request*, URL*>& request, Response* response);
 		static Cache* prototype;
 		Cache();
+		[[gnu::always_inline]]
+		static Cache* _New() {
+			return new Cache();
+		}
 	};
 	class CacheStorage: public Object {
 	public:
@@ -9863,6 +10896,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<Cache*>* open(const String& cacheName);
 		static CacheStorage* prototype;
 		CacheStorage();
+		[[gnu::always_inline]]
+		static CacheStorage* _New() {
+			return new CacheStorage();
+		}
 	};
 	class HTMLCanvasElement;
 	class MediaStreamTrack: public EventTarget {
@@ -9906,6 +10943,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MediaStreamTrack* prototype;
 		MediaStreamTrack();
+		[[gnu::always_inline]]
+		static MediaStreamTrack* _New() {
+			return new MediaStreamTrack();
+		}
 	};
 	class CanvasCaptureMediaStreamTrack: public MediaStreamTrack {
 	public:
@@ -9925,6 +10966,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static CanvasCaptureMediaStreamTrack* prototype;
 		CanvasCaptureMediaStreamTrack();
+		[[gnu::always_inline]]
+		static CanvasCaptureMediaStreamTrack* _New() {
+			return new CanvasCaptureMediaStreamTrack();
+		}
 	};
 	class CanvasCompositing: public virtual Object {
 	public:
@@ -9990,6 +11035,10 @@ namespace [[cheerp::genericjs]] client {
 		void addColorStop(double offset, const String& color);
 		static CanvasGradient* prototype;
 		CanvasGradient();
+		[[gnu::always_inline]]
+		static CanvasGradient* _New() {
+			return new CanvasGradient();
+		}
 	};
 	class ImageData;
 	class CanvasImageData: public virtual Object {
@@ -10046,6 +11095,10 @@ namespace [[cheerp::genericjs]] client {
 		void setTransform(DOMMatrix2DInit* transform);
 		static CanvasPattern* prototype;
 		CanvasPattern();
+		[[gnu::always_inline]]
+		static CanvasPattern* _New() {
+			return new CanvasPattern();
+		}
 	};
 	class CanvasRect: public virtual Object {
 	public:
@@ -10115,18 +11168,38 @@ namespace [[cheerp::genericjs]] client {
 		CanvasRenderingContext2DSettings* getContextAttributes();
 		static CanvasRenderingContext2D* prototype;
 		CanvasRenderingContext2D();
+		[[gnu::always_inline]]
+		static CanvasRenderingContext2D* _New() {
+			return new CanvasRenderingContext2D();
+		}
 	};
 	class ChannelMergerNode: public AudioNode {
 	public:
 		static ChannelMergerNode* prototype;
 		ChannelMergerNode(BaseAudioContext* context);
 		ChannelMergerNode(BaseAudioContext* context, ChannelMergerOptions* options);
+		[[gnu::always_inline]]
+		static ChannelMergerNode* _New(BaseAudioContext* context) {
+			return new ChannelMergerNode(context);
+		}
+		[[gnu::always_inline]]
+		static ChannelMergerNode* _New(BaseAudioContext* context, ChannelMergerOptions* options) {
+			return new ChannelMergerNode(context, options);
+		}
 	};
 	class ChannelSplitterNode: public AudioNode {
 	public:
 		static ChannelSplitterNode* prototype;
 		ChannelSplitterNode(BaseAudioContext* context);
 		ChannelSplitterNode(BaseAudioContext* context, ChannelSplitterOptions* options);
+		[[gnu::always_inline]]
+		static ChannelSplitterNode* _New(BaseAudioContext* context) {
+			return new ChannelSplitterNode(context);
+		}
+		[[gnu::always_inline]]
+		static ChannelSplitterNode* _New(BaseAudioContext* context, ChannelSplitterOptions* options) {
+			return new ChannelSplitterNode(context, options);
+		}
 	};
 	class DOMRectReadOnly: public Object {
 	public:
@@ -10145,6 +11218,26 @@ namespace [[cheerp::genericjs]] client {
 		DOMRectReadOnly(double x, double y);
 		DOMRectReadOnly(double x, double y, double width);
 		DOMRectReadOnly(double x, double y, double width, double height);
+		[[gnu::always_inline]]
+		static DOMRectReadOnly* _New() {
+			return new DOMRectReadOnly();
+		}
+		[[gnu::always_inline]]
+		static DOMRectReadOnly* _New(double x) {
+			return new DOMRectReadOnly(x);
+		}
+		[[gnu::always_inline]]
+		static DOMRectReadOnly* _New(double x, double y) {
+			return new DOMRectReadOnly(x, y);
+		}
+		[[gnu::always_inline]]
+		static DOMRectReadOnly* _New(double x, double y, double width) {
+			return new DOMRectReadOnly(x, y, width);
+		}
+		[[gnu::always_inline]]
+		static DOMRectReadOnly* _New(double x, double y, double width, double height) {
+			return new DOMRectReadOnly(x, y, width, height);
+		}
 		static DOMRectReadOnly* fromRect();
 		static DOMRectReadOnly* fromRect(DOMRectInit* other);
 	};
@@ -10164,6 +11257,26 @@ namespace [[cheerp::genericjs]] client {
 		DOMRect(double x, double y);
 		DOMRect(double x, double y, double width);
 		DOMRect(double x, double y, double width, double height);
+		[[gnu::always_inline]]
+		static DOMRect* _New() {
+			return new DOMRect();
+		}
+		[[gnu::always_inline]]
+		static DOMRect* _New(double x) {
+			return new DOMRect(x);
+		}
+		[[gnu::always_inline]]
+		static DOMRect* _New(double x, double y) {
+			return new DOMRect(x, y);
+		}
+		[[gnu::always_inline]]
+		static DOMRect* _New(double x, double y, double width) {
+			return new DOMRect(x, y, width);
+		}
+		[[gnu::always_inline]]
+		static DOMRect* _New(double x, double y, double width, double height) {
+			return new DOMRect(x, y, width, height);
+		}
 		static DOMRect* fromRect();
 		static DOMRect* fromRect(DOMRectInit* other);
 	};
@@ -10178,6 +11291,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* writeText(const String& data);
 		static Clipboard* prototype;
 		Clipboard();
+		[[gnu::always_inline]]
+		static Clipboard* _New() {
+			return new Clipboard();
+		}
 	};
 	class ClipboardEvent: public Event {
 	public:
@@ -10185,6 +11302,14 @@ namespace [[cheerp::genericjs]] client {
 		static ClipboardEvent* prototype;
 		ClipboardEvent(const String& type);
 		ClipboardEvent(const String& type, ClipboardEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ClipboardEvent* _New(const String& type) {
+			return new ClipboardEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ClipboardEvent* _New(const String& type, ClipboardEventInit* eventInitDict) {
+			return new ClipboardEvent(type, eventInitDict);
+		}
 	};
 	class ClipboardItem: public Object {
 	public:
@@ -10193,6 +11318,14 @@ namespace [[cheerp::genericjs]] client {
 		static ClipboardItem* prototype;
 		ClipboardItem(Object* items);
 		ClipboardItem(Object* items, ClipboardItemOptions* options);
+		[[gnu::always_inline]]
+		static ClipboardItem* _New(Object* items) {
+			return new ClipboardItem(items);
+		}
+		[[gnu::always_inline]]
+		static ClipboardItem* _New(Object* items, ClipboardItemOptions* options) {
+			return new ClipboardItem(items, options);
+		}
 	};
 	class CloseEvent: public Event {
 	public:
@@ -10202,12 +11335,28 @@ namespace [[cheerp::genericjs]] client {
 		static CloseEvent* prototype;
 		CloseEvent(const String& type);
 		CloseEvent(const String& type, CloseEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static CloseEvent* _New(const String& type) {
+			return new CloseEvent(type);
+		}
+		[[gnu::always_inline]]
+		static CloseEvent* _New(const String& type, CloseEventInit* eventInitDict) {
+			return new CloseEvent(type, eventInitDict);
+		}
 	};
 	class Comment: public CharacterData {
 	public:
 		static Comment* prototype;
 		Comment();
 		Comment(const String& data);
+		[[gnu::always_inline]]
+		static Comment* _New() {
+			return new Comment();
+		}
+		[[gnu::always_inline]]
+		static Comment* _New(const String& data) {
+			return new Comment(data);
+		}
 	};
 	class UIEvent: public Event {
 	public:
@@ -10222,6 +11371,14 @@ namespace [[cheerp::genericjs]] client {
 		static UIEvent* prototype;
 		UIEvent(const String& type);
 		UIEvent(const String& type, UIEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static UIEvent* _New(const String& type) {
+			return new UIEvent(type);
+		}
+		[[gnu::always_inline]]
+		static UIEvent* _New(const String& type, UIEventInit* eventInitDict) {
+			return new UIEvent(type, eventInitDict);
+		}
 	};
 	class CompositionEvent: public UIEvent {
 	public:
@@ -10234,6 +11391,14 @@ namespace [[cheerp::genericjs]] client {
 		static CompositionEvent* prototype;
 		CompositionEvent(const String& type);
 		CompositionEvent(const String& type, CompositionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static CompositionEvent* _New(const String& type) {
+			return new CompositionEvent(type);
+		}
+		[[gnu::always_inline]]
+		static CompositionEvent* _New(const String& type, CompositionEventInit* eventInitDict) {
+			return new CompositionEvent(type, eventInitDict);
+		}
 	};
 	class GenericTransformStream: public virtual Object {
 	public:
@@ -10244,6 +11409,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static CompressionStream* prototype;
 		CompressionStream(const String& format);
+		[[gnu::always_inline]]
+		static CompressionStream* _New(const String& format) {
+			return new CompressionStream(format);
+		}
 	};
 	class ConstantSourceNode: public AudioScheduledSourceNode {
 	public:
@@ -10263,6 +11432,14 @@ namespace [[cheerp::genericjs]] client {
 		static ConstantSourceNode* prototype;
 		ConstantSourceNode(BaseAudioContext* context);
 		ConstantSourceNode(BaseAudioContext* context, ConstantSourceOptions* options);
+		[[gnu::always_inline]]
+		static ConstantSourceNode* _New(BaseAudioContext* context) {
+			return new ConstantSourceNode(context);
+		}
+		[[gnu::always_inline]]
+		static ConstantSourceNode* _New(BaseAudioContext* context, ConstantSourceOptions* options) {
+			return new ConstantSourceNode(context, options);
+		}
 	};
 	class ConvolverNode: public AudioNode {
 	public:
@@ -10273,6 +11450,14 @@ namespace [[cheerp::genericjs]] client {
 		static ConvolverNode* prototype;
 		ConvolverNode(BaseAudioContext* context);
 		ConvolverNode(BaseAudioContext* context, ConvolverOptions* options);
+		[[gnu::always_inline]]
+		static ConvolverNode* _New(BaseAudioContext* context) {
+			return new ConvolverNode(context);
+		}
+		[[gnu::always_inline]]
+		static ConvolverNode* _New(BaseAudioContext* context, ConvolverOptions* options) {
+			return new ConvolverNode(context, options);
+		}
 	};
 	class CountQueuingStrategy: public QueuingStrategy<_Any*> {
 	public:
@@ -10280,6 +11465,10 @@ namespace [[cheerp::genericjs]] client {
 		int get_size() const;
 		static CountQueuingStrategy* prototype;
 		CountQueuingStrategy(QueuingStrategyInit* init);
+		[[gnu::always_inline]]
+		static CountQueuingStrategy* _New(QueuingStrategyInit* init) {
+			return new CountQueuingStrategy(init);
+		}
 	};
 	class Credential: public Object {
 	public:
@@ -10287,6 +11476,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_type();
 		static Credential* prototype;
 		Credential();
+		[[gnu::always_inline]]
+		static Credential* _New() {
+			return new Credential();
+		}
 	};
 	class CredentialsContainer: public Object {
 	public:
@@ -10298,6 +11491,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<Credential*>* store(Credential* credential);
 		static CredentialsContainer* prototype;
 		CredentialsContainer();
+		[[gnu::always_inline]]
+		static CredentialsContainer* _New() {
+			return new CredentialsContainer();
+		}
 	};
 	class SubtleCrypto;
 	class Crypto: public Object {
@@ -10308,6 +11505,10 @@ namespace [[cheerp::genericjs]] client {
 		String* randomUUID();
 		static Crypto* prototype;
 		Crypto();
+		[[gnu::always_inline]]
+		static Crypto* _New() {
+			return new Crypto();
+		}
 	};
 	class CryptoKey: public Object {
 	public:
@@ -10317,6 +11518,10 @@ namespace [[cheerp::genericjs]] client {
 		TArray<String*>* get_usages();
 		static CryptoKey* prototype;
 		CryptoKey();
+		[[gnu::always_inline]]
+		static CryptoKey* _New() {
+			return new CryptoKey();
+		}
 	};
 	class CustomElementConstructor;
 	class CustomElementRegistry: public Object {
@@ -10328,8 +11533,12 @@ namespace [[cheerp::genericjs]] client {
 		Promise<CustomElementConstructor*>* whenDefined(const String& name);
 		static CustomElementRegistry* prototype;
 		CustomElementRegistry();
+		[[gnu::always_inline]]
+		static CustomElementRegistry* _New() {
+			return new CustomElementRegistry();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class CustomEvent: public Event {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -10342,6 +11551,15 @@ namespace [[cheerp::genericjs]] client {
 		CustomEvent(const String& type);
 		template<class _T1>
 		CustomEvent(const String& type, CustomEventInit<_T1>* eventInitDict);
+		[[gnu::always_inline]]
+		static CustomEvent* _New(const String& type) {
+			return new CustomEvent(type);
+		}
+		template<class _T1>
+		[[gnu::always_inline]]
+		static CustomEvent* _New(const String& type, CustomEventInit<_T1>* eventInitDict) {
+			return new CustomEvent(type, eventInitDict);
+		}
 	};
 	class DOMException: public Error {
 	public:
@@ -10377,6 +11595,18 @@ namespace [[cheerp::genericjs]] client {
 		DOMException();
 		DOMException(const String& message);
 		DOMException(const String& message, const String& name);
+		[[gnu::always_inline]]
+		static DOMException* _New() {
+			return new DOMException();
+		}
+		[[gnu::always_inline]]
+		static DOMException* _New(const String& message) {
+			return new DOMException(message);
+		}
+		[[gnu::always_inline]]
+		static DOMException* _New(const String& message, const String& name) {
+			return new DOMException(message, name);
+		}
 		static double INDEX_SIZE_ERR;
 		static double DOMSTRING_SIZE_ERR;
 		static double HIERARCHY_REQUEST_ERR;
@@ -10424,6 +11654,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static DOMImplementation* prototype;
 		DOMImplementation();
+		[[gnu::always_inline]]
+		static DOMImplementation* _New() {
+			return new DOMImplementation();
+		}
 	};
 	class DOMPoint;
 	class DOMMatrixReadOnly: public Object {
@@ -10502,6 +11736,18 @@ namespace [[cheerp::genericjs]] client {
 		DOMMatrixReadOnly();
 		DOMMatrixReadOnly(const String& init);
 		DOMMatrixReadOnly(TArray<double>* init);
+		[[gnu::always_inline]]
+		static DOMMatrixReadOnly* _New() {
+			return new DOMMatrixReadOnly();
+		}
+		[[gnu::always_inline]]
+		static DOMMatrixReadOnly* _New(const String& init) {
+			return new DOMMatrixReadOnly(init);
+		}
+		[[gnu::always_inline]]
+		static DOMMatrixReadOnly* _New(TArray<double>* init) {
+			return new DOMMatrixReadOnly(init);
+		}
 		static DOMMatrixReadOnly* fromFloat32Array(Float32Array* array32);
 		static DOMMatrixReadOnly* fromFloat64Array(Float64Array* array64);
 		static DOMMatrixReadOnly* fromMatrix();
@@ -10595,6 +11841,18 @@ namespace [[cheerp::genericjs]] client {
 		DOMMatrix();
 		DOMMatrix(const String& init);
 		DOMMatrix(TArray<double>* init);
+		[[gnu::always_inline]]
+		static DOMMatrix* _New() {
+			return new DOMMatrix();
+		}
+		[[gnu::always_inline]]
+		static DOMMatrix* _New(const String& init) {
+			return new DOMMatrix(init);
+		}
+		[[gnu::always_inline]]
+		static DOMMatrix* _New(TArray<double>* init) {
+			return new DOMMatrix(init);
+		}
 		static DOMMatrix* fromFloat32Array(Float32Array* array32);
 		static DOMMatrix* fromFloat64Array(Float64Array* array64);
 		static DOMMatrix* fromMatrix();
@@ -10607,6 +11865,10 @@ namespace [[cheerp::genericjs]] client {
 		Document* parseFromString(const String& string, const String& type);
 		static DOMParser* prototype;
 		DOMParser();
+		[[gnu::always_inline]]
+		static DOMParser* _New() {
+			return new DOMParser();
+		}
 	};
 	class DOMPointReadOnly: public Object {
 	public:
@@ -10623,6 +11885,26 @@ namespace [[cheerp::genericjs]] client {
 		DOMPointReadOnly(double x, double y);
 		DOMPointReadOnly(double x, double y, double z);
 		DOMPointReadOnly(double x, double y, double z, double w);
+		[[gnu::always_inline]]
+		static DOMPointReadOnly* _New() {
+			return new DOMPointReadOnly();
+		}
+		[[gnu::always_inline]]
+		static DOMPointReadOnly* _New(double x) {
+			return new DOMPointReadOnly(x);
+		}
+		[[gnu::always_inline]]
+		static DOMPointReadOnly* _New(double x, double y) {
+			return new DOMPointReadOnly(x, y);
+		}
+		[[gnu::always_inline]]
+		static DOMPointReadOnly* _New(double x, double y, double z) {
+			return new DOMPointReadOnly(x, y, z);
+		}
+		[[gnu::always_inline]]
+		static DOMPointReadOnly* _New(double x, double y, double z, double w) {
+			return new DOMPointReadOnly(x, y, z, w);
+		}
 		static DOMPointReadOnly* fromPoint();
 		static DOMPointReadOnly* fromPoint(DOMPointInit* other);
 	};
@@ -10642,6 +11924,26 @@ namespace [[cheerp::genericjs]] client {
 		DOMPoint(double x, double y);
 		DOMPoint(double x, double y, double z);
 		DOMPoint(double x, double y, double z, double w);
+		[[gnu::always_inline]]
+		static DOMPoint* _New() {
+			return new DOMPoint();
+		}
+		[[gnu::always_inline]]
+		static DOMPoint* _New(double x) {
+			return new DOMPoint(x);
+		}
+		[[gnu::always_inline]]
+		static DOMPoint* _New(double x, double y) {
+			return new DOMPoint(x, y);
+		}
+		[[gnu::always_inline]]
+		static DOMPoint* _New(double x, double y, double z) {
+			return new DOMPoint(x, y, z);
+		}
+		[[gnu::always_inline]]
+		static DOMPoint* _New(double x, double y, double z, double w) {
+			return new DOMPoint(x, y, z, w);
+		}
 		static DOMPoint* fromPoint();
 		static DOMPoint* fromPoint(DOMPointInit* other);
 	};
@@ -10660,6 +11962,26 @@ namespace [[cheerp::genericjs]] client {
 		DOMQuad(DOMPointInit* p1, DOMPointInit* p2);
 		DOMQuad(DOMPointInit* p1, DOMPointInit* p2, DOMPointInit* p3);
 		DOMQuad(DOMPointInit* p1, DOMPointInit* p2, DOMPointInit* p3, DOMPointInit* p4);
+		[[gnu::always_inline]]
+		static DOMQuad* _New() {
+			return new DOMQuad();
+		}
+		[[gnu::always_inline]]
+		static DOMQuad* _New(DOMPointInit* p1) {
+			return new DOMQuad(p1);
+		}
+		[[gnu::always_inline]]
+		static DOMQuad* _New(DOMPointInit* p1, DOMPointInit* p2) {
+			return new DOMQuad(p1, p2);
+		}
+		[[gnu::always_inline]]
+		static DOMQuad* _New(DOMPointInit* p1, DOMPointInit* p2, DOMPointInit* p3) {
+			return new DOMQuad(p1, p2, p3);
+		}
+		[[gnu::always_inline]]
+		static DOMQuad* _New(DOMPointInit* p1, DOMPointInit* p2, DOMPointInit* p3, DOMPointInit* p4) {
+			return new DOMQuad(p1, p2, p3, p4);
+		}
 		static DOMQuad* fromQuad();
 		static DOMQuad* fromQuad(DOMQuadInit* other);
 		static DOMQuad* fromRect();
@@ -10678,6 +12000,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static DOMRectList* prototype;
 		DOMRectList();
+		[[gnu::always_inline]]
+		static DOMRectList* _New() {
+			return new DOMRectList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -10694,6 +12020,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static DOMStringList* prototype;
 		DOMStringList();
+		[[gnu::always_inline]]
+		static DOMStringList* _New() {
+			return new DOMStringList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -10702,6 +12032,10 @@ namespace [[cheerp::genericjs]] client {
 		String* operator[](const String& name) const;
 		static DOMStringMap* prototype;
 		DOMStringMap();
+		[[gnu::always_inline]]
+		static DOMStringMap* _New() {
+			return new DOMStringMap();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -10749,6 +12083,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static DOMTokenList* prototype;
 		DOMTokenList();
+		[[gnu::always_inline]]
+		static DOMTokenList* _New() {
+			return new DOMTokenList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -10770,6 +12108,10 @@ namespace [[cheerp::genericjs]] client {
 		void setDragImage(Element* image, double x, double y);
 		static DataTransfer* prototype;
 		DataTransfer();
+		[[gnu::always_inline]]
+		static DataTransfer* _New() {
+			return new DataTransfer();
+		}
 	};
 	class FileSystemEntry;
 	class DataTransferItem: public Object {
@@ -10782,6 +12124,10 @@ namespace [[cheerp::genericjs]] client {
 		FileSystemEntry* webkitGetAsEntry();
 		static DataTransferItem* prototype;
 		DataTransferItem();
+		[[gnu::always_inline]]
+		static DataTransferItem* _New() {
+			return new DataTransferItem();
+		}
 	};
 	class DataTransferItemList: public Object {
 	public:
@@ -10798,6 +12144,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static DataTransferItemList* prototype;
 		DataTransferItemList();
+		[[gnu::always_inline]]
+		static DataTransferItemList* _New() {
+			return new DataTransferItemList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -10805,6 +12155,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static DecompressionStream* prototype;
 		DecompressionStream(const String& format);
+		[[gnu::always_inline]]
+		static DecompressionStream* _New(const String& format) {
+			return new DecompressionStream(format);
+		}
 	};
 	class DelayNode: public AudioNode {
 	public:
@@ -10812,6 +12166,14 @@ namespace [[cheerp::genericjs]] client {
 		static DelayNode* prototype;
 		DelayNode(BaseAudioContext* context);
 		DelayNode(BaseAudioContext* context, DelayOptions* options);
+		[[gnu::always_inline]]
+		static DelayNode* _New(BaseAudioContext* context) {
+			return new DelayNode(context);
+		}
+		[[gnu::always_inline]]
+		static DelayNode* _New(BaseAudioContext* context, DelayOptions* options) {
+			return new DelayNode(context, options);
+		}
 	};
 	class DeviceMotionEventAcceleration;
 	class DeviceMotionEventRotationRate;
@@ -10824,6 +12186,14 @@ namespace [[cheerp::genericjs]] client {
 		static DeviceMotionEvent* prototype;
 		DeviceMotionEvent(const String& type);
 		DeviceMotionEvent(const String& type, DeviceMotionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static DeviceMotionEvent* _New(const String& type) {
+			return new DeviceMotionEvent(type);
+		}
+		[[gnu::always_inline]]
+		static DeviceMotionEvent* _New(const String& type, DeviceMotionEventInit* eventInitDict) {
+			return new DeviceMotionEvent(type, eventInitDict);
+		}
 	};
 	class DeviceMotionEventAcceleration: public Object {
 	public:
@@ -10846,6 +12216,14 @@ namespace [[cheerp::genericjs]] client {
 		static DeviceOrientationEvent* prototype;
 		DeviceOrientationEvent(const String& type);
 		DeviceOrientationEvent(const String& type, DeviceOrientationEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static DeviceOrientationEvent* _New(const String& type) {
+			return new DeviceOrientationEvent(type);
+		}
+		[[gnu::always_inline]]
+		static DeviceOrientationEvent* _New(const String& type, DeviceOrientationEventInit* eventInitDict) {
+			return new DeviceOrientationEvent(type, eventInitDict);
+		}
 	};
 	class MouseEvent;
 	class InputEvent;
@@ -11898,6 +13276,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static Document* prototype;
 		Document();
+		[[gnu::always_inline]]
+		static Document* _New() {
+			return new Document();
+		}
 	};
 	class DocumentFragment: public virtual Node, public NonElementParentNode, public ParentNode {
 	public:
@@ -11905,12 +13287,24 @@ namespace [[cheerp::genericjs]] client {
 		HTMLElement* getElementById(const String& elementId);
 		static DocumentFragment* prototype;
 		DocumentFragment();
+		[[gnu::always_inline]]
+		static DocumentFragment* _New() {
+			return new DocumentFragment();
+		}
 	};
 	class DocumentTimeline: public AnimationTimeline {
 	public:
 		static DocumentTimeline* prototype;
 		DocumentTimeline();
 		DocumentTimeline(DocumentTimelineOptions* options);
+		[[gnu::always_inline]]
+		static DocumentTimeline* _New() {
+			return new DocumentTimeline();
+		}
+		[[gnu::always_inline]]
+		static DocumentTimeline* _New(DocumentTimelineOptions* options) {
+			return new DocumentTimeline(options);
+		}
 	};
 	class DocumentType: public virtual Node, public ChildNode {
 	public:
@@ -11920,6 +13314,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_systemId();
 		static DocumentType* prototype;
 		DocumentType();
+		[[gnu::always_inline]]
+		static DocumentType* _New() {
+			return new DocumentType();
+		}
 	};
 	class MouseEvent: public UIEvent {
 	public:
@@ -11947,6 +13345,14 @@ namespace [[cheerp::genericjs]] client {
 		static MouseEvent* prototype;
 		MouseEvent(const String& type);
 		MouseEvent(const String& type, MouseEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MouseEvent* _New(const String& type) {
+			return new MouseEvent(type);
+		}
+		[[gnu::always_inline]]
+		static MouseEvent* _New(const String& type, MouseEventInit* eventInitDict) {
+			return new MouseEvent(type, eventInitDict);
+		}
 	};
 	class DragEvent: public MouseEvent {
 	public:
@@ -11954,6 +13360,14 @@ namespace [[cheerp::genericjs]] client {
 		static DragEvent* prototype;
 		DragEvent(const String& type);
 		DragEvent(const String& type, DragEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static DragEvent* _New(const String& type) {
+			return new DragEvent(type);
+		}
+		[[gnu::always_inline]]
+		static DragEvent* _New(const String& type, DragEventInit* eventInitDict) {
+			return new DragEvent(type, eventInitDict);
+		}
 	};
 	class DynamicsCompressorNode: public AudioNode {
 	public:
@@ -11966,6 +13380,14 @@ namespace [[cheerp::genericjs]] client {
 		static DynamicsCompressorNode* prototype;
 		DynamicsCompressorNode(BaseAudioContext* context);
 		DynamicsCompressorNode(BaseAudioContext* context, DynamicsCompressorOptions* options);
+		[[gnu::always_inline]]
+		static DynamicsCompressorNode* _New(BaseAudioContext* context) {
+			return new DynamicsCompressorNode(context);
+		}
+		[[gnu::always_inline]]
+		static DynamicsCompressorNode* _New(BaseAudioContext* context, DynamicsCompressorOptions* options) {
+			return new DynamicsCompressorNode(context, options);
+		}
 	};
 	class EXT_blend_minmax: public Object {
 	public:
@@ -12141,6 +13563,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static Element* prototype;
 		Element();
+		[[gnu::always_inline]]
+		static Element* _New() {
+			return new Element();
+		}
 	};
 	class ElementCSSInlineStyle: public virtual Object {
 	public:
@@ -12181,6 +13607,10 @@ namespace [[cheerp::genericjs]] client {
 		void setValidity(ValidityStateFlags* flags, const String& message, HTMLElement* anchor);
 		static ElementInternals* prototype;
 		ElementInternals();
+		[[gnu::always_inline]]
+		static ElementInternals* _New() {
+			return new ElementInternals();
+		}
 	};
 	class EncodedVideoChunk: public Object {
 	public:
@@ -12191,6 +13621,10 @@ namespace [[cheerp::genericjs]] client {
 		void copyTo(const _Union<ArrayBuffer*, ArrayBufferView*>& destination);
 		static EncodedVideoChunk* prototype;
 		EncodedVideoChunk(EncodedVideoChunkInit* init);
+		[[gnu::always_inline]]
+		static EncodedVideoChunk* _New(EncodedVideoChunkInit* init) {
+			return new EncodedVideoChunk(init);
+		}
 	};
 	class ErrorEvent: public Event {
 	public:
@@ -12202,6 +13636,14 @@ namespace [[cheerp::genericjs]] client {
 		static ErrorEvent* prototype;
 		ErrorEvent(const String& type);
 		ErrorEvent(const String& type, ErrorEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ErrorEvent* _New(const String& type) {
+			return new ErrorEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ErrorEvent* _New(const String& type, ErrorEventInit* eventInitDict) {
+			return new ErrorEvent(type, eventInitDict);
+		}
 	};
 	class EventCounts: public Object {
 	public:
@@ -12211,6 +13653,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(double, String*, EventCounts*)>& callbackfn, const _Any& thisArg);
 		static EventCounts* prototype;
 		EventCounts();
+		[[gnu::always_inline]]
+		static EventCounts* _New() {
+			return new EventCounts();
+		}
 	};
 	class EventListener: public Object {
 	};
@@ -12268,6 +13714,22 @@ namespace [[cheerp::genericjs]] client {
 		EventSource(URL* url);
 		EventSource(const String& url, EventSourceInit* eventSourceInitDict);
 		EventSource(URL* url, EventSourceInit* eventSourceInitDict);
+		[[gnu::always_inline]]
+		static EventSource* _New(const String& url) {
+			return new EventSource(url);
+		}
+		[[gnu::always_inline]]
+		static EventSource* _New(URL* url) {
+			return new EventSource(url);
+		}
+		[[gnu::always_inline]]
+		static EventSource* _New(const String& url, EventSourceInit* eventSourceInitDict) {
+			return new EventSource(url, eventSourceInitDict);
+		}
+		[[gnu::always_inline]]
+		static EventSource* _New(URL* url, EventSourceInit* eventSourceInitDict) {
+			return new EventSource(url, eventSourceInitDict);
+		}
 		static double CONNECTING;
 		static double OPEN;
 		static double CLOSED;
@@ -12278,6 +13740,10 @@ namespace [[cheerp::genericjs]] client {
 		void IsSearchProviderInstalled();
 		static External* prototype;
 		External();
+		[[gnu::always_inline]]
+		static External* _New() {
+			return new External();
+		}
 	};
 	class File: public Blob {
 	public:
@@ -12287,6 +13753,14 @@ namespace [[cheerp::genericjs]] client {
 		static File* prototype;
 		File(Array* fileBits, const String& fileName);
 		File(Array* fileBits, const String& fileName, FilePropertyBag* options);
+		[[gnu::always_inline]]
+		static File* _New(Array* fileBits, const String& fileName) {
+			return new File(fileBits, fileName);
+		}
+		[[gnu::always_inline]]
+		static File* _New(Array* fileBits, const String& fileName, FilePropertyBag* options) {
+			return new File(fileBits, fileName, options);
+		}
 	};
 	class FileList: public Object {
 	public:
@@ -12300,6 +13774,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static FileList* prototype;
 		FileList();
+		[[gnu::always_inline]]
+		static FileList* _New() {
+			return new FileList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -12377,6 +13855,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static FileReader* prototype;
 		FileReader();
+		[[gnu::always_inline]]
+		static FileReader* _New() {
+			return new FileReader();
+		}
 		static double EMPTY;
 		static double LOADING;
 		static double DONE;
@@ -12388,6 +13870,10 @@ namespace [[cheerp::genericjs]] client {
 		FileSystemDirectoryEntry* get_root();
 		static FileSystem* prototype;
 		FileSystem();
+		[[gnu::always_inline]]
+		static FileSystem* _New() {
+			return new FileSystem();
+		}
 	};
 	class FileSystemDirectoryReader;
 	class FileSystemEntry: public Object {
@@ -12406,6 +13892,10 @@ namespace [[cheerp::genericjs]] client {
 		void getParent(const _Function<void(FileSystemEntry*)>& successCallback, const _Function<void(DOMException*)>& errorCallback);
 		static FileSystemEntry* prototype;
 		FileSystemEntry();
+		[[gnu::always_inline]]
+		static FileSystemEntry* _New() {
+			return new FileSystemEntry();
+		}
 	};
 	class FileSystemDirectoryEntry: public FileSystemEntry {
 	public:
@@ -12430,6 +13920,10 @@ namespace [[cheerp::genericjs]] client {
 		void getFile(const String& path, FileSystemFlags* options, const _Function<void(FileSystemEntry*)>& successCallback, const _Function<void(DOMException*)>& errorCallback);
 		static FileSystemDirectoryEntry* prototype;
 		FileSystemDirectoryEntry();
+		[[gnu::always_inline]]
+		static FileSystemDirectoryEntry* _New() {
+			return new FileSystemDirectoryEntry();
+		}
 	};
 	class FileSystemFileHandle;
 	class FileSystemHandle: public Object {
@@ -12439,6 +13933,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<bool>* isSameEntry(FileSystemHandle* other);
 		static FileSystemHandle* prototype;
 		FileSystemHandle();
+		[[gnu::always_inline]]
+		static FileSystemHandle* _New() {
+			return new FileSystemHandle();
+		}
 	};
 	class FileSystemDirectoryHandle: public FileSystemHandle {
 	public:
@@ -12452,6 +13950,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<TArray<String*>*>* resolve(FileSystemHandle* possibleDescendant);
 		static FileSystemDirectoryHandle* prototype;
 		FileSystemDirectoryHandle();
+		[[gnu::always_inline]]
+		static FileSystemDirectoryHandle* _New() {
+			return new FileSystemDirectoryHandle();
+		}
 	};
 	class FileSystemDirectoryReader: public Object {
 	public:
@@ -12463,6 +13965,10 @@ namespace [[cheerp::genericjs]] client {
 		void readEntries(const _Function<void(TArray<FileSystemEntry*>*)>& successCallback, const _Function<void(DOMException*)>& errorCallback);
 		static FileSystemDirectoryReader* prototype;
 		FileSystemDirectoryReader();
+		[[gnu::always_inline]]
+		static FileSystemDirectoryReader* _New() {
+			return new FileSystemDirectoryReader();
+		}
 	};
 	class FileSystemFileEntry: public FileSystemEntry {
 	public:
@@ -12474,6 +13980,10 @@ namespace [[cheerp::genericjs]] client {
 		void file(const _Function<void(File*)>& successCallback, const _Function<void(DOMException*)>& errorCallback);
 		static FileSystemFileEntry* prototype;
 		FileSystemFileEntry();
+		[[gnu::always_inline]]
+		static FileSystemFileEntry* _New() {
+			return new FileSystemFileEntry();
+		}
 	};
 	class FileSystemWritableFileStream;
 	class FileSystemSyncAccessHandle;
@@ -12486,10 +13996,14 @@ namespace [[cheerp::genericjs]] client {
 		Promise<FileSystemSyncAccessHandle*>* createSyncAccessHandle();
 		static FileSystemFileHandle* prototype;
 		FileSystemFileHandle();
+		[[gnu::always_inline]]
+		static FileSystemFileHandle* _New() {
+			return new FileSystemFileHandle();
+		}
 	};
 	template<class _T0>
 	class WritableStreamDefaultWriter;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class WritableStream: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -12504,6 +14018,20 @@ namespace [[cheerp::genericjs]] client {
 		WritableStream(UnderlyingSink<_T1>* underlyingSink);
 		template<class _T1 = _Any*>
 		WritableStream(UnderlyingSink<_T1>* underlyingSink, QueuingStrategy<_T1>* strategy);
+		[[gnu::always_inline]]
+		static WritableStream* _New() {
+			return new WritableStream();
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static WritableStream* _New(UnderlyingSink<_T1>* underlyingSink) {
+			return new WritableStream(underlyingSink);
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static WritableStream* _New(UnderlyingSink<_T1>* underlyingSink, QueuingStrategy<_T1>* strategy) {
+			return new WritableStream(underlyingSink, strategy);
+		}
 	};
 	class FileSystemWritableFileStream: public WritableStream<_Any*> {
 	public:
@@ -12513,6 +14041,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* write(const _Union<ArrayBuffer*, ArrayBufferView*, WriteParams*, Blob*>& data);
 		static FileSystemWritableFileStream* prototype;
 		FileSystemWritableFileStream();
+		[[gnu::always_inline]]
+		static FileSystemWritableFileStream* _New() {
+			return new FileSystemWritableFileStream();
+		}
 	};
 	class FocusEvent: public UIEvent {
 	public:
@@ -12520,6 +14052,14 @@ namespace [[cheerp::genericjs]] client {
 		static FocusEvent* prototype;
 		FocusEvent(const String& type);
 		FocusEvent(const String& type, FocusEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static FocusEvent* _New(const String& type) {
+			return new FocusEvent(type);
+		}
+		[[gnu::always_inline]]
+		static FocusEvent* _New(const String& type, FocusEventInit* eventInitDict) {
+			return new FocusEvent(type, eventInitDict);
+		}
 	};
 	class FontFace: public Object {
 	public:
@@ -12553,6 +14093,22 @@ namespace [[cheerp::genericjs]] client {
 		FontFace(const String& family, const _Union<ArrayBuffer*, ArrayBufferView*>& source);
 		FontFace(const String& family, const String& source, FontFaceDescriptors* descriptors);
 		FontFace(const String& family, const _Union<ArrayBuffer*, ArrayBufferView*>& source, FontFaceDescriptors* descriptors);
+		[[gnu::always_inline]]
+		static FontFace* _New(const String& family, const String& source) {
+			return new FontFace(family, source);
+		}
+		[[gnu::always_inline]]
+		static FontFace* _New(const String& family, const _Union<ArrayBuffer*, ArrayBufferView*>& source) {
+			return new FontFace(family, source);
+		}
+		[[gnu::always_inline]]
+		static FontFace* _New(const String& family, const String& source, FontFaceDescriptors* descriptors) {
+			return new FontFace(family, source, descriptors);
+		}
+		[[gnu::always_inline]]
+		static FontFace* _New(const String& family, const _Union<ArrayBuffer*, ArrayBufferView*>& source, FontFaceDescriptors* descriptors) {
+			return new FontFace(family, source, descriptors);
+		}
 	};
 	class FontFaceSetEventMap: public Object {
 	public:
@@ -12604,6 +14160,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static FontFaceSet* prototype;
 		FontFaceSet(TArray<FontFace*>* initialFaces);
+		[[gnu::always_inline]]
+		static FontFaceSet* _New(TArray<FontFace*>* initialFaces) {
+			return new FontFaceSet(initialFaces);
+		}
 	};
 	class FontFaceSetLoadEvent: public Event {
 	public:
@@ -12611,6 +14171,14 @@ namespace [[cheerp::genericjs]] client {
 		static FontFaceSetLoadEvent* prototype;
 		FontFaceSetLoadEvent(const String& type);
 		FontFaceSetLoadEvent(const String& type, FontFaceSetLoadEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static FontFaceSetLoadEvent* _New(const String& type) {
+			return new FontFaceSetLoadEvent(type);
+		}
+		[[gnu::always_inline]]
+		static FontFaceSetLoadEvent* _New(const String& type, FontFaceSetLoadEventInit* eventInitDict) {
+			return new FontFaceSetLoadEvent(type, eventInitDict);
+		}
 	};
 	class FormData: public Object {
 	public:
@@ -12631,12 +14199,20 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(_Union<String*, File*>*, String*, FormData*)>& callbackfn, const _Any& thisArg);
 		static FormData* prototype;
 		FormData();
+		[[gnu::always_inline]]
+		static FormData* _New() {
+			return new FormData();
+		}
 	};
 	class FormDataEvent: public Event {
 	public:
 		FormData* get_formData();
 		static FormDataEvent* prototype;
 		FormDataEvent(const String& type, FormDataEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static FormDataEvent* _New(const String& type, FormDataEventInit* eventInitDict) {
+			return new FormDataEvent(type, eventInitDict);
+		}
 	};
 	class GainNode: public AudioNode {
 	public:
@@ -12644,6 +14220,14 @@ namespace [[cheerp::genericjs]] client {
 		static GainNode* prototype;
 		GainNode(BaseAudioContext* context);
 		GainNode(BaseAudioContext* context, GainOptions* options);
+		[[gnu::always_inline]]
+		static GainNode* _New(BaseAudioContext* context) {
+			return new GainNode(context);
+		}
+		[[gnu::always_inline]]
+		static GainNode* _New(BaseAudioContext* context, GainOptions* options) {
+			return new GainNode(context, options);
+		}
 	};
 	class GamepadButton;
 	class GamepadHapticActuator;
@@ -12660,6 +14244,10 @@ namespace [[cheerp::genericjs]] client {
 		GamepadHapticActuator* get_vibrationActuator();
 		static Gamepad* prototype;
 		Gamepad();
+		[[gnu::always_inline]]
+		static Gamepad* _New() {
+			return new Gamepad();
+		}
 	};
 	class GamepadButton: public Object {
 	public:
@@ -12668,12 +14256,20 @@ namespace [[cheerp::genericjs]] client {
 		double get_value();
 		static GamepadButton* prototype;
 		GamepadButton();
+		[[gnu::always_inline]]
+		static GamepadButton* _New() {
+			return new GamepadButton();
+		}
 	};
 	class GamepadEvent: public Event {
 	public:
 		Gamepad* get_gamepad();
 		static GamepadEvent* prototype;
 		GamepadEvent(const String& type, GamepadEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static GamepadEvent* _New(const String& type, GamepadEventInit* eventInitDict) {
+			return new GamepadEvent(type, eventInitDict);
+		}
 	};
 	class GamepadHapticActuator: public Object {
 	public:
@@ -12683,6 +14279,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<String*>* reset();
 		static GamepadHapticActuator* prototype;
 		GamepadHapticActuator();
+		[[gnu::always_inline]]
+		static GamepadHapticActuator* _New() {
+			return new GamepadHapticActuator();
+		}
 	};
 	class GeolocationPosition;
 	class GeolocationPositionError;
@@ -12711,6 +14311,10 @@ namespace [[cheerp::genericjs]] client {
 		double watchPosition(const _Function<void(GeolocationPosition*)>& successCallback, const _Function<void(GeolocationPositionError*)>& errorCallback, PositionOptions* options);
 		static Geolocation* prototype;
 		Geolocation();
+		[[gnu::always_inline]]
+		static Geolocation* _New() {
+			return new Geolocation();
+		}
 	};
 	class GeolocationCoordinates: public Object {
 	public:
@@ -12723,6 +14327,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_speed();
 		static GeolocationCoordinates* prototype;
 		GeolocationCoordinates();
+		[[gnu::always_inline]]
+		static GeolocationCoordinates* _New() {
+			return new GeolocationCoordinates();
+		}
 	};
 	class GeolocationPosition: public Object {
 	public:
@@ -12730,6 +14338,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_timestamp();
 		static GeolocationPosition* prototype;
 		GeolocationPosition();
+		[[gnu::always_inline]]
+		static GeolocationPosition* _New() {
+			return new GeolocationPosition();
+		}
 	};
 	class GeolocationPositionError: public Object {
 	public:
@@ -12740,6 +14352,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_TIMEOUT();
 		static GeolocationPositionError* prototype;
 		GeolocationPositionError();
+		[[gnu::always_inline]]
+		static GeolocationPositionError* _New() {
+			return new GeolocationPositionError();
+		}
 		static double PERMISSION_DENIED;
 		static double POSITION_UNAVAILABLE;
 		static double TIMEOUT;
@@ -12758,6 +14374,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static HTMLAllCollection* prototype;
 		HTMLAllCollection();
+		[[gnu::always_inline]]
+		static HTMLAllCollection* _New() {
+			return new HTMLAllCollection();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -12828,6 +14448,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLElement* prototype;
 		HTMLElement();
+		[[gnu::always_inline]]
+		static HTMLElement* _New() {
+			return new HTMLElement();
+		}
 	};
 	class HTMLHyperlinkElementUtils: public virtual Object {
 	public:
@@ -12897,6 +14521,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLAnchorElement* prototype;
 		HTMLAnchorElement();
+		[[gnu::always_inline]]
+		static HTMLAnchorElement* _New() {
+			return new HTMLAnchorElement();
+		}
 	};
 	class HTMLAreaElement: public HTMLElement, public HTMLHyperlinkElementUtils {
 	public:
@@ -12933,6 +14561,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLAreaElement* prototype;
 		HTMLAreaElement();
+		[[gnu::always_inline]]
+		static HTMLAreaElement* _New() {
+			return new HTMLAreaElement();
+		}
 	};
 	class TimeRanges;
 	class MediaError;
@@ -13024,6 +14656,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMediaElement* prototype;
 		HTMLMediaElement();
+		[[gnu::always_inline]]
+		static HTMLMediaElement* _New() {
+			return new HTMLMediaElement();
+		}
 		static double NETWORK_EMPTY;
 		static double NETWORK_IDLE;
 		static double NETWORK_LOADING;
@@ -13050,6 +14686,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLAudioElement* prototype;
 		HTMLAudioElement();
+		[[gnu::always_inline]]
+		static HTMLAudioElement* _New() {
+			return new HTMLAudioElement();
+		}
 	};
 	class HTMLBRElement: public HTMLElement {
 	public:
@@ -13069,6 +14709,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLBRElement* prototype;
 		HTMLBRElement();
+		[[gnu::always_inline]]
+		static HTMLBRElement* _New() {
+			return new HTMLBRElement();
+		}
 	};
 	class HTMLBaseElement: public HTMLElement {
 	public:
@@ -13090,6 +14734,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLBaseElement* prototype;
 		HTMLBaseElement();
+		[[gnu::always_inline]]
+		static HTMLBaseElement* _New() {
+			return new HTMLBaseElement();
+		}
 	};
 	class HTMLElementEventMap: public ElementEventMap, public GlobalEventHandlersEventMap {
 	};
@@ -13267,6 +14915,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLBodyElement* prototype;
 		HTMLBodyElement();
+		[[gnu::always_inline]]
+		static HTMLBodyElement* _New() {
+			return new HTMLBodyElement();
+		}
 	};
 	class HTMLLabelElement;
 	class PopoverInvokerElement: public virtual Object {
@@ -13318,6 +14970,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLButtonElement* prototype;
 		HTMLButtonElement();
+		[[gnu::always_inline]]
+		static HTMLButtonElement* _New() {
+			return new HTMLButtonElement();
+		}
 	};
 	class ImageBitmapRenderingContext;
 	class WebGLRenderingContext;
@@ -13359,6 +15015,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLCanvasElement* prototype;
 		HTMLCanvasElement();
+		[[gnu::always_inline]]
+		static HTMLCanvasElement* _New() {
+			return new HTMLCanvasElement();
+		}
 	};
 	class HTMLCollectionBase: public Object {
 	public:
@@ -13378,8 +15038,12 @@ namespace [[cheerp::genericjs]] client {
 		Element* namedItem(const String& name);
 		static HTMLCollection* prototype;
 		HTMLCollection();
+		[[gnu::always_inline]]
+		static HTMLCollection* _New() {
+			return new HTMLCollection();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = Element*>
 	class HTMLCollectionOf: public HTMLCollectionBase {
 		static_assert(cheerp::CanCast<_T0, Element*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -13414,6 +15078,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDListElement* prototype;
 		HTMLDListElement();
+		[[gnu::always_inline]]
+		static HTMLDListElement* _New() {
+			return new HTMLDListElement();
+		}
 	};
 	class HTMLDataElement: public HTMLElement {
 	public:
@@ -13433,6 +15101,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDataElement* prototype;
 		HTMLDataElement();
+		[[gnu::always_inline]]
+		static HTMLDataElement* _New() {
+			return new HTMLDataElement();
+		}
 	};
 	class HTMLOptionElement;
 	class HTMLDataListElement: public HTMLElement {
@@ -13452,6 +15124,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDataListElement* prototype;
 		HTMLDataListElement();
+		[[gnu::always_inline]]
+		static HTMLDataListElement* _New() {
+			return new HTMLDataListElement();
+		}
 	};
 	class HTMLDetailsElement: public HTMLElement {
 	public:
@@ -13471,6 +15147,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDetailsElement* prototype;
 		HTMLDetailsElement();
+		[[gnu::always_inline]]
+		static HTMLDetailsElement* _New() {
+			return new HTMLDetailsElement();
+		}
 	};
 	class HTMLDialogElement: public HTMLElement {
 	public:
@@ -13496,6 +15176,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDialogElement* prototype;
 		HTMLDialogElement();
+		[[gnu::always_inline]]
+		static HTMLDialogElement* _New() {
+			return new HTMLDialogElement();
+		}
 	};
 	class HTMLDirectoryElement: public HTMLElement {
 	public:
@@ -13515,6 +15199,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDirectoryElement* prototype;
 		HTMLDirectoryElement();
+		[[gnu::always_inline]]
+		static HTMLDirectoryElement* _New() {
+			return new HTMLDirectoryElement();
+		}
 	};
 	class HTMLDivElement: public HTMLElement {
 	public:
@@ -13534,6 +15222,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDivElement* prototype;
 		HTMLDivElement();
+		[[gnu::always_inline]]
+		static HTMLDivElement* _New() {
+			return new HTMLDivElement();
+		}
 	};
 	class HTMLDocument: public Document {
 	public:
@@ -13551,6 +15243,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLDocument* prototype;
 		HTMLDocument();
+		[[gnu::always_inline]]
+		static HTMLDocument* _New() {
+			return new HTMLDocument();
+		}
 	};
 	class HTMLEmbedElement: public HTMLElement {
 	public:
@@ -13581,6 +15277,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLEmbedElement* prototype;
 		HTMLEmbedElement();
+		[[gnu::always_inline]]
+		static HTMLEmbedElement* _New() {
+			return new HTMLEmbedElement();
+		}
 	};
 	class HTMLFieldSetElement: public HTMLElement {
 	public:
@@ -13611,6 +15311,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLFieldSetElement* prototype;
 		HTMLFieldSetElement();
+		[[gnu::always_inline]]
+		static HTMLFieldSetElement* _New() {
+			return new HTMLFieldSetElement();
+		}
 	};
 	class HTMLFontElement: public HTMLElement {
 	public:
@@ -13634,6 +15338,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLFontElement* prototype;
 		HTMLFontElement();
+		[[gnu::always_inline]]
+		static HTMLFontElement* _New() {
+			return new HTMLFontElement();
+		}
 	};
 	class RadioNodeList;
 	class HTMLFormControlsCollection: public HTMLCollectionBase {
@@ -13641,6 +15349,10 @@ namespace [[cheerp::genericjs]] client {
 		_Union<Element*, RadioNodeList*>* namedItem(const String& name);
 		static HTMLFormControlsCollection* prototype;
 		HTMLFormControlsCollection();
+		[[gnu::always_inline]]
+		static HTMLFormControlsCollection* _New() {
+			return new HTMLFormControlsCollection();
+		}
 	};
 	class HTMLFormElement: public HTMLElement {
 	public:
@@ -13694,6 +15406,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* operator[](const String& name) const;
 		static HTMLFormElement* prototype;
 		HTMLFormElement();
+		[[gnu::always_inline]]
+		static HTMLFormElement* _New() {
+			return new HTMLFormElement();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -13731,6 +15447,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLFrameElement* prototype;
 		HTMLFrameElement();
+		[[gnu::always_inline]]
+		static HTMLFrameElement* _New() {
+			return new HTMLFrameElement();
+		}
 	};
 	class HTMLFrameSetElementEventMap: public HTMLElementEventMap, public WindowEventHandlersEventMap {
 	};
@@ -13754,6 +15474,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLFrameSetElement* prototype;
 		HTMLFrameSetElement();
+		[[gnu::always_inline]]
+		static HTMLFrameSetElement* _New() {
+			return new HTMLFrameSetElement();
+		}
 	};
 	class HTMLHRElement: public HTMLElement {
 	public:
@@ -13781,6 +15505,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLHRElement* prototype;
 		HTMLHRElement();
+		[[gnu::always_inline]]
+		static HTMLHRElement* _New() {
+			return new HTMLHRElement();
+		}
 	};
 	class HTMLHeadElement: public HTMLElement {
 	public:
@@ -13798,6 +15526,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLHeadElement* prototype;
 		HTMLHeadElement();
+		[[gnu::always_inline]]
+		static HTMLHeadElement* _New() {
+			return new HTMLHeadElement();
+		}
 	};
 	class HTMLHeadingElement: public HTMLElement {
 	public:
@@ -13817,6 +15549,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLHeadingElement* prototype;
 		HTMLHeadingElement();
+		[[gnu::always_inline]]
+		static HTMLHeadingElement* _New() {
+			return new HTMLHeadingElement();
+		}
 	};
 	class HTMLHtmlElement: public HTMLElement {
 	public:
@@ -13836,6 +15572,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLHtmlElement* prototype;
 		HTMLHtmlElement();
+		[[gnu::always_inline]]
+		static HTMLHtmlElement* _New() {
+			return new HTMLHtmlElement();
+		}
 	};
 	class HTMLIFrameElement: public HTMLElement {
 	public:
@@ -13887,6 +15627,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLIFrameElement* prototype;
 		HTMLIFrameElement();
+		[[gnu::always_inline]]
+		static HTMLIFrameElement* _New() {
+			return new HTMLIFrameElement();
+		}
 	};
 	class HTMLImageElement: public HTMLElement {
 	public:
@@ -13949,6 +15693,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLImageElement* prototype;
 		HTMLImageElement();
+		[[gnu::always_inline]]
+		static HTMLImageElement* _New() {
+			return new HTMLImageElement();
+		}
 	};
 	class HTMLInputElement: public HTMLElement, public PopoverInvokerElement {
 	public:
@@ -14069,6 +15817,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLInputElement* prototype;
 		HTMLInputElement();
+		[[gnu::always_inline]]
+		static HTMLInputElement* _New() {
+			return new HTMLInputElement();
+		}
 	};
 	class HTMLLIElement: public HTMLElement {
 	public:
@@ -14090,6 +15842,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLLIElement* prototype;
 		HTMLLIElement();
+		[[gnu::always_inline]]
+		static HTMLLIElement* _New() {
+			return new HTMLLIElement();
+		}
 	};
 	class HTMLLabelElement: public HTMLElement {
 	public:
@@ -14111,6 +15867,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLLabelElement* prototype;
 		HTMLLabelElement();
+		[[gnu::always_inline]]
+		static HTMLLabelElement* _New() {
+			return new HTMLLabelElement();
+		}
 	};
 	class HTMLLegendElement: public HTMLElement {
 	public:
@@ -14131,6 +15891,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLLegendElement* prototype;
 		HTMLLegendElement();
+		[[gnu::always_inline]]
+		static HTMLLegendElement* _New() {
+			return new HTMLLegendElement();
+		}
 	};
 	class LinkStyle: public virtual Object {
 	public:
@@ -14184,6 +15948,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLLinkElement* prototype;
 		HTMLLinkElement();
+		[[gnu::always_inline]]
+		static HTMLLinkElement* _New() {
+			return new HTMLLinkElement();
+		}
 	};
 	class HTMLMapElement: public HTMLElement {
 	public:
@@ -14204,6 +15972,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMapElement* prototype;
 		HTMLMapElement();
+		[[gnu::always_inline]]
+		static HTMLMapElement* _New() {
+			return new HTMLMapElement();
+		}
 	};
 	class HTMLMarqueeElement: public HTMLElement {
 	public:
@@ -14245,6 +16017,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMarqueeElement* prototype;
 		HTMLMarqueeElement();
+		[[gnu::always_inline]]
+		static HTMLMarqueeElement* _New() {
+			return new HTMLMarqueeElement();
+		}
 	};
 	class HTMLMediaElementEventMap: public HTMLElementEventMap {
 	public:
@@ -14275,6 +16051,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMenuElement* prototype;
 		HTMLMenuElement();
+		[[gnu::always_inline]]
+		static HTMLMenuElement* _New() {
+			return new HTMLMenuElement();
+		}
 	};
 	class HTMLMetaElement: public HTMLElement {
 	public:
@@ -14302,6 +16082,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMetaElement* prototype;
 		HTMLMetaElement();
+		[[gnu::always_inline]]
+		static HTMLMetaElement* _New() {
+			return new HTMLMetaElement();
+		}
 	};
 	class HTMLMeterElement: public HTMLElement {
 	public:
@@ -14332,6 +16116,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLMeterElement* prototype;
 		HTMLMeterElement();
+		[[gnu::always_inline]]
+		static HTMLMeterElement* _New() {
+			return new HTMLMeterElement();
+		}
 	};
 	class HTMLModElement: public HTMLElement {
 	public:
@@ -14353,6 +16141,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLModElement* prototype;
 		HTMLModElement();
+		[[gnu::always_inline]]
+		static HTMLModElement* _New() {
+			return new HTMLModElement();
+		}
 	};
 	class HTMLOListElement: public HTMLElement {
 	public:
@@ -14378,6 +16170,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLOListElement* prototype;
 		HTMLOListElement();
+		[[gnu::always_inline]]
+		static HTMLOListElement* _New() {
+			return new HTMLOListElement();
+		}
 	};
 	class HTMLObjectElement: public HTMLElement {
 	public:
@@ -14437,6 +16233,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLObjectElement* prototype;
 		HTMLObjectElement();
+		[[gnu::always_inline]]
+		static HTMLObjectElement* _New() {
+			return new HTMLObjectElement();
+		}
 	};
 	class HTMLOptGroupElement: public HTMLElement {
 	public:
@@ -14458,6 +16258,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLOptGroupElement* prototype;
 		HTMLOptGroupElement();
+		[[gnu::always_inline]]
+		static HTMLOptGroupElement* _New() {
+			return new HTMLOptGroupElement();
+		}
 	};
 	class HTMLOptionElement: public HTMLElement {
 	public:
@@ -14489,6 +16293,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLOptionElement* prototype;
 		HTMLOptionElement();
+		[[gnu::always_inline]]
+		static HTMLOptionElement* _New() {
+			return new HTMLOptionElement();
+		}
 	};
 	class HTMLOptionsCollection: public HTMLCollectionOf<HTMLOptionElement*> {
 	public:
@@ -14501,6 +16309,10 @@ namespace [[cheerp::genericjs]] client {
 		void remove(double index);
 		static HTMLOptionsCollection* prototype;
 		HTMLOptionsCollection();
+		[[gnu::always_inline]]
+		static HTMLOptionsCollection* _New() {
+			return new HTMLOptionsCollection();
+		}
 	};
 	class HTMLOutputElement: public HTMLElement {
 	public:
@@ -14534,6 +16346,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLOutputElement* prototype;
 		HTMLOutputElement();
+		[[gnu::always_inline]]
+		static HTMLOutputElement* _New() {
+			return new HTMLOutputElement();
+		}
 	};
 	class HTMLParagraphElement: public HTMLElement {
 	public:
@@ -14553,6 +16369,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLParagraphElement* prototype;
 		HTMLParagraphElement();
+		[[gnu::always_inline]]
+		static HTMLParagraphElement* _New() {
+			return new HTMLParagraphElement();
+		}
 	};
 	class HTMLParamElement: public HTMLElement {
 	public:
@@ -14578,6 +16398,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLParamElement* prototype;
 		HTMLParamElement();
+		[[gnu::always_inline]]
+		static HTMLParamElement* _New() {
+			return new HTMLParamElement();
+		}
 	};
 	class HTMLPictureElement: public HTMLElement {
 	public:
@@ -14595,6 +16419,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLPictureElement* prototype;
 		HTMLPictureElement();
+		[[gnu::always_inline]]
+		static HTMLPictureElement* _New() {
+			return new HTMLPictureElement();
+		}
 	};
 	class HTMLPreElement: public HTMLElement {
 	public:
@@ -14614,6 +16442,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLPreElement* prototype;
 		HTMLPreElement();
+		[[gnu::always_inline]]
+		static HTMLPreElement* _New() {
+			return new HTMLPreElement();
+		}
 	};
 	class HTMLProgressElement: public HTMLElement {
 	public:
@@ -14637,6 +16469,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLProgressElement* prototype;
 		HTMLProgressElement();
+		[[gnu::always_inline]]
+		static HTMLProgressElement* _New() {
+			return new HTMLProgressElement();
+		}
 	};
 	class HTMLQuoteElement: public HTMLElement {
 	public:
@@ -14656,6 +16492,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLQuoteElement* prototype;
 		HTMLQuoteElement();
+		[[gnu::always_inline]]
+		static HTMLQuoteElement* _New() {
+			return new HTMLQuoteElement();
+		}
 	};
 	class HTMLScriptElement: public HTMLElement {
 	public:
@@ -14697,6 +16537,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLScriptElement* prototype;
 		HTMLScriptElement();
+		[[gnu::always_inline]]
+		static HTMLScriptElement* _New() {
+			return new HTMLScriptElement();
+		}
 		static bool supports(const String& type);
 	};
 	class HTMLSelectElement: public HTMLElement {
@@ -14756,6 +16600,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static HTMLSelectElement* prototype;
 		HTMLSelectElement();
+		[[gnu::always_inline]]
+		static HTMLSelectElement* _New() {
+			return new HTMLSelectElement();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -14791,6 +16639,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLSlotElement* prototype;
 		HTMLSlotElement();
+		[[gnu::always_inline]]
+		static HTMLSlotElement* _New() {
+			return new HTMLSlotElement();
+		}
 	};
 	class HTMLSourceElement: public HTMLElement {
 	public:
@@ -14822,6 +16674,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLSourceElement* prototype;
 		HTMLSourceElement();
+		[[gnu::always_inline]]
+		static HTMLSourceElement* _New() {
+			return new HTMLSourceElement();
+		}
 	};
 	class HTMLSpanElement: public HTMLElement {
 	public:
@@ -14839,6 +16695,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLSpanElement* prototype;
 		HTMLSpanElement();
+		[[gnu::always_inline]]
+		static HTMLSpanElement* _New() {
+			return new HTMLSpanElement();
+		}
 	};
 	class HTMLStyleElement: public HTMLElement, public LinkStyle {
 	public:
@@ -14862,6 +16722,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLStyleElement* prototype;
 		HTMLStyleElement();
+		[[gnu::always_inline]]
+		static HTMLStyleElement* _New() {
+			return new HTMLStyleElement();
+		}
 	};
 	class HTMLTableCaptionElement: public HTMLElement {
 	public:
@@ -14881,6 +16745,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableCaptionElement* prototype;
 		HTMLTableCaptionElement();
+		[[gnu::always_inline]]
+		static HTMLTableCaptionElement* _New() {
+			return new HTMLTableCaptionElement();
+		}
 	};
 	class HTMLTableCellElement: public HTMLElement {
 	public:
@@ -14927,6 +16795,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableCellElement* prototype;
 		HTMLTableCellElement();
+		[[gnu::always_inline]]
+		static HTMLTableCellElement* _New() {
+			return new HTMLTableCellElement();
+		}
 	};
 	class HTMLTableColElement: public HTMLElement {
 	public:
@@ -14956,6 +16828,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableColElement* prototype;
 		HTMLTableColElement();
+		[[gnu::always_inline]]
+		static HTMLTableColElement* _New() {
+			return new HTMLTableColElement();
+		}
 	};
 	class HTMLTableDataCellElement: public HTMLTableCellElement {
 	public:
@@ -15026,6 +16902,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableElement* prototype;
 		HTMLTableElement();
+		[[gnu::always_inline]]
+		static HTMLTableElement* _New() {
+			return new HTMLTableElement();
+		}
 	};
 	class HTMLTableHeaderCellElement: public HTMLTableCellElement {
 	public:
@@ -15074,6 +16954,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableRowElement* prototype;
 		HTMLTableRowElement();
+		[[gnu::always_inline]]
+		static HTMLTableRowElement* _New() {
+			return new HTMLTableRowElement();
+		}
 	};
 	class HTMLTableSectionElement: public HTMLElement {
 	public:
@@ -15103,6 +16987,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTableSectionElement* prototype;
 		HTMLTableSectionElement();
+		[[gnu::always_inline]]
+		static HTMLTableSectionElement* _New() {
+			return new HTMLTableSectionElement();
+		}
 	};
 	class HTMLTemplateElement: public HTMLElement {
 	public:
@@ -15121,6 +17009,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTemplateElement* prototype;
 		HTMLTemplateElement();
+		[[gnu::always_inline]]
+		static HTMLTemplateElement* _New() {
+			return new HTMLTemplateElement();
+		}
 	};
 	class HTMLTextAreaElement: public HTMLElement {
 	public:
@@ -15188,6 +17080,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTextAreaElement* prototype;
 		HTMLTextAreaElement();
+		[[gnu::always_inline]]
+		static HTMLTextAreaElement* _New() {
+			return new HTMLTextAreaElement();
+		}
 	};
 	class HTMLTimeElement: public HTMLElement {
 	public:
@@ -15207,6 +17103,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTimeElement* prototype;
 		HTMLTimeElement();
+		[[gnu::always_inline]]
+		static HTMLTimeElement* _New() {
+			return new HTMLTimeElement();
+		}
 	};
 	class HTMLTitleElement: public HTMLElement {
 	public:
@@ -15226,6 +17126,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTitleElement* prototype;
 		HTMLTitleElement();
+		[[gnu::always_inline]]
+		static HTMLTitleElement* _New() {
+			return new HTMLTitleElement();
+		}
 	};
 	class HTMLTrackElement: public HTMLElement {
 	public:
@@ -15261,6 +17165,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLTrackElement* prototype;
 		HTMLTrackElement();
+		[[gnu::always_inline]]
+		static HTMLTrackElement* _New() {
+			return new HTMLTrackElement();
+		}
 		static double NONE;
 		static double LOADING;
 		static double LOADED;
@@ -15286,6 +17194,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLUListElement* prototype;
 		HTMLUListElement();
+		[[gnu::always_inline]]
+		static HTMLUListElement* _New() {
+			return new HTMLUListElement();
+		}
 	};
 	class HTMLUnknownElement: public HTMLElement {
 	public:
@@ -15303,6 +17215,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLUnknownElement* prototype;
 		HTMLUnknownElement();
+		[[gnu::always_inline]]
+		static HTMLUnknownElement* _New() {
+			return new HTMLUnknownElement();
+		}
 	};
 	class HTMLVideoElementEventMap: public HTMLMediaElementEventMap {
 	public:
@@ -15355,6 +17271,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static HTMLVideoElement* prototype;
 		HTMLVideoElement();
+		[[gnu::always_inline]]
+		static HTMLVideoElement* _New() {
+			return new HTMLVideoElement();
+		}
 	};
 	class HashChangeEvent: public Event {
 	public:
@@ -15363,6 +17283,14 @@ namespace [[cheerp::genericjs]] client {
 		static HashChangeEvent* prototype;
 		HashChangeEvent(const String& type);
 		HashChangeEvent(const String& type, HashChangeEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static HashChangeEvent* _New(const String& type) {
+			return new HashChangeEvent(type);
+		}
+		[[gnu::always_inline]]
+		static HashChangeEvent* _New(const String& type, HashChangeEventInit* eventInitDict) {
+			return new HashChangeEvent(type, eventInitDict);
+		}
 	};
 	class Headers: public Object {
 	public:
@@ -15380,6 +17308,14 @@ namespace [[cheerp::genericjs]] client {
 		static Headers* prototype;
 		Headers();
 		Headers(const _Union<Headers*, Object*, TArray<Object*>*>& init);
+		[[gnu::always_inline]]
+		static Headers* _New() {
+			return new Headers();
+		}
+		[[gnu::always_inline]]
+		static Headers* _New(const _Union<Headers*, Object*, TArray<Object*>*>& init) {
+			return new Headers(init);
+		}
 	};
 	class History: public Object {
 	public:
@@ -15399,6 +17335,10 @@ namespace [[cheerp::genericjs]] client {
 		void replaceState(const _Any& data, const String& unused, URL* url);
 		static History* prototype;
 		History();
+		[[gnu::always_inline]]
+		static History* _New() {
+			return new History();
+		}
 	};
 	template<class _T0>
 	class IDBRequest;
@@ -15427,12 +17367,20 @@ namespace [[cheerp::genericjs]] client {
 		IDBRequest<_Any*>* update(const _Any& value);
 		static IDBCursor* prototype;
 		IDBCursor();
+		[[gnu::always_inline]]
+		static IDBCursor* _New() {
+			return new IDBCursor();
+		}
 	};
 	class IDBCursorWithValue: public IDBCursor {
 	public:
 		Object* get_value();
 		static IDBCursorWithValue* prototype;
 		IDBCursorWithValue();
+		[[gnu::always_inline]]
+		static IDBCursorWithValue* _New() {
+			return new IDBCursorWithValue();
+		}
 	};
 	class IDBDatabaseEventMap: public Object {
 	public:
@@ -15495,6 +17443,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static IDBDatabase* prototype;
 		IDBDatabase();
+		[[gnu::always_inline]]
+		static IDBDatabase* _New() {
+			return new IDBDatabase();
+		}
 	};
 	class IDBOpenDBRequest;
 	class IDBFactory: public Object {
@@ -15506,6 +17458,10 @@ namespace [[cheerp::genericjs]] client {
 		IDBOpenDBRequest* open(const String& name, double version);
 		static IDBFactory* prototype;
 		IDBFactory();
+		[[gnu::always_inline]]
+		static IDBFactory* _New() {
+			return new IDBFactory();
+		}
 	};
 	class IDBKeyRange;
 	class IDBIndex: public Object {
@@ -15545,6 +17501,10 @@ namespace [[cheerp::genericjs]] client {
 		IDBRequest<IDBCursor*>* openKeyCursor(const _Union<double, Date*, ArrayBuffer*, ArrayBufferView*, IDBKeyRange*, Array*>& query, const String& direction);
 		static IDBIndex* prototype;
 		IDBIndex();
+		[[gnu::always_inline]]
+		static IDBIndex* _New() {
+			return new IDBIndex();
+		}
 	};
 	class IDBKeyRange: public Object {
 	public:
@@ -15555,6 +17515,10 @@ namespace [[cheerp::genericjs]] client {
 		bool includes(const _Any& key);
 		static IDBKeyRange* prototype;
 		IDBKeyRange();
+		[[gnu::always_inline]]
+		static IDBKeyRange* _New() {
+			return new IDBKeyRange();
+		}
 		static IDBKeyRange* bound(const _Any& lower, const _Any& upper);
 		static IDBKeyRange* bound(const _Any& lower, const _Any& upper, bool lowerOpen);
 		static IDBKeyRange* bound(const _Any& lower, const _Any& upper, bool lowerOpen, bool upperOpen);
@@ -15618,6 +17582,10 @@ namespace [[cheerp::genericjs]] client {
 		IDBRequest<_Any*>* put(const _Any& value, const _Union<double, Date*, ArrayBuffer*, ArrayBufferView*, Array*>& key);
 		static IDBObjectStore* prototype;
 		IDBObjectStore();
+		[[gnu::always_inline]]
+		static IDBObjectStore* _New() {
+			return new IDBObjectStore();
+		}
 	};
 	class IDBRequestEventMap: public Object {
 	public:
@@ -15641,7 +17609,7 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("set_\"upgradeneeded\""))]]
 		void set__34_upgradeneeded_34_(IDBVersionChangeEvent* _34_upgradeneeded_34_);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class IDBRequest: public EventTarget {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -15670,6 +17638,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static IDBRequest<_Any*>* prototype;
 		IDBRequest();
+		[[gnu::always_inline]]
+		static IDBRequest* _New() {
+			return new IDBRequest();
+		}
 	};
 	class IDBOpenDBRequest: public IDBRequest<IDBDatabase*> {
 	public:
@@ -15693,6 +17665,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static IDBOpenDBRequest* prototype;
 		IDBOpenDBRequest();
+		[[gnu::always_inline]]
+		static IDBOpenDBRequest* _New() {
+			return new IDBOpenDBRequest();
+		}
 	};
 	class IDBTransactionEventMap: public Object {
 	public:
@@ -15742,6 +17718,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static IDBTransaction* prototype;
 		IDBTransaction();
+		[[gnu::always_inline]]
+		static IDBTransaction* _New() {
+			return new IDBTransaction();
+		}
 	};
 	class IDBVersionChangeEvent: public Event {
 	public:
@@ -15750,12 +17730,24 @@ namespace [[cheerp::genericjs]] client {
 		static IDBVersionChangeEvent* prototype;
 		IDBVersionChangeEvent(const String& type);
 		IDBVersionChangeEvent(const String& type, IDBVersionChangeEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static IDBVersionChangeEvent* _New(const String& type) {
+			return new IDBVersionChangeEvent(type);
+		}
+		[[gnu::always_inline]]
+		static IDBVersionChangeEvent* _New(const String& type, IDBVersionChangeEventInit* eventInitDict) {
+			return new IDBVersionChangeEvent(type, eventInitDict);
+		}
 	};
 	class IIRFilterNode: public AudioNode {
 	public:
 		void getFrequencyResponse(Float32Array* frequencyHz, Float32Array* magResponse, Float32Array* phaseResponse);
 		static IIRFilterNode* prototype;
 		IIRFilterNode(BaseAudioContext* context, IIRFilterOptions* options);
+		[[gnu::always_inline]]
+		static IIRFilterNode* _New(BaseAudioContext* context, IIRFilterOptions* options) {
+			return new IIRFilterNode(context, options);
+		}
 	};
 	class IdleDeadline: public Object {
 	public:
@@ -15763,6 +17755,10 @@ namespace [[cheerp::genericjs]] client {
 		double timeRemaining();
 		static IdleDeadline* prototype;
 		IdleDeadline();
+		[[gnu::always_inline]]
+		static IdleDeadline* _New() {
+			return new IdleDeadline();
+		}
 	};
 	class ImageBitmap: public Object {
 	public:
@@ -15771,6 +17767,10 @@ namespace [[cheerp::genericjs]] client {
 		void close();
 		static ImageBitmap* prototype;
 		ImageBitmap();
+		[[gnu::always_inline]]
+		static ImageBitmap* _New() {
+			return new ImageBitmap();
+		}
 	};
 	class ImageBitmapRenderingContext: public Object {
 	public:
@@ -15778,6 +17778,10 @@ namespace [[cheerp::genericjs]] client {
 		void transferFromImageBitmap(ImageBitmap* bitmap);
 		static ImageBitmapRenderingContext* prototype;
 		ImageBitmapRenderingContext();
+		[[gnu::always_inline]]
+		static ImageBitmapRenderingContext* _New() {
+			return new ImageBitmapRenderingContext();
+		}
 	};
 	class ImageData: public Object {
 	public:
@@ -15791,6 +17795,26 @@ namespace [[cheerp::genericjs]] client {
 		ImageData(Uint8ClampedArray* data, double sw);
 		ImageData(Uint8ClampedArray* data, double sw, double sh);
 		ImageData(Uint8ClampedArray* data, double sw, double sh, ImageDataSettings* settings);
+		[[gnu::always_inline]]
+		static ImageData* _New(double sw, double sh) {
+			return new ImageData(sw, sh);
+		}
+		[[gnu::always_inline]]
+		static ImageData* _New(double sw, double sh, ImageDataSettings* settings) {
+			return new ImageData(sw, sh, settings);
+		}
+		[[gnu::always_inline]]
+		static ImageData* _New(Uint8ClampedArray* data, double sw) {
+			return new ImageData(data, sw);
+		}
+		[[gnu::always_inline]]
+		static ImageData* _New(Uint8ClampedArray* data, double sw, double sh) {
+			return new ImageData(data, sw, sh);
+		}
+		[[gnu::always_inline]]
+		static ImageData* _New(Uint8ClampedArray* data, double sw, double sh, ImageDataSettings* settings) {
+			return new ImageData(data, sw, sh, settings);
+		}
 	};
 	class MediaDeviceInfo: public Object {
 	public:
@@ -15801,12 +17825,20 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static MediaDeviceInfo* prototype;
 		MediaDeviceInfo();
+		[[gnu::always_inline]]
+		static MediaDeviceInfo* _New() {
+			return new MediaDeviceInfo();
+		}
 	};
 	class InputDeviceInfo: public MediaDeviceInfo {
 	public:
 		MediaTrackCapabilities* getCapabilities();
 		static InputDeviceInfo* prototype;
 		InputDeviceInfo();
+		[[gnu::always_inline]]
+		static InputDeviceInfo* _New() {
+			return new InputDeviceInfo();
+		}
 	};
 	class InputEvent: public UIEvent {
 	public:
@@ -15818,6 +17850,14 @@ namespace [[cheerp::genericjs]] client {
 		static InputEvent* prototype;
 		InputEvent(const String& type);
 		InputEvent(const String& type, InputEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static InputEvent* _New(const String& type) {
+			return new InputEvent(type);
+		}
+		[[gnu::always_inline]]
+		static InputEvent* _New(const String& type, InputEventInit* eventInitDict) {
+			return new InputEvent(type, eventInitDict);
+		}
 	};
 	class IntersectionObserverEntry;
 	class IntersectionObserver: public Object {
@@ -15834,6 +17874,22 @@ namespace [[cheerp::genericjs]] client {
 		IntersectionObserver(const _Function<void(TArray<IntersectionObserverEntry*>*, IntersectionObserver*)>& callback);
 		IntersectionObserver(EventListener* callback, IntersectionObserverInit* options);
 		IntersectionObserver(const _Function<void(TArray<IntersectionObserverEntry*>*, IntersectionObserver*)>& callback, IntersectionObserverInit* options);
+		[[gnu::always_inline]]
+		static IntersectionObserver* _New(EventListener* callback) {
+			return new IntersectionObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static IntersectionObserver* _New(const _Function<void(TArray<IntersectionObserverEntry*>*, IntersectionObserver*)>& callback) {
+			return new IntersectionObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static IntersectionObserver* _New(EventListener* callback, IntersectionObserverInit* options) {
+			return new IntersectionObserver(callback, options);
+		}
+		[[gnu::always_inline]]
+		static IntersectionObserver* _New(const _Function<void(TArray<IntersectionObserverEntry*>*, IntersectionObserver*)>& callback, IntersectionObserverInit* options) {
+			return new IntersectionObserver(callback, options);
+		}
 	};
 	class IntersectionObserverEntry: public Object {
 	public:
@@ -15846,6 +17902,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_time();
 		static IntersectionObserverEntry* prototype;
 		IntersectionObserverEntry(IntersectionObserverEntryInit* intersectionObserverEntryInit);
+		[[gnu::always_inline]]
+		static IntersectionObserverEntry* _New(IntersectionObserverEntryInit* intersectionObserverEntryInit) {
+			return new IntersectionObserverEntry(intersectionObserverEntryInit);
+		}
 	};
 	class KHR_parallel_shader_compile: public Object {
 	public:
@@ -15882,6 +17942,14 @@ namespace [[cheerp::genericjs]] client {
 		static KeyboardEvent* prototype;
 		KeyboardEvent(const String& type);
 		KeyboardEvent(const String& type, KeyboardEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static KeyboardEvent* _New(const String& type) {
+			return new KeyboardEvent(type);
+		}
+		[[gnu::always_inline]]
+		static KeyboardEvent* _New(const String& type, KeyboardEventInit* eventInitDict) {
+			return new KeyboardEvent(type, eventInitDict);
+		}
 		static double DOM_KEY_LOCATION_STANDARD;
 		static double DOM_KEY_LOCATION_LEFT;
 		static double DOM_KEY_LOCATION_RIGHT;
@@ -15903,6 +17971,18 @@ namespace [[cheerp::genericjs]] client {
 		KeyframeEffect(Element* target, const _Union<PropertyIndexedKeyframes*, TArray<Keyframe*>*>& keyframes);
 		KeyframeEffect(Element* target, const _Union<PropertyIndexedKeyframes*, TArray<Keyframe*>*>& keyframes, const _Union<double, KeyframeEffectOptions*>& options);
 		KeyframeEffect(KeyframeEffect* source);
+		[[gnu::always_inline]]
+		static KeyframeEffect* _New(Element* target, const _Union<PropertyIndexedKeyframes*, TArray<Keyframe*>*>& keyframes) {
+			return new KeyframeEffect(target, keyframes);
+		}
+		[[gnu::always_inline]]
+		static KeyframeEffect* _New(Element* target, const _Union<PropertyIndexedKeyframes*, TArray<Keyframe*>*>& keyframes, const _Union<double, KeyframeEffectOptions*>& options) {
+			return new KeyframeEffect(target, keyframes, options);
+		}
+		[[gnu::always_inline]]
+		static KeyframeEffect* _New(KeyframeEffect* source) {
+			return new KeyframeEffect(source);
+		}
 	};
 	class Location: public Object {
 	public:
@@ -15932,6 +18012,10 @@ namespace [[cheerp::genericjs]] client {
 		void replace(URL* url) const;
 		static Location* prototype;
 		Location();
+		[[gnu::always_inline]]
+		static Location* _New() {
+			return new Location();
+		}
 	};
 	class Lock: public Object {
 	public:
@@ -15939,6 +18023,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_name();
 		static Lock* prototype;
 		Lock();
+		[[gnu::always_inline]]
+		static Lock* _New() {
+			return new Lock();
+		}
 	};
 	class LockManager: public Object {
 	public:
@@ -15949,6 +18037,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* request(const String& name, LockOptions* options, const _Function<_Any*(Lock*)>& callback);
 		static LockManager* prototype;
 		LockManager();
+		[[gnu::always_inline]]
+		static LockManager* _New() {
+			return new LockManager();
+		}
 	};
 	class MIDIAccessEventMap: public Object {
 	public:
@@ -15981,6 +18073,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MIDIAccess* prototype;
 		MIDIAccess();
+		[[gnu::always_inline]]
+		static MIDIAccess* _New() {
+			return new MIDIAccess();
+		}
 	};
 	class MIDIConnectionEvent: public Event {
 	public:
@@ -15988,6 +18084,14 @@ namespace [[cheerp::genericjs]] client {
 		static MIDIConnectionEvent* prototype;
 		MIDIConnectionEvent(const String& type);
 		MIDIConnectionEvent(const String& type, MIDIConnectionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MIDIConnectionEvent* _New(const String& type) {
+			return new MIDIConnectionEvent(type);
+		}
+		[[gnu::always_inline]]
+		static MIDIConnectionEvent* _New(const String& type, MIDIConnectionEventInit* eventInitDict) {
+			return new MIDIConnectionEvent(type, eventInitDict);
+		}
 	};
 	class MIDIPortEventMap: public Object {
 	public:
@@ -16031,6 +18135,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MIDIPort* prototype;
 		MIDIPort();
+		[[gnu::always_inline]]
+		static MIDIPort* _New() {
+			return new MIDIPort();
+		}
 	};
 	class MIDIInput: public MIDIPort {
 	public:
@@ -16051,6 +18159,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MIDIInput* prototype;
 		MIDIInput();
+		[[gnu::always_inline]]
+		static MIDIInput* _New() {
+			return new MIDIInput();
+		}
 	};
 	class MIDIInputMap: public Object {
 	public:
@@ -16060,6 +18172,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(MIDIInput*, String*, MIDIInputMap*)>& callbackfn, const _Any& thisArg);
 		static MIDIInputMap* prototype;
 		MIDIInputMap();
+		[[gnu::always_inline]]
+		static MIDIInputMap* _New() {
+			return new MIDIInputMap();
+		}
 	};
 	class MIDIMessageEvent: public Event {
 	public:
@@ -16067,6 +18183,14 @@ namespace [[cheerp::genericjs]] client {
 		static MIDIMessageEvent* prototype;
 		MIDIMessageEvent(const String& type);
 		MIDIMessageEvent(const String& type, MIDIMessageEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MIDIMessageEvent* _New(const String& type) {
+			return new MIDIMessageEvent(type);
+		}
+		[[gnu::always_inline]]
+		static MIDIMessageEvent* _New(const String& type, MIDIMessageEventInit* eventInitDict) {
+			return new MIDIMessageEvent(type, eventInitDict);
+		}
 	};
 	class MIDIOutput: public MIDIPort {
 	public:
@@ -16086,6 +18210,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MIDIOutput* prototype;
 		MIDIOutput();
+		[[gnu::always_inline]]
+		static MIDIOutput* _New() {
+			return new MIDIOutput();
+		}
 	};
 	class MIDIOutputMap: public Object {
 	public:
@@ -16095,6 +18223,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(MIDIOutput*, String*, MIDIOutputMap*)>& callbackfn, const _Any& thisArg);
 		static MIDIOutputMap* prototype;
 		MIDIOutputMap();
+		[[gnu::always_inline]]
+		static MIDIOutputMap* _New() {
+			return new MIDIOutputMap();
+		}
 	};
 	class MathMLElementEventMap: public ElementEventMap, public GlobalEventHandlersEventMap {
 	};
@@ -16114,6 +18246,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MathMLElement* prototype;
 		MathMLElement();
+		[[gnu::always_inline]]
+		static MathMLElement* _New() {
+			return new MathMLElement();
+		}
 	};
 	class MediaCapabilities: public Object {
 	public:
@@ -16121,6 +18257,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<MediaCapabilitiesEncodingInfo*>* encodingInfo(MediaEncodingConfiguration* configuration);
 		static MediaCapabilities* prototype;
 		MediaCapabilities();
+		[[gnu::always_inline]]
+		static MediaCapabilities* _New() {
+			return new MediaCapabilities();
+		}
 	};
 	class MediaDevicesEventMap: public Object {
 	public:
@@ -16154,12 +18294,20 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MediaDevices* prototype;
 		MediaDevices();
+		[[gnu::always_inline]]
+		static MediaDevices* _New() {
+			return new MediaDevices();
+		}
 	};
 	class MediaElementAudioSourceNode: public AudioNode {
 	public:
 		HTMLMediaElement* get_mediaElement();
 		static MediaElementAudioSourceNode* prototype;
 		MediaElementAudioSourceNode(AudioContext* context, MediaElementAudioSourceOptions* options);
+		[[gnu::always_inline]]
+		static MediaElementAudioSourceNode* _New(AudioContext* context, MediaElementAudioSourceOptions* options) {
+			return new MediaElementAudioSourceNode(context, options);
+		}
 	};
 	class MediaEncryptedEvent: public Event {
 	public:
@@ -16168,6 +18316,14 @@ namespace [[cheerp::genericjs]] client {
 		static MediaEncryptedEvent* prototype;
 		MediaEncryptedEvent(const String& type);
 		MediaEncryptedEvent(const String& type, MediaEncryptedEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MediaEncryptedEvent* _New(const String& type) {
+			return new MediaEncryptedEvent(type);
+		}
+		[[gnu::always_inline]]
+		static MediaEncryptedEvent* _New(const String& type, MediaEncryptedEventInit* eventInitDict) {
+			return new MediaEncryptedEvent(type, eventInitDict);
+		}
 	};
 	class MediaError: public Object {
 	public:
@@ -16179,6 +18335,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_MEDIA_ERR_SRC_NOT_SUPPORTED();
 		static MediaError* prototype;
 		MediaError();
+		[[gnu::always_inline]]
+		static MediaError* _New() {
+			return new MediaError();
+		}
 		static double MEDIA_ERR_ABORTED;
 		static double MEDIA_ERR_NETWORK;
 		static double MEDIA_ERR_DECODE;
@@ -16190,6 +18350,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_messageType();
 		static MediaKeyMessageEvent* prototype;
 		MediaKeyMessageEvent(const String& type, MediaKeyMessageEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MediaKeyMessageEvent* _New(const String& type, MediaKeyMessageEventInit* eventInitDict) {
+			return new MediaKeyMessageEvent(type, eventInitDict);
+		}
 	};
 	class MediaKeySessionEventMap: public Object {
 	public:
@@ -16234,6 +18398,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MediaKeySession* prototype;
 		MediaKeySession();
+		[[gnu::always_inline]]
+		static MediaKeySession* _New() {
+			return new MediaKeySession();
+		}
 	};
 	class MediaKeyStatusMap: public Object {
 	public:
@@ -16246,6 +18414,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(String*, _Union<ArrayBuffer*, ArrayBufferView*>*, MediaKeyStatusMap*)>& callbackfn, const _Any& thisArg);
 		static MediaKeyStatusMap* prototype;
 		MediaKeyStatusMap();
+		[[gnu::always_inline]]
+		static MediaKeyStatusMap* _New() {
+			return new MediaKeyStatusMap();
+		}
 	};
 	class MediaKeySystemAccess: public Object {
 	public:
@@ -16254,6 +18426,10 @@ namespace [[cheerp::genericjs]] client {
 		MediaKeySystemConfiguration* getConfiguration();
 		static MediaKeySystemAccess* prototype;
 		MediaKeySystemAccess();
+		[[gnu::always_inline]]
+		static MediaKeySystemAccess* _New() {
+			return new MediaKeySystemAccess();
+		}
 	};
 	class MediaKeys: public Object {
 	public:
@@ -16262,6 +18438,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<bool>* setServerCertificate(const _Union<ArrayBuffer*, ArrayBufferView*>& serverCertificate);
 		static MediaKeys* prototype;
 		MediaKeys();
+		[[gnu::always_inline]]
+		static MediaKeys* _New() {
+			return new MediaKeys();
+		}
 	};
 	class MediaList: public Object {
 	public:
@@ -16280,6 +18460,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static MediaList* prototype;
 		MediaList();
+		[[gnu::always_inline]]
+		static MediaList* _New() {
+			return new MediaList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -16296,6 +18480,14 @@ namespace [[cheerp::genericjs]] client {
 		static MediaMetadata* prototype;
 		MediaMetadata();
 		MediaMetadata(MediaMetadataInit* init);
+		[[gnu::always_inline]]
+		static MediaMetadata* _New() {
+			return new MediaMetadata();
+		}
+		[[gnu::always_inline]]
+		static MediaMetadata* _New(MediaMetadataInit* init) {
+			return new MediaMetadata(init);
+		}
 	};
 	class MediaQueryListEventMap: public Object {
 	public:
@@ -16329,6 +18521,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MediaQueryList* prototype;
 		MediaQueryList();
+		[[gnu::always_inline]]
+		static MediaQueryList* _New() {
+			return new MediaQueryList();
+		}
 	};
 	class MediaQueryListEvent: public Event {
 	public:
@@ -16337,6 +18533,14 @@ namespace [[cheerp::genericjs]] client {
 		static MediaQueryListEvent* prototype;
 		MediaQueryListEvent(const String& type);
 		MediaQueryListEvent(const String& type, MediaQueryListEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MediaQueryListEvent* _New(const String& type) {
+			return new MediaQueryListEvent(type);
+		}
+		[[gnu::always_inline]]
+		static MediaQueryListEvent* _New(const String& type, MediaQueryListEventInit* eventInitDict) {
+			return new MediaQueryListEvent(type, eventInitDict);
+		}
 	};
 	class MediaRecorderEventMap: public Object {
 	public:
@@ -16411,6 +18615,14 @@ namespace [[cheerp::genericjs]] client {
 		static MediaRecorder* prototype;
 		MediaRecorder(MediaStream* stream);
 		MediaRecorder(MediaStream* stream, MediaRecorderOptions* options);
+		[[gnu::always_inline]]
+		static MediaRecorder* _New(MediaStream* stream) {
+			return new MediaRecorder(stream);
+		}
+		[[gnu::always_inline]]
+		static MediaRecorder* _New(MediaStream* stream, MediaRecorderOptions* options) {
+			return new MediaRecorder(stream, options);
+		}
 		static bool isTypeSupported(const String& type);
 	};
 	class MediaSession: public Object {
@@ -16425,6 +18637,10 @@ namespace [[cheerp::genericjs]] client {
 		void setPositionState(MediaPositionState* state);
 		static MediaSession* prototype;
 		MediaSession();
+		[[gnu::always_inline]]
+		static MediaSession* _New() {
+			return new MediaSession();
+		}
 	};
 	class MediaSourceEventMap: public Object {
 	public:
@@ -16479,6 +18695,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MediaSource* prototype;
 		MediaSource();
+		[[gnu::always_inline]]
+		static MediaSource* _New() {
+			return new MediaSource();
+		}
 		static bool isTypeSupported(const String& type);
 	};
 	class MediaStreamEventMap: public Object {
@@ -16525,6 +18745,18 @@ namespace [[cheerp::genericjs]] client {
 		MediaStream();
 		MediaStream(MediaStream* stream);
 		MediaStream(TArray<MediaStreamTrack*>* tracks);
+		[[gnu::always_inline]]
+		static MediaStream* _New() {
+			return new MediaStream();
+		}
+		[[gnu::always_inline]]
+		static MediaStream* _New(MediaStream* stream) {
+			return new MediaStream(stream);
+		}
+		[[gnu::always_inline]]
+		static MediaStream* _New(TArray<MediaStreamTrack*>* tracks) {
+			return new MediaStream(tracks);
+		}
 	};
 	class MediaStreamAudioDestinationNode: public AudioNode {
 	public:
@@ -16532,12 +18764,24 @@ namespace [[cheerp::genericjs]] client {
 		static MediaStreamAudioDestinationNode* prototype;
 		MediaStreamAudioDestinationNode(AudioContext* context);
 		MediaStreamAudioDestinationNode(AudioContext* context, AudioNodeOptions* options);
+		[[gnu::always_inline]]
+		static MediaStreamAudioDestinationNode* _New(AudioContext* context) {
+			return new MediaStreamAudioDestinationNode(context);
+		}
+		[[gnu::always_inline]]
+		static MediaStreamAudioDestinationNode* _New(AudioContext* context, AudioNodeOptions* options) {
+			return new MediaStreamAudioDestinationNode(context, options);
+		}
 	};
 	class MediaStreamAudioSourceNode: public AudioNode {
 	public:
 		MediaStream* get_mediaStream();
 		static MediaStreamAudioSourceNode* prototype;
 		MediaStreamAudioSourceNode(AudioContext* context, MediaStreamAudioSourceOptions* options);
+		[[gnu::always_inline]]
+		static MediaStreamAudioSourceNode* _New(AudioContext* context, MediaStreamAudioSourceOptions* options) {
+			return new MediaStreamAudioSourceNode(context, options);
+		}
 	};
 	class MediaStreamTrackEventMap: public Object {
 	public:
@@ -16559,6 +18803,10 @@ namespace [[cheerp::genericjs]] client {
 		MediaStreamTrack* get_track();
 		static MediaStreamTrackEvent* prototype;
 		MediaStreamTrackEvent(const String& type, MediaStreamTrackEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static MediaStreamTrackEvent* _New(const String& type, MediaStreamTrackEventInit* eventInitDict) {
+			return new MediaStreamTrackEvent(type, eventInitDict);
+		}
 	};
 	class MessageChannel: public Object {
 	public:
@@ -16566,8 +18814,12 @@ namespace [[cheerp::genericjs]] client {
 		MessagePort* get_port2();
 		static MessageChannel* prototype;
 		MessageChannel();
+		[[gnu::always_inline]]
+		static MessageChannel* _New() {
+			return new MessageChannel();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class MessageEvent: public Event {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -16588,6 +18840,15 @@ namespace [[cheerp::genericjs]] client {
 		MessageEvent(const String& type);
 		template<class _T1>
 		MessageEvent(const String& type, MessageEventInit<_T1>* eventInitDict);
+		[[gnu::always_inline]]
+		static MessageEvent* _New(const String& type) {
+			return new MessageEvent(type);
+		}
+		template<class _T1>
+		[[gnu::always_inline]]
+		static MessageEvent* _New(const String& type, MessageEventInit<_T1>* eventInitDict) {
+			return new MessageEvent(type, eventInitDict);
+		}
 	};
 	class MessagePortEventMap: public Object {
 	public:
@@ -16627,6 +18888,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static MessagePort* prototype;
 		MessagePort();
+		[[gnu::always_inline]]
+		static MessagePort* _New() {
+			return new MessagePort();
+		}
 	};
 	class Plugin;
 	class MimeType: public Object {
@@ -16637,6 +18902,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_type();
 		static MimeType* prototype;
 		MimeType();
+		[[gnu::always_inline]]
+		static MimeType* _New() {
+			return new MimeType();
+		}
 	};
 	class MimeTypeArray: public Object {
 	public:
@@ -16651,6 +18920,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static MimeTypeArray* prototype;
 		MimeTypeArray();
+		[[gnu::always_inline]]
+		static MimeTypeArray* _New() {
+			return new MimeTypeArray();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -16674,6 +18947,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_REMOVAL();
 		static MutationEvent* prototype;
 		MutationEvent();
+		[[gnu::always_inline]]
+		static MutationEvent* _New() {
+			return new MutationEvent();
+		}
 		static double MODIFICATION;
 		static double ADDITION;
 		static double REMOVAL;
@@ -16688,6 +18965,14 @@ namespace [[cheerp::genericjs]] client {
 		static MutationObserver* prototype;
 		MutationObserver(EventListener* callback);
 		MutationObserver(const _Function<void(TArray<MutationRecord*>*, MutationObserver*)>& callback);
+		[[gnu::always_inline]]
+		static MutationObserver* _New(EventListener* callback) {
+			return new MutationObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static MutationObserver* _New(const _Function<void(TArray<MutationRecord*>*, MutationObserver*)>& callback) {
+			return new MutationObserver(callback);
+		}
 	};
 	class MutationRecord: public Object {
 	public:
@@ -16702,6 +18987,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_type();
 		static MutationRecord* prototype;
 		MutationRecord();
+		[[gnu::always_inline]]
+		static MutationRecord* _New() {
+			return new MutationRecord();
+		}
 	};
 	class NamedNodeMap: public Object {
 	public:
@@ -16721,6 +19010,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static NamedNodeMap* prototype;
 		NamedNodeMap();
+		[[gnu::always_inline]]
+		static NamedNodeMap* _New() {
+			return new NamedNodeMap();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -16732,6 +19025,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<_Any*>* setHeaderValue(const String& value);
 		static NavigationPreloadManager* prototype;
 		NavigationPreloadManager();
+		[[gnu::always_inline]]
+		static NavigationPreloadManager* _New() {
+			return new NavigationPreloadManager();
+		}
 	};
 	class Permissions;
 	class ServiceWorkerContainer;
@@ -16829,6 +19126,10 @@ namespace [[cheerp::genericjs]] client {
 		bool vibrate(const _Union<double, TArray<double>*>& pattern);
 		static Navigator* prototype;
 		Navigator();
+		[[gnu::always_inline]]
+		static Navigator* _New() {
+			return new Navigator();
+		}
 	};
 	class NodeIterator: public Object {
 	public:
@@ -16842,6 +19143,10 @@ namespace [[cheerp::genericjs]] client {
 		Node* previousNode();
 		static NodeIterator* prototype;
 		NodeIterator();
+		[[gnu::always_inline]]
+		static NodeIterator* _New() {
+			return new NodeIterator();
+		}
 	};
 	class NodeList: public Object {
 	public:
@@ -16859,10 +19164,14 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static NodeList* prototype;
 		NodeList();
+		[[gnu::always_inline]]
+		static NodeList* _New() {
+			return new NodeList();
+		}
 	public:
 		using client::Object::operator[];
 	};
-	template<class _T0>
+	template<class _T0 = Node*>
 	class NodeListOf: public NodeList {
 		static_assert(cheerp::CanCast<_T0, Node*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -16939,6 +19248,14 @@ namespace [[cheerp::genericjs]] client {
 		static Notification* prototype;
 		Notification(const String& title);
 		Notification(const String& title, NotificationOptions* options);
+		[[gnu::always_inline]]
+		static Notification* _New(const String& title) {
+			return new Notification(title);
+		}
+		[[gnu::always_inline]]
+		static Notification* _New(const String& title, NotificationOptions* options) {
+			return new Notification(title, options);
+		}
 		static String* permission;
 	};
 	class OES_draw_buffers_indexed: public Object {
@@ -16992,6 +19309,10 @@ namespace [[cheerp::genericjs]] client {
 		AudioBuffer* get_renderedBuffer();
 		static OfflineAudioCompletionEvent* prototype;
 		OfflineAudioCompletionEvent(const String& type, OfflineAudioCompletionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static OfflineAudioCompletionEvent* _New(const String& type, OfflineAudioCompletionEventInit* eventInitDict) {
+			return new OfflineAudioCompletionEvent(type, eventInitDict);
+		}
 	};
 	class OfflineAudioContextEventMap: public BaseAudioContextEventMap {
 	public:
@@ -17024,6 +19345,14 @@ namespace [[cheerp::genericjs]] client {
 		static OfflineAudioContext* prototype;
 		OfflineAudioContext(OfflineAudioContextOptions* contextOptions);
 		OfflineAudioContext(double numberOfChannels, double length, double sampleRate);
+		[[gnu::always_inline]]
+		static OfflineAudioContext* _New(OfflineAudioContextOptions* contextOptions) {
+			return new OfflineAudioContext(contextOptions);
+		}
+		[[gnu::always_inline]]
+		static OfflineAudioContext* _New(double numberOfChannels, double length, double sampleRate) {
+			return new OfflineAudioContext(numberOfChannels, length, sampleRate);
+		}
 	};
 	class OffscreenCanvasEventMap: public Object {
 	public:
@@ -17068,6 +19397,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static OffscreenCanvas* prototype;
 		OffscreenCanvas(double width, double height);
+		[[gnu::always_inline]]
+		static OffscreenCanvas* _New(double width, double height) {
+			return new OffscreenCanvas(width, height);
+		}
 	};
 	class OffscreenCanvasRenderingContext2D: public CanvasCompositing, public CanvasDrawImage, public CanvasDrawPath, public CanvasFillStrokeStyles, public CanvasFilters, public CanvasImageData, public CanvasImageSmoothing, public CanvasPath, public CanvasPathDrawingStyles, public CanvasRect, public CanvasShadowStyles, public CanvasState, public CanvasText, public CanvasTextDrawingStyles, public CanvasTransform {
 	public:
@@ -17075,6 +19408,10 @@ namespace [[cheerp::genericjs]] client {
 		void commit();
 		static OffscreenCanvasRenderingContext2D* prototype;
 		OffscreenCanvasRenderingContext2D();
+		[[gnu::always_inline]]
+		static OffscreenCanvasRenderingContext2D* _New() {
+			return new OffscreenCanvasRenderingContext2D();
+		}
 	};
 	class OscillatorNode: public AudioScheduledSourceNode {
 	public:
@@ -17098,6 +19435,14 @@ namespace [[cheerp::genericjs]] client {
 		static OscillatorNode* prototype;
 		OscillatorNode(BaseAudioContext* context);
 		OscillatorNode(BaseAudioContext* context, OscillatorOptions* options);
+		[[gnu::always_inline]]
+		static OscillatorNode* _New(BaseAudioContext* context) {
+			return new OscillatorNode(context);
+		}
+		[[gnu::always_inline]]
+		static OscillatorNode* _New(BaseAudioContext* context, OscillatorOptions* options) {
+			return new OscillatorNode(context, options);
+		}
 	};
 	class OverconstrainedError: public Error {
 	public:
@@ -17105,6 +19450,14 @@ namespace [[cheerp::genericjs]] client {
 		static OverconstrainedError* prototype;
 		OverconstrainedError(const String& constraint);
 		OverconstrainedError(const String& constraint, const String& message);
+		[[gnu::always_inline]]
+		static OverconstrainedError* _New(const String& constraint) {
+			return new OverconstrainedError(constraint);
+		}
+		[[gnu::always_inline]]
+		static OverconstrainedError* _New(const String& constraint, const String& message) {
+			return new OverconstrainedError(constraint, message);
+		}
 	};
 	class PageTransitionEvent: public Event {
 	public:
@@ -17112,6 +19465,14 @@ namespace [[cheerp::genericjs]] client {
 		static PageTransitionEvent* prototype;
 		PageTransitionEvent(const String& type);
 		PageTransitionEvent(const String& type, PageTransitionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PageTransitionEvent* _New(const String& type) {
+			return new PageTransitionEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PageTransitionEvent* _New(const String& type, PageTransitionEventInit* eventInitDict) {
+			return new PageTransitionEvent(type, eventInitDict);
+		}
 	};
 	class PannerNode: public AudioNode {
 	public:
@@ -17142,6 +19503,14 @@ namespace [[cheerp::genericjs]] client {
 		static PannerNode* prototype;
 		PannerNode(BaseAudioContext* context);
 		PannerNode(BaseAudioContext* context, PannerOptions* options);
+		[[gnu::always_inline]]
+		static PannerNode* _New(BaseAudioContext* context) {
+			return new PannerNode(context);
+		}
+		[[gnu::always_inline]]
+		static PannerNode* _New(BaseAudioContext* context, PannerOptions* options) {
+			return new PannerNode(context, options);
+		}
 	};
 	class Path2D: public CanvasPath {
 	public:
@@ -17151,6 +19520,18 @@ namespace [[cheerp::genericjs]] client {
 		Path2D();
 		Path2D(const String& path);
 		Path2D(Path2D* path);
+		[[gnu::always_inline]]
+		static Path2D* _New() {
+			return new Path2D();
+		}
+		[[gnu::always_inline]]
+		static Path2D* _New(const String& path) {
+			return new Path2D(path);
+		}
+		[[gnu::always_inline]]
+		static Path2D* _New(Path2D* path) {
+			return new Path2D(path);
+		}
 	};
 	class PaymentRequestUpdateEvent: public Event {
 	public:
@@ -17158,6 +19539,14 @@ namespace [[cheerp::genericjs]] client {
 		static PaymentRequestUpdateEvent* prototype;
 		PaymentRequestUpdateEvent(const String& type);
 		PaymentRequestUpdateEvent(const String& type, PaymentRequestUpdateEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PaymentRequestUpdateEvent* _New(const String& type) {
+			return new PaymentRequestUpdateEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PaymentRequestUpdateEvent* _New(const String& type, PaymentRequestUpdateEventInit* eventInitDict) {
+			return new PaymentRequestUpdateEvent(type, eventInitDict);
+		}
 	};
 	class PaymentMethodChangeEvent: public PaymentRequestUpdateEvent {
 	public:
@@ -17166,6 +19555,14 @@ namespace [[cheerp::genericjs]] client {
 		static PaymentMethodChangeEvent* prototype;
 		PaymentMethodChangeEvent(const String& type);
 		PaymentMethodChangeEvent(const String& type, PaymentMethodChangeEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PaymentMethodChangeEvent* _New(const String& type) {
+			return new PaymentMethodChangeEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PaymentMethodChangeEvent* _New(const String& type, PaymentMethodChangeEventInit* eventInitDict) {
+			return new PaymentMethodChangeEvent(type, eventInitDict);
+		}
 	};
 	class PaymentRequestEventMap: public Object {
 	public:
@@ -17199,6 +19596,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static PaymentRequest* prototype;
 		PaymentRequest(TArray<PaymentMethodData*>* methodData, PaymentDetailsInit* details);
+		[[gnu::always_inline]]
+		static PaymentRequest* _New(TArray<PaymentMethodData*>* methodData, PaymentDetailsInit* details) {
+			return new PaymentRequest(methodData, details);
+		}
 	};
 	class PaymentResponse: public EventTarget {
 	public:
@@ -17212,6 +19613,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PaymentResponse* prototype;
 		PaymentResponse();
+		[[gnu::always_inline]]
+		static PaymentResponse* _New() {
+			return new PaymentResponse();
+		}
 	};
 	class PerformanceEventMap: public Object {
 	public:
@@ -17267,6 +19672,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static Performance* prototype;
 		Performance();
+		[[gnu::always_inline]]
+		static Performance* _New() {
+			return new Performance();
+		}
 	};
 	class PerformanceEntry: public Object {
 	public:
@@ -17277,6 +19686,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceEntry* prototype;
 		PerformanceEntry();
+		[[gnu::always_inline]]
+		static PerformanceEntry* _New() {
+			return new PerformanceEntry();
+		}
 	};
 	class PerformanceEventTiming: public PerformanceEntry {
 	public:
@@ -17287,6 +19700,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceEventTiming* prototype;
 		PerformanceEventTiming();
+		[[gnu::always_inline]]
+		static PerformanceEventTiming* _New() {
+			return new PerformanceEventTiming();
+		}
 	};
 	class PerformanceMark: public PerformanceEntry {
 	public:
@@ -17294,12 +19711,24 @@ namespace [[cheerp::genericjs]] client {
 		static PerformanceMark* prototype;
 		PerformanceMark(const String& markName);
 		PerformanceMark(const String& markName, PerformanceMarkOptions* markOptions);
+		[[gnu::always_inline]]
+		static PerformanceMark* _New(const String& markName) {
+			return new PerformanceMark(markName);
+		}
+		[[gnu::always_inline]]
+		static PerformanceMark* _New(const String& markName, PerformanceMarkOptions* markOptions) {
+			return new PerformanceMark(markName, markOptions);
+		}
 	};
 	class PerformanceMeasure: public PerformanceEntry {
 	public:
 		Object* get_detail();
 		static PerformanceMeasure* prototype;
 		PerformanceMeasure();
+		[[gnu::always_inline]]
+		static PerformanceMeasure* _New() {
+			return new PerformanceMeasure();
+		}
 	};
 	class PerformanceNavigation: public Object {
 	public:
@@ -17312,6 +19741,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_TYPE_RESERVED();
 		static PerformanceNavigation* prototype;
 		PerformanceNavigation();
+		[[gnu::always_inline]]
+		static PerformanceNavigation* _New() {
+			return new PerformanceNavigation();
+		}
 		static double TYPE_NAVIGATE;
 		static double TYPE_RELOAD;
 		static double TYPE_BACK_FORWARD;
@@ -17341,6 +19774,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceResourceTiming* prototype;
 		PerformanceResourceTiming();
+		[[gnu::always_inline]]
+		static PerformanceResourceTiming* _New() {
+			return new PerformanceResourceTiming();
+		}
 	};
 	class PerformanceNavigationTiming: public PerformanceResourceTiming {
 	public:
@@ -17357,6 +19794,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceNavigationTiming* prototype;
 		PerformanceNavigationTiming();
+		[[gnu::always_inline]]
+		static PerformanceNavigationTiming* _New() {
+			return new PerformanceNavigationTiming();
+		}
 	};
 	class PerformanceObserverEntryList;
 	class PerformanceObserver: public Object {
@@ -17368,6 +19809,14 @@ namespace [[cheerp::genericjs]] client {
 		static PerformanceObserver* prototype;
 		PerformanceObserver(EventListener* callback);
 		PerformanceObserver(const _Function<void(PerformanceObserverEntryList*, PerformanceObserver*)>& callback);
+		[[gnu::always_inline]]
+		static PerformanceObserver* _New(EventListener* callback) {
+			return new PerformanceObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static PerformanceObserver* _New(const _Function<void(PerformanceObserverEntryList*, PerformanceObserver*)>& callback) {
+			return new PerformanceObserver(callback);
+		}
 		static ReadonlyArray<String*>* supportedEntryTypes;
 	};
 	class PerformanceObserverEntryList: public Object {
@@ -17378,11 +19827,19 @@ namespace [[cheerp::genericjs]] client {
 		TArray<PerformanceEntry*>* getEntriesByType(const String& type);
 		static PerformanceObserverEntryList* prototype;
 		PerformanceObserverEntryList();
+		[[gnu::always_inline]]
+		static PerformanceObserverEntryList* _New() {
+			return new PerformanceObserverEntryList();
+		}
 	};
 	class PerformancePaintTiming: public PerformanceEntry {
 	public:
 		static PerformancePaintTiming* prototype;
 		PerformancePaintTiming();
+		[[gnu::always_inline]]
+		static PerformancePaintTiming* _New() {
+			return new PerformancePaintTiming();
+		}
 	};
 	class PerformanceServerTiming: public Object {
 	public:
@@ -17392,6 +19849,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceServerTiming* prototype;
 		PerformanceServerTiming();
+		[[gnu::always_inline]]
+		static PerformanceServerTiming* _New() {
+			return new PerformanceServerTiming();
+		}
 	};
 	class PerformanceTiming: public Object {
 	public:
@@ -17419,12 +19880,24 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static PerformanceTiming* prototype;
 		PerformanceTiming();
+		[[gnu::always_inline]]
+		static PerformanceTiming* _New() {
+			return new PerformanceTiming();
+		}
 	};
 	class PeriodicWave: public Object {
 	public:
 		static PeriodicWave* prototype;
 		PeriodicWave(BaseAudioContext* context);
 		PeriodicWave(BaseAudioContext* context, PeriodicWaveOptions* options);
+		[[gnu::always_inline]]
+		static PeriodicWave* _New(BaseAudioContext* context) {
+			return new PeriodicWave(context);
+		}
+		[[gnu::always_inline]]
+		static PeriodicWave* _New(BaseAudioContext* context, PeriodicWaveOptions* options) {
+			return new PeriodicWave(context, options);
+		}
 	};
 	class PermissionStatusEventMap: public Object {
 	public:
@@ -17454,18 +19927,30 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static PermissionStatus* prototype;
 		PermissionStatus();
+		[[gnu::always_inline]]
+		static PermissionStatus* _New() {
+			return new PermissionStatus();
+		}
 	};
 	class Permissions: public Object {
 	public:
 		Promise<PermissionStatus*>* query(PermissionDescriptor* permissionDesc);
 		static Permissions* prototype;
 		Permissions();
+		[[gnu::always_inline]]
+		static Permissions* _New() {
+			return new Permissions();
+		}
 	};
 	class PictureInPictureEvent: public Event {
 	public:
 		PictureInPictureWindow* get_pictureInPictureWindow();
 		static PictureInPictureEvent* prototype;
 		PictureInPictureEvent(const String& type, PictureInPictureEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PictureInPictureEvent* _New(const String& type, PictureInPictureEventInit* eventInitDict) {
+			return new PictureInPictureEvent(type, eventInitDict);
+		}
 	};
 	class PictureInPictureWindowEventMap: public Object {
 	public:
@@ -17495,6 +19980,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static PictureInPictureWindow* prototype;
 		PictureInPictureWindow();
+		[[gnu::always_inline]]
+		static PictureInPictureWindow* _New() {
+			return new PictureInPictureWindow();
+		}
 	};
 	class Plugin: public Object {
 	public:
@@ -17512,6 +20001,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static Plugin* prototype;
 		Plugin();
+		[[gnu::always_inline]]
+		static Plugin* _New() {
+			return new Plugin();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -17529,6 +20022,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static PluginArray* prototype;
 		PluginArray();
+		[[gnu::always_inline]]
+		static PluginArray* _New() {
+			return new PluginArray();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -17549,6 +20046,14 @@ namespace [[cheerp::genericjs]] client {
 		static PointerEvent* prototype;
 		PointerEvent(const String& type);
 		PointerEvent(const String& type, PointerEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PointerEvent* _New(const String& type) {
+			return new PointerEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PointerEvent* _New(const String& type, PointerEventInit* eventInitDict) {
+			return new PointerEvent(type, eventInitDict);
+		}
 	};
 	class PopStateEvent: public Event {
 	public:
@@ -17556,6 +20061,14 @@ namespace [[cheerp::genericjs]] client {
 		static PopStateEvent* prototype;
 		PopStateEvent(const String& type);
 		PopStateEvent(const String& type, PopStateEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PopStateEvent* _New(const String& type) {
+			return new PopStateEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PopStateEvent* _New(const String& type, PopStateEventInit* eventInitDict) {
+			return new PopStateEvent(type, eventInitDict);
+		}
 	};
 	class ProcessingInstruction: public CharacterData, public LinkStyle {
 	public:
@@ -17563,8 +20076,12 @@ namespace [[cheerp::genericjs]] client {
 		String* get_target();
 		static ProcessingInstruction* prototype;
 		ProcessingInstruction();
+		[[gnu::always_inline]]
+		static ProcessingInstruction* _New() {
+			return new ProcessingInstruction();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = EventTarget*>
 	class ProgressEvent: public Event {
 		static_assert(cheerp::CanCast<_T0, EventTarget*>);
 		static_assert(cheerp::CheckTemplate<_T0>);
@@ -17576,6 +20093,14 @@ namespace [[cheerp::genericjs]] client {
 		static ProgressEvent<EventTarget*>* prototype;
 		ProgressEvent(const String& type);
 		ProgressEvent(const String& type, ProgressEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ProgressEvent* _New(const String& type) {
+			return new ProgressEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ProgressEvent* _New(const String& type, ProgressEventInit* eventInitDict) {
+			return new ProgressEvent(type, eventInitDict);
+		}
 	};
 	class PromiseRejectionEvent: public Event {
 	public:
@@ -17583,6 +20108,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* get_reason();
 		static PromiseRejectionEvent* prototype;
 		PromiseRejectionEvent(const String& type, PromiseRejectionEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PromiseRejectionEvent* _New(const String& type, PromiseRejectionEventInit* eventInitDict) {
+			return new PromiseRejectionEvent(type, eventInitDict);
+		}
 	};
 	class PublicKeyCredential: public Credential {
 	public:
@@ -17592,6 +20121,10 @@ namespace [[cheerp::genericjs]] client {
 		AuthenticationExtensionsClientOutputs* getClientExtensionResults();
 		static PublicKeyCredential* prototype;
 		PublicKeyCredential();
+		[[gnu::always_inline]]
+		static PublicKeyCredential* _New() {
+			return new PublicKeyCredential();
+		}
 		static Promise<bool>* isConditionalMediationAvailable();
 		static Promise<bool>* isUserVerifyingPlatformAuthenticatorAvailable();
 	};
@@ -17605,6 +20138,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<PushSubscription*>* subscribe(PushSubscriptionOptionsInit* options);
 		static PushManager* prototype;
 		PushManager();
+		[[gnu::always_inline]]
+		static PushManager* _New() {
+			return new PushManager();
+		}
 		static ReadonlyArray<String*>* supportedContentEncodings;
 	};
 	class PushSubscriptionOptions;
@@ -17618,6 +20155,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<bool>* unsubscribe();
 		static PushSubscription* prototype;
 		PushSubscription();
+		[[gnu::always_inline]]
+		static PushSubscription* _New() {
+			return new PushSubscription();
+		}
 	};
 	class PushSubscriptionOptions: public Object {
 	public:
@@ -17625,6 +20166,10 @@ namespace [[cheerp::genericjs]] client {
 		bool get_userVisibleOnly();
 		static PushSubscriptionOptions* prototype;
 		PushSubscriptionOptions();
+		[[gnu::always_inline]]
+		static PushSubscriptionOptions* _New() {
+			return new PushSubscriptionOptions();
+		}
 	};
 	class RTCCertificate: public Object {
 	public:
@@ -17632,6 +20177,10 @@ namespace [[cheerp::genericjs]] client {
 		TArray<RTCDtlsFingerprint*>* getFingerprints();
 		static RTCCertificate* prototype;
 		RTCCertificate();
+		[[gnu::always_inline]]
+		static RTCCertificate* _New() {
+			return new RTCCertificate();
+		}
 	};
 	class RTCDTMFSenderEventMap: public Object {
 	public:
@@ -17664,6 +20213,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RTCDTMFSender* prototype;
 		RTCDTMFSender();
+		[[gnu::always_inline]]
+		static RTCDTMFSender* _New() {
+			return new RTCDTMFSender();
+		}
 	};
 	class RTCDTMFToneChangeEvent: public Event {
 	public:
@@ -17671,6 +20224,14 @@ namespace [[cheerp::genericjs]] client {
 		static RTCDTMFToneChangeEvent* prototype;
 		RTCDTMFToneChangeEvent(const String& type);
 		RTCDTMFToneChangeEvent(const String& type, RTCDTMFToneChangeEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCDTMFToneChangeEvent* _New(const String& type) {
+			return new RTCDTMFToneChangeEvent(type);
+		}
+		[[gnu::always_inline]]
+		static RTCDTMFToneChangeEvent* _New(const String& type, RTCDTMFToneChangeEventInit* eventInitDict) {
+			return new RTCDTMFToneChangeEvent(type, eventInitDict);
+		}
 	};
 	class RTCDataChannelEventMap: public Object {
 	public:
@@ -17751,12 +20312,20 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RTCDataChannel* prototype;
 		RTCDataChannel();
+		[[gnu::always_inline]]
+		static RTCDataChannel* _New() {
+			return new RTCDataChannel();
+		}
 	};
 	class RTCDataChannelEvent: public Event {
 	public:
 		RTCDataChannel* get_channel();
 		static RTCDataChannelEvent* prototype;
 		RTCDataChannelEvent(const String& type, RTCDataChannelEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCDataChannelEvent* _New(const String& type, RTCDataChannelEventInit* eventInitDict) {
+			return new RTCDataChannelEvent(type, eventInitDict);
+		}
 	};
 	class RTCDtlsTransportEventMap: public Object {
 	public:
@@ -17795,6 +20364,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RTCDtlsTransport* prototype;
 		RTCDtlsTransport();
+		[[gnu::always_inline]]
+		static RTCDtlsTransport* _New() {
+			return new RTCDtlsTransport();
+		}
 	};
 	class RTCEncodedAudioFrame: public Object {
 	public:
@@ -17804,6 +20377,10 @@ namespace [[cheerp::genericjs]] client {
 		RTCEncodedAudioFrameMetadata* getMetadata();
 		static RTCEncodedAudioFrame* prototype;
 		RTCEncodedAudioFrame();
+		[[gnu::always_inline]]
+		static RTCEncodedAudioFrame* _New() {
+			return new RTCEncodedAudioFrame();
+		}
 	};
 	class RTCEncodedVideoFrame: public Object {
 	public:
@@ -17814,6 +20391,10 @@ namespace [[cheerp::genericjs]] client {
 		RTCEncodedVideoFrameMetadata* getMetadata();
 		static RTCEncodedVideoFrame* prototype;
 		RTCEncodedVideoFrame();
+		[[gnu::always_inline]]
+		static RTCEncodedVideoFrame* _New() {
+			return new RTCEncodedVideoFrame();
+		}
 	};
 	class RTCError: public DOMException {
 	public:
@@ -17825,12 +20406,24 @@ namespace [[cheerp::genericjs]] client {
 		static RTCError* prototype;
 		RTCError(RTCErrorInit* init);
 		RTCError(RTCErrorInit* init, const String& message);
+		[[gnu::always_inline]]
+		static RTCError* _New(RTCErrorInit* init) {
+			return new RTCError(init);
+		}
+		[[gnu::always_inline]]
+		static RTCError* _New(RTCErrorInit* init, const String& message) {
+			return new RTCError(init, message);
+		}
 	};
 	class RTCErrorEvent: public Event {
 	public:
 		RTCError* get_error();
 		static RTCErrorEvent* prototype;
 		RTCErrorEvent(const String& type, RTCErrorEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCErrorEvent* _New(const String& type, RTCErrorEventInit* eventInitDict) {
+			return new RTCErrorEvent(type, eventInitDict);
+		}
 	};
 	class RTCIceCandidate: public Object {
 	public:
@@ -17852,6 +20445,14 @@ namespace [[cheerp::genericjs]] client {
 		static RTCIceCandidate* prototype;
 		RTCIceCandidate();
 		RTCIceCandidate(RTCIceCandidateInit* candidateInitDict);
+		[[gnu::always_inline]]
+		static RTCIceCandidate* _New() {
+			return new RTCIceCandidate();
+		}
+		[[gnu::always_inline]]
+		static RTCIceCandidate* _New(RTCIceCandidateInit* candidateInitDict) {
+			return new RTCIceCandidate(candidateInitDict);
+		}
 	};
 	class RTCIceTransportEventMap: public Object {
 	public:
@@ -17896,6 +20497,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RTCIceTransport* prototype;
 		RTCIceTransport();
+		[[gnu::always_inline]]
+		static RTCIceTransport* _New() {
+			return new RTCIceTransport();
+		}
 	};
 	class RTCPeerConnectionEventMap: public Object {
 	public:
@@ -18056,6 +20661,14 @@ namespace [[cheerp::genericjs]] client {
 		static RTCPeerConnection* prototype;
 		RTCPeerConnection();
 		RTCPeerConnection(RTCConfiguration* configuration);
+		[[gnu::always_inline]]
+		static RTCPeerConnection* _New() {
+			return new RTCPeerConnection();
+		}
+		[[gnu::always_inline]]
+		static RTCPeerConnection* _New(RTCConfiguration* configuration) {
+			return new RTCPeerConnection(configuration);
+		}
 		static Promise<RTCCertificate*>* generateCertificate(const String& keygenAlgorithm);
 		static Promise<RTCCertificate*>* generateCertificate(Algorithm* keygenAlgorithm);
 	};
@@ -18068,6 +20681,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_url();
 		static RTCPeerConnectionIceErrorEvent* prototype;
 		RTCPeerConnectionIceErrorEvent(const String& type, RTCPeerConnectionIceErrorEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCPeerConnectionIceErrorEvent* _New(const String& type, RTCPeerConnectionIceErrorEventInit* eventInitDict) {
+			return new RTCPeerConnectionIceErrorEvent(type, eventInitDict);
+		}
 	};
 	class RTCPeerConnectionIceEvent: public Event {
 	public:
@@ -18075,6 +20692,14 @@ namespace [[cheerp::genericjs]] client {
 		static RTCPeerConnectionIceEvent* prototype;
 		RTCPeerConnectionIceEvent(const String& type);
 		RTCPeerConnectionIceEvent(const String& type, RTCPeerConnectionIceEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCPeerConnectionIceEvent* _New(const String& type) {
+			return new RTCPeerConnectionIceEvent(type);
+		}
+		[[gnu::always_inline]]
+		static RTCPeerConnectionIceEvent* _New(const String& type, RTCPeerConnectionIceEventInit* eventInitDict) {
+			return new RTCPeerConnectionIceEvent(type, eventInitDict);
+		}
 	};
 	class RTCRtpReceiver: public Object {
 	public:
@@ -18086,6 +20711,10 @@ namespace [[cheerp::genericjs]] client {
 		TArray<RTCRtpSynchronizationSource*>* getSynchronizationSources();
 		static RTCRtpReceiver* prototype;
 		RTCRtpReceiver();
+		[[gnu::always_inline]]
+		static RTCRtpReceiver* _New() {
+			return new RTCRtpReceiver();
+		}
 		static RTCRtpCapabilities* getCapabilities(const String& kind);
 	};
 	class RTCRtpSender: public Object {
@@ -18109,6 +20738,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static RTCRtpSender* prototype;
 		RTCRtpSender();
+		[[gnu::always_inline]]
+		static RTCRtpSender* _New() {
+			return new RTCRtpSender();
+		}
 		static RTCRtpCapabilities* getCapabilities(const String& kind);
 	};
 	class RTCRtpTransceiver: public Object {
@@ -18123,6 +20756,10 @@ namespace [[cheerp::genericjs]] client {
 		void stop();
 		static RTCRtpTransceiver* prototype;
 		RTCRtpTransceiver();
+		[[gnu::always_inline]]
+		static RTCRtpTransceiver* _New() {
+			return new RTCRtpTransceiver();
+		}
 	};
 	class RTCSctpTransportEventMap: public Object {
 	public:
@@ -18154,6 +20791,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RTCSctpTransport* prototype;
 		RTCSctpTransport();
+		[[gnu::always_inline]]
+		static RTCSctpTransport* _New() {
+			return new RTCSctpTransport();
+		}
 	};
 	class RTCSessionDescription: public Object {
 	public:
@@ -18162,6 +20803,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static RTCSessionDescription* prototype;
 		RTCSessionDescription(RTCSessionDescriptionInit* descriptionInitDict);
+		[[gnu::always_inline]]
+		static RTCSessionDescription* _New(RTCSessionDescriptionInit* descriptionInitDict) {
+			return new RTCSessionDescription(descriptionInitDict);
+		}
 	};
 	class RTCStatsReport: public Object {
 	public:
@@ -18171,6 +20816,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(_Any*, String*, RTCStatsReport*)>& callbackfn, const _Any& thisArg);
 		static RTCStatsReport* prototype;
 		RTCStatsReport();
+		[[gnu::always_inline]]
+		static RTCStatsReport* _New() {
+			return new RTCStatsReport();
+		}
 	};
 	class RTCTrackEvent: public Event {
 	public:
@@ -18180,6 +20829,10 @@ namespace [[cheerp::genericjs]] client {
 		RTCRtpTransceiver* get_transceiver();
 		static RTCTrackEvent* prototype;
 		RTCTrackEvent(const String& type, RTCTrackEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static RTCTrackEvent* _New(const String& type, RTCTrackEventInit* eventInitDict) {
+			return new RTCTrackEvent(type, eventInitDict);
+		}
 	};
 	class RadioNodeList: public NodeList {
 	public:
@@ -18187,6 +20840,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(const String& value);
 		static RadioNodeList* prototype;
 		RadioNodeList();
+		[[gnu::always_inline]]
+		static RadioNodeList* _New() {
+			return new RadioNodeList();
+		}
 	};
 	class Range: public AbstractRange {
 	public:
@@ -18222,6 +20879,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_END_TO_START();
 		static Range* prototype;
 		Range();
+		[[gnu::always_inline]]
+		static Range* _New() {
+			return new Range();
+		}
 		static double START_TO_START;
 		static double START_TO_END;
 		static double END_TO_END;
@@ -18238,11 +20899,15 @@ namespace [[cheerp::genericjs]] client {
 		void error(const _Any& e);
 		static ReadableByteStreamController* prototype;
 		ReadableByteStreamController();
+		[[gnu::always_inline]]
+		static ReadableByteStreamController* _New() {
+			return new ReadableByteStreamController();
+		}
 	};
 	class ReadableStreamBYOBReader;
 	template<class _T0>
 	class ReadableStreamDefaultReader;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadableStream: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -18271,6 +20936,38 @@ namespace [[cheerp::genericjs]] client {
 		ReadableStream(UnderlyingSource<_T1>* underlyingSource);
 		template<class _T1 = _Any*>
 		ReadableStream(UnderlyingSource<_T1>* underlyingSource, QueuingStrategy<_T1>* strategy);
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingByteSource* underlyingSource) {
+			return new ReadableStream(underlyingSource);
+		}
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingByteSource* underlyingSource, Object* strategy) {
+			return new ReadableStream(underlyingSource, strategy);
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingDefaultSource<_T1>* underlyingSource) {
+			return new ReadableStream(underlyingSource);
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingDefaultSource<_T1>* underlyingSource, QueuingStrategy<_T1>* strategy) {
+			return new ReadableStream(underlyingSource, strategy);
+		}
+		[[gnu::always_inline]]
+		static ReadableStream* _New() {
+			return new ReadableStream();
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingSource<_T1>* underlyingSource) {
+			return new ReadableStream(underlyingSource);
+		}
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static ReadableStream* _New(UnderlyingSource<_T1>* underlyingSource, QueuingStrategy<_T1>* strategy) {
+			return new ReadableStream(underlyingSource, strategy);
+		}
 	};
 	class ReadableStreamGenericReader: public Object {
 	public:
@@ -18285,6 +20982,10 @@ namespace [[cheerp::genericjs]] client {
 		void releaseLock();
 		static ReadableStreamBYOBReader* prototype;
 		ReadableStreamBYOBReader(ReadableStream<_Any*>* stream);
+		[[gnu::always_inline]]
+		static ReadableStreamBYOBReader* _New(ReadableStream<_Any*>* stream) {
+			return new ReadableStreamBYOBReader(stream);
+		}
 	};
 	class ReadableStreamBYOBRequest: public Object {
 	public:
@@ -18293,8 +20994,12 @@ namespace [[cheerp::genericjs]] client {
 		void respondWithNewView(ArrayBufferView* view);
 		static ReadableStreamBYOBRequest* prototype;
 		ReadableStreamBYOBRequest();
+		[[gnu::always_inline]]
+		static ReadableStreamBYOBRequest* _New() {
+			return new ReadableStreamBYOBRequest();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadableStreamDefaultController: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -18306,8 +21011,12 @@ namespace [[cheerp::genericjs]] client {
 		void error(const _Any& e);
 		static ReadableStreamDefaultController<_Any*>* prototype;
 		ReadableStreamDefaultController();
+		[[gnu::always_inline]]
+		static ReadableStreamDefaultController* _New() {
+			return new ReadableStreamDefaultController();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class ReadableStreamDefaultReader: public ReadableStreamGenericReader {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -18316,6 +21025,11 @@ namespace [[cheerp::genericjs]] client {
 		static ReadableStreamDefaultReader<_Any*>* prototype;
 		template<class _T1 = _Any*>
 		ReadableStreamDefaultReader(ReadableStream<_T1>* stream);
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static ReadableStreamDefaultReader* _New(ReadableStream<_T1>* stream) {
+			return new ReadableStreamDefaultReader(stream);
+		}
 	};
 	class RemotePlaybackEventMap: public Object {
 	public:
@@ -18363,6 +21077,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static RemotePlayback* prototype;
 		RemotePlayback();
+		[[gnu::always_inline]]
+		static RemotePlayback* _New() {
+			return new RemotePlayback();
+		}
 	};
 	class ReportBody;
 	class Report: public Object {
@@ -18373,12 +21091,20 @@ namespace [[cheerp::genericjs]] client {
 		Object* toJSON();
 		static Report* prototype;
 		Report();
+		[[gnu::always_inline]]
+		static Report* _New() {
+			return new Report();
+		}
 	};
 	class ReportBody: public Object {
 	public:
 		Object* toJSON();
 		static ReportBody* prototype;
 		ReportBody();
+		[[gnu::always_inline]]
+		static ReportBody* _New() {
+			return new ReportBody();
+		}
 	};
 	class ReportingObserver: public Object {
 	public:
@@ -18390,6 +21116,22 @@ namespace [[cheerp::genericjs]] client {
 		ReportingObserver(const _Function<void(TArray<Report*>*, ReportingObserver*)>& callback);
 		ReportingObserver(EventListener* callback, ReportingObserverOptions* options);
 		ReportingObserver(const _Function<void(TArray<Report*>*, ReportingObserver*)>& callback, ReportingObserverOptions* options);
+		[[gnu::always_inline]]
+		static ReportingObserver* _New(EventListener* callback) {
+			return new ReportingObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static ReportingObserver* _New(const _Function<void(TArray<Report*>*, ReportingObserver*)>& callback) {
+			return new ReportingObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static ReportingObserver* _New(EventListener* callback, ReportingObserverOptions* options) {
+			return new ReportingObserver(callback, options);
+		}
+		[[gnu::always_inline]]
+		static ReportingObserver* _New(const _Function<void(TArray<Report*>*, ReportingObserver*)>& callback, ReportingObserverOptions* options) {
+			return new ReportingObserver(callback, options);
+		}
 	};
 	class Request: public Body {
 	public:
@@ -18412,6 +21154,22 @@ namespace [[cheerp::genericjs]] client {
 		Request(const _Union<Request*, URL*>& input);
 		Request(const String& input, RequestInit* init);
 		Request(const _Union<Request*, URL*>& input, RequestInit* init);
+		[[gnu::always_inline]]
+		static Request* _New(const String& input) {
+			return new Request(input);
+		}
+		[[gnu::always_inline]]
+		static Request* _New(const _Union<Request*, URL*>& input) {
+			return new Request(input);
+		}
+		[[gnu::always_inline]]
+		static Request* _New(const String& input, RequestInit* init) {
+			return new Request(input, init);
+		}
+		[[gnu::always_inline]]
+		static Request* _New(const _Union<Request*, URL*>& input, RequestInit* init) {
+			return new Request(input, init);
+		}
 	};
 	class ResizeObserverEntry;
 	class ResizeObserver: public Object {
@@ -18423,6 +21181,14 @@ namespace [[cheerp::genericjs]] client {
 		static ResizeObserver* prototype;
 		ResizeObserver(EventListener* callback);
 		ResizeObserver(const _Function<void(TArray<ResizeObserverEntry*>*, ResizeObserver*)>& callback);
+		[[gnu::always_inline]]
+		static ResizeObserver* _New(EventListener* callback) {
+			return new ResizeObserver(callback);
+		}
+		[[gnu::always_inline]]
+		static ResizeObserver* _New(const _Function<void(TArray<ResizeObserverEntry*>*, ResizeObserver*)>& callback) {
+			return new ResizeObserver(callback);
+		}
 	};
 	class ResizeObserverSize;
 	class ResizeObserverEntry: public Object {
@@ -18434,6 +21200,10 @@ namespace [[cheerp::genericjs]] client {
 		Element* get_target();
 		static ResizeObserverEntry* prototype;
 		ResizeObserverEntry();
+		[[gnu::always_inline]]
+		static ResizeObserverEntry* _New() {
+			return new ResizeObserverEntry();
+		}
 	};
 	class ResizeObserverSize: public Object {
 	public:
@@ -18441,6 +21211,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_inlineSize();
 		static ResizeObserverSize* prototype;
 		ResizeObserverSize();
+		[[gnu::always_inline]]
+		static ResizeObserverSize* _New() {
+			return new ResizeObserverSize();
+		}
 	};
 	class Response: public Body {
 	public:
@@ -18458,6 +21232,26 @@ namespace [[cheerp::genericjs]] client {
 		Response(const _Union<ArrayBuffer*, ArrayBufferView*, Blob*, FormData*, URLSearchParams*, ReadableStream<_Any*>*>& body);
 		Response(const String& body, ResponseInit* init);
 		Response(const _Union<ArrayBuffer*, ArrayBufferView*, Blob*, FormData*, URLSearchParams*, ReadableStream<_Any*>*>& body, ResponseInit* init);
+		[[gnu::always_inline]]
+		static Response* _New() {
+			return new Response();
+		}
+		[[gnu::always_inline]]
+		static Response* _New(const String& body) {
+			return new Response(body);
+		}
+		[[gnu::always_inline]]
+		static Response* _New(const _Union<ArrayBuffer*, ArrayBufferView*, Blob*, FormData*, URLSearchParams*, ReadableStream<_Any*>*>& body) {
+			return new Response(body);
+		}
+		[[gnu::always_inline]]
+		static Response* _New(const String& body, ResponseInit* init) {
+			return new Response(body, init);
+		}
+		[[gnu::always_inline]]
+		static Response* _New(const _Union<ArrayBuffer*, ArrayBufferView*, Blob*, FormData*, URLSearchParams*, ReadableStream<_Any*>*>& body, ResponseInit* init) {
+			return new Response(body, init);
+		}
 		static Response* error();
 		static Response* json(const _Any& data);
 		static Response* json(const _Any& data, ResponseInit* init);
@@ -18487,6 +21281,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGElement* prototype;
 		SVGElement();
+		[[gnu::always_inline]]
+		static SVGElement* _New() {
+			return new SVGElement();
+		}
 	};
 	class SVGStringList;
 	class SVGTests: public virtual Object {
@@ -18515,6 +21313,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGGraphicsElement* prototype;
 		SVGGraphicsElement();
+		[[gnu::always_inline]]
+		static SVGGraphicsElement* _New() {
+			return new SVGGraphicsElement();
+		}
 	};
 	class SVGURIReference: public virtual Object {
 	public:
@@ -18540,6 +21342,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGAElement* prototype;
 		SVGAElement();
+		[[gnu::always_inline]]
+		static SVGAElement* _New() {
+			return new SVGAElement();
+		}
 	};
 	class SVGAngle: public Object {
 	public:
@@ -18559,6 +21365,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SVG_ANGLETYPE_GRAD();
 		static SVGAngle* prototype;
 		SVGAngle();
+		[[gnu::always_inline]]
+		static SVGAngle* _New() {
+			return new SVGAngle();
+		}
 		static double SVG_ANGLETYPE_UNKNOWN;
 		static double SVG_ANGLETYPE_UNSPECIFIED;
 		static double SVG_ANGLETYPE_DEG;
@@ -18589,6 +21399,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGAnimationElement* prototype;
 		SVGAnimationElement();
+		[[gnu::always_inline]]
+		static SVGAnimationElement* _New() {
+			return new SVGAnimationElement();
+		}
 	};
 	class SVGAnimateElement: public SVGAnimationElement {
 	public:
@@ -18606,6 +21420,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGAnimateElement* prototype;
 		SVGAnimateElement();
+		[[gnu::always_inline]]
+		static SVGAnimateElement* _New() {
+			return new SVGAnimateElement();
+		}
 	};
 	class SVGAnimateMotionElement: public SVGAnimationElement {
 	public:
@@ -18623,6 +21441,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGAnimateMotionElement* prototype;
 		SVGAnimateMotionElement();
+		[[gnu::always_inline]]
+		static SVGAnimateMotionElement* _New() {
+			return new SVGAnimateMotionElement();
+		}
 	};
 	class SVGAnimateTransformElement: public SVGAnimationElement {
 	public:
@@ -18640,6 +21462,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGAnimateTransformElement* prototype;
 		SVGAnimateTransformElement();
+		[[gnu::always_inline]]
+		static SVGAnimateTransformElement* _New() {
+			return new SVGAnimateTransformElement();
+		}
 	};
 	class SVGAnimatedAngle: public Object {
 	public:
@@ -18647,6 +21473,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGAngle* get_baseVal();
 		static SVGAnimatedAngle* prototype;
 		SVGAnimatedAngle();
+		[[gnu::always_inline]]
+		static SVGAnimatedAngle* _New() {
+			return new SVGAnimatedAngle();
+		}
 	};
 	class SVGAnimatedBoolean: public Object {
 	public:
@@ -18655,6 +21485,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_baseVal(bool baseVal);
 		static SVGAnimatedBoolean* prototype;
 		SVGAnimatedBoolean();
+		[[gnu::always_inline]]
+		static SVGAnimatedBoolean* _New() {
+			return new SVGAnimatedBoolean();
+		}
 	};
 	class SVGAnimatedEnumeration: public Object {
 	public:
@@ -18663,6 +21497,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_baseVal(double baseVal);
 		static SVGAnimatedEnumeration* prototype;
 		SVGAnimatedEnumeration();
+		[[gnu::always_inline]]
+		static SVGAnimatedEnumeration* _New() {
+			return new SVGAnimatedEnumeration();
+		}
 	};
 	class SVGAnimatedInteger: public Object {
 	public:
@@ -18671,6 +21509,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_baseVal(double baseVal);
 		static SVGAnimatedInteger* prototype;
 		SVGAnimatedInteger();
+		[[gnu::always_inline]]
+		static SVGAnimatedInteger* _New() {
+			return new SVGAnimatedInteger();
+		}
 	};
 	class SVGLength;
 	class SVGAnimatedLength: public Object {
@@ -18679,6 +21521,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGLength* get_baseVal();
 		static SVGAnimatedLength* prototype;
 		SVGAnimatedLength();
+		[[gnu::always_inline]]
+		static SVGAnimatedLength* _New() {
+			return new SVGAnimatedLength();
+		}
 	};
 	class SVGLengthList;
 	class SVGAnimatedLengthList: public Object {
@@ -18687,6 +21533,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGLengthList* get_baseVal();
 		static SVGAnimatedLengthList* prototype;
 		SVGAnimatedLengthList();
+		[[gnu::always_inline]]
+		static SVGAnimatedLengthList* _New() {
+			return new SVGAnimatedLengthList();
+		}
 	};
 	class SVGAnimatedNumber: public Object {
 	public:
@@ -18695,6 +21545,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_baseVal(double baseVal);
 		static SVGAnimatedNumber* prototype;
 		SVGAnimatedNumber();
+		[[gnu::always_inline]]
+		static SVGAnimatedNumber* _New() {
+			return new SVGAnimatedNumber();
+		}
 	};
 	class SVGNumberList;
 	class SVGAnimatedNumberList: public Object {
@@ -18703,6 +21557,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGNumberList* get_baseVal();
 		static SVGAnimatedNumberList* prototype;
 		SVGAnimatedNumberList();
+		[[gnu::always_inline]]
+		static SVGAnimatedNumberList* _New() {
+			return new SVGAnimatedNumberList();
+		}
 	};
 	class SVGPointList;
 	class SVGAnimatedPoints: public virtual Object {
@@ -18717,6 +21575,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGPreserveAspectRatio* get_baseVal();
 		static SVGAnimatedPreserveAspectRatio* prototype;
 		SVGAnimatedPreserveAspectRatio();
+		[[gnu::always_inline]]
+		static SVGAnimatedPreserveAspectRatio* _New() {
+			return new SVGAnimatedPreserveAspectRatio();
+		}
 	};
 	class SVGAnimatedRect: public Object {
 	public:
@@ -18724,6 +21586,10 @@ namespace [[cheerp::genericjs]] client {
 		DOMRect* get_baseVal();
 		static SVGAnimatedRect* prototype;
 		SVGAnimatedRect();
+		[[gnu::always_inline]]
+		static SVGAnimatedRect* _New() {
+			return new SVGAnimatedRect();
+		}
 	};
 	class SVGAnimatedString: public Object {
 	public:
@@ -18732,6 +21598,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_baseVal(const String& baseVal);
 		static SVGAnimatedString* prototype;
 		SVGAnimatedString();
+		[[gnu::always_inline]]
+		static SVGAnimatedString* _New() {
+			return new SVGAnimatedString();
+		}
 	};
 	class SVGTransformList;
 	class SVGAnimatedTransformList: public Object {
@@ -18740,6 +21610,10 @@ namespace [[cheerp::genericjs]] client {
 		SVGTransformList* get_baseVal();
 		static SVGAnimatedTransformList* prototype;
 		SVGAnimatedTransformList();
+		[[gnu::always_inline]]
+		static SVGAnimatedTransformList* _New() {
+			return new SVGAnimatedTransformList();
+		}
 	};
 	class SVGGeometryElement: public SVGGraphicsElement {
 	public:
@@ -18764,6 +21638,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGGeometryElement* prototype;
 		SVGGeometryElement();
+		[[gnu::always_inline]]
+		static SVGGeometryElement* _New() {
+			return new SVGGeometryElement();
+		}
 	};
 	class SVGCircleElement: public SVGGeometryElement {
 	public:
@@ -18784,6 +21662,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGCircleElement* prototype;
 		SVGCircleElement();
+		[[gnu::always_inline]]
+		static SVGCircleElement* _New() {
+			return new SVGCircleElement();
+		}
 	};
 	class SVGClipPathElement: public SVGElement {
 	public:
@@ -18803,6 +21685,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGClipPathElement* prototype;
 		SVGClipPathElement();
+		[[gnu::always_inline]]
+		static SVGClipPathElement* _New() {
+			return new SVGClipPathElement();
+		}
 	};
 	class SVGComponentTransferFunctionElement: public SVGElement {
 	public:
@@ -18833,6 +21719,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGComponentTransferFunctionElement* prototype;
 		SVGComponentTransferFunctionElement();
+		[[gnu::always_inline]]
+		static SVGComponentTransferFunctionElement* _New() {
+			return new SVGComponentTransferFunctionElement();
+		}
 		static double SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
 		static double SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY;
 		static double SVG_FECOMPONENTTRANSFER_TYPE_TABLE;
@@ -18856,6 +21746,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGDefsElement* prototype;
 		SVGDefsElement();
+		[[gnu::always_inline]]
+		static SVGDefsElement* _New() {
+			return new SVGDefsElement();
+		}
 	};
 	class SVGDescElement: public SVGElement {
 	public:
@@ -18873,6 +21767,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGDescElement* prototype;
 		SVGDescElement();
+		[[gnu::always_inline]]
+		static SVGDescElement* _New() {
+			return new SVGDescElement();
+		}
 	};
 	class SVGElementEventMap: public ElementEventMap, public GlobalEventHandlersEventMap {
 	};
@@ -18896,6 +21794,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGEllipseElement* prototype;
 		SVGEllipseElement();
+		[[gnu::always_inline]]
+		static SVGEllipseElement* _New() {
+			return new SVGEllipseElement();
+		}
 	};
 	class SVGFilterPrimitiveStandardAttributes: public virtual Object {
 	public:
@@ -18941,6 +21843,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEBlendElement* prototype;
 		SVGFEBlendElement();
+		[[gnu::always_inline]]
+		static SVGFEBlendElement* _New() {
+			return new SVGFEBlendElement();
+		}
 		static double SVG_FEBLEND_MODE_UNKNOWN;
 		static double SVG_FEBLEND_MODE_NORMAL;
 		static double SVG_FEBLEND_MODE_MULTIPLY;
@@ -18983,6 +21889,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEColorMatrixElement* prototype;
 		SVGFEColorMatrixElement();
+		[[gnu::always_inline]]
+		static SVGFEColorMatrixElement* _New() {
+			return new SVGFEColorMatrixElement();
+		}
 		static double SVG_FECOLORMATRIX_TYPE_UNKNOWN;
 		static double SVG_FECOLORMATRIX_TYPE_MATRIX;
 		static double SVG_FECOLORMATRIX_TYPE_SATURATE;
@@ -19006,6 +21916,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEComponentTransferElement* prototype;
 		SVGFEComponentTransferElement();
+		[[gnu::always_inline]]
+		static SVGFEComponentTransferElement* _New() {
+			return new SVGFEComponentTransferElement();
+		}
 	};
 	class SVGFECompositeElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19038,6 +21952,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFECompositeElement* prototype;
 		SVGFECompositeElement();
+		[[gnu::always_inline]]
+		static SVGFECompositeElement* _New() {
+			return new SVGFECompositeElement();
+		}
 		static double SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
 		static double SVG_FECOMPOSITE_OPERATOR_OVER;
 		static double SVG_FECOMPOSITE_OPERATOR_IN;
@@ -19078,6 +21996,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEConvolveMatrixElement* prototype;
 		SVGFEConvolveMatrixElement();
+		[[gnu::always_inline]]
+		static SVGFEConvolveMatrixElement* _New() {
+			return new SVGFEConvolveMatrixElement();
+		}
 		static double SVG_EDGEMODE_UNKNOWN;
 		static double SVG_EDGEMODE_DUPLICATE;
 		static double SVG_EDGEMODE_WRAP;
@@ -19104,6 +22026,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEDiffuseLightingElement* prototype;
 		SVGFEDiffuseLightingElement();
+		[[gnu::always_inline]]
+		static SVGFEDiffuseLightingElement* _New() {
+			return new SVGFEDiffuseLightingElement();
+		}
 	};
 	class SVGFEDisplacementMapElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19131,6 +22057,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEDisplacementMapElement* prototype;
 		SVGFEDisplacementMapElement();
+		[[gnu::always_inline]]
+		static SVGFEDisplacementMapElement* _New() {
+			return new SVGFEDisplacementMapElement();
+		}
 		static double SVG_CHANNEL_UNKNOWN;
 		static double SVG_CHANNEL_R;
 		static double SVG_CHANNEL_G;
@@ -19155,6 +22085,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEDistantLightElement* prototype;
 		SVGFEDistantLightElement();
+		[[gnu::always_inline]]
+		static SVGFEDistantLightElement* _New() {
+			return new SVGFEDistantLightElement();
+		}
 	};
 	class SVGFEDropShadowElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19178,6 +22112,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEDropShadowElement* prototype;
 		SVGFEDropShadowElement();
+		[[gnu::always_inline]]
+		static SVGFEDropShadowElement* _New() {
+			return new SVGFEDropShadowElement();
+		}
 	};
 	class SVGFEFloodElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19195,6 +22133,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEFloodElement* prototype;
 		SVGFEFloodElement();
+		[[gnu::always_inline]]
+		static SVGFEFloodElement* _New() {
+			return new SVGFEFloodElement();
+		}
 	};
 	class SVGFEFuncAElement: public SVGComponentTransferFunctionElement {
 	public:
@@ -19212,6 +22154,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEFuncAElement* prototype;
 		SVGFEFuncAElement();
+		[[gnu::always_inline]]
+		static SVGFEFuncAElement* _New() {
+			return new SVGFEFuncAElement();
+		}
 	};
 	class SVGFEFuncBElement: public SVGComponentTransferFunctionElement {
 	public:
@@ -19229,6 +22175,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEFuncBElement* prototype;
 		SVGFEFuncBElement();
+		[[gnu::always_inline]]
+		static SVGFEFuncBElement* _New() {
+			return new SVGFEFuncBElement();
+		}
 	};
 	class SVGFEFuncGElement: public SVGComponentTransferFunctionElement {
 	public:
@@ -19246,6 +22196,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEFuncGElement* prototype;
 		SVGFEFuncGElement();
+		[[gnu::always_inline]]
+		static SVGFEFuncGElement* _New() {
+			return new SVGFEFuncGElement();
+		}
 	};
 	class SVGFEFuncRElement: public SVGComponentTransferFunctionElement {
 	public:
@@ -19263,6 +22217,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEFuncRElement* prototype;
 		SVGFEFuncRElement();
+		[[gnu::always_inline]]
+		static SVGFEFuncRElement* _New() {
+			return new SVGFEFuncRElement();
+		}
 	};
 	class SVGFEGaussianBlurElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19284,6 +22242,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEGaussianBlurElement* prototype;
 		SVGFEGaussianBlurElement();
+		[[gnu::always_inline]]
+		static SVGFEGaussianBlurElement* _New() {
+			return new SVGFEGaussianBlurElement();
+		}
 	};
 	class SVGFEImageElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes, public SVGURIReference {
 	public:
@@ -19302,6 +22264,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEImageElement* prototype;
 		SVGFEImageElement();
+		[[gnu::always_inline]]
+		static SVGFEImageElement* _New() {
+			return new SVGFEImageElement();
+		}
 	};
 	class SVGFEMergeElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19319,6 +22285,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEMergeElement* prototype;
 		SVGFEMergeElement();
+		[[gnu::always_inline]]
+		static SVGFEMergeElement* _New() {
+			return new SVGFEMergeElement();
+		}
 	};
 	class SVGFEMergeNodeElement: public SVGElement {
 	public:
@@ -19337,6 +22307,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEMergeNodeElement* prototype;
 		SVGFEMergeNodeElement();
+		[[gnu::always_inline]]
+		static SVGFEMergeNodeElement* _New() {
+			return new SVGFEMergeNodeElement();
+		}
 	};
 	class SVGFEMorphologyElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19362,6 +22336,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEMorphologyElement* prototype;
 		SVGFEMorphologyElement();
+		[[gnu::always_inline]]
+		static SVGFEMorphologyElement* _New() {
+			return new SVGFEMorphologyElement();
+		}
 		static double SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
 		static double SVG_MORPHOLOGY_OPERATOR_ERODE;
 		static double SVG_MORPHOLOGY_OPERATOR_DILATE;
@@ -19385,6 +22363,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEOffsetElement* prototype;
 		SVGFEOffsetElement();
+		[[gnu::always_inline]]
+		static SVGFEOffsetElement* _New() {
+			return new SVGFEOffsetElement();
+		}
 	};
 	class SVGFEPointLightElement: public SVGElement {
 	public:
@@ -19405,6 +22387,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFEPointLightElement* prototype;
 		SVGFEPointLightElement();
+		[[gnu::always_inline]]
+		static SVGFEPointLightElement* _New() {
+			return new SVGFEPointLightElement();
+		}
 	};
 	class SVGFESpecularLightingElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19428,6 +22414,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFESpecularLightingElement* prototype;
 		SVGFESpecularLightingElement();
+		[[gnu::always_inline]]
+		static SVGFESpecularLightingElement* _New() {
+			return new SVGFESpecularLightingElement();
+		}
 	};
 	class SVGFESpotLightElement: public SVGElement {
 	public:
@@ -19453,6 +22443,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFESpotLightElement* prototype;
 		SVGFESpotLightElement();
+		[[gnu::always_inline]]
+		static SVGFESpotLightElement* _New() {
+			return new SVGFESpotLightElement();
+		}
 	};
 	class SVGFETileElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19471,6 +22465,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFETileElement* prototype;
 		SVGFETileElement();
+		[[gnu::always_inline]]
+		static SVGFETileElement* _New() {
+			return new SVGFETileElement();
+		}
 	};
 	class SVGFETurbulenceElement: public SVGElement, public SVGFilterPrimitiveStandardAttributes {
 	public:
@@ -19500,6 +22498,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFETurbulenceElement* prototype;
 		SVGFETurbulenceElement();
+		[[gnu::always_inline]]
+		static SVGFETurbulenceElement* _New() {
+			return new SVGFETurbulenceElement();
+		}
 		static double SVG_TURBULENCE_TYPE_UNKNOWN;
 		static double SVG_TURBULENCE_TYPE_FRACTALNOISE;
 		static double SVG_TURBULENCE_TYPE_TURBULENCE;
@@ -19529,6 +22531,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGFilterElement* prototype;
 		SVGFilterElement();
+		[[gnu::always_inline]]
+		static SVGFilterElement* _New() {
+			return new SVGFilterElement();
+		}
 	};
 	class SVGFitToViewBox: public virtual Object {
 	public:
@@ -19555,6 +22561,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGForeignObjectElement* prototype;
 		SVGForeignObjectElement();
+		[[gnu::always_inline]]
+		static SVGForeignObjectElement* _New() {
+			return new SVGForeignObjectElement();
+		}
 	};
 	class SVGGElement: public SVGGraphicsElement {
 	public:
@@ -19572,6 +22582,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGGElement* prototype;
 		SVGGElement();
+		[[gnu::always_inline]]
+		static SVGGElement* _New() {
+			return new SVGGElement();
+		}
 	};
 	class SVGGradientElement: public SVGElement, public SVGURIReference {
 	public:
@@ -19596,6 +22610,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGGradientElement* prototype;
 		SVGGradientElement();
+		[[gnu::always_inline]]
+		static SVGGradientElement* _New() {
+			return new SVGGradientElement();
+		}
 		static double SVG_SPREADMETHOD_UNKNOWN;
 		static double SVG_SPREADMETHOD_PAD;
 		static double SVG_SPREADMETHOD_REFLECT;
@@ -19622,6 +22640,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGImageElement* prototype;
 		SVGImageElement();
+		[[gnu::always_inline]]
+		static SVGImageElement* _New() {
+			return new SVGImageElement();
+		}
 	};
 	class SVGLength: public Object {
 	public:
@@ -19647,6 +22669,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SVG_LENGTHTYPE_PC();
 		static SVGLength* prototype;
 		SVGLength();
+		[[gnu::always_inline]]
+		static SVGLength* _New() {
+			return new SVGLength();
+		}
 		static double SVG_LENGTHTYPE_UNKNOWN;
 		static double SVG_LENGTHTYPE_NUMBER;
 		static double SVG_LENGTHTYPE_PERCENTAGE;
@@ -19678,6 +22704,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SVGLengthList* prototype;
 		SVGLengthList();
+		[[gnu::always_inline]]
+		static SVGLengthList* _New() {
+			return new SVGLengthList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -19701,6 +22731,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGLineElement* prototype;
 		SVGLineElement();
+		[[gnu::always_inline]]
+		static SVGLineElement* _New() {
+			return new SVGLineElement();
+		}
 	};
 	class SVGLinearGradientElement: public SVGGradientElement {
 	public:
@@ -19722,6 +22756,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGLinearGradientElement* prototype;
 		SVGLinearGradientElement();
+		[[gnu::always_inline]]
+		static SVGLinearGradientElement* _New() {
+			return new SVGLinearGradientElement();
+		}
 	};
 	class SVGMPathElement: public SVGElement, public SVGURIReference {
 	public:
@@ -19739,6 +22777,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGMPathElement* prototype;
 		SVGMPathElement();
+		[[gnu::always_inline]]
+		static SVGMPathElement* _New() {
+			return new SVGMPathElement();
+		}
 	};
 	class SVGMarkerElement: public SVGElement, public SVGFitToViewBox {
 	public:
@@ -19771,6 +22813,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGMarkerElement* prototype;
 		SVGMarkerElement();
+		[[gnu::always_inline]]
+		static SVGMarkerElement* _New() {
+			return new SVGMarkerElement();
+		}
 		static double SVG_MARKERUNITS_UNKNOWN;
 		static double SVG_MARKERUNITS_USERSPACEONUSE;
 		static double SVG_MARKERUNITS_STROKEWIDTH;
@@ -19800,6 +22846,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGMaskElement* prototype;
 		SVGMaskElement();
+		[[gnu::always_inline]]
+		static SVGMaskElement* _New() {
+			return new SVGMaskElement();
+		}
 	};
 	class SVGMetadataElement: public SVGElement {
 	public:
@@ -19817,6 +22867,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGMetadataElement* prototype;
 		SVGMetadataElement();
+		[[gnu::always_inline]]
+		static SVGMetadataElement* _New() {
+			return new SVGMetadataElement();
+		}
 	};
 	class SVGNumber: public Object {
 	public:
@@ -19824,6 +22878,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_value(double value);
 		static SVGNumber* prototype;
 		SVGNumber();
+		[[gnu::always_inline]]
+		static SVGNumber* _New() {
+			return new SVGNumber();
+		}
 	};
 	class SVGNumberList: public Object {
 	public:
@@ -19844,6 +22902,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SVGNumberList* prototype;
 		SVGNumberList();
+		[[gnu::always_inline]]
+		static SVGNumberList* _New() {
+			return new SVGNumberList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -19863,6 +22925,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGPathElement* prototype;
 		SVGPathElement();
+		[[gnu::always_inline]]
+		static SVGPathElement* _New() {
+			return new SVGPathElement();
+		}
 	};
 	class SVGPatternElement: public SVGElement, public SVGFitToViewBox, public SVGURIReference {
 	public:
@@ -19887,6 +22953,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGPatternElement* prototype;
 		SVGPatternElement();
+		[[gnu::always_inline]]
+		static SVGPatternElement* _New() {
+			return new SVGPatternElement();
+		}
 	};
 	class SVGPointList: public Object {
 	public:
@@ -19907,6 +22977,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SVGPointList* prototype;
 		SVGPointList();
+		[[gnu::always_inline]]
+		static SVGPointList* _New() {
+			return new SVGPointList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -19926,6 +23000,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGPolygonElement* prototype;
 		SVGPolygonElement();
+		[[gnu::always_inline]]
+		static SVGPolygonElement* _New() {
+			return new SVGPolygonElement();
+		}
 	};
 	class SVGPolylineElement: public SVGGeometryElement, public SVGAnimatedPoints {
 	public:
@@ -19943,6 +23021,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGPolylineElement* prototype;
 		SVGPolylineElement();
+		[[gnu::always_inline]]
+		static SVGPolylineElement* _New() {
+			return new SVGPolylineElement();
+		}
 	};
 	class SVGPreserveAspectRatio: public Object {
 	public:
@@ -19966,6 +23048,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SVG_MEETORSLICE_SLICE();
 		static SVGPreserveAspectRatio* prototype;
 		SVGPreserveAspectRatio();
+		[[gnu::always_inline]]
+		static SVGPreserveAspectRatio* _New() {
+			return new SVGPreserveAspectRatio();
+		}
 		static double SVG_PRESERVEASPECTRATIO_UNKNOWN;
 		static double SVG_PRESERVEASPECTRATIO_NONE;
 		static double SVG_PRESERVEASPECTRATIO_XMINYMIN;
@@ -20003,6 +23089,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGRadialGradientElement* prototype;
 		SVGRadialGradientElement();
+		[[gnu::always_inline]]
+		static SVGRadialGradientElement* _New() {
+			return new SVGRadialGradientElement();
+		}
 	};
 	class SVGRectElement: public SVGGeometryElement {
 	public:
@@ -20026,6 +23116,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGRectElement* prototype;
 		SVGRectElement();
+		[[gnu::always_inline]]
+		static SVGRectElement* _New() {
+			return new SVGRectElement();
+		}
 	};
 	class SVGSVGElementEventMap: public SVGElementEventMap, public WindowEventHandlersEventMap {
 	};
@@ -20077,6 +23171,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGSVGElement* prototype;
 		SVGSVGElement();
+		[[gnu::always_inline]]
+		static SVGSVGElement* _New() {
+			return new SVGSVGElement();
+		}
 	};
 	class SVGScriptElement: public SVGElement, public SVGURIReference {
 	public:
@@ -20096,6 +23194,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGScriptElement* prototype;
 		SVGScriptElement();
+		[[gnu::always_inline]]
+		static SVGScriptElement* _New() {
+			return new SVGScriptElement();
+		}
 	};
 	class SVGSetElement: public SVGAnimationElement {
 	public:
@@ -20113,6 +23215,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGSetElement* prototype;
 		SVGSetElement();
+		[[gnu::always_inline]]
+		static SVGSetElement* _New() {
+			return new SVGSetElement();
+		}
 	};
 	class SVGStopElement: public SVGElement {
 	public:
@@ -20131,6 +23237,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGStopElement* prototype;
 		SVGStopElement();
+		[[gnu::always_inline]]
+		static SVGStopElement* _New() {
+			return new SVGStopElement();
+		}
 	};
 	class SVGStringList: public Object {
 	public:
@@ -20151,6 +23261,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SVGStringList* prototype;
 		SVGStringList();
+		[[gnu::always_inline]]
+		static SVGStringList* _New() {
+			return new SVGStringList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -20178,6 +23292,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGStyleElement* prototype;
 		SVGStyleElement();
+		[[gnu::always_inline]]
+		static SVGStyleElement* _New() {
+			return new SVGStyleElement();
+		}
 	};
 	class SVGSwitchElement: public SVGGraphicsElement {
 	public:
@@ -20195,6 +23313,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGSwitchElement* prototype;
 		SVGSwitchElement();
+		[[gnu::always_inline]]
+		static SVGSwitchElement* _New() {
+			return new SVGSwitchElement();
+		}
 	};
 	class SVGSymbolElement: public SVGElement, public SVGFitToViewBox {
 	public:
@@ -20212,6 +23334,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGSymbolElement* prototype;
 		SVGSymbolElement();
+		[[gnu::always_inline]]
+		static SVGSymbolElement* _New() {
+			return new SVGSymbolElement();
+		}
 	};
 	class SVGTextContentElement: public SVGGraphicsElement {
 	public:
@@ -20244,6 +23370,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTextContentElement* prototype;
 		SVGTextContentElement();
+		[[gnu::always_inline]]
+		static SVGTextContentElement* _New() {
+			return new SVGTextContentElement();
+		}
 		static double LENGTHADJUST_UNKNOWN;
 		static double LENGTHADJUST_SPACING;
 		static double LENGTHADJUST_SPACINGANDGLYPHS;
@@ -20269,6 +23399,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTextPositioningElement* prototype;
 		SVGTextPositioningElement();
+		[[gnu::always_inline]]
+		static SVGTextPositioningElement* _New() {
+			return new SVGTextPositioningElement();
+		}
 	};
 	class SVGTSpanElement: public SVGTextPositioningElement {
 	public:
@@ -20286,6 +23420,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTSpanElement* prototype;
 		SVGTSpanElement();
+		[[gnu::always_inline]]
+		static SVGTSpanElement* _New() {
+			return new SVGTSpanElement();
+		}
 	};
 	class SVGTextElement: public SVGTextPositioningElement {
 	public:
@@ -20303,6 +23441,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTextElement* prototype;
 		SVGTextElement();
+		[[gnu::always_inline]]
+		static SVGTextElement* _New() {
+			return new SVGTextElement();
+		}
 	};
 	class SVGTextPathElement: public SVGTextContentElement, public SVGURIReference {
 	public:
@@ -20329,6 +23471,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTextPathElement* prototype;
 		SVGTextPathElement();
+		[[gnu::always_inline]]
+		static SVGTextPathElement* _New() {
+			return new SVGTextPathElement();
+		}
 		static double TEXTPATH_METHODTYPE_UNKNOWN;
 		static double TEXTPATH_METHODTYPE_ALIGN;
 		static double TEXTPATH_METHODTYPE_STRETCH;
@@ -20352,6 +23498,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGTitleElement* prototype;
 		SVGTitleElement();
+		[[gnu::always_inline]]
+		static SVGTitleElement* _New() {
+			return new SVGTitleElement();
+		}
 	};
 	class SVGTransform: public Object {
 	public:
@@ -20374,6 +23524,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SVG_TRANSFORM_SKEWY();
 		static SVGTransform* prototype;
 		SVGTransform();
+		[[gnu::always_inline]]
+		static SVGTransform* _New() {
+			return new SVGTransform();
+		}
 		static double SVG_TRANSFORM_UNKNOWN;
 		static double SVG_TRANSFORM_MATRIX;
 		static double SVG_TRANSFORM_TRANSLATE;
@@ -20404,6 +23558,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SVGTransformList* prototype;
 		SVGTransformList();
+		[[gnu::always_inline]]
+		static SVGTransformList* _New() {
+			return new SVGTransformList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -20414,6 +23572,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_SVG_UNIT_TYPE_OBJECTBOUNDINGBOX();
 		static SVGUnitTypes* prototype;
 		SVGUnitTypes();
+		[[gnu::always_inline]]
+		static SVGUnitTypes* _New() {
+			return new SVGUnitTypes();
+		}
 		static double SVG_UNIT_TYPE_UNKNOWN;
 		static double SVG_UNIT_TYPE_USERSPACEONUSE;
 		static double SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
@@ -20438,6 +23600,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGUseElement* prototype;
 		SVGUseElement();
+		[[gnu::always_inline]]
+		static SVGUseElement* _New() {
+			return new SVGUseElement();
+		}
 	};
 	class SVGViewElement: public SVGElement, public SVGFitToViewBox {
 	public:
@@ -20455,6 +23621,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SVGViewElement* prototype;
 		SVGViewElement();
+		[[gnu::always_inline]]
+		static SVGViewElement* _New() {
+			return new SVGViewElement();
+		}
 	};
 	class ScreenOrientation;
 	class Screen: public Object {
@@ -20468,6 +23638,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_width();
 		static Screen* prototype;
 		Screen();
+		[[gnu::always_inline]]
+		static Screen* _New() {
+			return new Screen();
+		}
 	};
 	class ScreenOrientationEventMap: public Object {
 	public:
@@ -20498,6 +23672,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ScreenOrientation* prototype;
 		ScreenOrientation();
+		[[gnu::always_inline]]
+		static ScreenOrientation* _New() {
+			return new ScreenOrientation();
+		}
 	};
 	class ScriptProcessorNodeEventMap: public Object {
 	public:
@@ -20526,6 +23704,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ScriptProcessorNode* prototype;
 		ScriptProcessorNode();
+		[[gnu::always_inline]]
+		static ScriptProcessorNode* _New() {
+			return new ScriptProcessorNode();
+		}
 	};
 	class SecurityPolicyViolationEvent: public Event {
 	public:
@@ -20544,6 +23726,14 @@ namespace [[cheerp::genericjs]] client {
 		static SecurityPolicyViolationEvent* prototype;
 		SecurityPolicyViolationEvent(const String& type);
 		SecurityPolicyViolationEvent(const String& type, SecurityPolicyViolationEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static SecurityPolicyViolationEvent* _New(const String& type) {
+			return new SecurityPolicyViolationEvent(type);
+		}
+		[[gnu::always_inline]]
+		static SecurityPolicyViolationEvent* _New(const String& type, SecurityPolicyViolationEventInit* eventInitDict) {
+			return new SecurityPolicyViolationEvent(type, eventInitDict);
+		}
 	};
 	class Selection: public Object {
 	public:
@@ -20579,6 +23769,10 @@ namespace [[cheerp::genericjs]] client {
 		String* toString();
 		static Selection* prototype;
 		Selection();
+		[[gnu::always_inline]]
+		static Selection* _New() {
+			return new Selection();
+		}
 	};
 	class ServiceWorkerEventMap: public AbstractWorkerEventMap {
 	public:
@@ -20611,6 +23805,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ServiceWorker* prototype;
 		ServiceWorker();
+		[[gnu::always_inline]]
+		static ServiceWorker* _New() {
+			return new ServiceWorker();
+		}
 	};
 	class ServiceWorkerContainerEventMap: public Object {
 	public:
@@ -20668,6 +23866,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ServiceWorkerContainer* prototype;
 		ServiceWorkerContainer();
+		[[gnu::always_inline]]
+		static ServiceWorkerContainer* _New() {
+			return new ServiceWorkerContainer();
+		}
 	};
 	class ServiceWorkerRegistrationEventMap: public Object {
 	public:
@@ -20708,6 +23910,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ServiceWorkerRegistration* prototype;
 		ServiceWorkerRegistration();
+		[[gnu::always_inline]]
+		static ServiceWorkerRegistration* _New() {
+			return new ServiceWorkerRegistration();
+		}
 	};
 	class ShadowRootEventMap: public Object {
 	public:
@@ -20739,6 +23945,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ShadowRoot* prototype;
 		ShadowRoot();
+		[[gnu::always_inline]]
+		static ShadowRoot* _New() {
+			return new ShadowRoot();
+		}
 	};
 	class SharedWorker: public EventTarget, public AbstractWorker {
 	public:
@@ -20762,6 +23972,30 @@ namespace [[cheerp::genericjs]] client {
 		SharedWorker(URL* scriptURL, const String& options);
 		SharedWorker(const String& scriptURL, WorkerOptions* options);
 		SharedWorker(URL* scriptURL, WorkerOptions* options);
+		[[gnu::always_inline]]
+		static SharedWorker* _New(const String& scriptURL) {
+			return new SharedWorker(scriptURL);
+		}
+		[[gnu::always_inline]]
+		static SharedWorker* _New(URL* scriptURL) {
+			return new SharedWorker(scriptURL);
+		}
+		[[gnu::always_inline]]
+		static SharedWorker* _New(const String& scriptURL, const String& options) {
+			return new SharedWorker(scriptURL, options);
+		}
+		[[gnu::always_inline]]
+		static SharedWorker* _New(URL* scriptURL, const String& options) {
+			return new SharedWorker(scriptURL, options);
+		}
+		[[gnu::always_inline]]
+		static SharedWorker* _New(const String& scriptURL, WorkerOptions* options) {
+			return new SharedWorker(scriptURL, options);
+		}
+		[[gnu::always_inline]]
+		static SharedWorker* _New(URL* scriptURL, WorkerOptions* options) {
+			return new SharedWorker(scriptURL, options);
+		}
 	};
 	class SourceBufferEventMap: public Object {
 	public:
@@ -20831,6 +24065,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SourceBuffer* prototype;
 		SourceBuffer();
+		[[gnu::always_inline]]
+		static SourceBuffer* _New() {
+			return new SourceBuffer();
+		}
 	};
 	class SourceBufferListEventMap: public Object {
 	public:
@@ -20872,6 +24110,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SourceBufferList* prototype;
 		SourceBufferList();
+		[[gnu::always_inline]]
+		static SourceBufferList* _New() {
+			return new SourceBufferList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -20881,6 +24123,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_transcript();
 		static SpeechRecognitionAlternative* prototype;
 		SpeechRecognitionAlternative();
+		[[gnu::always_inline]]
+		static SpeechRecognitionAlternative* _New() {
+			return new SpeechRecognitionAlternative();
+		}
 	};
 	class SpeechRecognitionResult: public Object {
 	public:
@@ -20895,6 +24141,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SpeechRecognitionResult* prototype;
 		SpeechRecognitionResult();
+		[[gnu::always_inline]]
+		static SpeechRecognitionResult* _New() {
+			return new SpeechRecognitionResult();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -20910,6 +24160,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static SpeechRecognitionResultList* prototype;
 		SpeechRecognitionResultList();
+		[[gnu::always_inline]]
+		static SpeechRecognitionResultList* _New() {
+			return new SpeechRecognitionResultList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -20948,6 +24202,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SpeechSynthesis* prototype;
 		SpeechSynthesis();
+		[[gnu::always_inline]]
+		static SpeechSynthesis* _New() {
+			return new SpeechSynthesis();
+		}
 	};
 	class SpeechSynthesisEvent: public Event {
 	public:
@@ -20958,12 +24216,20 @@ namespace [[cheerp::genericjs]] client {
 		SpeechSynthesisUtterance* get_utterance();
 		static SpeechSynthesisEvent* prototype;
 		SpeechSynthesisEvent(const String& type, SpeechSynthesisEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static SpeechSynthesisEvent* _New(const String& type, SpeechSynthesisEventInit* eventInitDict) {
+			return new SpeechSynthesisEvent(type, eventInitDict);
+		}
 	};
 	class SpeechSynthesisErrorEvent: public SpeechSynthesisEvent {
 	public:
 		String* get_error();
 		static SpeechSynthesisErrorEvent* prototype;
 		SpeechSynthesisErrorEvent(const String& type, SpeechSynthesisErrorEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static SpeechSynthesisErrorEvent* _New(const String& type, SpeechSynthesisErrorEventInit* eventInitDict) {
+			return new SpeechSynthesisErrorEvent(type, eventInitDict);
+		}
 	};
 	class SpeechSynthesisUtteranceEventMap: public Object {
 	public:
@@ -21046,6 +24312,14 @@ namespace [[cheerp::genericjs]] client {
 		static SpeechSynthesisUtterance* prototype;
 		SpeechSynthesisUtterance();
 		SpeechSynthesisUtterance(const String& text);
+		[[gnu::always_inline]]
+		static SpeechSynthesisUtterance* _New() {
+			return new SpeechSynthesisUtterance();
+		}
+		[[gnu::always_inline]]
+		static SpeechSynthesisUtterance* _New(const String& text) {
+			return new SpeechSynthesisUtterance(text);
+		}
 	};
 	class SpeechSynthesisVoice: public Object {
 	public:
@@ -21057,11 +24331,19 @@ namespace [[cheerp::genericjs]] client {
 		String* get_voiceURI();
 		static SpeechSynthesisVoice* prototype;
 		SpeechSynthesisVoice();
+		[[gnu::always_inline]]
+		static SpeechSynthesisVoice* _New() {
+			return new SpeechSynthesisVoice();
+		}
 	};
 	class StaticRange: public AbstractRange {
 	public:
 		static StaticRange* prototype;
 		StaticRange(StaticRangeInit* init);
+		[[gnu::always_inline]]
+		static StaticRange* _New(StaticRangeInit* init) {
+			return new StaticRange(init);
+		}
 	};
 	class StereoPannerNode: public AudioNode {
 	public:
@@ -21069,6 +24351,14 @@ namespace [[cheerp::genericjs]] client {
 		static StereoPannerNode* prototype;
 		StereoPannerNode(BaseAudioContext* context);
 		StereoPannerNode(BaseAudioContext* context, StereoPannerOptions* options);
+		[[gnu::always_inline]]
+		static StereoPannerNode* _New(BaseAudioContext* context) {
+			return new StereoPannerNode(context);
+		}
+		[[gnu::always_inline]]
+		static StereoPannerNode* _New(BaseAudioContext* context, StereoPannerOptions* options) {
+			return new StereoPannerNode(context, options);
+		}
 	};
 	class Storage: public Object {
 	public:
@@ -21081,6 +24371,10 @@ namespace [[cheerp::genericjs]] client {
 		Object* operator[](const String& name) const;
 		static Storage* prototype;
 		Storage();
+		[[gnu::always_inline]]
+		static Storage* _New() {
+			return new Storage();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -21104,6 +24398,14 @@ namespace [[cheerp::genericjs]] client {
 		static StorageEvent* prototype;
 		StorageEvent(const String& type);
 		StorageEvent(const String& type, StorageEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static StorageEvent* _New(const String& type) {
+			return new StorageEvent(type);
+		}
+		[[gnu::always_inline]]
+		static StorageEvent* _New(const String& type, StorageEventInit* eventInitDict) {
+			return new StorageEvent(type, eventInitDict);
+		}
 	};
 	class StorageManager: public Object {
 	public:
@@ -21113,6 +24415,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<bool>* persisted();
 		static StorageManager* prototype;
 		StorageManager();
+		[[gnu::always_inline]]
+		static StorageManager* _New() {
+			return new StorageManager();
+		}
 	};
 	class StyleMedia: public Object {
 	public:
@@ -21132,6 +24438,10 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(TArray<CSSStyleValue*>*, String*, StylePropertyMapReadOnly*)>& callbackfn, const _Any& thisArg);
 		static StylePropertyMapReadOnly* prototype;
 		StylePropertyMapReadOnly();
+		[[gnu::always_inline]]
+		static StylePropertyMapReadOnly* _New() {
+			return new StylePropertyMapReadOnly();
+		}
 	};
 	class StylePropertyMap: public StylePropertyMapReadOnly {
 	public:
@@ -21160,6 +24470,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static StylePropertyMap* prototype;
 		StylePropertyMap();
+		[[gnu::always_inline]]
+		static StylePropertyMap* _New() {
+			return new StylePropertyMap();
+		}
 	};
 	class StyleSheetList: public Object {
 	public:
@@ -21173,6 +24487,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static StyleSheetList* prototype;
 		StyleSheetList();
+		[[gnu::always_inline]]
+		static StyleSheetList* _New() {
+			return new StyleSheetList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -21182,6 +24500,14 @@ namespace [[cheerp::genericjs]] client {
 		static SubmitEvent* prototype;
 		SubmitEvent(const String& type);
 		SubmitEvent(const String& type, SubmitEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static SubmitEvent* _New(const String& type) {
+			return new SubmitEvent(type);
+		}
+		[[gnu::always_inline]]
+		static SubmitEvent* _New(const String& type, SubmitEventInit* eventInitDict) {
+			return new SubmitEvent(type, eventInitDict);
+		}
 	};
 	class SubtleCrypto: public Object {
 	public:
@@ -21217,6 +24543,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<ArrayBuffer*>* wrapKey(const String& format, CryptoKey* key, CryptoKey* wrappingKey, const _Union<AesCbcParams*, Algorithm*, AesCtrParams*, AesGcmParams*, RsaOaepParams*>& wrapAlgorithm);
 		static SubtleCrypto* prototype;
 		SubtleCrypto();
+		[[gnu::always_inline]]
+		static SubtleCrypto* _New() {
+			return new SubtleCrypto();
+		}
 	};
 	class TextDecoderCommon: public virtual Object {
 	public:
@@ -21233,6 +24563,18 @@ namespace [[cheerp::genericjs]] client {
 		TextDecoder();
 		TextDecoder(const String& label);
 		TextDecoder(const String& label, TextDecoderOptions* options);
+		[[gnu::always_inline]]
+		static TextDecoder* _New() {
+			return new TextDecoder();
+		}
+		[[gnu::always_inline]]
+		static TextDecoder* _New(const String& label) {
+			return new TextDecoder(label);
+		}
+		[[gnu::always_inline]]
+		static TextDecoder* _New(const String& label, TextDecoderOptions* options) {
+			return new TextDecoder(label, options);
+		}
 	};
 	class TextDecoderStream: public GenericTransformStream, public TextDecoderCommon {
 	public:
@@ -21242,6 +24584,18 @@ namespace [[cheerp::genericjs]] client {
 		TextDecoderStream();
 		TextDecoderStream(const String& label);
 		TextDecoderStream(const String& label, TextDecoderOptions* options);
+		[[gnu::always_inline]]
+		static TextDecoderStream* _New() {
+			return new TextDecoderStream();
+		}
+		[[gnu::always_inline]]
+		static TextDecoderStream* _New(const String& label) {
+			return new TextDecoderStream(label);
+		}
+		[[gnu::always_inline]]
+		static TextDecoderStream* _New(const String& label, TextDecoderOptions* options) {
+			return new TextDecoderStream(label, options);
+		}
 	};
 	class TextEncoderCommon: public virtual Object {
 	public:
@@ -21254,6 +24608,10 @@ namespace [[cheerp::genericjs]] client {
 		TextEncoderEncodeIntoResult* encodeInto(const String& source, Uint8Array* destination);
 		static TextEncoder* prototype;
 		TextEncoder();
+		[[gnu::always_inline]]
+		static TextEncoder* _New() {
+			return new TextEncoder();
+		}
 	};
 	class TextEncoderStream: public GenericTransformStream, public TextEncoderCommon {
 	public:
@@ -21261,6 +24619,10 @@ namespace [[cheerp::genericjs]] client {
 		WritableStream<String*>* get_writable();
 		static TextEncoderStream* prototype;
 		TextEncoderStream();
+		[[gnu::always_inline]]
+		static TextEncoderStream* _New() {
+			return new TextEncoderStream();
+		}
 	};
 	class TextMetrics: public Object {
 	public:
@@ -21273,6 +24635,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_width();
 		static TextMetrics* prototype;
 		TextMetrics();
+		[[gnu::always_inline]]
+		static TextMetrics* _New() {
+			return new TextMetrics();
+		}
 	};
 	class TextTrackEventMap: public Object {
 	public:
@@ -21313,6 +24679,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static TextTrack* prototype;
 		TextTrack();
+		[[gnu::always_inline]]
+		static TextTrack* _New() {
+			return new TextTrack();
+		}
 	};
 	class TextTrackCueEventMap: public Object {
 	public:
@@ -21356,6 +24726,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static TextTrackCue* prototype;
 		TextTrackCue();
+		[[gnu::always_inline]]
+		static TextTrackCue* _New() {
+			return new TextTrackCue();
+		}
 	};
 	class TextTrackCueList: public Object {
 	public:
@@ -21369,6 +24743,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static TextTrackCueList* prototype;
 		TextTrackCueList();
+		[[gnu::always_inline]]
+		static TextTrackCueList* _New() {
+			return new TextTrackCueList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -21420,6 +24798,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static TextTrackList* prototype;
 		TextTrackList();
+		[[gnu::always_inline]]
+		static TextTrackList* _New() {
+			return new TextTrackList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -21430,6 +24812,10 @@ namespace [[cheerp::genericjs]] client {
 		double start(double index);
 		static TimeRanges* prototype;
 		TimeRanges();
+		[[gnu::always_inline]]
+		static TimeRanges* _New() {
+			return new TimeRanges();
+		}
 	};
 	class ToggleEvent: public Event {
 	public:
@@ -21438,6 +24824,14 @@ namespace [[cheerp::genericjs]] client {
 		static ToggleEvent* prototype;
 		ToggleEvent(const String& type);
 		ToggleEvent(const String& type, ToggleEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ToggleEvent* _New(const String& type) {
+			return new ToggleEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ToggleEvent* _New(const String& type, ToggleEventInit* eventInitDict) {
+			return new ToggleEvent(type, eventInitDict);
+		}
 	};
 	class Touch: public Object {
 	public:
@@ -21455,6 +24849,10 @@ namespace [[cheerp::genericjs]] client {
 		EventTarget* get_target();
 		static Touch* prototype;
 		Touch(TouchInit* touchInitDict);
+		[[gnu::always_inline]]
+		static Touch* _New(TouchInit* touchInitDict) {
+			return new Touch(touchInitDict);
+		}
 	};
 	class TouchList;
 	class TouchEvent: public UIEvent {
@@ -21469,6 +24867,14 @@ namespace [[cheerp::genericjs]] client {
 		static TouchEvent* prototype;
 		TouchEvent(const String& type);
 		TouchEvent(const String& type, TouchEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static TouchEvent* _New(const String& type) {
+			return new TouchEvent(type);
+		}
+		[[gnu::always_inline]]
+		static TouchEvent* _New(const String& type, TouchEventInit* eventInitDict) {
+			return new TouchEvent(type, eventInitDict);
+		}
 	};
 	class TouchList: public Object {
 	public:
@@ -21482,6 +24888,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static TouchList* prototype;
 		TouchList();
+		[[gnu::always_inline]]
+		static TouchList* _New() {
+			return new TouchList();
+		}
 	public:
 		using client::Object::operator[];
 	};
@@ -21491,8 +24901,16 @@ namespace [[cheerp::genericjs]] client {
 		static TrackEvent* prototype;
 		TrackEvent(const String& type);
 		TrackEvent(const String& type, TrackEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static TrackEvent* _New(const String& type) {
+			return new TrackEvent(type);
+		}
+		[[gnu::always_inline]]
+		static TrackEvent* _New(const String& type, TrackEventInit* eventInitDict) {
+			return new TrackEvent(type, eventInitDict);
+		}
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class TransformStream: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -21506,8 +24924,27 @@ namespace [[cheerp::genericjs]] client {
 		TransformStream(Transformer<_T2, _T3>* transformer, QueuingStrategy<_T2>* writableStrategy);
 		template<class _T2 = _Any*, class _T3 = _Any*>
 		TransformStream(Transformer<_T2, _T3>* transformer, QueuingStrategy<_T2>* writableStrategy, QueuingStrategy<_T3>* readableStrategy);
+		[[gnu::always_inline]]
+		static TransformStream* _New() {
+			return new TransformStream();
+		}
+		template<class _T2 = _Any*, class _T3 = _Any*>
+		[[gnu::always_inline]]
+		static TransformStream* _New(Transformer<_T2, _T3>* transformer) {
+			return new TransformStream(transformer);
+		}
+		template<class _T2 = _Any*, class _T3 = _Any*>
+		[[gnu::always_inline]]
+		static TransformStream* _New(Transformer<_T2, _T3>* transformer, QueuingStrategy<_T2>* writableStrategy) {
+			return new TransformStream(transformer, writableStrategy);
+		}
+		template<class _T2 = _Any*, class _T3 = _Any*>
+		[[gnu::always_inline]]
+		static TransformStream* _New(Transformer<_T2, _T3>* transformer, QueuingStrategy<_T2>* writableStrategy, QueuingStrategy<_T3>* readableStrategy) {
+			return new TransformStream(transformer, writableStrategy, readableStrategy);
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class TransformStreamDefaultController: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -21519,6 +24956,10 @@ namespace [[cheerp::genericjs]] client {
 		void terminate();
 		static TransformStreamDefaultController<_Any*>* prototype;
 		TransformStreamDefaultController();
+		[[gnu::always_inline]]
+		static TransformStreamDefaultController* _New() {
+			return new TransformStreamDefaultController();
+		}
 	};
 	class TransitionEvent: public Event {
 	public:
@@ -21528,6 +24969,14 @@ namespace [[cheerp::genericjs]] client {
 		static TransitionEvent* prototype;
 		TransitionEvent(const String& type);
 		TransitionEvent(const String& type, TransitionEventInit* transitionEventInitDict);
+		[[gnu::always_inline]]
+		static TransitionEvent* _New(const String& type) {
+			return new TransitionEvent(type);
+		}
+		[[gnu::always_inline]]
+		static TransitionEvent* _New(const String& type, TransitionEventInit* transitionEventInitDict) {
+			return new TransitionEvent(type, transitionEventInitDict);
+		}
 	};
 	class TreeWalker: public Object {
 	public:
@@ -21545,6 +24994,10 @@ namespace [[cheerp::genericjs]] client {
 		Node* previousSibling();
 		static TreeWalker* prototype;
 		TreeWalker();
+		[[gnu::always_inline]]
+		static TreeWalker* _New() {
+			return new TreeWalker();
+		}
 	};
 	class URL: public Object {
 	public:
@@ -21579,6 +25032,30 @@ namespace [[cheerp::genericjs]] client {
 		URL(URL* url, const String& base);
 		URL(const String& url, URL* base);
 		URL(URL* url, URL* base);
+		[[gnu::always_inline]]
+		static URL* _New(const String& url) {
+			return new URL(url);
+		}
+		[[gnu::always_inline]]
+		static URL* _New(URL* url) {
+			return new URL(url);
+		}
+		[[gnu::always_inline]]
+		static URL* _New(const String& url, const String& base) {
+			return new URL(url, base);
+		}
+		[[gnu::always_inline]]
+		static URL* _New(URL* url, const String& base) {
+			return new URL(url, base);
+		}
+		[[gnu::always_inline]]
+		static URL* _New(const String& url, URL* base) {
+			return new URL(url, base);
+		}
+		[[gnu::always_inline]]
+		static URL* _New(URL* url, URL* base) {
+			return new URL(url, base);
+		}
 		static bool canParse(const String& url);
 		static bool canParse(URL* url);
 		static bool canParse(const String& url, const String& base);
@@ -21610,6 +25087,18 @@ namespace [[cheerp::genericjs]] client {
 		URLSearchParams();
 		URLSearchParams(const String& init);
 		URLSearchParams(const _Union<URLSearchParams*, Object*, TArray<TArray<String*>*>*>& init);
+		[[gnu::always_inline]]
+		static URLSearchParams* _New() {
+			return new URLSearchParams();
+		}
+		[[gnu::always_inline]]
+		static URLSearchParams* _New(const String& init) {
+			return new URLSearchParams(init);
+		}
+		[[gnu::always_inline]]
+		static URLSearchParams* _New(const _Union<URLSearchParams*, Object*, TArray<TArray<String*>*>*>& init) {
+			return new URLSearchParams(init);
+		}
 	};
 	class UserActivation: public Object {
 	public:
@@ -21617,6 +25106,10 @@ namespace [[cheerp::genericjs]] client {
 		bool get_isActive();
 		static UserActivation* prototype;
 		UserActivation();
+		[[gnu::always_inline]]
+		static UserActivation* _New() {
+			return new UserActivation();
+		}
 	};
 	class VTTRegion;
 	class VTTCue: public TextTrackCue {
@@ -21658,6 +25151,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static VTTCue* prototype;
 		VTTCue(double startTime, double endTime, const String& text);
+		[[gnu::always_inline]]
+		static VTTCue* _New(double startTime, double endTime, const String& text) {
+			return new VTTCue(startTime, endTime, text);
+		}
 	};
 	class VTTRegion: public Object {
 	public:
@@ -21679,6 +25176,10 @@ namespace [[cheerp::genericjs]] client {
 		void set_width(double width);
 		static VTTRegion* prototype;
 		VTTRegion();
+		[[gnu::always_inline]]
+		static VTTRegion* _New() {
+			return new VTTRegion();
+		}
 	};
 	class ValidityState: public Object {
 	public:
@@ -21695,6 +25196,10 @@ namespace [[cheerp::genericjs]] client {
 		bool get_valueMissing();
 		static ValidityState* prototype;
 		ValidityState();
+		[[gnu::always_inline]]
+		static ValidityState* _New() {
+			return new ValidityState();
+		}
 	};
 	class VideoColorSpace: public Object {
 	public:
@@ -21706,6 +25211,14 @@ namespace [[cheerp::genericjs]] client {
 		static VideoColorSpace* prototype;
 		VideoColorSpace();
 		VideoColorSpace(VideoColorSpaceInit* init);
+		[[gnu::always_inline]]
+		static VideoColorSpace* _New() {
+			return new VideoColorSpace();
+		}
+		[[gnu::always_inline]]
+		static VideoColorSpace* _New(VideoColorSpaceInit* init) {
+			return new VideoColorSpace(init);
+		}
 	};
 	class VideoDecoderEventMap: public Object {
 	public:
@@ -21740,6 +25253,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static VideoDecoder* prototype;
 		VideoDecoder(VideoDecoderInit* init);
+		[[gnu::always_inline]]
+		static VideoDecoder* _New(VideoDecoderInit* init) {
+			return new VideoDecoder(init);
+		}
 		static Promise<VideoDecoderSupport*>* isConfigSupported(VideoDecoderConfig* config);
 	};
 	class VideoEncoderEventMap: public Object {
@@ -21776,6 +25293,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static VideoEncoder* prototype;
 		VideoEncoder(VideoEncoderInit* init);
+		[[gnu::always_inline]]
+		static VideoEncoder* _New(VideoEncoderInit* init) {
+			return new VideoEncoder(init);
+		}
 		static Promise<VideoEncoderSupport*>* isConfigSupported(VideoEncoderConfig* config);
 	};
 	class VideoFrame: public Object {
@@ -21800,6 +25321,18 @@ namespace [[cheerp::genericjs]] client {
 		VideoFrame(const _Union<HTMLCanvasElement*, HTMLImageElement*, HTMLVideoElement*, ImageBitmap*, OffscreenCanvas*, SVGImageElement*, VideoFrame*>& image);
 		VideoFrame(const _Union<HTMLCanvasElement*, HTMLImageElement*, HTMLVideoElement*, ImageBitmap*, OffscreenCanvas*, SVGImageElement*, VideoFrame*>& image, VideoFrameInit* init);
 		VideoFrame(const _Union<ArrayBuffer*, ArrayBufferView*>& data, VideoFrameBufferInit* init);
+		[[gnu::always_inline]]
+		static VideoFrame* _New(const _Union<HTMLCanvasElement*, HTMLImageElement*, HTMLVideoElement*, ImageBitmap*, OffscreenCanvas*, SVGImageElement*, VideoFrame*>& image) {
+			return new VideoFrame(image);
+		}
+		[[gnu::always_inline]]
+		static VideoFrame* _New(const _Union<HTMLCanvasElement*, HTMLImageElement*, HTMLVideoElement*, ImageBitmap*, OffscreenCanvas*, SVGImageElement*, VideoFrame*>& image, VideoFrameInit* init) {
+			return new VideoFrame(image, init);
+		}
+		[[gnu::always_inline]]
+		static VideoFrame* _New(const _Union<ArrayBuffer*, ArrayBufferView*>& data, VideoFrameBufferInit* init) {
+			return new VideoFrame(data, init);
+		}
 	};
 	class VideoPlaybackQuality: public Object {
 	public:
@@ -21809,6 +25342,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_totalVideoFrames();
 		static VideoPlaybackQuality* prototype;
 		VideoPlaybackQuality();
+		[[gnu::always_inline]]
+		static VideoPlaybackQuality* _New() {
+			return new VideoPlaybackQuality();
+		}
 	};
 	class VisualViewportEventMap: public Object {
 	public:
@@ -21850,6 +25387,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static VisualViewport* prototype;
 		VisualViewport();
+		[[gnu::always_inline]]
+		static VisualViewport* _New() {
+			return new VisualViewport();
+		}
 	};
 	class WEBGL_color_buffer_float: public Object {
 	public:
@@ -21998,6 +25539,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<WakeLockSentinel*>* request(const String& type);
 		static WakeLock* prototype;
 		WakeLock();
+		[[gnu::always_inline]]
+		static WakeLock* _New() {
+			return new WakeLock();
+		}
 	};
 	class WakeLockSentinelEventMap: public Object {
 	public:
@@ -22028,6 +25573,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static WakeLockSentinel* prototype;
 		WakeLockSentinel();
+		[[gnu::always_inline]]
+		static WakeLockSentinel* _New() {
+			return new WakeLockSentinel();
+		}
 	};
 	class WaveShaperNode: public AudioNode {
 	public:
@@ -22038,6 +25587,14 @@ namespace [[cheerp::genericjs]] client {
 		static WaveShaperNode* prototype;
 		WaveShaperNode(BaseAudioContext* context);
 		WaveShaperNode(BaseAudioContext* context, WaveShaperOptions* options);
+		[[gnu::always_inline]]
+		static WaveShaperNode* _New(BaseAudioContext* context) {
+			return new WaveShaperNode(context);
+		}
+		[[gnu::always_inline]]
+		static WaveShaperNode* _New(BaseAudioContext* context, WaveShaperOptions* options) {
+			return new WaveShaperNode(context, options);
+		}
 	};
 	class WebGLQuery;
 	class WebGLBuffer;
@@ -22932,6 +26489,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static WebGL2RenderingContext* prototype;
 		WebGL2RenderingContext();
+		[[gnu::always_inline]]
+		static WebGL2RenderingContext* _New() {
+			return new WebGL2RenderingContext();
+		}
 		static double READ_BUFFER;
 		static double UNPACK_ROW_LENGTH;
 		static double UNPACK_SKIP_ROWS;
@@ -23499,11 +27060,19 @@ namespace [[cheerp::genericjs]] client {
 		double get_type();
 		static WebGLActiveInfo* prototype;
 		WebGLActiveInfo();
+		[[gnu::always_inline]]
+		static WebGLActiveInfo* _New() {
+			return new WebGLActiveInfo();
+		}
 	};
 	class WebGLBuffer: public Object {
 	public:
 		static WebGLBuffer* prototype;
 		WebGLBuffer();
+		[[gnu::always_inline]]
+		static WebGLBuffer* _New() {
+			return new WebGLBuffer();
+		}
 	};
 	class WebGLContextEvent: public Event {
 	public:
@@ -23511,26 +27080,50 @@ namespace [[cheerp::genericjs]] client {
 		static WebGLContextEvent* prototype;
 		WebGLContextEvent(const String& type);
 		WebGLContextEvent(const String& type, WebGLContextEventInit* eventInit);
+		[[gnu::always_inline]]
+		static WebGLContextEvent* _New(const String& type) {
+			return new WebGLContextEvent(type);
+		}
+		[[gnu::always_inline]]
+		static WebGLContextEvent* _New(const String& type, WebGLContextEventInit* eventInit) {
+			return new WebGLContextEvent(type, eventInit);
+		}
 	};
 	class WebGLFramebuffer: public Object {
 	public:
 		static WebGLFramebuffer* prototype;
 		WebGLFramebuffer();
+		[[gnu::always_inline]]
+		static WebGLFramebuffer* _New() {
+			return new WebGLFramebuffer();
+		}
 	};
 	class WebGLProgram: public Object {
 	public:
 		static WebGLProgram* prototype;
 		WebGLProgram();
+		[[gnu::always_inline]]
+		static WebGLProgram* _New() {
+			return new WebGLProgram();
+		}
 	};
 	class WebGLQuery: public Object {
 	public:
 		static WebGLQuery* prototype;
 		WebGLQuery();
+		[[gnu::always_inline]]
+		static WebGLQuery* _New() {
+			return new WebGLQuery();
+		}
 	};
 	class WebGLRenderbuffer: public Object {
 	public:
 		static WebGLRenderbuffer* prototype;
 		WebGLRenderbuffer();
+		[[gnu::always_inline]]
+		static WebGLRenderbuffer* _New() {
+			return new WebGLRenderbuffer();
+		}
 	};
 	class WebGLRenderingContextOverloads: public virtual Object {
 	public:
@@ -23560,6 +27153,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static WebGLRenderingContext* prototype;
 		WebGLRenderingContext();
+		[[gnu::always_inline]]
+		static WebGLRenderingContext* _New() {
+			return new WebGLRenderingContext();
+		}
 		static double DEPTH_BUFFER_BIT;
 		static double STENCIL_BUFFER_BIT;
 		static double COLOR_BUFFER_BIT;
@@ -23861,11 +27458,19 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static WebGLSampler* prototype;
 		WebGLSampler();
+		[[gnu::always_inline]]
+		static WebGLSampler* _New() {
+			return new WebGLSampler();
+		}
 	};
 	class WebGLShader: public Object {
 	public:
 		static WebGLShader* prototype;
 		WebGLShader();
+		[[gnu::always_inline]]
+		static WebGLShader* _New() {
+			return new WebGLShader();
+		}
 	};
 	class WebGLShaderPrecisionFormat: public Object {
 	public:
@@ -23874,31 +27479,55 @@ namespace [[cheerp::genericjs]] client {
 		double get_rangeMin();
 		static WebGLShaderPrecisionFormat* prototype;
 		WebGLShaderPrecisionFormat();
+		[[gnu::always_inline]]
+		static WebGLShaderPrecisionFormat* _New() {
+			return new WebGLShaderPrecisionFormat();
+		}
 	};
 	class WebGLSync: public Object {
 	public:
 		static WebGLSync* prototype;
 		WebGLSync();
+		[[gnu::always_inline]]
+		static WebGLSync* _New() {
+			return new WebGLSync();
+		}
 	};
 	class WebGLTexture: public Object {
 	public:
 		static WebGLTexture* prototype;
 		WebGLTexture();
+		[[gnu::always_inline]]
+		static WebGLTexture* _New() {
+			return new WebGLTexture();
+		}
 	};
 	class WebGLTransformFeedback: public Object {
 	public:
 		static WebGLTransformFeedback* prototype;
 		WebGLTransformFeedback();
+		[[gnu::always_inline]]
+		static WebGLTransformFeedback* _New() {
+			return new WebGLTransformFeedback();
+		}
 	};
 	class WebGLUniformLocation: public Object {
 	public:
 		static WebGLUniformLocation* prototype;
 		WebGLUniformLocation();
+		[[gnu::always_inline]]
+		static WebGLUniformLocation* _New() {
+			return new WebGLUniformLocation();
+		}
 	};
 	class WebGLVertexArrayObject: public Object {
 	public:
 		static WebGLVertexArrayObject* prototype;
 		WebGLVertexArrayObject();
+		[[gnu::always_inline]]
+		static WebGLVertexArrayObject* _New() {
+			return new WebGLVertexArrayObject();
+		}
 	};
 	class WebGLVertexArrayObjectOES: public Object {
 	};
@@ -23970,6 +27599,30 @@ namespace [[cheerp::genericjs]] client {
 		WebSocket(URL* url, const String& protocols);
 		WebSocket(const String& url, TArray<String*>* protocols);
 		WebSocket(URL* url, TArray<String*>* protocols);
+		[[gnu::always_inline]]
+		static WebSocket* _New(const String& url) {
+			return new WebSocket(url);
+		}
+		[[gnu::always_inline]]
+		static WebSocket* _New(URL* url) {
+			return new WebSocket(url);
+		}
+		[[gnu::always_inline]]
+		static WebSocket* _New(const String& url, const String& protocols) {
+			return new WebSocket(url, protocols);
+		}
+		[[gnu::always_inline]]
+		static WebSocket* _New(URL* url, const String& protocols) {
+			return new WebSocket(url, protocols);
+		}
+		[[gnu::always_inline]]
+		static WebSocket* _New(const String& url, TArray<String*>* protocols) {
+			return new WebSocket(url, protocols);
+		}
+		[[gnu::always_inline]]
+		static WebSocket* _New(URL* url, TArray<String*>* protocols) {
+			return new WebSocket(url, protocols);
+		}
 		static double CONNECTING;
 		static double OPEN;
 		static double CLOSING;
@@ -23995,6 +27648,22 @@ namespace [[cheerp::genericjs]] client {
 		WebTransport(URL* url);
 		WebTransport(const String& url, WebTransportOptions* options);
 		WebTransport(URL* url, WebTransportOptions* options);
+		[[gnu::always_inline]]
+		static WebTransport* _New(const String& url) {
+			return new WebTransport(url);
+		}
+		[[gnu::always_inline]]
+		static WebTransport* _New(URL* url) {
+			return new WebTransport(url);
+		}
+		[[gnu::always_inline]]
+		static WebTransport* _New(const String& url, WebTransportOptions* options) {
+			return new WebTransport(url, options);
+		}
+		[[gnu::always_inline]]
+		static WebTransport* _New(URL* url, WebTransportOptions* options) {
+			return new WebTransport(url, options);
+		}
 	};
 	class WebTransportBidirectionalStream: public Object {
 	public:
@@ -24002,6 +27671,10 @@ namespace [[cheerp::genericjs]] client {
 		WritableStream<_Any*>* get_writable();
 		static WebTransportBidirectionalStream* prototype;
 		WebTransportBidirectionalStream();
+		[[gnu::always_inline]]
+		static WebTransportBidirectionalStream* _New() {
+			return new WebTransportBidirectionalStream();
+		}
 	};
 	class WebTransportDatagramDuplexStream: public Object {
 	public:
@@ -24018,6 +27691,10 @@ namespace [[cheerp::genericjs]] client {
 		WritableStream<_Any*>* get_writable();
 		static WebTransportDatagramDuplexStream* prototype;
 		WebTransportDatagramDuplexStream();
+		[[gnu::always_inline]]
+		static WebTransportDatagramDuplexStream* _New() {
+			return new WebTransportDatagramDuplexStream();
+		}
 	};
 	class WebTransportError: public DOMException {
 	public:
@@ -24027,6 +27704,18 @@ namespace [[cheerp::genericjs]] client {
 		WebTransportError();
 		WebTransportError(const String& message);
 		WebTransportError(const String& message, WebTransportErrorOptions* options);
+		[[gnu::always_inline]]
+		static WebTransportError* _New() {
+			return new WebTransportError();
+		}
+		[[gnu::always_inline]]
+		static WebTransportError* _New(const String& message) {
+			return new WebTransportError(message);
+		}
+		[[gnu::always_inline]]
+		static WebTransportError* _New(const String& message, WebTransportErrorOptions* options) {
+			return new WebTransportError(message, options);
+		}
 	};
 	class WheelEvent: public MouseEvent {
 	public:
@@ -24040,6 +27729,14 @@ namespace [[cheerp::genericjs]] client {
 		static WheelEvent* prototype;
 		WheelEvent(const String& type);
 		WheelEvent(const String& type, WheelEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static WheelEvent* _New(const String& type) {
+			return new WheelEvent(type);
+		}
+		[[gnu::always_inline]]
+		static WheelEvent* _New(const String& type, WheelEventInit* eventInitDict) {
+			return new WheelEvent(type, eventInitDict);
+		}
 		static double DOM_DELTA_PIXEL;
 		static double DOM_DELTA_LINE;
 		static double DOM_DELTA_PAGE;
@@ -24294,6 +27991,10 @@ namespace [[cheerp::genericjs]] client {
 #endif
 		static Window* prototype;
 		Window();
+		[[gnu::always_inline]]
+		static Window* _New() {
+			return new Window();
+		}
 		String* toString();
 		bool dispatchEvent(Event* event);
 		void cancelAnimationFrame(double handle);
@@ -24416,6 +28117,22 @@ namespace [[cheerp::genericjs]] client {
 		Worker(URL* scriptURL);
 		Worker(const String& scriptURL, WorkerOptions* options);
 		Worker(URL* scriptURL, WorkerOptions* options);
+		[[gnu::always_inline]]
+		static Worker* _New(const String& scriptURL) {
+			return new Worker(scriptURL);
+		}
+		[[gnu::always_inline]]
+		static Worker* _New(URL* scriptURL) {
+			return new Worker(scriptURL);
+		}
+		[[gnu::always_inline]]
+		static Worker* _New(const String& scriptURL, WorkerOptions* options) {
+			return new Worker(scriptURL, options);
+		}
+		[[gnu::always_inline]]
+		static Worker* _New(URL* scriptURL, WorkerOptions* options) {
+			return new Worker(scriptURL, options);
+		}
 	};
 	class WritableStreamDefaultController: public Object {
 	public:
@@ -24424,8 +28141,12 @@ namespace [[cheerp::genericjs]] client {
 		void error(const _Any& e);
 		static WritableStreamDefaultController* prototype;
 		WritableStreamDefaultController();
+		[[gnu::always_inline]]
+		static WritableStreamDefaultController* _New() {
+			return new WritableStreamDefaultController();
+		}
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class WritableStreamDefaultWriter: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -24441,6 +28162,11 @@ namespace [[cheerp::genericjs]] client {
 		static WritableStreamDefaultWriter<_Any*>* prototype;
 		template<class _T1 = _Any*>
 		WritableStreamDefaultWriter(WritableStream<_T1>* stream);
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static WritableStreamDefaultWriter* _New(WritableStream<_T1>* stream) {
+			return new WritableStreamDefaultWriter(stream);
+		}
 	};
 	class XMLDocument: public Document {
 	public:
@@ -24458,6 +28184,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static XMLDocument* prototype;
 		XMLDocument();
+		[[gnu::always_inline]]
+		static XMLDocument* _New() {
+			return new XMLDocument();
+		}
 	};
 	class XMLHttpRequestEventTarget;
 	class XMLHttpRequestEventTargetEventMap: public Object {
@@ -24536,6 +28266,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static XMLHttpRequestEventTarget* prototype;
 		XMLHttpRequestEventTarget();
+		[[gnu::always_inline]]
+		static XMLHttpRequestEventTarget* _New() {
+			return new XMLHttpRequestEventTarget();
+		}
 	};
 	class XMLHttpRequest: public XMLHttpRequestEventTarget {
 	public:
@@ -24591,6 +28325,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static XMLHttpRequest* prototype;
 		XMLHttpRequest();
+		[[gnu::always_inline]]
+		static XMLHttpRequest* _New() {
+			return new XMLHttpRequest();
+		}
 		static double UNSENT;
 		static double OPENED;
 		static double HEADERS_RECEIVED;
@@ -24613,17 +28351,29 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static XMLHttpRequestUpload* prototype;
 		XMLHttpRequestUpload();
+		[[gnu::always_inline]]
+		static XMLHttpRequestUpload* _New() {
+			return new XMLHttpRequestUpload();
+		}
 	};
 	class XMLSerializer: public Object {
 	public:
 		String* serializeToString(Node* root);
 		static XMLSerializer* prototype;
 		XMLSerializer();
+		[[gnu::always_inline]]
+		static XMLSerializer* _New() {
+			return new XMLSerializer();
+		}
 	};
 	class XPathEvaluator: public XPathEvaluatorBase {
 	public:
 		static XPathEvaluator* prototype;
 		XPathEvaluator();
+		[[gnu::always_inline]]
+		static XPathEvaluator* _New() {
+			return new XPathEvaluator();
+		}
 	};
 	class XPathExpression: public Object {
 	public:
@@ -24632,6 +28382,10 @@ namespace [[cheerp::genericjs]] client {
 		XPathResult* evaluate(Node* contextNode, double type, XPathResult* result);
 		static XPathExpression* prototype;
 		XPathExpression();
+		[[gnu::always_inline]]
+		static XPathExpression* _New() {
+			return new XPathExpression();
+		}
 	};
 	class XPathResult: public Object {
 	public:
@@ -24656,6 +28410,10 @@ namespace [[cheerp::genericjs]] client {
 		double get_FIRST_ORDERED_NODE_TYPE();
 		static XPathResult* prototype;
 		XPathResult();
+		[[gnu::always_inline]]
+		static XPathResult* _New() {
+			return new XPathResult();
+		}
 		static double ANY_TYPE;
 		static double NUMBER_TYPE;
 		static double STRING_TYPE;
@@ -24679,6 +28437,10 @@ namespace [[cheerp::genericjs]] client {
 		DocumentFragment* transformToFragment(Node* source, Document* output);
 		static XSLTProcessor* prototype;
 		XSLTProcessor();
+		[[gnu::always_inline]]
+		static XSLTProcessor* _New() {
+			return new XSLTProcessor();
+		}
 	};
 	class Console: public Object {
 	public:
@@ -24880,10 +28642,18 @@ namespace [[cheerp::genericjs]] client {
 			static CompileError* prototype;
 			CompileError();
 			CompileError(const String& message);
+			[[gnu::always_inline]]
+			static CompileError* _New() {
+				return new CompileError();
+			}
+			[[gnu::always_inline]]
+			static CompileError* _New(const String& message) {
+				return new CompileError(message);
+			}
 		};
 		template<class _T0>
 		class GlobalDescriptor;
-		template<class _T0>
+		template<class _T0 = String*>
 		class Global: public Object {
 			static_assert(cheerp::CanCast<_T0, String*>);
 			static_assert(cheerp::CheckTemplate<_T0>);
@@ -24896,6 +28666,16 @@ namespace [[cheerp::genericjs]] client {
 			Global(GlobalDescriptor<_T1>* descriptor);
 			template<class _T1 = String*>
 			Global(GlobalDescriptor<_T1>* descriptor, Object* v);
+			template<class _T1 = String*>
+			[[gnu::always_inline]]
+			static Global* _New(GlobalDescriptor<_T1>* descriptor) {
+				return new Global(descriptor);
+			}
+			template<class _T1 = String*>
+			[[gnu::always_inline]]
+			static Global* _New(GlobalDescriptor<_T1>* descriptor, Object* v) {
+				return new Global(descriptor, v);
+			}
 		};
 		class Module;
 		class Instance: public Object {
@@ -24904,12 +28684,28 @@ namespace [[cheerp::genericjs]] client {
 			static Instance* prototype;
 			Instance(Module* module);
 			Instance(Module* module, Object* importObject);
+			[[gnu::always_inline]]
+			static Instance* _New(Module* module) {
+				return new Instance(module);
+			}
+			[[gnu::always_inline]]
+			static Instance* _New(Module* module, Object* importObject) {
+				return new Instance(module, importObject);
+			}
 		};
 		class LinkError: public Error {
 		public:
 			static LinkError* prototype;
 			LinkError();
 			LinkError(const String& message);
+			[[gnu::always_inline]]
+			static LinkError* _New() {
+				return new LinkError();
+			}
+			[[gnu::always_inline]]
+			static LinkError* _New(const String& message) {
+				return new LinkError(message);
+			}
 		};
 		class MemoryDescriptor;
 		class Memory: public Object {
@@ -24918,6 +28714,10 @@ namespace [[cheerp::genericjs]] client {
 			double grow(double delta);
 			static Memory* prototype;
 			Memory(MemoryDescriptor* descriptor);
+			[[gnu::always_inline]]
+			static Memory* _New(MemoryDescriptor* descriptor) {
+				return new Memory(descriptor);
+			}
 		};
 		class ModuleExportDescriptor;
 		class ModuleImportDescriptor;
@@ -24925,6 +28725,10 @@ namespace [[cheerp::genericjs]] client {
 		public:
 			static Module* prototype;
 			Module(const _Union<ArrayBuffer*, ArrayBufferView*>& bytes);
+			[[gnu::always_inline]]
+			static Module* _New(const _Union<ArrayBuffer*, ArrayBufferView*>& bytes) {
+				return new Module(bytes);
+			}
 			static TArray<ArrayBuffer*>* customSections(Module* moduleObject, const String& sectionName);
 			static TArray<ModuleExportDescriptor*>* exports(Module* moduleObject);
 			static TArray<ModuleImportDescriptor*>* imports(Module* moduleObject);
@@ -24934,6 +28738,14 @@ namespace [[cheerp::genericjs]] client {
 			static RuntimeError* prototype;
 			RuntimeError();
 			RuntimeError(const String& message);
+			[[gnu::always_inline]]
+			static RuntimeError* _New() {
+				return new RuntimeError();
+			}
+			[[gnu::always_inline]]
+			static RuntimeError* _New(const String& message) {
+				return new RuntimeError(message);
+			}
 		};
 		class TableDescriptor;
 		class Table: public Object {
@@ -24947,8 +28759,16 @@ namespace [[cheerp::genericjs]] client {
 			static Table* prototype;
 			Table(TableDescriptor* descriptor);
 			Table(TableDescriptor* descriptor, const _Any& value);
+			[[gnu::always_inline]]
+			static Table* _New(TableDescriptor* descriptor) {
+				return new Table(descriptor);
+			}
+			[[gnu::always_inline]]
+			static Table* _New(TableDescriptor* descriptor, const _Any& value) {
+				return new Table(descriptor, value);
+			}
 		};
-		template<class _T0>
+		template<class _T0 = String*>
 		class GlobalDescriptor: public Object {
 			static_assert(cheerp::CanCast<_T0, String*>);
 			static_assert(cheerp::CheckTemplate<_T0>);
@@ -25081,7 +28901,7 @@ namespace [[cheerp::genericjs]] client {
 	};
 	class PositionErrorCallback: public Object {
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class QueuingStrategySize: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
@@ -25095,15 +28915,15 @@ namespace [[cheerp::genericjs]] client {
 	};
 	class ResizeObserverCallback: public Object {
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class TransformerFlushCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class TransformerStartCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class TransformerTransformCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	};
@@ -25113,17 +28933,17 @@ namespace [[cheerp::genericjs]] client {
 	};
 	class UnderlyingSinkStartCallback: public Object {
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingSinkWriteCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
 	class UnderlyingSourceCancelCallback: public Object {
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingSourcePullCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class UnderlyingSourceStartCallback: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	};
@@ -26671,6 +30491,10 @@ namespace [[cheerp::genericjs]] client {
 		void postMessage(const _Any& message, StructuredSerializeOptions* options);
 		static Client* prototype;
 		Client();
+		[[gnu::always_inline]]
+		static Client* _New() {
+			return new Client();
+		}
 	};
 	class WindowClient;
 	class Clients: public Object {
@@ -26683,6 +30507,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<WindowClient*>* openWindow(URL* url);
 		static Clients* prototype;
 		Clients();
+		[[gnu::always_inline]]
+		static Clients* _New() {
+			return new Clients();
+		}
 	};
 	class WorkerGlobalScopeEventMap: public Object {
 	public:
@@ -26901,6 +30729,10 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		static WorkerGlobalScope* prototype;
 		WorkerGlobalScope();
+		[[gnu::always_inline]]
+		static WorkerGlobalScope* _New() {
+			return new WorkerGlobalScope();
+		}
 	};
 	class DedicatedWorkerGlobalScope: public WorkerGlobalScope, public AnimationFrameProvider {
 	public:
@@ -26929,6 +30761,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static DedicatedWorkerGlobalScope* prototype;
 		DedicatedWorkerGlobalScope();
+		[[gnu::always_inline]]
+		static DedicatedWorkerGlobalScope* _New() {
+			return new DedicatedWorkerGlobalScope();
+		}
 	};
 	class ExtendableEvent: public Event {
 	public:
@@ -26936,6 +30772,14 @@ namespace [[cheerp::genericjs]] client {
 		static ExtendableEvent* prototype;
 		ExtendableEvent(const String& type);
 		ExtendableEvent(const String& type, ExtendableEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ExtendableEvent* _New(const String& type) {
+			return new ExtendableEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ExtendableEvent* _New(const String& type, ExtendableEventInit* eventInitDict) {
+			return new ExtendableEvent(type, eventInitDict);
+		}
 	};
 	class ExtendableMessageEvent: public ExtendableEvent {
 	public:
@@ -26947,6 +30791,14 @@ namespace [[cheerp::genericjs]] client {
 		static ExtendableMessageEvent* prototype;
 		ExtendableMessageEvent(const String& type);
 		ExtendableMessageEvent(const String& type, ExtendableMessageEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static ExtendableMessageEvent* _New(const String& type) {
+			return new ExtendableMessageEvent(type);
+		}
+		[[gnu::always_inline]]
+		static ExtendableMessageEvent* _New(const String& type, ExtendableMessageEventInit* eventInitDict) {
+			return new ExtendableMessageEvent(type, eventInitDict);
+		}
 	};
 	class FetchEvent: public ExtendableEvent {
 	public:
@@ -26958,6 +30810,10 @@ namespace [[cheerp::genericjs]] client {
 		void respondWith(const _Union<Response*, PromiseLike<Response*>*>& r);
 		static FetchEvent* prototype;
 		FetchEvent(const String& type, FetchEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static FetchEvent* _New(const String& type, FetchEventInit* eventInitDict) {
+			return new FetchEvent(type, eventInitDict);
+		}
 	};
 	class FileReaderSync: public Object {
 	public:
@@ -26968,6 +30824,10 @@ namespace [[cheerp::genericjs]] client {
 		String* readAsText(Blob* blob, const String& encoding);
 		static FileReaderSync* prototype;
 		FileReaderSync();
+		[[gnu::always_inline]]
+		static FileReaderSync* _New() {
+			return new FileReaderSync();
+		}
 	};
 	class FileSystemSyncAccessHandle: public Object {
 	public:
@@ -26981,6 +30841,10 @@ namespace [[cheerp::genericjs]] client {
 		double write(const _Union<ArrayBuffer*, ArrayBufferView*>& buffer, FileSystemReadWriteOptions* options);
 		static FileSystemSyncAccessHandle* prototype;
 		FileSystemSyncAccessHandle();
+		[[gnu::always_inline]]
+		static FileSystemSyncAccessHandle* _New() {
+			return new FileSystemSyncAccessHandle();
+		}
 	};
 	class NotificationEvent: public ExtendableEvent {
 	public:
@@ -26988,6 +30852,10 @@ namespace [[cheerp::genericjs]] client {
 		Notification* get_notification();
 		static NotificationEvent* prototype;
 		NotificationEvent(const String& type, NotificationEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static NotificationEvent* _New(const String& type, NotificationEventInit* eventInitDict) {
+			return new NotificationEvent(type, eventInitDict);
+		}
 	};
 	class PushMessageData;
 	class PushEvent: public ExtendableEvent {
@@ -26996,6 +30864,14 @@ namespace [[cheerp::genericjs]] client {
 		static PushEvent* prototype;
 		PushEvent(const String& type);
 		PushEvent(const String& type, PushEventInit* eventInitDict);
+		[[gnu::always_inline]]
+		static PushEvent* _New(const String& type) {
+			return new PushEvent(type);
+		}
+		[[gnu::always_inline]]
+		static PushEvent* _New(const String& type, PushEventInit* eventInitDict) {
+			return new PushEvent(type, eventInitDict);
+		}
 	};
 	class PushMessageData: public Object {
 	public:
@@ -27005,6 +30881,10 @@ namespace [[cheerp::genericjs]] client {
 		String* text();
 		static PushMessageData* prototype;
 		PushMessageData();
+		[[gnu::always_inline]]
+		static PushMessageData* _New() {
+			return new PushMessageData();
+		}
 	};
 	class ServiceWorkerGlobalScopeEventMap: public WorkerGlobalScopeEventMap {
 	public:
@@ -27092,6 +30972,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static ServiceWorkerGlobalScope* prototype;
 		ServiceWorkerGlobalScope();
+		[[gnu::always_inline]]
+		static ServiceWorkerGlobalScope* _New() {
+			return new ServiceWorkerGlobalScope();
+		}
 	};
 	class SharedWorkerGlobalScopeEventMap: public WorkerGlobalScopeEventMap {
 	public:
@@ -27121,6 +31005,10 @@ namespace [[cheerp::genericjs]] client {
 		void removeEventListener(const String& type, EventListenerObject* listener, const _Union<bool, EventListenerOptions*>& options);
 		static SharedWorkerGlobalScope* prototype;
 		SharedWorkerGlobalScope();
+		[[gnu::always_inline]]
+		static SharedWorkerGlobalScope* _New() {
+			return new SharedWorkerGlobalScope();
+		}
 	};
 	class WindowClient: public Client {
 	public:
@@ -27131,6 +31019,10 @@ namespace [[cheerp::genericjs]] client {
 		Promise<WindowClient*>* navigate(URL* url);
 		static WindowClient* prototype;
 		WindowClient();
+		[[gnu::always_inline]]
+		static WindowClient* _New() {
+			return new WindowClient();
+		}
 	};
 	class WorkerLocation: public Object {
 	public:
@@ -27146,6 +31038,10 @@ namespace [[cheerp::genericjs]] client {
 		String* get_search();
 		static WorkerLocation* prototype;
 		WorkerLocation();
+		[[gnu::always_inline]]
+		static WorkerLocation* _New() {
+			return new WorkerLocation();
+		}
 	};
 	class WorkerNavigator: public NavigatorBadge, public NavigatorConcurrentHardware, public NavigatorID, public NavigatorLanguage, public NavigatorLocks, public NavigatorOnLine, public NavigatorStorage {
 	public:
@@ -27153,6 +31049,10 @@ namespace [[cheerp::genericjs]] client {
 		Permissions* get_permissions();
 		static WorkerNavigator* prototype;
 		WorkerNavigator();
+		[[gnu::always_inline]]
+		static WorkerNavigator* _New() {
+			return new WorkerNavigator();
+		}
 	};
 	template<class... _Args>
 	cheerp::EnableIf<(cheerp::CanCastArgs<_Args, String*> && ...), void> importScripts(_Args... urls);
@@ -27197,15 +31097,19 @@ namespace [[cheerp::genericjs]] client {
 	};
 	extern Object WScript;
 	extern Object WSH;
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class SafeArray: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
 		SafeArray();
+		[[gnu::always_inline]]
+		static SafeArray* _New() {
+			return new SafeArray();
+		}
 		SafeArray<_T0>* get_SafeArray_typekey();
 		void set_SafeArray_typekey(SafeArray<_T0>* SafeArray_typekey);
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class Enumerator: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -27217,10 +31121,23 @@ namespace [[cheerp::genericjs]] client {
 		Enumerator(SafeArray<_T1>* safearray);
 		Enumerator(Object* collection);
 		Enumerator(const _Any& collection);
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static Enumerator* _New(SafeArray<_T1>* safearray) {
+			return new Enumerator(safearray);
+		}
+		[[gnu::always_inline]]
+		static Enumerator* _New(Object* collection) {
+			return new Enumerator(collection);
+		}
+		[[gnu::always_inline]]
+		static Enumerator* _New(const _Any& collection) {
+			return new Enumerator(collection);
+		}
 	};
 	class EnumeratorConstructor: public Object {
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class VBArray: public Object {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -27242,12 +31159,21 @@ namespace [[cheerp::genericjs]] client {
 		TArray<_T0>* toArray();
 		template<class _T1 = _Any*>
 		VBArray(SafeArray<_T1>* safeArray);
+		template<class _T1 = _Any*>
+		[[gnu::always_inline]]
+		static VBArray* _New(SafeArray<_T1>* safeArray) {
+			return new VBArray(safeArray);
+		}
 	};
 	class VBArrayConstructor: public Object {
 	};
 	class VarDate: public Object {
 	public:
 		VarDate();
+		[[gnu::always_inline]]
+		static VarDate* _New() {
+			return new VarDate();
+		}
 		VarDate* get_VarDate_typekey();
 		void set_VarDate_typekey(VarDate* VarDate_typekey);
 	};

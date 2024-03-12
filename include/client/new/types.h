@@ -197,12 +197,25 @@ namespace [[cheerp::genericjs]] client {
 		Array(double arrayLength);
 		template<class... _Args>
 		Array(_Args... items);
+		[[gnu::always_inline]]
+		static Array* _New() {
+			return new Array();
+		}
+		[[gnu::always_inline]]
+		static Array* _New(double arrayLength) {
+			return new Array(arrayLength);
+		}
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static Array* _New(_Args... items) {
+			return new Array(items...);
+		}
 		static bool isArray(const _Any& arg);
 		static TArray<_Any*>* prototype;
 	public:
 		using client::Object::operator[];
 	};
-	template<class _T0>
+	template<class _T0 = _Any*>
 	class TArray: public Array {
 		static_assert(cheerp::CheckTemplate<_T0>);
 	public:
@@ -393,6 +406,19 @@ namespace [[cheerp::genericjs]] client {
 		template<class... _Args>
 		TArray(_Args... items): Array(items...) {
 		}
+		[[gnu::always_inline]]
+		static TArray* _New() {
+			return new TArray();
+		}
+		[[gnu::always_inline]]
+		static TArray* _New(double arrayLength) {
+			return new TArray(arrayLength);
+		}
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static TArray* _New(_Args... items) {
+			return new TArray(items...);
+		}
 		static bool isArray(const _Any& arg);
 		static TArray<_Any*>* prototype;
 	public:
@@ -437,6 +463,11 @@ namespace [[cheerp::genericjs]] client {
 		void set_caller(Function* caller);
 		template<class... _Args>
 		Function(_Args... args);
+		template<class... _Args>
+		[[gnu::always_inline]]
+		static Function* _New(_Args... args) {
+			return new Function(args...);
+		}
 		static Function* prototype;
 	protected:
 		[[cheerp::client_transparent]]
@@ -575,6 +606,14 @@ namespace [[cheerp::genericjs]] client {
 	public:
 		String();
 		explicit String(const _Any& value);
+		[[gnu::always_inline]]
+		static String* _New() {
+			return new String();
+		}
+		[[gnu::always_inline]]
+		static String* _New(const _Any& value) {
+			return new String(value);
+		}
 		static String* prototype;
 		template<class... _Args>
 		[[gnu::always_inline]]
@@ -667,7 +706,7 @@ namespace [[cheerp::genericjs]] client {
 		using client::Object::operator[];
 	};
 	class MapConstructor;
-	template<class _T0, class _T1>
+	template<class _T0 = _Any*, class _T1 = _Any*>
 	class Map: public Object {
 		static_assert(cheerp::CheckTemplate<_T0, _T1>);
 	public:
@@ -692,6 +731,18 @@ namespace [[cheerp::genericjs]] client {
 		Map();
 		Map(ReadonlyArray<Object*>* entries);
 		Map(Iterable<Object*>* iterable);
+		[[gnu::always_inline]]
+		static Map* _New() {
+			return new Map();
+		}
+		[[gnu::always_inline]]
+		static Map* _New(ReadonlyArray<Object*>* entries) {
+			return new Map(entries);
+		}
+		[[gnu::always_inline]]
+		static Map* _New(Iterable<Object*>* iterable) {
+			return new Map(iterable);
+		}
 		static Map<_Any*, _Any*>* prototype;
 		static MapConstructor* _91_Symbol_46_species_93_;
 	};
@@ -742,6 +793,14 @@ namespace [[cheerp::genericjs]] client {
 		static double parseInt(const String& string, double radix);
 		Number();
 		Number(const _Any& value);
+		[[gnu::always_inline]]
+		static Number* _New() {
+			return new Number();
+		}
+		[[gnu::always_inline]]
+		static Number* _New(const _Any& value) {
+			return new Number(value);
+		}
 		static Number* prototype;
 		static double MAX_VALUE;
 		static double MIN_VALUE;
