@@ -228,6 +228,7 @@ addToTestListIfMatch(Test.common('unit/jsexport/global_variables.cpp', [['-cheer
 addToTestListIfMatch(Test.common('unit/jsexport/nested_variables.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/static_variables.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/member_variables.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.common('unit/jsexport/empty_class.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/test1.cpp', [['-std=c++20']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
