@@ -4,26 +4,18 @@
 
 #include <tests.h>
 
-#ifdef __ASMJS__
-#define ABI_SECTION [[cheerp::wasm]]
-#define OTHER_SECTION [[cheerp::genericjs]]
-#else
-#define ABI_SECTION [[cheerp::genericjs]]
-#define OTHER_SECTION [[cheerp::wasm]]
-#endif
-
 [[cheerp::wasm]]
 bool abiCatch = false;
 [[cheerp::wasm]]
 bool otherCatch = false;
 
-ABI_SECTION
+[[cheerp::wasm]]
 void doThrow()
 {
 	throw 1;
 }
 
-OTHER_SECTION
+[[cheerp::genericjs]]
 void middle()
 {
 	try {
@@ -34,7 +26,7 @@ void middle()
 	}
 }
 
-ABI_SECTION
+[[cheerp::wasm]]
 void doCatch()
 {
 	try {
@@ -43,7 +35,7 @@ void doCatch()
 		abiCatch = true;
 	}
 }
-ABI_SECTION
+[[cheerp::wasm]]
 void webMain()
 {
 	doCatch();

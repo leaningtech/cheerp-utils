@@ -6,11 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifdef __ASMJS__
 [[cheerp::genericjs]]
-#else
-[[cheerp::wasm]]
-#endif
 int main(int argc, char **argv, char **env) {
   assertEqual(argc==0, true, "expected no arguments");
   assertEqual(argv==nullptr, true, "expected argv to be null");
