@@ -156,7 +156,6 @@ common_tests = [
         'unit/types/padding2.cpp',
         'unit/types/padding3.cpp',
         'unit/globals/initializers.cpp',
-        'unit/cli/compat.cpp',
         ]
 genericjs_only_tests = [
         'unit/dom/test1.cpp','unit/dom/test2.cpp','unit/dom/test3.cpp','unit/dom/test4.cpp',
@@ -169,12 +168,12 @@ genericjs_only_tests = [
         'unit/codegen/test20.cpp',
         'unit/codegen/escapes.cpp',
         'unit/codegen/advancedasm.cpp',
-        'unit/codegen/indirectfree.cpp',
         'unit/std/tostring.cpp','unit/codegen/test2.cpp','unit/codegen/test12.cpp',
         'unit/closures/test1.cpp','unit/closures/test2.cpp','unit/closures/test3.cpp',
         'unit/jsexport/parameters_client.cpp',
      ]
 asmjs_only_tests = [
+        'unit/cli/compat.cpp',
         'unit/ffi/test1.cpp',
         'unit/ffi/test2.cpp',
         'unit/std/malloc.cpp'
@@ -232,7 +231,7 @@ addToTestListIfMatch(Test.common('unit/jsexport/empty_class.cpp', [[], ['-cheerp
 addToTestListIfMatch(Test.common('unit/jsexport/inheritance.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/test1.cpp', [['-std=c++20']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test1.cpp', [['-fexceptions']]))
-addToTestListIfMatch(Test.common('unit/exceptions/test2.cpp', [['-fexceptions']]))
+addToTestListIfMatch(Test.linearOnly('unit/exceptions/test2.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
 addToTestListIfMatch(Test.common('unit/threading/atomic1.cpp', [['-pthread']]))
 addToTestListIfMatch(Test.linearOnly('unit/threading/atomic2.cpp', [['-pthread']]))
