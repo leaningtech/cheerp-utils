@@ -523,7 +523,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         for testLineErr in testReport:
             match = re.search("error|fail|invalid", testLineErr, re.IGNORECASE)
             if (testOptions.allowSABwarning and match):
-                match = not re.search("Linking failure in asm.js: Invalid heap type: SharedArrayBuffer", testLineErr)
+                match = not re.search("Invalid heap type: SharedArrayBuffer", testLineErr)
             failure |= bool(match)
     else:
         failure = True
