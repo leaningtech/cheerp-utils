@@ -32,6 +32,7 @@ parser.add_option("--pretty-code",dest="pretty_code", help="Compile with -cheerp
 parser.add_option("--no-lto",dest="no_lto", help="Compile with -cheerp-no-lto", action="store_true", default=False)
 parser.add_option("--print-cmd",dest="print_cmd", help="Print the commands as they're executed", action="store_true", default=False)
 parser.add_option("--asan",dest="test_asan", help="Test using AddressSanitizer (only asmjm/wasm)", action="store_true", default=False)
+parser.add_option("--himem",dest="himem", help="Run tests with heap start at 2GB", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -327,6 +328,8 @@ def compileCommand(compiler, mode, testName, extraFlags):
         flags += ["-target","cheerp-wasm"]
         if option.test_asan:
             flags += ["-fsanitize=address"]
+        if option.himem:
+            flags += ["-cheerp-linear-stack-size=2048", "-cheerp-linear-heap-size=2112"]
         if mode == "asmjs":
             flags += ["-cheerp-linear-output=asmjs"]
     else:
