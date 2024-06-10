@@ -152,6 +152,8 @@ common_tests = [
         'unit/client/nested-namespaces.cpp',
         'unit/client/setter-getter.cpp',
         'unit/client/static-methods.cpp',
+        'unit/client/typeof.cpp',
+        'unit/client/instanceof.cpp',
         'unit/codegen/nested_lambda.cpp',
         'unit/types/padding1.cpp',
         'unit/types/padding2.cpp',
