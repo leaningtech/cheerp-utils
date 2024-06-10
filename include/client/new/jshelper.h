@@ -194,6 +194,15 @@ namespace [[cheerp::genericjs]] cheerp {
 	};
 	template<class... T>
 	constexpr bool CheckTemplate = ((IsPrimitive<T> || IsPointer<T>) && ...);
+	template<class T>
+	struct GetTypeHelper {
+		static client::Object* getType();
+	};
+	template<class T>
+	[[gnu::always_inline]]
+	client::Object* getType() {
+		return GetTypeHelper<T>::getType();
+	}
 }
 namespace [[cheerp::genericjs]] client {
 	class [[cheerp::client_layout]] _Any {
@@ -220,6 +229,19 @@ namespace [[cheerp::genericjs]] client {
 		[[gnu::always_inline]]
 		const Cast& cast() const {
 			return *reinterpret_cast<const Cast*>(this);
+		}
+		template<class T>
+		[[gnu::always_inline]]
+		bool instanceof() const {
+			bool out;
+			asm("%1 instanceof %2" : "=r"(out) : "r"(this), "r"(cheerp::getType<T>()));
+			return out;
+		}
+		[[gnu::always_inline]]
+		client::String* _typeof() const {
+			client::String* out;
+			asm("typeof %1" : "=r"(out) : "r"(this));
+			return out;
 		}
 		template<class T>
 		[[gnu::always_inline]]
