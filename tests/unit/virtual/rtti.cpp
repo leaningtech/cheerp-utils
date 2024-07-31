@@ -90,7 +90,7 @@ void testTypeidName() {
 		I* a = new A();
 		I* t = dynamic_cast<A*>(a);
 		const char *name = typeid(t).name();
-		assertEqual(name, "P1I", "typeid().name() support 1/N");
+		assertEqual(name, "PU2js1I", "typeid().name() support 1/N");
 	}
 
 	{
@@ -102,7 +102,7 @@ void testTypeidName() {
 	{
 		double *doubleptr = nullptr;
 		const std::type_info &ti = typeid(doubleptr);
-		assertEqual(ti.name(), "Pd", "typeid().name() support 3/N");
+		assertEqual(ti.name(), "PU2jsd", "typeid().name() support 3/N");
 	}
 
 	// Dereferencing a null pointer: okay for a non-polymorphic expression
