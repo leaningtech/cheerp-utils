@@ -9190,6 +9190,8 @@ namespace [[cheerp::genericjs]] client {
 		static CSSStyleValue* _New() {
 			return new CSSStyleValue();
 		}
+		static CSSStyleValue* parse(const String& property, const String& cssText);
+		static TArray<CSSStyleValue*>* parseAll(const String& property, const String& cssText);
 	};
 	class CSSImageValue: public CSSStyleValue {
 	public:
@@ -9372,6 +9374,7 @@ namespace [[cheerp::genericjs]] client {
 		static CSSNumericValue* _New() {
 			return new CSSNumericValue();
 		}
+		static CSSNumericValue* parse(const String& cssText);
 	};
 	class CSSMathValue: public CSSNumericValue {
 	public:
@@ -14199,9 +14202,19 @@ namespace [[cheerp::genericjs]] client {
 		void forEach(const _Function<void(_Union<String*, File*>*, String*, FormData*)>& callbackfn, const _Any& thisArg);
 		static FormData* prototype;
 		FormData();
+		FormData(HTMLFormElement* form);
+		FormData(HTMLFormElement* form, HTMLElement* submitter);
 		[[gnu::always_inline]]
 		static FormData* _New() {
 			return new FormData();
+		}
+		[[gnu::always_inline]]
+		static FormData* _New(HTMLFormElement* form) {
+			return new FormData(form);
+		}
+		[[gnu::always_inline]]
+		static FormData* _New(HTMLFormElement* form, HTMLElement* submitter) {
+			return new FormData(form, submitter);
 		}
 	};
 	class FormDataEvent: public Event {
@@ -19257,6 +19270,9 @@ namespace [[cheerp::genericjs]] client {
 			return new Notification(title, options);
 		}
 		static String* permission;
+		static Promise<String*>* requestPermission();
+		static Promise<String*>* requestPermission(EventListener* deprecatedCallback);
+		static Promise<String*>* requestPermission(const _Function<void(String*)>& deprecatedCallback);
 	};
 	class OES_draw_buffers_indexed: public Object {
 	public:
@@ -25060,7 +25076,7 @@ namespace [[cheerp::genericjs]] client {
 		static bool canParse(URL* url);
 		static bool canParse(const String& url, const String& base);
 		static bool canParse(URL* url, const String& base);
-		static String* createObjectURL(Blob* obj);
+		static String* createObjectURL(const _Union<Blob*, MediaSource*>& obj);
 		static void revokeObjectURL(const String& url);
 	};
 	extern Object webkitURL;
@@ -29920,13 +29936,10 @@ namespace [[cheerp::genericjs]] client {
 	extern double innerHeight;
 	extern double innerWidth;
 	extern double length;
-	class WorkerLocation;
-	extern WorkerLocation location;
+	extern Location location;
 	extern BarProp locationbar;
 	extern BarProp menubar;
-	extern String name;
-	class WorkerNavigator;
-	extern WorkerNavigator navigator;
+	extern Navigator navigator;
 	extern _Function<_Any*(DeviceMotionEvent*)> ondevicemotion;
 	extern _Function<_Any*(DeviceOrientationEvent*)> ondeviceorientation;
 	extern _Function<_Any*(Event*)> onorientationchange;
@@ -29946,8 +29959,7 @@ namespace [[cheerp::genericjs]] client {
 	extern double scrollX;
 	extern double scrollY;
 	extern BarProp scrollbars;
-	class WorkerGlobalScope;
-	extern WorkerGlobalScope self;
+	extern Window self;
 	extern SpeechSynthesis speechSynthesis;
 	extern String status;
 	extern BarProp statusbar;
@@ -30038,7 +30050,7 @@ namespace [[cheerp::genericjs]] client {
 	extern _Function<_Any*(Event*)> ondurationchange;
 	extern _Function<_Any*(Event*)> onemptied;
 	extern _Function<_Any*(Event*)> onended;
-	extern _Function<_Any*(ErrorEvent*)> onerror;
+	extern _Function<_Any*(_Union<String*, Event*>*, String*, double, double, Error*)> onerror;
 	extern _Function<_Any*(FocusEvent*)> onfocus;
 	extern _Function<_Any*(FormDataEvent*)> onformdata;
 	extern _Function<_Any*(PointerEvent*)> ongotpointercapture;
@@ -30550,6 +30562,8 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("set_\"messageerror\""))]]
 		void set__34_messageerror_34_(MessageEvent<_Any*>* _34_messageerror_34_);
 	};
+	class WorkerLocation;
+	class WorkerNavigator;
 	class WorkerGlobalScope: public EventTarget, public FontFaceSource, public WindowOrWorkerGlobalScope {
 	public:
 		Object* eval(const String& x);
