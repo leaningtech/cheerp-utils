@@ -139,11 +139,13 @@ namespace [[cheerp::genericjs]] cheerp {
 	constexpr bool IsPrimitive = IsSimilar<T, bool> || IsSimilar<T, char> || IsSimilar<T, signed char> || IsSimilar<T, unsigned char> || IsSimilar<T, short> || IsSimilar<T, unsigned short> || IsSimilar<T, int> || IsSimilar<T, unsigned int> || IsSimilar<T, long> || IsSimilar<T, unsigned long> || IsSimilar<T, float> || IsSimilar<T, double> || IsSimilar<T, wchar_t> || IsSimilar<T, char16_t> || IsSimilar<T, char32_t>;
 	template<class From, class To>
 	struct CanCastHelper : FalseType {};
-	template<class From, class To, bool IsPrimitive = IsPrimitive<From> && IsPrimitive<To>>
+	template<class From, class To, bool = IsPrimitive<From> && IsPrimitive<To>>
 	struct CanCastImpl {
+		constexpr static TrueType testAny(client::_Any*);
+		constexpr static FalseType testAny(...);
 		constexpr static TrueType test(To*);
 		constexpr static FalseType test(...);
-		constexpr static bool value = IsVoid<To> || IsVoid<From> || IsSame<From, client::_Any> || IsSame<To, client::_Any> || decltype(test((From*) nullptr))::value || CanCastHelper<From, To>::value;
+		constexpr static bool value = ((IsVoid<From> || IsSame<From, client::_Any>) && (IsPrimitive<To> || IsSame<To, Nullptr> || decltype(testAny((To*) nullptr))::value)) || ((IsVoid<To> || IsSame<To, client::_Any>) && (IsPrimitive<From> || IsSame<From, Nullptr> || decltype(testAny((From*) nullptr))::value)) || decltype(test((From*) nullptr))::value || CanCastHelper<From, To>::value;
 	};
 	template<class From, class To>
 	struct CanCastImpl<From, To, true> {
@@ -207,7 +209,7 @@ namespace [[cheerp::genericjs]] cheerp {
 namespace [[cheerp::genericjs]] client {
 	class [[cheerp::client_layout]] _Any {
 		struct [[cheerp::client_layout]] Cast {
-			template<class T>
+			template<class T, class = cheerp::EnableIf<cheerp::CanCast<_Any, T>>>
 			[[gnu::always_inline]]
 			operator T() const {
 				T out;
@@ -219,7 +221,7 @@ namespace [[cheerp::genericjs]] client {
 		template<class T>
 		[[cheerp::client_transparent]]
 		_Any(T value) noexcept;
-		template<class T>
+		template<class T, class = cheerp::EnableIf<cheerp::CanCast<_Any, T>>>
 		[[gnu::always_inline]]
 		T cast() const {
 			T out;
@@ -243,7 +245,7 @@ namespace [[cheerp::genericjs]] client {
 			asm("typeof %1" : "=r"(out) : "r"(this));
 			return out;
 		}
-		template<class T>
+		template<class T, class = cheerp::EnableIf<cheerp::CanCast<_Any, T>>>
 		[[gnu::always_inline]]
 		explicit operator T() const {
 			return this->cast<T>();
