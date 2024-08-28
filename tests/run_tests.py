@@ -233,6 +233,7 @@ addToTestListIfMatch(Test.common('unit/jsexport/member_variables.cpp', [[], ['-c
 addToTestListIfMatch(Test.common('unit/jsexport/empty_class.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.common('unit/jsexport/inheritance.cpp', [[], ['-cheerp-make-module=closure'], ['-cheerp-make-module=commonjs'],['-cheerp-make-module=es6']]))
 addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/test1.cpp', [['-std=c++20']]))
+addToTestListIfMatch(Test.genericjsOnly('unit/coroutines/cast-promise.cpp', [['-std=c++20']]))
 addToTestListIfMatch(Test.common('unit/exceptions/test1.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.linearOnly('unit/exceptions/test2.cpp', [['-fexceptions']]))
 addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wrong-func-casts']]))
