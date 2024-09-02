@@ -625,7 +625,9 @@ namespace [[cheerp::genericjs]] client {
 		[[cheerp::interface_name(("fromCharCode"))]]
 		static _Any* _fromCharCode(_Args... data);
 	public:
+		[[cheerp::client_transparent]]
 		String(const String* x) noexcept;
+		[[cheerp::client_transparent]]
 		String(const String& x) noexcept;
 		String(long x) noexcept;
 		String(unsigned long x) noexcept;
