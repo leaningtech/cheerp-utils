@@ -33,6 +33,7 @@ parser.add_option("--no-lto",dest="no_lto", help="Compile with -cheerp-no-lto", 
 parser.add_option("--print-cmd",dest="print_cmd", help="Print the commands as they're executed", action="store_true", default=False)
 parser.add_option("--asan",dest="test_asan", help="Test using AddressSanitizer (only asmjm/wasm)", action="store_true", default=False)
 parser.add_option("--himem",dest="himem", help="Run tests with heap start at 2GB", action="store_true", default=False)
+parser.add_option("--print-stats",dest="print_stats", help="Print a summary of test result numbers", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -54,6 +55,25 @@ jobs = option.jobs
 asmjs = option.asmjs
 wasm = option.wasm
 probability_determinism = max(0.0, min(1.0, option.determinism_probability))
+
+class Stats:
+    def __init__(self):
+        self.passed = 0
+        self.asserted = 0
+        self.errored = 0
+    def record(self, status):
+        if status == "pass":
+            self.passed += 1
+        elif status == "assertion":
+            self.asserted += 1
+        elif status == "error":
+            self.errored += 1
+    def report(self):
+        print("passed: ", self.passed)
+        print("asserted: ", self.asserted)
+        print("errored: ", self.errored)
+
+stats = Stats()
 
 class Test:
     def __init__(self, name, genericjs, asmjs, wasm, preexecutable, flags, options):
@@ -656,6 +676,8 @@ def do_test(test):
     reportA.close()
     reportB.close()
 
+    if option.print_stats:
+        stats.record(status)
     return status
 
 
@@ -701,4 +723,8 @@ testReport.write('</testsuite>')
 testReport.close()
 reportA.close()
 reportB.close()
+
+if option.print_stats:
+    stats.report()
+
 exit(exitValue)
