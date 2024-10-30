@@ -15,11 +15,8 @@
 #include "cheerp/types.h"
 #include "cheerp/jsexception.h"
 #include "cheerp/clientlib.h"
+#include "cheerp/new/cheerp_utility.h"
 #include <cheerpintrin.h>
-
-#ifndef LEAN_CXX_LIB
-#include <utility>
-#endif
 
 namespace [[cheerp::genericjs]] cheerp
 {
@@ -33,23 +30,6 @@ void console_log(Args... optionalParams)
 static double date_now()
 {
 	return client::Date::now();
-}
-
-#ifndef LEAN_CXX_LIB
-template<typename T>
-typename std::remove_reference<T>::type&& move(T&& t) noexcept
-{
-	return static_cast<typename std::remove_reference<T>::type&&>(t);
-}
-template<typename T>
-T&& forward(typename std::remove_reference<T>::type&& t) noexcept
-{
-	return static_cast<T&&>(t);
-}
-template<typename T>
-T&& forward(typename std::remove_reference<T>::type& t) noexcept
-{
-	return static_cast<T&&>(t);
 }
 
 template<class R>
@@ -118,15 +98,15 @@ class Closure<R(Args...)>
 	typedef R(func_t)(Args...);
 
 	template<typename _Tp>
-	using _Convertible = typename std::enable_if<std::is_convertible<_Tp, func_t*>::value>::type;
+	using _Convertible = typename cheerp::utility::enable_if<cheerp::utility::is_convertible<_Tp, func_t*>::value>::type;
 
 	template<typename _Tp>
-	using _NConvertible = typename std::enable_if<!std::is_convertible<_Tp, func_t*>::value>::type;
+	using _NConvertible = typename cheerp::utility::enable_if<!cheerp::utility::is_convertible<_Tp, func_t*>::value>::type;
 
       template<typename _Cond>
-	using _en_if = typename std::enable_if<_Cond::value>::type;
+	using _en_if = typename cheerp::utility::enable_if<_Cond::value>::type;
       template<typename _Cond>
-	using _en_if_not = typename std::enable_if<!_Cond::value>::type;
+	using _en_if_not = typename cheerp::utility::enable_if<!_Cond::value>::type;
 
 	template <bool V>
 	struct _bool_const
@@ -134,7 +114,7 @@ class Closure<R(Args...)>
 		static constexpr bool value = V;
 	};
 	template <class _Tp> struct _must_destroy
-	    : public _bool_const<!__has_trivial_destructor(typename std::remove_reference<_Tp>::type)> {};
+	    : public _bool_const<!__has_trivial_destructor(typename cheerp::utility::remove_reference<_Tp>::type)> {};
 
 	template<class T>
 	static void do_delete(void* o)
@@ -158,8 +138,8 @@ public:
 	template<class F>
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if<_must_destroy<F>>* = 0)
 	{
-		using FF = typename std::remove_cv<typename std::remove_reference<F>::type>::type;
-		FF* newf = new FF(::cheerp::forward<F>(f));
+		using FF = typename cheerp::utility::remove_cv<typename cheerp::utility::remove_reference<F>::type>::type;
+		FF* newf = new FF(::cheerp::utility::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = &do_delete<FF>;
 		obj = newf;
@@ -167,8 +147,8 @@ public:
 	template<class F>
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if_not<_must_destroy<F>>* = 0)
 	{
-		using FF = typename std::remove_reference<F>::type;
-		FF* newf = new FF(::cheerp::forward<F>(f));
+		using FF = typename cheerp::utility::remove_reference<F>::type;
+		FF* newf = new FF(::cheerp::utility::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = nullptr;
 		obj = newf;
@@ -215,7 +195,7 @@ public:
 	}
 	R operator()(Args&&... args)
 	{
-		return reinterpret_cast<func_t*>(inner)(::cheerp::forward<Args>(args)...);
+		return reinterpret_cast<func_t*>(inner)(::cheerp::utility::forward<Args>(args)...);
 	}
 	operator bool()
 	{
@@ -250,7 +230,7 @@ struct ClosureHelper<T, R(C::*)(Args...) const>
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
 	{
-		return Closure<func_type>(::cheerp::forward<T>(func));
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
 	}
 };
 template<class T, class C, class R, class... Args>
@@ -259,16 +239,16 @@ struct ClosureHelper<T, R(C::*)(Args...)>
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
 	{
-		return Closure<func_type>(::cheerp::forward<T>(func));
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
 	}
 };
 
 template<class T>
-auto make_closure(T&& func) -> decltype(ClosureHelper<T, decltype(&std::remove_reference<T>::type::operator())>::make_closure(::cheerp::forward<T>(func)))
+auto make_closure(T&& func) -> decltype(ClosureHelper<T, decltype(&cheerp::utility::remove_reference<T>::type::operator())>::make_closure(::cheerp::utility::forward<T>(func)))
 {
-	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
+	typedef decltype(&cheerp::utility::remove_reference<T>::type::operator()) lambda_type;
 	typedef ClosureHelper<T, lambda_type> closure_helper;
-	return closure_helper::make_closure(::cheerp::forward<T>(func));
+	return closure_helper::make_closure(::cheerp::utility::forward<T>(func));
 }
 
 /**
@@ -279,7 +259,7 @@ auto make_closure(T&& func) -> decltype(ClosureHelper<T, decltype(&std::remove_r
 template<class T>
 client::EventListener* Callback(T&& func)
 {
-	return make_closure(::cheerp::forward<T>(func));
+	return make_closure(::cheerp::utility::forward<T>(func));
 }
 /**
  * Adapter from C++ funtions to code callable from JavaScript and the browser
@@ -415,8 +395,6 @@ ArrayRef<T> makeArrayRef(T* obj)
 {
 	return ArrayRef<T>(obj);
 }
-
-#endif
 
 } //End of namespace cheerp
 
