@@ -129,10 +129,6 @@ namespace [[cheerp::genericjs]] cheerp {
 	using ArrayElementType = typename ArrayElementTypeImpl<T>::type;
 	template<class T>
 	using Normalize = RemoveCv<RemovePointer<RemoveReference<T>>>;
-	template<class T, class U>
-	constexpr bool IsPointerOrArrayOf = (IsPointer<T> && IsSimilar<RemovePointer<T>, U>) || (IsArray<T> && IsSimilar<RemoveExtent<T>, U>);
-	template<class T>
-	constexpr bool IsCharPointer = IsPointerOrArrayOf<T, char> || IsPointerOrArrayOf<T, wchar_t>;
 	template<class T>
 	constexpr bool IsConstReference = IsReference<T> && IsConst<RemoveReference<T>>;
 	template<class T>
@@ -155,8 +151,6 @@ namespace [[cheerp::genericjs]] cheerp {
 	};
 	template<class From, class... To>
 	constexpr bool CanCast = (CanCastImpl<Normalize<From>, Normalize<To>>::value || ...);
-	template<class From, class... To>
-	constexpr bool CanCastArgs = CanCast<From, To...> || (IsCharPointer<From> && (CanCast<client::String*, To> || ...));
 	template<class From, template<class...> class To, class... T>
 	struct CanCastHelper<From, To<T...>> {
 		template<class... U>
@@ -293,15 +287,25 @@ namespace [[cheerp::genericjs]] cheerp {
 	inline client::String* makeString(const char* str);
 	[[gnu::always_inline]]
 	inline client::String* makeString(const wchar_t* str);
+	[[gnu::always_inline]]
+	inline client::String* clientCast(const char* str) {
+		return makeString(str);
+	}
+	[[gnu::always_inline]]
+	inline client::String* clientCast(const wchar_t* str) {
+		return makeString(str);
+	}
 	template<class T>
 	[[gnu::always_inline]]
-	Conditional<IsCharPointer<RemoveReference<T>>, client::String*, Conditional<IsConstReference<T>, RemoveReference<T>*, T&&>> clientCast(T&& value) {
-		if constexpr (IsCharPointer<RemoveReference<T>>)
-			return makeString(value);
-		else if constexpr (IsConstReference<T>)
+	Conditional<IsConstReference<T>, RemoveReference<T>*, T&&> clientCast(T&& value) {
+		if constexpr (IsConstReference<T>)
 			return &value;
 		else
 			return value;
 	}
+	template<class T>
+	T declval();
+	template<class From, class... To>
+	constexpr bool CanCastArgs = CanCast<decltype(clientCast(declval<From>())), To...>;
 }
 #endif
