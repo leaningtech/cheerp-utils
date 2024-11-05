@@ -119,7 +119,7 @@ class Closure<R(Args...)>
 	template<class T>
 	static void do_delete(void* o)
 	{
-		T* t = reinterpret_cast<T*>(o);
+		T* t = reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(o));
 		delete t;
 	}
 	struct DeleterHelper
@@ -142,7 +142,7 @@ public:
 		FF* newf = new FF(::cheerp::utility::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = &do_delete<FF>;
-		obj = newf;
+		obj = reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(newf));
 	}
 	template<class F>
 	Closure(F&& f, _NConvertible<F>* = 0, _en_if_not<_must_destroy<F>>* = 0)
@@ -151,7 +151,7 @@ public:
 		FF* newf = new FF(::cheerp::utility::forward<F>(f));
 		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
 		deleter = nullptr;
-		obj = newf;
+		obj = reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(newf));
 	}
 	template<class F>
 	Closure(F f, _Convertible<F>* = 0)
@@ -222,6 +222,7 @@ public:
 };
 
 template<class, class> struct ClosureHelper; // undefined
+template<class, class> struct [[cheerp::wasm]] ClosureHelperWasm; // undefined
 template<class T, bool B, class R, class... Args> struct ClosureHelperBase;
 
 template<class T, class C, class R, class... Args>
@@ -242,12 +243,40 @@ struct ClosureHelper<T, R(C::*)(Args...)>
 		return Closure<func_type>(::cheerp::utility::forward<T>(func));
 	}
 };
+template<class T, class C, class R, class... Args>
+struct [[cheerp::wasm]] ClosureHelperWasm<T, R(C::*)(Args...) const>
+{
+	typedef R (func_type)(Args...);
+	[[cheerp::genericjs]]
+	static Closure<func_type> make_closure(T&& func)
+	{
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
+	}
+};
+template<class T, class C, class R, class... Args>
+struct [[cheerp::wasm]] ClosureHelperWasm<T, R(C::*)(Args...)>
+{
+	typedef R (func_type)(Args...);
+	[[cheerp::genericjs]]
+	static Closure<func_type> make_closure(T&& func)
+	{
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
+	}
+};
 
 template<class T>
 auto make_closure(T&& func) -> decltype(ClosureHelper<T, decltype(&cheerp::utility::remove_reference<T>::type::operator())>::make_closure(::cheerp::utility::forward<T>(func)))
 {
 	typedef decltype(&cheerp::utility::remove_reference<T>::type::operator()) lambda_type;
 	typedef ClosureHelper<T, lambda_type> closure_helper;
+	return closure_helper::make_closure(::cheerp::utility::forward<T>(func));
+}
+
+template<class T>
+auto make_closure(T&& func) -> decltype(ClosureHelperWasm<T, decltype(&std::remove_reference<T>::type::operator())>::make_closure(::cheerp::utility::forward<T>(func)))
+{
+	typedef decltype(&std::remove_reference<T>::type::operator()) lambda_type;
+	typedef ClosureHelperWasm<T, lambda_type> closure_helper;
 	return closure_helper::make_closure(::cheerp::utility::forward<T>(func));
 }
 
