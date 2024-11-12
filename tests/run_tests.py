@@ -196,7 +196,6 @@ genericjs_only_tests = [
         'unit/jsexport/parameters_client.cpp',
      ]
 asmjs_only_tests = [
-        'unit/cli/compat.cpp',
         'unit/ffi/test1.cpp',
         'unit/ffi/test2.cpp',
         'unit/std/malloc.cpp'
