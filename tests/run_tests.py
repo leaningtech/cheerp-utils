@@ -264,6 +264,7 @@ addToTestListIfMatch(Test.common('unit/threading/atomic_lowering3.cpp', [[]]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic1.cpp', [['-pthread']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic2.cpp', [['-pthread']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic3.cpp', [['-pthread']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic4.cpp', [['-pthread']]))
 
 selected_tests = sorted(list(test_list))
 
