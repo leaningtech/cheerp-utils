@@ -85,12 +85,20 @@ public:
 	float f2;
 };
 
+#ifdef __ASMJS__
+const char* expected_typeid1 = "PU4wasm1I";
+const char* expected_typeid2 = "PU4wasmd";
+#else
+const char* expected_typeid1 = "PU2js1I";
+const char* expected_typeid2 = "PU2jsd";
+#endif
+
 void testTypeidName() {
 	{
 		I* a = new A();
 		I* t = dynamic_cast<A*>(a);
 		const char *name = typeid(t).name();
-		assertEqual(name, "P1I", "typeid().name() support 1/N");
+		assertEqual(name, expected_typeid1, "typeid().name() support 1/N");
 	}
 
 	{
@@ -102,7 +110,7 @@ void testTypeidName() {
 	{
 		double *doubleptr = nullptr;
 		const std::type_info &ti = typeid(doubleptr);
-		assertEqual(ti.name(), "Pd", "typeid().name() support 3/N");
+		assertEqual(ti.name(), expected_typeid2, "typeid().name() support 3/N");
 	}
 
 	// Dereferencing a null pointer: okay for a non-polymorphic expression
