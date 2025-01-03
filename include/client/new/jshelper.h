@@ -295,6 +295,14 @@ namespace [[cheerp::genericjs]] cheerp {
 	inline client::String* clientCast(const wchar_t* str) {
 		return makeString(str);
 	}
+	[[gnu::always_inline]]
+	inline client::String* clientCast(__wasm const char* str) {
+		return makeString(str);
+	}
+	[[gnu::always_inline]]
+	inline client::String* clientCast(__wasm const wchar_t* str) {
+		return makeString(str);
+	}
 	template<class T>
 	[[gnu::always_inline]]
 	Conditional<IsConstReference<T>, RemoveReference<T>*, T&&> clientCast(T&& value) {
