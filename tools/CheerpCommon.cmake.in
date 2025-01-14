@@ -1,3 +1,4 @@
+list(APPEND CMAKE_MODULE_PATH "@CHEERP_PREFIX@/share/cmake/Modules")
 # specify the cross compiler
 SET(CMAKE_C_COMPILER @CHEERP_PREFIX@/bin/clang CACHE FILEPATH "C Compiler")
 SET(CMAKE_CXX_COMPILER @CHEERP_PREFIX@/bin/clang++ CACHE FILEPATH "C++ Compiler")

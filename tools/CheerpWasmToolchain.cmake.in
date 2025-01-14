@@ -1,7 +1,0 @@
-list(APPEND CMAKE_MODULE_PATH "@CHEERP_PREFIX@/share/cmake/Modules")
-
-SET(CMAKE_CXX_COMPILER_TARGET cheerp-wasm)
-SET(CMAKE_C_COMPILER_TARGET cheerp-wasm)
-set(CHEERP_LINEAR_OUTPUT "wasm" CACHE STRING "Output format for the linear memory part of the program [wasm/asmjs]")
-
-include(CheerpCommon)

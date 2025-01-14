@@ -34,12 +34,10 @@ install (PROGRAMS
 	DESTINATION libexec )
 	
 # tools
-SET(toolchain_files
+SET(toolchain_files_templates
 	"tools/CheerpCommon.cmake.in"
-	"tools/CheerpToolchain.cmake.in"
-	"tools/CheerpWasmToolchain.cmake.in"
 	)
-foreach(toolchain_file ${toolchain_files})
+foreach(toolchain_file ${toolchain_files_templates})
 	get_filename_component(base ${toolchain_file} NAME_WE)
 	configure_file (
 		${toolchain_file}
@@ -49,7 +47,14 @@ foreach(toolchain_file ${toolchain_files})
 	install (FILES "${PROJECT_BINARY_DIR}/${base}.cmake"
 			DESTINATION share/cmake/Modules/)
 endforeach()
-install (FILES "tools/Cheerp.cmake"
+install (FILES
+	"tools/CheerpToolchain.cmake"
+	"tools/CheerpWasmToolchain.cmake"
+		DESTINATION share/cmake/Modules/)
+install (FILES
+	"tools/Cheerp.cmake"
+	"tools/CheerpToolchain.cmake"
+	"tools/CheerpWasmToolchain.cmake"
 		DESTINATION share/cmake/Modules/Platform)
 
 # tests
