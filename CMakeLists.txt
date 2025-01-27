@@ -49,6 +49,7 @@ install (FILES
 	"tools/Cheerp.cmake"
 	"tools/CheerpToolchain.cmake"
 	"tools/CheerpWasmToolchain.cmake"
+	"tools/CheerpWasiToolchain.cmake"
 		DESTINATION share/cmake/Modules/Platform)
 
 # tests
