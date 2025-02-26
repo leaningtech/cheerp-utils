@@ -195,6 +195,8 @@ async function workerThread() {
 						'utf-8'
 					);
 				}
+				// CommonJS modules will not run in Node if the variable module is undefined in a Worker.
+				VM.runInThisContext("var module={};");
 				VM.runInThisContext(code, { filename: url });
 			}
 		}
