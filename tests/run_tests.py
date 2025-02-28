@@ -260,10 +260,11 @@ addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wron
 addToTestListIfMatch(Test.common('unit/threading/atomic_lowering1.cpp', [[]]))
 addToTestListIfMatch(Test.linearOnly('unit/threading/atomic_lowering2.cpp', [[]]))
 addToTestListIfMatch(Test.common('unit/threading/atomic_lowering3.cpp', [[]]))
-addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic1.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6']]))
-addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic2.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6']]))
-addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic3.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6']]))
-addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic4.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic1.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic2.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic3.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic4.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/thread_setup.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
 
 selected_tests = sorted(list(test_list))
 
@@ -498,6 +499,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
     testingFile = testOptions.basePath + '.testing.js'
     driverFile = testOptions.primaryFile
     polyfillFile = 'import-polyfills.js'
+    polyfillFileRead = open(polyfillFile, "r")
     if os.path.exists(testingFile) == False:
         driverFile += ''
         # nothing to be done
@@ -505,32 +507,37 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         driverFile += '.es6driver.mjs'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        polyfillFileRead = open(polyfillFile, "r")
         file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\nimport { createRequire } from 'node:module';\nconst require = createRequire(import.meta.url);\n" + polyfillFileRead.read() + driverFileRead.read() + "\nmodule({relativePath:'" + "', argv: typeof argv == 'undefined' ? [] : argv, env: typeof env == 'undefined' ? [] : env}).then(_ => {onInstantiation(_)})")
         file.close()
     elif testOptions.module == 'commonjs':
         driverFile += '.commonjsdriver.js'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write(driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_)})")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_)})")
         file.close()
     elif testOptions.module == 'closure':
         driverFile += '.closure.js'
         file = open(driverFile, "w")
         compiledFileRead = open(testOptions.primaryFile, "r")
         driverFileRead = open(testingFile, "r")
-        file.write(compiledFileRead.read() + "\n" + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global)})\n")
+        file.write(compiledFileRead.read() + "\n")
+        if testOptions.pthread == True:
+          file.write("if (typeof require==='function'){\n")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global)})\n")
+        if testOptions.pthread == True:
+          file.write("}")
         file.close()
     else:
         driverFile += '.vanilla.js'
         file = open(driverFile, "w")
         compiledFileRead = open(testOptions.primaryFile, "r")
         driverFileRead = open(testingFile, "r")
-        polyfillFileRead = open(polyfillFile, "r")
-        if testOptions.pthread == False:
-          file.write(compiledFileRead.read() + "\n" + polyfillFileRead.read() + driverFileRead.read() + "\nvar EXPORTS = getExports()\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports())})\n")
-        else:
-          file.write(polyfillFileRead.read() + driverFileRead.read() + "require('./" + os.path.basename(testOptions.basePath) + "');\n")
+        file.write(compiledFileRead.read() + "\n")
+        if testOptions.pthread == True:
+          file.write("if (typeof require === 'function'){\n")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nvar EXPORTS = getExports()\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports())})\n")
+        if testOptions.pthread == True:
+          file.write("}")
         file.close()
 
     ret=subprocess.call(engine + [driverFile], stderr=testReport,
@@ -593,7 +600,7 @@ class TestOptions:
             if f == '-cheerp-make-module=commonjs':
                 self.module = 'commonjs'
             if f == '-pthread':
-                self.pthread = 'pthread'
+                self.pthread = True
                 self.allowSABwarning = True
         self.primaryFile = basePath + ".js"
         if (self.module == 'es6'):
