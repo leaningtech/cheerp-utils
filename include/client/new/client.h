@@ -88,6 +88,8 @@ inline void freeCallback(client::EventListener* e)
 
 template<class>
 class Closure;
+template<class>
+class Closure;
 template<class R, class... Args>
 class Closure<R(Args...)>
 {
@@ -98,28 +100,20 @@ class Closure<R(Args...)>
 	typedef R(func_t)(Args...);
 
 	template<typename _Tp>
-	using _Convertible = typename cheerp::utility::enable_if<cheerp::utility::is_convertible<_Tp, func_t*>::value>::type;
-
+	static constexpr bool is_convertible = cheerp::utility::is_convertible<_Tp, func_t*>::value;
 	template<typename _Tp>
-	using _NConvertible = typename cheerp::utility::enable_if<!cheerp::utility::is_convertible<_Tp, func_t*>::value>::type;
+	static constexpr bool has_trivial_destructor = __is_trivially_destructible(typename cheerp::utility::remove_reference<_Tp>::type);
 
-      template<typename _Cond>
-	using _en_if = typename cheerp::utility::enable_if<_Cond::value>::type;
-      template<typename _Cond>
-	using _en_if_not = typename cheerp::utility::enable_if<!_Cond::value>::type;
-
-	template <bool V>
-	struct _bool_const
-	{
-		static constexpr bool value = V;
-	};
-	template <class _Tp> struct _must_destroy
-	    : public _bool_const<!__has_trivial_destructor(typename cheerp::utility::remove_reference<_Tp>::type)> {};
 
 	template<class T>
-	static void do_delete(void* o)
-	{
+	static void do_delete(void* o) {
 		T* t = reinterpret_cast<T*>(o);
+		delete t;
+	}
+	template<class T>
+	static void do_delete_wasm(void* o)
+	{
+		T* t = reinterpret_cast<T*>(addrspace_cast<__wasm void*>(o));
 		delete t;
 	}
 	struct DeleterHelper
@@ -136,29 +130,31 @@ public:
 	{
 	}
 	template<class F>
-	Closure(F&& f, _NConvertible<F>* = 0, _en_if<_must_destroy<F>>* = 0)
+	Closure(F&& f)
 	{
 		using FF = typename cheerp::utility::remove_cv<typename cheerp::utility::remove_reference<F>::type>::type;
-		FF* newf = new FF(::cheerp::utility::forward<F>(f));
-		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
-		deleter = &do_delete<FF>;
-		obj = newf;
-	}
-	template<class F>
-	Closure(F&& f, _NConvertible<F>* = 0, _en_if_not<_must_destroy<F>>* = 0)
-	{
-		using FF = typename cheerp::utility::remove_reference<F>::type;
-		FF* newf = new FF(::cheerp::utility::forward<F>(f));
-		inner = __builtin_cheerp_create_closure<client::EventListener>(&InvokeHelper<R>::template invoke<FF, Args...>, newf);
-		deleter = nullptr;
-		obj = newf;
-	}
-	template<class F>
-	Closure(F f, _Convertible<F>* = 0)
-	{
-		inner = __builtin_cheerp_make_complete_object<client::EventListener>((func_t*)f);
-		deleter = nullptr;
-		obj = nullptr;
+		constexpr bool is_wasm = cheerp::utility::is_same<FF*, __wasm FF*>::value;
+		if constexpr (is_convertible<F>) {
+			inner = __builtin_cheerp_make_complete_object<client::EventListener>((func_t*)f);
+			obj = nullptr;
+		} else {
+			FF* newf = new FF(::cheerp::utility::forward<F>(f));
+			inner = __builtin_cheerp_create_closure<client::EventListener>(&cheerp::InvokeHelper<R>::template invoke<FF, Args...>, newf);
+			if constexpr (is_wasm) {
+				obj = addrspace_cast<void*>(reinterpret_cast<__wasm void*>(newf));
+			} else {
+				obj = reinterpret_cast<void*>(newf);
+			}
+		}
+		if constexpr (!has_trivial_destructor<F>) {
+			if constexpr (is_wasm) {
+				deleter = &do_delete_wasm<FF>;
+			} else {
+				deleter = &do_delete<FF>;
+			}
+		} else {
+			deleter = nullptr;
+		}
 	}
 	Closure(R(*f)(Args...))
 	{
@@ -224,8 +220,17 @@ public:
 template<class, class> struct ClosureHelper; // undefined
 template<class T, bool B, class R, class... Args> struct ClosureHelperBase;
 
+template<class C, class R, class ...Args>
+using ClassMethodType = R(C::*)(Args...);
+template<class C, class R, class ...Args>
+using ClassMethodTypeConst = R(C::*)(Args...) const;
+template<class C, class R, class ...Args>
+using ClassMethodTypeConstWasm = R(C::*)(Args...) const [[cheerp::wasm_as]];
+template<class C, class R, class ...Args>
+using ClassMethodTypeWasm = R(C::*)(Args...) [[cheerp::wasm_as]];
+
 template<class T, class C, class R, class... Args>
-struct ClosureHelper<T, R(C::*)(Args...) const>
+struct ClosureHelper<T, ClassMethodTypeConst<C, R, Args...>>
 {
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
@@ -234,7 +239,25 @@ struct ClosureHelper<T, R(C::*)(Args...) const>
 	}
 };
 template<class T, class C, class R, class... Args>
-struct ClosureHelper<T, R(C::*)(Args...)>
+struct ClosureHelper<T, ClassMethodType<C, R, Args...>>
+{
+	typedef R (func_type)(Args...);
+	static Closure<func_type> make_closure(T&& func)
+	{
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
+	}
+};
+template<class T, class C, class R, class... Args>
+struct ClosureHelper<T, ClassMethodTypeConstWasm<C, R, Args...>>
+{
+	typedef R (func_type)(Args...);
+	static Closure<func_type> make_closure(T&& func)
+	{
+		return Closure<func_type>(::cheerp::utility::forward<T>(func));
+	}
+};
+template<class T, class C, class R, class... Args>
+struct ClosureHelper<T, ClassMethodTypeWasm<C, R, Args...>>
 {
 	typedef R (func_type)(Args...);
 	static Closure<func_type> make_closure(T&& func)
