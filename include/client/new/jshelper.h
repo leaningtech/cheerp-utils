@@ -55,23 +55,11 @@ namespace [[cheerp::genericjs]] cheerp {
 	};
 	template<class T>
 	struct RemovePointerImpl {
-		using type = T;
-	};
-	template<class T>
-	struct RemovePointerImpl<T*> {
-		using type = T;
+		using type = __remove_pointer(T);
 	};
 	template<class T>
 	struct RemoveReferenceImpl {
-		using type = T;
-	};
-	template<class T>
-	struct RemoveReferenceImpl<T&> {
-		using type = T;
-	};
-	template<class T>
-	struct RemoveReferenceImpl<T&&> {
-		using type = T;
+		using type = __remove_reference_t(T);
 	};
 	template<class T>
 	struct RemoveExtentImpl {
