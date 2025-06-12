@@ -265,6 +265,8 @@ addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic2.cpp', [['-pthread'], 
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic3.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic4.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/thread_setup.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
+addToTestListIfMatch(Test.common('unit/exceptions/exitexception1.cpp', [['-fexceptions','-cheerp-make-module=es6'], ['-fexceptions','-cheerp-make-module=commonjs']]))
+addToTestListIfMatch(Test.common('unit/exceptions/exitexception2.cpp', [['-fexceptions','-cheerp-make-module=es6'], ['-fexceptions','-cheerp-make-module=commonjs']]))
 
 selected_tests = sorted(list(test_list))
 
