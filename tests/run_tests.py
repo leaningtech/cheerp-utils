@@ -507,13 +507,13 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         driverFile += '.es6driver.mjs'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\nimport { createRequire } from 'node:module';\nconst require = createRequire(import.meta.url);\n" + polyfillFileRead.read() + driverFileRead.read() + "\nmodule({relativePath:'" + "', argv: typeof argv == 'undefined' ? [] : argv, env: typeof env == 'undefined' ? [] : env}).then(_ => {onInstantiation(_)})")
+        file.write("import module from './" + os.path.basename(testOptions.basePath) + ".mjs'\nimport { createRequire } from 'node:module';\nconst require = createRequire(import.meta.url);\n" + polyfillFileRead.read() + driverFileRead.read() + "\nmodule({relativePath:'" + "', argv: typeof argv == 'undefined' ? [] : argv, env: typeof env == 'undefined' ? [] : env}).then(_ => {onInstantiation(_)}).catch(err => {onError(err)})")
         file.close()
     elif testOptions.module == 'commonjs':
         driverFile += '.commonjsdriver.js'
         file = open(driverFile, "w")
         driverFileRead = open(testingFile, "r")
-        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_)})")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nrequire('./" + os.path.basename(testOptions.basePath) + "').then(_ => {onInstantiation(_)}).catch(err => {onError(err)})")
         file.close()
     elif testOptions.module == 'closure':
         driverFile += '.closure.js'
@@ -523,7 +523,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         file.write(compiledFileRead.read() + "\n")
         if testOptions.pthread == True:
           file.write("if (typeof require==='function'){\n")
-        file.write(polyfillFileRead.read() + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global)})\n")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\ngetPromise(global).then(_=>{onInstantiation(global)}).catch(err => {onError(err)})\n")
         if testOptions.pthread == True:
           file.write("}")
         file.close()
@@ -535,7 +535,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         file.write(compiledFileRead.read() + "\n")
         if testOptions.pthread == True:
           file.write("if (typeof require === 'function'){\n")
-        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nvar EXPORTS = getExports()\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports())})\n")
+        file.write(polyfillFileRead.read() + driverFileRead.read() + "\nvar EXPORTS = getExports()\ngetPromise(EXPORTS).then(_=>{onInstantiation(getExports())}).catch(err => {onError(err)})\n")
         if testOptions.pthread == True:
           file.write("}")
         file.close()
