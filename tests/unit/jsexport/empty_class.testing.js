@@ -39,3 +39,8 @@ function getExports()
 		}
 	};
 }
+function onError(err)
+{
+	console.log("unexpected exit : FAILURE");
+	throw err;
+}

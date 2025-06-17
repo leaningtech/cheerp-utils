@@ -12,3 +12,8 @@ function getExports()
 {
 	return {Cat : Cat};
 }
+function onError(err)
+{
+	console.log("unexpected exit : FAILURE");
+	throw err;
+}

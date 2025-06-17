@@ -28,3 +28,8 @@ function onInstantiation(_)
 	else
 		console.log("Module export", "FAILURE");
 }
+function onError(err)
+{
+	console.log("unexpected exit : FAILURE");
+	throw err;
+}
