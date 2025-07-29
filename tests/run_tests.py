@@ -7,6 +7,7 @@ import sys
 import os
 import re
 import concurrent.futures
+import time
 from optparse import OptionParser
 from xml.sax.saxutils import escape
 
@@ -34,6 +35,7 @@ parser.add_option("--print-cmd",dest="print_cmd", help="Print the commands as th
 parser.add_option("--asan",dest="test_asan", help="Test using AddressSanitizer (only asmjm/wasm)", action="store_true", default=False)
 parser.add_option("--himem",dest="himem", help="Run tests with heap start at 2GB", action="store_true", default=False)
 parser.add_option("--print-stats",dest="print_stats", help="Print a summary of test result numbers", action="store_true", default=False)
+parser.add_option("--time",dest="time_tests", help="Print compilation time and run time for each test", action="store_true", default=False)
 (option, args) = parser.parse_args()
 
 if option.all:
@@ -315,6 +317,7 @@ def emitError(testReport, kind, log):
 
 def preExecuteTest(command, testOptions, testName, testReport, testErrs ):
     testReport.write('<testcase classname="preexecution-%s" name="%s">' % (testOptions.mode, testName))
+    startTime = time.time()
     p=subprocess.Popen(command + ["-o", testOptions.primaryFile]
             ,stderr=subprocess.PIPE)
     _, errs = p.communicate()
@@ -332,7 +335,8 @@ def preExecuteTest(command, testOptions, testName, testReport, testErrs ):
         emitError(testReport, "PreExecution error", testErrs)
         error = True
     testReport.write('</testcase>')
-    return error
+    timeTaken = time.time() - startTime
+    return [error, timeTaken]
 
 preExecuteTest.dictionary=determinismDictionary()
 
@@ -467,11 +471,13 @@ determinismTest.dictionaryReport = determinismDictionary()
 
 def compileTest(command, testOptions, testName, testReport, testOut):
     testReport.write('<testcase classname="compilation-%s" name="%s">' % (testOptions.mode, testName))
+    startTime = time.time()
 
     if (option.print_cmd):
         print(" ".join(command + ["-o", testOptions.primaryFile]))
     ret=subprocess.call(command + ["-o", testOptions.primaryFile],
         stderr=subprocess.STDOUT, stdout=testOut)
+    timeTaken = time.time() - startTime
 
     if option.typescript:
         proc = subprocess.run(["node", "check_dts", testOptions.dtsFile], stdout=subprocess.PIPE)
@@ -492,7 +498,7 @@ def compileTest(command, testOptions, testName, testReport, testOut):
     if ret != 0:
         emitError(testReport, "Compilation error", testOut)
     testReport.write('</testcase>')
-    return ret
+    return [ret, timeTaken]
 
 compileTest.dictionary = determinismDictionary()
 
@@ -542,8 +548,10 @@ def runTest(engine, testOptions, testName, testReport, testOut):
           file.write("}")
         file.close()
 
+    startTime = time.time();
     ret=subprocess.call(engine + [driverFile], stderr=testReport,
         stdout=testOut)
+    timeTaken = time.time() - startTime;
 
     # Reset the read position to the beginning of the output. Otherwise
     # it's not possible to check if there are errors in the output lines.
@@ -577,7 +585,7 @@ def runTest(engine, testOptions, testName, testReport, testOut):
         emitError(testReport, "Runtime error", testOut)
     testReport.write('</testcase>')
 
-    return failure
+    return [failure, timeTaken]
 
 def shouldTestDeterminism():
     if option.determinism == 0:
@@ -615,6 +623,8 @@ def getSignature(name, options):
 
 def do_test(test):
     status = "pass"
+    compileTimeTotal = 0
+    runTimeTotal = 0
 
     head, tail = os.path.split(test.name)
     name, _ = os.path.splitext(tail)
@@ -676,7 +686,9 @@ def do_test(test):
         test_id = test.name
         if len(extraFlags) > 0:
             test_id += ".extra"
-        if compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog):
+        compileResult, timeTaken = compile_mode(get_next_command(), testOptions, test_id, stdrepLog, stdoutLog)
+        compileTimeTotal += timeTaken
+        if compileResult:
             status = "error"
         elif shouldTestDeterminism():
             if option.determinism != 1:
@@ -689,8 +701,11 @@ def do_test(test):
                     if determinismTest(compile_command, str(addPrintAfter), signature, testOptions.primaryFile, stdrepLog, stdoutLog, reportA, reportB, False):
                         status = "determinism_error"
                         break
-        if status == "pass" and run and run(jsEngine, testOptions, test_id, stdrepLog, stdoutLog):
-            status = "assertion"
+        if status == "pass" and run:
+            runResult, timeTaken = run(jsEngine, testOptions, test_id, stdrepLog, stdoutLog)
+            runTimeTotal += timeTaken
+            if runResult:
+                status = "assertion"
 
     stdoutLog.close()
     stdrepLog.close()
@@ -699,7 +714,7 @@ def do_test(test):
 
     if option.print_stats:
         stats.record(status)
-    return status
+    return [status, compileTimeTotal, runTimeTotal]
 
 
 executor = concurrent.futures.ThreadPoolExecutor(jobs)
@@ -709,13 +724,16 @@ progress = 0
 exitValue = 0
 for test, future in zip(selected_tests, futures):
     # Re-raise any error that is thrown while running the tests.
-    status = future.result()
+    status, compileTimeTotal, runTimeTotal = future.result()
     if status != "pass":
         exitValue = 1
 
     progress += 1
     done = progress * 100 / len(selected_tests)
-    sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test.name, status))
+    if option.time_tests:
+        sys.stdout.write("[%3d%%] %-36s %s %7.2f %7.2f\n" % (done, test.name, status, compileTimeTotal, runTimeTotal))
+    else:
+        sys.stdout.write("[%3d%%] %-36s %s\n" % (done, test.name, status))
 
 # Build back the testReport, testErrs and testOut files
 testReport = open("testReport.test", "w")
