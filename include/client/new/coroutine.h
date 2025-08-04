@@ -41,8 +41,13 @@ template<class T>
 [[cheerp::genericjs]]
 auto operator co_await(client::Promise<T>& promise) {
 	struct promise_awaiter {
-		promise_awaiter(client::Promise<T>* promise) {
+		promise_awaiter(client::Promise<T>* promise): canceled(nullptr) {
 			this->promise = promise;
+		}
+		~promise_awaiter() {
+			if (canceled) {
+				*canceled = true;
+			}
 		}
 
 		bool await_ready() const noexcept {
@@ -50,9 +55,17 @@ auto operator co_await(client::Promise<T>& promise) {
 		}
 
 		void await_suspend(std::coroutine_handle<> handle) {
-			promise->template then<client::_Any*>([this, handle](T value) {
-				this->value = value;
-				handle.resume();
+			bool* canceled = new bool(false);
+			this->canceled = canceled;
+			promise->template then<client::_Any*>([this, handle, canceled](T value) {
+				bool doResume = !*canceled;
+				delete canceled;
+				if (doResume)
+				{
+					this->value = value;
+					this->canceled = nullptr;
+					handle.resume();
+				}
 			});
 		}
 
@@ -63,6 +76,7 @@ auto operator co_await(client::Promise<T>& promise) {
 	private:
 		client::Promise<T>* promise;
 		T value;
+		bool* canceled;
 	};
 
 	return promise_awaiter(&promise);
