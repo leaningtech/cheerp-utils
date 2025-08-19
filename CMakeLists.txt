@@ -25,6 +25,8 @@ install (PROGRAMS
 		scripts/wasm32-unknown-none-gcc
 		scripts/wasm32-unknown-wasi-g++
 		scripts/wasm32-unknown-wasi-gcc
+		scripts/wasm32-cheerpos-linux-g++
+		scripts/wasm32-cheerpos-linux-gcc
 	DESTINATION libexec )
 	
 # tools
