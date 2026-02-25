@@ -262,6 +262,7 @@ addToTestListIfMatch(Test.common('unit/types/funccasts.cpp', [['-cheerp-fix-wron
 addToTestListIfMatch(Test.common('unit/threading/atomic_lowering1.cpp', [[]]))
 addToTestListIfMatch(Test.linearOnly('unit/threading/atomic_lowering2.cpp', [[]]))
 addToTestListIfMatch(Test.common('unit/threading/atomic_lowering3.cpp', [[]]))
+addToTestListIfMatch(Test.wasmOnly('unit/threading/thread_local.cpp', [['-pthread']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic1.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic2.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
 addToTestListIfMatch(Test.wasmOnly('unit/threading/atomic3.cpp', [['-pthread'], ['-pthread','-cheerp-make-module=es6'], ['-pthread','-cheerp-make-module=commonjs'], ['-pthread', '-cheerp-make-module=closure']]))
