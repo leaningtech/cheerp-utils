@@ -9,8 +9,10 @@ int main()
 	{
 		if (i == 1)
 			exit(1);
+#ifndef __ASMJS__
 	} catch(cheerp::JSException& e) {
 		cheerp::console_log("JSException clause ignores exit-exception : FAILURE");
+#endif
 	} catch(...) {
 		cheerp::console_log("Catch-all clause ignores exit-exception : FAILURE");
 	}
