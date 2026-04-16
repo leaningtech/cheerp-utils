@@ -1,8 +1,10 @@
-list(APPEND CMAKE_MODULE_PATH "@CHEERP_PREFIX@/share/cmake/Modules")
+get_filename_component(CHEERP_PREFIX "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
+
+list(APPEND CMAKE_MODULE_PATH "${CHEERP_PREFIX}/share/cmake/Modules")
 # specify the cross compiler
-SET(CMAKE_C_COMPILER @CHEERP_PREFIX@/bin/clang CACHE FILEPATH "C Compiler")
-SET(CMAKE_CXX_COMPILER @CHEERP_PREFIX@/bin/clang++ CACHE FILEPATH "C++ Compiler")
-SET(CMAKE_LINKER @CHEERP_PREFIX@/bin/llvm-link CACHE FILEPATH "Linker")
+SET(CMAKE_C_COMPILER "${CHEERP_PREFIX}/bin/clang" CACHE FILEPATH "C Compiler")
+SET(CMAKE_CXX_COMPILER "${CHEERP_PREFIX}/bin/clang++" CACHE FILEPATH "C++ Compiler")
+SET(CMAKE_LINKER "${CHEERP_PREFIX}/bin/llvm-link" CACHE FILEPATH "Linker")
 
 # CMake compiler autodetection does not work with .bc, .wasm or .js files,
 # so we ask him to trust us that the compiler works and it is Clang
@@ -15,8 +17,8 @@ foreach(LANG in LISTS C CXX)
   set(CMAKE_${LANG}_COMPILER_FORCED FALSE)
 endforeach()
 
-# where is the target environment 
-SET(CMAKE_FIND_ROOT_PATH @CHEERP_PREFIX@)
+# where is the target environment
+SET(CMAKE_FIND_ROOT_PATH "${CHEERP_PREFIX}")
 
 # search for programs in the build host directories
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
