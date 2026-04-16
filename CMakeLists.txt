@@ -1,8 +1,10 @@
 cmake_minimum_required (VERSION 3.10)
 project (Cheerp_Utils LANGUAGES)
 
-set (CHEERP_PREFIX ${CMAKE_INSTALL_PREFIX} CACHE FILEPATH "set cheerp installation prefix")
-execute_process(COMMAND "${CMAKE_INSTALL_PREFIX}/bin/clang" --version
+if(NOT DEFINED CHEERP_COMPILER)
+  set(CHEERP_COMPILER "${CMAKE_INSTALL_PREFIX}/bin/clang")
+endif()
+execute_process(COMMAND "${CHEERP_COMPILER}" --version
                 OUTPUT_VARIABLE CMAKE_CHEERP_RAW_VERSION)
 message(WARNING "Cheerp raw version string ${CMAKE_CHEERP_RAW_VERSION}")
 string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+"
