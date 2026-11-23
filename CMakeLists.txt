@@ -64,3 +64,7 @@ install (FILES tests/webgl/webgl.cpp tests/webgl/webgl.html
 # include
 install (DIRECTORY include/client/
 	DESTINATION include/client/cheerp )
+
+# Linux's user-space headers for CheerpOS's Linux ABI, see linux-headers/update.sh
+install (DIRECTORY linux-headers/include/
+	DESTINATION include )
